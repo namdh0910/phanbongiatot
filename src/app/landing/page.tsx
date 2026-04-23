@@ -34,14 +34,14 @@ export default function LandingPage() {
               🔥 ƯU ĐÃI ĐẶC BIỆT – CHỈ HÔM NAY
             </span>
             <h1 className="text-4xl md:text-6xl font-extrabold leading-tight mb-6">
-              Vườn Sầu Riêng Bị <br />
-              <span className="text-red-400">Vàng Lá Thối Rễ?</span>
+              Giải Pháp <br />
+              <span className="text-green-400">Phòng Ngừa Vàng Lá</span>
             </h1>
             <p className="text-xl md:text-2xl text-green-300 font-bold mb-4">
-              ✅ Cam Kết Phục Hồi 100% Chỉ Sau 15 Ngày
+              ✅ Bảo Vệ Bộ Rễ Khỏe Mạnh – Ngừa Thối Rễ Từ Sớm
             </p>
             <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-              Hơn 10,000 vườn sầu riêng, cà phê đã được cứu thành công. Tư vấn miễn phí từ kỹ sư 10+ năm kinh nghiệm.
+              Đừng để bệnh mới trị. Hãy phòng ngừa ngay hôm nay với bộ giải pháp sinh học tiên tiến. Tư vấn từ kỹ sư 10+ năm kinh nghiệm.
             </p>
           </div>
 
@@ -49,19 +49,19 @@ export default function LandingPage() {
             {/* Benefits */}
             <div className="space-y-4">
               {[
-                { icon: "💀", bad: "Trước: Rễ thối đen, lá vàng héo, cây kiệt sức" },
-                { icon: "✅", good: "Sau 15 ngày: Rễ tơ trắng mập, lá xanh bung đọt" },
+                { icon: "🛡️", bad: "Phòng ngừa: Ngăn chặn nấm bệnh xâm nhập ngay từ đầu" },
+                { icon: "🌳", good: "Phục hồi: Giúp cây xanh lá, bung đọt, phát triển bền vững" },
               ].map((item, i) => (
-                <div key={i} className={`p-5 rounded-2xl flex items-start gap-4 ${i === 0 ? 'bg-red-900/40 border border-red-700/50' : 'bg-green-900/40 border border-green-600/50'}`}>
+                <div key={i} className={`p-5 rounded-2xl flex items-start gap-4 ${i === 0 ? 'bg-blue-900/40 border border-blue-700/50' : 'bg-green-900/40 border border-green-600/50'}`}>
                   <span className="text-3xl">{item.icon}</span>
                   <p className="text-lg font-medium">{item.bad || item.good}</p>
                 </div>
               ))}
 
               <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
-                <h3 className="text-xl font-bold mb-4 text-secondary">Bộ Sản Phẩm Đặc Trị Bao Gồm:</h3>
+                <h3 className="text-xl font-bold mb-4 text-secondary">Bộ Giải Pháp Phòng Ngừa & Phục Hồi:</h3>
                 <ul className="space-y-3">
-                  {["Thuốc diệt tuyến trùng & nấm Phytophthora", "Phân kích rễ tơ cực mạnh", "Vitamin & khoáng chất phục hồi cây", "Hướng dẫn phun xịt tận tình"].map((item, i) => (
+                  {["Chế phẩm sinh học phòng ngừa nấm bệnh", "Phân kích rễ tơ cực mạnh", "Vitamin & khoáng chất phục hồi cây", "Hướng dẫn quy trình canh tác sạch"].map((item, i) => (
                     <li key={i} className="flex items-center gap-3 text-green-300 font-medium">
                       <span className="w-5 h-5 bg-primary rounded-full flex items-center justify-center text-xs text-white font-bold flex-shrink-0">✓</span>
                       {item}
@@ -70,10 +70,10 @@ export default function LandingPage() {
                 </ul>
                 <div className="mt-6 pt-6 border-t border-white/20 flex items-end gap-4">
                   <div>
-                    <p className="text-gray-400 text-sm line-through">Giá gốc: 700.000đ</p>
-                    <p className="text-4xl font-extrabold text-secondary">350.000đ</p>
+                    <p className="text-gray-400 text-sm line-through">Giá gốc: 350.000đ</p>
+                    <p className="text-4xl font-extrabold text-secondary">280.000đ</p>
                   </div>
-                  <span className="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold">-50%</span>
+                  <span className="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold">-20%</span>
                 </div>
               </div>
             </div>
@@ -91,9 +91,9 @@ export default function LandingPage() {
                   <h2 className="text-2xl font-extrabold text-dark mb-2">🎁 Nhận Tư Vấn + Giảm Thêm 10%</h2>
                   <p className="text-gray-500 mb-6">Điền thông tin bên dưới để được kỹ sư gọi tư vấn miễn phí và nhận mã giảm thêm 10%:</p>
                   <form onSubmit={handleSubmit} className="space-y-4">
-                    <input required type="text" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} className="w-full border-2 border-gray-200 rounded-xl px-4 py-4 focus:border-primary outline-none text-lg font-medium" placeholder="Tên của bạn (Chú Ba, anh Tư...)" />
-                    <input required type="tel" value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} className="w-full border-2 border-gray-200 rounded-xl px-4 py-4 focus:border-primary outline-none text-lg font-medium" placeholder="Số điện thoại *" />
-                    <textarea value={form.note} onChange={e => setForm({ ...form, note: e.target.value })} rows={3} className="w-full border-2 border-gray-200 rounded-xl px-4 py-4 focus:border-primary outline-none resize-none" placeholder="Mô tả tình trạng vườn của bạn..." />
+                    <input required type="text" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} className="w-full border-2 border-gray-200 rounded-xl px-4 py-4 focus:border-primary outline-none text-lg font-medium" placeholder="Tên của bạn (VD: Chú Ba, anh Tư...)" />
+                    <input required type="tel" value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} className="w-full border-2 border-gray-200 rounded-xl px-4 py-4 focus:border-primary outline-none text-lg font-medium" placeholder="Số điện thoại (Để kỹ sư gọi lại)" />
+                    <textarea value={form.note} onChange={e => setForm({ ...form, note: e.target.value })} rows={3} className="w-full border-2 border-gray-200 rounded-xl px-4 py-4 focus:border-primary outline-none resize-none" placeholder="Mô tả tình trạng vườn hoặc loại cây bạn đang trồng..." />
                     <button type="submit" className="w-full bg-red-500 hover:bg-red-600 text-white font-extrabold text-xl py-5 rounded-xl shadow-lg hover:-translate-y-1 transition-all">
                       🚀 NHẬN TƯ VẤN MIỄN PHÍ NGAY!
                     </button>
