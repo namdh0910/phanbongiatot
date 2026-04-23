@@ -33,7 +33,22 @@ export default function RootLayout({
   return (
     <html lang="vi" className="scroll-smooth">
       <head>
-        {/* Facebook Pixel – thay YOUR_PIXEL_ID bằng ID thật của anh */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "Phân Bón Giá Tốt",
+            "url": "https://phanbongiatot.com",
+            "logo": "https://phanbongiatot.com/logo.png",
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "telephone": "+84773440966",
+              "contactType": "customer service"
+            }
+          }) }}
+        />
+        {/* Facebook Pixel */}
         <Script id="facebook-pixel" strategy="afterInteractive">{`
           !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
           n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
@@ -43,7 +58,7 @@ export default function RootLayout({
           fbq('init', 'YOUR_PIXEL_ID');
           fbq('track', 'PageView');
         `}</Script>
-        {/* Google Analytics – thay YOUR_GA4_ID */}
+        {/* Google Analytics */}
         <Script src="https://www.googletagmanager.com/gtag/js?id=YOUR_GA4_ID" strategy="afterInteractive" />
         <Script id="google-analytics" strategy="afterInteractive">{`
           window.dataLayer = window.dataLayer || [];
