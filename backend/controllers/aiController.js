@@ -2,8 +2,8 @@ const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 const getModel = () => {
   const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-  // Dùng model chính thức để tránh lỗi 404
-  return genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
+  // Dùng gemini-pro là model truyền thống, dễ tương thích nhất
+  return genAI.getGenerativeModel({ model: "gemini-pro" });
 };
 
 const callAI = async (prompt) => {
