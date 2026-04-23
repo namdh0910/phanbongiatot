@@ -17,7 +17,7 @@ const callAI = async (prompt) => {
       return result.response.text().trim();
     } catch (fallbackError) {
       console.error("Lỗi fallback sang gemini-pro:", fallbackError.message);
-      throw new Error(`[Google AI Error]: ${fallbackError.message}`);
+      throw new Error(`[Hệ Thống Phân Bón Lỗi AI]: ${fallbackError.message}`);
     }
   }
 };
