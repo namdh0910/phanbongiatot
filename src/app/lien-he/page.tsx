@@ -1,11 +1,15 @@
 "use client";
-import { API_BASE_URL, getAuthHeaders } from '@/utils/api';
 import { useState } from "react";
+import { API_BASE_URL, getAuthHeaders } from '@/utils/api';
+import { useSettings } from "@/context/SettingsContext";
 
 export default function ContactPage() {
+  const settings = useSettings();
   const [form, setForm] = useState({ name: "", phone: "", note: "" });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  if (!settings) return null;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -40,10 +44,10 @@ export default function ContactPage() {
               <h2 className="text-2xl font-bold text-dark mb-6">Thông Tin Liên Hệ</h2>
               <div className="space-y-5">
                 {[
-                  { icon: "📞", label: "Hotline (24/7)", val: <a href="tel:0900000000" className="text-primary font-extrabold text-xl hover:underline">0900.000.000</a> },
-                  { icon: "💬", label: "Zalo", val: <a href="https://zalo.me/0900000000" target="_blank" className="text-green-600 font-bold hover:underline">Nhắn tin Zalo ngay</a> },
-                  { icon: "📍", label: "Địa chỉ", val: <p className="text-gray-600">123 Đường Nông Nghiệp, Tp. HCM</p> },
-                  { icon: "🕐", label: "Giờ làm việc", val: <p className="text-gray-600">7:00 - 21:00 (Thứ 2 - CN)</p> },
+                  { icon: "📞", label: "Hotline (24/7)", val: <a href={`tel:${settings.hotline}`} className="text-primary font-extrabold text-xl hover:underline">{settings.phone || settings.hotline}</a> },
+                  { icon: "💬", label: "Zalo", val: <a href={`https://zalo.me/${settings.hotline}`} target="_blank" className="text-green-600 font-bold hover:underline">Nhắn tin Zalo ngay</a> },
+                  { icon: "📍", label: "Địa chỉ", val: <p className="text-gray-600">{settings.address}</p> },
+                  { icon: "🕐", label: "Giờ làm việc", val: <p className="text-gray-600">{settings.businessHours} (Tất cả các ngày)</p> },
                 ].map((item, i) => (
                   <div key={i} className="flex items-start gap-4">
                     <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center text-2xl flex-shrink-0">{item.icon}</div>
