@@ -1,7 +1,11 @@
 "use client";
+import { usePathname } from "next/navigation";
 import { trackEvent } from "@/utils/analytics";
 
 export default function StickyCTA() {
+  const pathname = usePathname();
+  if (pathname?.startsWith('/admin')) return null;
+
   const handleCall = () => {
     trackEvent('Contact', { method: 'Phone' });
   };

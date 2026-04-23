@@ -1,9 +1,13 @@
 "use client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useSettings } from "@/context/SettingsContext";
 
 export default function Footer() {
+  const pathname = usePathname();
   const settings = useSettings();
+
+  if (pathname?.startsWith('/admin')) return null;
   if (!settings) return null;
 
   return (

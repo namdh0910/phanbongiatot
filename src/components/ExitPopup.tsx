@@ -1,8 +1,10 @@
 "use client";
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { trackEvent } from "@/utils/analytics";
 
 export default function ExitPopup() {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [hasShown, setHasShown] = useState(false);
 
