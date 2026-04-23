@@ -1,5 +1,6 @@
 "use client";
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import { API_BASE_URL } from '@/utils/api';
 
 interface Settings {
   siteName: string;
