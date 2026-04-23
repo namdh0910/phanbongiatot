@@ -41,6 +41,20 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
 
   if (!product) return <div className="p-20 text-center">Sản phẩm không tồn tại</div>;
 
+  // Fetch related products and best sellers
+  let relatedProducts = [];
+  let bestSellers = [];
+  try {
+    const [relRes, bestRes] = await Promise.all([
+      fetch(`${API_BASE_URL}/products?category=${encodeURIComponent(product.category)}`, { next: { revalidate: 3600 } }),
+      fetch(`${API_BASE_URL}/products`, { next: { revalidate: 3600 } })
+    ]);
+    if (relRes.ok) relatedProducts = (await relRes.json()).filter((p: any) => p._id !== product._id).slice(0, 4);
+    if (bestRes.ok) bestSellers = (await bestRes.json()).slice(0, 5);
+  } catch (err) {
+    console.error(err);
+  }
+
   const discount = product.originalPrice ? Math.round((1 - product.price / product.originalPrice) * 100) : 0;
   const catSlug = CATEGORY_SLUG_MAP[product.category] || "phan-bon";
   
@@ -185,13 +199,17 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
               <div className="bg-white md:rounded-sm shadow-sm overflow-hidden p-6">
                  <h2 className="font-bold text-gray-800 uppercase tracking-wider mb-6 pb-2 border-b">Sản phẩm liên quan</h2>
                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    {[1,2,3,4].map(i => (
-                       <div key={i} className="group cursor-pointer">
-                          <div className="aspect-square bg-gray-50 rounded-sm mb-2 flex items-center justify-center text-3xl group-hover:bg-gray-100 transition-colors">🌿</div>
-                          <p className="text-xs font-medium text-gray-700 line-clamp-2 group-hover:text-[#ee4d2d]">Sản phẩm gợi ý {i}</p>
-                          <p className="text-sm font-bold text-[#ee4d2d] mt-1">₫150.000</p>
-                       </div>
-                    ))}
+                    {relatedProducts.length > 0 ? relatedProducts.map((p: any) => (
+                       <Link href={`/san-pham/${p.slug}`} key={p._id} className="group cursor-pointer">
+                          <div className="aspect-square bg-gray-50 rounded-sm mb-2 flex items-center justify-center overflow-hidden group-hover:bg-gray-100 transition-colors">
+                            {p.images?.[0] ? <img src={p.images[0]} className="w-full h-full object-cover" /> : <span className="text-3xl">🌿</span>}
+                          </div>
+                          <p className="text-xs font-medium text-gray-700 line-clamp-2 group-hover:text-[#ee4d2d]">{p.name}</p>
+                          <p className="text-sm font-bold text-[#ee4d2d] mt-1">₫{p.price.toLocaleString("vi-VN")}</p>
+                       </Link>
+                    )) : (
+                      <div className="col-span-4 text-center py-4 text-gray-400 text-xs italic">Đang cập nhật sản phẩm cùng danh mục...</div>
+                    )}
                  </div>
               </div>
 
@@ -224,11 +242,15 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
               <div className="bg-white p-4 shadow-sm sticky top-24">
                  <h3 className="text-gray-400 text-xs font-bold uppercase mb-6 border-b border-gray-100 pb-2">Sản phẩm bán chạy</h3>
                  <div className="space-y-8">
-                    <div className="flex flex-col gap-3 group cursor-pointer">
-                       <div className="aspect-square bg-gray-50 rounded-sm flex items-center justify-center text-4xl group-hover:scale-105 transition-transform">🌱</div>
-                       <p className="text-xs font-medium line-clamp-2 group-hover:text-[#ee4d2d]">Combo Phục Hồi Rễ Toàn Diện</p>
-                       <p className="text-sm font-bold text-[#ee4d2d]">₫450.000</p>
-                    </div>
+                    {bestSellers.map((p: any) => (
+                      <Link href={`/san-pham/${p.slug}`} key={p._id} className="flex flex-col gap-3 group cursor-pointer">
+                         <div className="aspect-square bg-gray-50 rounded-sm flex items-center justify-center overflow-hidden group-hover:scale-105 transition-transform">
+                           {p.images?.[0] ? <img src={p.images[0]} className="w-full h-full object-cover" /> : <span className="text-4xl">🌱</span>}
+                         </div>
+                         <p className="text-xs font-medium line-clamp-2 group-hover:text-[#ee4d2d]">{p.name}</p>
+                         <p className="text-sm font-bold text-[#ee4d2d]">₫{p.price.toLocaleString("vi-VN")}</p>
+                      </Link>
+                    ))}
                  </div>
               </div>
            </div>
