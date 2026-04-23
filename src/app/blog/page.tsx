@@ -29,8 +29,12 @@ export default async function BlogIndex() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {posts.map((post: any, i: number) => (
             <Link href={`/blog/${post.slug}`} key={i} className="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all hover:-translate-y-2 group flex flex-col h-full border border-gray-100">
-              <div className="h-48 bg-gray-100 flex items-center justify-center text-6xl group-hover:bg-primary/10 transition-colors">
-                {post.image || post.img || "📚"}
+              <div className="h-48 bg-gray-100 flex items-center justify-center overflow-hidden group-hover:bg-primary/10 transition-colors">
+                {post.image ? (
+                  <img src={post.image} alt={post.title} className="w-full h-full object-cover" />
+                ) : (
+                  <span className="text-6xl">{post.img || "📚"}</span>
+                )}
               </div>
               <div className="p-6 flex flex-col flex-1">
                 <span className="text-sm text-primary font-bold mb-3">{post.date || new Date(post.createdAt || Date.now()).toLocaleDateString('vi-VN')}</span>
