@@ -25,28 +25,29 @@ const stripMarkdownForJSON = (text) => {
 function cleanGeminiOutput(rawText) {
   if (!rawText) return "";
   
-  // Bước 1: Gỡ bỏ code blocks
+  // Bước 1: Gỡ bỏ code blocks và các kí tự thừa
   let text = rawText.replace(/```(?:html)?\n?([\s\S]*?)```/gi, '$1').trim();
   
+  // Xóa bỏ các dòng chỉ chứa dấu gạch ngang (---) hoặc (***)
+  text = text.replace(/^[ \t]*[\-\*]{3,}[ \t]*$/gm, '');
+
   // Bước 2: Xử lý tiêu đề (Header)
-  // 2a. Xử lý các dòng bắt đầu bằng # (chuẩn Markdown)
   text = text.replace(/^###[ \t]*(.*$)/gim, '<h3>$1</h3>');
   text = text.replace(/^##[ \t]*(.*$)/gim, '<h2>$1</h2>');
   text = text.replace(/^#[ \t]*(.*$)/gim, '<h1>$1</h1>');
   
-  // 2b. Xử lý các dòng dạng "I. ", "II. ", "III. ", "IV. " (Số La Mã) -> H2
-  text = text.replace(/^(?:I|II|III|IV|V|VI|VII|VIII|IX|X)\.[ \t]+(.*$)/gim, '<h2>$1</h2>');
+  // 2b. Xử lý số La Mã (I, II, III...) -> H2
+  text = text.replace(/^[ \t]*(?:I|II|III|IV|V|VI|VII|VIII|IX|X)\.[ \t]+(.*$)/gim, '<h2>$1</h2>');
   
-  // 2c. Xử lý các dòng dạng "1. ", "2. " ở đầu dòng -> H3 (Nếu không phải là danh sách <li>)
-  // Lưu ý: Regex này chạy trước khi chuyển đổi danh sách ở bước 4
-  text = text.replace(/^[0-9]+\.[ \t]+(.*$)/gim, '<h3>$1</h3>');
+  // 2c. Xử lý số thứ tự "1. ", "2. " ở đầu dòng -> H3
+  text = text.replace(/^[ \t]*[0-9]+\.[ \t]+(.*$)/gim, '<h3>$1</h3>');
   
   // Bước 3: Xử lý in đậm và in nghiêng
   text = text.replace(/\*\*\*(.*?)\*\*\*/g, '<strong><em>$1</em></strong>');
   text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
   text = text.replace(/\*(.*?)\*/g, '<em>$1</em>');
   
-  // Bước 4: Xử lý danh sách (Chỉ xử lý các dòng bắt đầu bằng *, -, +)
+  // Bước 4: Xử lý danh sách
   text = text.replace(/^[ \t]*[\*\-\+\•]\s+(.*$)/gim, '<li>$1</li>');
   
   // Bước 5: Bọc <li> vào <ul>
@@ -58,9 +59,7 @@ function cleanGeminiOutput(rawText) {
   const processedParagraphs = paragraphs.map(p => {
     const trimmed = p.trim();
     if (!trimmed) return "";
-    // Nếu đã bọc tag HTML (h1-h6, li, ul, blockquote) thì giữ nguyên
     if (/^<(h[1-6]|li|ul|ol|blockquote|img)/i.test(trimmed)) return trimmed;
-    // Thay thế các dấu xuống dòng đơn lẻ bằng khoảng cách hoặc <br>
     return `<p>${trimmed.replace(/\n/g, ' ')}</p>`;
   });
   
