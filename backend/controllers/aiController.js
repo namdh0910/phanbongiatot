@@ -27,41 +27,34 @@ function cleanGeminiOutput(rawText) {
   // Bước 1: Gỡ bỏ code blocks
   let text = rawText.replace(/```(?:html)?\n?([\s\S]*?)```/gi, '$1').trim();
   
-  // Bước 2: Xử lý tiêu đề (Header)
-  text = text.replace(/^### (.*$)/gim, '<h3>$1</h3>');
-  text = text.replace(/^## (.*$)/gim, '<h2>$1</h2>');
-  text = text.replace(/^# (.*$)/gim, '<h1>$1</h1>');
+  // Bước 2: Xử lý tiêu đề (Header) - Hỗ trợ cả trường hợp thiếu dấu cách sau #
+  text = text.replace(/^###[ \t]*(.*$)/gim, '<h3>$1</h3>');
+  text = text.replace(/^##[ \t]*(.*$)/gim, '<h2>$1</h2>');
+  text = text.replace(/^#[ \t]*(.*$)/gim, '<h1>$1</h1>');
   
   // Bước 3: Xử lý in đậm và in nghiêng
   text = text.replace(/\*\*\*(.*?)\*\*\*/g, '<strong><em>$1</em></strong>');
   text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
   text = text.replace(/\*(.*?)\*/g, '<em>$1</em>');
   
-  // Bước 4: Xử lý danh sách (Bullets & Numbers)
-  // Chuyển đổi các dòng bắt đầu bằng *, -, +, • thành <li>
+  // Bước 4: Xử lý danh sách
   text = text.replace(/^[ \t]*[\*\-\+\•]\s+(.*$)/gim, '<li>$1</li>');
-  // Chuyển đổi danh sách số 1. 2. 3. thành <li>
   text = text.replace(/^[ \t]*\d+\.\s+(.*$)/gim, '<li>$1</li>');
   
   // Bước 5: Bọc <li> vào <ul>
-  // Tìm các cụm <li> liên tiếp và bọc <ul>
   text = text.replace(/(<li>[\s\S]*?<\/li>)/gi, '<ul>$1</ul>');
-  text = text.replace(/<\/ul>\s*<ul>/gi, ''); // Gộp các <ul> bị tách
+  text = text.replace(/<\/ul>\s*<ul>/gi, ''); 
   
   // Bước 6: Xử lý các đoạn văn bản (Paragraphs)
-  // Tách văn bản thành các dòng, bọc các dòng không phải HTML vào <p>
   const lines = text.split('\n');
   const processedLines = lines.map(line => {
     const trimmed = line.trim();
     if (!trimmed) return "";
-    // Nếu đã là tag HTML thì giữ nguyên
     if (/^<[a-z1-6]/i.test(trimmed)) return trimmed;
     return `<p>${trimmed}</p>`;
   });
   
   text = processedLines.join('');
-  
-  // Bước 7: Dọn dẹp cuối cùng
   text = text.replace(/<p>\s*<\/p>/gi, '');
   text = text.replace(/&amp;/g, '&');
   
@@ -90,7 +83,7 @@ YÊU CẦU BẮT BUỘC:
   - Dùng ### cho tiêu đề mục nhỏ (H3).
   - Dùng ** cho các từ khóa quan trọng.
   - Dùng * cho danh sách liệt kê.
-- Hình ảnh: Chèn 2-3 ảnh vào giữa các mục bằng tag: <img src="https://source.unsplash.com/800x500/?agriculture,farm,${encodeURIComponent(prompt.split(' ').slice(0,2).join(','))}" style="width:100%; border-radius:16px; margin:30px 0; box-shadow:0 10px 15px -3px rgba(0,0,0,0.1);">
+- Hình ảnh: Chèn 2-3 ảnh vào giữa các mục bằng tag: <img src="https://loremflickr.com/800/600/agriculture,farm,plantation?random=${Math.floor(Math.random() * 1000)}" style="width:100%; border-radius:16px; margin:30px 0; box-shadow:0 10px 15px -3px rgba(0,0,0,0.1);">
 - Ngôn ngữ: Tiếng Việt.
 `;
 
@@ -119,7 +112,7 @@ YÊU CẦU BẮT BUỘC:
         content: contentHTML,
         excerpt: meta.excerpt,
         tags: meta.tags,
-        image: `https://loremflickr.com/800/500/${encodeURIComponent(prompt.split(' ')[0])},agriculture`
+        image: `https://loremflickr.com/800/600/agriculture,${encodeURIComponent(prompt.split(' ')[0])}?random=${Date.now()}`
       });
     }
 
