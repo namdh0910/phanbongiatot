@@ -168,9 +168,10 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
                    {/* Main Description */}
                    <div className="space-y-4">
                       <p className="font-bold text-gray-900 flex items-center gap-2">📝 Mô tả sản phẩm:</p>
-                      <div className="text-gray-700 text-sm leading-relaxed whitespace-pre-line ml-2">
-                        {product.description}
-                      </div>
+                      <div 
+                        className="text-gray-700 text-sm leading-relaxed ml-2 prose prose-sm max-w-none"
+                        dangerouslySetInnerHTML={{ __html: product.description }}
+                      />
                    </div>
 
                    {/* Usage & Dosage */}

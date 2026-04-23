@@ -130,10 +130,12 @@ export default function AdminBlogs() {
 
   const modules = {
     toolbar: [
-      [{ header: [1, 2, 3, false] }],
+      [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
       ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-      [{ list: 'ordered' }, { list: 'bullet' }],
-      ['link', 'image'],
+      [{ 'color': [] }, { 'background': [] }],
+      [{ 'list': 'ordered' }, { 'list:': 'bullet' }],
+      [{ 'align': [] }],
+      ['link', 'image', 'video'],
       ['clean']
     ],
   };

@@ -3,6 +3,10 @@ import { useState, useEffect, useRef } from "react";
 import AdminSidebar from "@/components/AdminSidebar";
 import AdminGuard from "@/components/AdminGuard";
 import { API_BASE_URL, getAuthHeaders } from "@/utils/api";
+import dynamic from 'next/dynamic';
+import 'react-quill-new/dist/quill.snow.css';
+
+const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
 
 export default function AdminProducts() {
   const [products, setProducts] = useState<any[]>([]);
@@ -168,7 +172,25 @@ export default function AdminProducts() {
                        </div>
                        <div>
                          <label className="block text-sm font-bold text-gray-700 mb-2">Mô tả sản phẩm</label>
-                         <textarea required value={form.description} onChange={e => setForm(f => ({ ...f, description: e.target.value }))} rows={12} className="w-full border border-gray-300 rounded px-4 py-2 outline-none focus:ring-1 focus:ring-[#2271b1] focus:border-[#2271b1] resize-none" />
+                         <div className="bg-white border border-gray-300 rounded overflow-hidden">
+                           <ReactQuill 
+                             theme="snow" 
+                             value={form.description} 
+                             onChange={val => setForm(f => ({ ...f, description: val }))}
+                             className="h-80 mb-12"
+                             modules={{
+                               toolbar: [
+                                 [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+                                 ['bold', 'italic', 'underline', 'strike'],
+                                 [{ 'color': [] }, { 'background': [] }],
+                                 [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                                 [{ 'align': [] }],
+                                 ['link', 'image', 'video'],
+                                 ['clean']
+                               ],
+                             }}
+                           />
+                         </div>
                        </div>
                     </div>
                     
