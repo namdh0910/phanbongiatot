@@ -91,13 +91,22 @@ export default function LandingPage() {
                   <h2 className="text-2xl font-extrabold text-dark mb-2">🎁 Nhận Tư Vấn + Giảm Thêm 10%</h2>
                   <p className="text-gray-500 mb-6">Điền thông tin bên dưới để được kỹ sư gọi tư vấn miễn phí và nhận mã giảm thêm 10%:</p>
                   <form onSubmit={handleSubmit} className="space-y-4">
-                    <input required type="text" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} className="w-full border-2 border-gray-200 rounded-xl px-4 py-4 focus:border-primary outline-none text-lg font-medium" placeholder="Tên của bạn (VD: Chú Ba, anh Tư...)" />
-                    <input required type="tel" value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} className="w-full border-2 border-gray-200 rounded-xl px-4 py-4 focus:border-primary outline-none text-lg font-medium" placeholder="Số điện thoại (Để kỹ sư gọi lại)" />
-                    <textarea value={form.note} onChange={e => setForm({ ...form, note: e.target.value })} rows={3} className="w-full border-2 border-gray-200 rounded-xl px-4 py-4 focus:border-primary outline-none resize-none" placeholder="Mô tả tình trạng vườn hoặc loại cây bạn đang trồng..." />
-                    <button type="submit" className="w-full bg-red-500 hover:bg-red-600 text-white font-extrabold text-xl py-5 rounded-xl shadow-lg hover:-translate-y-1 transition-all">
+                    <div>
+                      <label className="block text-sm font-bold text-gray-700 mb-1">Họ và Tên *</label>
+                      <input required type="text" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} className="w-full border-2 border-gray-100 bg-gray-50 rounded-xl px-4 py-3 focus:border-primary focus:bg-white outline-none text-base font-medium placeholder:text-gray-400" placeholder="VD: Chú Ba, Anh Tư..." />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-bold text-gray-700 mb-1">Số điện thoại *</label>
+                      <input required type="tel" value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} className="w-full border-2 border-gray-100 bg-gray-50 rounded-xl px-4 py-3 focus:border-primary focus:bg-white outline-none text-base font-medium placeholder:text-gray-400" placeholder="Để kỹ sư gọi lại tư vấn" />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-bold text-gray-700 mb-1">Ghi chú vườn (tùy chọn)</label>
+                      <textarea value={form.note} onChange={e => setForm({ ...form, note: e.target.value })} rows={3} className="w-full border-2 border-gray-100 bg-gray-50 rounded-xl px-4 py-3 focus:border-primary focus:bg-white outline-none resize-none text-base placeholder:text-gray-400" placeholder="VD: Sầu riêng bị vàng lá, cà phê bị tuyến trùng..." />
+                    </div>
+                    <button type="submit" className="w-full bg-red-500 hover:bg-red-600 text-white font-extrabold text-lg py-4 rounded-xl shadow-lg hover:-translate-y-1 transition-all">
                       🚀 NHẬN TƯ VẤN MIỄN PHÍ NGAY!
                     </button>
-                    <p className="text-center text-xs text-gray-400">Bảo mật thông tin. Không spam. Gọi lại trong 15 phút.</p>
+                    <p className="text-center text-[10px] text-gray-400 uppercase tracking-wider font-bold">🔒 Bảo mật thông tin • Gọi lại trong 15 phút</p>
                   </form>
                 </>
               )}
