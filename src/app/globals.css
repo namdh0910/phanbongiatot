@@ -57,3 +57,18 @@ body {
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
+
+/* Ensure list markers are visible in prose content */
+.prose ul {
+  list-style-type: disc !important;
+  padding-left: 1.5rem !important;
+}
+
+.prose ol {
+  list-style-type: decimal !important;
+  padding-left: 1.5rem !important;
+}
+
+.prose li {
+  display: list-item !important;
+}
