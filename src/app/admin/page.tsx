@@ -50,7 +50,7 @@ export default function AdminProducts() {
       
       const res = await fetch(`${API_BASE_URL}/upload`, { 
         method: "POST", 
-        headers: getAuthHeaders() as any,
+        headers: getAuthHeaders(true) as any,
         body: fd 
       });
       if (res.ok) {

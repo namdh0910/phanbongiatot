@@ -47,7 +47,7 @@ export default function AdminBlogs() {
     try {
       const res = await fetch(`${API_BASE_URL}/upload`, {
         method: "POST",
-        headers: { "Authorization": `Bearer ${localStorage.getItem("adminToken")}` },
+        headers: getAuthHeaders(true),
         body: fd
       });
       if (res.ok) {
