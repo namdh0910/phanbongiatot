@@ -4,15 +4,15 @@ const callAI = async (prompt) => {
   const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
   
   try {
-    // Dùng model Flash mới nhất (alias chuẩn)
-    const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
+    // Dùng bản Lite để tiết kiệm quota và ổn định nhất cho Free Tier
+    const model = genAI.getGenerativeModel({ model: "gemini-flash-lite-latest" });
     const result = await model.generateContent(prompt);
     return result.response.text().trim();
   } catch (error) {
-    console.error("Lỗi với gemini-flash-latest, đang thử gemini-pro-latest:", error.message);
+    console.error("Lỗi với gemini-flash-lite-latest:", error.message);
     try {
-      // Fallback sang bản Pro mới nhất
-      const model = genAI.getGenerativeModel({ model: "gemini-pro-latest" });
+      // Nếu Lite lỗi, thử sang bản Flash tiêu chuẩn
+      const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
       const result = await model.generateContent(prompt);
       return result.response.text().trim();
     } catch (fallbackError) {
