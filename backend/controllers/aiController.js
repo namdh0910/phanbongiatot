@@ -28,25 +28,31 @@ function cleanGeminiOutput(rawText) {
   let text = rawText.replace(/```(?:html)?\n?([\s\S]*?)```/gi, '$1').trim();
   
   // Bước 2: Xử lý tiêu đề (Header)
+  // 2a. Xử lý các dòng bắt đầu bằng # (chuẩn Markdown)
   text = text.replace(/^###[ \t]*(.*$)/gim, '<h3>$1</h3>');
   text = text.replace(/^##[ \t]*(.*$)/gim, '<h2>$1</h2>');
   text = text.replace(/^#[ \t]*(.*$)/gim, '<h1>$1</h1>');
+  
+  // 2b. Xử lý các dòng dạng "I. ", "II. ", "III. ", "IV. " (Số La Mã) -> H2
+  text = text.replace(/^(?:I|II|III|IV|V|VI|VII|VIII|IX|X)\.[ \t]+(.*$)/gim, '<h2>$1</h2>');
+  
+  // 2c. Xử lý các dòng dạng "1. ", "2. " ở đầu dòng -> H3 (Nếu không phải là danh sách <li>)
+  // Lưu ý: Regex này chạy trước khi chuyển đổi danh sách ở bước 4
+  text = text.replace(/^[0-9]+\.[ \t]+(.*$)/gim, '<h3>$1</h3>');
   
   // Bước 3: Xử lý in đậm và in nghiêng
   text = text.replace(/\*\*\*(.*?)\*\*\*/g, '<strong><em>$1</em></strong>');
   text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
   text = text.replace(/\*(.*?)\*/g, '<em>$1</em>');
   
-  // Bước 4: Xử lý danh sách
+  // Bước 4: Xử lý danh sách (Chỉ xử lý các dòng bắt đầu bằng *, -, +)
   text = text.replace(/^[ \t]*[\*\-\+\•]\s+(.*$)/gim, '<li>$1</li>');
-  text = text.replace(/^[ \t]*\d+\.\s+(.*$)/gim, '<li>$1</li>');
   
   // Bước 5: Bọc <li> vào <ul>
   text = text.replace(/(<li>[\s\S]*?<\/li>)/gi, '<ul>$1</ul>');
   text = text.replace(/<\/ul>\s*<ul>/gi, ''); 
   
   // Bước 6: Xử lý các đoạn văn bản (Paragraphs)
-  // Chỉ tách đoạn khi có 2 dấu xuống dòng liên tiếp
   const paragraphs = text.split(/\n\s*\n/);
   const processedParagraphs = paragraphs.map(p => {
     const trimmed = p.trim();
@@ -70,23 +76,22 @@ const generateContent = async (req, res) => {
     if (!process.env.GEMINI_API_KEY) return res.status(500).json({ message: 'Thiếu API Key' });
 
     if (type === 'blog') {
+      const seed = Math.abs(prompt.split('').reduce((a, b) => (((a << 5) - a) + b.charCodeAt(0)) | 0, 0)) % 1000;
       const contentPrompt = `
 Hãy đóng vai một Kỹ sư Nông nghiệp dày dạn kinh nghiệm. Viết bài hướng dẫn chuyên sâu về: "${prompt}".
 YÊU CẦU BẮT BUỘC:
-- Độ dài: Trên 1500 từ, hành văn chuyên nghiệp, gần gũi với bà con nông dân.
-- Cấu trúc bài viết:
-  1. Mở đầu: Tầm quan trọng của vấn đề.
-  2. Các nguyên nhân chính (phân tích kỹ thuật).
-  3. Dấu hiệu nhận biết sớm (rễ, lá, thân).
-  4. Giải pháp khắc phục: Quy trình từng bước (Tưới gốc, Phun lá, Bón phân).
-  5. Cách phòng ngừa bền vững.
+- Độ dài: Trên 2000 từ, hành văn chuyên nghiệp, giàu kiến thức thực tế.
+- Cấu trúc bài viết phải rõ ràng:
+  I. Mở đầu (Dùng số La Mã cho đề mục lớn)
+  II. Nguyên nhân kỹ thuật
+  III. Dấu hiệu nhận biết
+  IV. Quy trình xử lý chi tiết (Dùng các số 1., 2., 3. cho các bước)
+  V. Kết luận và Phòng ngừa
 - Định dạng bài viết:
-  - Dùng # cho tiêu đề chính (H1).
-  - Dùng ## cho tiêu đề mục lớn (H2).
-  - Dùng ### cho tiêu đề mục nhỏ (H3).
-  - Dùng ** cho các từ khóa quan trọng.
-  - Dùng * cho danh sách liệt kê.
-- Hình ảnh: Chèn 2-3 ảnh vào giữa các mục bằng tag: <img src="https://loremflickr.com/800/600/agriculture,farm,plants,soil/all?random=${Math.floor(Math.random() * 1000)}" style="width:100%; border-radius:16px; margin:30px 0; box-shadow:0 10px 15px -3px rgba(0,0,0,0.1);">
+  - BẮT BUỘC dùng ## hoặc Số La Mã (I., II., III.) cho tiêu đề H2.
+  - BẮT BUỘC dùng ### hoặc Số thứ tự (1., 2., 3.) cho tiêu đề H3.
+  - Dùng ** cho các thuật ngữ chuyên môn.
+- Hình ảnh: Chèn 3 ảnh vào các vị trí thích hợp bằng tag: <img src="https://loremflickr.com/800/600/agriculture,farm,plants,soil/all?lock=${seed}" style="width:100%; border-radius:16px; margin:30px 0; box-shadow:0 10px 15px -3px rgba(0,0,0,0.1);">
 - Ngôn ngữ: Tiếng Việt.
 `;
 
@@ -115,7 +120,7 @@ YÊU CẦU BẮT BUỘC:
         content: contentHTML,
         excerpt: meta.excerpt,
         tags: meta.tags,
-        image: `https://loremflickr.com/800/600/agriculture,plantation,farming/all?random=${Date.now()}`
+        image: `https://loremflickr.com/800/600/agriculture,plantation,farming/all?lock=${seed}`
       });
     }
 
