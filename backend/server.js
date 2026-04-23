@@ -15,7 +15,14 @@ const app = express();
 
 // Middleware
 app.use(express.json());
-app.use(cors({ origin: ['http://localhost:3000', 'https://phanbongiatot.com'] }));
+app.use(cors({ 
+  origin: [
+    'http://localhost:3000', 
+    'https://phanbongiatot.com', 
+    'https://phanbongiatot.vercel.app',
+    /\.vercel\.app$/ // Allow all Vercel preview deployments
+  ] 
+}));
 app.use(helmet({ crossOriginResourcePolicy: false }));
 app.use(morgan('dev'));
 
