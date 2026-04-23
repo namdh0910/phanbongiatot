@@ -105,7 +105,7 @@ export default function Home() {
         </div>
         
         <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-4">
-          {featuredProducts.map((product: any, i: number) => {
+          {products.map((product: any, i: number) => {
             const imgSrc = product.images?.[0];
             const isUrl = imgSrc && (imgSrc.startsWith("http") || imgSrc.startsWith("/"));
             return (
