@@ -63,9 +63,9 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <div className="container mx-auto px-4">
-        <div className="flex flex-col lg:flex-row gap-12 max-w-7xl mx-auto">
+        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 max-w-7xl mx-auto">
           {/* Main Content */}
-          <div className="lg:w-2/3">
+          <div className="lg:flex-1 min-w-0">
             <nav className="flex items-center gap-2 text-xs text-gray-400 mb-6 font-medium uppercase tracking-wider">
               <Link href="/" className="hover:text-primary transition-colors">Trang chủ</Link>
               <span>/</span>
@@ -78,9 +78,9 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
               <span>&larr;</span> Quay lại danh sách
             </Link>
             
-            <article className="bg-white rounded-3xl p-6 md:p-12 shadow-sm border border-gray-100">
+            <article className="bg-white rounded-3xl p-5 md:p-12 shadow-sm border border-gray-100 overflow-hidden">
               <header className="mb-10 pb-10 border-b border-gray-50">
-                <h1 className="text-3xl md:text-5xl font-black text-gray-900 mb-6 leading-[1.1] tracking-tight">{blog.title}</h1>
+                <h1 className="text-3xl md:text-5xl font-black text-gray-900 mb-6 leading-[1.1] tracking-tight break-words">{blog.title}</h1>
                 <div className="flex items-center gap-6 text-gray-500 text-sm font-medium">
                   <span className="flex items-center gap-2 bg-green-50 text-green-700 px-3 py-1 rounded-full">
                     <span className="text-lg">👨‍🔬</span> Kỹ sư Phân Bón Giá Tốt
@@ -92,7 +92,7 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
               </header>
               
               <div 
-                className="prose prose-emerald prose-lg md:prose-xl max-w-none text-gray-700 leading-relaxed prose-img:rounded-2xl prose-headings:font-black prose-headings:text-gray-900 prose-a:text-primary prose-strong:text-gray-900"
+                className="prose prose-emerald prose-lg md:prose-xl max-w-none text-gray-700 leading-relaxed prose-img:rounded-2xl prose-headings:font-black prose-headings:text-gray-900 prose-a:text-primary prose-strong:text-gray-900 break-words overflow-hidden"
                 dangerouslySetInnerHTML={{ __html: blog.content }}
               />
               
@@ -119,7 +119,7 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
           </div>
 
           {/* Sidebar - Recommended Products */}
-          <div className="lg:w-1/3">
+          <div className="lg:w-80 flex-shrink-0">
             <div className="sticky top-28 space-y-8">
               <div className="bg-white rounded-3xl p-6 shadow-sm border border-gray-100">
                  <h3 className="text-xl font-black text-gray-900 mb-6 flex items-center gap-2">
