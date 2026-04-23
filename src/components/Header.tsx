@@ -32,27 +32,27 @@ export default function Header() {
         </div>
       )}
       
-      <header className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-sm">
-      <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+      <header className="sticky top-0 z-50 w-full bg-white border-b border-gray-200 shadow-md">
+      <div className="container mx-auto px-4 h-20 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="text-xl font-extrabold text-primary tracking-tight flex-shrink-0">
+        <Link href="/" className="text-2xl font-black text-primary tracking-tighter flex-shrink-0">
           PhânBón<span className="text-yellow-500">GiáTốt</span>
         </Link>
 
         {/* Search Bar (Desktop) */}
-        <div className="hidden md:flex flex-1 max-w-md mx-8 relative">
+        <div className="hidden md:flex flex-1 max-w-xs mx-6 relative">
            <input 
              type="text" 
-             placeholder="Tìm phân bón, kích rễ..." 
-             className="w-full bg-gray-100 border-none rounded-full px-5 py-2 text-sm outline-none focus:ring-2 focus:ring-primary/20 transition-all"
+             placeholder="Tìm kiếm..." 
+             className="w-full bg-gray-100 border border-gray-200 rounded-full px-5 py-2 text-sm outline-none focus:ring-2 focus:ring-primary/20 transition-all text-gray-900"
            />
-           <button className="absolute right-3 top-1.5 text-gray-400">🔍</button>
+           <button className="absolute right-3 top-2 text-gray-400 font-bold">🔍</button>
         </div>
 
         {/* Desktop Nav */}
-        <nav className="hidden lg:flex items-center gap-6">
+        <nav className="hidden lg:flex items-center gap-5">
           {navLinks.map(link => (
-            <Link key={link.href} href={link.href} className="text-gray-700 hover:text-primary transition-colors font-medium text-sm whitespace-nowrap">
+            <Link key={link.href} href={link.href} className="text-gray-900 hover:text-primary transition-colors font-bold text-sm whitespace-nowrap">
               {link.label}
             </Link>
           ))}
@@ -60,7 +60,7 @@ export default function Header() {
 
         {/* Desktop CTA */}
         <div className="hidden lg:flex items-center gap-3 flex-shrink-0">
-          <Link href="/gio-hang" className="relative p-2 text-gray-700 hover:text-primary transition-colors mr-2">
+          <Link href="/gio-hang" className="relative p-2 text-gray-900 hover:text-primary transition-colors mr-2">
             <span className="text-2xl">🛒</span>
             {cartCount > 0 && (
               <span className="absolute -top-1 -right-1 bg-[#ee4d2d] text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center shadow-sm">
@@ -78,7 +78,7 @@ export default function Header() {
 
         {/* Mobile Actions */}
         <div className="flex lg:hidden items-center gap-2">
-          <Link href="/gio-hang" className="relative p-2 text-gray-700 hover:text-primary transition-colors">
+          <Link href="/gio-hang" className="relative p-2 text-gray-900 hover:text-primary transition-colors">
             <span className="text-2xl">🛒</span>
             {cartCount > 0 && (
               <span className="absolute -top-1 -right-1 bg-[#ee4d2d] text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center shadow-sm">
@@ -86,7 +86,7 @@ export default function Header() {
               </span>
             )}
           </Link>
-          <button onClick={() => setMenuOpen(!menuOpen)} className="p-2 text-gray-700 hover:text-primary transition-colors">
+          <button onClick={() => setMenuOpen(!menuOpen)} className="p-2 text-gray-900 hover:text-primary transition-colors">
             {menuOpen ? (
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
             ) : (
