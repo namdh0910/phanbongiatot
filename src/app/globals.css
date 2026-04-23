@@ -16,8 +16,13 @@
   --color-primary-hover: var(--primary-hover);
   --color-secondary: var(--secondary);
   --color-accent: var(--accent);
+  --color-dark: #0d2a1c;
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+}
+
+.bg-dark {
+  background-color: #0d2a1c;
 }
 
 @media (prefers-color-scheme: dark) {

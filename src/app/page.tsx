@@ -2,11 +2,13 @@
 import { useState, useEffect } from "react";
 import { API_BASE_URL } from '@/utils/api';
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { trackEvent } from "@/utils/analytics";
 import { getSettings } from "@/utils/settings";
 import CheckoutModal from "@/components/CheckoutModal";
 
 export default function Home() {
+  const router = useRouter();
   const [products, setProducts] = useState<any[]>([]);
   const [blogs, setBlogs] = useState<any[]>([]);
   const [settings, setSettings] = useState<any>({});
@@ -109,15 +111,19 @@ export default function Home() {
             const imgSrc = product.images?.[0];
             const isUrl = imgSrc && (imgSrc.startsWith("http") || imgSrc.startsWith("/"));
             return (
-              <Link href={`/san-pham/${product.slug}`} key={i} className="bg-white rounded-sm overflow-hidden shadow-sm border border-transparent hover:border-[#ee4d2d] hover:shadow-lg transition-all group flex flex-col h-full relative">
+              <div 
+                key={i} 
+                onClick={() => router.push(`/san-pham/${product.slug}`)}
+                className="bg-white rounded-sm overflow-hidden shadow-sm border border-transparent hover:border-[#ee4d2d] hover:shadow-lg transition-all group flex flex-col h-full relative cursor-pointer"
+              >
                 <div className="aspect-square relative overflow-hidden bg-gradient-to-br from-green-50 to-green-100 flex items-center justify-center">
                    {isUrl ? (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img src={imgSrc} alt={product.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                    ) : (
                       <div className="text-center p-4">
-                        <div className="text-5xl mb-2 group-hover:scale-110 transition-transform">🌱</div>
-                        <p className="text-[10px] text-green-600 font-bold uppercase line-clamp-1">{product.name}</p>
+                         <div className="text-5xl mb-2 group-hover:scale-110 transition-transform">🌱</div>
+                         <p className="text-[10px] text-green-600 font-bold uppercase line-clamp-1">{product.name}</p>
                       </div>
                    )}
                    <div className="absolute top-0 right-0 flex flex-col gap-1 items-end">
@@ -134,7 +140,6 @@ export default function Home() {
                      </div>
                       <button 
                          onClick={(e) => {
-                           e.preventDefault();
                            e.stopPropagation();
                            handleQuickBuy(product);
                          }}
@@ -144,7 +149,7 @@ export default function Home() {
                       </button>
                    </div>
                 </div>
-              </Link>
+              </div>
             );
           })}
         </div>

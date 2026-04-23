@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { API_BASE_URL } from '@/utils/api';
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import CheckoutModal from "@/components/CheckoutModal";
 import { trackEvent } from "@/utils/analytics";
 
@@ -15,6 +15,7 @@ const categoryMap: Record<string, { name: string; icon: string }> = {
 
 export default function CategoryPage() {
   const params = useParams();
+  const router = useRouter();
   const slug = params?.slug as string;
   const [products, setProducts] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -95,7 +96,11 @@ export default function CategoryPage() {
                   const imgSrc = product.images?.[0];
                   const isUrl = imgSrc && (imgSrc.startsWith("http") || imgSrc.startsWith("/"));
                   return (
-                    <Link href={`/san-pham/${product.slug}`} key={i} className="bg-white rounded-sm overflow-hidden shadow-sm border border-transparent hover:border-[#ee4d2d] hover:shadow-lg transition-all group flex flex-col h-full relative">
+                    <div 
+                      onClick={() => router.push(`/san-pham/${product.slug}`)}
+                      key={i} 
+                      className="bg-white rounded-sm overflow-hidden shadow-sm border border-transparent hover:border-[#ee4d2d] hover:shadow-lg transition-all group flex flex-col h-full relative cursor-pointer"
+                    >
                       {/* Image area */}
                       <div className="aspect-square relative overflow-hidden bg-gradient-to-br from-green-50 to-green-100 flex items-center justify-center">
                         {isUrl ? (
@@ -121,7 +126,6 @@ export default function CategoryPage() {
                           </div>
                           <button 
                             onClick={(e) => {
-                              e.preventDefault();
                               e.stopPropagation();
                               handleQuickBuy(product);
                             }}
@@ -131,7 +135,7 @@ export default function CategoryPage() {
                           </button>
                         </div>
                       </div>
-                    </Link>
+                    </div>
                   );
                 })}
               </div>
