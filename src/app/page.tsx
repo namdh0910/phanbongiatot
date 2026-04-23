@@ -232,6 +232,12 @@ export default function Home() {
             ))}
          </div>
       </section>
+
+      <CheckoutModal 
+        product={selectedProduct} 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+      />
     </div>
   );
 }
