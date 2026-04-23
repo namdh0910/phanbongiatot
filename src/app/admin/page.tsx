@@ -180,10 +180,10 @@ export default function AdminProducts() {
                              className="h-80 mb-12"
                              modules={{
                                toolbar: [
-                                 [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-                                 ['bold', 'italic', 'underline', 'strike'],
+                                 [{ 'header': '1'}, { 'header': '2'}, { 'header': '3'}, { 'font': [] }],
+                                 ['bold', 'italic', 'underline', 'strike', 'blockquote'],
                                  [{ 'color': [] }, { 'background': [] }],
-                                 [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                                 [{ 'list': 'ordered' }, { 'list': 'bullet' }],
                                  [{ 'align': [] }],
                                  ['link', 'image', 'video'],
                                  ['table'],

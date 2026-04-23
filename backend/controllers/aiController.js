@@ -75,12 +75,23 @@ const generateContent = async (req, res) => {
 
     if (type === 'blog') {
       const contentPrompt = `
-Viết bài hướng dẫn nông nghiệp chuyên sâu về: "${prompt}".
-YÊU CẦU:
-- Trên 1000 từ.
-- Dùng ## cho tiêu đề mục.
-- Dùng * cho danh sách.
-- Chèn ảnh: <img src="https://loremflickr.com/800/500/agriculture,coffee" style="width:100%; border-radius:12px; margin:24px 0;">
+Hãy đóng vai một Kỹ sư Nông nghiệp dày dạn kinh nghiệm. Viết bài hướng dẫn chuyên sâu về: "${prompt}".
+YÊU CẦU BẮT BUỘC:
+- Độ dài: Trên 1500 từ, hành văn chuyên nghiệp, gần gũi với bà con nông dân.
+- Cấu trúc bài viết:
+  1. Mở đầu: Tầm quan trọng của vấn đề.
+  2. Các nguyên nhân chính (phân tích kỹ thuật).
+  3. Dấu hiệu nhận biết sớm (rễ, lá, thân).
+  4. Giải pháp khắc phục: Quy trình từng bước (Tưới gốc, Phun lá, Bón phân).
+  5. Cách phòng ngừa bền vững.
+- Định dạng bài viết:
+  - Dùng # cho tiêu đề chính (H1).
+  - Dùng ## cho tiêu đề mục lớn (H2).
+  - Dùng ### cho tiêu đề mục nhỏ (H3).
+  - Dùng ** cho các từ khóa quan trọng.
+  - Dùng * cho danh sách liệt kê.
+- Hình ảnh: Chèn 2-3 ảnh vào giữa các mục bằng tag: <img src="https://source.unsplash.com/800x500/?agriculture,farm,${encodeURIComponent(prompt.split(' ').slice(0,2).join(','))}" style="width:100%; border-radius:16px; margin:30px 0; box-shadow:0 10px 15px -3px rgba(0,0,0,0.1);">
+- Ngôn ngữ: Tiếng Việt.
 `;
 
       const rawContent = await callAI(contentPrompt);
