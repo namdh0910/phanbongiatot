@@ -19,8 +19,9 @@ app.use(cors({
   origin: [
     'http://localhost:3000', 
     'https://phanbongiatot.com', 
+    'https://www.phanbongiatot.com',
     'https://phanbongiatot.vercel.app',
-    /\.vercel\.app$/ // Allow all Vercel preview deployments
+    /\.vercel\.app$/ 
   ] 
 }));
 app.use(helmet({ crossOriginResourcePolicy: false }));
