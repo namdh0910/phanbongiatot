@@ -162,7 +162,7 @@ export default function Home() {
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {latestBlogs.map((blog: any, i: number) => (
+          {blogs.map((blog: any, i: number) => (
             <Link href={`/blog/${blog.slug}`} key={i} className="group flex flex-col bg-white rounded-sm shadow-sm hover:shadow-md transition-all border border-gray-100 overflow-hidden">
                <div className="aspect-[16/9] bg-emerald-50 relative flex items-center justify-center overflow-hidden">
                   {blog.image ? (
@@ -179,7 +179,7 @@ export default function Home() {
                </div>
             </Link>
           ))}
-          {latestBlogs.length === 0 && (
+          {blogs.length === 0 && (
              <div className="col-span-3 py-12 text-center bg-white border border-dashed border-gray-300 rounded-sm">
                 <p className="text-gray-400">Đang cập nhật bài viết mới nhất...</p>
              </div>
