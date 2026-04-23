@@ -1,5 +1,5 @@
-import { API_BASE_URL, getAuthHeaders } from '@/utils/api';
 "use client";
+import { API_BASE_URL, getAuthHeaders } from '@/utils/api';
 import { useState, useEffect, useRef } from "react";
 import AdminSidebar from "@/components/AdminSidebar";
 import AdminGuard from "@/components/AdminGuard";
@@ -52,7 +52,7 @@ export default function AdminSettings() {
     try {
       const res = await fetch(`${API_BASE_URL}/settings`, {
         method: "PUT",
-        headers: getAuthHeaders(),
+        headers: getAuthHeaders() as any,
         body: JSON.stringify(settings)
       });
       if (res.ok) alert("Đã lưu cài đặt!");

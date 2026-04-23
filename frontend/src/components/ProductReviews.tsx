@@ -1,5 +1,5 @@
-import { API_BASE_URL, getAuthHeaders } from '@/utils/api';
 "use client";
+import { API_BASE_URL, getAuthHeaders } from '@/utils/api';
 import { useState, useEffect } from "react";
 
 export default function ProductReviews({ productId }: { productId: string }) {

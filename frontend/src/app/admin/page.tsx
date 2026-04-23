@@ -13,10 +13,6 @@ export default function AdminProducts() {
   const [previewImages, setPreviewImages] = useState<string[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-    "Content-Type": "application/json",
-    "Authorization": `Bearer ${localStorage.getItem("adminToken")}`
-  });
-
   const emptyForm = {
     name: "", category: "Phân bón", price: "", originalPrice: "",
     description: "", usageInstructions: "", dosage: "",
@@ -54,7 +50,7 @@ export default function AdminProducts() {
       
       const res = await fetch(`${API_BASE_URL}/upload`, { 
         method: "POST", 
-        headers: { "Authorization": `Bearer ${localStorage.getItem("adminToken")}` },
+        headers: getAuthHeaders() as any,
         body: fd 
       });
       if (res.ok) {

@@ -1,5 +1,5 @@
-import { API_BASE_URL, getAuthHeaders } from '@/utils/api';
 "use client";
+import { API_BASE_URL, getAuthHeaders } from '@/utils/api';
 import { useState, useEffect } from "react";
 import { trackEvent } from "@/utils/analytics";
 import { useCart } from "@/context/CartContext";
