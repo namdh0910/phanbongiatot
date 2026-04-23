@@ -132,15 +132,16 @@ export default function Home() {
                      <div className="flex items-center justify-between mb-3">
                         <span className="font-black text-[#ee4d2d] text-base md:text-lg">₫{(product.price).toLocaleString("vi-VN")}</span>
                      </div>
-                     <button 
-                        onClick={(e) => {
-                          e.preventDefault();
-                          handleQuickBuy(product);
-                        }}
-                        className="w-full bg-[#ee4d2d] text-white py-2 rounded-sm font-bold text-xs hover:bg-[#d73211] transition-colors uppercase shadow-sm"
-                     >
-                       Mua ngay
-                     </button>
+                      <button 
+                         onClick={(e) => {
+                           e.preventDefault();
+                           e.stopPropagation();
+                           handleQuickBuy(product);
+                         }}
+                         className="w-full bg-[#ee4d2d] text-white py-2.5 rounded-sm font-bold text-xs hover:bg-[#d73211] transition-colors uppercase shadow-sm active:scale-95"
+                      >
+                        Mua ngay
+                      </button>
                    </div>
                 </div>
               </Link>

@@ -122,9 +122,10 @@ export default function CategoryPage() {
                           <button 
                             onClick={(e) => {
                               e.preventDefault();
+                              e.stopPropagation();
                               handleQuickBuy(product);
                             }}
-                            className="w-full bg-[#ee4d2d] text-white py-1.5 rounded-sm font-bold text-[10px] md:text-xs hover:bg-[#d73211] transition-colors uppercase"
+                            className="w-full bg-[#ee4d2d] text-white py-2.5 rounded-sm font-bold text-xs hover:bg-[#d73211] transition-colors uppercase shadow-sm active:scale-95"
                           >
                             Mua ngay
                           </button>

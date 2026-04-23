@@ -120,12 +120,12 @@ export default function CheckoutModal({ product, isOpen, onClose, isFullCart = f
                   <input required value={formData.address} onChange={e => setFormData({...formData, address: e.target.value})} className="w-full border border-gray-200 rounded-sm px-4 py-2.5 outline-none focus:border-[#ee4d2d] bg-gray-50" placeholder="Số nhà, đường, xã, huyện, tỉnh..." />
                 </div>
                 {!isFullCart && (
-                   <div className="flex items-center justify-between bg-white p-3 border border-gray-100 rounded-sm">
-                     <span className="text-sm font-bold">Số lượng:</span>
-                     <div className="flex border border-gray-200 rounded-sm">
-                       <button type="button" onClick={() => setFormData(f => ({...f, quantity: Math.max(1, f.quantity - 1)}))} className="px-3 py-1 border-r border-gray-200">-</button>
-                       <input type="text" value={formData.quantity} readOnly className="w-10 text-center text-sm font-bold" />
-                       <button type="button" onClick={() => setFormData(f => ({...f, quantity: f.quantity + 1}))} className="px-3 py-1 border-l border-gray-200">+</button>
+                   <div className="flex items-center justify-between bg-gray-50 p-4 border border-gray-200 rounded-sm">
+                     <span className="text-sm font-bold text-gray-700">Số lượng:</span>
+                     <div className="flex border border-gray-300 rounded-sm bg-white">
+                       <button type="button" onClick={() => setFormData(f => ({...f, quantity: Math.max(1, f.quantity - 1)}))} className="px-4 py-1.5 border-r border-gray-300 text-gray-600 hover:bg-gray-50 transition-colors font-bold">-</button>
+                       <input type="text" value={formData.quantity} readOnly className="w-12 text-center text-sm font-black text-gray-900 bg-transparent outline-none" />
+                       <button type="button" onClick={() => setFormData(f => ({...f, quantity: f.quantity + 1}))} className="px-4 py-1.5 border-l border-gray-300 text-gray-600 hover:bg-gray-50 transition-colors font-bold">+</button>
                      </div>
                    </div>
                 )}
