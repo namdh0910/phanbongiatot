@@ -2,8 +2,8 @@ const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 const getModel = () => {
   const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-  // Dùng gemini-pro là model truyền thống, dễ tương thích nhất
-  return genAI.getGenerativeModel({ model: "gemini-pro" });
+  // Quay lại model 1.5 Flash với Key mới của anh để có chất lượng tốt nhất
+  return genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 };
 
 const callAI = async (prompt) => {
