@@ -27,7 +27,7 @@ function cleanGeminiOutput(rawText) {
   // Bước 1: Gỡ bỏ code blocks
   let text = rawText.replace(/```(?:html)?\n?([\s\S]*?)```/gi, '$1').trim();
   
-  // Bước 2: Xử lý tiêu đề (Header) - Hỗ trợ cả trường hợp thiếu dấu cách sau #
+  // Bước 2: Xử lý tiêu đề (Header)
   text = text.replace(/^###[ \t]*(.*$)/gim, '<h3>$1</h3>');
   text = text.replace(/^##[ \t]*(.*$)/gim, '<h2>$1</h2>');
   text = text.replace(/^#[ \t]*(.*$)/gim, '<h1>$1</h1>');
@@ -46,15 +46,18 @@ function cleanGeminiOutput(rawText) {
   text = text.replace(/<\/ul>\s*<ul>/gi, ''); 
   
   // Bước 6: Xử lý các đoạn văn bản (Paragraphs)
-  const lines = text.split('\n');
-  const processedLines = lines.map(line => {
-    const trimmed = line.trim();
+  // Chỉ tách đoạn khi có 2 dấu xuống dòng liên tiếp
+  const paragraphs = text.split(/\n\s*\n/);
+  const processedParagraphs = paragraphs.map(p => {
+    const trimmed = p.trim();
     if (!trimmed) return "";
-    if (/^<[a-z1-6]/i.test(trimmed)) return trimmed;
-    return `<p>${trimmed}</p>`;
+    // Nếu đã bọc tag HTML (h1-h6, li, ul, blockquote) thì giữ nguyên
+    if (/^<(h[1-6]|li|ul|ol|blockquote|img)/i.test(trimmed)) return trimmed;
+    // Thay thế các dấu xuống dòng đơn lẻ bằng khoảng cách hoặc <br>
+    return `<p>${trimmed.replace(/\n/g, ' ')}</p>`;
   });
   
-  text = processedLines.join('');
+  text = processedParagraphs.join('');
   text = text.replace(/<p>\s*<\/p>/gi, '');
   text = text.replace(/&amp;/g, '&');
   
@@ -83,7 +86,7 @@ YÊU CẦU BẮT BUỘC:
   - Dùng ### cho tiêu đề mục nhỏ (H3).
   - Dùng ** cho các từ khóa quan trọng.
   - Dùng * cho danh sách liệt kê.
-- Hình ảnh: Chèn 2-3 ảnh vào giữa các mục bằng tag: <img src="https://loremflickr.com/800/600/agriculture,farm,plantation?random=${Math.floor(Math.random() * 1000)}" style="width:100%; border-radius:16px; margin:30px 0; box-shadow:0 10px 15px -3px rgba(0,0,0,0.1);">
+- Hình ảnh: Chèn 2-3 ảnh vào giữa các mục bằng tag: <img src="https://loremflickr.com/800/600/agriculture,farm,plants,soil/all?random=${Math.floor(Math.random() * 1000)}" style="width:100%; border-radius:16px; margin:30px 0; box-shadow:0 10px 15px -3px rgba(0,0,0,0.1);">
 - Ngôn ngữ: Tiếng Việt.
 `;
 
@@ -112,7 +115,7 @@ YÊU CẦU BẮT BUỘC:
         content: contentHTML,
         excerpt: meta.excerpt,
         tags: meta.tags,
-        image: `https://loremflickr.com/800/600/agriculture,${encodeURIComponent(prompt.split(' ')[0])}?random=${Date.now()}`
+        image: `https://loremflickr.com/800/600/agriculture,plantation,farming/all?random=${Date.now()}`
       });
     }
 
