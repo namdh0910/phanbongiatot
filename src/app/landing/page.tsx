@@ -1,11 +1,14 @@
 "use client";
 import { API_BASE_URL, getAuthHeaders } from '@/utils/api';
 import { useState } from "react";
-import Link from "next/link";
+import { useSettings } from "@/context/SettingsContext";
 
 export default function LandingPage() {
+  const settings = useSettings();
   const [form, setForm] = useState({ name: "", phone: "", note: "" });
   const [submitted, setSubmitted] = useState(false);
+
+  if (!settings) return null;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -128,8 +131,8 @@ export default function LandingPage() {
 
       {/* Sticky CTA for mobile */}
       <div className="fixed bottom-0 left-0 right-0 p-4 bg-dark border-t border-white/10 flex gap-3 z-50 md:hidden">
-        <a href="tel:0900000000" className="flex-1 bg-primary text-white font-bold py-3 rounded-xl text-center">📞 Gọi Ngay</a>
-        <a href="https://zalo.me/0900000000" target="_blank" className="flex-1 bg-blue-500 text-white font-bold py-3 rounded-xl text-center">💬 Zalo</a>
+        <a href={`tel:${settings.hotline}`} className="flex-1 bg-primary text-white font-bold py-3 rounded-xl text-center">📞 Gọi Ngay</a>
+        <a href={`https://zalo.me/${settings.hotline}`} target="_blank" className="flex-1 bg-blue-500 text-white font-bold py-3 rounded-xl text-center">💬 Zalo</a>
       </div>
     </div>
   );

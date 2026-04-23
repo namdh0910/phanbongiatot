@@ -1,11 +1,10 @@
+"use client";
 import Link from "next/link";
-
-export const metadata = {
-  title: "Về Chúng Tôi | Phân Bón Giá Tốt - Chuyên gia nông nghiệp Việt Nam",
-  description: "Phân Bón Giá Tốt là đơn vị cung cấp phân bón sinh học, thuốc bảo vệ thực vật chất lượng cao cho nông dân Việt Nam. Hơn 10 năm kinh nghiệm, hơn 10.000 nhà nông tin dùng.",
-};
+import { useSettings } from "@/context/SettingsContext";
 
 export default function AboutPage() {
+  const settings = useSettings();
+  if (!settings) return null;
   return (
     <div className="bg-gray-50 min-h-screen pb-20">
       {/* Hero */}
@@ -75,8 +74,8 @@ export default function AboutPage() {
           <h2 className="text-3xl font-extrabold mb-4">Bắt Đầu Hành Trình Cùng Chúng Tôi</h2>
           <p className="text-green-100 mb-8 text-lg">Liên hệ ngay để được tư vấn miễn phí từ các kỹ sư nông nghiệp giàu kinh nghiệm.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="tel:0900000000" className="px-8 py-4 bg-white text-primary rounded-xl font-extrabold text-lg hover:bg-gray-100 transition-colors shadow-lg">
-              📞 Gọi Ngay: 0900.000.000
+            <a href={`tel:${settings.hotline}`} className="px-8 py-4 bg-white text-primary rounded-xl font-extrabold text-lg hover:bg-gray-100 transition-colors shadow-lg">
+              📞 Gọi Ngay: {settings.phone || settings.hotline}
             </a>
             <Link href="/lien-he" className="px-8 py-4 bg-white/20 backdrop-blur-sm text-white rounded-xl font-extrabold text-lg hover:bg-white/30 transition-colors border border-white/30">
               Gửi Yêu Cầu

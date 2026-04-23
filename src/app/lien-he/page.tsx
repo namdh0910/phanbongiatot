@@ -88,7 +88,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <label className="block text-sm font-bold text-gray-700 mb-2">Số điện thoại *</label>
-                    <input required type="tel" value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/30 focus:border-primary outline-none text-lg" placeholder="0900 000 000" />
+                    <input required type="tel" value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/30 focus:border-primary outline-none text-lg" placeholder="0773 440 966" />
                   </div>
                   <div>
                     <label className="block text-sm font-bold text-gray-700 mb-2">Vườn bị vấn đề gì? (tùy chọn)</label>
