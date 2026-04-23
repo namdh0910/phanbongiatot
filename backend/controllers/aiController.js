@@ -4,19 +4,19 @@ const callAI = async (prompt) => {
   const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
   
   try {
-    // Ưu tiên dùng model 1.5 Flash vì nó viết dài và thông minh hơn
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    // Dùng model Flash mới nhất (alias chuẩn)
+    const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
     const result = await model.generateContent(prompt);
     return result.response.text().trim();
   } catch (error) {
-    console.error("Lỗi với model 1.5 Flash, đang thử dùng gemini-pro:", error.message);
+    console.error("Lỗi với gemini-flash-latest, đang thử gemini-pro-latest:", error.message);
     try {
-      // Nếu 1.5 Flash bị lỗi (404/503), chuyển sang gemini-pro là bản ổn định nhất
-      const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+      // Fallback sang bản Pro mới nhất
+      const model = genAI.getGenerativeModel({ model: "gemini-pro-latest" });
       const result = await model.generateContent(prompt);
       return result.response.text().trim();
     } catch (fallbackError) {
-      console.error("Lỗi fallback sang gemini-pro:", fallbackError.message);
+      console.error("Lỗi fallback toàn bộ:", fallbackError.message);
       throw new Error(`[Hệ Thống Phân Bón Lỗi AI]: ${fallbackError.message}`);
     }
   }
