@@ -2,8 +2,8 @@ const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 const getModel = () => {
   const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-  // Chuyển sang model stable hơn để tránh lỗi 503 khi quá tải
-  return genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+  // Dùng model chính thức để tránh lỗi 404
+  return genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
 };
 
 const callAI = async (prompt) => {
