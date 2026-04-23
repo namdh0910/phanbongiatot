@@ -1,0 +1,8 @@
+{
+  "name": "phanbongiatot-root",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "npm --prefix frontend run build",
+    "install": "npm --prefix frontend install"
+  }
+}
