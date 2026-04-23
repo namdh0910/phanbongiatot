@@ -169,8 +169,12 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
                    <div className="space-y-4">
                       <p className="font-bold text-gray-900 flex items-center gap-2">📝 Mô tả sản phẩm:</p>
                       <div 
-                        className="text-gray-700 text-sm leading-relaxed ml-2 prose prose-sm max-w-none"
-                        dangerouslySetInnerHTML={{ __html: product.description }}
+                        className="text-gray-700 text-sm leading-relaxed ml-2 prose prose-emerald max-w-none prose-p:my-2 prose-headings:mb-4 prose-headings:mt-6 prose-ul:list-disc prose-ol:list-decimal"
+                        dangerouslySetInnerHTML={{ 
+                          __html: product.description?.includes('<') 
+                            ? product.description 
+                            : product.description?.replace(/\n/g, '<br/>') || "" 
+                        }}
                       />
                    </div>
 

@@ -186,6 +186,7 @@ export default function AdminProducts() {
                                  [{ 'list': 'ordered'}, { 'list': 'bullet' }],
                                  [{ 'align': [] }],
                                  ['link', 'image', 'video'],
+                                 ['table'],
                                  ['clean']
                                ],
                              }}

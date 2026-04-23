@@ -136,6 +136,7 @@ export default function AdminBlogs() {
       [{ 'list': 'ordered' }, { 'list:': 'bullet' }],
       [{ 'align': [] }],
       ['link', 'image', 'video'],
+      ['table'],
       ['clean']
     ],
   };
