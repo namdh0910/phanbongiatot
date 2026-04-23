@@ -1,15 +1,25 @@
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
-const getModel = () => {
-  const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-  // Quay lại model 1.5 Flash với Key mới của anh để có chất lượng tốt nhất
-  return genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-};
-
 const callAI = async (prompt) => {
-  const model = getModel();
-  const result = await model.generateContent(prompt);
-  return result.response.text().trim();
+  const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+  
+  try {
+    // Ưu tiên dùng model 1.5 Flash vì nó viết dài và thông minh hơn
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const result = await model.generateContent(prompt);
+    return result.response.text().trim();
+  } catch (error) {
+    console.error("Lỗi với model 1.5 Flash, đang thử dùng gemini-pro:", error.message);
+    try {
+      // Nếu 1.5 Flash bị lỗi (404/503), chuyển sang gemini-pro là bản ổn định nhất
+      const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+      const result = await model.generateContent(prompt);
+      return result.response.text().trim();
+    } catch (fallbackError) {
+      console.error("Lỗi fallback sang gemini-pro:", fallbackError.message);
+      throw new Error(`[Google AI Error]: ${fallbackError.message}`);
+    }
+  }
 };
 
 const stripMarkdownForJSON = (text) => {
