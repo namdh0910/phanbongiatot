@@ -6,6 +6,7 @@ const {
   getOrdersByPhone,
   updateOrderStatus,
   getOrders,
+  getVendorOrders,
 } = require('../controllers/orderController');
 const { protect } = require('../middleware/authMiddleware');
 
