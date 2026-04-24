@@ -55,9 +55,11 @@ export default function Home() {
           <div className="bg-[#fce015] text-gray-900 px-4 py-1.5 rounded-sm font-black text-xs tracking-widest uppercase shadow-lg">
             GIẢI PHÁP NÔNG NGHIỆP HIỆU QUẢ CAO
           </div>
-          <h1 className="text-4xl md:text-7xl font-black text-white max-w-4xl leading-[1.1] tracking-tight">
-            {settings.heroTitle?.split(' ').slice(0, 3).join(' ')} <br /> 
-            <span className="text-[#fce015]">{settings.heroTitle?.split(' ').slice(3).join(' ')}</span>
+          <h1 className="text-3xl md:text-7xl font-black text-white max-w-4xl leading-[1.1] tracking-tight">
+            Năng Suất Vượt Trội <br /> 
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#fce015] to-[#ffb800] drop-shadow-md">
+               Chi Phí Tối Ưu
+            </span>
           </h1>
           <p className="text-base md:text-xl text-gray-300 max-w-2xl font-medium leading-relaxed">
             {settings.heroSubtitle}
