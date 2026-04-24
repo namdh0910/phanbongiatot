@@ -87,10 +87,11 @@ app.listen(PORT, () => {
 
   // Keep-alive: Ping self every 14 minutes to prevent Render free-tier sleep
   if (process.env.NODE_ENV === 'production' && process.env.RENDER_EXTERNAL_URL) {
+    const axios = require('axios');
     const url = process.env.RENDER_EXTERNAL_URL;
     setInterval(async () => {
       try {
-        const res = await fetch(url);
+        const res = await axios.get(url);
         console.log(`[Keep-alive] Ping ${url} -> ${res.status}`);
       } catch (err) {
         console.error('[Keep-alive] Ping failed:', err.message);

@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import AdminSidebar from "@/components/AdminSidebar";
 import AdminGuard from "@/components/AdminGuard";
+import { useRouter } from "next/navigation";
 import { API_BASE_URL, getAuthHeaders } from "@/utils/api";
 import dynamic from 'next/dynamic';
 import 'react-quill-new/dist/quill.snow.css';
@@ -9,6 +10,7 @@ import 'react-quill-new/dist/quill.snow.css';
 const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
 
 export default function AdminProducts() {
+  const router = useRouter();
   const [adminName, setAdminName] = useState("Admin");
   const [debugInfo, setDebugInfo] = useState("");
   const [products, setProducts] = useState<any[]>([]);
