@@ -1,5 +1,6 @@
 const Order = require('../models/Order');
 const Coupon = require('../models/Coupon');
+const { sendTelegramMessage } = require('../utils/telegram');
 
 // @desc    Create new order
 // @route   POST /api/orders
@@ -69,8 +70,8 @@ ${orderItems.map(item => `- ${item.name} x${item.qty} (${item.price.toLocaleStri
 <i>Kiểm tra ngay tại: phanbongiatot.vercel.app/admin/orders</i>
       `;
       
-      const { sendTelegramMessage } = require('../utils/telegram');
-      sendTelegramMessage(message);
+      console.log('Đang gửi thông báo đơn hàng qua Telegram...');
+      await sendTelegramMessage(message);
       
       res.status(201).json(createdOrder);
     }
