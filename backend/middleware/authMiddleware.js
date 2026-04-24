@@ -23,7 +23,12 @@ const protect = async (req, res, next) => {
 
 const admin = (req, res, next) => {
   if (req.user && req.user.role === 'admin') {
-    next();
+    if (typeof next === 'function') {
+      next();
+    } else {
+      console.error('Middleware Error: next is not a function in admin middleware');
+      res.status(500).json({ message: 'Lỗi hệ thống: Middleware next' });
+    }
   } else {
     res.status(403).json({ message: 'Not authorized as an admin' });
   }
