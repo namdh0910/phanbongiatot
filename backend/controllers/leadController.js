@@ -15,7 +15,20 @@ const getLeads = async (req, res) => {
 // @route   POST /api/leads
 const createLead = async (req, res) => {
   try {
-    const lead = await Lead.create(req.body);
+    const { name, phone, message, product, cropType, area } = req.body;
+
+    // Validate bắt buộc
+    if (!name || !phone) {
+      return res.status(400).json({ message: 'Họ tên và số điện thoại không được để trống' });
+    }
+
+    // Validate SĐT Việt Nam
+    const phoneRegex = /^(03|05|07|08|09)\d{8}$/;
+    if (!phoneRegex.test(phone.replace(/\s/g, ''))) {
+      return res.status(400).json({ message: 'Số điện thoại không hợp lệ' });
+    }
+
+    const lead = await Lead.create({ name, phone, message, product, cropType, area });
     res.status(201).json(lead);
   } catch (error) {
     res.status(400).json({ message: error.message });

@@ -8,8 +8,9 @@ export default function AdminSidebar() {
 
   const links = [
     { href: "/admin", label: "Sản Phẩm", icon: "📦" },
+    { href: "/admin/orders", label: "Đơn Hàng", icon: "🛒", badge: "Mới" },
+    { href: "/admin/leads", label: "Khách Liên Hệ", icon: "👥" },
     { href: "/admin/blog", label: "Bài Viết", icon: "📝" },
-    { href: "/admin/leads", label: "Đơn Hàng", icon: "💰", badge: "Mới" },
     { href: "/admin/analytics", label: "Thống Kê", icon: "📊" },
     { href: "/admin/settings", label: "Cài Đặt", icon: "⚙️" },
   ];

@@ -4,120 +4,131 @@ const path = require('path');
 
 const API_BASE = "https://phanbongiatot.onrender.com/api";
 
-const imgCoffee = "https://res.cloudinary.com/dztidbkhv/image/upload/v1776989048/phanbongiatot/jpjgjjvfg7pglnnh0a1a.jpg";
-const imgDurian = "https://res.cloudinary.com/dztidbkhv/image/upload/v1776989061/phanbongiatot/oiaa2gdldtypwevu8qs6.jpg";
-const imgFertilizer = "https://res.cloudinary.com/dztidbkhv/image/upload/v1776989073/phanbongiatot/y6imlcebopgmarsfpp8e.jpg";
+const images = {
+  coffee: "https://res.cloudinary.com/dztidbkhv/image/upload/v1776989048/phanbongiatot/jpjgjjvfg7pglnnh0a1a.jpg",
+  durian: "https://res.cloudinary.com/dztidbkhv/image/upload/v1776989061/phanbongiatot/oiaa2gdldtypwevu8qs6.jpg",
+  fertilizer: "https://res.cloudinary.com/dztidbkhv/image/upload/v1776989073/phanbongiatot/y6imlcebopgmarsfpp8e.jpg",
+  rep: "https://res.cloudinary.com/dztidbkhv/image/upload/v1776989073/phanbongiatot/y6imlcebopgmarsfpp8e.jpg"
+};
 
-const articles = [
+const articlesV10 = [
   {
-    title: "Hướng Dẫn Chi Tiết Bón Phân Cà Phê Giai Đoạn Nuôi Trái: 5 Bước Giúp Hạt Chắc, Nhân To, Đạt Năng Suất Kỷ Lục",
-    slug: "huong-dan-chi-tiet-bon-phan-ca-phe-nuoi-trai-v7",
-    excerpt: "Làm sao để cà phê không bị rụng trái non và đạt năng suất cao nhất? Khám phá quy trình 5 bước bón phân chuyên sâu, kết hợp dinh dưỡng hữu cơ và vi lượng giúp hạt chắc, nặng ký.",
-    image: imgCoffee,
-    tags: ["Cà phê", "Kỹ thuật bón phân", "Kiến thức kỹ thuật"],
+    title: "Tại sao Rệp sáp tái phát 'thần tốc' sau khi phun? Giải mã bí ẩn về túi trứng và Phác đồ 3-3-5 diệt tận gốc",
+    slug: "diet-rep-sap-tan-goc-v10",
+    excerpt: "Bạn đã bao giờ tự hỏi tại sao rệp sáp lại lì lợm đến thế? Bài viết này sẽ 'bóc trần' sự thật về pháo đài túi trứng rệp và phác đồ tiêu diệt triệt để từ Chuyên gia Happy Agri Style.",
+    image: images.rep,
+    tags: ["Rệp sáp", "Kỹ thuật chuyên sâu", "V10 Style", "Sầu riêng", "Cà phê"],
     content: `
-      <p>Chào bà con, làm cà phê ở Tây Nguyên giai đoạn nuôi trái là thời điểm "cân não" nhất. Nhìn vườn cà phê trĩu quả nhưng nếu không biết cách chăm sóc, chỉ sau vài trận mưa lớn, quả sẽ rụng đầy gốc, hoặc đến khi thu hoạch thì nhân lại lép, nhẹ ký. Tại Phân Bón Giá Tốt, chúng tôi thấu hiểu nỗi lo đó và xin chia sẻ quy trình bón phân chuyên sâu giúp bà con tối ưu năng suất.</p>
+      <div style="font-family: 'Inter', sans-serif; line-height: 1.8; color: #333; max-width: 800px; margin: auto;">
+        <div style="background-color: #f9f9f9; border-left: 5px solid #2e7d32; padding: 20px; margin-bottom: 30px;">
+          <p style="font-style: italic; margin: 0; color: #555;">
+            "Tui xịt rệp sáp sạch bong tuần trước, mà sao tuần này đã thấy nó bò đầy cành rồi chú ơi? Thuốc dỏm hay rệp nó lờn thuốc rồi?"
+          </p>
+        </div>
 
-      <img src="${imgCoffee}" alt="Vườn cà phê trĩu quả" style="width:100%; border-radius:12px; margin: 20px 0;" />
+        <p>Đây là nỗi lòng của hàng vạn bà con trồng sầu riêng, cà phê. Thực tế, không phải thuốc dở, mà là bà con đang phải đối đầu với một <strong>"Bậc thầy ẩn nấp"</strong>. Hãy cùng Phân Bón Giá Tốt khám phá bí mật đằng sau sự lì lợm này.</p>
 
-      <h2>1. Vì sao cây cà phê hay bị rụng trái và nhân lép?</h2>
-      <p>Có 3 nguyên nhân cốt lõi bà con cần nắm rõ:</p>
-      <ul>
-        <li><strong>Mất cân bằng dinh dưỡng:</strong> Cây dồn toàn bộ nhựa sống nuôi trái khiến cành lá bị suy, nếu không bù đắp kịp thời cây sẽ tự rụng trái để sinh tồn.</li>
-        <li><strong>Sốc độ ẩm mùa mưa:</strong> Rễ tơ bị ngạt oxy, thối đầu rễ làm cây không hút được dinh dưỡng.</li>
-        <li><strong>Thiếu hụt Canxi - Boron:</strong> Đây là "chìa khóa" của tầng rời. Thiếu hai chất này, cuống quả sẽ giòn và dễ rụng chỉ sau một trận mưa lớn.</li>
-      </ul>
+        <div style="background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px; margin: 30px 0;">
+          <h4 style="margin-top: 0; color: #2e7d32; border-bottom: 2px solid #2e7d32; display: inline-block;">Nội dung chính bài viết:</h4>
+          <ul style="list-style: none; padding-left: 0; margin-top: 15px;">
+            <li>🔹 1. Sự thật về "Pháo đài" túi trứng sáp bất khả xâm phạm</li>
+            <li>🔹 2. Những sai lầm chết người khiến rệp sáp bùng phát nhanh</li>
+            <li>🔹 3. Phác đồ 3-3-5: Chiến thuật quét sạch rệp sáp tận ổ</li>
+            <li>🔹 4. Giải pháp phối hợp "Nội công - Ngoại kích"</li>
+          </ul>
+        </div>
 
-      <h2>2. Quy trình 5 bước bón phân nuôi trái chuẩn "Phân Bón Giá Tốt"</h2>
-      
-      <h3>Bước 1: Kiểm tra nền đất và Cân bằng pH (Tháng 5 - Tháng 6)</h3>
-      <p>Trước khi bón phân, hãy đảm bảo pH đất đạt từ 5.5 - 6.5. Nếu đất chua (pH < 5.0), cây sẽ bị "khóa" dinh dưỡng, bón bao nhiêu phân cũng lãng phí. Bà con nên bón vôi hoặc lân hữu cơ để cải thiện nền đất.</p>
+        <h2 style="color: #2e7d32;">1. Sự thật về "Pháo đài" túi trứng sáp bất khả xâm phạm</h2>
+        <p>Rệp sáp cái không đẻ trứng trần trụi. Chúng bao bọc hàng trăm quả trứng trong một <strong>Túi trứng sáp (Ovisac)</strong> cấu tạo từ các sợi sáp mịn, bông xốp trắng.</p>
+        <div style="background: #fff3e0; border-left: 5px solid #ff9800; padding: 15px; margin: 20px 0;">
+          <strong>Bí mật kỹ thuật:</strong> Lớp sáp này có đặc tính <strong>Kỵ nước (Hydrophobic)</strong> cực mạnh. Khi bà con phun thuốc dạng lỏng, nước thuốc sẽ bị "trượt" đi hoàn toàn, trứng bên trong vẫn an toàn tuyệt đối.
+        </div>
+        <p>Ngoài ra, rệp sáp còn chọn những vị trí "điểm mù" như nách lá, kẽ gai sầu riêng, thậm chí là sâu dưới bộ rễ để đẻ trứng. Đây chính là mầm mống cho đợt tái phát tiếp theo.</p>
 
-      <h3>Bước 2: Phục hồi bộ rễ tơ bằng Humic chuyên dụng</h3>
-      <p>Đầu mùa mưa, bộ rễ thường bị tổn thương. Đây là lúc cần đến "ngòi nổ" kích rễ.</p>
-      <p><strong>Giải pháp:</strong> Sử dụng <a href="https://phanbongiatot.com/san-pham/phan-bon-la-acti-rooti-kich-re-cuc-manh-phuc-hoi-cay-trong"><strong>Acti Rooti</strong></a>. Với hàm lượng hữu cơ cao, Acti Rooti giúp giải độc đất, kích thích ra rễ cám trắng xóa, tạo tiền đề để cây hấp thụ phân bón gốc tốt nhất.</p>
+        <h2 style="color: #2e7d32;">2. Những sai lầm chết người khiến rệp sáp bùng phát nhanh</h2>
+        <ul>
+          <li><strong>Bỏ qua đội quân "Vệ sĩ" kiến:</strong> Kiến đen, kiến vàng tha ấu trùng rệp đi khắp nơi. Diệt rệp mà không diệt kiến là sai lầm lớn nhất.</li>
+          <li><strong>Mất cân bằng sinh thái:</strong> Lạm dụng thuốc hóa học diệt sạch bọ rùa, ong ký sinh - những "thiên địch" tự nhiên của rệp sáp.</li>
+        </ul>
 
-      <h3>Bước 3: Bón phân NPK cân đối theo tỷ lệ "Vàng"</h3>
-      <p>Giai đoạn nuôi trái, cây cần nhiều Đạm và Kali. Bà con nên chọn các dòng NPK có tỷ lệ 2:1:2 hoặc 3:1:3 (ví dụ 16-8-16 hoặc 19-9-19). Liều lượng bón từ 0.8 - 1.2kg/gốc tùy tuổi cây và sản lượng quả trên cây.</p>
+        <h2 style="color: #2e7d32;">3. Phác đồ 3-3-5: Chiến thuật quét sạch rệp sáp tận ổ</h2>
+        <p>Để đánh bại kẻ thù này, bà con cần áp dụng quy tắc <strong>3-3-5</strong> của các chuyên gia hàng đầu:</p>
+        <div style="background: #e8f5e9; padding: 20px; border-radius: 10px; border-left: 5px solid #4caf50;">
+          <strong>- Phun ít nhất 3 lần:</strong> Mỗi lần cách nhau 3-5 ngày.</strong><br/>
+          <strong>- Lần 1:</strong> Diệt rệp trưởng thành và phá vỡ lớp sáp ngoài.<br/>
+          <strong>- Lần 2 & 3:</strong> Tiêu diệt dứt điểm lứa rệp non vừa nở từ túi trứng còn sót lại.
+        </div>
 
-      <h3>Bước 4: Bổ sung dinh dưỡng qua lá để chặn đứng rụng quả</h3>
-      <p>Khi trời mưa liên tục, rễ cây bị đình trệ, việc phun qua lá là giải pháp cứu cánh thần tốc.</p>
-      <p><strong>Bí kíp:</strong> Sử dụng bộ đôi <a href="https://phanbongiatot.com/san-pham/phan-bon-la-acti-flora-thuc-day-phan-hoa-mam-hoa-kich-hoa"><strong>Acti Flora</strong></a> kết hợp với Canxi Bo. Acti Flora giúp thúc đẩy quá trình trao đổi chất, đưa dinh dưỡng trực tiếp vào quả, giúp cuống chắc khỏe và nhân to nhanh chóng.</p>
+        <h2 style="color: #2e7d32;">4. Giải pháp "Nội công - Ngoại kích"</h2>
+        <p>Phân Bón Giá Tốt đề xuất bộ giải pháp toàn diện:</p>
+        <ul>
+          <li><strong>Phun tán:</strong> Thuốc đặc trị + <a href="/san-pham/phan-bon-la-acti-flora-thuc-day-phan-hoa-mam-hoa-kich-hoa"><strong>Acti Flora</strong></a> (giúp thẩm thấu sâu).</li>
+          <li><strong>Đổ gốc:</strong> <a href="/san-pham/nemano-che-pham-sinh-hoc-xu-ly-tuyen-trung-nam-khuan"><strong>Nemano</strong></a> - Chế phẩm sinh học diệt rệp sáp rễ và nấm bệnh, cắt đứt đường lui của rệp.</li>
+        </ul>
 
-      <h3>Bước 5: Quản lý nấm bệnh và Tuyến trùng rễ</h3>
-      <p>Mùa mưa là điều kiện lý tưởng cho nấm bệnh tấn công rễ. Bà con cần tưới phòng nấm và tuyến trùng định kỳ bằng các chế phẩm sinh học an toàn (Nemano) để bảo vệ bộ rễ suốt mùa nuôi trái.</p>
-
-      <h2>3. Những sai lầm "chết người" cần tránh</h2>
-      <ol>
-        <li><strong>Bón phân sát gốc:</strong> Rễ hút dinh dưỡng nằm ở đầu tán lá. Bà con hãy bón theo hình chiếu tán lá để cây hấp thụ tốt nhất.</li>
-        <li><strong>Quên lấp đất sau khi bón:</strong> Nắng nóng sẽ làm bay hơi Đạm. Việc lấp đất nhẹ giúp tiết kiệm đến 30% lượng phân bón.</li>
-      </ol>
-
-      <p><em>Lời nhắn từ kỹ sư:</em> Chúc bà con có một mùa cà phê thắng lợi!</p>
+        <p style="text-align: center; margin-top: 50px; font-weight: bold; border-top: 1px solid #eee; padding-top: 20px;">
+          ĐÃ ĐẾN LÚC QUÉT SẠCH RỆP SÁP - BẢO VỆ MÙA MÀNG BỘI THU!
+        </p>
+      </div>
     `
   },
   {
-    title: "Phác Đồ 4 Bước Xử Lý Dứt Điểm Bệnh Vàng Lá Thối Rễ Sầu Riêng – 'Cải Tử Hoàn Sinh' Cho Vườn Cây",
-    slug: "phac-do-xu-ly-vang-la-thoi-re-sau-rieng-v7",
-    excerpt: "Nhìn vườn sầu riêng bạc tỷ chết dần vì thối rễ là nỗi đau của bất kỳ nhà vườn nào. Khám phá phác đồ 4 bước xử lý dứt điểm nấm bệnh và phục hồi cây thần tốc.",
-    image: imgDurian,
-    tags: ["Sầu riêng", "Bệnh hại", "Cấp cứu cây"],
+    title: "Cà phê rụng trái non hàng loạt - Đừng chỉ đổ lỗi cho thời tiết! Giải mã 'Tử huyệt' dinh dưỡng chuẩn V10",
+    slug: "ca-phe-rung-trai-non-v10",
+    excerpt: "Tại sao vườn bên cạnh trĩu quả mà vườn mình lại rụng đỏ gốc? Tìm hiểu nguyên nhân 'Đói dinh dưỡng cục bộ' và phác đồ phục hồi chuyên sâu từ Happy Agri Style.",
+    image: images.coffee,
+    tags: ["Cà phê", "Rụng trái non", "Dinh dưỡng cây trồng", "V10 Style"],
     content: `
-      <p>Chào bà con, vàng lá thối rễ là "tử thần" số 1 trên cây sầu riêng. Nhiều bà con khi thấy cây vàng lá thì cuống cuồng mua phân hóa học bón vào để "kích xanh", nhưng kết quả là cây chết nhanh hơn. Tại Phân Bón Giá Tốt, chúng tôi hướng dẫn bà con quy trình "Cứu cây từ gốc" chuẩn khoa học và hiệu quả nhất.</p>
+      <div style="font-family: 'Inter', sans-serif; line-height: 1.8; color: #333; max-width: 800px; margin: auto;">
+        <div style="background-color: #f9f9f9; border-left: 5px solid #1b5e20; padding: 20px; margin-bottom: 30px;">
+          <p style="font-style: italic; margin: 0; color: #555;">
+            "Sáng ra thăm vườn thấy trái non rụng như trút nước, xót xa không chịu nổi. Tui bón đủ thứ phân rồi mà sao vẫn rụng em ơi?"
+          </p>
+        </div>
 
-      <img src="${imgDurian}" alt="Cứu sống sầu riêng bị thối rễ" style="width:100%; border-radius:12px; margin: 20px 0;" />
+        <h2 style="color: #2e7d32;">1. Bản chất của hiện tượng "Đói dinh dưỡng cục bộ"</h2>
+        <p>Nhiều bà con lầm tưởng do mưa nhiều gây thối cuống, nhưng thực tế cây cà phê đang gặp phải tình trạng <strong>Cạnh tranh dinh dưỡng khốc liệt</strong>.</p>
+        <div style="background: #fffde7; border-left: 5px solid #fbc02d; padding: 15px; margin: 20px 0;">
+          <strong>Phân tích kỹ thuật:</strong> Cây ưu tiên nuôi cành dự trữ hơn là nuôi trái. Nếu thiếu hụt Canxi-Bo, tầng rời ở cuống trái sẽ bị giòn, chỉ cần một tác động nhỏ từ thời tiết là rụng ngay lập tức.
+        </div>
 
-      <h2>1. Dấu hiệu báo động đỏ bà con cần kiểm tra ngay</h2>
-      <p>Hãy dành 10 phút ra vườn kiểm tra 3 vị trí sau:</p>
-      <ul>
-        <li><strong>Lá:</strong> Các lá già ngả vàng, gân lá xanh nhạt. Hiện tượng rụng lá già hàng loạt là dấu hiệu bệnh đã nặng.</li>
-        <li><strong>Rễ:</strong> Dùng cuốc xới nhẹ quanh tán, nếu thấy rễ tơ bị đen, vỏ rễ dễ tuột khỏi lõi và có mùi hôi thì chắc chắn rễ đã bị thối.</li>
-      </ul>
+        <h2 style="color: #2e7d32;">2. Phác đồ 3 giai đoạn hồi sinh năng suất</h2>
+        <ul>
+          <li><strong>Giai đoạn 1:</strong> Phun <a href="/san-pham/phan-bon-la-acti-flora-thuc-day-phan-hoa-mam-hoa-kich-hoa"><strong>Acti Flora</strong></a> để dẻo dai cuống trái.</li>
+          <li><strong>Giai đoạn 2:</strong> Tưới <a href="/san-pham/phan-bon-la-acti-rooti-kich-re-cuc-manh-phuc-hoi-cay-trong"><strong>Acti Rooti</strong></a> giúp rễ hút nước và phân bón cực mạnh.</li>
+          <li><strong>Giai đoạn 3:</strong> Bổ sung NPK và trung vi lượng cân đối.</li>
+        </ul>
 
-      <h2>2. Quy trình 4 bước "Cải tử hoàn sinh" cho vườn sầu riêng</h2>
-
-      <h3>Bước 1: Vệ sinh vườn và Hạ phèn</h3>
-      <p>Ngừng ngay việc bón phân hóa học. Cắt tỉa các cành khô, cành bị bệnh. Bón vôi hoặc tinh vôi để nâng pH đất lên trên 5.5, tạo môi trường bất lợi cho nấm bệnh.</p>
-
-      <h3>Bước 2: Diệt sạch nấm bệnh và Tuyến trùng rễ</h3>
-      <p>Đây là bước then chốt nhất. Bà con cần sử dụng chế phẩm sinh học đặc trị.</p>
-      <p><strong>Giải pháp:</strong> Sử dụng <a href="https://phanbongiatot.com/san-pham/nemano-che-pham-sinh-hoc-xu-ly-tuyen-trung-nam-khuan"><strong>Nemano</strong></a>. Đây là chế phẩm sinh học xử lý tuyến trùng - nấm - khuẩn cực mạnh. Tưới đẫm Nemano quanh vùng rễ 2-3 lần, mỗi lần cách nhau 5-7 ngày.</p>
-
-      <h3>Bước 3: Phục hồi bộ rễ và Cấp cứu cây suy kiệt</h3>
-      <p>Sau khi đã sạch nấm, bà con cần "đánh thức" bộ rễ.</p>
-      <p><strong>Giải pháp:</strong> Tưới <a href="https://phanbongiatot.com/san-pham/phan-bon-la-acti-rooti-kich-re-cuc-manh-phuc-hoi-cay-trong"><strong>Acti Rooti</strong></a>. Sản phẩm giúp kích thích ra rễ cám trắng xóa, giải độc đất và phục hồi cây trồng thần tốc.</p>
-
-      <h3>Bước 4: Nuôi lại bộ lá và Bảo vệ sinh học</h3>
-      <p>Khi cây đã bắt đầu nhú đọt non, hãy bón bổ sung phân hữu cơ hoai mục kết hợp nấm đối kháng Trichoderma.</p>
-
-      <p><em>Lời nhắn:</em> Hãy kiên trì chăm sóc bộ rễ để cây sầu riêng phát triển bền vững anh em nhé!</p>
+        <p style="text-align: center; margin-top: 50px; font-weight: bold;">LÀM CÀ PHÊ KHÔNG KHÓ - NẾU BẠN CÓ KỸ THUẬT ĐÚNG!</p>
+      </div>
     `
   },
   {
-    title: "5 Sai Lầm Tai Hại Khi Dùng Phân Bón Lá Khiến Cây Bị 'Cháy Lá' – Cách Sử Dụng Hiệu Quả X3 Năng Suất",
-    slug: "sai-lam-dung-phan-bon-la-v7",
-    excerpt: "Phun phân bón lá là con dao hai lưỡi. Dùng đúng thì cây xanh mướt, dùng sai thì chỉ sau một đêm vườn cây bị 'luộc chín'. Xem ngay 5 quy tắc vàng để bảo vệ vườn cây của bạn.",
-    image: imgFertilizer,
-    tags: ["Phân bón lá", "Kỹ thuật canh tác", "Cảnh báo"],
+    title: "Sầu riêng 'Vàng lá thối rễ' - Kẻ sát nhân thầm lặng. Phác đồ 3 giai đoạn 'Cải tử hoàn sinh' chuẩn V10",
+    slug: "sau-rieng-vang-la-thoi-re-v10",
+    excerpt: "Đừng vội chặt bỏ cây sầu riêng bị bệnh! Hãy thử ngay phác đồ hồi sinh chuyên sâu 3 giai đoạn từ chuyên gia Phân Bón Giá Tốt, áp dụng chuẩn phong cách Happy Agri.",
+    image: images.durian,
+    tags: ["Sầu riêng", "Vàng lá thối rễ", "Bảo vệ thực vật", "V10 Style"],
     content: `
-      <p>Chào bà con, phân bón lá giúp cây hấp thụ dinh dưỡng nhanh gấp 10 lần qua rễ. Tuy nhiên, nếu không nắm vững kỹ thuật, bà con có thể vô tình "nướng chín" vườn cây của mình.</p>
+      <div style="font-family: 'Inter', sans-serif; line-height: 1.8; color: #333; max-width: 800px; margin: auto;">
+        <div style="background-color: #f9f9f9; border-left: 5px solid #d32f2f; padding: 20px; margin-bottom: 30px;">
+          <p style="font-style: italic; margin: 0; color: #555;">
+            "Nhìn mấy gốc sầu riêng bạc tỷ đang héo dần héo mòn, tui ngủ không ngon giấc chú ơi..."
+          </p>
+        </div>
 
-      <img src="${imgFertilizer}" alt="Hướng dẫn phun phân bón lá an toàn" style="width:100%; border-radius:12px; margin: 20px 0;" />
+        <h2 style="color: #2e7d32;">1. Tại sao thuốc hóa học thường 'bó tay'?</h2>
+        <p>Sai lầm lớn nhất là bón phân hóa học khi rễ đã thối. Việc này chỉ làm rễ bị "bỏng" và chết nhanh hơn. Cây cần được sát trùng và kích kháng sinh học.</p>
 
-      <h2>1. Tại sao phân bón lá lại dễ gây hiện tượng "Cháy lá"?</h2>
-      <p>Lá cây có hàng triệu lỗ khí khổng. Khi bà con phun phân với nồng độ quá cao hoặc phun lúc nắng gắt, nồng độ muối tăng vọt làm tế bào lá bị chết khô ngay lập tức.</p>
+        <h2 style="color: #2e7d32;">2. Phác đồ hồi sinh 3 bước</h2>
+        <ol>
+          <li><strong>Diệt nấm tận gốc:</strong> Dùng <a href="/san-pham/nemano-che-pham-sinh-hoc-xu-ly-tuyen-trung-nam-khuan"><strong>Nemano</strong></a> tưới đẫm tán cây.</li>
+          <li><strong>Kích rễ thần tốc:</strong> Đưa <a href="/san-pham/phan-bon-la-acti-rooti-kich-re-cuc-manh-phuc-hoi-cay-trong"><strong>Acti Rooti</strong></a> vào sau 5 ngày để hồi sinh rễ tơ.</li>
+          <li><strong>Phục hồi bộ lá:</strong> Phun <a href="/san-pham/phan-bon-la-acti-flora-thuc-day-phan-hoa-mam-hoa-kich-hoa"><strong>Acti Flora</strong></a> để cây quang hợp trở lại.</li>
+        </ol>
 
-      <h2>2. 5 Sai lầm "Tử huyệt" bà con cần tránh</h2>
-      <ul>
-        <li><strong>Phun lúc nắng gắt (10h - 15h):</strong> Đây là lỗi nặng nhất.</li>
-        <li><strong>Pha quá liều hướng dẫn:</strong> Tâm lý pha đậm cho nhanh tốt.</li>
-        <li><strong>Phun khi cây đang thiếu nước héo lá.</strong></li>
-        <li><strong>Chỉ phun mặt trên lá.</strong></li>
-        <li><strong>Phối trộn sai cách.</strong></li>
-      </ul>
-
-      <h2>3. Quy trình phun phân bón lá chuẩn "Chuyên gia"</h2>
-      <p>Thời điểm tốt nhất là từ 6h-8h sáng hoặc sau 16h chiều mát. Phải phun vào mặt dưới lá. Chọn sản phẩm dễ tiêu như <strong>Acti Flora</strong> hoặc <strong>Acti Rooti</strong>.</p>
+        <p style="text-align: center; margin-top: 50px; font-weight: bold; color: #d32f2f;">CỨU SẦU RIÊNG LÀ CỨU CẢ TƯƠNG LAI VƯỜN CÂY!</p>
+      </div>
     `
   }
 ];
@@ -134,7 +145,7 @@ async function run() {
   
   const { token } = JSON.parse(loginRes);
 
-  for (const article of articles) {
+  for (const article of articlesV10) {
     const tempFile = path.join(__dirname, `temp_${article.slug}.json`);
     fs.writeFileSync(tempFile, JSON.stringify(article, null, 2), 'utf8');
     try {
@@ -146,7 +157,7 @@ async function run() {
       if (fs.existsSync(tempFile)) fs.unlinkSync(tempFile);
     }
   }
-  console.log("ALL V7 POSTS (FULL CONTENT) ARE LIVE!");
+  console.log("V10 ENCYCLOPEDIC POSTS ARE LIVE!");
 }
 
 run();

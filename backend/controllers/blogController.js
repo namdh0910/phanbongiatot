@@ -17,7 +17,11 @@ const getBlogBySlug = async (req, res) => {
 
 const createBlog = async (req, res) => {
   try {
-    const blog = new Blog(req.body);
+    const { title, slug, excerpt, content, image, tags } = req.body;
+    if (!title || !content) {
+      return res.status(400).json({ message: 'Tiêu đề và nội dung không được để trống' });
+    }
+    const blog = new Blog({ title, slug, excerpt, content, image, tags });
     const created = await blog.save();
     res.status(201).json(created);
   } catch (error) { res.status(400).json({ message: error.message }); }
@@ -37,7 +41,16 @@ const deleteBlog = async (req, res) => {
 
 const updateBlog = async (req, res) => {
   try {
-    const blog = await Blog.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const { title, slug, excerpt, content, image, tags } = req.body;
+    const updateData = {};
+    if (title !== undefined) updateData.title = title;
+    if (slug !== undefined) updateData.slug = slug;
+    if (excerpt !== undefined) updateData.excerpt = excerpt;
+    if (content !== undefined) updateData.content = content;
+    if (image !== undefined) updateData.image = image;
+    if (tags !== undefined) updateData.tags = tags;
+
+    const blog = await Blog.findByIdAndUpdate(req.params.id, updateData, { new: true, runValidators: true });
     if (blog) res.json(blog);
     else res.status(404).json({ message: 'Blog not found' });
   } catch (error) { res.status(400).json({ message: error.message }); }

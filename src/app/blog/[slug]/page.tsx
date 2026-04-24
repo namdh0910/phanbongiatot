@@ -66,33 +66,34 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 max-w-7xl mx-auto">
           {/* Main Content */}
           <div className="lg:flex-1 min-w-0">
-            <nav className="flex items-center gap-2 text-xs text-gray-400 mb-6 font-medium uppercase tracking-wider">
-              <Link href="/" className="hover:text-primary transition-colors">Trang chủ</Link>
-              <span>/</span>
-              <Link href="/blog" className="hover:text-primary transition-colors">Kiến thức nhà nông</Link>
-              <span>/</span>
-              <span className="text-gray-600 line-clamp-1">{blog.title}</span>
-            </nav>
-            
-            <Link href="/blog" className="text-primary font-bold hover:underline mb-8 inline-flex items-center gap-2 bg-white px-5 py-2.5 rounded-full shadow-sm border border-gray-100 text-sm transition-all hover:shadow-md">
-              <span>&larr;</span> Quay lại danh sách
-            </Link>
-            
-            <article className="bg-white rounded-3xl p-5 md:p-12 shadow-sm border border-gray-100 overflow-hidden">
-              <header className="mb-10 pb-10 border-b border-gray-50">
-                <h1 className="text-3xl md:text-5xl font-black text-gray-900 mb-6 leading-[1.1] tracking-tight break-words">{blog.title}</h1>
-                <div className="flex items-center gap-6 text-gray-500 text-sm font-medium">
-                  <span className="flex items-center gap-2 bg-green-50 text-green-700 px-3 py-1 rounded-full">
-                    <span className="text-lg">👨‍🔬</span> Kỹ sư Phân Bón Giá Tốt
+              <header className="mb-10 pb-10 border-b border-gray-50 text-center">
+                <nav className="flex items-center justify-center gap-2 text-xs text-gray-400 mb-8 font-black uppercase tracking-widest">
+                  <Link href="/" className="hover:text-emerald-600 transition-colors">Trang chủ</Link>
+                  <span className="opacity-30">/</span>
+                  <Link href="/blog" className="hover:text-emerald-600 transition-colors">Kiến thức nhà nông</Link>
+                </nav>
+                <h1 className="text-3xl md:text-5xl lg:text-6xl font-black text-gray-900 mb-8 leading-[1.15] tracking-tight break-words max-w-4xl mx-auto">{blog.title}</h1>
+                <div className="flex items-center justify-center gap-8 text-gray-500 text-sm font-bold">
+                  <span className="flex items-center gap-2 bg-emerald-50 text-emerald-700 px-4 py-1.5 rounded-full border border-emerald-100">
+                    <span className="text-xl">👨‍🔬</span> Kỹ sư Phân Bón Giá Tốt
                   </span>
                   <span className="flex items-center gap-2">
-                    <span>📅</span> {new Date(blog.createdAt).toLocaleDateString('vi-VN')}
+                    <span className="opacity-50">📅</span> {new Date(blog.createdAt).toLocaleDateString('vi-VN')}
                   </span>
                 </div>
               </header>
-              
+
+              {/* Table of Contents Placeholder - We'll add logic if possible, or just style the one in HTML */}
               <div 
-                className="prose prose-emerald prose-lg md:prose-xl max-w-none text-gray-700 leading-relaxed prose-img:rounded-2xl prose-headings:font-black prose-headings:text-gray-900 prose-a:text-primary prose-strong:text-gray-900 break-words overflow-hidden"
+                className="prose prose-emerald prose-lg md:prose-xl max-w-none text-gray-700 leading-relaxed 
+                prose-img:rounded-3xl prose-img:shadow-2xl prose-img:my-12
+                prose-headings:font-black prose-headings:text-gray-900 prose-headings:tracking-tight
+                prose-h2:text-3xl prose-h2:mt-16 prose-h2:mb-8 prose-h2:border-l-8 prose-h2:border-emerald-600 prose-h2:pl-6
+                prose-h3:text-2xl prose-h3:mt-12 prose-h3:mb-6
+                prose-a:text-emerald-600 prose-a:font-bold prose-a:no-underline hover:prose-a:underline
+                prose-strong:text-gray-900 prose-strong:font-black
+                prose-ul:list-disc prose-ol:list-decimal
+                break-words overflow-hidden"
                 dangerouslySetInnerHTML={{ __html: blog.content }}
               />
               
