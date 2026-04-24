@@ -16,12 +16,33 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const blog = await getBlog(slug);
   if (!blog) return { title: "Bài viết không tồn tại" };
   
+  // Ensure image is absolute URL for OG/social sharing
+  let ogImage = blog.image || '';
+  if (ogImage.startsWith('/')) {
+    ogImage = `https://www.phanbongiatot.com${ogImage}`;
+  }
+  
   return {
     title: `${blog.title} | Kiến thức nông nghiệp`,
     description: blog.excerpt || blog.title,
+    alternates: {
+      canonical: `https://www.phanbongiatot.com/blog/${slug}`,
+    },
     openGraph: {
-      images: blog.image && (blog.image.startsWith("http") || blog.image.startsWith("/")) ? [blog.image] : [],
-    }
+      title: blog.title,
+      description: blog.excerpt || blog.title,
+      url: `https://www.phanbongiatot.com/blog/${slug}`,
+      siteName: 'Phân Bón Giá Tốt',
+      locale: 'vi_VN',
+      type: 'article',
+      images: ogImage ? [{ url: ogImage, width: 1200, height: 630, alt: blog.title }] : [],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: blog.title,
+      description: blog.excerpt || blog.title,
+      images: ogImage ? [ogImage] : [],
+    },
   };
 }
 

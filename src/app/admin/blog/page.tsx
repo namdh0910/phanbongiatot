@@ -269,6 +269,60 @@ export default function AdminBlogs() {
                            <ReactQuill theme="snow" value={form.content} onChange={(val) => setForm({...form, content: val})} modules={modules} className="h-[500px] mb-12" />
                          </div>
 
+                         {/* Quick Insert Helpers */}
+                         <div className="bg-blue-50/50 border border-blue-100 p-6 rounded-2xl">
+                             <h3 className="font-black text-sm mb-4 text-blue-800 uppercase tracking-widest flex items-center gap-2">
+                               <span className="text-lg">⚡</span> Chèn nhanh vào bài viết
+                             </h3>
+                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <button 
+                                  type="button"
+                                  onClick={() => {
+                                    const content = form.content + `<p>[BOX_SAN_PHAM]</p><ul><li><strong>Tên sản phẩm 1:</strong> Mô tả công dụng...</li><li><strong>Tên sản phẩm 2:</strong> Mô tả công dụng...</li></ul><p>[/BOX_SAN_PHAM]</p>`;
+                                    setForm({...form, content});
+                                  }}
+                                  className="bg-green-600 text-white px-4 py-3 rounded-xl text-xs font-bold hover:bg-green-700 transition-all shadow-sm flex items-center gap-2 justify-center"
+                                >
+                                  📦 Thêm Khung Sản Phẩm
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    const url = prompt('Nhập link ảnh (URL):');
+                                    if (url) {
+                                      const alt = prompt('Mô tả ngắn cho ảnh:') || 'Ảnh minh họa';
+                                      const content = form.content + `<img src="${url}" alt="${alt}" class="rounded-2xl my-8 w-full shadow-lg border border-gray-100" />`;
+                                      setForm({...form, content});
+                                    }
+                                  }}
+                                  className="bg-indigo-600 text-white px-4 py-3 rounded-xl text-xs font-bold hover:bg-indigo-700 transition-all shadow-sm flex items-center gap-2 justify-center"
+                                >
+                                  🖼️ Chèn Ảnh Minh Họa
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    const content = form.content + `<div class="bg-orange-50 border-l-4 border-orange-500 p-6 my-8 rounded-r-xl"><h4 class="text-orange-800 font-bold mb-2">⚠️ LƯU Ý QUAN TRỌNG</h4><p class="text-orange-900">Nội dung lưu ý tại đây...</p></div>`;
+                                    setForm({...form, content});
+                                  }}
+                                  className="bg-orange-500 text-white px-4 py-3 rounded-xl text-xs font-bold hover:bg-orange-600 transition-all shadow-sm flex items-center gap-2 justify-center"
+                                >
+                                  ⚠️ Thêm Khung Lưu Ý
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    const content = form.content + `<div class="bg-emerald-50 p-6 rounded-xl border border-emerald-200 text-center"><h3 class="text-emerald-800">Cần tư vấn trực tiếp?</h3><p class="text-emerald-900 mb-4">Gọi ngay kỹ sư để được hỗ trợ miễn phí</p><a href="tel:0773440966" class="inline-block bg-[#1a5c2a] text-white px-8 py-3 rounded-xl font-bold">📞 0773.440.966</a></div>`;
+                                    setForm({...form, content});
+                                  }}
+                                  className="bg-emerald-600 text-white px-4 py-3 rounded-xl text-xs font-bold hover:bg-emerald-700 transition-all shadow-sm flex items-center gap-2 justify-center"
+                                >
+                                  📞 Thêm Khung Gọi Tư Vấn
+                                </button>
+                             </div>
+                             <p className="text-[10px] text-blue-500 mt-3 font-medium">💡 Bấm nút phía trên để tự động chèn vào cuối bài. Sau đó vào editor sửa nội dung lại cho phù hợp.</p>
+                          </div>
+
                          <div className="bg-emerald-50/30 border border-emerald-100 p-8 rounded-2xl">
                             <h3 className="font-black text-sm mb-4 border-b border-emerald-100 pb-2 text-emerald-800 uppercase tracking-widest">Tóm tắt & Tối ưu tìm kiếm</h3>
                             <textarea required value={form.excerpt} onChange={e => setForm({...form, excerpt: e.target.value})} className="w-full border-2 border-white rounded-xl p-4 text-sm outline-none h-28 resize-none shadow-inner bg-white/50 focus:bg-white transition-all" placeholder="Tóm tắt nội dung để hiện thị trên Google..." />
