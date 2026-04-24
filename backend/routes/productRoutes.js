@@ -11,12 +11,14 @@ const {
   createProduct, 
   updateProduct, 
   deleteProduct, 
+  bulkDeleteProducts,
   createProductReview 
 } = require('../controllers/productController');
 const { protect, admin } = require('../middleware/authMiddleware');
 
 router.get('/vendor/me', protect, getVendorProducts);
 router.get('/admin/all', protect, admin, getAdminProducts);
+router.post('/bulk-delete', protect, admin, bulkDeleteProducts);
 router.get('/admin/pending', protect, admin, getPendingProducts);
 router.put('/:id/approve', protect, admin, approveProduct);
 

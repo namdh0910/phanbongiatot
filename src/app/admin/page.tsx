@@ -19,6 +19,7 @@ export default function AdminProducts() {
   const [editingProduct, setEditingProduct] = useState<any>(null);
   const [uploadingImages, setUploadingImages] = useState(false);
   const [previewImages, setPreviewImages] = useState<string[]>([]);
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const emptyForm = {
@@ -171,6 +172,37 @@ export default function AdminProducts() {
     else alert("Lỗi khi xóa sản phẩm.");
   };
 
+  const handleBulkDelete = async () => {
+    if (!selectedIds.length) return;
+    if (!confirm(`Xóa vĩnh viễn ${selectedIds.length} sản phẩm đã chọn?`)) return;
+    
+    try {
+      const res = await fetch(`${API_BASE_URL}/products/bulk-delete`, {
+        method: "POST",
+        headers: getAuthHeaders(),
+        body: JSON.stringify({ ids: selectedIds })
+      });
+      if (res.ok) {
+        setSelectedIds([]);
+        fetchProducts();
+        alert("Đã xóa các sản phẩm được chọn!");
+      } else {
+        alert("Lỗi khi xóa hàng loạt.");
+      }
+    } catch (err) {
+      alert("Lỗi kết nối khi xóa hàng loạt.");
+    }
+  };
+
+  const toggleSelect = (id: string) => {
+    setSelectedIds(prev => prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]);
+  };
+
+  const toggleSelectAll = () => {
+    if (selectedIds.length === products.length) setSelectedIds([]);
+    else setSelectedIds(products.map(p => p._id));
+  };
+
   return (
     <div className="space-y-8">
       {/* WordPress Style Top Bar Placeholder */}
@@ -293,16 +325,34 @@ export default function AdminProducts() {
         {/* Products Table - WP Style */}
         <div className="bg-white border border-gray-200 rounded-sm overflow-hidden shadow-sm">
           <div className="p-4 bg-white border-b border-gray-200 flex justify-between items-center">
-             <div className="flex gap-4 text-sm">
+             <div className="flex gap-4 text-sm items-center">
                 <button className="font-bold text-[#2271b1]">Tất cả ({products.length})</button>
                 <span className="text-gray-300">|</span>
                 <button className="text-[#2271b1]">Đang hoạt động</button>
+                
+                {selectedIds.length > 0 && (
+                  <>
+                    <span className="text-gray-300">|</span>
+                    <button 
+                      onClick={handleBulkDelete}
+                      className="bg-red-50 text-red-600 px-3 py-1 rounded border border-red-100 font-bold hover:bg-red-600 hover:text-white transition-all text-[11px] flex items-center gap-1 animate-in zoom-in duration-200"
+                    >
+                      🗑️ Xóa {selectedIds.length} mục đã chọn
+                    </button>
+                  </>
+                )}
              </div>
           </div>
           <table className="w-full text-left text-sm">
             <thead>
               <tr className="bg-[#f6f7f7] border-b border-gray-200">
-                <th className="p-4 w-16"><input type="checkbox" /></th>
+                <th className="p-4 w-16 text-center">
+                  <input 
+                    type="checkbox" 
+                    checked={products.length > 0 && selectedIds.length === products.length}
+                    onChange={toggleSelectAll}
+                  />
+                </th>
                 <th className="p-4 font-bold text-gray-700">Ảnh</th>
                 <th className="p-4 font-bold text-gray-700">Tên</th>
                 <th className="p-4 font-bold text-gray-700">Danh mục</th>
@@ -314,8 +364,14 @@ export default function AdminProducts() {
               {isLoading ? (
                 <tr><td colSpan={6} className="p-10 text-center">Đang tải dữ liệu...</td></tr>
               ) : products.map(p => (
-                <tr key={p._id} className="border-b border-gray-100 hover:bg-[#f6f7f7] group transition-colors">
-                  <td className="p-4"><input type="checkbox" /></td>
+                <tr key={p._id} className={`border-b border-gray-100 hover:bg-[#f6f7f7] group transition-colors ${selectedIds.includes(p._id) ? 'bg-blue-50/30' : ''}`}>
+                  <td className="p-4 text-center">
+                    <input 
+                      type="checkbox" 
+                      checked={selectedIds.includes(p._id)}
+                      onChange={() => toggleSelect(p._id)}
+                    />
+                  </td>
                   <td className="p-4">
                     {p.images?.[0] ? (
                       <img src={p.images[0]} className="w-8 h-8 object-cover rounded-sm" />

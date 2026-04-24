@@ -115,6 +115,7 @@ const updateProduct = async (req, res) => {
 };
 
 // @desc    Delete a product
+// @route   DELETE /api/products/:id
 const deleteProduct = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
@@ -128,6 +129,28 @@ const deleteProduct = async (req, res) => {
     } else {
       res.status(404).json({ message: 'Product not found' });
     }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// @desc    Bulk delete products (Admin only)
+// @route   POST /api/products/bulk-delete
+const bulkDeleteProducts = async (req, res) => {
+  try {
+    const { ids } = req.body;
+    if (!Array.isArray(ids) || ids.length === 0) {
+      return res.status(400).json({ message: 'Danh sách ID không hợp lệ' });
+    }
+    
+    // For extra safety, admin only for now via route middleware, 
+    // but we check role here too
+    if (req.user.role !== 'admin') {
+      return res.status(403).json({ message: 'Chỉ Admin mới có quyền xóa hàng loạt' });
+    }
+
+    await Product.deleteMany({ _id: { $in: ids } });
+    res.json({ message: `Đã xóa thành công ${ids.length} sản phẩm` });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -217,5 +240,6 @@ module.exports = {
   createProduct,
   updateProduct,
   deleteProduct,
+  bulkDeleteProducts,
   createProductReview,
 };
