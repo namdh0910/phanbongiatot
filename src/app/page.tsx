@@ -179,7 +179,7 @@ export default function Home() {
               <li className="flex items-center gap-3">✅ Quy trình duyệt sản phẩm nhanh chóng</li>
               <li className="flex items-center gap-3">✅ Hệ thống báo cáo đơn hàng thông minh</li>
             </ul>
-            <Link href="/kenh-nguoi-ban/dang-ky" className="inline-block bg-[#1a5c2a] text-white px-10 py-4 rounded-sm font-black text-lg shadow-lg hover:bg-[#2d7a3e] transition-transform hover:-translate-y-1 uppercase tracking-wider">
+            <Link href="/kenh-nguoi-ban/dang-nhap" className="inline-block bg-[#1a5c2a] text-white px-10 py-4 rounded-sm font-black text-lg shadow-lg hover:bg-[#2d7a3e] transition-transform hover:-translate-y-1 uppercase tracking-wider">
               Đăng ký bán hàng ngay
             </Link>
           </div>

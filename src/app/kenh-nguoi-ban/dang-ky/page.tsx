@@ -49,7 +49,7 @@ export default function VendorRegister() {
           <p className="text-gray-600 mb-8">
             Yêu cầu mở gian hàng của anh/chị đã được gửi đi. Ban quản trị <b>Phân Bón Giá Tốt</b> sẽ kiểm tra và liên hệ kích hoạt trong vòng 24h.
           </p>
-          <Link href="/" className="block w-full bg-[#1a5c2a] text-white py-4 rounded-xl font-bold"> Quay lại trang chủ </Link>
+          <Link href="/kenh-nguoi-ban/dang-nhap" className="block w-full bg-[#1a5c2a] text-white py-4 rounded-xl font-bold"> Quay lại đăng nhập </Link>
         </div>
       </div>
     );
