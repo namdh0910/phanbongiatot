@@ -13,13 +13,18 @@ const getProducts = async (req, res) => {
       : {};
 
     const products = await Product.find({ ...keyword, ...category, status: 'approved' })
-      .populate('seller', 'vendorInfo')
+      .populate('seller', 'role vendorInfo')
       .sort({ createdAt: -1 });
 
-    // Lọc chỉ lấy sản phẩm của shop đã duyệt và còn hạn
+    // Lọc chỉ lấy sản phẩm của shop đã duyệt và còn hạn, hoặc của Admin
     const filteredProducts = products.filter(product => {
       const seller = product.seller;
-      if (!seller || !seller.vendorInfo) return false;
+      if (!seller) return false;
+      
+      // Admin products are always shown
+      if (seller.role === 'admin') return true;
+
+      if (!seller.vendorInfo) return false;
       
       const isApproved = seller.vendorInfo.isApproved;
       const trialExpiresAt = new Date(seller.vendorInfo.trialExpiresAt);

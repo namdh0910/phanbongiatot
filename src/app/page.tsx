@@ -148,9 +148,9 @@ export default function Home() {
             TẤT CẢ BÀI VIẾT <span>▶</span>
           </Link>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="flex overflow-x-auto pb-6 gap-4 md:grid md:grid-cols-3 md:overflow-visible scrollbar-hide">
           {blogs.map((blog: any, i: number) => (
-            <Link href={`/blog/${blog.slug}`} key={i} className="group flex flex-col bg-white rounded-sm shadow-sm hover:shadow-md transition-all border border-gray-100 overflow-hidden">
+            <Link href={`/blog/${blog.slug}`} key={i} className="flex-shrink-0 w-[85%] md:w-auto group flex flex-col bg-white rounded-sm shadow-sm hover:shadow-md transition-all border border-gray-100 overflow-hidden">
                <div className="aspect-[16/9] bg-emerald-50 relative flex items-center justify-center overflow-hidden">
                   <img src={blog.image || ""} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt={blog.title} />
                </div>
