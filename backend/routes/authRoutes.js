@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const { authUser, registerUser, registerVendor, getVendors, approveVendor } = require('../controllers/authController');
-const { protect } = require('../middleware/authMiddleware');
+const { protect, admin } = require('../middleware/authMiddleware');
 
 router.post('/login', authUser);
 router.post('/register-vendor', registerVendor);
-router.get('/vendors', protect, getVendors);
-router.put('/vendors/:id/approve', protect, approveVendor);
+router.get('/vendors', protect, admin, getVendors);
+router.put('/vendors/:id/approve', protect, admin, approveVendor);
 // Register chỉ mở khi chưa có admin nào, controller tự kiểm tra
 router.post('/register', registerUser);
 
