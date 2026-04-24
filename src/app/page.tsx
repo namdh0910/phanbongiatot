@@ -38,10 +38,10 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col gap-24 pb-20 bg-[#f5f5f5]">
+    <div className="flex flex-col gap-10 md:gap-24 pb-20 bg-[#f5f5f5]">
       {/* HERO SECTION */}
       <section 
-        className="relative w-full h-[500px] md:h-[600px] flex items-center overflow-hidden"
+        className="relative w-full h-[350px] md:h-[600px] flex items-center overflow-hidden"
         style={{ backgroundColor: settings.primaryColor || '#0d2a1c' }}
       >
         {settings.heroBanner && (
