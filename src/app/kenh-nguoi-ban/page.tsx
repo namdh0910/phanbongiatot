@@ -5,13 +5,12 @@ import { API_BASE_URL } from "@/utils/api";
 export default function VendorDashboard() {
   const [vendor, setVendor] = useState<any>(null);
   const [mounted, setMounted] = useState(false);
+  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
 
   useEffect(() => {
     setMounted(true);
     const info = JSON.parse(localStorage.getItem("vendorInfo") || "{}");
     setVendor(info);
-    
-    // Fetch fresh info from server to get latest status/expiry
     fetchFreshInfo();
   }, []);
 
@@ -52,7 +51,6 @@ export default function VendorDashboard() {
           <p className="text-gray-500 mt-1">Chúc anh/chị một ngày kinh doanh thuận lợi.</p>
         </div>
         
-        {/* Status Badge */}
         <div className="flex flex-col items-end gap-2">
            <div className={`px-6 py-2 rounded-2xl font-black text-sm uppercase shadow-sm ${
              vendor.isApproved ? 'bg-emerald-100 text-emerald-700' : 'bg-yellow-100 text-yellow-700'
@@ -65,7 +63,6 @@ export default function VendorDashboard() {
         </div>
       </div>
 
-      {/* Subscription Card */}
       <div className={`mb-10 p-8 rounded-[2.5rem] border-2 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6 transition-all ${
         isExpired ? 'bg-red-50 border-red-200' : 'bg-gradient-to-br from-blue-600 to-indigo-700 border-transparent text-white'
       }`}>
@@ -82,11 +79,50 @@ export default function VendorDashboard() {
           </div>
         </div>
         
-        <button className="bg-white text-blue-700 px-10 py-4 rounded-2xl font-black shadow-xl hover:scale-105 transition-all hover:bg-gray-50 active:scale-95">
+        <button 
+          onClick={() => setShowUpgradeModal(true)}
+          className="bg-white text-blue-700 px-10 py-4 rounded-2xl font-black shadow-xl hover:scale-105 transition-all hover:bg-gray-50 active:scale-95"
+        >
           NÂNG CẤP / GIA HẠN NGAY
         </button>
       </div>
 
+      {/* Upgrade Modal */}
+      {showUpgradeModal && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
+          <div className="bg-white w-full max-w-lg rounded-[3rem] p-10 relative shadow-2xl animate-in zoom-in-95 duration-300">
+             <button onClick={() => setShowUpgradeModal(false)} className="absolute top-6 right-6 text-2xl text-gray-400 hover:text-gray-600">✕</button>
+             <div className="text-center mb-8">
+               <div className="text-6xl mb-4">🚀</div>
+               <h2 className="text-3xl font-black text-gray-800">Nâng Cấp Gian Hàng</h2>
+               <p className="text-gray-500 mt-2">Chọn gói phù hợp để tối ưu doanh thu của bạn.</p>
+             </div>
+             
+             <div className="space-y-4 mb-8">
+               <div className="p-5 border-2 border-blue-600 rounded-3xl bg-blue-50/50 flex justify-between items-center">
+                 <div>
+                   <div className="font-black text-blue-600">GÓI CHUYÊN NGHIỆP</div>
+                   <div className="text-xs text-gray-500 italic">Không giới hạn sản phẩm & ưu tiên hiển thị</div>
+                 </div>
+                 <div className="text-right">
+                   <div className="font-black text-gray-800">Liên hệ</div>
+                   <div className="text-[10px] font-bold text-blue-500 uppercase">Gia hạn 1 năm</div>
+                 </div>
+               </div>
+             </div>
+
+             <div className="bg-gray-50 p-6 rounded-3xl text-center">
+                <p className="text-sm font-medium text-gray-600 mb-2">Để nâng cấp, vui lòng liên hệ Admin:</p>
+                <div className="text-2xl font-black text-emerald-600 mb-1">0333 55 488</div>
+                <div className="text-xs text-gray-400 font-bold uppercase tracking-widest">Hỗ trợ Zalo 24/7</div>
+             </div>
+
+             <button onClick={() => setShowUpgradeModal(false)} className="w-full mt-8 bg-gray-800 text-white py-4 rounded-2xl font-black hover:bg-gray-900 shadow-lg">ĐÃ HIỂU</button>
+          </div>
+        </div>
+      )}
+
+      {/* Rest of the dashboard remains the same */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
         <div className="bg-white p-6 rounded-[2rem] shadow-sm border border-gray-100">
            <div className="text-3xl mb-2">📦</div>
