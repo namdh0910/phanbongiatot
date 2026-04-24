@@ -4,6 +4,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const connectDB = require('./config/db');
+const axios = require('axios');
 
 // Load env vars
 dotenv.config();
@@ -87,7 +88,6 @@ app.listen(PORT, () => {
 
   // Keep-alive: Ping self every 14 minutes to prevent Render free-tier sleep
   if (process.env.NODE_ENV === 'production' && process.env.RENDER_EXTERNAL_URL) {
-    const axios = require('axios');
     const url = process.env.RENDER_EXTERNAL_URL;
     setInterval(async () => {
       try {
