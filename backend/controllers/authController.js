@@ -134,20 +134,24 @@ const getVendors = async (req, res) => {
 // @route   PUT /api/auth/vendors/:id/approve
 const approveVendor = async (req, res) => {
   try {
+    const { isApproved } = req.body;
     const user = await User.findById(req.params.id);
-    if (user && user.role === 'vendor') {
-      user.vendorInfo.isApproved = req.body.isApproved;
-      // Khi duyệt lần đầu, có thể reset ngày hết hạn về 30 ngày từ lúc duyệt
-      if (req.body.isApproved && !user.vendorInfo.isPremium) {
-         user.vendorInfo.trialExpiresAt = new Date(+new Date() + 30*24*60*60*1000);
-      }
-      await user.save();
-      res.json({ message: 'Trạng thái gian hàng đã được cập nhật' });
-    } else {
-      res.status(404).json({ message: 'Không tìm thấy người bán' });
+    
+    if (!user) {
+      return res.status(404).json({ message: 'Không tìm thấy người dùng' });
     }
+
+    user.vendorInfo.isApproved = isApproved;
+    
+    // Nếu duyệt, gia hạn mặc định 30 ngày nếu chưa có hạn
+    if (isApproved && (!user.vendorInfo.trialExpiresAt || user.vendorInfo.trialExpiresAt < new Date())) {
+      user.vendorInfo.trialExpiresAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
+    }
+
+    await user.save();
+    return res.json({ message: 'Cập nhật trạng thái thành công' });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
 };
 
