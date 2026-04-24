@@ -62,7 +62,7 @@ export default function Home() {
           <p className="text-base md:text-xl text-gray-300 max-w-2xl font-medium leading-relaxed">
             {settings.heroSubtitle}
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 mt-6 w-full sm:w-auto">
+          <div className="hidden md:flex flex-col sm:flex-row gap-4 mt-6 w-full sm:w-auto">
             <a href={`tel:${settings.hotline}`} className="px-10 py-5 bg-[#ee4d2d] hover:bg-[#d73211] text-white rounded-sm font-bold text-lg transition-all shadow-xl flex items-center justify-center gap-3 active:scale-95">
               📞 NHẬN TƯ VẤN MIỄN PHÍ
             </a>
