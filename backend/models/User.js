@@ -16,7 +16,13 @@ const userSchema = mongoose.Schema({
     address: String,
     isApproved: { type: Boolean, default: false },
     description: String,
-    logo: String
+    logo: String,
+    plan: { type: String, enum: ['trial', 'pro', 'premium'], default: 'trial' },
+    trialExpiresAt: { 
+      type: Date, 
+      default: () => new Date(+new Date() + 30*24*60*60*1000) // Mặc định 30 ngày
+    },
+    isPremium: { type: Boolean, default: false }
   }
 }, { timestamps: true });
 

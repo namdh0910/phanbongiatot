@@ -12,8 +12,23 @@ const getProducts = async (req, res) => {
       ? { category: req.query.category }
       : {};
 
-    const products = await Product.find({ ...keyword, ...category, status: 'approved' }).sort({ createdAt: -1 });
-    res.json(products);
+    const products = await Product.find({ ...keyword, ...category, status: 'approved' })
+      .populate('seller', 'vendorInfo')
+      .sort({ createdAt: -1 });
+
+    // Lọc chỉ lấy sản phẩm của shop đã duyệt và còn hạn
+    const filteredProducts = products.filter(product => {
+      const seller = product.seller;
+      if (!seller || !seller.vendorInfo) return false;
+      
+      const isApproved = seller.vendorInfo.isApproved;
+      const trialExpiresAt = new Date(seller.vendorInfo.trialExpiresAt);
+      const isNotExpired = trialExpiresAt > new Date();
+      
+      return isApproved && isNotExpired;
+    });
+
+    res.json(filteredProducts);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
