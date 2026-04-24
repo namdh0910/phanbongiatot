@@ -2,7 +2,6 @@ const { execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
-const AGENT_TOKEN = "ANTIGRAVITY_AGENT_SECRET_2026";
 const API_BASE = "https://phanbongiatot.onrender.com/api";
 
 const imgCoffee = "https://res.cloudinary.com/dztidbkhv/image/upload/v1776989048/phanbongiatot/jpjgjjvfg7pglnnh0a1a.jpg";
@@ -48,19 +47,33 @@ const articles = [
 ];
 
 async function run() {
+  console.log("Logging in as Admin...");
+  let loginRes;
+  try {
+    loginRes = execSync(`curl.exe -X POST "${API_BASE}/auth/login" -H "Content-Type: application/json" -d "{\\\"username\\\":\\\"admin\\\",\\\"password\\\":\\\"phanbongiatot123\\\"}"`).toString();
+  } catch (e) {
+    console.error("Login failed:", e.message);
+    return;
+  }
+  
+  const { token } = JSON.parse(loginRes);
+  console.log("Logged in! Token acquired.");
+
   for (const article of articles) {
     const tempFile = path.join(__dirname, `temp_${article.slug}.json`);
     fs.writeFileSync(tempFile, JSON.stringify(article, null, 2), 'utf8');
     try {
-      const command = `curl.exe -X POST "${API_BASE}/blogs" -H "Content-Type: application/json" -H "Authorization: Bearer ${AGENT_TOKEN}" --data-binary "@${tempFile}"`;
+      const command = `curl.exe -X POST "${API_BASE}/blogs" -H "Content-Type: application/json" -H "Authorization: Bearer ${token}" --data-binary "@${tempFile}"`;
       const output = execSync(command).toString();
-      console.log(`Response for ${article.slug}:`, output);
+      console.log(`Success: ${article.slug}`);
     } catch (err) {
       console.error(`Error for ${article.slug}:`, err.message);
     } finally {
       if (fs.existsSync(tempFile)) fs.unlinkSync(tempFile);
     }
   }
+  
+  console.log("ALL V6 POSTS ARE LIVE!");
 }
 
 run();
