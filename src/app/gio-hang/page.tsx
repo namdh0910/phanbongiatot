@@ -1,15 +1,15 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import CheckoutModal from "@/components/CheckoutModal";
+import { useRouter } from "next/navigation";
 import { useCart } from "@/context/CartContext";
 
 export default function CartPage() {
   const { cart, removeFromCart, cartTotal } = useCart();
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const router = useRouter();
 
   const openCheckout = () => {
-    setIsModalOpen(true);
+    router.push('/checkout');
   };
 
   return (
@@ -94,11 +94,6 @@ export default function CartPage() {
         )}
       </div>
 
-      <CheckoutModal 
-        isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
-        isFullCart={true}
-      />
     </div>
   );
 }

@@ -5,10 +5,11 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { trackEvent } from "@/utils/analytics";
 import { getSettings } from "@/utils/settings";
-import CheckoutModal from "@/components/CheckoutModal";
+import { useCart } from "@/context/CartContext";
 
 export default function Home() {
   const router = useRouter();
+  const { addToCart } = useCart();
   const [products, setProducts] = useState<any[]>([]);
   const [blogs, setBlogs] = useState<any[]>([]);
   const [settings, setSettings] = useState<any>({});
@@ -33,9 +34,9 @@ export default function Home() {
   }, []);
 
   const handleQuickBuy = (product: any) => {
-    setSelectedProduct(product);
-    setIsModalOpen(true);
     trackEvent('QuickBuy_Click', { product_name: product.name });
+    addToCart(product, 1);
+    router.push('/checkout');
   };
 
   return (
@@ -232,12 +233,6 @@ export default function Home() {
             ))}
          </div>
       </section>
-
-      <CheckoutModal 
-        product={selectedProduct} 
-        isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
-      />
     </div>
   );
 }

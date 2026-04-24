@@ -3,8 +3,8 @@ import { useState, useEffect } from "react";
 import { API_BASE_URL } from '@/utils/api';
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
-import CheckoutModal from "@/components/CheckoutModal";
 import { trackEvent } from "@/utils/analytics";
+import { useCart } from "@/context/CartContext";
 
 const categoryMap: Record<string, { name: string; icon: string }> = {
   "phan-bon": { name: "Phân bón", icon: "🌱" },
@@ -16,11 +16,10 @@ const categoryMap: Record<string, { name: string; icon: string }> = {
 export default function CategoryPage() {
   const params = useParams();
   const router = useRouter();
+  const { addToCart } = useCart();
   const slug = params?.slug as string;
   const [products, setProducts] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [selectedProduct, setSelectedProduct] = useState<any>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const categoryInfo = categoryMap[slug] || { name: "Sản phẩm", icon: "📦" };
 
@@ -40,9 +39,9 @@ export default function CategoryPage() {
   }, [slug, categoryInfo.name]);
 
   const handleQuickBuy = (product: any) => {
-    setSelectedProduct(product);
-    setIsModalOpen(true);
     trackEvent('QuickBuy_Category_Click', { product_name: product.name, category: slug });
+    addToCart(product, 1);
+    router.push('/checkout');
   };
 
   return (
@@ -148,7 +147,6 @@ export default function CategoryPage() {
         </div>
       </div>
 
-      <CheckoutModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} product={selectedProduct} />
     </div>
   );
 }
