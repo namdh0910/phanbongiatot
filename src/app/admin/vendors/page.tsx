@@ -6,7 +6,7 @@ export default function AdminVendors() {
   const [vendors, setVendors] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [mounted, setMounted] = useState(false);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState({ text: "", type: "" });
 
   useEffect(() => {
     setMounted(true);
@@ -20,14 +20,19 @@ export default function AdminVendors() {
       const res = await fetch(`${API_BASE_URL}/auth/vendors`, {
         headers: { "Authorization": `Bearer ${token}` }
       });
+      if (!res.ok) {
+        if (res.status === 403) throw new Error("Bạn không có quyền Admin (403)");
+        throw new Error(`Lỗi server: ${res.status}`);
+      }
       const data = await res.json();
       if (Array.isArray(data)) {
         setVendors(data);
       } else {
         setVendors([]);
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
+      setMessage({ text: err.message, type: "error" });
       setVendors([]);
     } finally {
       setLoading(false);
@@ -36,6 +41,7 @@ export default function AdminVendors() {
 
   const toggleApproval = async (id: string, currentStatus: boolean) => {
     const token = localStorage.getItem("adminToken");
+    setMessage({ text: "Đang xử lý...", type: "info" });
     try {
       const res = await fetch(`${API_BASE_URL}/auth/vendors/${id}/approve`, {
         method: "PUT",
@@ -46,12 +52,19 @@ export default function AdminVendors() {
         body: JSON.stringify({ isApproved: !currentStatus })
       });
       if (res.ok) {
-        setMessage(currentStatus ? "Đã khóa gian hàng!" : "Đã duyệt gian hàng thành công!");
-        setTimeout(() => setMessage(""), 3000);
+        setMessage({ 
+          text: currentStatus ? "Đã khóa gian hàng!" : "Đã kích hoạt gian hàng thành công!", 
+          type: "success" 
+        });
+        setTimeout(() => setMessage({ text: "", type: "" }), 3000);
         fetchVendors();
+      } else {
+        const errorData = await res.json();
+        setMessage({ text: `Lỗi: ${errorData.message || res.statusText}`, type: "error" });
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
+      setMessage({ text: `Lỗi kết nối: ${err.message}`, type: "error" });
     }
   };
 
@@ -67,12 +80,15 @@ export default function AdminVendors() {
         body: JSON.stringify({ days })
       });
       if (res.ok) {
-        setMessage(`Đã gia hạn thêm ${days} ngày!`);
-        setTimeout(() => setMessage(""), 3000);
+        setMessage({ text: `Đã gia hạn thêm ${days} ngày!`, type: "success" });
+        setTimeout(() => setMessage({ text: "", type: "" }), 3000);
         fetchVendors();
+      } else {
+        setMessage({ text: "Lỗi khi gia hạn", type: "error" });
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
+      setMessage({ text: "Lỗi kết nối", type: "error" });
     }
   };
 
@@ -80,8 +96,7 @@ export default function AdminVendors() {
     const now = new Date();
     const exp = new Date(expiry);
     const diffTime = exp.getTime() - now.getTime();
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    return diffDays;
+    return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   };
 
   if (!mounted) return null;
@@ -93,9 +108,13 @@ export default function AdminVendors() {
           <h1 className="text-3xl font-black text-gray-800 tracking-tight uppercase">Quản lý Đối tác & Gói cước 🏪</h1>
           <p className="text-gray-500">Duyệt shop và quản lý thời hạn dùng thử/gói cước đại lý.</p>
         </div>
-        {message && (
-          <div className="bg-emerald-500 text-white px-6 py-3 rounded-2xl font-bold animate-bounce shadow-lg">
-            {message}
+        {message.text && (
+          <div className={`${
+            message.type === 'success' ? 'bg-emerald-500' : 
+            message.type === 'error' ? 'bg-red-500' : 'bg-blue-500'
+          } text-white px-6 py-3 rounded-2xl font-bold animate-bounce shadow-lg flex items-center gap-2`}>
+            {message.type === 'error' && <span>⚠️</span>}
+            {message.text}
           </div>
         )}
       </div>
@@ -155,10 +174,10 @@ export default function AdminVendors() {
                     <div className="flex flex-col gap-2 items-end">
                       <button 
                         onClick={() => toggleApproval(vendor._id, vendor.vendorInfo?.isApproved)}
-                        className={`w-32 py-2 rounded-xl text-[10px] font-black transition-all shadow-sm ${
+                        className={`w-40 py-3 rounded-xl text-[10px] font-black transition-all shadow-sm ${
                           vendor.vendorInfo?.isApproved 
                             ? 'bg-red-50 text-red-600 hover:bg-red-100' 
-                            : 'bg-emerald-600 text-white hover:bg-emerald-700'
+                            : 'bg-emerald-600 text-white hover:bg-emerald-700 shadow-lg shadow-emerald-200'
                         }`}
                       >
                         {vendor.vendorInfo?.isApproved ? 'KHÓA GIAN HÀNG' : 'KÍCH HOẠT SHOP'}
