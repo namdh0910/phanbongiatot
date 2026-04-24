@@ -54,8 +54,10 @@ export default function CheckoutPage() {
         : appliedCoupon.discountValue)
     : 0;
 
-  const shippingFee = cartTotal > 500000 ? 0 : 30000;
+  const shippingFee = 0; // Luôn miễn phí ship theo yêu cầu của anh
   const totalPrice = cartTotal + shippingFee - discountAmount;
+  
+  console.log("Checkout version: 1.1 - Free Ship & Coupon UI V2");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -193,6 +195,35 @@ export default function CheckoutPage() {
                   <label className="block text-sm font-semibold text-gray-700 mb-1">Ghi chú đơn hàng (Tùy chọn)</label>
                   <textarea value={customer.note} onChange={e => setCustomer({...customer, note: e.target.value})} className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-[#1a5c2a] focus:border-transparent outline-none transition-all resize-none h-24" placeholder="Ghi chú thêm về thời gian giao hàng, chỉ dẫn đường đi..."></textarea>
                 </div>
+
+                {/* Coupon Code Section - Moved here for better visibility */}
+                <div className="mt-8 p-4 bg-green-50 rounded-xl border border-green-100 border-dashed">
+                  <p className="text-sm font-bold text-green-800 mb-3 flex items-center gap-2">
+                    🎟️ Anh/chị có mã giảm giá?
+                  </p>
+                  <div className="flex gap-2">
+                    <input 
+                      type="text" 
+                      value={couponCode} 
+                      onChange={e => setCouponCode(e.target.value.toUpperCase())}
+                      className="flex-1 border border-white rounded-lg px-4 py-2.5 text-sm outline-none shadow-sm focus:ring-2 focus:ring-green-500" 
+                      placeholder="Nhập mã giảm giá..." 
+                    />
+                    <button 
+                      type="button" 
+                      onClick={handleApplyCoupon}
+                      disabled={couponLoading || !couponCode.trim()}
+                      className="bg-[#1a5c2a] text-white px-6 py-2 rounded-lg text-sm font-bold hover:bg-[#2d7a3e] transition-colors disabled:opacity-50"
+                    >
+                      {couponLoading ? '...' : 'ÁP DỤNG'}
+                    </button>
+                  </div>
+                  {couponMsg.text && (
+                    <p className={`mt-2 text-xs font-bold ${couponMsg.type === 'success' ? 'text-green-700' : 'text-red-600'}`}>
+                      {couponMsg.text}
+                    </p>
+                  )}
+                </div>
               </div>
             </div>
 
@@ -248,32 +279,7 @@ export default function CheckoutPage() {
               </div>
 
               <div className="space-y-3 pt-6 border-t border-gray-100 text-sm">
-                {/* Coupon Code Section */}
-                <div className="pb-4 mb-4 border-b border-gray-100">
-                  <p className="text-xs font-bold text-gray-500 uppercase mb-2">Mã giảm giá</p>
-                  <div className="flex gap-2">
-                    <input 
-                      type="text" 
-                      value={couponCode} 
-                      onChange={e => setCouponCode(e.target.value.toUpperCase())}
-                      className="flex-1 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-1 focus:ring-[#1a5c2a] outline-none" 
-                      placeholder="Mã giảm giá..." 
-                    />
-                    <button 
-                      type="button" 
-                      onClick={handleApplyCoupon}
-                      disabled={couponLoading || !couponCode.trim()}
-                      className="bg-gray-800 text-white px-4 py-2 rounded-lg text-xs font-bold hover:bg-black transition-colors disabled:opacity-50"
-                    >
-                      {couponLoading ? '...' : 'ÁP DỤNG'}
-                    </button>
-                  </div>
-                  {couponMsg.text && (
-                    <p className={`mt-2 text-[10px] font-bold ${couponMsg.type === 'success' ? 'text-green-600' : 'text-red-500'}`}>
-                      {couponMsg.text}
-                    </p>
-                  )}
-                </div>
+                {/* Coupon Section removed from here */}
 
                 <div className="flex justify-between text-gray-600">
                   <span>Tạm tính</span>
@@ -281,7 +287,7 @@ export default function CheckoutPage() {
                 </div>
                 <div className="flex justify-between text-gray-600">
                   <span>Phí vận chuyển</span>
-                  <span className="font-medium">{shippingFee === 0 ? <span className="text-green-600">Miễn phí</span> : `${shippingFee.toLocaleString('vi-VN')}đ`}</span>
+                  <span className="font-bold text-green-600">Miễn phí ship</span>
                 </div>
                 {discountAmount > 0 && (
                   <div className="flex justify-between text-red-600 font-bold">
@@ -289,11 +295,7 @@ export default function CheckoutPage() {
                     <span>-{discountAmount.toLocaleString('vi-VN')}đ</span>
                   </div>
                 )}
-                {shippingFee > 0 && !appliedCoupon && (
-                  <div className="bg-blue-50 text-blue-700 text-xs p-2 rounded text-center">
-                    Mua thêm {(500000 - cartTotal).toLocaleString('vi-VN')}đ để được FREESHIP
-                  </div>
-                )}
+                {/* Free ship message removed */}
                 
                 <div className="flex justify-between items-end pt-4 mt-4 border-t border-gray-100">
                   <span className="font-bold text-gray-800">Tổng cộng</span>
