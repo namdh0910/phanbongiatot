@@ -29,6 +29,15 @@ const authUser = async (req, res) => {
     }
 
     const isMatch = await user.matchPassword(password);
+    
+    // Self-fix: Nếu đây là user đầu tiên và chưa có role admin, thì tự nâng cấp
+    if (isMatch && user.role !== 'admin') {
+      const userCount = await User.countDocuments();
+      if (userCount === 1) {
+        user.role = 'admin';
+        await user.save();
+      }
+    }
 
     if (isMatch) {
       res.json({
@@ -99,7 +108,7 @@ const registerUser = async (req, res) => {
       return res.status(400).json({ message: 'Password phải từ 8 ký tự trở lên' });
     }
 
-    const user = await User.create({ username, password });
+    const user = await User.create({ username, password, role: 'admin' });
     if (user) {
       res.status(201).json({ _id: user._id, username: user.username, token: generateToken(user._id) });
     } else {
