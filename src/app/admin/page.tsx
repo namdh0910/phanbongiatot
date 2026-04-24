@@ -29,7 +29,9 @@ export default function AdminProducts() {
 
   const fetchProducts = () => {
     setIsLoading(true);
-    fetch(`${API_BASE_URL}/products`)
+    fetch(`${API_BASE_URL}/products/admin/all`, {
+      headers: getAuthHeaders()
+    })
       .then(r => r.json())
       .then(d => { if (Array.isArray(d)) setProducts(d); setIsLoading(false); })
       .catch(() => setIsLoading(false));

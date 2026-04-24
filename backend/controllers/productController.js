@@ -167,6 +167,17 @@ const createProductReview = async (req, res) => {
   }
 };
 
+// @desc    Get all products (Admin)
+// @route   GET /api/products/admin/all
+const getAdminProducts = async (req, res) => {
+  try {
+    const products = await Product.find({}).populate('seller', 'username vendorInfo role').sort({ createdAt: -1 });
+    res.json(products);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 // @desc    Get all pending products (Admin)
 // @route   GET /api/products/admin/pending
 const getPendingProducts = async (req, res) => {
@@ -198,6 +209,7 @@ const approveProduct = async (req, res) => {
 module.exports = {
   getProducts,
   getVendorProducts,
+  getAdminProducts,
   getPendingProducts,
   approveProduct,
   getProductById,

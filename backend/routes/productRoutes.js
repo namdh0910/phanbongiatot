@@ -3,6 +3,7 @@ const router = express.Router();
 const { 
   getProducts, 
   getVendorProducts, 
+  getAdminProducts,
   getPendingProducts,
   approveProduct,
   getProductById, 
@@ -15,6 +16,7 @@ const {
 const { protect, admin } = require('../middleware/authMiddleware');
 
 router.get('/vendor/me', protect, getVendorProducts);
+router.get('/admin/all', protect, admin, getAdminProducts);
 router.get('/admin/pending', protect, admin, getPendingProducts);
 router.put('/:id/approve', protect, admin, approveProduct);
 
