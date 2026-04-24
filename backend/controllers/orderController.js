@@ -50,6 +50,27 @@ const createOrder = async (req, res) => {
           { $inc: { usageCount: 1 } }
         );
       }
+
+      // Gửi thông báo Telegram
+      const message = `
+<b>🔔 ĐƠN HÀNG MỚI!</b>
+------------------------
+📦 <b>Mã đơn:</b> ${createdOrder.orderCode}
+👤 <b>Khách hàng:</b> ${customerInfo.name}
+📞 <b>SĐT:</b> ${customerInfo.phone}
+🏠 <b>Địa chỉ:</b> ${customerInfo.address}, ${customerInfo.ward}, ${customerInfo.district}, ${customerInfo.province}
+
+🛒 <b>Sản phẩm:</b>
+${orderItems.map(item => `- ${item.name} x${item.qty} (${item.price.toLocaleString()}đ)`).join('\n')}
+
+💰 <b>Tổng tiền:</b> ${totalPrice.toLocaleString()}đ
+💳 <b>Thanh toán:</b> ${paymentMethod}
+------------------------
+<i>Kiểm tra ngay tại: phanbongiatot.vercel.app/admin/orders</i>
+      `;
+      
+      const { sendTelegramMessage } = require('../utils/telegram');
+      sendTelegramMessage(message);
       
       res.status(201).json(createdOrder);
     }
