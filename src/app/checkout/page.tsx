@@ -195,36 +195,37 @@ export default function CheckoutPage() {
                   <label className="block text-sm font-semibold text-gray-700 mb-1">Ghi chú đơn hàng (Tùy chọn)</label>
                   <textarea value={customer.note} onChange={e => setCustomer({...customer, note: e.target.value})} className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-[#1a5c2a] focus:border-transparent outline-none transition-all resize-none h-24" placeholder="Ghi chú thêm về thời gian giao hàng, chỉ dẫn đường đi..."></textarea>
                 </div>
-
-                {/* Coupon Code Section - Moved here for better visibility */}
-                <div className="mt-8 p-4 bg-green-50 rounded-xl border border-green-100 border-dashed">
-                  <p className="text-sm font-bold text-green-800 mb-3 flex items-center gap-2">
-                    🎟️ Anh/chị có mã giảm giá?
-                  </p>
-                  <div className="flex gap-2">
-                    <input 
-                      type="text" 
-                      value={couponCode} 
-                      onChange={e => setCouponCode(e.target.value.toUpperCase())}
-                      className="flex-1 border border-white rounded-lg px-4 py-2.5 text-sm outline-none shadow-sm focus:ring-2 focus:ring-green-500" 
-                      placeholder="Nhập mã giảm giá..." 
-                    />
-                    <button 
-                      type="button" 
-                      onClick={handleApplyCoupon}
-                      disabled={couponLoading || !couponCode.trim()}
-                      className="bg-[#1a5c2a] text-white px-6 py-2 rounded-lg text-sm font-bold hover:bg-[#2d7a3e] transition-colors disabled:opacity-50"
-                    >
-                      {couponLoading ? '...' : 'ÁP DỤNG'}
-                    </button>
-                  </div>
-                  {couponMsg.text && (
-                    <p className={`mt-2 text-xs font-bold ${couponMsg.type === 'success' ? 'text-green-700' : 'text-red-600'}`}>
-                      {couponMsg.text}
-                    </p>
-                  )}
-                </div>
               </div>
+            </div>
+
+            {/* MÃ GIẢM GIÁ - CARD RIÊNG BIỆT ĐỂ KHÔNG BỊ SÓT */}
+            <div className="bg-white p-6 rounded-2xl shadow-sm border-2 border-dashed border-green-200 bg-green-50/30">
+              <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                <span className="text-2xl">🎟️</span> Anh/chị có mã giảm giá?
+              </h3>
+              <p className="text-sm text-gray-500 mb-4">Nhập mã giảm giá của anh/chị tại đây để được ưu đãi tốt nhất.</p>
+              <div className="flex gap-2">
+                <input 
+                  type="text" 
+                  value={couponCode} 
+                  onChange={e => setCouponCode(e.target.value.toUpperCase())}
+                  className="flex-1 border border-gray-300 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-[#1a5c2a] outline-none shadow-sm bg-white" 
+                  placeholder="Ví dụ: CHAOXUAN2026..." 
+                />
+                <button 
+                  type="button" 
+                  onClick={handleApplyCoupon}
+                  disabled={couponLoading || !couponCode.trim()}
+                  className="bg-[#1a5c2a] text-white px-8 py-3 rounded-xl font-black text-sm hover:bg-[#2d7a3e] transition-all shadow-md disabled:opacity-50"
+                >
+                  {couponLoading ? '...' : 'ÁP DỤNG'}
+                </button>
+              </div>
+              {couponMsg.text && (
+                <div className={`mt-3 p-3 rounded-lg text-sm font-bold ${couponMsg.type === 'success' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-700'}`}>
+                  {couponMsg.text}
+                </div>
+              )}
             </div>
 
             <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
