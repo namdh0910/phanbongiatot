@@ -17,6 +17,9 @@ const userSchema = mongoose.Schema({
     isApproved: { type: Boolean, default: false },
     description: String,
     logo: String,
+    banner: String,
+    zaloPhone: String,
+    facebookUrl: String,
     plan: { type: String, enum: ['trial', 'pro', 'premium'], default: 'trial' },
     trialExpiresAt: { 
       type: Date, 

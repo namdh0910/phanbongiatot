@@ -1,28 +1,51 @@
 "use client";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import { API_BASE_URL } from "@/utils/api";
+import { useParams, useRouter } from "next/navigation";
 
-export default function NewVendorProduct() {
+export default function EditProduct() {
+  const { id } = useParams();
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
-  const [uploading, setUploading] = useState(false);
-  const [mounted, setMounted] = useState(false);
-  
   const [formData, setFormData] = useState({
     name: "",
-    category: "Phân bón",
     price: 0,
-    originalPrice: 0,
+    category: "Phân bón",
     description: "",
     images: [] as string[],
     specifications: "",
     usage: ""
   });
+  const [loading, setLoading] = useState(false);
+  const [fetching, setFetching] = useState(true);
+  const [uploading, setUploading] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
-  }, []);
+    fetchProduct();
+  }, [id]);
+
+  const fetchProduct = async () => {
+    try {
+      const res = await fetch(`${API_BASE_URL}/products/${id}`);
+      const data = await res.json();
+      if (res.ok) {
+        setFormData({
+          name: data.name || "",
+          price: data.price || 0,
+          category: data.category || "Phân bón",
+          description: data.description || "",
+          images: data.images || [],
+          specifications: data.specifications || "",
+          usage: data.usage || ""
+        });
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setFetching(false);
+    }
+  };
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files || e.target.files.length === 0) return;
@@ -59,26 +82,19 @@ export default function NewVendorProduct() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (formData.images.length === 0) {
-      alert("Vui lòng tải lên ít nhất một ảnh sản phẩm");
-      return;
-    }
-    
     setLoading(true);
     const token = localStorage.getItem("vendorToken");
-    const slug = formData.name.toLowerCase().replace(/ /g, "-").replace(/[^\w-]+/g, "") + "-" + Math.random().toString(36).substring(7);
-
     try {
-      const res = await fetch(`${API_BASE_URL}/products`, {
-        method: "POST",
+      const res = await fetch(`${API_BASE_URL}/products/${id}`, {
+        method: "PUT",
         headers: { 
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}`
         },
-        body: JSON.stringify({ ...formData, slug })
+        body: JSON.stringify(formData)
       });
       if (res.ok) {
-        alert("Sản phẩm đã được gửi và đang chờ duyệt!");
+        alert("Cập nhật sản phẩm thành công! Sản phẩm sẽ được chờ duyệt lại.");
         router.push("/kenh-nguoi-ban/products");
       }
     } catch (err) {
@@ -88,15 +104,15 @@ export default function NewVendorProduct() {
     }
   };
 
-  if (!mounted) return null;
+  if (!mounted || fetching) return null;
 
   return (
     <div className="p-8 max-w-5xl mx-auto">
       <div className="mb-10 flex items-center gap-4">
         <button onClick={() => router.back()} className="w-12 h-12 bg-white rounded-2xl shadow-sm flex items-center justify-center hover:bg-gray-50 transition-all border border-gray-100 text-xl">←</button>
         <div>
-          <h1 className="text-4xl font-black text-gray-800 tracking-tight">Thêm Sản Phẩm Mới 📦</h1>
-          <p className="text-gray-500">Mô tả sản phẩm càng chi tiết, bà con càng tin dùng.</p>
+          <h1 className="text-4xl font-black text-gray-800 tracking-tight">Chỉnh Sửa Sản Phẩm ✏️</h1>
+          <p className="text-gray-500">Cập nhật thông tin chi tiết cho mặt hàng của bạn.</p>
         </div>
       </div>
 
@@ -116,17 +132,12 @@ export default function NewVendorProduct() {
                  
                  <label className="aspect-square rounded-2xl border-2 border-dashed border-gray-200 flex flex-col items-center justify-center cursor-pointer hover:bg-gray-50 transition-all text-gray-400 group">
                     <span className="text-2xl group-hover:scale-125 transition-transform">➕</span>
-                    <span className="text-[10px] font-bold mt-1">TẢI ẢNH</span>
+                    <span className="text-[10px] font-bold mt-1">THÊM ẢNH</span>
                     <input type="file" multiple className="hidden" onChange={handleImageUpload} accept="image/*" />
                  </label>
               </div>
               {uploading && <p className="text-center text-xs text-blue-600 font-bold animate-pulse">Đang tải ảnh lên...</p>}
-              <p className="text-[10px] text-gray-400 italic text-center">Tải lên ít nhất 1 ảnh (Tối đa 10 ảnh).</p>
-           </div>
-
-           <div className="bg-gradient-to-br from-amber-400 to-orange-500 p-8 rounded-[2.5rem] text-white shadow-xl">
-              <h3 className="font-black text-lg mb-2">💡 Mẹo nhỏ cho bạn</h3>
-              <p className="text-sm opacity-90 leading-relaxed">Sản phẩm có từ 3 ảnh thật và mô tả chi tiết cách dùng sẽ giúp tăng tỷ lệ chốt đơn lên tới 50% đó!</p>
+              <p className="text-[10px] text-gray-400 italic text-center">Nên có ít nhất 3 ảnh từ nhiều góc độ khác nhau.</p>
            </div>
         </div>
 
@@ -135,13 +146,13 @@ export default function NewVendorProduct() {
            <div className="bg-white p-10 rounded-[3rem] shadow-xl border border-gray-100 space-y-8">
               <div>
                  <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2 ml-1">Tên Sản Phẩm</label>
-                 <input required value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className="w-full bg-gray-50 border-none rounded-2xl px-6 py-4 text-gray-900 focus:ring-4 focus:ring-blue-100 outline-none font-bold transition-all text-xl" placeholder="Ví dụ: Phân bón lá siêu to trái..." />
+                 <input required value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className="w-full bg-gray-50 border-none rounded-2xl px-6 py-4 text-gray-900 focus:ring-4 focus:ring-blue-100 outline-none font-bold transition-all text-xl" />
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                  <div>
                     <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2 ml-1">Giá Bán (VNĐ)</label>
-                    <input type="number" required value={formData.price} onChange={e => setFormData({...formData, price: Number(e.target.value)})} className="w-full bg-gray-50 border-none rounded-2xl px-6 py-4 text-red-600 focus:ring-4 focus:ring-red-100 outline-none font-black transition-all text-xl" placeholder="150,000" />
+                    <input type="number" required value={formData.price} onChange={e => setFormData({...formData, price: Number(e.target.value)})} className="w-full bg-gray-50 border-none rounded-2xl px-6 py-4 text-red-600 focus:ring-4 focus:ring-red-100 outline-none font-black transition-all text-xl" />
                  </div>
                  <div>
                     <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2 ml-1">Danh Mục</label>
@@ -157,7 +168,7 @@ export default function NewVendorProduct() {
 
               <div>
                  <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2 ml-1">Mô tả sản phẩm</label>
-                 <textarea required value={formData.description} onChange={e => setFormData({...formData, description: e.target.value})} className="w-full bg-gray-50 border-none rounded-3xl px-6 py-4 text-gray-900 focus:ring-4 focus:ring-blue-100 outline-none h-40 resize-none font-medium leading-relaxed" placeholder="Công dụng chính, ưu điểm nổi bật..." />
+                 <textarea value={formData.description} onChange={e => setFormData({...formData, description: e.target.value})} className="w-full bg-gray-50 border-none rounded-3xl px-6 py-4 text-gray-900 focus:ring-4 focus:ring-blue-100 outline-none h-40 resize-none font-medium leading-relaxed" />
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -171,8 +182,8 @@ export default function NewVendorProduct() {
                  </div>
               </div>
 
-              <button type="submit" disabled={loading} className="w-full bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-5 rounded-3xl font-black text-xl hover:shadow-2xl hover:scale-[1.02] active:scale-95 transition-all shadow-xl disabled:opacity-50 mt-4">
-                 {loading ? "ĐANG GỬI DUYỆT..." : "GỬI DUYỆT SẢN PHẨM"}
+              <button type="submit" disabled={loading} className="w-full bg-gradient-to-r from-emerald-600 to-teal-700 text-white py-5 rounded-3xl font-black text-xl hover:shadow-2xl hover:scale-[1.02] active:scale-95 transition-all shadow-xl disabled:opacity-50 mt-4">
+                 {loading ? "ĐANG LƯU..." : "CẬP NHẬT SẢN PHẨM"}
               </button>
            </div>
         </div>
