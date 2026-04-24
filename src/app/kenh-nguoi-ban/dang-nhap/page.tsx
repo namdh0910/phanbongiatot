@@ -61,6 +61,7 @@ export default function VendorLogin() {
                 required 
                 value={username} 
                 onChange={e => setUsername(e.target.value)} 
+                autoComplete="username"
                 className="w-full border border-gray-200 bg-gray-50 rounded-2xl px-12 py-4 text-gray-900 outline-none focus:bg-white focus:border-[#1a5c2a] transition-all" 
                 placeholder="Tên đăng nhập của anh/chị..." 
               />
@@ -76,10 +77,17 @@ export default function VendorLogin() {
                 required 
                 value={password} 
                 onChange={e => setPassword(e.target.value)} 
+                autoComplete="current-password"
                 className="w-full border border-gray-200 bg-gray-50 rounded-2xl px-12 py-4 text-gray-900 outline-none focus:bg-white focus:border-[#1a5c2a] transition-all" 
                 placeholder="Mật khẩu bảo mật..." 
               />
             </div>
+          </div>
+
+          <div className="bg-blue-50 p-3 rounded-xl border border-blue-100">
+             <p className="text-[10px] text-blue-600 leading-tight">
+               💡 <b>Lưu ý:</b> Nếu Google hiện cảnh báo "Thay đổi mật khẩu", đó là do mật khẩu của anh/chị quá đơn giản hoặc đã bị lộ ở các trang web khác. Hãy chọn mật khẩu có cả chữ và số để bảo mật tốt nhất.
+             </p>
           </div>
 
           <button 
