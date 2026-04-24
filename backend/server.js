@@ -84,20 +84,4 @@ app.use((err, req, res, next) => {
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT} [${process.env.NODE_ENV}]`);
-
-  // Keep-alive: Ping self every 14 minutes to prevent Render free-tier sleep
-  if (process.env.NODE_ENV === 'production' && process.env.RENDER_EXTERNAL_URL) {
-    const http = require('http');
-    const url = process.env.RENDER_EXTERNAL_URL;
-    setInterval(() => {
-      try {
-        http.get(url, (res) => {
-          console.log(`[Keep-alive] Ping ${url} -> ${res.statusCode}`);
-        });
-      } catch (err) {
-        console.error('[Keep-alive] Ping failed:', err.message);
-      }
-    }, 14 * 60 * 1000); // 14 minutes
-    console.log(`[Keep-alive] Self-ping enabled for ${url}`);
-  }
 });
