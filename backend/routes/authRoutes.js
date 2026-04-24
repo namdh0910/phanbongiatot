@@ -27,6 +27,7 @@ router.put('/test-approve/:id', async (req, res) => {
 });
 router.put('/vendors/:id/extend', protect, admin, extendVendor);
 router.put('/profile', protect, updateProfile);
+router.get('/profile', protect, getProfile);
 // Register chỉ mở khi chưa có admin nào, controller tự kiểm tra
 router.post('/register', registerUser);
 

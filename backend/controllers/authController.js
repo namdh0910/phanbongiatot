@@ -181,6 +181,21 @@ const extendVendor = async (req, res) => {
   }
 };
 
+// @desc    Get user profile
+// @route   GET /api/auth/profile
+const getProfile = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id).select('-password');
+    if (user) {
+      res.json(user);
+    } else {
+      res.status(404).json({ message: 'Không tìm thấy người dùng' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 // @desc    Update user profile
 // @route   PUT /api/auth/profile
 const updateProfile = async (req, res) => {
@@ -209,4 +224,4 @@ const updateProfile = async (req, res) => {
   }
 };
 
-module.exports = { authUser, registerUser, registerVendor, getVendors, approveVendor, extendVendor, updateProfile };
+module.exports = { authUser, registerUser, registerVendor, getVendors, approveVendor, extendVendor, getProfile, updateProfile };
