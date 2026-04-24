@@ -88,7 +88,7 @@ export default function AdminVendors() {
                   <div className="text-[10px] text-gray-400">{vendor.vendorInfo?.address}</div>
                 </td>
                 <td className="px-6 py-4 text-xs text-gray-500 font-medium">
-                  {new Date(vendor.createdAt).toLocaleDateString("vi-VN")}
+                  {vendor.createdAt ? new Date(vendor.createdAt).toLocaleDateString("vi-VN") : "---"}
                 </td>
                 <td className="px-6 py-4 text-center">
                   <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase ${

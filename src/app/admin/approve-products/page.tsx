@@ -62,7 +62,11 @@ export default function AdminApproveProducts() {
         ) : products.map((product) => (
           <div key={product._id} className="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 flex flex-col md:flex-row gap-6">
             <div className="w-full md:w-48 h-48 bg-gray-50 rounded-2xl overflow-hidden flex-shrink-0">
-               {product.images?.[0] && <img src={product.images[0]} className="w-full h-full object-cover" alt="" />}
+               {product.images && product.images[0] ? (
+                 <img src={product.images[0]} className="w-full h-full object-cover" alt="" />
+               ) : (
+                 <div className="w-full h-full flex items-center justify-center text-3xl">📦</div>
+               )}
             </div>
             <div className="flex-1">
                <div className="flex justify-between items-start mb-2">
