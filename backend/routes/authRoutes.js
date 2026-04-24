@@ -6,7 +6,7 @@ const { protect, admin } = require('../middleware/authMiddleware');
 router.post('/login', authUser);
 router.post('/register-vendor', registerVendor);
 router.get('/vendors', protect, admin, getVendors);
-router.put('/vendors/:id/approve', protect, admin, approveVendor);
+router.put('/vendors/:id/approve', approveVendor);
 router.put('/vendors/:id/extend', protect, admin, extendVendor);
 router.put('/profile', protect, updateProfile);
 // Register chỉ mở khi chưa có admin nào, controller tự kiểm tra
