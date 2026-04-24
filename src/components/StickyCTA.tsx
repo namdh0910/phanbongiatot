@@ -16,6 +16,24 @@ export default function StickyCTA() {
 
   return (
     <div className="fixed bottom-20 md:bottom-10 right-6 flex flex-col gap-4 z-[99]">
+      {/* Messenger Button */}
+      <a 
+        href="https://m.me/61574432962859" 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        onClick={() => trackEvent('Contact', { method: 'Messenger' })}
+        className="group relative flex items-center"
+      >
+        <span className="absolute right-full mr-3 bg-white text-[#0084ff] px-3 py-1.5 rounded-lg shadow-lg text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-[#0084ff]/20">
+          Chat Messenger
+        </span>
+        <div className="bg-gradient-to-tr from-[#00b2ff] via-[#006aff] to-[#c13584] text-white w-14 h-14 rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(0,132,255,0.4)] hover:scale-110 transition-transform relative overflow-hidden">
+           <svg viewBox="0 0 36 36" fill="currentColor" width="28" height="28">
+             <path d="M18 2C9.163 2 2 8.706 2 17c0 4.708 2.308 8.897 5.86 11.751.343.276.54.697.514 1.144-.06 1.05-.246 2.378-.838 3.655a.658.658 0 0 0 .863.85c1.785-.694 3.326-1.576 4.38-2.261.272-.178.599-.236.91-.16A16.89 16.89 0 0 0 18 32c8.837 0 16-6.706 16-15S26.837 2 18 2zm1.205 19.34l-3.356-3.585a1.134 1.134 0 0 0-1.638-.052l-4.782 4.723c-.66.652-1.74-.08-1.32-.958l3.966-8.293a1.442 1.442 0 0 1 2.222-.52l3.36 3.59a1.134 1.134 0 0 0 1.636.05l4.783-4.721c.66-.653 1.74.08 1.32.957l-3.966 8.293a1.444 1.444 0 0 1-2.225.516z"/>
+           </svg>
+        </div>
+      </a>
+
       {/* Zalo Button */}
       <a 
         href="https://zalo.me/0773440966" 
