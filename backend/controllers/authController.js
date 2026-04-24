@@ -135,20 +135,23 @@ const getVendors = async (req, res) => {
 const approveVendor = async (req, res) => {
   try {
     const { isApproved } = req.body;
-    const user = await User.findById(req.params.id);
     
+    // Tìm user để tính toán ngày hết hạn nếu cần
+    const user = await User.findById(req.params.id);
     if (!user) {
       return res.status(404).json({ message: 'Không tìm thấy người dùng' });
     }
 
-    user.vendorInfo.isApproved = isApproved;
-    
+    const updateData = {
+      'vendorInfo.isApproved': isApproved
+    };
+
     // Nếu duyệt, gia hạn mặc định 30 ngày nếu chưa có hạn
     if (isApproved && (!user.vendorInfo.trialExpiresAt || user.vendorInfo.trialExpiresAt < new Date())) {
-      user.vendorInfo.trialExpiresAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
+      updateData['vendorInfo.trialExpiresAt'] = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
     }
 
-    await user.save();
+    await User.findByIdAndUpdate(req.params.id, { $set: updateData });
     return res.json({ message: 'Cập nhật trạng thái thành công' });
   } catch (error) {
     return res.status(500).json({ message: error.message });
