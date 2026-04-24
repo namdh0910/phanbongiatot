@@ -1,7 +1,18 @@
+"use client";
 import VendorGuard from "@/components/VendorGuard";
 import VendorSidebar from "@/components/VendorSidebar";
+import { usePathname } from "next/navigation";
 
 export default function VendorLayout({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+  
+  // Skip guard and sidebar for login and register pages
+  const isAuthPage = pathname === "/vendor/dang-nhap" || pathname === "/vendor/dang-ky";
+
+  if (isAuthPage) {
+    return <>{children}</>;
+  }
+
   return (
     <VendorGuard>
       <div className="flex bg-[#f7fafc] min-h-screen">
