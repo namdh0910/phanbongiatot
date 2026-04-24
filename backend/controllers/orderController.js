@@ -149,10 +149,46 @@ const getOrders = async (req, res) => {
   }
 };
 
+// @desc    Get orders for a specific vendor
+// @route   GET /api/orders/vendor/me
+// @access  Private/Vendor
+const getVendorOrders = async (req, res) => {
+  try {
+    const orders = await Order.find({})
+      .populate({
+        path: 'orderItems.product',
+        select: 'seller'
+      })
+      .sort({ createdAt: -1 });
+
+    // Lọc những đơn hàng có sản phẩm của vendor này
+    const vendorOrders = orders.filter(order => {
+      return order.orderItems.some(item => 
+        item.product && item.product.seller && item.product.seller.toString() === req.user._id.toString()
+      );
+    }).map(order => {
+      // Chỉ trả về những items thuộc về vendor này
+      const filteredItems = order.orderItems.filter(item => 
+        item.product && item.product.seller && item.product.seller.toString() === req.user._id.toString()
+      );
+      
+      return {
+        ...order._doc,
+        orderItems: filteredItems
+      };
+    });
+
+    res.json(vendorOrders);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = {
   createOrder,
   getOrderByIdOrCode,
   getOrdersByPhone,
   updateOrderStatus,
   getOrders,
+  getVendorOrders,
 };
