@@ -65,7 +65,7 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
       <div className="container mx-auto px-4">
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 max-w-7xl mx-auto">
           {/* Main Content */}
-          <div className="lg:flex-1 min-w-0">
+          <article className="lg:flex-1 min-w-0">
               <header className="mb-10 pb-10 border-b border-gray-50 text-center">
                 <nav className="flex items-center justify-center gap-2 text-xs text-gray-400 mb-8 font-black uppercase tracking-widest">
                   <Link href="/" className="hover:text-emerald-600 transition-colors">Trang chủ</Link>
@@ -117,7 +117,6 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
                 </div>
               </div>
             </article>
-          </div>
 
           {/* Sidebar - Recommended Products */}
           <div className="lg:w-80 flex-shrink-0">

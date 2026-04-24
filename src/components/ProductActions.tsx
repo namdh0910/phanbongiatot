@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import CheckoutModal from "./CheckoutModal";
 import { trackEvent } from "@/utils/analytics";
 import { useCart } from "@/context/CartContext";
 import { useRouter } from "next/navigation";
@@ -88,13 +87,6 @@ export default function ProductActions({ product }: { product: any }) {
           </button>
         </div>
       </div>
-
-      <CheckoutModal 
-        product={product} 
-        isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
-        initialQuantity={qty}
-      />
 
       {/* Mobile Sticky Action Bar */}
       <div className="fixed bottom-0 left-0 w-full bg-white border-t border-gray-100 flex md:hidden z-[60] h-[60px] shadow-[0_-4px_15px_rgba(0,0,0,0.1)]">
