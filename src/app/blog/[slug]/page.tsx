@@ -95,19 +95,27 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
                 prose-ul:list-disc prose-ol:list-decimal
                 break-words overflow-hidden"
                 dangerouslySetInnerHTML={{ 
-                  __html: blog.content
-                    .replace(/<[^>]*>\[BOX_SAN_PHAM\]<\/[^>]*>/g, '[BOX_SAN_PHAM]')
-                    .replace(/<[^>]*>\[\/BOX_SAN_PHAM\]<\/[^>]*>/g, '[/BOX_SAN_PHAM]')
-                    .replace(
-                      /\[BOX_SAN_PHAM\](.*?)\[\/BOX_SAN_PHAM\]/gs,
-                      `<div class="bg-green-50 p-6 md:p-8 rounded-2xl border border-green-200 my-10 shadow-sm">
-                         <h3 class="text-2xl font-black text-green-800 mb-6 mt-0 border-none pl-0 flex items-center gap-2"><span class="text-3xl">📦</span> Sản Phẩm Đề Xuất Phục Hồi</h3>
-                         <div class="text-green-900">$1</div>
-                         <div class="mt-8 text-center">
-                           <a href="/san-pham" class="inline-block bg-[#1a5c2a] text-white px-8 py-4 rounded-xl font-bold hover:bg-[#2d7a3e] transition-colors shadow-lg">Xem chi tiết các sản phẩm</a>
-                         </div>
-                       </div>`
-                    )
+                  __html: (() => {
+                    let html = blog.content;
+                    // Fix relative image paths to absolute for SSR
+                    html = html.replace(/src="(\/images\/blog\/[^"]+)"/g, 'src="https://www.phanbongiatot.com$1"');
+                    // Normalize shortcodes - strip any HTML tags wrapping them
+                    html = html.replace(/<[^>]+>\s*\[BOX_SAN_PHAM\]\s*<\/[^>]+>/g, '[BOX_SAN_PHAM]');
+                    html = html.replace(/<[^>]+>\s*\[\/BOX_SAN_PHAM\]\s*<\/[^>]+>/g, '[/BOX_SAN_PHAM]');
+                    html = html.replace(/\[BOX_SAN_PHAM\]\s*<\/p>/g, '[BOX_SAN_PHAM]');
+                    html = html.replace(/<p>\s*\[\/BOX_SAN_PHAM\]/g, '[/BOX_SAN_PHAM]');
+                    // Replace shortcode with styled box using inline styles (safe from Tailwind purge)
+                    html = html.replace(
+                      /\[BOX_SAN_PHAM\]([\s\S]*?)\[\/BOX_SAN_PHAM\]/g,
+                      '<div style="background:#f0fdf4;padding:2rem;border-radius:1rem;border:2px solid #bbf7d0;margin:2.5rem 0;box-shadow:0 1px 6px rgba(0,0,0,0.07)">'
+                      + '<h3 style="font-size:1.35rem;font-weight:900;color:#14532d;margin:0 0 1.25rem 0;display:flex;align-items:center;gap:0.5rem;">📦 Sản Phẩm Đề Xuất</h3>'
+                      + '<div style="color:#166534;">$1</div>'
+                      + '<div style="text-align:center;margin-top:1.5rem;">'
+                      + '<a href="/san-pham" style="display:inline-block;background:#1a5c2a;color:white;padding:0.75rem 2rem;border-radius:0.75rem;font-weight:700;text-decoration:none;">Xem chi tiết các sản phẩm →</a>'
+                      + '</div></div>'
+                    );
+                    return html;
+                  })()
                 }}
               />
               

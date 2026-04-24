@@ -33,6 +33,10 @@ function OrderSuccessContent() {
           Tiếp tục mua sắm
         </Link>
       </div>
+      <div className="mt-6 p-4 bg-blue-50 border border-blue-100 rounded-xl text-sm text-blue-700">
+        <p className="font-bold mb-1">💡 Mẹo: Lưu lại mã đơn hàng phía trên!</p>
+        <p>Bạn có thể tra cứu lại bất kỳ lúc nào tại <Link href="/tra-cuu-don-hang" className="font-black underline">phanbongiatot.com/tra-cuu-don-hang</Link></p>
+      </div>
     </div>
   );
 }

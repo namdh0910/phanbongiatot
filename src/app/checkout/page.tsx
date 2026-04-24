@@ -66,6 +66,12 @@ export default function CheckoutPage() {
       }
 
       const orderData = await res.json();
+      // Save order code to localStorage for customer order lookup
+      try {
+        const saved = JSON.parse(localStorage.getItem('pbgt_orders') || '[]');
+        saved.unshift({ code: orderData.orderCode, name: customer.name, total: totalPrice, date: new Date().toISOString() });
+        localStorage.setItem('pbgt_orders', JSON.stringify(saved.slice(0, 20)));
+      } catch {}
       clearCart();
       window.location.href = `/don-hang/thanh-cong?code=${orderData.orderCode}`;
       
