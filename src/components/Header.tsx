@@ -78,11 +78,8 @@ export default function Header() {
               </span>
             )}
           </Link>
-          <a href={`https://zalo.me/${settings.zaloId}`} target="_blank" className="flex items-center gap-2 text-blue-600 border border-blue-200 bg-blue-50 px-3 py-2 rounded-xl font-bold text-sm hover:bg-blue-100 transition-colors">
-            💬 Zalo
-          </a>
-          <a href={`tel:${settings.hotline}`} className="flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-xl font-bold text-sm hover:bg-primary-hover transition-all shadow-md">
-            📞 {settings.phone || settings.hotline}
+          <a href={`https://zalo.me/${settings.zaloId}`} target="_blank" className="flex items-center gap-3 bg-blue-600 text-white px-6 py-2.5 rounded-xl font-black text-sm hover:bg-blue-700 transition-all shadow-md">
+            💬 CHAT ZALO NGAY
           </a>
         </div>
 
@@ -116,9 +113,10 @@ export default function Header() {
                 {link.label}
               </Link>
             ))}
-            <div className="flex gap-3 mt-4 pt-4 border-t border-gray-100">
-              <a href={`https://zalo.me/${settings.zaloId}`} target="_blank" className="flex-1 text-center bg-blue-50 text-blue-700 py-3 rounded-xl font-bold">💬 Zalo</a>
-              <a href={`tel:${settings.hotline}`} className="flex-1 text-center bg-primary text-white py-3 rounded-xl font-bold">📞 Gọi Ngay</a>
+            <div className="flex flex-col gap-3 mt-4 pt-4 border-t border-gray-100">
+              <a href={`https://zalo.me/${settings.zaloId}`} target="_blank" className="w-full text-center bg-blue-600 text-white py-4 rounded-xl font-black shadow-lg">
+                💬 NHẮN ZALO TƯ VẤN NGAY
+              </a>
             </div>
           </nav>
         </div>

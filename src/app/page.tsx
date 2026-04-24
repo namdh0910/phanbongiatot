@@ -63,8 +63,8 @@ export default function Home() {
             {settings.heroSubtitle}
           </p>
           <div className="hidden md:flex flex-col sm:flex-row gap-4 mt-6 w-full sm:w-auto">
-            <a href={`tel:${settings.hotline}`} className="px-10 py-5 bg-[#ee4d2d] hover:bg-[#d73211] text-white rounded-sm font-bold text-lg transition-all shadow-xl flex items-center justify-center gap-3 active:scale-95">
-              📞 NHẬN TƯ VẤN MIỄN PHÍ
+            <a href={`https://zalo.me/${settings.zaloId}`} target="_blank" className="px-10 py-5 bg-blue-600 hover:bg-blue-700 text-white rounded-sm font-bold text-lg transition-all shadow-xl flex items-center justify-center gap-3 active:scale-95">
+              💬 NHẮN ZALO TƯ VẤN MIỄN PHÍ
             </a>
             <Link href="/danh-muc/phan-bon" className="px-10 py-5 bg-white text-emerald-900 hover:bg-gray-100 rounded-sm font-bold text-lg transition-all flex items-center justify-center border border-white/20 active:scale-95">
               XEM SẢN PHẨM
@@ -196,8 +196,9 @@ export default function Home() {
         <div className="bg-gradient-to-r from-emerald-900 to-green-800 rounded-sm p-8 md:p-12 text-center text-white shadow-2xl relative overflow-hidden">
            <h2 className="text-3xl md:text-5xl font-black mb-6 leading-tight">Vườn Suy Yếu? <span className="text-[#fce015]">Gặp Kỹ Sư Ngay!</span></h2>
            <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
-              <a href={`tel:${settings.hotline}`} className="bg-[#ee4d2d] text-white px-10 py-5 rounded-sm font-black text-xl shadow-lg hover:bg-[#d73211]">GỌI: {settings.phone || settings.hotline}</a>
-              <a href={`https://zalo.me/${settings.zaloId}`} className="bg-white text-emerald-900 px-10 py-5 rounded-sm font-black text-xl shadow-lg hover:bg-gray-100">CHAT ZALO</a>
+              <a href={`https://zalo.me/${settings.zaloId}`} target="_blank" className="bg-blue-600 text-white px-10 py-5 rounded-sm font-black text-xl shadow-lg hover:bg-blue-700 transition-all uppercase tracking-wider flex items-center gap-3">
+                 💬 NHẬN TƯ VẤN KỸ THUẬT QUA ZALO
+              </a>
             </div>
         </div>
       </section>
