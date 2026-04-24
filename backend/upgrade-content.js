@@ -1,14 +1,18 @@
+const { execSync } = require('child_process');
+const fs = require('fs');
+const path = require('path');
+
 const AGENT_TOKEN = "ANTIGRAVITY_AGENT_SECRET_2026";
 const API_BASE = "https://phanbongiatot.onrender.com/api";
 
 const imgCoffee = "https://res.cloudinary.com/dztidbkhv/image/upload/v1776989048/phanbongiatot/jpjgjjvfg7pglnnh0a1a.jpg";
+const imgDurian = "https://res.cloudinary.com/dztidbkhv/image/upload/v1776989061/phanbongiatot/oiaa2gdldtypwevu8qs6.jpg";
+const imgFertilizer = "https://res.cloudinary.com/dztidbkhv/image/upload/v1776989073/phanbongiatot/y6imlcebopgmarsfpp8e.jpg";
 
-async function run() {
-  console.log("Upgrading Coffee article to MASTERCLASS level...");
-  
-  const article = {
+const articles = [
+  {
     title: "Kỹ thuật bón phân cà phê giai đoạn nuôi trái: Bí kíp chặn đứng rụng quả, hạt chắc nhân to",
-    slug: "ky-thuat-bon-phan-ca-phe-nuoi-trai-masterclass",
+    slug: "ky-thuat-bon-phan-ca-phe-nuoi-trai-chuyen-gia-v5",
     excerpt: "Nhiều nhà vườn cà phê đang mất ngủ vì hiện tượng rụng quả hàng loạt vào mùa mưa. Bài viết này tiết lộ phác đồ dinh dưỡng 'vàng' giúp chặn đứng rụng quả và tăng năng suất lên đến 30%.",
     image: imgCoffee,
     tags: ["Cà phê", "Kỹ thuật bón phân", "Bí kíp nhà nông"],
@@ -40,50 +44,88 @@ async function run() {
       <ul>
         <li><strong>Công thức:</strong> Ưu tiên NPK tỷ lệ 2:1:2 hoặc 3:1:3 (Ví dụ 16-8-16 hoặc 19-9-19).</li>
         <li><strong>Liều lượng:</strong> 0.8 - 1kg/gốc tùy vào độ trĩu quả của cây.</li>
-        <li><strong>Lưu ý:</strong> Giai đoạn này cây rất khát Kali. Kali giúp vận chuyển đường về hạt, làm hạt cà phê nặng ký hơn hẳn so với bón phân thường.</li>
       </ul>
 
-      <h3>Giai đoạn 3: Tích lũy tinh bột - Chín đồng loạt (Cuối mùa mưa)</h3>
-      <p><strong>Nhiệm vụ:</strong> Hoàn thiện cấu trúc nhân, giúp hạt cứng và bóng.</p>
-      <ul>
-        <li><strong>Sử dụng:</strong> Kali trắng (K2SO4) thay vì Kali đỏ. Kali trắng giúp cà phê không bị "chai" quả và tăng hương vị cho nhân cà phê khi rang xay.</li>
-      </ul>
+      <h2>III. Kỹ thuật bón phân "Chuẩn chuyên gia"</h2>
+      <p>Bà con thường rải phân ngay sát gốc, đây là sai lầm cực lớn! Rễ hút dinh dưỡng nằm ở đầu tán lá. Hãy bón theo hình chiếu tán (cách gốc 40-50cm) và nhớ <strong>lấp đất</strong> để giảm bay hơi Đạm đến 30%.</p>
 
-      <h2>III. Kỹ thuật bón phân "Chuẩn chuyên gia" để không lãng phí 1 đồng tiền phân</h2>
-      <p>Bà con thường rải phân ngay sát gốc, đây là sai lầm cực lớn! Rễ hút dinh dưỡng nằm ở đầu tán lá. Hãy làm theo 3 bước này:</p>
+      <p><em>Lời nhắn từ Kỹ sư:</em> Đừng để đến khi quả rụng đầy gốc mới bắt đầu cứu vãn. Hãy chủ động phòng bệnh ngay từ bây giờ.</p>
+    `
+  },
+  {
+    title: "Phác đồ 4 bước cứu sống sầu riêng bị vàng lá thối rễ - 'Cải tử hoàn sinh' cho vườn cây",
+    slug: "cuu-sau-rieng-masterclass-v5",
+    excerpt: "Nhìn vườn sầu riêng đầu tư bạc tỷ đang chết dần vì thối rễ, ai mà không xót? Bài viết này là hy vọng cuối cùng giúp bà con cứu sống cây sầu riêng bị suy kiệt nặng.",
+    image: imgDurian,
+    tags: ["Sầu riêng", "Cấp cứu cây", "Bí kíp chuyên gia"],
+    content: `
+      <p>Chào bà con, làm sầu riêng mà gặp bệnh vàng lá thối rễ thì đúng là "ác mộng". Nhiều người cuống cuồng đổ đủ thứ thuốc xuống gốc, càng đổ cây càng chết nhanh vì cái bụng của cây đang đau, bộ rễ đang nát, không thể tiêu hóa được phân thuốc đâu.</p>
+
+      <img src="${imgDurian}" alt="Cứu sống sầu riêng bị thối rễ" style="width:100%; border-radius:12px; margin: 20px 0;" />
+
+      <h2>I. Sai lầm chết người khi thấy cây vàng lá</h2>
+      <p>Khi thấy lá vàng, bà con thường đi mua phân bón Đạm (Ure) về bón để "hy vọng lá xanh lại". Đây chính là nhát dao kết liễu cây sầu riêng. Đạm lúc này làm nấm bệnh bùng phát dữ dội hơn, rễ thối nhanh hơn.</p>
+
+      <h2>II. Quy trình 4 bước "Cải tử hoàn sinh"</h2>
+      <h3>Bước 1: Cắt tỉa và Xẻ rãnh thoát nước</h3>
+      <p>Cắt bỏ những cành đã khô, cành bị bệnh nặng để giảm áp lực nuôi cây. Nếu vườn bị ngập, phải xẻ rãnh thoát nước ngay. Bộ rễ sầu riêng rất sợ ngạt nước.</p>
+
+      <h3>Bước 2: Diệt nấm bằng Metalaxyl + Mancozeb</h3>
+      <p>Không được tưới 1 lần rồi thôi! Phải tưới ít nhất 2 lần, mỗi lần cách nhau 5 ngày. Tưới đẫm vào vùng rễ tơ quanh tán cây.</p>
+
+      <h3>Bước 3: Kích rễ bằng Humic + Fulvic</h3>
+      <p>Chỉ sau khi đã diệt nấm, mới được dùng Humic. Đây là "sữa mẹ" giúp rễ tơ nhú ra nhanh chóng. Tuyệt đối không dùng phân hóa học lúc này.</p>
+
+      <h3>Bước 4: Bổ sung vi sinh đối kháng</h3>
+      <p>Khi cây đã nhú đọt non, hãy bón phân hữu cơ hoai mục trộn với nấm Trichoderma để bảo vệ rễ cây bền vững.</p>
+
+      <p><em>Lời nhắn:</em> Đất khỏe thì cây mới mạnh. Hãy duy trì độ pH đất ổn định để nấm bệnh không có cơ hội tấn công.</p>
+    `
+  },
+  {
+    title: "5 Sai lầm tai hại khi dùng phân bón lá khiến cây bị 'nướng cháy' lá",
+    slug: "sai-lam-phan-bon-la-masterclass-v5",
+    excerpt: "Phun phân bón lá là con dao hai lưỡi. Dùng đúng thì cây xanh mướt, dùng sai thì chỉ sau một đêm cả vườn cây bị 'luộc chín'. Xem ngay để tránh mất tiền oan.",
+    image: imgFertilizer,
+    tags: ["Phân bón lá", "Kỹ thuật phun", "Cảnh báo"],
+    content: `
+      <p>Nhiều bà con phun phân bón lá xong thấy lá cháy sém, rụng hàng loạt. Đây không phải do phân giả, mà do bà con đang "vô tình" nướng chín cây của mình.</p>
+
+      <img src="${imgFertilizer}" alt="Hướng dẫn phun phân bón lá an toàn" style="width:100%; border-radius:12px; margin: 20px 0;" />
+
+      <h2>I. Tại sao phân bón lá lại dễ gây cháy lá?</h2>
+      <p>Lỗ khí khổng trên lá rất nhạy cảm. Phun nồng độ quá cao làm nồng độ muối tăng vọt, nó hút sạch nước trong tế bào lá ra ngoài, khiến tế bào bị chết khô ngay lập tức.</p>
+
+      <h2>II. 3 "Tử huyệt" cần tránh</h2>
       <ol>
-        <li><strong>Dọn cỏ và làm sạch bồn:</strong> Giúp phân tiếp xúc trực tiếp với đất, không bị cỏ "ăn trộm".</li>
-        <li><strong>Bón theo hình chiếu tán:</strong> Rải phân vòng quanh mép tán lá (cách gốc 40-50cm). Đây là nơi tập trung 90% rễ tơ hút dinh dưỡng.</li>
-        <li><strong>Lấp đất:</strong> Đừng lười bước này! Lấp đất giúp giảm bay hơi Đạm đến 30%. Nếu không lấp, nắng lên phân bón sẽ bay hơi hết, bà con chỉ đang "bón cho trời".</li>
+        <li><strong>Phun lúc trời nắng gắt:</strong> Nắng làm phân bay hơi nhanh, để lại lớp muối đậm đặc đốt cháy lá.</li>
+        <li><strong>Pha quá liều:</strong> Tâm lý muốn cây nhanh tốt thường dẫn đến hậu quả thảm khốc.</li>
+        <li><strong>Phun khi cây đang héo:</strong> Cây đang thiếu nước mà phun phân bón lá vào là "kết liễu" cây ngay.</li>
       </ol>
 
-      <h2>IV. Giải pháp đột phá: Kết hợp phân bón lá Chelate</h2>
-      <p>Khi rễ cây bị ngập úng mùa mưa, nó sẽ "ngừng hoạt động". Lúc này bón gốc là vô dụng. Giải pháp cứu cánh là dùng <strong>Phân bón lá dạng Chelate</strong>. Công nghệ Chelate giúp hạt dinh dưỡng siêu nhỏ, thẩm thấu trực tiếp qua khí khổng lá chỉ sau 2 giờ phun, giúp cây hồi phục thần tốc.</p>
-
-      <p><em>Lời nhắn từ Kỹ sư:</em> Đừng để đến khi quả rụng đầy gốc mới bắt đầu cứu vãn. Hãy chủ động phòng bệnh hơn chữa bệnh. Nếu bà con còn thắc mắc về liều lượng cụ thể cho vườn nhà mình, hãy chụp ảnh vườn và nhắn tin ngay cho đội ngũ kỹ thuật của Phân Bón Giá Tốt để được tư vấn miễn phí 24/7 nhé!</p>
+      <h2>III. Kỹ thuật phun "Chuẩn 100%"</h2>
+      <p>Thời điểm tốt nhất là từ 6h-8h sáng. Đặc biệt, PHẢI phun vào mặt dưới lá - nơi tập trung nhiều lỗ khí khổng nhất để cây hấp thụ dinh dưỡng tối đa.</p>
     `
-  };
+  }
+];
 
-  try {
-    // Re-inject token temporarily
-    // (Already in middleware if we pushed last time, but I'll make sure)
+async function run() {
+  console.log("Upgrading ALL articles using curl.exe hybrid...");
+  
+  for (const article of articles) {
+    const tempFile = path.join(__dirname, `temp_${article.slug}.json`);
+    fs.writeFileSync(tempFile, JSON.stringify(article, null, 2), 'utf8');
     
-    const response = await fetch(`${API_BASE}/blogs`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${AGENT_TOKEN}`
-      },
-      body: JSON.stringify(article)
-    });
-    
-    if (response.ok) {
-      console.log("Success: Posted Coffee Masterclass!");
-    } else {
-      console.error("Failed:", await response.text());
+    try {
+      console.log(`Posting: ${article.title}`);
+      const command = `curl.exe -X POST "${API_BASE}/blogs" -H "Content-Type: application/json" -H "Authorization: Bearer ${AGENT_TOKEN}" --data-binary "@${tempFile}"`;
+      const output = execSync(command).toString();
+      console.log("Response:", output);
+    } catch (err) {
+      console.error(`Error with "${article.title}":`, err.message);
+    } finally {
+      if (fs.existsSync(tempFile)) fs.unlinkSync(tempFile);
     }
-  } catch (err) {
-    console.error("Error:", err.message);
   }
 }
 
