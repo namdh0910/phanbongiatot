@@ -13,8 +13,6 @@ export default function Home() {
   const [products, setProducts] = useState<any[]>([]);
   const [blogs, setBlogs] = useState<any[]>([]);
   const [settings, setSettings] = useState<any>({});
-  const [selectedProduct, setSelectedProduct] = useState<any>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     // Fetch products
@@ -95,7 +93,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* FEATURED PRODUCTS - SHOPEE STYLE GRID */}
+      {/* FEATURED PRODUCTS */}
       <section className="container mx-auto px-4">
         <div className="flex justify-between items-end mb-6 border-l-4 border-[#ee4d2d] pl-4">
           <div>
@@ -108,55 +106,36 @@ export default function Home() {
         </div>
         
         <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-4">
-          {products.map((product: any, i: number) => {
-            const imgSrc = product.images?.[0];
-            const isUrl = imgSrc && (imgSrc.startsWith("http") || imgSrc.startsWith("/"));
-            return (
-              <div 
-                key={i} 
-                onClick={() => router.push(`/san-pham/${product.slug}`)}
-                className="bg-white rounded-sm overflow-hidden shadow-sm border border-transparent hover:border-[#ee4d2d] hover:shadow-lg transition-all group flex flex-col h-full relative cursor-pointer"
-              >
-                <div className="aspect-square relative overflow-hidden bg-gradient-to-br from-green-50 to-green-100 flex items-center justify-center">
-                   {isUrl ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img src={imgSrc} alt={product.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                   ) : (
-                      <div className="text-center p-4">
-                         <div className="text-5xl mb-2 group-hover:scale-110 transition-transform">🌱</div>
-                         <p className="text-[10px] text-green-600 font-bold uppercase line-clamp-1">{product.name}</p>
-                      </div>
-                   )}
-                   <div className="absolute top-0 right-0 flex flex-col gap-1 items-end">
-                      {product.isBestSeller && <div className="bg-[#ee4d2d] text-white font-bold px-1.5 py-0.5 text-[9px] uppercase shadow-sm">Bán chạy</div>}
-                      {product.isNewArrival && <div className="bg-[#00bfa5] text-white font-bold px-1.5 py-0.5 text-[9px] uppercase shadow-sm">Hàng mới</div>}
-                      {(!product.isBestSeller && !product.isNewArrival) && <div className="bg-[#fce015] text-[#ee4d2d] font-bold px-1.5 py-0.5 text-[9px] uppercase shadow-sm">HOT</div>}
-                   </div>
-                </div>
-                 <div className="p-3 md:p-4 flex flex-col flex-1">
-                   <h3 className="font-medium text-sm text-gray-800 line-clamp-2 mb-3 min-h-[40px] group-hover:text-[#ee4d2d] transition-colors">{product.name}</h3>
-                   <div className="mt-auto">
-                     <div className="flex items-center justify-between mb-3">
-                        <span className="font-black text-[#ee4d2d] text-base md:text-lg">₫{(product.price).toLocaleString("vi-VN")}</span>
-                     </div>
-                      <button 
-                         onClick={(e) => {
-                           e.stopPropagation();
-                           handleQuickBuy(product);
-                         }}
-                         className="w-full bg-[#ee4d2d] text-white py-2.5 rounded-sm font-bold text-xs hover:bg-[#d73211] transition-colors uppercase shadow-sm active:scale-95"
-                      >
-                        Mua ngay
-                      </button>
-                   </div>
+          {products.map((product: any, i: number) => (
+            <div 
+              key={i} 
+              onClick={() => router.push(`/san-pham/${product.slug}`)}
+              className="bg-white rounded-sm overflow-hidden shadow-sm border border-transparent hover:border-[#ee4d2d] hover:shadow-lg transition-all group flex flex-col h-full relative cursor-pointer"
+            >
+              <div className="aspect-square relative overflow-hidden bg-gray-50">
+                <img src={product.images?.[0] || ""} alt={product.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                <div className="absolute top-0 right-0">
+                  {product.isBestSeller && <div className="bg-[#ee4d2d] text-white font-bold px-1.5 py-0.5 text-[9px] uppercase shadow-sm">Bán chạy</div>}
                 </div>
               </div>
-            );
-          })}
+               <div className="p-3 md:p-4 flex flex-col flex-1">
+                 <h3 className="font-medium text-sm text-gray-800 line-clamp-2 mb-3 min-h-[40px] group-hover:text-[#ee4d2d] transition-colors">{product.name}</h3>
+                 <div className="mt-auto">
+                    <span className="font-black text-[#ee4d2d] text-base md:text-lg">₫{(product.price).toLocaleString("vi-VN")}</span>
+                    <button 
+                       onClick={(e) => { e.stopPropagation(); handleQuickBuy(product); }}
+                       className="w-full mt-3 bg-[#ee4d2d] text-white py-2.5 rounded-sm font-bold text-xs hover:bg-[#d73211] transition-colors uppercase shadow-sm active:scale-95"
+                    >
+                      Mua ngay
+                    </button>
+                 </div>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
-      {/* BLOG / NEWS - SEO FOCUS */}
+      {/* BLOG / NEWS */}
       <section className="container mx-auto px-4">
         <div className="flex justify-between items-end mb-6 border-l-4 border-emerald-600 pl-4">
           <div>
@@ -167,49 +146,58 @@ export default function Home() {
             TẤT CẢ BÀI VIẾT <span>▶</span>
           </Link>
         </div>
-        
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {blogs.map((blog: any, i: number) => (
             <Link href={`/blog/${blog.slug}`} key={i} className="group flex flex-col bg-white rounded-sm shadow-sm hover:shadow-md transition-all border border-gray-100 overflow-hidden">
                <div className="aspect-[16/9] bg-emerald-50 relative flex items-center justify-center overflow-hidden">
-                  {blog.image ? (
-                    <img src={blog.image} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt={blog.title} />
-                  ) : (
-                    <span className="text-6xl group-hover:scale-110 transition-transform duration-500">📚</span>
-                  )}
-                  <div className="absolute bottom-3 left-3 bg-white/90 px-2 py-1 text-[10px] font-bold rounded-sm text-emerald-900">KIẾN THỨC</div>
+                  <img src={blog.image || ""} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt={blog.title} />
                </div>
                <div className="p-5">
                   <h3 className="font-bold text-gray-900 group-hover:text-emerald-600 transition-colors line-clamp-2 mb-3 text-lg leading-snug">{blog.title}</h3>
                   <p className="text-sm text-gray-500 line-clamp-2 mb-4 leading-relaxed">{blog.excerpt}</p>
-                  <span className="text-emerald-600 text-xs font-bold uppercase tracking-widest border-b-2 border-emerald-600 pb-1">Xem chi tiết</span>
                </div>
             </Link>
           ))}
-          {blogs.length === 0 && (
-             <div className="col-span-3 py-12 text-center bg-white border border-dashed border-gray-300 rounded-sm">
-                <p className="text-gray-400">Đang cập nhật bài viết mới nhất...</p>
-             </div>
-          )}
+        </div>
+      </section>
+
+      {/* VENDOR RECRUITMENT SECTION */}
+      <section className="container mx-auto px-4">
+        <div className="bg-white rounded-sm shadow-sm border border-gray-200 overflow-hidden flex flex-col md:flex-row items-center">
+          <div className="md:w-1/2 p-8 md:p-12">
+            <div className="inline-block bg-emerald-100 text-emerald-800 px-3 py-1 rounded-sm text-[10px] font-black uppercase tracking-widest mb-4">
+              Cơ hội hợp tác kinh doanh
+            </div>
+            <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-6 leading-tight">
+              Trở thành <span className="text-[#ee4d2d]">Đối tác bán hàng</span> cùng Phân Bón Giá Tốt
+            </h2>
+            <p className="text-gray-600 mb-8 leading-relaxed">
+              Anh/chị đang là đại lý vật tư nông nghiệp? Hãy đăng ký mở gian hàng để tiếp cận hàng ngàn nhà nông trên khắp cả nước. Chúng tôi cung cấp hệ thống quản lý chuyên nghiệp, minh bạch và hiệu quả.
+            </p>
+            <ul className="space-y-3 mb-10 text-sm font-medium text-gray-700">
+              <li className="flex items-center gap-3">✅ Không mất phí mở gian hàng</li>
+              <li className="flex items-center gap-3">✅ Quy trình duyệt sản phẩm nhanh chóng</li>
+              <li className="flex items-center gap-3">✅ Hệ thống báo cáo đơn hàng thông minh</li>
+            </ul>
+            <Link href="/vendor/dang-ky" className="inline-block bg-[#1a5c2a] text-white px-10 py-4 rounded-sm font-black text-lg shadow-lg hover:bg-[#2d7a3e] transition-transform hover:-translate-y-1 uppercase tracking-wider">
+              Đăng ký bán hàng ngay
+            </Link>
+          </div>
+          <div className="md:w-1/2 bg-gray-50 flex items-center justify-center p-12">
+            <div className="relative group cursor-pointer">
+               <span className="text-[150px] md:text-[200px] relative z-10 drop-shadow-2xl">🏪</span>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* CTA BANNER */}
       <section className="container mx-auto px-4">
         <div className="bg-gradient-to-r from-emerald-900 to-green-800 rounded-sm p-8 md:p-12 text-center text-white shadow-2xl relative overflow-hidden">
-           <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-600/20 rounded-full blur-3xl -mr-32 -mt-32"></div>
-           <div className="absolute bottom-0 left-0 w-64 h-64 bg-yellow-600/10 rounded-full blur-3xl -ml-32 -mb-32"></div>
-           
-           <h2 className="text-3xl md:text-5xl font-black mb-6 relative z-10 leading-tight">Vườn Suy Yếu? <span className="text-[#fce015]">Gặp Kỹ Sư Ngay!</span></h2>
-           <p className="text-lg text-emerald-100 mb-8 max-w-2xl mx-auto relative z-10">Đừng để vườn suy kiệt. Chúng tôi tư vấn giải pháp phục hồi MIỄN PHÍ tận vườn qua Zalo/Điện thoại.</p>
-           
-            <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
-              <a href={`tel:${settings.hotline}`} className="bg-[#ee4d2d] text-white px-10 py-5 rounded-sm font-black text-xl shadow-lg hover:bg-[#d73211] transition-transform hover:-translate-y-1">
-                 GỌI: {settings.phone || settings.hotline}
-              </a>
-              <a href={`https://zalo.me/${settings.zaloId}`} className="bg-white text-emerald-900 px-10 py-5 rounded-sm font-black text-xl shadow-lg hover:bg-gray-100 transition-transform hover:-translate-y-1">
-                 CHAT ZALO
-              </a>
+           <h2 className="text-3xl md:text-5xl font-black mb-6 leading-tight">Vườn Suy Yếu? <span className="text-[#fce015]">Gặp Kỹ Sư Ngay!</span></h2>
+           <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
+              <a href={`tel:${settings.hotline}`} className="bg-[#ee4d2d] text-white px-10 py-5 rounded-sm font-black text-xl shadow-lg hover:bg-[#d73211]">GỌI: {settings.phone || settings.hotline}</a>
+              <a href={`https://zalo.me/${settings.zaloId}`} className="bg-white text-emerald-900 px-10 py-5 rounded-sm font-black text-xl shadow-lg hover:bg-gray-100">CHAT ZALO</a>
             </div>
         </div>
       </section>
