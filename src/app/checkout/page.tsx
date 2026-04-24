@@ -18,9 +18,44 @@ export default function CheckoutPage() {
   });
   const [paymentMethod, setPaymentMethod] = useState('COD');
   const [error, setError] = useState('');
+  const [couponCode, setCouponCode] = useState('');
+  const [appliedCoupon, setAppliedCoupon] = useState<any>(null);
+  const [couponLoading, setCouponLoading] = useState(false);
+  const [couponMsg, setCouponMsg] = useState({ type: '', text: '' });
+
+  const handleApplyCoupon = async () => {
+    if (!couponCode.trim()) return;
+    setCouponLoading(true);
+    setCouponMsg({ type: '', text: '' });
+    try {
+      const res = await fetch(`${API_BASE_URL}/coupons/validate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code: couponCode.trim(), orderAmount: cartTotal })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setAppliedCoupon(data);
+        setCouponMsg({ type: 'success', text: 'Áp dụng mã giảm giá thành công!' });
+      } else {
+        setAppliedCoupon(null);
+        setCouponMsg({ type: 'error', text: data.message });
+      }
+    } catch {
+      setCouponMsg({ type: 'error', text: 'Lỗi kết nối máy chủ' });
+    } finally {
+      setCouponLoading(false);
+    }
+  };
+
+  const discountAmount = appliedCoupon 
+    ? (appliedCoupon.discountType === 'percentage' 
+        ? (cartTotal * appliedCoupon.discountValue / 100) 
+        : appliedCoupon.discountValue)
+    : 0;
 
   const shippingFee = cartTotal > 500000 ? 0 : 30000;
-  const totalPrice = cartTotal + shippingFee;
+  const totalPrice = cartTotal + shippingFee - discountAmount;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -56,7 +91,9 @@ export default function CheckoutPage() {
           paymentMethod,
           itemsPrice: cartTotal,
           shippingFee,
-          totalPrice
+          totalPrice,
+          couponCode: appliedCoupon?.code || null,
+          discountAmount
         })
       });
 
@@ -211,6 +248,33 @@ export default function CheckoutPage() {
               </div>
 
               <div className="space-y-3 pt-6 border-t border-gray-100 text-sm">
+                {/* Coupon Code Section */}
+                <div className="pb-4 mb-4 border-b border-gray-100">
+                  <p className="text-xs font-bold text-gray-500 uppercase mb-2">Mã giảm giá</p>
+                  <div className="flex gap-2">
+                    <input 
+                      type="text" 
+                      value={couponCode} 
+                      onChange={e => setCouponCode(e.target.value.toUpperCase())}
+                      className="flex-1 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-1 focus:ring-[#1a5c2a] outline-none" 
+                      placeholder="Mã giảm giá..." 
+                    />
+                    <button 
+                      type="button" 
+                      onClick={handleApplyCoupon}
+                      disabled={couponLoading || !couponCode.trim()}
+                      className="bg-gray-800 text-white px-4 py-2 rounded-lg text-xs font-bold hover:bg-black transition-colors disabled:opacity-50"
+                    >
+                      {couponLoading ? '...' : 'ÁP DỤNG'}
+                    </button>
+                  </div>
+                  {couponMsg.text && (
+                    <p className={`mt-2 text-[10px] font-bold ${couponMsg.type === 'success' ? 'text-green-600' : 'text-red-500'}`}>
+                      {couponMsg.text}
+                    </p>
+                  )}
+                </div>
+
                 <div className="flex justify-between text-gray-600">
                   <span>Tạm tính</span>
                   <span className="font-medium">{cartTotal.toLocaleString('vi-VN')}đ</span>
@@ -219,7 +283,13 @@ export default function CheckoutPage() {
                   <span>Phí vận chuyển</span>
                   <span className="font-medium">{shippingFee === 0 ? <span className="text-green-600">Miễn phí</span> : `${shippingFee.toLocaleString('vi-VN')}đ`}</span>
                 </div>
-                {shippingFee > 0 && (
+                {discountAmount > 0 && (
+                  <div className="flex justify-between text-red-600 font-bold">
+                    <span>Giảm giá ({appliedCoupon?.code})</span>
+                    <span>-{discountAmount.toLocaleString('vi-VN')}đ</span>
+                  </div>
+                )}
+                {shippingFee > 0 && !appliedCoupon && (
                   <div className="bg-blue-50 text-blue-700 text-xs p-2 rounded text-center">
                     Mua thêm {(500000 - cartTotal).toLocaleString('vi-VN')}đ để được FREESHIP
                   </div>

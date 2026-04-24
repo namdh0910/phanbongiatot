@@ -1,5 +1,5 @@
 "use client";
-import { API_BASE_URL, getAuthHeaders } from '@/utils/api';
+import { API_BASE_URL } from '@/utils/api';
 import { useState, useEffect } from "react";
 
 export default function ProductReviews({ productId }: { productId: string }) {
@@ -41,38 +41,71 @@ export default function ProductReviews({ productId }: { productId: string }) {
         setShowForm(false);
         setFormData({ name: "", rating: 5, comment: "", images: [] });
         fetchReviews();
-        alert("Cảm ơn anh/chị đã đánh giá!");
+        alert("✨ Cảm ơn anh/chị đã đánh giá! Ý kiến của anh/chị rất quý giá với Phân Bón Giá Tốt.");
       }
     } catch (error) {
       alert("Gửi đánh giá thất bại.");
     }
   };
 
+  const avgRating = reviews.length > 0 
+    ? (reviews.reduce((acc, r) => acc + r.rating, 0) / reviews.length).toFixed(1)
+    : "5.0";
+
   return (
     <div className="bg-white md:rounded-sm shadow-sm overflow-hidden">
-      <div className="bg-[#f5f5f5] p-4 flex justify-between items-center">
+      <div className="bg-[#f5f5f5] p-4 flex justify-between items-center border-b border-gray-100">
         <h2 className="text-sm font-bold text-gray-800 uppercase tracking-wider">Đánh giá từ nhà nông</h2>
         <button 
           onClick={() => setShowForm(!showForm)}
-          className="text-[#ee4d2d] font-bold text-xs hover:underline"
+          className="bg-[#ee4d2d] text-white px-4 py-1.5 rounded-sm font-bold text-[10px] hover:bg-[#d73211] transition-all shadow-sm"
         >
-          {showForm ? "Đóng lại" : "Viết đánh giá"}
+          {showForm ? "ĐÓNG FORM" : "VIẾT ĐÁNH GIÁ"}
         </button>
       </div>
 
       <div className="p-6">
+        {/* Rating Summary */}
+        {!showForm && reviews.length > 0 && (
+          <div className="flex flex-col md:flex-row gap-8 mb-10 p-6 bg-orange-50/30 rounded-sm border border-orange-100/50">
+            <div className="text-center">
+              <p className="text-4xl font-black text-[#ee4d2d] mb-1">{avgRating}</p>
+              <div className="text-yellow-500 text-lg mb-1">
+                {Array(5).fill(0).map((_, i) => (
+                  <span key={i}>{i < Math.floor(Number(avgRating)) ? "★" : "☆"}</span>
+                ))}
+              </div>
+              <p className="text-xs text-gray-500">{reviews.length} đánh giá thực tế</p>
+            </div>
+            <div className="flex-1 flex flex-wrap gap-2 items-center">
+               {["Tất cả", "5 Sao", "4 Sao", "3 Sao", "2 Sao", "1 Sao", "Có Hình Ảnh"].map(tag => (
+                 <button key={tag} className="bg-white border border-gray-200 px-4 py-1.5 rounded-sm text-xs hover:border-[#ee4d2d] hover:text-[#ee4d2d] transition-colors">
+                   {tag}
+                 </button>
+               ))}
+            </div>
+          </div>
+        )}
+
         {showForm && (
-          <form onSubmit={handleSubmit} className="mb-8 p-4 bg-gray-50 rounded-sm border border-gray-100 space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <form onSubmit={handleSubmit} className="mb-12 p-6 bg-gray-50 rounded-sm border border-gray-100 space-y-6 animate-in fade-in slide-in-from-top-4">
+            <h3 className="font-bold text-gray-900">Viết đánh giá của anh/chị</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-[10px] font-bold text-gray-400 uppercase mb-1">Tên của anh/chị *</label>
-                <input required value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} className="w-full border border-gray-200 px-3 py-2 text-sm outline-none focus:border-[#ee4d2d]" />
+                <label className="block text-[10px] font-bold text-gray-400 uppercase mb-2">Tên của anh/chị *</label>
+                <input 
+                  required 
+                  value={formData.name} 
+                  onChange={e => setFormData({...formData, name: e.target.value})} 
+                  className="w-full border border-gray-200 px-4 py-3 text-sm outline-none focus:border-[#ee4d2d] bg-white rounded-sm"
+                  placeholder="Ví dụ: Anh Nam - Nhà vườn Lâm Đồng"
+                />
               </div>
               <div>
-                <label className="block text-[10px] font-bold text-gray-400 uppercase mb-1">Đánh giá (1-5 sao)</label>
-                <div className="flex gap-2">
+                <label className="block text-[10px] font-bold text-gray-400 uppercase mb-2">Mức độ hài lòng</label>
+                <div className="flex gap-3">
                    {[1,2,3,4,5].map(s => (
-                     <button key={s} type="button" onClick={() => setFormData({...formData, rating: s})} className={`text-xl ${formData.rating >= s ? 'text-yellow-500' : 'text-gray-300'}`}>
+                     <button key={s} type="button" onClick={() => setFormData({...formData, rating: s})} className={`text-3xl transition-transform hover:scale-110 ${formData.rating >= s ? 'text-yellow-500' : 'text-gray-200'}`}>
                        ★
                      </button>
                    ))}
@@ -80,52 +113,76 @@ export default function ProductReviews({ productId }: { productId: string }) {
               </div>
             </div>
             <div>
-              <label className="block text-[10px] font-bold text-gray-400 uppercase mb-1">Cảm nhận của anh/chị *</label>
-              <textarea required value={formData.comment} onChange={e => setFormData({...formData, comment: e.target.value})} className="w-full border border-gray-200 px-3 py-2 text-sm outline-none focus:border-[#ee4d2d] h-20" />
+              <label className="block text-[10px] font-bold text-gray-400 uppercase mb-2">Cảm nhận của anh/chị *</label>
+              <textarea 
+                required 
+                value={formData.comment} 
+                onChange={e => setFormData({...formData, comment: e.target.value})} 
+                className="w-full border border-gray-200 px-4 py-3 text-sm outline-none focus:border-[#ee4d2d] h-32 bg-white rounded-sm resize-none"
+                placeholder="Chia sẻ trải nghiệm của anh/chị về sản phẩm này..."
+              />
             </div>
-            <button type="submit" className="bg-[#ee4d2d] text-white px-6 py-2 rounded-sm font-bold text-sm">GỬI ĐÁNH GIÁ</button>
+            <div className="flex justify-end gap-3">
+               <button type="button" onClick={() => setShowForm(false)} className="px-6 py-2.5 text-sm font-bold text-gray-400">HỦY BỎ</button>
+               <button type="submit" className="bg-[#ee4d2d] text-white px-10 py-2.5 rounded-sm font-black text-sm shadow-lg shadow-orange-100 hover:bg-[#d73211] transition-all">GỬI ĐÁNH GIÁ NGAY</button>
+            </div>
           </form>
         )}
 
-        <div className="space-y-8">
+        <div className="space-y-0 divide-y divide-gray-100">
           {loading ? (
-            <div className="animate-pulse space-y-4">
-              <div className="h-4 bg-gray-100 w-1/4"></div>
-              <div className="h-20 bg-gray-50"></div>
+            <div className="animate-pulse space-y-6 py-10">
+              <div className="h-4 bg-gray-50 w-1/4"></div>
+              <div className="h-32 bg-gray-50/50"></div>
             </div>
           ) : reviews.length === 0 ? (
-            <div className="text-center py-10">
-              <p className="text-gray-400 text-sm italic">Chưa có đánh giá nào cho sản phẩm này.</p>
+            <div className="text-center py-20 bg-gray-50/50 rounded-sm">
+              <div className="text-6xl mb-4 opacity-20">💬</div>
+              <p className="text-gray-400 text-sm italic">Chưa có đánh giá nào cho sản phẩm này.<br/>Hãy là người đầu tiên đánh giá!</p>
             </div>
           ) : (
             reviews.map((review, i) => (
-              <div key={i} className="border-b border-gray-50 pb-6 last:border-0">
-                <div className="flex justify-between mb-2">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center font-bold text-gray-400 text-xs">
-                      {review.name.charAt(0).toUpperCase()}
-                    </div>
-                    <div>
+              <div key={i} className="py-8 animate-in fade-in duration-500">
+                <div className="flex gap-4">
+                  <div className="w-10 h-10 bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center font-black text-xs flex-shrink-0">
+                    {review.name.charAt(0).toUpperCase()}
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex justify-between items-start mb-1">
                       <h4 className="font-bold text-gray-900 text-sm">{review.name}</h4>
-                      <div className="flex text-yellow-500 text-[10px]">
-                        {Array(5).fill(0).map((_, idx) => (
-                          <span key={idx}>{idx < review.rating ? "★" : "☆"}</span>
+                      <span className="text-[10px] text-gray-400">{new Date(review.createdAt).toLocaleDateString("vi-VN")}</span>
+                    </div>
+                    <div className="flex text-yellow-500 text-[10px] mb-3">
+                      {Array(5).fill(0).map((_, idx) => (
+                        <span key={idx}>{idx < review.rating ? "★" : "☆"}</span>
+                      ))}
+                    </div>
+                    <p className="text-gray-700 text-sm leading-relaxed whitespace-pre-line">{review.comment}</p>
+                    
+                    {review.images?.length > 0 && (
+                      <div className="flex flex-wrap gap-2 mt-4">
+                        {review.images.map((img: string, idx: number) => (
+                          <div key={idx} className="w-20 h-20 rounded-sm border border-gray-100 overflow-hidden cursor-zoom-in hover:opacity-90 transition-opacity">
+                            <img src={img} className="w-full h-full object-cover" />
+                          </div>
                         ))}
                       </div>
+                    )}
+
+                    <div className="mt-4 flex items-center gap-4 text-[10px] text-gray-400 font-bold uppercase tracking-widest">
+                       <button className="hover:text-[#ee4d2d]">Hữu ích (0)</button>
+                       <button className="hover:text-[#ee4d2d]">Báo cáo</button>
                     </div>
                   </div>
-                  <span className="text-[10px] text-gray-400">{new Date(review.createdAt).toLocaleDateString("vi-VN")}</span>
                 </div>
-                <p className="text-gray-700 text-sm leading-relaxed ml-11">{review.comment}</p>
-                {review.images?.length > 0 && (
-                  <div className="flex gap-2 mt-3 ml-11">
-                    {review.images.map((img: string, idx: number) => (
-                      <img key={idx} src={img} className="w-16 h-16 object-cover rounded-sm border border-gray-100" />
-                    ))}
-                  </div>
-                )}
               </div>
             ))
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}      ))
           )}
         </div>
       </div>

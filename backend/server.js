@@ -49,6 +49,7 @@ const settingsRoutes = require('./routes/settingsRoutes');
 const aiRoutes = require('./routes/aiRoutes');
 const orderRoutes = require('./routes/orderRoutes');
 const socialRoutes = require('./routes/socialRoutes');
+const couponRoutes = require('./routes/couponRoutes');
 
 // Mount routers
 app.use('/api/auth', authRoutes);
@@ -56,6 +57,7 @@ app.use('/api/products', productRoutes);
 app.use('/api/blogs', blogRoutes);
 app.use('/api/leads', leadRoutes);
 app.use('/api/orders', orderRoutes);
+app.use('/api/coupons', couponRoutes);
 app.use('/api/social', socialRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/reviews', reviewRoutes);

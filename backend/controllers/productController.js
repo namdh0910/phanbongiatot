@@ -86,6 +86,40 @@ const deleteProduct = async (req, res) => {
   }
 };
 
+// @desc    Create new review
+// @route   POST /api/products/:id/reviews
+// @access  Public
+const createProductReview = async (req, res) => {
+  try {
+    const { rating, comment, name } = req.body;
+
+    const product = await Product.findById(req.params.id);
+
+    if (product) {
+      const review = {
+        name: name || 'Khách hàng',
+        rating: Number(rating),
+        comment,
+        createdAt: new Date(),
+        status: 'approved',
+      };
+
+      product.reviews.push(review);
+      product.numReviews = product.reviews.length;
+      product.rating =
+        product.reviews.reduce((acc, item) => item.rating + acc, 0) /
+        product.reviews.length;
+
+      await product.save();
+      res.status(201).json({ message: 'Đã thêm đánh giá' });
+    } else {
+      res.status(404).json({ message: 'Không tìm thấy sản phẩm' });
+    }
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
 module.exports = {
   getProducts,
   getProductById,
@@ -93,4 +127,5 @@ module.exports = {
   createProduct,
   updateProduct,
   deleteProduct,
+  createProductReview,
 };

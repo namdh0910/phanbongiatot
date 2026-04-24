@@ -20,6 +20,15 @@ const productSchema = mongoose.Schema(
     faq: [{ q: String, a: String }],
     seoTitle: { type: String },
     seoDescription: { type: String },
+    rating: { type: Number, default: 5 },
+    numReviews: { type: Number, default: 0 },
+    reviews: [{
+      name: { type: String, required: true },
+      rating: { type: Number, required: true },
+      comment: { type: String, required: true },
+      createdAt: { type: Date, default: Date.now },
+      status: { type: String, default: 'approved' }
+    }]
   },
   { timestamps: true }
 );
