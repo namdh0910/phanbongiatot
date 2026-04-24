@@ -9,10 +9,17 @@ const protect = async (req, res, next) => {
       token = req.headers.authorization.split(' ')[1];
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
       req.user = await User.findById(decoded.id).select('-password');
+      
       if (!req.user) {
         return res.status(401).json({ message: 'User not found' });
       }
-      return next();
+
+      if (typeof next === 'function') {
+        return next();
+      } else {
+        console.error('CRITICAL: protect middleware next is not a function');
+        return res.status(500).json({ message: 'Lỗi hệ thống: Middleware protect' });
+      }
     } catch (error) {
       return res.status(401).json({ message: 'Not authorized, token failed' });
     }
@@ -24,13 +31,13 @@ const protect = async (req, res, next) => {
 const admin = (req, res, next) => {
   if (req.user && req.user.role === 'admin') {
     if (typeof next === 'function') {
-      next();
+      return next();
     } else {
-      console.error('Middleware Error: next is not a function in admin middleware');
-      res.status(500).json({ message: 'Lỗi hệ thống: Middleware next' });
+      console.error('CRITICAL: admin middleware next is not a function');
+      return res.status(500).json({ message: 'Lỗi hệ thống: Middleware admin' });
     }
   } else {
-    res.status(403).json({ message: 'Not authorized as an admin' });
+    return res.status(403).json({ message: 'Not authorized as an admin' });
   }
 };
 
