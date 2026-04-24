@@ -1,4 +1,5 @@
 const Order = require('../models/Order');
+const Coupon = require('../models/Coupon');
 
 // @desc    Create new order
 // @route   POST /api/orders
@@ -12,6 +13,8 @@ const createOrder = async (req, res) => {
       itemsPrice,
       shippingFee,
       totalPrice,
+      couponCode,
+      discountAmount,
     } = req.body;
 
     if (orderItems && orderItems.length === 0) {
@@ -33,10 +36,20 @@ const createOrder = async (req, res) => {
         paymentMethod,
         itemsPrice,
         shippingFee,
+        discountAmount: discountAmount || 0,
         totalPrice,
+        couponCode,
       });
 
       const createdOrder = await order.save();
+
+      // If coupon used, increment usage count
+      if (couponCode) {
+        await Coupon.findOneAndUpdate(
+          { code: couponCode },
+          { $inc: { usageCount: 1 } }
+        );
+      }
       
       res.status(201).json(createdOrder);
     }

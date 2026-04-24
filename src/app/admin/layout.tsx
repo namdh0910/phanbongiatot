@@ -14,7 +14,9 @@ export default function AdminLayout({
           <li><a href="/admin" className="text-gray-300 hover:text-white flex items-center gap-3 font-medium"><span className="text-xl">📊</span> Tổng quan & SP</a></li>
           <li><a href="/admin/leads" className="text-gray-300 hover:text-white flex items-center gap-3 font-medium"><span className="text-xl">👥</span> Khách Hàng (Leads)</a></li>
           <li><a href="/admin/orders" className="text-gray-300 hover:text-white flex items-center gap-3 font-medium"><span className="text-xl">🛒</span> Đơn Hàng</a></li>
+          <li><a href="/admin/coupons" className="text-gray-300 hover:text-white flex items-center gap-3 font-medium"><span className="text-xl">🎟️</span> Mã Giảm Giá</a></li>
           <li><a href="/admin/blog" className="text-gray-300 hover:text-white flex items-center gap-3 font-medium"><span className="text-xl">📝</span> Bài Viết (SEO)</a></li>
+          <li><a href="/admin/reviews" className="text-gray-300 hover:text-white flex items-center gap-3 font-medium"><span className="text-xl">⭐</span> Đánh Giá SP</a></li>
           <li className="pt-8"><a href="/" className="text-gray-400 hover:text-white flex items-center gap-3 text-sm">⬅️ Về trang chủ</a></li>
         </ul>
       </div>
