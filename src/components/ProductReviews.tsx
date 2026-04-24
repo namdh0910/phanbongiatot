@@ -182,10 +182,4 @@ export default function ProductReviews({ productId }: { productId: string }) {
       </div>
     </div>
   );
-}      ))
-          )}
-        </div>
-      </div>
-    </div>
-  );
 }
