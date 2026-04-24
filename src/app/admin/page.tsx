@@ -9,6 +9,7 @@ import 'react-quill-new/dist/quill.snow.css';
 const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
 
 export default function AdminProducts() {
+  const [adminName, setAdminName] = useState("Admin");
   const [products, setProducts] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
@@ -27,17 +28,38 @@ export default function AdminProducts() {
   };
   const [form, setForm] = useState(emptyForm);
 
-  const fetchProducts = () => {
+    const fetchProducts = () => {
     setIsLoading(true);
     fetch(`${API_BASE_URL}/products/admin/all`, {
       headers: getAuthHeaders()
     })
-      .then(r => r.json())
+      .then(r => {
+        if (!r.ok) {
+          if (r.status === 401 || r.status === 403) {
+             alert("Phiên làm việc hết hạn hoặc bạn không có quyền Admin. Vui lòng đăng nhập lại.");
+             router.push("/admin/login");
+          }
+          throw new Error("Lỗi fetch sản phẩm");
+        }
+        return r.json();
+      })
       .then(d => { if (Array.isArray(d)) setProducts(d); setIsLoading(false); })
-      .catch(() => setIsLoading(false));
+      .catch((err) => {
+        console.error(err);
+        setIsLoading(false);
+      });
   };
 
-  useEffect(() => { fetchProducts(); }, []);
+  useEffect(() => { 
+    const userStr = localStorage.getItem("adminUser");
+    if (userStr) {
+      try {
+        const user = JSON.parse(userStr);
+        setAdminName(user.username || "Admin");
+      } catch (e) {}
+    }
+    fetchProducts(); 
+  }, []);
 
   const toSlug = (str: string) =>
     str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
@@ -148,7 +170,8 @@ export default function AdminProducts() {
            </button>
         </div>
         <div className="flex items-center gap-4">
-           <span className="text-xs text-gray-400">Tài khoản: <strong className="text-gray-700">Admin</strong></span>
+           <span className="text-xs text-gray-400">Tài khoản: <strong className="text-gray-700">{adminName}</strong></span>
+           <button onClick={() => { localStorage.clear(); router.push("/admin/login"); }} className="text-[10px] bg-gray-100 px-2 py-1 rounded text-gray-500 hover:bg-red-50 hover:text-red-600 transition-all">Đăng xuất</button>
         </div>
       </div>
 
