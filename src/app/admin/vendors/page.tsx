@@ -5,12 +5,15 @@ import { API_BASE_URL } from "@/utils/api";
 export default function AdminVendors() {
   const [vendors, setVendors] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     fetchVendors();
   }, []);
 
   const fetchVendors = async () => {
+    if (typeof window === 'undefined') return;
     const token = localStorage.getItem("adminToken");
     try {
       const res = await fetch(`${API_BASE_URL}/auth/vendors`, {
@@ -41,6 +44,8 @@ export default function AdminVendors() {
       console.error(err);
     }
   };
+
+  if (!mounted) return null;
 
   return (
     <div className="p-8">
