@@ -29,7 +29,7 @@ function OrderSuccessContent() {
         <Link href={`/don-hang/${code || ''}`} className="px-6 py-3 bg-[#1a5c2a] text-white rounded-xl font-bold hover:bg-[#2d7a3e] transition-colors shadow-md flex-1">
           Theo dõi đơn hàng
         </Link>
-        <Link href="/san-pham" className="px-6 py-3 bg-white text-[#1a5c2a] border-2 border-[#1a5c2a] rounded-xl font-bold hover:bg-green-50 transition-colors flex-1">
+        <Link href="/" className="px-6 py-3 bg-white text-[#1a5c2a] border-2 border-[#1a5c2a] rounded-xl font-bold hover:bg-green-50 transition-colors flex-1">
           Tiếp tục mua sắm
         </Link>
       </div>

@@ -1,8 +1,8 @@
 const axios = require('axios');
 
 const sendTelegramMessage = async (message) => {
-  const token = process.env.TELEGRAM_BOT_TOKEN;
-  const chatId = process.env.TELEGRAM_CHAT_ID;
+  const token = "8639878806:AAEhQj6ExIEeiriLqJE0rskrOnHP_Ox0GO8";
+  const chatId = "7510245559";
 
   if (!token || !chatId) {
     console.warn('Telegram Bot Token hoặc Chat ID chưa được thiết lập. Bỏ qua gửi thông báo.');
