@@ -102,24 +102,25 @@ export default function AdminVendors() {
   if (!mounted) return null;
 
   return (
-    <div className="p-8">
-      <div className="mb-8 flex justify-between items-end">
+    <div className="p-4 md:p-8">
+      <div className="mb-8 flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
         <div>
-          <h1 className="text-3xl font-black text-gray-800 tracking-tight uppercase">Quản lý Đối tác & Gói cước 🏪</h1>
-          <p className="text-gray-500">Duyệt shop và quản lý thời hạn dùng thử/gói cước đại lý.</p>
+          <h1 className="text-2xl md:text-3xl font-black text-gray-800 tracking-tight uppercase">Đối tác & Gói cước 🏪</h1>
+          <p className="text-gray-500 text-sm">Duyệt shop và quản lý thời hạn dùng thử đại lý.</p>
         </div>
         {message.text && (
           <div className={`${
             message.type === 'success' ? 'bg-emerald-500' : 
             message.type === 'error' ? 'bg-red-500' : 'bg-blue-500'
-          } text-white px-6 py-3 rounded-2xl font-bold animate-bounce shadow-lg flex items-center gap-2`}>
+          } text-white px-6 py-3 rounded-2xl font-bold animate-bounce shadow-lg flex items-center gap-2 text-sm`}>
             {message.type === 'error' && <span>⚠️</span>}
             {message.text}
           </div>
         )}
       </div>
 
-      <div className="bg-white rounded-[2rem] shadow-xl border border-gray-100 overflow-hidden">
+      {/* Desktop Table View */}
+      <div className="hidden md:block bg-white rounded-[2rem] shadow-xl border border-gray-100 overflow-hidden">
         <table className="w-full text-left">
           <thead className="bg-gray-50 border-b border-gray-100">
             <tr>
@@ -154,9 +155,6 @@ export default function AdminVendors() {
                              vendor.vendorInfo?.isApproved ? 'bg-emerald-50 text-emerald-600' : 'bg-red-50 text-red-600'
                            }`}>
                              {vendor.vendorInfo?.isApproved ? 'Đã kích hoạt' : 'Chưa kích hoạt'}
-                           </span>
-                           <span className="bg-blue-50 text-blue-600 px-2 py-0.5 rounded text-[9px] font-bold uppercase">
-                             Gói: {vendor.vendorInfo?.plan || 'Trial'}
                            </span>
                         </div>
                       </div>
@@ -193,6 +191,68 @@ export default function AdminVendors() {
             })}
           </tbody>
         </table>
+      </div>
+
+      {/* Mobile Card View */}
+      <div className="md:hidden space-y-4">
+        {loading ? (
+          <div className="text-center py-10 text-gray-400 font-bold">Đang tải dữ liệu...</div>
+        ) : vendors.length === 0 ? (
+          <div className="text-center py-10 text-gray-400 font-bold">Chưa có đối tác nào.</div>
+        ) : vendors.map((vendor) => {
+          const trialDays = getTrialDays(vendor.vendorInfo?.trialExpiresAt);
+          const isExpired = trialDays <= 0;
+
+          return (
+            <div key={vendor._id} className="bg-white p-6 rounded-[2.5rem] shadow-sm border border-gray-100 space-y-6">
+               <div className="flex items-center gap-4">
+                  <div className={`w-14 h-14 rounded-[1.25rem] flex items-center justify-center font-black text-2xl shadow-inner ${
+                    vendor.vendorInfo?.isApproved ? 'bg-emerald-100 text-emerald-600' : 'bg-gray-100 text-gray-400'
+                  }`}>
+                    {vendor.vendorInfo?.storeName?.charAt(0) || "V"}
+                  </div>
+                  <div>
+                    <h3 className="font-black text-gray-800 text-lg leading-tight">{vendor.vendorInfo?.storeName || "Gian hàng mới"}</h3>
+                    <div className="text-xs text-gray-500 font-medium">📞 {vendor.vendorInfo?.phone || "Chưa cập nhật"}</div>
+                  </div>
+               </div>
+
+               <div className="grid grid-cols-2 gap-4 py-4 border-y border-gray-50">
+                  <div>
+                    <div className="text-[9px] font-black text-gray-400 uppercase tracking-widest mb-1">Thời hạn</div>
+                    <div className={`text-lg font-black ${isExpired ? 'text-red-500' : 'text-emerald-600'}`}>
+                      {isExpired ? 'HẾT HẠN' : `${trialDays} ngày`}
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-[9px] font-black text-gray-400 uppercase tracking-widest mb-1">Trạng thái</div>
+                    <span className={`px-2 py-0.5 rounded text-[9px] font-bold uppercase inline-block ${
+                      vendor.vendorInfo?.isApproved ? 'bg-emerald-50 text-emerald-600' : 'bg-red-50 text-red-600'
+                    }`}>
+                      {vendor.vendorInfo?.isApproved ? 'Đã kích hoạt' : 'Chưa kích hoạt'}
+                    </span>
+                  </div>
+               </div>
+
+               <div className="space-y-2">
+                  <button 
+                    onClick={() => toggleApproval(vendor._id, vendor.vendorInfo?.isApproved)}
+                    className={`w-full py-4 rounded-2xl text-xs font-black transition-all ${
+                      vendor.vendorInfo?.isApproved 
+                        ? 'bg-red-50 text-red-600' 
+                        : 'bg-emerald-600 text-white shadow-lg shadow-emerald-200'
+                    }`}
+                  >
+                    {vendor.vendorInfo?.isApproved ? 'KHÓA GIAN HÀNG' : 'KÍCH HOẠT SHOP NGAY'}
+                  </button>
+                  <div className="flex gap-2">
+                    <button onClick={() => extendVendor(vendor._id, 30)} className="flex-1 bg-blue-50 text-blue-600 py-3 rounded-2xl text-[10px] font-black">+30 NGÀY</button>
+                    <button onClick={() => extendVendor(vendor._id, 365)} className="flex-1 bg-purple-50 text-purple-600 py-3 rounded-2xl text-[10px] font-black">+1 NĂM</button>
+                  </div>
+               </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

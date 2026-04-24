@@ -15,9 +15,9 @@ export default function VendorLayout({ children }: { children: React.ReactNode }
 
   return (
     <VendorGuard>
-      <div className="flex bg-[#f7fafc] min-h-screen">
+      <div className="flex flex-col md:flex-row bg-[#f7fafc] min-h-screen">
         <VendorSidebar />
-        <main className="flex-1 ml-64 min-h-screen">
+        <main className="flex-1 md:ml-64 min-h-screen pb-20 md:pb-0">
           {children}
         </main>
       </div>
