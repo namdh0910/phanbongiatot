@@ -94,7 +94,21 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
                 prose-strong:text-gray-900 prose-strong:font-black
                 prose-ul:list-disc prose-ol:list-decimal
                 break-words overflow-hidden"
-                dangerouslySetInnerHTML={{ __html: blog.content }}
+                dangerouslySetInnerHTML={{ 
+                  __html: blog.content
+                    .replace(/<[^>]*>\[BOX_SAN_PHAM\]<\/[^>]*>/g, '[BOX_SAN_PHAM]')
+                    .replace(/<[^>]*>\[\/BOX_SAN_PHAM\]<\/[^>]*>/g, '[/BOX_SAN_PHAM]')
+                    .replace(
+                      /\[BOX_SAN_PHAM\](.*?)\[\/BOX_SAN_PHAM\]/gs,
+                      `<div class="bg-green-50 p-6 md:p-8 rounded-2xl border border-green-200 my-10 shadow-sm">
+                         <h3 class="text-2xl font-black text-green-800 mb-6 mt-0 border-none pl-0 flex items-center gap-2"><span class="text-3xl">📦</span> Sản Phẩm Đề Xuất Phục Hồi</h3>
+                         <div class="text-green-900">$1</div>
+                         <div class="mt-8 text-center">
+                           <a href="/san-pham" class="inline-block bg-[#1a5c2a] text-white px-8 py-4 rounded-xl font-bold hover:bg-[#2d7a3e] transition-colors shadow-lg">Xem chi tiết các sản phẩm</a>
+                         </div>
+                       </div>`
+                    )
+                }}
               />
               
               {/* Internal CTA */}
