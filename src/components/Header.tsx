@@ -41,12 +41,22 @@ export default function Header() {
 
         {/* Search Bar (Desktop) */}
         <div className="hidden md:flex flex-1 max-w-xs mx-6 relative">
-           <input 
-             type="text" 
-             placeholder="Tìm kiếm..." 
-             className="w-full bg-gray-100 border border-gray-200 rounded-full px-5 py-2 text-sm outline-none focus:ring-2 focus:ring-primary/20 transition-all text-gray-900"
-           />
-           <button className="absolute right-3 top-2 text-gray-400 font-bold">🔍</button>
+          <form 
+            onSubmit={(e) => {
+              e.preventDefault();
+              const val = (e.currentTarget.elements.namedItem('q') as HTMLInputElement).value;
+              if (val.trim()) window.location.href = `/tim-kiem?q=${encodeURIComponent(val.trim())}`;
+            }}
+            className="w-full relative"
+          >
+             <input 
+               name="q"
+               type="text" 
+               placeholder="Tìm kiếm sản phẩm..." 
+               className="w-full bg-gray-100 border border-gray-200 rounded-full px-5 py-2 text-sm outline-none focus:ring-2 focus:ring-primary/20 transition-all text-gray-900 pr-10"
+             />
+             <button type="submit" className="absolute right-3 top-2 text-gray-400 font-bold hover:text-primary transition-colors">🔍</button>
+          </form>
         </div>
 
         {/* Desktop Nav */}
