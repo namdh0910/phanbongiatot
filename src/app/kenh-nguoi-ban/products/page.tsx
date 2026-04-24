@@ -47,7 +47,7 @@ export default function VendorProducts() {
           <h1 className="text-3xl font-black text-gray-800">Sản Phẩm Của Tôi</h1>
           <p className="text-gray-500">Quản lý kho hàng và trạng thái hiển thị</p>
         </div>
-        <Link href="/vendor/products/new" className="bg-blue-600 text-white px-6 py-3 rounded-xl font-bold flex items-center gap-2 hover:bg-blue-700 transition-all shadow-lg">
+        <Link href="/kenh-nguoi-ban/products/new" className="bg-blue-600 text-white px-6 py-3 rounded-xl font-bold flex items-center gap-2 hover:bg-blue-700 transition-all shadow-lg">
           <span>➕</span> THÊM SẢN PHẨM MỚI
         </Link>
       </div>
@@ -90,7 +90,7 @@ export default function VendorProducts() {
                 </td>
                 <td className="px-6 py-4 text-right">
                   <div className="flex justify-end gap-2">
-                    <Link href={`/vendor/products/edit/${product._id}`} className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="Sửa">✏️</Link>
+                    <Link href={`/kenh-nguoi-ban/products/edit/${product._id}`} className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="Sửa">✏️</Link>
                     <button onClick={() => deleteProduct(product._id)} className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Xóa">🗑️</button>
                   </div>
                 </td>

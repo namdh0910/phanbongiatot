@@ -7,17 +7,17 @@ export default function VendorSidebar() {
   const router = useRouter();
 
   const links = [
-    { href: "/vendor", label: "Tổng Quan", icon: "📊" },
-    { href: "/vendor/products", label: "Sản Phẩm Của Tôi", icon: "📦" },
-    { href: "/vendor/orders", label: "Đơn Hàng Mới", icon: "🛒", badge: "Mới" },
-    { href: "/vendor/profile", label: "Thông Tin Shop", icon: "🏪" },
+    { href: "/kenh-nguoi-ban", label: "Tổng Quan", icon: "📊" },
+    { href: "/kenh-nguoi-ban/products", label: "Sản Phẩm Của Tôi", icon: "📦" },
+    { href: "/kenh-nguoi-ban/orders", label: "Đơn Hàng Mới", icon: "🛒", badge: "Mới" },
+    { href: "/kenh-nguoi-ban/profile", label: "Thông Tin Shop", icon: "🏪" },
   ];
 
   const handleLogout = () => {
     localStorage.removeItem("vendorToken");
     localStorage.removeItem("vendorInfo");
     localStorage.removeItem("userRole");
-    router.push("/vendor/dang-nhap");
+    router.push("/kenh-nguoi-ban/dang-nhap");
   };
 
   return (

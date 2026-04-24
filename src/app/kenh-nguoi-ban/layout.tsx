@@ -7,7 +7,7 @@ export default function VendorLayout({ children }: { children: React.ReactNode }
   const pathname = usePathname();
   
   // Skip guard and sidebar for login and register pages
-  const isAuthPage = pathname === "/vendor/dang-nhap" || pathname === "/vendor/dang-ky";
+  const isAuthPage = pathname === "/kenh-nguoi-ban/dang-nhap" || pathname === "/kenh-nguoi-ban/dang-ky";
 
   if (isAuthPage) {
     return <>{children}</>;

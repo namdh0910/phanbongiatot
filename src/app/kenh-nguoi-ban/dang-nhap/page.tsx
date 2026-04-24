@@ -31,7 +31,7 @@ export default function VendorLogin() {
         localStorage.setItem("vendorToken", data.token);
         localStorage.setItem("vendorInfo", JSON.stringify(data.vendorInfo));
         localStorage.setItem("userRole", data.role);
-        router.push("/vendor");
+        router.push("/kenh-nguoi-ban");
       } else {
         setError(data.message || "Đăng nhập thất bại");
       }
@@ -93,7 +93,7 @@ export default function VendorLogin() {
 
         <div className="mt-10 text-center space-y-4">
           <p className="text-gray-500 text-sm">Chưa có gian hàng trên hệ thống?</p>
-          <Link href="/vendor/dang-ky" className="inline-block text-[#1a5c2a] font-black border-2 border-[#1a5c2a] px-8 py-3 rounded-2xl hover:bg-green-50 transition-all">
+          <Link href="/kenh-nguoi-ban/dang-ky" className="inline-block text-[#1a5c2a] font-black border-2 border-[#1a5c2a] px-8 py-3 rounded-2xl hover:bg-green-50 transition-all">
             ĐĂNG KÝ HỢP TÁC NGAY
           </Link>
           <div className="pt-4">

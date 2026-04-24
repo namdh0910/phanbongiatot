@@ -11,7 +11,7 @@ export default function VendorGuard({ children }: { children: React.ReactNode })
     const role = localStorage.getItem("userRole");
     
     if (!token || (role !== "vendor" && role !== "admin")) {
-      router.push("/vendor/dang-nhap");
+      router.push("/kenh-nguoi-ban/dang-nhap");
     } else {
       setAuthorized(true);
     }

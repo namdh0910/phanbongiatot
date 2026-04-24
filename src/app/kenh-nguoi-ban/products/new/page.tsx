@@ -43,7 +43,7 @@ export default function NewVendorProduct() {
       });
       if (res.ok) {
         alert("Sản phẩm đã được gửi và đang chờ duyệt!");
-        router.push("/vendor/products");
+        router.push("/kenh-nguoi-ban/products");
       }
     } catch (err) {
       console.error(err);
