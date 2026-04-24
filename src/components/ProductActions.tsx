@@ -3,12 +3,13 @@ import { useState } from "react";
 import CheckoutModal from "./CheckoutModal";
 import { trackEvent } from "@/utils/analytics";
 import { useCart } from "@/context/CartContext";
+import { useRouter } from "next/navigation";
 
 export default function ProductActions({ product }: { product: any }) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [showCartSuccess, setShowCartSuccess] = useState(false);
   const [qty, setQty] = useState(1);
   const { addToCart } = useCart();
+  const router = useRouter();
 
   const handleAddToCart = () => {
     trackEvent('AddToCart', {
@@ -31,7 +32,8 @@ export default function ProductActions({ product }: { product: any }) {
       currency: 'VND',
       quantity: qty
     });
-    setIsModalOpen(true);
+    addToCart(product, qty);
+    router.push('/checkout');
   };
 
   return (
