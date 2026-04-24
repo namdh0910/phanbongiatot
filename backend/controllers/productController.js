@@ -147,9 +147,39 @@ const createProductReview = async (req, res) => {
   }
 };
 
+// @desc    Get all pending products (Admin)
+// @route   GET /api/products/admin/pending
+const getPendingProducts = async (req, res) => {
+  try {
+    const products = await Product.find({ status: 'pending' }).populate('seller', 'username vendorInfo').sort({ createdAt: -1 });
+    res.json(products);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// @desc    Approve/Reject product (Admin)
+// @route   PUT /api/products/:id/approve
+const approveProduct = async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
+    if (product) {
+      product.status = req.body.status; // 'approved' or 'rejected'
+      await product.save();
+      res.json({ message: 'Trạng thái sản phẩm đã được cập nhật' });
+    } else {
+      res.status(404).json({ message: 'Không tìm thấy sản phẩm' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = {
   getProducts,
   getVendorProducts,
+  getPendingProducts,
+  approveProduct,
   getProductById,
   getProductBySlug,
   createProduct,

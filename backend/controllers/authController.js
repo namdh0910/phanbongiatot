@@ -110,4 +110,32 @@ const registerUser = async (req, res) => {
   }
 };
 
-module.exports = { authUser, registerUser, registerVendor };
+// @desc    Get all vendors
+// @route   GET /api/auth/vendors
+const getVendors = async (req, res) => {
+  try {
+    const vendors = await User.find({ role: 'vendor' }).select('-password').sort({ createdAt: -1 });
+    res.json(vendors);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// @desc    Approve/Reject vendor
+// @route   PUT /api/auth/vendors/:id/approve
+const approveVendor = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (user && user.role === 'vendor') {
+      user.vendorInfo.isApproved = req.body.isApproved;
+      await user.save();
+      res.json({ message: 'Trạng thái gian hàng đã được cập nhật' });
+    } else {
+      res.status(404).json({ message: 'Không tìm thấy người bán' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = { authUser, registerUser, registerVendor, getVendors, approveVendor };
