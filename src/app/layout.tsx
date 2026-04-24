@@ -5,7 +5,6 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import StickyCTA from "@/components/StickyCTA";
-import ExitPopup from "@/components/ExitPopup";
 import { CartProvider } from "@/context/CartContext";
 import { SettingsProvider } from "@/context/SettingsContext";
 
@@ -74,7 +73,6 @@ export default function RootLayout({
             <main className="flex-1">{children}</main>
             <Footer />
             <StickyCTA />
-            <ExitPopup />
           </SettingsProvider>
         </CartProvider>
       </body>
