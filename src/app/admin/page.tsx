@@ -10,6 +10,7 @@ const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
 
 export default function AdminProducts() {
   const [adminName, setAdminName] = useState("Admin");
+  const [debugInfo, setDebugInfo] = useState("");
   const [products, setProducts] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
@@ -35,6 +36,7 @@ export default function AdminProducts() {
     })
       .then(r => {
         if (!r.ok) {
+          setDebugInfo(`Lỗi API: ${r.status}`);
           if (r.status === 401 || r.status === 403) {
              alert("Phiên làm việc hết hạn hoặc bạn không có quyền Admin. Vui lòng đăng nhập lại.");
              router.push("/admin/login");
@@ -43,9 +45,18 @@ export default function AdminProducts() {
         }
         return r.json();
       })
-      .then(d => { if (Array.isArray(d)) setProducts(d); setIsLoading(false); })
+      .then(d => { 
+        if (Array.isArray(d)) {
+          setProducts(d); 
+          setDebugInfo(`Thành công: Lấy được ${d.length} sản phẩm`);
+        } else {
+          setDebugInfo("Lỗi: Dữ liệu trả về không phải là danh sách");
+        }
+        setIsLoading(false); 
+      })
       .catch((err) => {
         console.error(err);
+        setDebugInfo(`Lỗi kết nối: ${err.message}`);
         setIsLoading(false);
       });
   };
@@ -168,6 +179,11 @@ export default function AdminProducts() {
              className="bg-[#2271b1] text-white px-4 py-1.5 rounded-md text-sm font-bold hover:bg-[#135e96] transition-all">
              Thêm mới
            </button>
+           {debugInfo && (
+             <span className={`text-[10px] px-2 py-1 rounded font-bold ${debugInfo.includes('Thành công') ? 'bg-green-50 text-green-600' : 'bg-red-50 text-red-600'}`}>
+               🔍 {debugInfo}
+             </span>
+           )}
         </div>
         <div className="flex items-center gap-4">
            <span className="text-xs text-gray-400">Tài khoản: <strong className="text-gray-700">{adminName}</strong></span>
