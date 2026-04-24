@@ -163,37 +163,37 @@ export default function CheckoutPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-1">Họ và tên <span className="text-red-500">*</span></label>
-                    <input type="text" required value={customer.name} onChange={e => setCustomer({...customer, name: e.target.value})} className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-[#1a5c2a] focus:border-transparent outline-none transition-all" placeholder="Nhập họ và tên..." />
+                    <input type="text" required value={customer.name} onChange={e => setCustomer({...customer, name: e.target.value})} className="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-900 focus:ring-2 focus:ring-[#1a5c2a] focus:border-transparent outline-none transition-all" placeholder="Nhập họ và tên..." />
                   </div>
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-1">Số điện thoại <span className="text-red-500">*</span></label>
-                    <input type="tel" required value={customer.phone} onChange={e => setCustomer({...customer, phone: e.target.value})} className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-[#1a5c2a] focus:border-transparent outline-none transition-all" placeholder="Nhập số điện thoại..." />
+                    <input type="tel" required value={customer.phone} onChange={e => setCustomer({...customer, phone: e.target.value})} className="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-900 focus:ring-2 focus:ring-[#1a5c2a] focus:border-transparent outline-none transition-all" placeholder="Nhập số điện thoại..." />
                   </div>
                 </div>
 
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-1">Địa chỉ cụ thể (Số nhà, đường, ấp/thôn) <span className="text-red-500">*</span></label>
-                  <input type="text" required value={customer.address} onChange={e => setCustomer({...customer, address: e.target.value})} className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-[#1a5c2a] focus:border-transparent outline-none transition-all" placeholder="Ví dụ: Số 12, Ấp 3..." />
+                  <input type="text" required value={customer.address} onChange={e => setCustomer({...customer, address: e.target.value})} className="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-900 focus:ring-2 focus:ring-[#1a5c2a] focus:border-transparent outline-none transition-all" placeholder="Ví dụ: Số 12, Ấp 3..." />
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-1">Tỉnh/Thành phố</label>
-                    <input type="text" value={customer.province} onChange={e => setCustomer({...customer, province: e.target.value})} className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-[#1a5c2a] focus:border-transparent outline-none transition-all" placeholder="Tỉnh/Thành..." />
+                    <input type="text" value={customer.province} onChange={e => setCustomer({...customer, province: e.target.value})} className="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-900 focus:ring-2 focus:ring-[#1a5c2a] focus:border-transparent outline-none transition-all" placeholder="Tỉnh/Thành..." />
                   </div>
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-1">Quận/Huyện</label>
-                    <input type="text" value={customer.district} onChange={e => setCustomer({...customer, district: e.target.value})} className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-[#1a5c2a] focus:border-transparent outline-none transition-all" placeholder="Quận/Huyện..." />
+                    <input type="text" value={customer.district} onChange={e => setCustomer({...customer, district: e.target.value})} className="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-900 focus:ring-2 focus:ring-[#1a5c2a] focus:border-transparent outline-none transition-all" placeholder="Quận/Huyện..." />
                   </div>
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-1">Phường/Xã</label>
-                    <input type="text" value={customer.ward} onChange={e => setCustomer({...customer, ward: e.target.value})} className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-[#1a5c2a] focus:border-transparent outline-none transition-all" placeholder="Phường/Xã..." />
+                    <input type="text" value={customer.ward} onChange={e => setCustomer({...customer, ward: e.target.value})} className="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-900 focus:ring-2 focus:ring-[#1a5c2a] focus:border-transparent outline-none transition-all" placeholder="Phường/Xã..." />
                   </div>
                 </div>
 
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-1">Ghi chú đơn hàng (Tùy chọn)</label>
-                  <textarea value={customer.note} onChange={e => setCustomer({...customer, note: e.target.value})} className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-[#1a5c2a] focus:border-transparent outline-none transition-all resize-none h-24" placeholder="Ghi chú thêm về thời gian giao hàng, chỉ dẫn đường đi..."></textarea>
+                  <textarea value={customer.note} onChange={e => setCustomer({...customer, note: e.target.value})} className="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-900 focus:ring-2 focus:ring-[#1a5c2a] focus:border-transparent outline-none transition-all resize-none h-24" placeholder="Ghi chú thêm về thời gian giao hàng, chỉ dẫn đường đi..."></textarea>
                 </div>
               </div>
             </div>
@@ -209,7 +209,7 @@ export default function CheckoutPage() {
                   type="text" 
                   value={couponCode} 
                   onChange={e => setCouponCode(e.target.value.toUpperCase())}
-                  className="flex-1 border border-gray-300 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-[#1a5c2a] outline-none shadow-sm bg-white" 
+                  className="flex-1 border border-gray-300 rounded-xl px-4 py-3 text-sm text-gray-900 focus:ring-2 focus:ring-[#1a5c2a] outline-none shadow-sm bg-white" 
                   placeholder="Ví dụ: CHAOXUAN2026..." 
                 />
                 <button 
