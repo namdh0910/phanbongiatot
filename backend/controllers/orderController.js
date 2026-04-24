@@ -89,6 +89,19 @@ const updateOrderStatus = async (req, res) => {
   }
 };
 
+// @desc    Get orders by phone number
+// @route   GET /api/orders/phone/:phone
+// @access  Public
+const getOrdersByPhone = async (req, res) => {
+  try {
+    const phone = req.params.phone.replace(/\s/g, '');
+    const orders = await Order.find({ 'customerInfo.phone': phone }).sort({ createdAt: -1 });
+    res.json(orders);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 // @desc    Get all orders
 // @route   GET /api/orders
 // @access  Private/Admin
@@ -104,6 +117,7 @@ const getOrders = async (req, res) => {
 module.exports = {
   createOrder,
   getOrderByIdOrCode,
+  getOrdersByPhone,
   updateOrderStatus,
   getOrders,
 };
