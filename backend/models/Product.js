@@ -22,6 +22,16 @@ const productSchema = mongoose.Schema(
     seoDescription: { type: String },
     rating: { type: Number, default: 5 },
     numReviews: { type: Number, default: 0 },
+    seller: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: true
+    },
+    status: {
+      type: String,
+      enum: ['pending', 'approved', 'rejected'],
+      default: 'approved'
+    },
     reviews: [{
       name: { type: String, required: true },
       rating: { type: Number, required: true },

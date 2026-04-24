@@ -12,7 +12,18 @@ const getProducts = async (req, res) => {
       ? { category: req.query.category }
       : {};
 
-    const products = await Product.find({ ...keyword, ...category }).sort({ createdAt: -1 });
+    const products = await Product.find({ ...keyword, ...category, status: 'approved' }).sort({ createdAt: -1 });
+    res.json(products);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// @desc    Fetch products for a specific vendor
+// @route   GET /api/products/vendor/me
+const getVendorProducts = async (req, res) => {
+  try {
+    const products = await Product.find({ seller: req.user._id }).sort({ createdAt: -1 });
     res.json(products);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -22,7 +33,7 @@ const getProducts = async (req, res) => {
 // @desc    Fetch single product
 const getProductById = async (req, res) => {
   try {
-    const product = await Product.findById(req.params.id);
+    const product = await Product.findById(req.params.id).populate('seller', 'username vendorInfo');
     if (product) res.json(product);
     else res.status(404).json({ message: 'Product not found' });
   } catch (error) {
@@ -33,7 +44,7 @@ const getProductById = async (req, res) => {
 // @desc    Fetch single product by slug
 const getProductBySlug = async (req, res) => {
   try {
-    const product = await Product.findOne({ slug: req.params.slug });
+    const product = await Product.findOne({ slug: req.params.slug }).populate('seller', 'username vendorInfo');
     if (product) res.json(product);
     else res.status(404).json({ message: 'Product not found' });
   } catch (error) {
@@ -44,7 +55,12 @@ const getProductBySlug = async (req, res) => {
 // @desc    Create a product
 const createProduct = async (req, res) => {
   try {
-    const product = new Product(req.body);
+    const product = new Product({
+      ...req.body,
+      seller: req.user._id,
+      // Admin products are auto-approved, others are pending
+      status: req.user.role === 'admin' ? 'approved' : 'pending'
+    });
     const createdProduct = await product.save();
     res.status(201).json(createdProduct);
   } catch (error) {
@@ -55,17 +71,24 @@ const createProduct = async (req, res) => {
 // @desc    Update a product
 const updateProduct = async (req, res) => {
   try {
+    const product = await Product.findById(req.params.id);
+    
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+
+    // Only admin or the seller can update
+    if (req.user.role !== 'admin' && product.seller.toString() !== req.user._id.toString()) {
+      return res.status(403).json({ message: 'Not authorized to update this product' });
+    }
+
     const updatedProduct = await Product.findByIdAndUpdate(
       req.params.id, 
       req.body, 
       { new: true, runValidators: true }
     );
 
-    if (updatedProduct) {
-      res.json(updatedProduct);
-    } else {
-      res.status(404).json({ message: 'Product not found' });
-    }
+    res.json(updatedProduct);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -76,6 +99,10 @@ const deleteProduct = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
     if (product) {
+      // Only admin or the seller can delete
+      if (req.user.role !== 'admin' && product.seller.toString() !== req.user._id.toString()) {
+        return res.status(403).json({ message: 'Not authorized to delete this product' });
+      }
       await product.deleteOne();
       res.json({ message: 'Product removed' });
     } else {
@@ -122,6 +149,7 @@ const createProductReview = async (req, res) => {
 
 module.exports = {
   getProducts,
+  getVendorProducts,
   getProductById,
   getProductBySlug,
   createProduct,

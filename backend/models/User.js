@@ -4,6 +4,20 @@ const bcrypt = require('bcryptjs');
 const userSchema = mongoose.Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
+  role: { 
+    type: String, 
+    enum: ['admin', 'vendor', 'customer'], 
+    default: 'customer' 
+  },
+  // Vendor specific info
+  vendorInfo: {
+    storeName: String,
+    phone: String,
+    address: String,
+    isApproved: { type: Boolean, default: false },
+    description: String,
+    logo: String
+  }
 }, { timestamps: true });
 
 // Match password

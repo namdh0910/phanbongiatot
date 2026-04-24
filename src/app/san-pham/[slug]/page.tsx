@@ -144,6 +144,62 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
           </div>
         </div>
 
+        {/* Shop Info Section */}
+        <div className="bg-white md:rounded-sm shadow-sm p-6 mb-6 flex flex-col md:flex-row items-center gap-6">
+          <div className="flex items-center gap-4 md:border-r md:pr-10">
+            <div className="w-20 h-20 rounded-full border border-gray-100 overflow-hidden bg-gray-50 flex items-center justify-center p-1">
+              <img 
+                src={product.seller?.vendorInfo?.logo || "https://img.icons8.com/bubbles/100/000000/shop.png"} 
+                className="w-full h-full object-cover rounded-full"
+                alt="Store Logo"
+              />
+              {product.seller?.role === 'admin' && (
+                <div className="absolute bottom-0 right-0 bg-[#ee4d2d] text-white text-[8px] px-1 rounded-sm font-bold">Yêu thích</div>
+              )}
+            </div>
+            <div>
+              <h3 className="font-bold text-gray-900 text-lg">
+                {product.seller?.role === 'admin' ? "Phân Bón Giá Tốt (Chính hãng)" : (product.seller?.vendorInfo?.storeName || "Gian hàng đối tác")}
+              </h3>
+              <p className="text-xs text-gray-500 mb-2">Online 5 phút trước</p>
+              <div className="flex gap-2">
+                <button className="border border-[#ee4d2d] text-[#ee4d2d] px-3 py-1 rounded-sm text-xs font-medium flex items-center gap-1 hover:bg-red-50">
+                  <span>💬</span> Chat Ngay
+                </button>
+                <Link href={`/shop/${product.seller?.username || 'admin'}`} className="border border-gray-200 text-gray-600 px-3 py-1 rounded-sm text-xs font-medium flex items-center gap-1 hover:bg-gray-50">
+                  <span>🏪</span> Xem Shop
+                </Link>
+              </div>
+            </div>
+          </div>
+          <div className="flex-1 grid grid-cols-2 md:grid-cols-3 gap-y-4 gap-x-10 text-xs">
+            <div className="flex justify-between">
+              <span className="text-gray-400">Đánh Giá</span>
+              <span className="text-[#ee4d2d] font-medium">12.5k</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-gray-400">Tham Gia</span>
+              <span className="text-[#ee4d2d] font-medium">2 năm trước</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-gray-400">Sản Phẩm</span>
+              <span className="text-[#ee4d2d] font-medium">85</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-gray-400">Tỉ Lệ Phản Hồi</span>
+              <span className="text-[#ee4d2d] font-medium">99%</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-gray-400">Thời Gian Phản Hồi</span>
+              <span className="text-[#ee4d2d] font-medium">trong vài giờ</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-gray-400">Người Theo Dõi</span>
+              <span className="text-[#ee4d2d] font-medium">45.2k</span>
+            </div>
+          </div>
+        </div>
+
         <div className="flex flex-col lg:flex-row gap-6">
            <div className="flex-1 space-y-6">
               {/* Product Info Sections */}
