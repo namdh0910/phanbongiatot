@@ -1,14 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
-const { authUser, registerUser, registerVendor, getVendors, approveVendor, extendVendor, updateProfile } = require('../controllers/authController');
+const { authUser, registerUser, registerVendor, getVendors, approveVendor, extendVendor, getProfile, updateProfile } = require('../controllers/authController');
 const { protect, admin } = require('../middleware/authMiddleware');
 
-console.log('--- DEBUG AUTH ROUTES ---');
-console.log('approveVendor type:', typeof approveVendor);
-console.log('getVendors type:', typeof getVendors);
-console.log('protect type:', typeof protect);
-console.log('admin type:', typeof admin);
 
 router.post('/login', authUser);
 router.post('/register-vendor', registerVendor);
