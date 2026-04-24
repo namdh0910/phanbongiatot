@@ -4,7 +4,6 @@ const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const connectDB = require('./config/db');
-const axios = require('axios');
 
 // Load env vars
 dotenv.config();
@@ -88,11 +87,13 @@ app.listen(PORT, () => {
 
   // Keep-alive: Ping self every 14 minutes to prevent Render free-tier sleep
   if (process.env.NODE_ENV === 'production' && process.env.RENDER_EXTERNAL_URL) {
+    const http = require('http');
     const url = process.env.RENDER_EXTERNAL_URL;
-    setInterval(async () => {
+    setInterval(() => {
       try {
-        const res = await axios.get(url);
-        console.log(`[Keep-alive] Ping ${url} -> ${res.status}`);
+        http.get(url, (res) => {
+          console.log(`[Keep-alive] Ping ${url} -> ${res.statusCode}`);
+        });
       } catch (err) {
         console.error('[Keep-alive] Ping failed:', err.message);
       }
