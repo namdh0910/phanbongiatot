@@ -10,6 +10,7 @@ const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
 
 export default function AdminBlogs() {
   const [blogs, setBlogs] = useState<any[]>([]);
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [showForm, setShowForm] = useState(false);
   const [editingBlog, setEditingBlog] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -38,7 +39,35 @@ export default function AdminBlogs() {
 
   const toSlug = (str: string) => str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/đ/g, "d").replace(/[^a-z0-9 -]/g, "").replace(/\s+/g, "-").replace(/-+/g, "-");
 
+  const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.checked) setSelectedIds(blogs.map(b => b._id));
+    else setSelectedIds([]);
+  };
+
+  const handleSelectOne = (id: string) => {
+    setSelectedIds(prev => prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]);
+  };
+
+  const handleBulkDelete = async () => {
+    if (selectedIds.length === 0) return;
+    if (!confirm(`Bạn có chắc chắn muốn xóa ${selectedIds.length} bài viết đã chọn?`)) return;
+
+    try {
+      const res = await fetch(`${API_BASE_URL}/blogs/bulk-delete`, {
+        method: "POST",
+        headers: getAuthHeaders(),
+        body: JSON.stringify({ ids: selectedIds })
+      });
+      if (res.ok) {
+        fetchBlogs();
+        setSelectedIds([]);
+        alert("Đã xóa các mục đã chọn!");
+      } else alert("Lỗi khi xóa hàng loạt.");
+    } catch (error) { alert("Lỗi kết nối."); }
+  };
+
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+// ... existing image upload logic ...
     if (!e.target.files?.[0]) return;
     setUploadingImage(true);
     const fd = new FormData();
@@ -62,6 +91,7 @@ export default function AdminBlogs() {
   };
 
   const handleAddTag = (e: React.KeyboardEvent) => {
+// ... existing tag logic ...
     if (e.key === 'Enter' && tagInput.trim()) {
       e.preventDefault();
       if (!form.tags.includes(tagInput.trim())) {
@@ -76,6 +106,7 @@ export default function AdminBlogs() {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
+// ... existing submit logic ...
     e.preventDefault();
     const payload = {
       ...form,
@@ -102,6 +133,7 @@ export default function AdminBlogs() {
   };
 
   const openEdit = (blog: any) => {
+// ... existing openEdit logic ...
     setEditingBlog(blog);
     setForm({
       title: blog.title,
@@ -157,9 +189,18 @@ export default function AdminBlogs() {
                  Viết bài mới
                </button>
             </div>
+            {selectedIds.length > 0 && (
+               <div className="flex items-center gap-4 animate-in fade-in zoom-in-95 duration-200">
+                  <span className="text-sm text-gray-500 font-medium">Đã chọn <strong className="text-primary">{selectedIds.length}</strong> mục</span>
+                  <button onClick={handleBulkDelete} className="bg-[#d63638] text-white px-4 py-1.5 rounded-md text-sm font-bold hover:bg-red-700 transition-all shadow-sm">
+                    Xóa các mục đã chọn
+                  </button>
+               </div>
+            )}
           </div>
 
           {showForm && (
+// ... existing form UI ...
              <div className="bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden mb-8 animate-in fade-in slide-in-from-top-4">
                 <div className="bg-[#f6f7f7] border-b border-gray-200 p-4 flex justify-between items-center">
                   <h2 className="font-bold text-gray-700">{editingBlog ? "Chỉnh sửa bài viết" : "Soạn bài viết mới"}</h2>
@@ -291,7 +332,9 @@ export default function AdminBlogs() {
             <table className="w-full text-left text-sm">
               <thead>
                 <tr className="bg-[#f6f7f7] border-b border-gray-200">
-                  <th className="p-4 w-12"><input type="checkbox" /></th>
+                  <th className="p-4 w-12">
+                    <input type="checkbox" onChange={handleSelectAll} checked={selectedIds.length === blogs.length && blogs.length > 0} />
+                  </th>
                   <th className="p-4 font-bold text-gray-700">Ảnh</th>
                   <th className="p-4 font-bold text-gray-700">Tiêu đề</th>
                   <th className="p-4 font-bold text-gray-700">Thẻ</th>
@@ -304,8 +347,10 @@ export default function AdminBlogs() {
                 ) : blogs.length === 0 ? (
                   <tr><td colSpan={5} className="p-10 text-center text-gray-400 italic">Chưa có bài viết nào.</td></tr>
                 ) : blogs.map(b => (
-                  <tr key={b._id} className="border-b border-gray-100 hover:bg-[#f6f7f7] group transition-colors">
-                    <td className="p-4"><input type="checkbox" /></td>
+                  <tr key={b._id} className={`border-b border-gray-100 hover:bg-[#f6f7f7] group transition-colors ${selectedIds.includes(b._id) ? 'bg-blue-50' : ''}`}>
+                    <td className="p-4">
+                      <input type="checkbox" checked={selectedIds.includes(b._id)} onChange={() => handleSelectOne(b._id)} />
+                    </td>
                     <td className="p-4">
                        <div className="w-12 h-12 bg-gray-100 rounded-sm overflow-hidden flex items-center justify-center">
                           {b.image ? <img src={b.image} className="w-full h-full object-cover" /> : <span className="text-lg">📚</span>}

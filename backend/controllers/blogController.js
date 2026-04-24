@@ -43,4 +43,15 @@ const updateBlog = async (req, res) => {
   } catch (error) { res.status(400).json({ message: error.message }); }
 };
 
-module.exports = { getBlogs, getBlogBySlug, createBlog, deleteBlog, updateBlog };
+const deleteBlogsBulk = async (req, res) => {
+  try {
+    const { ids } = req.body;
+    if (!ids || !Array.isArray(ids)) {
+      return res.status(400).json({ message: 'Invalid IDs provided' });
+    }
+    await Blog.deleteMany({ _id: { $in: ids } });
+    res.json({ message: 'Blogs removed successfully' });
+  } catch (error) { res.status(500).json({ message: error.message }); }
+};
+
+module.exports = { getBlogs, getBlogBySlug, createBlog, deleteBlog, updateBlog, deleteBlogsBulk };
