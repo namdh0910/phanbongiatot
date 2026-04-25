@@ -1,13 +1,53 @@
 "use client";
 import { useState, useEffect } from "react";
 import { API_BASE_URL } from "@/utils/api";
-import Link from "next/link";
+import './VendorProducts.css';
 
 export default function VendorProducts() {
   const [products, setProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [mounted, setMounted] = useState(false);
+  
+  // New UI States
+  const [showWarehouse, setShowWarehouse] = useState(false);
+  const [editingPrice, setEditingPrice] = useState<any>(null);
+  const [selectedWarehouseItems, setSelectedWarehouseItems] = useState<string[]>([]);
+  const [newPrice, setNewPrice] = useState<number>(0);
+
+  // Mock Warehouse Products
+  const warehouseProducts = [
+    { id: "W1", name: "Acti Rooti 5L", category: "Kích rễ", floorPrice: 280000, img: "https://images.unsplash.com/photo-1592323860533-899478f654b0?q=80&w=200" },
+    { id: "W2", name: "Nemano 1L", category: "Tuyến trùng", floorPrice: 195000, img: "https://images.unsplash.com/photo-1585314062340-f1a5a7c9328d?q=80&w=200" },
+    { id: "W3", name: "Acti Flora 1L", category: "Phân bón lá", floorPrice: 155000, img: "https://images.unsplash.com/photo-1628352081506-83c43123ed6d?q=80&w=200" },
+    { id: "W4", name: "Combo Sầu Riêng", category: "Combo", floorPrice: 850000, img: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?q=80&w=200" },
+  ];
+
+  // Initial Dealer Products (Mock)
+  const mockDealerProducts = [
+    {
+      _id: "P1",
+      name: "Acti Rooti 5L",
+      category: "Kích rễ",
+      importPrice: 280000,
+      price: 340000,
+      stock: 50,
+      isVisible: true,
+      images: ["https://images.unsplash.com/photo-1592323860533-899478f654b0?q=80&w=200"]
+    },
+    {
+      _id: "P2",
+      name: "Nemano 1L",
+      category: "Tuyến trùng",
+      importPrice: 195000,
+      price: 255000,
+      stock: 12,
+      isVisible: false,
+      images: ["https://images.unsplash.com/photo-1585314062340-f1a5a7c9328d?q=80&w=200"]
+    }
+  ];
 
   useEffect(() => {
+    setMounted(true);
     fetchProducts();
   }, []);
 
@@ -18,125 +58,224 @@ export default function VendorProducts() {
         headers: { "Authorization": `Bearer ${token}` }
       });
       const data = await res.json();
-      setProducts(data);
+      if (Array.isArray(data) && data.length > 0) {
+        setProducts(data);
+      } else {
+        setProducts(mockDealerProducts);
+      }
     } catch (err) {
       console.error(err);
+      setProducts(mockDealerProducts);
     } finally {
       setLoading(false);
     }
   };
 
-  const deleteProduct = async (id: string) => {
-    if (!confirm("Bạn có chắc chắn muốn xóa sản phẩm này?")) return;
-    const token = localStorage.getItem("vendorToken");
-    try {
-      const res = await fetch(`${API_BASE_URL}/products/${id}`, {
-        method: "DELETE",
-        headers: { "Authorization": `Bearer ${token}` }
-      });
-      if (res.ok) fetchProducts();
-    } catch (err) {
-      console.error(err);
-    }
+  const toggleVisibility = (id: string) => {
+    setProducts(prev => prev.map(p => p._id === id ? { ...p, isVisible: !p.isVisible } : p));
   };
 
+  const handleEditPrice = (product: any) => {
+    setEditingPrice(product);
+    setNewPrice(product.price);
+  };
+
+  const savePrice = () => {
+    if (newPrice < editingPrice.importPrice) {
+      alert("Giá bán không được thấp hơn giá nhập!");
+      return;
+    }
+    setProducts(prev => prev.map(p => p._id === editingPrice._id ? { ...p, price: newPrice } : p));
+    setEditingPrice(null);
+  };
+
+  const addFromWarehouse = () => {
+    const selected = warehouseProducts.filter(w => selectedWarehouseItems.includes(w.id));
+    const newItems = selected.map(w => ({
+      _id: `NEW-${Math.random()}`,
+      name: w.name,
+      category: w.category,
+      importPrice: w.floorPrice,
+      price: w.floorPrice + 50000, // Default markup
+      stock: 0,
+      isVisible: true,
+      images: [w.img]
+    }));
+    setProducts([...products, ...newItems]);
+    setShowWarehouse(false);
+    setSelectedWarehouseItems([]);
+  };
+
+  if (!mounted) return null;
+
   return (
-    <div className="p-4 md:p-8">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
-        <div>
-          <h1 className="text-2xl md:text-3xl font-black text-gray-800 tracking-tight">Sản Phẩm Của Tôi 📦</h1>
-          <p className="text-gray-500 text-sm">Quản lý kho hàng và trạng thái hiển thị</p>
+    <div className="vendor-products-wrapper">
+      {/* Header & Stats */}
+      <header className="products-header">
+        <div className="header-top">
+          <h1>Sản phẩm</h1>
+          <button className="add-btn" onClick={() => setShowWarehouse(true)}>+ Nhập hàng kho</button>
         </div>
-        <Link href="/kenh-nguoi-ban/products/new" className="w-full md:w-auto bg-blue-600 text-white px-6 py-4 md:py-3 rounded-2xl font-black flex items-center justify-center gap-2 hover:bg-blue-700 transition-all shadow-lg text-sm">
-          <span>➕</span> THÊM SẢN PHẨM MỚI
-        </Link>
-      </div>
+        <div className="stats-grid">
+          <div className="stat-box">
+            <label>Đang bán</label>
+            <span>{products.filter(p => p.isVisible).length}</span>
+          </div>
+          <div className="stat-box">
+            <label>Đang ẩn</label>
+            <span>{products.filter(p => !p.isVisible).length}</span>
+          </div>
+          <div className="stat-box">
+            <label>Hết hàng</label>
+            <span>{products.filter(p => p.stock === 0).length}</span>
+          </div>
+        </div>
+      </header>
 
-      {/* Desktop Table View */}
-      <div className="hidden md:block bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
-        <table className="w-full text-left">
-          <thead className="bg-gray-50 border-b border-gray-100">
-            <tr>
-              <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase">Sản phẩm</th>
-              <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase">Danh mục</th>
-              <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase">Giá bán</th>
-              <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase">Trạng thái</th>
-              <th className="px-6 py-4 text-xs font-bold text-gray-400 uppercase text-right">Thao tác</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-gray-50">
-            {loading ? (
-              <tr><td colSpan={5} className="px-6 py-10 text-center text-gray-400">Đang tải dữ liệu...</td></tr>
-            ) : products.length === 0 ? (
-              <tr><td colSpan={5} className="px-6 py-10 text-center text-gray-400">Chưa có sản phẩm nào. Hãy đăng sản phẩm đầu tiên!</td></tr>
-            ) : products.map((product) => (
-              <tr key={product._id} className="hover:bg-gray-50 transition-colors">
-                <td className="px-6 py-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-lg bg-gray-100 overflow-hidden flex-shrink-0">
-                      {product.images?.[0] && <img src={product.images[0]} className="w-full h-full object-cover" alt="" />}
-                    </div>
-                    <div className="font-bold text-gray-800 line-clamp-1">{product.name}</div>
-                  </div>
-                </td>
-                <td className="px-6 py-4 text-sm text-gray-600">{product.category}</td>
-                <td className="px-6 py-4 font-bold text-gray-900">₫{product.price?.toLocaleString()}</td>
-                <td className="px-6 py-4">
-                  <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase ${
-                    product.status === 'approved' ? 'bg-green-100 text-green-700' : 
-                    product.status === 'pending' ? 'bg-yellow-100 text-yellow-700' : 'bg-red-100 text-red-700'
-                  }`}>
-                    {product.status === 'approved' ? 'Đã duyệt' : product.status === 'pending' ? 'Chờ duyệt' : 'Từ chối'}
-                  </span>
-                </td>
-                <td className="px-6 py-4 text-right">
-                  <div className="flex justify-end gap-2">
-                    <Link href={`/kenh-nguoi-ban/products/edit/${product._id}`} className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors" title="Sửa">✏️</Link>
-                    <button onClick={() => deleteProduct(product._id)} className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Xóa">🗑️</button>
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      {/* Mobile Card View */}
-      <div className="md:hidden space-y-4">
+      {/* Product List */}
+      <div className="products-list">
         {loading ? (
-          <div className="text-center py-10 text-gray-400 font-bold">Đang tải sản phẩm...</div>
-        ) : products.length === 0 ? (
-          <div className="text-center py-10 text-gray-400 font-bold bg-white rounded-3xl border border-dashed border-gray-200">Chưa có sản phẩm nào.</div>
-        ) : products.map((product) => (
-          <div key={product._id} className="bg-white p-4 rounded-3xl shadow-sm border border-gray-100 relative">
-            <div className="flex gap-4">
-              <div className="w-24 h-24 rounded-2xl bg-gray-50 overflow-hidden flex-shrink-0">
-                {product.images?.[0] && <img src={product.images[0]} className="w-full h-full object-cover" alt="" />}
-              </div>
-              <div className="flex-1 min-w-0">
-                <div className={`inline-block px-2 py-0.5 rounded-full text-[8px] font-black uppercase mb-1 ${
-                  product.status === 'approved' ? 'bg-green-100 text-green-700' : 
-                  product.status === 'pending' ? 'bg-yellow-100 text-yellow-700' : 'bg-red-100 text-red-700'
-                }`}>
-                  {product.status === 'approved' ? 'Đã duyệt' : product.status === 'pending' ? 'Chờ duyệt' : 'Từ chối'}
+          <div className="text-center py-10 text-gray-400 font-bold">Đang tải...</div>
+        ) : products.map(product => (
+          <div key={product._id} className={`product-row ${!product.isVisible ? 'hidden-mode' : ''}`}>
+            <div className="row-main">
+              <img src={product.images[0]} className="prod-thumb" alt="" />
+              <div className="prod-info">
+                <div className="flex justify-between">
+                   <span className="category">{product.category}</span>
+                   <span className={`text-[9px] font-black uppercase ${product.stock > 10 ? 'text-green-600' : 'text-orange-500'}`}>
+                     Tồn: {product.stock}
+                   </span>
                 </div>
-                <h3 className="font-bold text-gray-800 line-clamp-2 leading-tight mb-1">{product.name}</h3>
-                <p className="text-xs text-gray-500 mb-2">{product.category}</p>
-                <div className="text-lg font-black text-red-600">₫{product.price?.toLocaleString()}</div>
+                <h3>{product.name}</h3>
+                <div className="price-stock-bar">
+                  <div className="price-item">
+                    <label>Giá nhập</label>
+                    <span>₫{product.importPrice.toLocaleString()}</span>
+                  </div>
+                  <div className="price-item selling-price">
+                    <label>Giá bán</label>
+                    <span>₫{product.price.toLocaleString()}</span>
+                  </div>
+                </div>
               </div>
             </div>
             
-            <div className="mt-4 pt-4 border-t border-gray-50 flex gap-2">
-              <Link href={`/kenh-nguoi-ban/products/edit/${product._id}`} className="flex-1 bg-blue-50 text-blue-600 py-3 rounded-xl font-black text-xs text-center">
-                SỬA THÔNG TIN
-              </Link>
-              <button onClick={() => deleteProduct(product._id)} className="w-12 bg-red-50 text-red-500 flex items-center justify-center rounded-xl">
-                🗑️
-              </button>
+            <div className="row-footer">
+              <div className="visibility-toggle">
+                <label className="switch">
+                  <input 
+                    type="checkbox" 
+                    checked={product.isVisible} 
+                    onChange={() => toggleVisibility(product._id)} 
+                  />
+                  <span className="slider"></span>
+                </label>
+                <span className="toggle-label">{product.isVisible ? 'Đang hiện' : 'Đang ẩn'}</span>
+              </div>
+              <button className="edit-price-btn" onClick={() => handleEditPrice(product)}>Sửa giá</button>
             </div>
           </div>
         ))}
       </div>
+
+      {/* Store Link Section */}
+      <section className="store-link-section">
+        <div className="store-card">
+          <h3>Gian hàng của bạn</h3>
+          <p className="text-xs opacity-80">Chia sẻ link này để bà con vào mua hàng trực tiếp từ bạn</p>
+          <div className="link-box">
+            <span>phanbongiatot.com/cua-hang/dai-ly-tu-anh</span>
+            <button className="copy-btn" onClick={() => alert("Đã copy!")}>Copy</button>
+          </div>
+          <div className="store-footer">
+            <div className="qr-preview">
+               <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://phanbongiatot.com" alt="QR Code" />
+            </div>
+            <div className="share-btns">
+               <button className="share-btn">Chia sẻ Zalo</button>
+               <button className="share-btn">Tải QR</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Warehouse Modal */}
+      {showWarehouse && (
+        <div className="overlay" onClick={() => setShowWarehouse(false)}>
+          <div className="warehouse-modal" onClick={e => e.stopPropagation()}>
+            <div className="modal-header">
+              <h2>Kho Phân Bón Giá Tốt</h2>
+              <button className="text-2xl" onClick={() => setShowWarehouse(false)}>✕</button>
+            </div>
+            <div className="warehouse-list">
+              {warehouseProducts.map(p => (
+                <div 
+                  key={p.id} 
+                  className={`warehouse-item ${selectedWarehouseItems.includes(p.id) ? 'selected' : ''}`}
+                  onClick={() => setSelectedWarehouseItems(prev => prev.includes(p.id) ? prev.filter(i => i !== p.id) : [...prev, p.id])}
+                >
+                  <div className="item-check">{selectedWarehouseItems.includes(p.id) ? '✓' : ''}</div>
+                  <img src={p.img} className="w-12 h-12 rounded-lg object-cover" alt="" />
+                  <div className="flex-1">
+                    <div className="font-bold text-sm">{p.name}</div>
+                    <div className="text-[10px] text-gray-400">Giá nhập: ₫{p.floorPrice.toLocaleString()}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <button 
+              className="save-btn mt-8" 
+              onClick={addFromWarehouse}
+              disabled={selectedWarehouseItems.length === 0}
+            >
+              THÊM VÀO GIAN HÀNG ({selectedWarehouseItems.length})
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Edit Price Sheet */}
+      {editingPrice && (
+        <div className="overlay" onClick={() => setEditingPrice(null)}>
+          <div className="price-sheet" onClick={e => e.stopPropagation()}>
+            <div className="modal-header">
+              <h2>Điều chỉnh giá bán</h2>
+              <button className="text-2xl" onClick={() => setEditingPrice(null)}>✕</button>
+            </div>
+            <div className="price-info-box">
+               <div className="price-row">
+                  <label>Giá sàn (Giá nhập)</label>
+                  <span>₫{editingPrice.importPrice.toLocaleString()}</span>
+               </div>
+               <div className="price-row">
+                  <label>Giá bán hiện tại</label>
+                  <span>₫{editingPrice.price.toLocaleString()}</span>
+               </div>
+            </div>
+            
+            <div className="price-input-group">
+               <label>Giá bán mong muốn của đại lý</label>
+               <div className="input-with-unit">
+                  <input 
+                    type="number" 
+                    className="price-input" 
+                    value={newPrice} 
+                    onChange={e => setNewPrice(Number(e.target.value))}
+                  />
+                  <span className="unit-tag">đ</span>
+               </div>
+            </div>
+
+            <div className="profit-preview">
+               <label>Lợi nhuận ước tính / đơn:</label>
+               <div className="profit-value">₫{(newPrice - editingPrice.importPrice).toLocaleString()}</div>
+            </div>
+
+            <button className="save-btn" onClick={savePrice}>LƯU GIÁ MỚI</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
