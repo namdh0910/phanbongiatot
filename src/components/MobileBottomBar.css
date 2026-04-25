@@ -1,0 +1,74 @@
+/* MobileBottomBar.css */
+.mobile-bottom-bar {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 56px;
+  background-color: white;
+  z-index: 9999;
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+@media (max-width: 767px) {
+  .mobile-bottom-bar {
+    display: flex;
+  }
+  
+  /* Add padding to body to prevent content being hidden */
+  body {
+    padding-bottom: 56px !important;
+  }
+}
+
+.m-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 100%;
+  color: white;
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 13px;
+  text-transform: uppercase;
+  border: none;
+  transition: opacity 0.2s;
+}
+
+.m-btn:active {
+  opacity: 0.8;
+}
+
+.m-btn-call {
+  background-color: #1a5c2a; /* Green */
+}
+
+.m-btn-zalo {
+  background-color: #0068ff; /* Blue */
+}
+
+.m-btn-cart {
+  background-color: #f5a623; /* Orange */
+  position: relative;
+}
+
+.cart-badge-m {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: #ee4d2d;
+  color: white;
+  font-size: 9px;
+  font-weight: 900;
+  min-width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid white;
+}

@@ -56,7 +56,7 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     fetch(`${API_BASE_URL}/settings`)
       .then(res => res.json())
-      .then(data => setSettings(data))
+      .then(data => setSettings(prev => ({ ...prev, ...data })))
       .catch(err => console.error('Settings context fetch failed', err));
   }, []);
 

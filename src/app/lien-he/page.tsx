@@ -44,8 +44,8 @@ export default function ContactPage() {
               <h2 className="text-2xl font-bold text-dark mb-6">Thông Tin Liên Hệ</h2>
               <div className="space-y-5">
                 {[
-                  { icon: "📞", label: "Hotline (24/7)", val: <a href={`tel:${settings.hotline}`} className="text-primary font-extrabold text-xl hover:underline">{settings.phone || settings.hotline}</a> },
-                  { icon: "💬", label: "Zalo", val: <a href={`https://zalo.me/${settings.hotline}`} target="_blank" className="text-green-600 font-bold hover:underline">Nhắn tin Zalo ngay</a> },
+                  { icon: "📞", label: "Hotline (24/7)", val: <a href={`tel:${settings.hotline || '0773440966'}`} className="text-primary font-extrabold text-xl hover:underline">{settings.phone || settings.hotline || '0773.440.966'}</a> },
+                  { icon: "💬", label: "Zalo", val: <a href={`https://zalo.me/${settings.zaloId || '0773440966'}`} target="_blank" className="text-green-600 font-bold hover:underline">Nhắn tin Zalo ngay</a> },
                   { icon: "📍", label: "Địa chỉ", val: <p className="text-gray-600">{settings.address}</p> },
                   { icon: "🕐", label: "Giờ làm việc", val: <p className="text-gray-600">{settings.businessHours} (Tất cả các ngày)</p> },
                 ].map((item, i) => (

@@ -138,11 +138,6 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Sticky CTA for mobile */}
-      <div className="fixed bottom-0 left-0 right-0 p-4 bg-dark border-t border-white/10 flex gap-3 z-50 md:hidden">
-        <a href={`tel:${settings.hotline}`} className="flex-1 bg-primary text-white font-bold py-3 rounded-xl text-center">📞 Gọi Ngay</a>
-        <a href={`https://zalo.me/${settings.hotline}`} target="_blank" className="flex-1 bg-blue-500 text-white font-bold py-3 rounded-xl text-center">💬 Zalo</a>
-      </div>
     </div>
   );
 }
