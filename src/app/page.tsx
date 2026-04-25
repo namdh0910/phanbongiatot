@@ -16,10 +16,10 @@ import CategorySection from "@/components/CategorySection";
 import ProductCard from "@/components/ProductCard";
 
 const FALLBACK_PRODUCTS = [
-  { _id: '1', name: "Phân bón Acti Rooti", price: 180000, images: ["https://phanbongiatot.com/images/products/rooti.png"], slug: "rooti-4339", category: "Phân bón", rating: 5, reviews_count: 120 },
-  { _id: '2', name: "Nemano Tuyến Trùng", price: 180000, images: ["https://phanbongiatot.com/images/products/nemano.png"], slug: "phan-bon-phong-ngua-tuyen-trung-nemano-9989", category: "Phân bón", rating: 5, reviews_count: 85 },
-  { _id: '3', name: "NPK Sinh Học", price: 150000, images: ["https://phanbongiatot.com/images/products/npk.png"], slug: "phan-bon-npk-sinh-hoc", category: "Phân bón", rating: 5, reviews_count: 64 },
-  { _id: '4', name: "Siêu Lân Đỏ Kích Rễ", price: 220000, images: ["https://phanbongiatot.com/images/products/lan-do.png"], slug: "sieu-lan-do-kich-re", category: "Kích rễ", rating: 5, reviews_count: 92 }
+  { _id: '1', name: "Phân bón Acti Rooti", price: 180000, images: ["https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=80&w=800&auto=format&fit=crop"], slug: "rooti-4339", category: "Phân bón", rating: 5, reviews_count: 120 },
+  { _id: '2', name: "Nemano Tuyến Trùng", price: 180000, images: ["https://images.unsplash.com/photo-1592982537447-7440770cbfc9?q=80&w=800&auto=format&fit=crop"], slug: "phan-bon-phong-ngua-tuyen-trung-nemano-9989", category: "Phân bón", rating: 5, reviews_count: 85 },
+  { _id: '3', name: "NPK Sinh Học", price: 150000, images: ["https://images.unsplash.com/photo-1628352081506-83c43123ed6d?q=80&w=800&auto=format&fit=crop"], slug: "phan-bon-npk-sinh-hoc", category: "Phân bón", rating: 5, reviews_count: 64 },
+  { _id: '4', name: "Siêu Lân Đỏ Kích Rễ", price: 220000, images: ["https://images.unsplash.com/photo-1464226184884-fa280b87c399?q=80&w=800&auto=format&fit=crop"], slug: "sieu-lan-do-kich-re", category: "Kích rễ", rating: 5, reviews_count: 92 }
 ];
 
 const FALLBACK_BLOGS = [

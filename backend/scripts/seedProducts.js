@@ -14,7 +14,7 @@ const products = [
     price: 180000,
     originalPrice: 250000,
     description: "Acti Rooti là giải pháp hàng đầu để phục hồi bộ rễ sầu riêng sau thu hoạch hoặc sau khi bị bệnh. Giúp rễ tơ ra mạnh, cây xanh lá, bung đọt nhanh.",
-    images: ["https://res.cloudinary.com/dztidbkhv/image/upload/v1714022400/phanbongiatot/rooti.png"],
+    images: ["https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=80&w=800&auto=format&fit=crop"],
     status: 'approved',
     stock: 500,
     isFeatured: true
@@ -26,7 +26,7 @@ const products = [
     price: 180000,
     originalPrice: 240000,
     description: "Nemano giúp tiêu diệt tuyến trùng gây hại rễ, ngăn ngừa vàng lá thối rễ trên cây ăn trái và cây công nghiệp. Sản phẩm sinh học an toàn cho đất.",
-    images: ["https://res.cloudinary.com/dztidbkhv/image/upload/v1714022400/phanbongiatot/nemano.png"],
+    images: ["https://images.unsplash.com/photo-1592982537447-7440770cbfc9?q=80&w=800&auto=format&fit=crop"],
     status: 'approved',
     stock: 350,
     isFeatured: true
@@ -38,7 +38,7 @@ const products = [
     price: 150000,
     originalPrice: 200000,
     description: "Cung cấp dinh dưỡng Đa-Trung-Vi lượng cân đối cho cây trồng. Giúp đất tơi xốp, tăng cường hệ vi sinh vật có ích.",
-    images: ["https://res.cloudinary.com/dztidbkhv/image/upload/v1714022400/phanbongiatot/npk.png"],
+    images: ["https://images.unsplash.com/photo-1628352081506-83c43123ed6d?q=80&w=800&auto=format&fit=crop"],
     status: 'approved',
     stock: 1000,
     isFeatured: true
@@ -50,7 +50,7 @@ const products = [
     price: 220000,
     originalPrice: 320000,
     description: "Kích thích bộ rễ phát triển thần tốc, chống nghẹt rễ, giải độc phèn, ngộ độc hữu cơ cho lúa và cây ăn trái.",
-    images: ["https://res.cloudinary.com/dztidbkhv/image/upload/v1714022400/phanbongiatot/sieu-lan-do.png"],
+    images: ["https://images.unsplash.com/photo-1464226184884-fa280b87c399?q=80&w=800&auto=format&fit=crop"],
     status: 'approved',
     stock: 200,
     isFeatured: true
@@ -62,7 +62,7 @@ const products = [
     price: 350000,
     originalPrice: 450000,
     description: "Phác đồ đặc trị tuyến trùng rễ chuyên sâu, tiêu diệt cả trứng và tuyến trùng trưởng thành. Hiệu quả kéo dài.",
-    images: ["https://res.cloudinary.com/dztidbkhv/image/upload/v1714022400/phanbongiatot/tuyen-trung.png"],
+    images: ["https://images.unsplash.com/photo-1589923188900-85dae523342b?q=80&w=800&auto=format&fit=crop"],
     status: 'approved',
     stock: 150,
     isFeatured: true
@@ -74,7 +74,7 @@ const products = [
     price: 195000,
     originalPrice: 280000,
     description: "Tiêu diệt rệp sáp, nhện đỏ, bọ trĩ bằng cơ chế nấm ký sinh. Không gây nóng cây, không độc hại cho người phun.",
-    images: ["https://res.cloudinary.com/dztidbkhv/image/upload/v1714022400/phanbongiatot/sau-sinh-hoc.png"],
+    images: ["https://images.unsplash.com/photo-1591857177580-dc82b9ac4e17?q=80&w=800&auto=format&fit=crop"],
     status: 'approved',
     stock: 400,
     isFeatured: false
