@@ -83,3 +83,23 @@
     }
   }
 }
+
+/* Accessibility: Respect system settings for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    white-space: normal;
+  }
+  
+  .marquee-container {
+    mask-image: none;
+  }
+  
+  .brand-logo {
+    filter: grayscale(0);
+    opacity: 0.8;
+  }
+}
