@@ -124,37 +124,78 @@ export default function CheckoutPage() {
   };
 
   if (cart.length === 0) {
-    const featured = [
-      { _id: '1', name: "Phân bón Acti Rooti", price: 180000, images: ["https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=80&w=800&auto=format&fit=crop"], slug: "rooti-4339" },
-      { _id: '2', name: "Nemano Tuyến Trùng", price: 180000, images: ["https://images.unsplash.com/photo-1592982537447-7440770cbfc9?q=80&w=800&auto=format&fit=crop"], slug: "nemano-9989" },
-      { _id: 'combo-sau-rieng-phuc-hoi', name: "Combo Sầu Riêng Phục Hồi", price: 1160000, images: ["https://images.unsplash.com/photo-1464226184884-fa280b87c399?q=80&w=800&auto=format&fit=crop"], slug: "combo-sau-rieng-phuc-hoi" }
+    const bestSellers = [
+      { _id: '1', name: "Acti Rooti - Siêu Kích Rễ", price: 180000, oldPrice: 220000, images: ["https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=80&w=800&auto=format&fit=crop"], slug: "rooti-4339", sold: 1250 },
+      { _id: '2', name: "Nemano Tuyến Trùng", price: 180000, oldPrice: 210000, images: ["https://images.unsplash.com/photo-1592982537447-7440770cbfc9?q=80&w=800&auto=format&fit=crop"], slug: "nemano-9989", sold: 890 },
+      { _id: '3', name: "Amino Acid - Xanh Lá", price: 99000, oldPrice: 150000, images: ["https://images.unsplash.com/photo-1628352081506-83c43123ed6d?q=80&w=800&auto=format&fit=crop"], slug: "amino-acid-7822", sold: 2100 },
+      { _id: '4', name: "Combi Gold Vi Lượng", price: 45000, oldPrice: 60000, images: ["https://images.unsplash.com/photo-1464226184884-fa280b87c399?q=80&w=800&auto=format&fit=crop"], slug: "combi-gold-1223", sold: 1560 }
+    ];
+
+    const combos = [
+      { name: "Combo Phục Hồi Sầu Riêng", price: 1160000, discount: "Tiết kiệm 290k", slug: "combo-sau-rieng-phuc-hoi" },
+      { name: "Gói Cà Phê Năng Suất Vàng", price: 784000, discount: "Tiết kiệm 196k", slug: "combo-ca-phe-nang-suat-vang" }
     ];
 
     return (
-      <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4">
-        <div className="bg-white p-10 md:p-20 rounded-[3rem] shadow-xl border border-gray-100 flex flex-col items-center max-w-4xl w-full text-center">
-          <div className="text-8xl mb-8 animate-bounce">🛒</div>
-          <h2 className="text-3xl md:text-5xl font-black text-gray-900 mb-4 uppercase italic tracking-tighter">Giỏ hàng đang trống</h2>
-          <p className="text-gray-500 mb-12 text-lg md:text-xl font-medium max-w-lg leading-relaxed">
-            Anh/chị chưa chọn sản phẩm nào. Hãy chọn những giải pháp tốt nhất cho vườn cây của mình nhé!
-          </p>
-          
-          <Link href="/san-pham" className="bg-[#1a5c2a] text-white px-12 py-5 rounded-2xl font-black text-xl shadow-2xl hover:bg-[#2d7a3e] transition-all uppercase tracking-wider mb-16">
-            TIẾP TỤC MUA SẮM ➜
-          </Link>
+      <div className="min-h-screen bg-white">
+        <div className="container mx-auto px-4 py-20 max-w-5xl">
+          <div className="text-center mb-16">
+            <div className="text-8xl mb-6">🛒</div>
+            <h1 className="text-4xl font-black text-gray-900 mb-4 uppercase">Giỏ hàng đang chờ anh/chị</h1>
+            <p className="text-gray-500 text-lg mb-8 max-w-lg mx-auto">Chưa có sản phẩm nào được chọn. Hãy tham khảo những giải pháp bán chạy nhất bên dưới nhé!</p>
+            <Link href="/san-pham" className="inline-block bg-[#f5a623] text-white px-10 py-4 rounded-xl font-black text-lg shadow-xl hover:bg-[#fbb940] transition-all hover:-translate-y-1">
+              XEM SẢN PHẨM BÁN CHẠY ➜
+            </Link>
+          </div>
 
-          <div className="w-full">
-            <h3 className="text-xl font-black text-gray-800 mb-8 uppercase text-left border-l-4 border-[#1a5c2a] pl-4">Sản phẩm gợi ý cho anh/chị</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {featured.map(p => (
-                <Link key={p._id} href={`/san-pham/${p.slug}`} className="bg-gray-50 p-4 rounded-2xl border border-gray-100 hover:shadow-lg transition-all text-left group">
-                  <div className="aspect-square rounded-xl overflow-hidden mb-4">
-                    <img src={p.images[0]} alt={p.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform" />
-                  </div>
-                  <p className="font-bold text-gray-800 text-sm line-clamp-1 mb-1">{p.name}</p>
-                  <p className="text-[#ee4d2d] font-black">{p.price.toLocaleString('vi-VN')}đ</p>
-                </Link>
-              ))}
+          <div className="space-y-16">
+            {/* Best Sellers Section */}
+            <div>
+              <div className="flex items-center justify-between mb-8 border-l-4 border-[#1a5c2a] pl-4">
+                <h3 className="text-2xl font-black text-gray-800 uppercase italic">Sản phẩm bán chạy nhất</h3>
+                <Link href="/san-pham" className="text-sm font-bold text-[#1a5c2a] hover:underline">Xem tất cả</Link>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {bestSellers.map(p => (
+                  <Link key={p._id} href={`/san-pham/${p.slug}`} className="flex items-center gap-4 bg-gray-50 p-4 rounded-2xl border border-gray-100 hover:border-[#1a5c2a] hover:bg-white hover:shadow-xl transition-all group">
+                    <div className="w-24 h-24 rounded-xl overflow-hidden flex-shrink-0">
+                      <img src={p.images[0]} alt={p.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform" />
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="font-bold text-gray-800 mb-1 line-clamp-1">{p.name}</h4>
+                      <p className="text-xs text-gray-400 mb-2">Đã bán {p.sold}+</p>
+                      <div className="flex items-center gap-2">
+                        <span className="text-[#ee4d2d] font-black text-lg">{p.price.toLocaleString('vi-VN')}đ</span>
+                        <span className="text-gray-400 line-through text-xs">{p.oldPrice.toLocaleString('vi-VN')}đ</span>
+                      </div>
+                    </div>
+                    <div className="text-[#1a5c2a] text-xl font-black pr-2 group-hover:translate-x-1 transition-transform">➜</div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {/* Combo Section */}
+            <div className="bg-emerald-900 rounded-[2.5rem] p-8 md:p-12 text-white relative overflow-hidden shadow-2xl shadow-emerald-900/20">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -mr-32 -mt-32 blur-3xl"></div>
+              <div className="relative z-10">
+                <h3 className="text-2xl font-black mb-2 uppercase italic">Tiết kiệm hơn với Combo</h3>
+                <p className="text-emerald-200 mb-8 font-medium">Giải pháp toàn diện cho vườn cây, tiết kiệm đến 25%</p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {combos.map((c, i) => (
+                    <Link key={i} href={`/san-pham/${c.slug}`} className="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20 hover:bg-white/20 transition-all">
+                      <div className="flex justify-between items-start mb-4">
+                        <h4 className="font-bold text-lg leading-tight max-w-[200px]">{c.name}</h4>
+                        <span className="bg-orange-500 text-white text-[10px] px-2 py-1 rounded-full font-black uppercase tracking-wider">{c.discount}</span>
+                      </div>
+                      <div className="flex justify-between items-center mt-auto">
+                        <span className="text-2xl font-black text-white">{c.price.toLocaleString('vi-VN')}đ</span>
+                        <span className="bg-white text-[#1a5c2a] px-4 py-2 rounded-lg font-black text-xs">MUA NGAY</span>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </div>
