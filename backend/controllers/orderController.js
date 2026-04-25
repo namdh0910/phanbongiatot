@@ -44,6 +44,17 @@ const createOrder = async (req, res) => {
 
       const createdOrder = await order.save();
 
+      // Deduct stock for each product
+      const Product = require('../models/Product');
+      for (const item of orderItems) {
+        if (item.product) {
+          await Product.findByIdAndUpdate(
+            item.product,
+            { $inc: { stock: -item.qty } }
+          );
+        }
+      }
+
       // If coupon used, increment usage count
       if (couponCode) {
         await Coupon.findOneAndUpdate(

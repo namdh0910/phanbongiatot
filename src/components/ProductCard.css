@@ -59,6 +59,7 @@
 .badge-hot { background-color: #ee4d2d; }
 .badge-low { background-color: #f5a623; }
 .badge-new { background-color: #1a5c2a; }
+.badge-soldout { background-color: #999; }
 
 .p-info {
   padding: 1.25rem;

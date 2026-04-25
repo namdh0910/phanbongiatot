@@ -12,7 +12,11 @@ export default function ProductActions({ product }: { product: any }) {
   const router = useRouter();
   const settings = useSettings();
 
+  const isOutOfStock = product.stock === 0;
+  const isLowStock = product.stock > 0 && product.stock < 10;
+
   const handleAddToCart = () => {
+    if (isOutOfStock) return;
     trackEvent('AddToCart', {
       content_name: product.name,
       value: product.price,
@@ -27,6 +31,7 @@ export default function ProductActions({ product }: { product: any }) {
   };
 
   const handleBuyNow = () => {
+    if (isOutOfStock) return;
     trackEvent('InitiateCheckout', {
       content_name: product.name,
       value: product.price,
@@ -59,12 +64,19 @@ export default function ProductActions({ product }: { product: any }) {
               />
               <button 
                 onClick={() => setQty(qty + 1)}
-                className="px-3 bg-white hover:bg-gray-50 text-gray-600 border-l border-gray-300 transition-colors"
+                disabled={qty >= (product.stock || 999)}
+                className="px-3 bg-white hover:bg-gray-50 text-gray-600 border-l border-gray-300 transition-colors disabled:opacity-30"
               >
                 +
               </button>
             </div>
-            <span className="text-xs text-gray-400">{product.stock || 100} sản phẩm có sẵn</span>
+            {isOutOfStock ? (
+              <span className="text-sm font-black text-[#ee4d2d] uppercase italic">Hết hàng</span>
+            ) : isLowStock ? (
+              <span className="text-xs font-bold text-[#ee4d2d]">Chỉ còn {product.stock} sản phẩm có sẵn!</span>
+            ) : (
+              <span className="text-xs text-gray-400">{product.stock || 100} sản phẩm có sẵn</span>
+            )}
           </div>
         </div>
 
@@ -77,13 +89,15 @@ export default function ProductActions({ product }: { product: any }) {
         <div className="hidden md:flex flex-row gap-4">
           <button 
             onClick={handleAddToCart}
-            className="flex-1 bg-[#ffefe8] border border-[#ee4d2d] text-[#ee4d2d] py-4 px-6 rounded-sm hover:bg-[#ffeae0] transition-colors font-medium flex items-center justify-center gap-2 shadow-sm"
+            disabled={isOutOfStock}
+            className={`flex-1 py-4 px-6 rounded-sm transition-colors font-medium flex items-center justify-center gap-2 shadow-sm ${isOutOfStock ? 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed' : 'bg-[#ffefe8] border border-[#ee4d2d] text-[#ee4d2d] hover:bg-[#ffeae0]'}`}
           >
-            <span className="text-2xl">🛒</span> Thêm Vào Giỏ Hàng
+            <span className="text-2xl">🛒</span> {isOutOfStock ? 'Hết hàng' : 'Thêm Vào Giỏ Hàng'}
           </button>
           <button 
             onClick={handleBuyNow}
-            className="flex-1 bg-[#ee4d2d] text-white py-4 px-6 rounded-sm hover:bg-[#d73211] transition-colors font-bold text-lg shadow-md"
+            disabled={isOutOfStock}
+            className={`flex-1 py-4 px-6 rounded-sm transition-colors font-bold text-lg shadow-md ${isOutOfStock ? 'bg-gray-300 text-white cursor-not-allowed' : 'bg-[#ee4d2d] text-white hover:bg-[#d73211]'}`}
           >
             Mua Ngay
           </button>
@@ -101,9 +115,10 @@ export default function ProductActions({ product }: { product: any }) {
         </a>
         <button 
           onClick={handleBuyNow}
-          className="flex-1 bg-[#ee4d2d] text-white flex items-center justify-center font-black text-sm active:bg-[#d73211] tracking-wide"
+          disabled={isOutOfStock}
+          className={`flex-1 flex items-center justify-center font-black text-sm tracking-wide ${isOutOfStock ? 'bg-gray-300 text-white cursor-not-allowed' : 'bg-[#ee4d2d] text-white active:bg-[#d73211]'}`}
         >
-          MUA NGAY
+          {isOutOfStock ? 'HẾT HÀNG' : 'MUA NGAY'}
         </button>
       </div>
     </>

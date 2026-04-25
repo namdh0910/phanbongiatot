@@ -66,6 +66,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         
         <div className="p-badges">
           {product.isBestSeller && <span className="p-badge badge-hot">Bán chạy</span>}
+          {product.stock === 0 && <span className="p-badge badge-soldout">Hết hàng</span>}
           {isLowStock && <span className="p-badge badge-low">Còn ít hàng</span>}
           {product.isNewArrival && <span className="p-badge badge-new">Mới về</span>}
         </div>
