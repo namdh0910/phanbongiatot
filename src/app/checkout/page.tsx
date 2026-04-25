@@ -205,6 +205,7 @@ export default function CheckoutPage() {
 
   return (
     <div className="bg-gray-50 min-h-screen py-10 pb-20">
+      <div className="container mx-auto px-4 max-w-6xl">
         {/* Progress Stepper */}
         <div className="flex items-center justify-center mb-10 max-w-2xl mx-auto">
           <div className="flex items-center w-full">
