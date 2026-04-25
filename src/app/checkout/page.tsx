@@ -205,7 +205,28 @@ export default function CheckoutPage() {
 
   return (
     <div className="bg-gray-50 min-h-screen py-10 pb-20">
-      <div className="container mx-auto px-4 max-w-6xl">
+        {/* Progress Stepper */}
+        <div className="flex items-center justify-center mb-10 max-w-2xl mx-auto">
+          <div className="flex items-center w-full">
+            <div className="flex flex-col items-center relative flex-1">
+              <div className="w-8 h-8 rounded-full bg-[#1a5c2a] text-white flex items-center justify-center font-bold text-sm z-10">1</div>
+              <div className="absolute top-4 left-[50%] w-full h-[2px] bg-[#1a5c2a]"></div>
+              <span className="mt-2 text-[13px] font-bold text-[#1a5c2a] whitespace-nowrap">Giỏ hàng</span>
+            </div>
+            
+            <div className="flex flex-col items-center relative flex-1">
+              <div className="w-8 h-8 rounded-full bg-[#1a5c2a] text-white flex items-center justify-center font-bold text-sm z-10 shadow-lg shadow-green-200">2</div>
+              <div className="absolute top-4 left-[50%] w-full h-[2px] bg-gray-200"></div>
+              <span className="mt-2 text-[13px] font-bold text-[#1a5c2a] whitespace-nowrap">Thông tin giao hàng</span>
+            </div>
+            
+            <div className="flex flex-col items-center relative flex-1">
+              <div className="w-8 h-8 rounded-full bg-gray-200 text-gray-500 flex items-center justify-center font-bold text-sm z-10">3</div>
+              <span className="mt-2 text-[13px] font-bold text-gray-400 whitespace-nowrap">Xác nhận</span>
+            </div>
+          </div>
+        </div>
+
         <div className="mb-8">
           <h1 className="text-3xl font-black text-gray-900">Thanh toán</h1>
           <p className="text-gray-500">Hoàn tất đơn hàng của bạn</p>
