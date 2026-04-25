@@ -5,33 +5,35 @@ import './FlashSale.css';
 
 const FlashSale: React.FC = () => {
   const [timeLeft, setTimeLeft] = useState({
-    hours: 23,
-    minutes: 59,
-    seconds: 59
+    hours: 0,
+    minutes: 0,
+    seconds: 0
   });
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft(prev => {
-        if (prev.hours === 0 && prev.minutes === 0 && prev.seconds === 0) {
-          return { hours: 23, minutes: 59, seconds: 59 };
-        }
-        
-        let s = prev.seconds - 1;
-        let m = prev.minutes;
-        let h = prev.hours;
+    const calculateTimeLeft = () => {
+      const now = new Date();
+      const endOfDay = new Date();
+      endOfDay.setHours(23, 59, 59, 999);
+      
+      const difference = endOfDay.getTime() - now.getTime();
+      
+      if (difference <= 0) {
+        return { hours: 0, minutes: 0, seconds: 0 };
+      }
 
-        if (s < 0) {
-          s = 59;
-          m -= 1;
-        }
-        if (m < 0) {
-          m = 59;
-          h -= 1;
-        }
-        
-        return { hours: h, minutes: m, seconds: s };
-      });
+      return {
+        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+        minutes: Math.floor((difference / 1000 / 60) % 60),
+        seconds: Math.floor((difference / 1000) % 60)
+      };
+    };
+
+    // Initial calculation
+    setTimeLeft(calculateTimeLeft());
+
+    const timer = setInterval(() => {
+      setTimeLeft(calculateTimeLeft());
     }, 1000);
 
     return () => clearInterval(timer);
