@@ -79,11 +79,17 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           </h3>
         </div>
         
-        {product.seller && product.seller.role === 'vendor' && (
-          <div className="flex items-center gap-1 mb-2">
-             <span className="text-[9px] bg-emerald-50 text-emerald-600 px-2 py-0.5 rounded-full font-black uppercase tracking-tighter border border-emerald-100 flex items-center gap-1">
-               <span className="text-xs">🏪</span> {product.seller.storeName}
+        {product.seller && (
+          <div className="flex items-center gap-1.5 mb-2 group/shop cursor-pointer" onClick={(e) => { e.stopPropagation(); router.push(`/shop/${product.seller._id}`); }}>
+             <div className="w-4 h-4 rounded-full bg-emerald-100 flex items-center justify-center text-[8px] overflow-hidden">
+                {product.seller.vendorInfo?.logo ? <img src={product.seller.vendorInfo.logo} className="w-full h-full object-cover" /> : '🏪'}
+             </div>
+             <span className="text-[10px] font-bold text-emerald-700 group-hover/shop:underline">
+               {product.seller.vendorInfo?.storeName || 'Phân Bón Giá Tốt'}
              </span>
+             {product.seller.role === 'admin' && (
+               <span className="text-[8px] bg-red-100 text-red-600 px-1 rounded font-black uppercase tracking-tighter">Mall</span>
+             )}
           </div>
         )}
         
