@@ -101,6 +101,20 @@ export default function VendorDashboard() {
           ))}
         </div>
 
+        {/* Security Alert - Move from login to dashboard for better context */}
+        <div className="bg-blue-50 border border-blue-100 p-6 rounded-[2rem] mb-8 flex items-center justify-between">
+           <div className="flex items-center gap-4">
+              <div className="text-2xl bg-white w-10 h-10 rounded-full flex items-center justify-center shadow-sm">🛡️</div>
+              <div>
+                 <h4 className="font-bold text-blue-900 text-sm">Bảo vệ tài khoản của anh/chị</h4>
+                 <p className="text-blue-700 text-xs">Mật khẩu mạnh giúp bảo vệ doanh thu và dữ liệu khách hàng tốt hơn.</p>
+              </div>
+           </div>
+           <Link href="/kenh-nguoi-ban/tai-khoan" className="bg-blue-600 text-white px-6 py-2 rounded-xl font-bold text-[10px] hover:bg-blue-700 transition-all uppercase tracking-wider">
+              Cập nhật ngay
+           </Link>
+        </div>
+
         {/* Action Boxes */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
            <Link href="/kenh-nguoi-ban/san-pham/them-moi" className="bg-white p-8 rounded-[2.5rem] border-2 border-dashed border-gray-200 hover:border-[#1a5c2a] hover:bg-green-50/30 transition-all group">
