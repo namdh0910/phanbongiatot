@@ -124,14 +124,40 @@ export default function CheckoutPage() {
   };
 
   if (cart.length === 0) {
+    const featured = [
+      { _id: '1', name: "Phân bón Acti Rooti", price: 180000, images: ["https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=80&w=800&auto=format&fit=crop"], slug: "rooti-4339" },
+      { _id: '2', name: "Nemano Tuyến Trùng", price: 180000, images: ["https://images.unsplash.com/photo-1592982537447-7440770cbfc9?q=80&w=800&auto=format&fit=crop"], slug: "nemano-9989" },
+      { _id: 'combo-sau-rieng-phuc-hoi', name: "Combo Sầu Riêng Phục Hồi", price: 1160000, images: ["https://images.unsplash.com/photo-1464226184884-fa280b87c399?q=80&w=800&auto=format&fit=crop"], slug: "combo-sau-rieng-phuc-hoi" }
+    ];
+
     return (
       <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4">
-        <div className="text-6xl mb-4">🛒</div>
-        <h2 className="text-2xl font-bold text-gray-800 mb-2">Giỏ hàng của bạn đang trống</h2>
-        <p className="text-gray-500 mb-8 text-center max-w-md">Hãy chọn những sản phẩm phân bón tốt nhất cho vườn cây của bạn nhé!</p>
-        <Link href="/san-pham" className="bg-[#1a5c2a] text-white px-8 py-3 rounded-full font-bold hover:bg-[#2d7a3e] transition-colors shadow-lg">
-          Tiếp tục mua sắm
-        </Link>
+        <div className="bg-white p-10 md:p-20 rounded-[3rem] shadow-xl border border-gray-100 flex flex-col items-center max-w-4xl w-full text-center">
+          <div className="text-8xl mb-8 animate-bounce">🛒</div>
+          <h2 className="text-3xl md:text-5xl font-black text-gray-900 mb-4 uppercase italic tracking-tighter">Giỏ hàng đang trống</h2>
+          <p className="text-gray-500 mb-12 text-lg md:text-xl font-medium max-w-lg leading-relaxed">
+            Anh/chị chưa chọn sản phẩm nào. Hãy chọn những giải pháp tốt nhất cho vườn cây của mình nhé!
+          </p>
+          
+          <Link href="/san-pham" className="bg-[#1a5c2a] text-white px-12 py-5 rounded-2xl font-black text-xl shadow-2xl hover:bg-[#2d7a3e] transition-all uppercase tracking-wider mb-16">
+            TIẾP TỤC MUA SẮM ➜
+          </Link>
+
+          <div className="w-full">
+            <h3 className="text-xl font-black text-gray-800 mb-8 uppercase text-left border-l-4 border-[#1a5c2a] pl-4">Sản phẩm gợi ý cho anh/chị</h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {featured.map(p => (
+                <Link key={p._id} href={`/san-pham/${p.slug}`} className="bg-gray-50 p-4 rounded-2xl border border-gray-100 hover:shadow-lg transition-all text-left group">
+                  <div className="aspect-square rounded-xl overflow-hidden mb-4">
+                    <img src={p.images[0]} alt={p.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform" />
+                  </div>
+                  <p className="font-bold text-gray-800 text-sm line-clamp-1 mb-1">{p.name}</p>
+                  <p className="text-[#ee4d2d] font-black">{p.price.toLocaleString('vi-VN')}đ</p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
