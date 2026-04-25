@@ -7,11 +7,11 @@ import './Hero.css';
 const Hero: React.FC = () => {
   const settings = useSettings();
   
-  // Use settings from context or fall back to premium defaults
   const title = settings?.heroTitle || "Tăng Năng Suất Vượt Ngưỡng Kỳ Vọng";
-  const subtitle = settings?.heroSubtitle || "Giải pháp phân bón công nghệ cao, giúp cây trồng hấp thụ tối đa dinh dưỡng, tăng năng suất vượt trội và bền vững cho nhà nông.";
+  const subtitle = settings?.heroSubtitle || "Giải pháp phân bón công nghệ cao, giúp cây trồng hấp thụ tối đảo dinh dưỡng, tăng năng suất vượt trội và bền vững cho nhà nông.";
   const banner = settings?.heroBanner || "/images/hero-bg.png";
   const zaloId = settings?.zaloId || "0773440966";
+  const hotline = settings?.hotline || "0773.440.966";
   const primaryColor = settings?.primaryColor || "#1a5c2a";
 
   return (
@@ -27,19 +27,23 @@ const Hero: React.FC = () => {
       }}></div>
       
       <div className="hero-content">
-        <div className="hero-badge">Nông Nghiệp Thịnh Vượng</div>
+        <div className="hero-badge">Giải Pháp Nông Nghiệp Xanh</div>
         
         <h1 className="hero-title">
-          {title.includes(" ") ? (
-            <>
-              {title.split(" ").slice(0, -2).join(" ")} <span>{title.split(" ").slice(-2).join(" ")}</span>
-            </>
-          ) : title}
+          Tăng Năng Suất<br/><span>Vượt Ngưỡng Kỳ Vọng</span>
         </h1>
+
+        <div className="hero-social-proof">
+          ✓ Hơn 5.000 nhà vườn tin dùng | Giao hàng toàn quốc
+        </div>
         
         <p className="hero-subtitle">
           {subtitle}
         </p>
+
+        <a href={`tel:${hotline.replace(/\./g, '')}`} className="hero-hotline">
+          📞 {hotline}
+        </a>
         
         <div className="hero-actions">
           <a 
@@ -48,11 +52,11 @@ const Hero: React.FC = () => {
             rel="noopener noreferrer" 
             className="btn btn-primary"
           >
-            <span style={{fontSize: '1.5rem'}}>💬</span> {settings?.ctaText || "TƯ VẤN ZALO MIỄN PHÍ"}
+            💬 Chat Zalo tư vấn
           </a>
           
           <Link href="/danh-muc/phan-bon" className="btn btn-secondary">
-            XEM SẢN PHẨM
+            Xem sản phẩm
           </Link>
         </div>
       </div>
