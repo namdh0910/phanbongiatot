@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
-const { authUser, registerUser, registerVendor, getVendors, approveVendor, extendVendor, getProfile, updateProfile } = require('../controllers/authController');
+const { authUser, registerUser, registerVendor, getVendors, approveVendor, extendVendor, getProfile, updateProfile, sendOtp, verifyOtp } = require('../controllers/authController');
 const { protect, admin } = require('../middleware/authMiddleware');
 
 
@@ -21,8 +21,10 @@ router.put('/test-approve/:id', async (req, res) => {
   }
 });
 router.put('/vendors/:id/extend', protect, admin, extendVendor);
-router.put('/profile', protect, updateProfile);
 router.get('/profile', protect, getProfile);
+router.put('/profile', protect, updateProfile);
+router.post('/send-otp', sendOtp);
+router.post('/verify-otp', verifyOtp);
 // Register chỉ mở khi chưa có admin nào, controller tự kiểm tra
 router.post('/register', registerUser);
 

@@ -42,6 +42,27 @@ const createOrder = async (req, res) => {
         couponCode,
       });
 
+      // Create/Link customer record
+      const User = require('../models/User');
+      const cleanPhone = customerInfo.phone.replace(/\s/g, '');
+      let customer = await User.findOne({ username: cleanPhone });
+      
+      if (!customer) {
+        // Create new customer account (using phone as username, no password for now)
+        customer = new User({
+          username: cleanPhone,
+          password: Math.random().toString(36).slice(-8), // Placeholder
+          role: 'customer',
+          vendorInfo: {
+            storeName: customerInfo.name,
+            phone: cleanPhone,
+            address: `${customerInfo.address}, ${customerInfo.ward}, ${customerInfo.district}, ${customerInfo.province}`
+          }
+        });
+        await customer.save();
+      }
+      
+      order.user = customer._id;
       const createdOrder = await order.save();
 
       // Deduct stock for each product

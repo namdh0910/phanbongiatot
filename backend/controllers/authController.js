@@ -224,4 +224,68 @@ const updateProfile = async (req, res) => {
   }
 };
 
-module.exports = { authUser, registerUser, registerVendor, getVendors, approveVendor, extendVendor, getProfile, updateProfile };
+// @desc    Send OTP to phone
+// @route   POST /api/auth/send-otp
+const sendOtp = async (req, res) => {
+  try {
+    const { phone } = req.body;
+    if (!phone) return res.status(400).json({ message: 'Vui lòng nhập số điện thoại' });
+    
+    // Simulate sending OTP via Zalo/SMS
+    console.log(`[OTP] Sending 123456 to ${phone}`);
+    
+    res.json({ message: 'Mã xác thực đã được gửi' });
+  } catch (error) {
+    res.status(500).json({ message: 'Lỗi server' });
+  }
+};
+
+// @desc    Verify OTP and Login
+// @route   POST /api/auth/verify-otp
+const verifyOtp = async (req, res) => {
+  try {
+    const { phone, otp } = req.body;
+    if (otp !== '123456') {
+      return res.status(401).json({ message: 'Mã xác thực không chính xác' });
+    }
+
+    const cleanPhone = phone.replace(/\s/g, '');
+    let user = await User.findOne({ username: cleanPhone });
+
+    if (!user) {
+      // Create account if not exists
+      user = await User.create({
+        username: cleanPhone,
+        password: Math.random().toString(36).slice(-8),
+        role: 'customer',
+        vendorInfo: {
+          phone: cleanPhone,
+          storeName: 'Khách hàng mới'
+        }
+      });
+    }
+
+    res.json({
+      _id: user._id,
+      username: user.username,
+      role: user.role,
+      vendorInfo: user.vendorInfo,
+      token: generateToken(user._id),
+    });
+  } catch (error) {
+    res.status(500).json({ message: 'Lỗi server' });
+  }
+};
+
+module.exports = { 
+  authUser, 
+  registerUser, 
+  registerVendor, 
+  getVendors, 
+  approveVendor, 
+  extendVendor, 
+  getProfile, 
+  updateProfile,
+  sendOtp,
+  verifyOtp
+};
