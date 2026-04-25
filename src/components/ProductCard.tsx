@@ -62,7 +62,19 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       </div>
 
       <div className="p-info">
-        <h3 className="p-name">{product.name}</h3>
+        <div className="flex justify-between items-center mb-1">
+          <h3 className="text-[13px] md:text-sm font-medium text-gray-800 line-clamp-2 leading-tight h-10 group-hover:text-[#1a5c2a] transition-colors">
+            {product.name}
+          </h3>
+        </div>
+        
+        {product.seller && product.seller.role === 'vendor' && (
+          <div className="flex items-center gap-1 mb-2">
+             <span className="text-[9px] bg-emerald-50 text-emerald-600 px-2 py-0.5 rounded-full font-black uppercase tracking-tighter border border-emerald-100 flex items-center gap-1">
+               <span className="text-xs">🏪</span> {product.seller.storeName}
+             </span>
+          </div>
+        )}
         
         <div className="p-meta">
           <div className="p-stars">

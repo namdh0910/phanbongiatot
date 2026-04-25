@@ -31,7 +31,7 @@ export default function VendorLogin() {
         localStorage.setItem("vendorToken", data.token);
         localStorage.setItem("vendorInfo", JSON.stringify(data.vendorInfo));
         localStorage.setItem("userRole", data.role);
-        router.push("/kenh-nguoi-ban");
+        router.push("/kenh-nguoi-ban/dashboard");
       } else {
         setError(data.message || "Đăng nhập thất bại");
       }
