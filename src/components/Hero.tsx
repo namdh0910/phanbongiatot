@@ -13,12 +13,18 @@ const Hero: React.FC = () => {
 
   return (
     <section className="hero-container" style={{ '--primary-color': primaryColor } as React.CSSProperties}>
-      <img 
-        src={banner} 
-        alt={title} 
-        className="hero-background-img"
-        loading="eager"
-      />
+      <picture>
+        <source srcSet="/images/hero-bg.webp" type="image/webp" />
+        <img 
+          src="/images/hero-bg.png" 
+          alt={title} 
+          className="hero-background-img"
+          fetchPriority="high"
+          width="1920"
+          height="400"
+          style={{ objectPosition: 'center 30%' }}
+        />
+      </picture>
       <div className="hero-overlay" style={{ 
         background: `linear-gradient(135deg, ${primaryColor}cc 0%, rgba(0, 0, 0, 0.4) 100%)` 
       }}></div>
