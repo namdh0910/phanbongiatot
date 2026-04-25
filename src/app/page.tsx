@@ -7,6 +7,7 @@ import { trackEvent } from "@/utils/analytics";
 import { getSettings } from "@/utils/settings";
 import { useCart } from "@/context/CartContext";
 import Hero from "@/components/Hero";
+import TrustBar from "@/components/TrustBar";
 import CategorySection from "@/components/CategorySection";
 import ProductCard from "@/components/ProductCard";
 import { useSettings } from "@/context/SettingsContext";
@@ -42,7 +43,7 @@ export default function Home() {
     <div className="flex flex-col gap-10 md:gap-24 pb-20 bg-[#f5f5f5]">
       {/* NEW HERO SECTION */}
       <Hero />
-
+      <TrustBar />
       <CategorySection />
 
       {/* FEATURED PRODUCTS */}
