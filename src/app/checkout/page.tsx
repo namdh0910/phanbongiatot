@@ -146,7 +146,7 @@ export default function CheckoutPage() {
         localStorage.setItem('pbgt_phone', cleanPhone);
       } catch {}
       clearCart();
-      window.location.href = `/don-hang/thanh-cong?code=${orderData.orderCode}`;
+      window.location.href = `/don-hang/thanh-cong?code=${orderData.orderCode}&method=${paymentMethod}&total=${totalPrice}`;
       
     } catch (err: any) {
       setError(err.message);

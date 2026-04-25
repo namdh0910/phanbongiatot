@@ -18,10 +18,31 @@ function OrderSuccessContent() {
       </p>
       
       {code && (
-        <div className="bg-gray-50 p-6 rounded-xl border border-gray-200 mb-8">
-          <p className="text-sm text-gray-500 mb-1">Mã đơn hàng của bạn</p>
-          <p className="text-2xl font-black text-[#1a5c2a] tracking-wider">{code}</p>
-          <p className="text-xs text-gray-400 mt-2">Vui lòng lưu lại mã này để tra cứu tình trạng đơn hàng.</p>
+        <div className="bg-gray-50 p-6 rounded-2xl border border-gray-100 mb-8 space-y-4">
+          <div>
+            <p className="text-[10px] text-gray-400 font-black uppercase tracking-widest mb-1">Mã đơn hàng</p>
+            <p className="text-3xl font-black text-[#1a5c2a] tracking-wider">{code}</p>
+          </div>
+
+          {searchParams.get('method') === 'Chuyển khoản' && (
+            <div className="pt-6 border-t border-gray-200">
+               <p className="text-xs font-black text-gray-800 uppercase mb-4 italic">Anh/chị vui lòng Quét mã để thanh toán đơn hàng</p>
+               <div className="bg-white p-4 rounded-2xl border-2 border-[#1a5c2a]/20 inline-block shadow-sm">
+                  <img 
+                    src={`https://img.vietqr.io/image/MB-0773440966-compact2.png?amount=${searchParams.get('total') || 0}&addInfo=${code}&accountName=PHAN%20BON%20GIA%20TOT`} 
+                    alt="VietQR Payment"
+                    className="w-64 h-auto mx-auto"
+                  />
+               </div>
+               <div className="mt-4 text-[10px] text-gray-500 font-medium space-y-1">
+                  <p>Ngân hàng: <span className="font-black text-gray-900">MB Bank</span></p>
+                  <p>Số tài khoản: <span className="font-black text-gray-900">0773 440 966</span></p>
+                  <p>Nội dung: <span className="font-black text-[#1a5c2a]">{code}</span></p>
+               </div>
+            </div>
+          )}
+          
+          <p className="text-[10px] text-gray-400 font-bold uppercase tracking-tighter pt-4">Lưu lại mã này để tra cứu tình trạng đơn hàng.</p>
         </div>
       )}
 
