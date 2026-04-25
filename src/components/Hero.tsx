@@ -9,7 +9,6 @@ const Hero: React.FC = () => {
   const title = settings?.heroTitle || "Tăng Năng Suất Vượt Ngưỡng Kỳ Vọng";
   const subtitle = settings?.heroSubtitle || "Giải pháp phân bón công nghệ cao, giúp cây trồng hấp thụ tối đảo dinh dưỡng, tăng năng suất vượt trội và bền vững cho nhà nông.";
   const banner = settings?.heroBanner || "/images/hero-bg.png";
-  const hotline = settings?.hotline || "0773.440.966";
   const primaryColor = settings?.primaryColor || "#1a5c2a";
 
   return (
@@ -25,8 +24,6 @@ const Hero: React.FC = () => {
       }}></div>
       
       <div className="hero-content">
-        <div className="hero-badge">Giải Pháp Nông Nghiệp Xanh</div>
-        
         <h1 className="hero-title">
           Tăng Năng Suất<br/><span>Vượt Ngưỡng Kỳ Vọng</span>
         </h1>
@@ -38,10 +35,7 @@ const Hero: React.FC = () => {
         <p className="hero-subtitle">
           {subtitle}
         </p>
-
-        <a href={`tel:${hotline.replace(/\./g, '')}`} className="hero-hotline">
-          📞 {hotline}
-        </a>
+      </div>
         
       </div>
     </section>

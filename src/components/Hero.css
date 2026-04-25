@@ -2,7 +2,7 @@
 .hero-container {
   position: relative;
   width: 100%;
-  height: 320px;
+  height: 200px;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -38,24 +38,11 @@
   width: 100%;
 }
 
-.hero-badge {
-  display: inline-block;
-  background: var(--primary-color, #1a5c2a);
-  color: white;
-  padding: 0.3rem 0.8rem;
-  border-radius: 50px;
-  font-weight: 800;
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  margin-bottom: 1rem;
-}
-
 .hero-title {
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 900;
   line-height: 1.1;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   text-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
@@ -64,94 +51,35 @@
 }
 
 .hero-social-proof {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   color: #f0f7f1;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   font-weight: 500;
 }
 
 .hero-subtitle {
-  font-size: 1rem;
-  line-height: 1.5;
-  margin-bottom: 1.5rem;
-  color: rgba(255, 255, 255, 0.9);
-}
-
-.hero-hotline {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  font-size: 1.25rem;
-  font-weight: 900;
-  color: #f5a623;
+  font-size: 0.9rem;
+  line-height: 1.4;
   margin-bottom: 0;
-  text-decoration: none;
-}
-
-.hero-actions {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-}
-
-.btn {
-  padding: 1rem 2rem;
-  border-radius: 8px;
-  font-weight: 800;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  font-size: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
-
-.btn-primary {
-  background-color: #0068ff; /* Zalo Blue as requested */
-  color: white;
-  height: 52px;
-  flex: 1;
-}
-
-.btn-primary:hover {
-  background-color: #0056d2;
-  transform: translateY(-2px);
-}
-
-.btn-secondary {
-  border: 2px solid white;
-  color: white;
-  height: 52px;
-}
-
-.btn-secondary:hover {
-  background: white;
-  color: #1a5c2a;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 @media (max-width: 768px) {
   .hero-container {
-    height: 30vh !important;
-    min-height: 240px;
-    max-height: 30vh !important;
-    padding: 0 !important; /* Reset padding to use height */
+    height: 180px !important;
+    min-height: 180px !important;
+    max-height: 180px !important;
+    padding: 0 !important;
   }
   
   .hero-title {
-    font-size: clamp(18px, 6vw, 28px) !important;
+    font-size: clamp(16px, 5vw, 22px) !important;
     margin-bottom: 4px !important;
     line-height: 1.2;
   }
   
-  .hero-social-proof {
-    font-size: clamp(13px, 3vw, 18px) !important;
-    margin-bottom: 12px !important;
-  }
-
-  .hero-subtitle {
-    display: none;
+  .hero-social-proof, .hero-subtitle {
+    display: none !important;
   }
   
   .hero-hotline {
