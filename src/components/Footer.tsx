@@ -2,84 +2,111 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSettings } from "@/context/SettingsContext";
+import './HeaderFooter.css';
 
 export default function Footer() {
   const pathname = usePathname();
   const settings = useSettings();
 
   if (pathname?.startsWith('/admin')) return null;
-  if (!settings) return null;
 
   return (
-    <footer className="bg-[#1a1a1a] text-white pt-16 pb-8 border-t border-gray-800 mt-20">
+    <footer className="bg-[#111] text-white pt-20 pb-10 border-t border-gray-800">
       <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-        {/* Company Info */}
-        <div className="space-y-6">
-          <Link href="/" className="text-2xl font-extrabold text-primary tracking-tight">
-            PhânBón<span className="text-yellow-500">GiáTốt</span>
+        
+        {/* Column 1: Brand & Social */}
+        <div className="space-y-8">
+          <Link href="/" className="text-3xl font-black text-[#1a5c2a] tracking-tight">
+            PhânBón<span className="text-[#f5a623]">GiáTốt</span>
           </Link>
           <p className="text-gray-400 text-sm leading-relaxed">
-            Chuyên cung cấp giải pháp nông nghiệp bền vững cho bà con nông dân. Chúng tôi cam kết mang đến những sản phẩm chất lượng cao với giá thành tốt nhất thị trường.
+            Chuyên gia cung cấp giải pháp dinh dưỡng và bảo vệ cây trồng hàng đầu Việt Nam. Chúng tôi đồng hành cùng nhà nông nâng tầm giá trị nông sản.
           </p>
-          <div className="flex gap-4">
-             <span className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-primary transition-colors cursor-pointer">f</span>
-             <span className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-primary transition-colors cursor-pointer">y</span>
-             <span className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-primary transition-colors cursor-pointer">z</span>
+          <div className="space-y-4">
+            <h4 className="text-xs font-bold uppercase tracking-widest text-gray-500">Kết nối với chúng tôi</h4>
+            <div className="footer-social-grid">
+              <a href="#" className="social-icon-btn">f</a>
+              <a href="#" className="social-icon-btn">y</a>
+              <a href="#" className="social-icon-btn">i</a>
+              <a href="#" className="social-icon-btn">t</a>
+            </div>
+          </div>
+          <div className="pt-4">
+            <img src="https://web.archive.org/web/20210515153257im_/http://online.gov.vn/Content/Images/da-thong-bao.png" alt="Đã thông báo bộ công thương" className="footer-cert" />
           </div>
         </div>
 
-        {/* Categories */}
+        {/* Column 2: Quick Links */}
         <div>
-          <h4 className="text-lg font-bold mb-6 border-l-4 border-primary pl-3">Sản phẩm chính</h4>
-          <ul className="space-y-4 text-gray-400 text-sm">
-            <li><Link href="/danh-muc/phan-bon" className="hover:text-primary transition-colors">Phân bón sinh học</Link></li>
-            <li><Link href="/danh-muc/thuoc-tru-sau" className="hover:text-primary transition-colors">Thuốc đặc trị sâu bệnh</Link></li>
-            <li><Link href="/danh-muc/kich-re" className="hover:text-primary transition-colors">Siêu kích rễ cực mạnh</Link></li>
-            <li><Link href="/danh-muc/tuyen-trung" className="hover:text-primary transition-colors">Đặc trị tuyến trùng rễ</Link></li>
+          <h4 className="text-lg font-bold mb-8 text-white relative">
+            Sản phẩm chính
+            <span className="absolute -bottom-2 left-0 w-10 h-1 bg-[#1a5c2a]"></span>
+          </h4>
+          <ul className="space-y-4 text-gray-400 text-sm font-medium">
+            <li><Link href="/danh-muc/phan-bon" className="hover:text-[#1a5c2a] transition-colors">Phân bón sinh học</Link></li>
+            <li><Link href="/danh-muc/kich-re" className="hover:text-[#1a5c2a] transition-colors">Siêu kích rễ cực mạnh</Link></li>
+            <li><Link href="/danh-muc/tuyen-trung" className="hover:text-[#1a5c2a] transition-colors">Đặc trị tuyến trùng</Link></li>
+            <li><Link href="/danh-muc/thuoc-bvtv" className="hover:text-[#1a5c2a] transition-colors">Thuốc BVTV cao cấp</Link></li>
+            <li><Link href="/combo" className="hover:text-[#1a5c2a] transition-colors">Gói giải pháp tiết kiệm</Link></li>
           </ul>
         </div>
 
-        {/* Support */}
+        {/* Column 3: Customer Support */}
         <div>
-          <h4 className="text-lg font-bold mb-6 border-l-4 border-primary pl-3">Hỗ trợ khách hàng</h4>
-          <ul className="space-y-4 text-gray-400 text-sm">
-            <li><Link href="/chinh-sach-van-chuyen" className="hover:text-primary transition-colors">Chính sách vận chuyển</Link></li>
-            <li><Link href="/chinh-sach-bao-hanh" className="hover:text-primary transition-colors">Chính sách đổi trả</Link></li>
-            <li><Link href="/tra-cuu-don-hang" className="hover:text-primary transition-colors">Tra cứu đơn hàng</Link></li>
-            <li><Link href="/huong-dan-mua-hang" className="hover:text-primary transition-colors">Hướng dẫn mua hàng</Link></li>
-            <li><Link href="/lien-he" className="hover:text-primary transition-colors">Liên hệ kỹ sư tư vấn</Link></li>
+          <h4 className="text-lg font-bold mb-8 text-white relative">
+            Hỗ trợ khách hàng
+            <span className="absolute -bottom-2 left-0 w-10 h-1 bg-[#1a5c2a]"></span>
+          </h4>
+          <ul className="space-y-4 text-gray-400 text-sm font-medium">
+            <li><Link href="/chinh-sach-van-chuyen" className="hover:text-[#1a5c2a] transition-colors">Chính sách vận chuyển</Link></li>
+            <li><Link href="/chinh-sach-bao-hanh" className="hover:text-[#1a5c2a] transition-colors">Chính sách đổi trả</Link></li>
+            <li><Link href="/tra-cuu-don-hang" className="hover:text-[#1a5c2a] transition-colors">Tra cứu đơn hàng</Link></li>
+            <li><Link href="/huong-dan-mua-hang" className="hover:text-[#1a5c2a] transition-colors">Hướng dẫn mua hàng</Link></li>
+            <li><Link href="/lien-he" className="hover:text-[#1a5c2a] transition-colors">Hỏi đáp kỹ thuật</Link></li>
           </ul>
         </div>
 
-        {/* Contact Info */}
+        {/* Column 4: Contact & Map */}
         <div>
-          <h4 className="text-lg font-bold mb-6 border-l-4 border-primary pl-3">Liên hệ</h4>
+          <h4 className="text-lg font-bold mb-8 text-white relative">
+            Thông tin liên hệ
+            <span className="absolute -bottom-2 left-0 w-10 h-1 bg-[#1a5c2a]"></span>
+          </h4>
           <div className="space-y-4 text-gray-400 text-sm">
             <div className="flex gap-3">
-              <span className="text-primary text-lg">📍</span>
-              <p>{settings.footerAddress || settings.address}</p>
+              <span className="text-[#1a5c2a] text-lg">📍</span>
+              <p>{settings?.footerAddress || settings?.address || "Kho hàng: TP. Buôn Ma Thuột, Đắk Lắk"}</p>
             </div>
             <div className="flex gap-3">
-              <span className="text-primary text-lg">📞</span>
+              <span className="text-[#1a5c2a] text-lg">📞</span>
               <div>
-                <p className="font-bold text-white text-base">{settings.phone || settings.hotline}</p>
-                <p className="text-[10px] uppercase">Hỗ trợ kỹ thuật 24/7</p>
+                <p className="font-black text-white text-base">{settings?.hotline || "0773.440.966"}</p>
+                <p className="text-[10px] uppercase font-bold text-gray-500">Kỹ sư tư vấn 24/7</p>
               </div>
             </div>
             <div className="flex gap-3">
-              <span className="text-primary text-lg">📧</span>
-              <p>{settings.footerEmail || settings.email}</p>
+              <span className="text-[#1a5c2a] text-lg">⏰</span>
+              <p>Mở cửa: 07:00 - 21:00 (T2 - CN)</p>
             </div>
-            <div className="flex gap-3">
-              <span className="text-primary text-lg">⏰</span>
-              <p>Làm việc: {settings.businessHours || "07:00 - 21:00"} (Tất cả các ngày)</p>
+            
+            <div className="footer-map">
+               {/* Small map placeholder */}
+               <div className="text-center p-4">
+                  <span className="block text-2xl mb-2">🗺️</span>
+                  <span>Bản đồ kho hàng Tây Nguyên</span>
+               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="container mx-auto px-4 mt-16 pt-8 border-t border-gray-800 text-center text-gray-500 text-xs">
-        <p>© 2026 phanbongiatot.com. Bản quyền thuộc về Giải Pháp Nông Nghiệp Xanh.</p>
+      <div className="container mx-auto px-4 mt-16 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4 text-gray-500 text-xs">
+        <p>© 2026 phanbongiatot.com. Giải pháp Nông nghiệp Xanh bền vững.</p>
+        <div className="flex gap-6">
+           <Link href="/privacy">Bảo mật</Link>
+           <Link href="/terms">Điều khoản</Link>
+           <Link href="/sitemap">Sitemap</Link>
+        </div>
       </div>
     </footer>
   );
