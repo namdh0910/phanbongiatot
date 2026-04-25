@@ -3,6 +3,7 @@ import Link from "next/link";
 import ProductGallery from "@/components/ProductGallery";
 import ProductActions from "@/components/ProductActions";
 import ProductReviews from "@/components/ProductReviews";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 const CATEGORY_SLUG_MAP: Record<string, string> = {
   "Phân bón": "phan-bon",
@@ -99,14 +100,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
         }) }}
       />
       <div className="container mx-auto px-0 md:px-4 py-4 max-w-6xl">
-        {/* Breadcrumb */}
-        <nav className="text-sm text-gray-500 mb-4 px-4 md:px-0 flex items-center gap-2 overflow-x-auto whitespace-nowrap scrollbar-hide">
-          <Link href="/" className="hover:text-[#ee4d2d]">Trang chủ</Link>
-          <span className="text-[10px] text-gray-400">▶</span>
-          <Link href={`/danh-muc/${catSlug}`} className="hover:text-[#ee4d2d]">{product.category}</Link>
-          <span className="text-[10px] text-gray-400">▶</span>
-          <span className="text-gray-800 font-medium line-clamp-1">{product.name}</span>
-        </nav>
+        <Breadcrumbs items={[{ label: product.category, href: `/danh-muc/${catSlug}` }, { label: product.name }]} />
 
         {/* Product Card */}
         <div className="bg-white md:rounded-sm shadow-sm flex flex-col md:flex-row mb-6 overflow-hidden">

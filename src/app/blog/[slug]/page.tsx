@@ -1,5 +1,6 @@
 import { API_BASE_URL, getAuthHeaders } from '@/utils/api';
 import Link from "next/link";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 async function getBlog(slug: string) {
   try {
@@ -84,15 +85,14 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <div className="container mx-auto px-4">
+        <Breadcrumbs items={[
+          { label: 'Kiến thức nhà nông', href: '/blog' },
+          { label: blog.title }
+        ]} />
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 max-w-7xl mx-auto">
           {/* Main Content */}
           <article className="lg:flex-1 min-w-0">
               <header className="mb-10 pb-10 border-b border-gray-50 text-center">
-                <nav className="flex items-center justify-center gap-2 text-xs text-gray-400 mb-8 font-black uppercase tracking-widest">
-                  <Link href="/" className="hover:text-emerald-600 transition-colors">Trang chủ</Link>
-                  <span className="opacity-30">/</span>
-                  <Link href="/blog" className="hover:text-emerald-600 transition-colors">Kiến thức nhà nông</Link>
-                </nav>
                 <h1 className="text-3xl md:text-5xl lg:text-6xl font-black text-gray-900 mb-8 leading-[1.15] tracking-tight break-words max-w-4xl mx-auto">{blog.title}</h1>
                 <div className="flex items-center justify-center gap-8 text-gray-500 text-sm font-bold">
                   <span className="flex items-center gap-2 bg-emerald-50 text-emerald-700 px-4 py-1.5 rounded-full border border-emerald-100">

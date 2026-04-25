@@ -103,20 +103,36 @@ export default function Header() {
             <div className="container mx-auto px-4 flex items-center justify-between">
                <nav className="flex items-center gap-8">
                   <div className="group relative">
-                     <button className="flex items-center gap-2 font-black text-gray-800 uppercase tracking-wide hover:text-[#1a5c2a]">
+                     <button className={`flex items-center gap-2 font-black uppercase tracking-wide transition-colors ${pathname?.startsWith('/danh-muc') ? 'text-[#1a5c2a]' : 'text-gray-800 hover:text-[#1a5c2a]'}`}>
                         <span className="text-lg">☰</span> DANH MỤC
                      </button>
                      <div className="absolute top-full left-0 w-64 bg-white shadow-2xl rounded-xl py-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-[100] border border-gray-100 mt-2">
                         {navLinks.slice(0, 4).map((l, i) => (
-                           <Link key={i} href={l.href} className="block px-6 py-3 hover:bg-green-50 font-bold text-gray-700 hover:text-[#1a5c2a]">{l.label}</Link>
+                           <Link 
+                             key={i} 
+                             href={l.href} 
+                             className={`block px-6 py-3 hover:bg-green-50 font-bold transition-colors ${pathname === l.href ? 'text-[#1a5c2a] bg-green-50' : 'text-gray-700 hover:text-[#1a5c2a]'}`}
+                           >
+                             {l.label}
+                           </Link>
                         ))}
                      </div>
                   </div>
-                  {navLinks.slice(4).map((link, i) => (
-                    <Link key={i} href={link.href} className="font-bold text-gray-600 hover:text-[#1a5c2a] uppercase text-sm tracking-wide">
-                      {link.label}
-                    </Link>
-                  ))}
+                  {navLinks.slice(4).map((link, i) => {
+                    const isActive = pathname === link.href;
+                    return (
+                      <Link 
+                        key={i} 
+                        href={link.href} 
+                        className={`font-bold uppercase text-sm tracking-wide transition-all relative py-1 ${isActive ? 'text-[#1a5c2a]' : 'text-gray-600 hover:text-[#1a5c2a]'}`}
+                      >
+                        {link.label}
+                        {isActive && (
+                          <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#1a5c2a] rounded-full"></span>
+                        )}
+                      </Link>
+                    );
+                  })}
                </nav>
 
                <div className="flex items-center gap-4">
@@ -204,17 +220,21 @@ export default function Header() {
 
               {/* Nav Links */}
               <nav className="flex-1 overflow-y-auto py-2">
-                {navLinks.map((link, i) => (
-                  <Link 
-                    key={i} 
-                    href={link.href} 
-                    onClick={() => setMenuOpen(false)}
-                    className="flex items-center px-6 py-4 text-gray-800 hover:bg-gray-50 border-b border-gray-50 font-bold text-[15px] uppercase tracking-wide"
-                    style={{ minHeight: '52px' }}
-                  >
-                    {link.label}
-                  </Link>
-                ))}
+                {navLinks.map((link, i) => {
+                  const isActive = pathname === link.href;
+                  return (
+                    <Link 
+                      key={i} 
+                      href={link.href} 
+                      onClick={() => setMenuOpen(false)}
+                      className={`flex items-center px-6 py-4 border-b border-gray-50 font-bold text-[15px] uppercase tracking-wide transition-colors ${isActive ? 'text-[#1a5c2a] bg-green-50' : 'text-gray-800 hover:bg-gray-50'}`}
+                      style={{ minHeight: '52px' }}
+                    >
+                      {link.label}
+                      {isActive && <span className="ml-auto text-xl">➜</span>}
+                    </Link>
+                  );
+                })}
               </nav>
 
               {/* Bottom Actions */}

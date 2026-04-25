@@ -6,6 +6,7 @@ import { useParams, useRouter } from "next/navigation";
 import { trackEvent } from "@/utils/analytics";
 import { useCart } from "@/context/CartContext";
 import ProductCard from "@/components/ProductCard";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 const categoryMap: Record<string, { name: string; icon: string }> = {
   "phan-bon": { name: "Phân bón", icon: "🌱" },
@@ -54,6 +55,7 @@ export default function CategoryPage() {
 
   return (
     <div className="bg-[#f5f5f5] min-h-screen pb-20">
+      <Breadcrumbs items={[{ label: categoryInfo.name }]} />
       {/* Category Hero */}
       <div className="bg-white border-b border-gray-200 mb-8 pt-6 pb-6">
         <div className="container mx-auto px-4">
