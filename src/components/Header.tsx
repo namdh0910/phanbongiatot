@@ -182,7 +182,10 @@ export default function Header() {
       </header>
 
       {/* MOBILE SLIDE-IN MENU */}
-      <div className={`fixed inset-0 z-[100] transition-all duration-300 ${menuOpen ? 'visible' : 'invisible'}`}>
+      <div 
+        className={`fixed inset-0 z-[100] transition-all duration-300 ${menuOpen ? 'visible' : 'invisible'}`}
+        aria-hidden={!menuOpen}
+      >
         {/* Overlay */}
         <div 
           className={`absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300 ${menuOpen ? 'opacity-100' : 'opacity-0'}`}
@@ -191,43 +194,45 @@ export default function Header() {
         
         {/* Menu Content */}
         <div className={`absolute top-0 right-0 h-full w-[80%] bg-white shadow-2xl transition-transform duration-300 transform ${menuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
-          <div className="flex flex-col h-full">
-            {/* Header in Menu */}
-            <div className="p-5 border-b flex justify-between items-center bg-gray-50">
-              <span className="font-black text-[#1a5c2a]">DANH MỤC</span>
-              <button onClick={() => setMenuOpen(false)} className="w-10 h-10 flex items-center justify-center text-gray-400 text-2xl">✕</button>
-            </div>
+          {menuOpen && (
+            <div className="flex flex-col h-full">
+              {/* Header in Menu */}
+              <div className="p-5 border-b flex justify-between items-center bg-gray-50">
+                <span className="font-black text-[#1a5c2a]">DANH MỤC</span>
+                <button onClick={() => setMenuOpen(false)} className="w-10 h-10 flex items-center justify-center text-gray-400 text-2xl">✕</button>
+              </div>
 
-            {/* Nav Links */}
-            <nav className="flex-1 overflow-y-auto py-2">
-              {navLinks.map((link, i) => (
-                <Link 
-                  key={i} 
-                  href={link.href} 
-                  onClick={() => setMenuOpen(false)}
-                  className="flex items-center px-6 py-4 text-gray-800 hover:bg-gray-50 border-b border-gray-50 font-bold text-[15px] uppercase tracking-wide"
-                  style={{ minHeight: '52px' }}
+              {/* Nav Links */}
+              <nav className="flex-1 overflow-y-auto py-2">
+                {navLinks.map((link, i) => (
+                  <Link 
+                    key={i} 
+                    href={link.href} 
+                    onClick={() => setMenuOpen(false)}
+                    className="flex items-center px-6 py-4 text-gray-800 hover:bg-gray-50 border-b border-gray-50 font-bold text-[15px] uppercase tracking-wide"
+                    style={{ minHeight: '52px' }}
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </nav>
+
+              {/* Bottom Actions */}
+              <div className="p-6 border-t bg-gray-50">
+                <a 
+                  href={`https://zalo.me/${settings?.zalo || '0773440966'}`} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-full bg-[#0068ff] text-white py-4 rounded-xl font-black text-center block shadow-lg active:scale-95 transition-transform"
                 >
-                  {link.label}
-                </Link>
-              ))}
-            </nav>
-
-            {/* Bottom Actions */}
-            <div className="p-6 border-t bg-gray-50">
-              <a 
-                href={`https://zalo.me/${settings?.zalo || '0773440966'}`} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="w-full bg-[#0068ff] text-white py-4 rounded-xl font-black text-center block shadow-lg active:scale-95 transition-transform"
-              >
-                💬 CHAT ZALO NGAY
-              </a>
-              <p className="text-center text-[10px] text-gray-400 mt-4 font-bold uppercase tracking-widest">
-                Kỹ sư hỗ trợ 24/7
-              </p>
+                  💬 CHAT ZALO NGAY
+                </a>
+                <p className="text-center text-[10px] text-gray-400 mt-4 font-bold uppercase tracking-widest">
+                  Kỹ sư hỗ trợ 24/7
+                </p>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>
