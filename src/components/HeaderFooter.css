@@ -125,3 +125,12 @@
   margin-top: 1.5rem;
   opacity: 0.8;
 }
+
+/* Mobile Menu Transitions */
+.invisible {
+  pointer-events: none;
+}
+
+.visible {
+  pointer-events: auto;
+}
