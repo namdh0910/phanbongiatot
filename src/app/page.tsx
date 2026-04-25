@@ -10,7 +10,7 @@ import Hero from "@/components/Hero";
 import TrustBar from "@/components/TrustBar";
 import FlashSale from "@/components/FlashSale";
 import ComboSection from "@/components/ComboSection";
-import Testimonials from "@/components/Testimonials";
+import SocialProof from "@/components/SocialProof";
 import BrandMarquee from "@/components/BrandMarquee";
 import CategorySection from "@/components/CategorySection";
 import ProductCard from "@/components/ProductCard";
@@ -74,7 +74,7 @@ export default function Home() {
         </div>
       </section>
       
-      <Testimonials />
+      <SocialProof />
 
       {/* BLOG / NEWS */}
       <section className="container mx-auto px-4">

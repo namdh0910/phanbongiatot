@@ -1,0 +1,139 @@
+/* SocialProof.css */
+.social-proof-section {
+  padding: 5rem 0;
+  background-color: #f0faf0; /* Light green as requested */
+  font-family: 'Inter', sans-serif;
+  overflow: hidden;
+}
+
+.sp-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Stats Bar */
+.stats-bar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  margin-bottom: 5rem;
+  text-align: center;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #1a5c2a;
+  line-height: 1;
+}
+
+.stat-desc {
+  font-size: 0.9rem;
+  color: #666;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Testimonials Carousel */
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.testimonial-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(26, 92, 42, 0.05);
+  border: 1px solid #e0eee0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.farmer-profile {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.farmer-avatar-img {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 3px solid #1a5c2a; /* Green border as requested */
+  background-color: #f0faf0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.farmer-name-box h4 {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #111;
+  margin: 0;
+}
+
+.farmer-crop {
+  font-size: 0.85rem;
+  color: #1a5c2a;
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+.testimonial-stars-sp {
+  color: #f5a623;
+  margin-bottom: 1rem;
+  letter-spacing: 2px;
+}
+
+.testimonial-text-sp {
+  font-size: 0.95rem;
+  color: #444;
+  line-height: 1.6;
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .stats-bar {
+    grid-template-columns: repeat(2, 2fr);
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+  
+  .stat-number {
+    font-size: 1.75rem;
+  }
+  
+  /* Carousel effect on mobile */
+  .testimonials-grid {
+    display: flex;
+    overflow-x: auto;
+    padding: 1rem 0 2rem;
+    gap: 1.5rem;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none; /* Hide scrollbar for Firefox */
+  }
+  
+  .testimonials-grid::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for Chrome/Safari */
+  }
+  
+  .testimonial-card {
+    min-width: 85%; /* Shows 1 card + 10-15% of next as requested */
+    scroll-snap-align: center;
+  }
+}
