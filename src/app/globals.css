@@ -111,6 +111,13 @@ body {
   margin-bottom: 0.5rem !important;
 }
 /* Global Mobile Overrides */
+@media (max-width: 1023px) {
+  body {
+    /* Prevent content from being hidden by sticky bottom bar */
+    padding-bottom: calc(72px + env(safe-area-inset-bottom)) !important;
+  }
+}
+
 @media (max-width: 767px) {
   section, .section, .py-12, .py-16, .py-20 {
     padding-top: 24px !important;

@@ -16,11 +16,7 @@
   .mobile-bottom-bar {
     display: flex;
   }
-  
-  /* Add padding to body to prevent content being hidden */
-  body {
-    padding-bottom: 56px !important;
-  }
+  /* Padding is now handled globally in globals.css to cover Footer too */
 }
 
 .m-btn {
