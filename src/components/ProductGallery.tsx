@@ -19,6 +19,9 @@ export default function ProductGallery({ images, name, discount }: { images: str
             src={currentSrc} 
             alt={name} 
             className="w-full h-full object-contain p-2 transition-transform duration-500 group-hover:scale-110" 
+            onError={(e) => {
+              (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=80&w=800&auto=format&fit=crop";
+            }}
           />
         ) : (
           <div className="w-full h-full bg-gradient-to-br from-green-50 to-emerald-50 flex flex-col items-center justify-center gap-4 p-8">

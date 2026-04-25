@@ -47,10 +47,20 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     >
       <div className="p-image-wrapper">
         {isUrl ? (
-          <img src={imgSrc} alt={product.name} className="p-image" loading="lazy" width="300" height="300" />
+          <img 
+            src={imgSrc} 
+            alt={product.name} 
+            className="p-image" 
+            loading="lazy" 
+            width="300" 
+            height="300" 
+            onError={(e) => {
+              (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=80&w=800&auto=format&fit=crop";
+            }}
+          />
         ) : (
           <div className="p-image flex items-center justify-center bg-emerald-50 text-5xl">
-            {product.category?.includes('phân bón') ? '🌱' : '🛡️'}
+            {product.category?.toLowerCase().includes('phân bón') ? '🌱' : '🛡️'}
           </div>
         )}
         
