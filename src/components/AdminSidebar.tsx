@@ -7,8 +7,9 @@ export default function AdminSidebar() {
   const router = useRouter();
 
   const links = [
-    { href: "/admin", label: "Kho Sản Phẩm", icon: "📦" },
-    { href: "/admin/analytics", label: "Thống kê", icon: "📊" },
+    { href: "/admin", label: "Tổng Quan", icon: "🏠" },
+    { href: "/admin/products", label: "Kho Sản Phẩm", icon: "📦" },
+    { href: "/admin/analytics", label: "Báo cáo Chi tiết", icon: "📊" },
     { href: "/admin/dai-ly", label: "Quản lý Đại lý", icon: "🏪", badge: "Mới" },
     { href: "/admin/approve-products", label: "Duyệt SP Đại lý", icon: "⚖️" },
     { href: "/admin/orders", label: "Đơn Hàng", icon: "🛒", badge: "Mới" },

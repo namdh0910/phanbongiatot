@@ -1,410 +1,187 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import AdminSidebar from "@/components/AdminSidebar";
 import AdminGuard from "@/components/AdminGuard";
-import { useRouter } from "next/navigation";
 import { API_BASE_URL, getAuthHeaders } from "@/utils/api";
-import dynamic from 'next/dynamic';
-import 'react-quill-new/dist/quill.snow.css';
+import Link from "next/link";
 
-const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
-
-export default function AdminProducts() {
-  const router = useRouter();
-  const [adminName, setAdminName] = useState("Admin");
-  const [debugInfo, setDebugInfo] = useState("");
-  const [products, setProducts] = useState<any[]>([]);
+export default function AdminDashboard() {
+  const [stats, setStats] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [showForm, setShowForm] = useState(false);
-  const [editingProduct, setEditingProduct] = useState<any>(null);
-  const [uploadingImages, setUploadingImages] = useState(false);
-  const [previewImages, setPreviewImages] = useState<string[]>([]);
-  const [selectedIds, setSelectedIds] = useState<string[]>([]);
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const emptyForm = {
-    name: "", category: "Phân bón", price: "", originalPrice: "",
-    description: "", usageInstructions: "", dosage: "",
-    benefits: [""], faq: [{ q: "", a: "" }],
-    images: [] as string[], stock: "100",
-    seoTitle: "", seoDescription: "", 
-    isFeatured: false, isNewArrival: false, isBestSeller: false
-  };
-  const [form, setForm] = useState(emptyForm);
-
-    const fetchProducts = () => {
-    setIsLoading(true);
-    fetch(`${API_BASE_URL}/products/admin/all`, {
-      headers: getAuthHeaders()
-    })
-      .then(r => {
-        if (!r.ok) {
-          setDebugInfo(`Lỗi API: ${r.status}`);
-          if (r.status === 401 || r.status === 403) {
-             alert("Phiên làm việc hết hạn hoặc bạn không có quyền Admin. Vui lòng đăng nhập lại.");
-             router.push("/admin/login");
-          }
-          throw new Error("Lỗi fetch sản phẩm");
-        }
-        return r.json();
-      })
-      .then(d => { 
-        if (Array.isArray(d)) {
-          setProducts(d); 
-          setDebugInfo(`Thành công: Lấy được ${d.length} sản phẩm`);
-        } else {
-          setDebugInfo("Lỗi: Dữ liệu trả về không phải là danh sách");
-        }
-        setIsLoading(false); 
-      })
-      .catch((err) => {
-        console.error(err);
-        setDebugInfo(`Lỗi kết nối: ${err.message}`);
-        setIsLoading(false);
-      });
-  };
-
-  useEffect(() => { 
-    const userStr = localStorage.getItem("adminUser");
-    if (userStr) {
+  useEffect(() => {
+    const fetchStats = async () => {
       try {
-        const user = JSON.parse(userStr);
-        setAdminName(user.username || "Admin");
-      } catch (e) {}
-    }
-    fetchProducts(); 
+        const res = await fetch(`${API_BASE_URL}/analytics/dashboard`, {
+          headers: getAuthHeaders()
+        });
+        if (res.ok) setStats(await res.json());
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchStats();
   }, []);
 
-  const toSlug = (str: string) =>
-    str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-      .replace(/đ/g, "d").replace(/[^a-z0-9 -]/g, "")
-      .replace(/\s+/g, "-").replace(/-+/g, "-");
-
-  const handleImageFiles = async (files: FileList) => {
-    setUploadingImages(true);
-    const newFiles = Array.from(files);
-    const localPreviews = newFiles.map(f => URL.createObjectURL(f));
-    setPreviewImages(prev => [...prev, ...localPreviews]);
-
-    try {
-      const fd = new FormData();
-      newFiles.forEach(f => fd.append("images", f));
-      
-      const res = await fetch(`${API_BASE_URL}/upload`, { 
-        method: "POST", 
-        headers: getAuthHeaders(true) as any,
-        body: fd 
-      });
-      if (res.ok) {
-        const { urls } = await res.json();
-        setForm(prev => ({ ...prev, images: [...prev.images, ...urls] }));
-        setPreviewImages(prev => {
-          const filtered = prev.filter(p => !localPreviews.includes(p));
-          return [...filtered, ...urls];
-        });
-      } else {
-        alert("Lỗi upload ảnh lên server.");
-        setPreviewImages(prev => prev.filter(p => !localPreviews.includes(p)));
-      }
-    } catch (err) {
-      console.error(err);
-      alert("Lỗi kết nối khi upload ảnh.");
-      setPreviewImages(prev => prev.filter(p => !localPreviews.includes(p)));
-    } finally {
-      setUploadingImages(false);
-    }
-  };
-
-  const openEdit = (p: any) => {
-    setForm({
-      name: p.name, category: p.category, price: p.price.toString(),
-      originalPrice: p.originalPrice?.toString() || "",
-      description: p.description, usageInstructions: p.usageInstructions || "",
-      dosage: p.dosage || "", benefits: p.benefits?.length ? p.benefits : [""],
-      faq: p.faq?.length ? p.faq : [{ q: "", a: "" }],
-      images: p.images || [], stock: p.stock?.toString() || "100",
-      seoTitle: p.seoTitle || "", seoDescription: p.seoDescription || "",
-      isFeatured: p.isFeatured || false,
-      isNewArrival: p.isNewArrival || false,
-      isBestSeller: p.isBestSeller || false
-    });
-    setPreviewImages(p.images || []);
-    setEditingProduct(p);
-    setShowForm(true);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const price = parseInt(form.price.replace(/,/g, "")) || 0;
-    const payload = {
-      ...form,
-      price,
-      originalPrice: parseInt(form.originalPrice.replace(/,/g, "")) || price * 1.2,
-      stock: parseInt(form.stock) || 100,
-      slug: toSlug(form.name) + (editingProduct ? "" : "-" + Date.now().toString().slice(-4)),
-      benefits: form.benefits.filter(b => b.trim()),
-      faq: form.faq.filter(f => f.q.trim()),
-    };
-    const url = editingProduct
-      ? `${API_BASE_URL}/products/${editingProduct._id}`
-      : `${API_BASE_URL}/products`;
-    const method = editingProduct ? "PUT" : "POST";
-    const res = await fetch(url, { 
-      method, 
-      headers: getAuthHeaders(), 
-      body: JSON.stringify(payload) 
-    });
-    if (res.ok) {
-      fetchProducts(); setShowForm(false); setEditingProduct(null);
-      setForm(emptyForm); setPreviewImages([]);
-      alert(editingProduct ? "Đã cập nhật!" : "Đã thêm sản phẩm!");
-    } else alert("Lỗi lưu sản phẩm.");
-  };
-
-  const handleDelete = async (id: string) => {
-    if (!confirm("Xóa sản phẩm này?")) return;
-    const res = await fetch(`${API_BASE_URL}/products/${id}`, { 
-      method: "DELETE",
-      headers: getAuthHeaders()
-    });
-    if (res.ok) fetchProducts();
-    else alert("Lỗi khi xóa sản phẩm.");
-  };
-
-  const handleBulkDelete = async () => {
-    if (!selectedIds.length) return;
-    if (!confirm(`Xóa vĩnh viễn ${selectedIds.length} sản phẩm đã chọn?`)) return;
-    
-    try {
-      const res = await fetch(`${API_BASE_URL}/products/bulk-delete`, {
-        method: "POST",
-        headers: getAuthHeaders(),
-        body: JSON.stringify({ ids: selectedIds })
-      });
-      if (res.ok) {
-        setSelectedIds([]);
-        fetchProducts();
-        alert("Đã xóa các sản phẩm được chọn!");
-      } else {
-        alert("Lỗi khi xóa hàng loạt.");
-      }
-    } catch (err) {
-      alert("Lỗi kết nối khi xóa hàng loạt.");
-    }
-  };
-
-  const toggleSelect = (id: string) => {
-    setSelectedIds(prev => prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]);
-  };
-
-  const toggleSelectAll = () => {
-    if (selectedIds.length === products.length) setSelectedIds([]);
-    else setSelectedIds(products.map(p => p._id));
-  };
+  if (isLoading || !stats) {
+    return (
+      <AdminGuard>
+        <div className="flex min-h-screen bg-gray-50">
+          <AdminSidebar />
+          <div className="flex-1 p-8 ml-64 flex items-center justify-center">
+            <div className="text-gray-400 font-bold animate-pulse">Đang tải dữ liệu vận hành...</div>
+          </div>
+        </div>
+      </AdminGuard>
+    );
+  }
 
   return (
-    <div className="space-y-8">
-      {/* WordPress Style Top Bar Placeholder */}
-      <div className="flex justify-between items-center mb-8 bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-        <div className="flex items-center gap-4">
-           <h1 className="text-xl font-bold text-gray-800">Sản phẩm</h1>
-           <button onClick={() => { setShowForm(true); setEditingProduct(null); setForm(emptyForm); setPreviewImages([]); }}
-             className="bg-[#2271b1] text-white px-4 py-1.5 rounded-md text-sm font-bold hover:bg-[#135e96] transition-all">
-             Thêm mới
-           </button>
-           {debugInfo && (
-             <span className={`text-[10px] px-2 py-1 rounded font-bold ${debugInfo.includes('Thành công') ? 'bg-green-50 text-green-600' : 'bg-red-50 text-red-600'}`}>
-               🔍 {debugInfo}
-             </span>
-           )}
-        </div>
-        <div className="flex items-center gap-4">
-           <span className="text-xs text-gray-400">Tài khoản: <strong className="text-gray-700">{adminName}</strong></span>
-           <button onClick={() => { localStorage.clear(); router.push("/admin/login"); }} className="text-[10px] bg-gray-100 px-2 py-1 rounded text-gray-500 hover:bg-red-50 hover:text-red-600 transition-all">Đăng xuất</button>
-        </div>
-      </div>
+    <AdminGuard>
+      <div className="flex min-h-screen bg-gray-50">
+        <AdminSidebar />
+        <div className="flex-1 p-8 ml-64 space-y-8">
+          {/* Header */}
+          <div className="flex justify-between items-center">
+            <div>
+              <h1 className="text-2xl font-black text-gray-900 uppercase tracking-tight">Tổng quan vận hành</h1>
+              <p className="text-sm text-gray-500 font-medium italic">Cập nhật lúc: {new Date().toLocaleTimeString("vi-VN")}</p>
+            </div>
+            <div className="flex gap-4">
+              <div className="bg-white px-4 py-2 rounded-xl shadow-sm border border-gray-100 flex items-center gap-2">
+                <span className="text-green-500 text-lg">●</span>
+                <span className="text-xs font-black uppercase text-gray-500">Hệ thống: Online</span>
+              </div>
+            </div>
+          </div>
 
-      <div className="space-y-8">
-        {showForm && (
-          <div className="bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden animate-in fade-in slide-in-from-top-4 duration-300">
-            <div className="bg-[#f6f7f7] border-b border-gray-200 p-4 flex justify-between items-center">
-              <h2 className="font-bold text-gray-700">{editingProduct ? "Chỉnh sửa sản phẩm" : "Thêm sản phẩm mới"}</h2>
-              <button onClick={() => { setShowForm(false); setEditingProduct(null); }} className="text-gray-400 hover:text-gray-700">✕</button>
+          {/* Today Stats */}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div className="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 group hover:border-[#1a5c2a] transition-all">
+              <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Đơn hàng mới hôm nay</p>
+              <div className="flex items-baseline gap-2">
+                <h3 className="text-3xl font-black text-gray-900">{stats.today.newOrders}</h3>
+                <span className="text-xs font-bold text-green-500">Đơn</span>
+              </div>
+              <div className="mt-4 h-1 w-full bg-gray-50 rounded-full overflow-hidden">
+                <div className="bg-[#1a5c2a] h-full" style={{ width: '100%' }}></div>
+              </div>
             </div>
 
-            <form onSubmit={handleSubmit} className="p-8 space-y-10">
-              {/* Section 1: Basic Info */}
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <div className="lg:col-span-2 space-y-6">
-                   <div>
-                     <label className="block text-sm font-bold text-gray-700 mb-2">Tên sản phẩm</label>
-                     <input required value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} className="w-full border border-gray-300 rounded px-4 py-2 focus:ring-1 focus:ring-[#2271b1] focus:border-[#2271b1] outline-none text-lg font-medium" />
-                   </div>
-                   <div>
-                     <label className="block text-sm font-bold text-gray-700 mb-2">Mô tả sản phẩm</label>
-                     <div className="bg-white border border-gray-300 rounded overflow-hidden">
-                       <ReactQuill 
-                         theme="snow" 
-                         value={form.description} 
-                         onChange={val => setForm(f => ({ ...f, description: val }))}
-                         className="h-80 mb-12"
-                         modules={{
-                           toolbar: [
-                             [{ 'header': '1'}, { 'header': '2'}, { 'header': '3'}, { 'font': [] }],
-                             ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-                             [{ 'color': [] }, { 'background': [] }],
-                             [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-                             [{ 'align': [] }],
-                             ['link', 'image', 'video'],
-                             ['table'],
-                             ['clean']
-                           ],
-                         }}
-                       />
-                     </div>
-                   </div>
-                </div>
-                
-                <div className="space-y-6">
-                   <div className="bg-[#f6f7f7] border border-gray-200 p-4 rounded-sm">
-                      <h3 className="font-bold text-sm mb-4 border-b border-gray-200 pb-2">Đăng</h3>
-                       <div className="space-y-3 text-xs text-gray-500">
-                          <p>📌 Trạng thái: <strong className="text-gray-700">Công khai</strong></p>
-                          <div className="flex items-center gap-2">
-                            <input type="checkbox" checked={form.isFeatured} onChange={e => setForm({...form, isFeatured: e.target.checked})} />
-                            <span>Nổi bật trang chủ</span>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <input type="checkbox" checked={form.isNewArrival} onChange={e => setForm({...form, isNewArrival: e.target.checked})} />
-                            <span>Hàng mới về</span>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <input type="checkbox" checked={form.isBestSeller} onChange={e => setForm({...form, isBestSeller: e.target.checked})} />
-                            <span>Bán chạy nhất</span>
+            <div className="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 group hover:border-blue-500 transition-all">
+              <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Doanh thu hôm nay</p>
+              <div className="flex items-baseline gap-2">
+                <h3 className="text-3xl font-black text-blue-600">₫{stats.today.revenue.toLocaleString()}</h3>
+              </div>
+              <p className="mt-2 text-[10px] text-gray-400 font-bold uppercase tracking-tight">Tổng giá trị đơn đã chốt</p>
+            </div>
+
+            <div className="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 group hover:border-orange-500 transition-all">
+              <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Đang giao hàng</p>
+              <div className="flex items-baseline gap-2">
+                <h3 className="text-3xl font-black text-orange-600">{stats.today.shipping}</h3>
+                <span className="text-xs font-bold text-orange-500">Vận đơn</span>
+              </div>
+              <Link href="/admin/orders?status=shipping" className="mt-4 text-[10px] text-orange-500 font-black uppercase hover:underline">Xem danh sách →</Link>
+            </div>
+
+            <div className="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 group hover:border-red-500 transition-all">
+              <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Đơn hoàn/hủy</p>
+              <div className="flex items-baseline gap-2">
+                <h3 className="text-3xl font-black text-red-600">{stats.today.returned}</h3>
+                <span className="text-xs font-bold text-red-500">Đơn</span>
+              </div>
+              <p className="mt-2 text-[10px] text-gray-400 font-bold uppercase tracking-tight">Tỷ lệ: {stats.today.newOrders > 0 ? ((stats.today.returned / stats.today.newOrders) * 100).toFixed(1) : 0}%</p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Top 10 Best Sellers */}
+            <div className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-gray-100">
+               <div className="flex justify-between items-center mb-8">
+                  <h2 className="text-lg font-black text-gray-900 uppercase italic">Sản phẩm bán chạy nhất</h2>
+                  <Link href="/admin/products" className="text-[10px] font-black text-[#1a5c2a] uppercase hover:underline">Quản lý kho →</Link>
+               </div>
+               <div className="space-y-6">
+                  {stats.products.top.map((p: any, idx: number) => (
+                    <div key={p._id} className="flex items-center gap-4 group">
+                       <span className="text-xl font-black text-gray-100 group-hover:text-[#1a5c2a] transition-colors">#{idx + 1}</span>
+                       <div className="w-12 h-12 rounded-xl overflow-hidden border border-gray-100 flex-shrink-0">
+                          <img src={p.images?.[0]} className="w-full h-full object-cover" />
+                       </div>
+                       <div className="flex-1">
+                          <p className="text-sm font-black text-gray-800 line-clamp-1">{p.name}</p>
+                          <p className="text-[10px] text-gray-400 font-bold uppercase">{p.category}</p>
+                       </div>
+                       <div className="text-right">
+                          <p className="text-sm font-black text-gray-900">{p.sold}</p>
+                          <p className="text-[9px] text-gray-400 font-bold uppercase">Đã bán</p>
+                       </div>
+                    </div>
+                  ))}
+               </div>
+            </div>
+
+            <div className="space-y-8">
+               {/* Low Stock Alert */}
+               <div className="bg-red-50 p-8 rounded-[2rem] border border-red-100">
+                  <div className="flex items-center gap-3 mb-6">
+                     <span className="text-2xl">⚠️</span>
+                     <h2 className="text-lg font-black text-red-900 uppercase italic">Cảnh báo hết hàng</h2>
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                     {stats.products.lowStock.slice(0, 4).map((p: any) => (
+                       <div key={p._id} className="bg-white p-4 rounded-2xl border border-red-100 shadow-sm">
+                          <p className="text-[11px] font-bold text-gray-800 line-clamp-1 mb-2">{p.name}</p>
+                          <div className="flex justify-between items-center">
+                             <span className="text-xs font-black text-red-600">Còn {p.stock}</span>
+                             <Link href="/admin/products" className="text-[9px] font-black bg-red-600 text-white px-2 py-1 rounded-md uppercase">NHẬP</Link>
                           </div>
                        </div>
-                      <div className="mt-6 pt-4 border-t border-gray-200 flex justify-between">
-                         <button type="button" onClick={() => setShowForm(false)} className="text-[#d63638] underline hover:text-red-700">Bỏ qua</button>
-                         <button type="submit" className="bg-[#2271b1] text-white px-4 py-2 rounded-sm font-bold hover:bg-[#135e96]">{editingProduct ? "Cập nhật" : "Đăng ngay"}</button>
-                      </div>
-                   </div>
+                     ))}
+                  </div>
+                  {stats.products.lowStock.length > 4 && (
+                    <p className="mt-4 text-[10px] text-red-400 font-bold text-center">Và {stats.products.lowStock.length - 4} sản phẩm khác...</p>
+                  )}
+               </div>
 
-                   <div className="bg-[#f6f7f7] border border-gray-200 p-4 rounded-sm">
-                      <h3 className="font-bold text-sm mb-4 border-b border-gray-200 pb-2">Danh mục</h3>
-                      <select value={form.category} onChange={e => setForm(f => ({ ...f, category: e.target.value }))} className="w-full border border-gray-200 p-2 text-sm outline-none">
-                        <option>Phân bón</option><option>Kích rễ</option><option>Tuyến trùng</option><option>Thuốc trừ sâu</option>
-                      </select>
-                   </div>
-
-                   <div className="bg-[#f6f7f7] border border-gray-200 p-4 rounded-sm">
-                      <h3 className="font-bold text-sm mb-4 border-b border-gray-200 pb-2">Ảnh sản phẩm</h3>
-                      <div onClick={() => fileInputRef.current?.click()} className="aspect-square border-2 border-dashed border-gray-300 rounded-sm flex items-center justify-center cursor-pointer hover:bg-gray-100 transition-colors">
-                         {previewImages[0] ? <img src={previewImages[0]} className="w-full h-full object-cover" /> : <span className="text-gray-400 text-xs">Thiết lập ảnh</span>}
-                      </div>
-                      <input ref={fileInputRef} type="file" multiple accept="image/*" className="hidden" onChange={e => e.target.files && handleImageFiles(e.target.files)} />
-                   </div>
-                </div>
-              </div>
-
-              {/* Rest of form simplified for brevity, following the WordPress pattern */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 border-t border-gray-100 pt-8">
-                 <div>
-                   <label className="block text-sm font-bold text-gray-700 mb-2">Giá bán (₫)</label>
-                   <input value={form.price} onChange={e => setForm(f => ({ ...f, price: e.target.value }))} className="w-full border border-gray-300 rounded px-3 py-2 outline-none focus:border-[#2271b1]" />
-                 </div>
-                 <div>
-                   <label className="block text-sm font-bold text-gray-700 mb-2">Giá gốc (₫)</label>
-                   <input value={form.originalPrice} onChange={e => setForm(f => ({ ...f, originalPrice: e.target.value }))} className="w-full border border-gray-300 rounded px-3 py-2 outline-none focus:border-[#2271b1]" />
-                 </div>
-              </div>
-            </form>
+               {/* Seller Alerts */}
+               <div className="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-sm">
+                  <h2 className="text-lg font-black text-gray-900 uppercase italic mb-6">Hiệu suất Seller</h2>
+                  <div className="flex items-center justify-between p-4 bg-orange-50 rounded-2xl border border-orange-100 mb-4">
+                     <div className="flex items-center gap-3">
+                        <span className="text-2xl animate-bounce">⏳</span>
+                        <div>
+                           <p className="text-xs font-black text-orange-900 uppercase">Đơn chờ quá 2h</p>
+                           <p className="text-[10px] text-orange-700 font-medium italic">Yêu cầu Seller xác nhận ngay</p>
+                        </div>
+                     </div>
+                     <span className="text-3xl font-black text-orange-600">{stats.sellers.unconfirmedLong}</span>
+                  </div>
+               </div>
+            </div>
           </div>
-        )}
 
-        {/* Products Table - WP Style */}
-        <div className="bg-white border border-gray-200 rounded-sm overflow-hidden shadow-sm">
-          <div className="p-4 bg-white border-b border-gray-200 flex justify-between items-center">
-             <div className="flex gap-4 text-sm items-center">
-                <button className="font-bold text-[#2271b1]">Tất cả ({products.length})</button>
-                <span className="text-gray-300">|</span>
-                <button className="text-[#2271b1]">Đang hoạt động</button>
-                
-                {selectedIds.length > 0 && (
-                  <>
-                    <span className="text-gray-300">|</span>
-                    <button 
-                      onClick={handleBulkDelete}
-                      className="bg-red-50 text-red-600 px-3 py-1 rounded border border-red-100 font-bold hover:bg-red-600 hover:text-white transition-all text-[11px] flex items-center gap-1 animate-in zoom-in duration-200"
-                    >
-                      🗑️ Xóa {selectedIds.length} mục đã chọn
-                    </button>
-                  </>
-                )}
+          {/* Geography Stats */}
+          <div className="bg-emerald-900 p-8 rounded-[2.5rem] text-white shadow-2xl shadow-emerald-900/20">
+             <h2 className="text-lg font-black uppercase italic mb-8 tracking-widest">Doanh thu theo tỉnh thành (Top 10)</h2>
+             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+                {stats.geography.map((item: any) => (
+                  <div key={item._id} className="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/10 hover:bg-white/20 transition-all">
+                     <p className="text-[10px] font-black uppercase text-emerald-200 mb-1">{item._id || 'Không xác định'}</p>
+                     <p className="text-xl font-black">₫{item.revenue.toLocaleString()}</p>
+                     <div className="mt-4 flex justify-between items-center text-[10px] font-bold text-emerald-300 uppercase">
+                        <span>{item.count} đơn</span>
+                        <span>{(item.revenue / item.count).toLocaleString()}đ/đơn</span>
+                     </div>
+                  </div>
+                ))}
              </div>
           </div>
-          <table className="w-full text-left text-sm">
-            <thead>
-              <tr className="bg-[#f6f7f7] border-b border-gray-200">
-                <th className="p-4 w-16 text-center">
-                  <input 
-                    type="checkbox" 
-                    checked={products.length > 0 && selectedIds.length === products.length}
-                    onChange={toggleSelectAll}
-                  />
-                </th>
-                <th className="p-4 font-bold text-gray-700">Ảnh</th>
-                <th className="p-4 font-bold text-gray-700">Tên</th>
-                <th className="p-4 font-bold text-gray-700">Danh mục</th>
-                <th className="p-4 font-bold text-gray-700">Giá</th>
-                <th className="p-4 font-bold text-gray-700 text-right">Ngày</th>
-              </tr>
-            </thead>
-            <tbody>
-              {isLoading ? (
-                <tr><td colSpan={6} className="p-10 text-center">Đang tải dữ liệu...</td></tr>
-              ) : products.map(p => (
-                <tr key={p._id} className={`border-b border-gray-100 hover:bg-[#f6f7f7] group transition-colors ${selectedIds.includes(p._id) ? 'bg-blue-50/30' : ''}`}>
-                  <td className="p-4 text-center">
-                    <input 
-                      type="checkbox" 
-                      checked={selectedIds.includes(p._id)}
-                      onChange={() => toggleSelect(p._id)}
-                    />
-                  </td>
-                  <td className="p-4">
-                    {p.images?.[0] ? (
-                      <img src={p.images[0]} className="w-8 h-8 object-cover rounded-sm" />
-                    ) : (
-                      <div className="w-8 h-8 bg-gray-100 flex items-center justify-center text-[10px] text-gray-400">🚫</div>
-                    )}
-                  </td>
-                  <td className="p-4">
-                     <div className="flex items-center gap-2">
-                       <p className="font-bold text-[#2271b1] cursor-pointer hover:text-[#135e96]">{p.name}</p>
-                       {!p.images?.[0] && (
-                         <span className="text-[10px] bg-orange-50 text-orange-600 px-1.5 py-0.5 rounded border border-orange-200 font-medium">⚠️ Chưa có ảnh</span>
-                       )}
-                     </div>
-                     <div className="flex gap-2 text-[11px] mt-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <button onClick={() => openEdit(p)} className="text-[#2271b1] hover:text-[#135e96]">Sửa</button>
-                        <span className="text-gray-300">|</span>
-                        <button onClick={() => handleDelete(p._id)} className="text-[#d63638] hover:text-red-700">Xóa</button>
-                        <span className="text-gray-300">|</span>
-                        <a href={`/san-pham/${p.slug}`} target="_blank" className="text-[#2271b1]">Xem</a>
-                     </div>
-                  </td>
-                  <td className="p-4 text-gray-600">{p.category}</td>
-                  <td className="p-4 font-bold text-gray-800">{p.price.toLocaleString()}đ</td>
-                  <td className="p-4 text-right text-gray-400 text-xs">
-                     Đã đăng<br />{new Date(p.createdAt || Date.now()).toLocaleDateString("vi-VN")}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
         </div>
       </div>
-    </div>
+    </AdminGuard>
   );
 }

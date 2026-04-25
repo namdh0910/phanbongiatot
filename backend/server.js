@@ -54,6 +54,7 @@ const sellerRoutes = require('./routes/sellerApplicationRoutes');
 const userRoutes = require('./routes/userRoutes');
 const flashSaleRoutes = require('./routes/flashSaleRoutes');
 const shippingRoutes = require('./routes/shippingRoutes');
+const analyticsRoutes = require('./routes/analyticsRoutes');
 
 // Mount routers
 app.use('/api/auth', authRoutes);
@@ -71,6 +72,7 @@ app.use('/api/sellers', sellerRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/flash-sales', flashSaleRoutes);
 app.use('/api/shipping', shippingRoutes);
+app.use('/api/analytics', analyticsRoutes);
 
 app.get('/', (req, res) => {
   res.json({ status: 'ok', message: 'Phân Bón Giá Tốt API' });
