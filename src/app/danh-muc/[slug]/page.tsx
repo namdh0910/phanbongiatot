@@ -121,15 +121,6 @@ export default function CategoryPage() {
           </div>
         </div>
       </div>
-            ) : (
-              <div className="bg-white p-20 text-center rounded-sm border border-dashed border-gray-300">
-                 <p className="text-gray-500">Chưa có sản phẩm nào trong danh mục này.</p>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-
     </div>
   );
 }
