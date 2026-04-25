@@ -1,0 +1,85 @@
+/* BrandMarquee.css */
+.brand-section {
+  padding: 4rem 0;
+  background-color: #f9fafb;
+  overflow: hidden;
+}
+
+.brand-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding: 0 1rem;
+}
+
+.brand-header h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #1a5c2a;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.marquee-container {
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.marquee-track {
+  display: flex;
+  gap: 4rem;
+  animation: scroll 30s linear infinite;
+  white-space: nowrap;
+  padding: 1rem 0;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+  min-width: 150px;
+  filter: grayscale(1);
+  opacity: 0.6;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.brand-logo:hover {
+  filter: grayscale(0);
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-150px * 8 - 4rem * 8));
+  }
+}
+
+@media (max-width: 768px) {
+  .brand-logo {
+    min-width: 120px;
+    height: 40px;
+  }
+  .marquee-track {
+    gap: 2rem;
+  }
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(calc(-120px * 8 - 2rem * 8));
+    }
+  }
+}

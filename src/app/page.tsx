@@ -11,6 +11,7 @@ import TrustBar from "@/components/TrustBar";
 import FlashSale from "@/components/FlashSale";
 import ComboSection from "@/components/ComboSection";
 import Testimonials from "@/components/Testimonials";
+import BrandMarquee from "@/components/BrandMarquee";
 import CategorySection from "@/components/CategorySection";
 import ProductCard from "@/components/ProductCard";
 import { useSettings } from "@/context/SettingsContext";
@@ -101,6 +102,8 @@ export default function Home() {
         </div>
       </section>
 
+      <BrandMarquee />
+      
       {/* VENDOR RECRUITMENT SECTION */}
       <section className="container mx-auto px-4">
         <div className="bg-white rounded-sm shadow-sm border border-gray-200 overflow-hidden flex flex-col md:flex-row items-center">
