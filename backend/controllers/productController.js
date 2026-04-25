@@ -9,7 +9,7 @@ const getProducts = async (req, res) => {
       : {};
       
     const category = req.query.category 
-      ? { category: req.query.category }
+      ? { category: { $regex: `^${req.query.category}$`, $options: 'i' } }
       : {};
 
     const products = await Product.find({ ...keyword, ...category, status: 'approved' })
@@ -18,12 +18,11 @@ const getProducts = async (req, res) => {
 
     console.log(`[DEBUG] Found ${products.length} products total for category: ${JSON.stringify(category)}`);
 
-    // Lọc chỉ lấy sản phẩm của shop đã duyệt và còn hạn, hoặc của Admin
+    // Permissive filtering: Show if admin, or if seller is approved/not expired
     const filteredProducts = products.filter(product => {
-      const seller = product.seller;
-      if (!seller) return false;
+      if (!product.seller) return true; // Show products without seller as default
       
-      // Admin products are always shown
+      const seller = product.seller;
       if (seller.role === 'admin') return true;
 
       if (!seller.vendorInfo) return false;
