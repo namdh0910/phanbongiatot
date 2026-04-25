@@ -36,8 +36,6 @@ const Hero: React.FC = () => {
           {subtitle}
         </p>
       </div>
-        
-      </div>
     </section>
   );
 };
