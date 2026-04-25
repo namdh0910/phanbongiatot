@@ -48,13 +48,44 @@ export default function CheckoutPage() {
     }
   };
 
+  const [shippingFee, setShippingFee] = useState(0);
+  const [shippingLoading, setShippingLoading] = useState(false);
+
   const discountAmount = appliedCoupon 
     ? (appliedCoupon.discountType === 'percentage' 
         ? (cartTotal * appliedCoupon.discountValue / 100) 
         : appliedCoupon.discountValue)
     : 0;
 
-  const shippingFee = 0; // Luôn miễn phí ship theo yêu cầu của anh
+  // Fetch shipping fee when province changes
+  useEffect(() => {
+    if (customer.province && cart.length > 0) {
+      const fetchShippingFee = async () => {
+        setShippingLoading(true);
+        try {
+          const res = await fetch(`${API_BASE_URL}/shipping/calculate`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              province: customer.province,
+              items: cart.map(i => ({ _id: i._id, quantity: i.quantity }))
+            })
+          });
+          if (res.ok) {
+            const data = await res.json();
+            setShippingFee(data.fee);
+          }
+        } catch (err) {
+          console.error("Failed to fetch shipping fee");
+        } finally {
+          setShippingLoading(false);
+        }
+      };
+      const timer = setTimeout(fetchShippingFee, 500); // Debounce
+      return () => clearTimeout(timer);
+    }
+  }, [customer.province, cart]);
+
   const totalPrice = cartTotal + shippingFee - discountAmount;
   
   console.log("Checkout version: 1.1 - Free Ship & Coupon UI V2");
@@ -377,7 +408,13 @@ export default function CheckoutPage() {
                 </div>
                 <div className="flex justify-between text-gray-600">
                   <span>Phí vận chuyển</span>
-                  <span className="font-bold text-green-600">Miễn phí ship</span>
+                  <span className={`font-bold ${shippingFee === 0 ? 'text-green-600' : 'text-gray-900'}`}>
+                    {shippingLoading ? (
+                      <span className="text-xs font-normal italic animate-pulse">Đang tính toán...</span>
+                    ) : (
+                      shippingFee === 0 ? 'Miễn phí' : `₫${shippingFee.toLocaleString('vi-VN')}`
+                    )}
+                  </span>
                 </div>
                 {discountAmount > 0 && (
                   <div className="flex justify-between text-red-600 font-bold">
