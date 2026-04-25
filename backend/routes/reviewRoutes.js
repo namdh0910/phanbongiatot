@@ -1,11 +1,16 @@
 const express = require('express');
 const router = express.Router();
-const { getProductReviews, createReview, getAllReviews, deleteReview } = require('../controllers/reviewController');
-const { protect } = require('../middleware/authMiddleware');
+const {
+  createReview,
+  getProductReviews,
+  getAdminReviews,
+  updateReviewStatus
+} = require('../controllers/reviewController');
+const { protect, admin } = require('../middleware/authMiddleware');
 
-router.route('/').post(createReview);
-router.route('/all').get(protect, getAllReviews);
-router.route('/:productId').get(getProductReviews);
-router.route('/:id').delete(protect, deleteReview);
+router.post('/', createReview);
+router.get('/product/:productId', getProductReviews);
+router.get('/admin/all', protect, admin, getAdminReviews);
+router.put('/:id/status', protect, admin, updateReviewStatus);
 
 module.exports = router;
