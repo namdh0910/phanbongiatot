@@ -41,7 +41,7 @@ const FlashSale: React.FC = () => {
 
   const flashProducts = [
     {
-      id: 1,
+      slug: "rooti-4339",
       name: "Acti Rooti - Siêu Kích Rễ Cực Mạnh (Can 5L)",
       image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=80&w=800&auto=format&fit=crop",
       oldPrice: "850.000đ",
@@ -49,7 +49,7 @@ const FlashSale: React.FC = () => {
       discount: "-20%",
     },
     {
-      id: 2,
+      slug: "nemano-9989",
       name: "Nemano - Đặc Trị Tuyến Trùng Bảo Vệ Rễ",
       image: "https://images.unsplash.com/photo-1592982537447-7440770cbfc9?q=80&w=800&auto=format&fit=crop",
       oldPrice: "320.000đ",
@@ -57,7 +57,7 @@ const FlashSale: React.FC = () => {
       discount: "-25%",
     },
     {
-      id: 3,
+      slug: "amino-acid-7822",
       name: "Amino Acid - Vọt Đọt, Xanh Lá Cấp Tốc",
       image: "https://images.unsplash.com/photo-1628352081506-83c43123ed6d?q=80&w=800&auto=format&fit=crop",
       oldPrice: "150.000đ",
@@ -65,7 +65,7 @@ const FlashSale: React.FC = () => {
       discount: "-34%",
     },
     {
-      id: 4,
+      slug: "combo-phuc-hoi-sau-thu-hoach",
       name: "Combo Phục Hồi Cây Suy - Sau Thu Hoạch",
       image: "https://images.unsplash.com/photo-1464226184884-fa280b87c399?q=80&w=800&auto=format&fit=crop",
       oldPrice: "1.200.000đ",
@@ -102,7 +102,7 @@ const FlashSale: React.FC = () => {
 
         <div className="flash-sale-grid">
           {flashProducts.map(product => (
-            <div key={product.id} className="sale-card">
+            <div key={product.slug} className="sale-card">
               <div className="discount-badge">{product.discount}</div>
               <div className="sale-image">
                 <img 
@@ -120,7 +120,7 @@ const FlashSale: React.FC = () => {
                   <span className="price-current">{product.price}</span>
                   <span className="price-old">{product.oldPrice}</span>
                 </div>
-                <Link href={`/san-pham/${product.id}`} className="buy-btn">
+                <Link href={`/san-pham/${product.slug}`} className="buy-btn">
                   MUA NGAY
                 </Link>
               </div>
