@@ -111,10 +111,11 @@ body {
   margin-bottom: 0.5rem !important;
 }
 /* Global Mobile Overrides */
-@media (max-width: 1023px) {
+@media (max-width: 767px) {
   body {
-    /* Prevent content from being hidden by sticky bottom bar */
-    padding-bottom: calc(72px + env(safe-area-inset-bottom)) !important;
+    /* Prevent content from being hidden by sticky bottom bar (56px) */
+    /* We use 80px for extra breathing room + safe area for iOS */
+    padding-bottom: calc(80px + env(safe-area-inset-bottom)) !important;
   }
 }
 

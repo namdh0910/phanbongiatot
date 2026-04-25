@@ -170,13 +170,14 @@
     font-size: 16px;
   }
   .p-actions {
-    grid-template-columns: 1fr 1fr; /* 2 buttons horizontal as requested */
-    gap: 4px;
+    grid-template-columns: 1fr; /* Stack buttons on mobile for full width touch target */
+    gap: 8px;
   }
   .p-btn {
-    padding: 8px 4px;
-    font-size: 11px;
-    letter-spacing: -0.5px;
+    min-height: 48px; /* High standard for touch target */
+    padding: 12px 10px;
+    font-size: 15px; /* Better readability */
+    font-weight: 700;
   }
   .p-meta {
     display: none; /* Hide rating on mobile category to save space */

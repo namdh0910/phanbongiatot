@@ -1,6 +1,5 @@
 "use client";
 import React from 'react';
-import Link from 'next/link';
 import { useSettings } from '@/context/SettingsContext';
 import './Hero.css';
 
@@ -10,7 +9,6 @@ const Hero: React.FC = () => {
   const title = settings?.heroTitle || "Tăng Năng Suất Vượt Ngưỡng Kỳ Vọng";
   const subtitle = settings?.heroSubtitle || "Giải pháp phân bón công nghệ cao, giúp cây trồng hấp thụ tối đảo dinh dưỡng, tăng năng suất vượt trội và bền vững cho nhà nông.";
   const banner = settings?.heroBanner || "/images/hero-bg.png";
-  const zaloId = settings?.zalo || "0773440966";
   const hotline = settings?.hotline || "0773.440.966";
   const primaryColor = settings?.primaryColor || "#1a5c2a";
 
@@ -45,20 +43,6 @@ const Hero: React.FC = () => {
           📞 {hotline}
         </a>
         
-        <div className="hero-actions">
-          <a 
-            href={`https://zalo.me/${zaloId}`} 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="btn btn-primary"
-          >
-            💬 NHẮN ZALO TƯ VẤN MIỄN PHÍ
-          </a>
-          
-          <Link href="/danh-muc/phan-bon" className="btn btn-secondary">
-            Xem sản phẩm
-          </Link>
-        </div>
       </div>
     </section>
   );

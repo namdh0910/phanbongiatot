@@ -137,33 +137,47 @@ export default function Header() {
         </div>
 
         {/* MOBILE HEADER */}
-        <div className="lg:hidden container mx-auto px-4 h-16 flex items-center justify-between gap-4">
-          <Link href="/" className="flex-shrink-0">
-            <div className="text-xl font-black text-[#1a5c2a] tracking-tighter">
-              PB<span className="text-[#f5a623]">GT</span>
+        <div className="lg:hidden flex flex-col w-full bg-white">
+          <div className="flex items-center justify-between gap-4 px-4 h-16 border-b border-gray-50">
+            <Link href="/" className="flex-shrink-0">
+              <div className="text-xl font-black text-[#1a5c2a] tracking-tighter">
+                PB<span className="text-[#f5a623]">GT</span>
+              </div>
+            </Link>
+
+            <form onSubmit={handleSearch} className="flex-1 relative">
+               <input 
+                 type="text"
+                 value={searchQuery}
+                 onChange={(e) => setSearchQuery(e.target.value)}
+                 placeholder="Tìm kiếm..."
+                 className="w-full bg-gray-50 border border-gray-100 rounded-full py-2 pl-4 pr-10 outline-none text-xs"
+               />
+               <button type="submit" className="absolute right-1 top-1/2 -translate-y-1/2 w-7 h-7 flex items-center justify-center text-gray-400">
+                 🔍
+               </button>
+            </form>
+
+            <button 
+              onClick={() => setMenuOpen(true)}
+              className="w-10 h-10 flex items-center justify-center text-gray-800 hover:text-[#1a5c2a] transition-colors"
+              aria-label="Open Menu"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            </button>
+          </div>
+
+          {/* MOBILE TRENDING TAGS ROW */}
+          <div className="trending-mobile-wrapper bg-gray-50/50 py-2 px-4 relative overflow-hidden border-b border-gray-100">
+            <div className="trending-mobile-scroll">
+              <span className="text-[9px] font-black text-gray-400 mr-1 flex-shrink-0">HOT:</span>
+              {trending.map((t, i) => (
+                <Link key={i} href={t.href} className="trending-chip">
+                  {t.label}
+                </Link>
+              ))}
             </div>
-          </Link>
-
-          <form onSubmit={handleSearch} className="flex-1 relative">
-             <input 
-               type="text"
-               value={searchQuery}
-               onChange={(e) => setSearchQuery(e.target.value)}
-               placeholder="Tìm kiếm..."
-               className="w-full bg-gray-50 border border-gray-100 rounded-full py-2 pl-4 pr-10 outline-none text-xs"
-             />
-             <button type="submit" className="absolute right-1 top-1/2 -translate-y-1/2 w-7 h-7 flex items-center justify-center text-gray-400">
-               🔍
-             </button>
-          </form>
-
-          <button 
-            onClick={() => setMenuOpen(true)}
-            className="w-10 h-10 flex items-center justify-center text-gray-800 hover:text-[#1a5c2a] transition-colors"
-            aria-label="Open Menu"
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-          </button>
+          </div>
         </div>
       </header>
 

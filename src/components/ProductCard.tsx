@@ -107,7 +107,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
         <div className="p-actions">
           <button className="p-btn btn-buy" onClick={handleQuickBuy}>
-            🛒 MUA
+            🛒 MUA NGAY
           </button>
           <button className="p-btn btn-chat" onClick={handleConsult}>
             💬 TƯ VẤN
