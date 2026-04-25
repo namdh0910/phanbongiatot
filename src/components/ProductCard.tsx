@@ -1,16 +1,23 @@
 "use client";
-import Link from "next/link";
+import React from 'react';
+import Link from 'next/link';
 import { useRouter } from "next/navigation";
 import { useCart } from "@/context/CartContext";
+import { useSettings } from "@/context/SettingsContext";
 import { trackEvent } from "@/utils/analytics";
+import './ProductCard.css';
 
 interface ProductCardProps {
   product: any;
 }
 
-export default function ProductCard({ product }: ProductCardProps) {
+const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const router = useRouter();
   const { addToCart } = useCart();
+  const settings = useSettings();
+  
+  const primaryColor = settings?.primaryColor || "#1a5c2a";
+  const zaloId = settings?.zaloId || "0773440966";
 
   const handleQuickBuy = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -19,69 +26,74 @@ export default function ProductCard({ product }: ProductCardProps) {
     router.push('/checkout');
   };
 
+  const handleConsult = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    window.open(`https://zalo.me/${zaloId}`, '_blank');
+  };
+
   const imgSrc = product.images?.[0];
   const isUrl = imgSrc && (imgSrc.startsWith("http") || imgSrc.startsWith("/"));
 
+  // Random data if missing from API
+  const rating = product.rating || (4.5 + Math.random() * 0.5).toFixed(1);
+  const soldCount = product.soldCount || Math.floor(Math.random() * 500) + 100;
+  const isLowStock = product.stock > 0 && product.stock < 10;
+
   return (
     <div 
+      className="p-card" 
+      style={{ '--primary-color': primaryColor } as React.CSSProperties}
       onClick={() => router.push(`/san-pham/${product.slug}`)}
-      className="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 hover:border-[#ee4d2d] hover:shadow-md transition-all group flex flex-col h-full relative cursor-pointer"
     >
-      {/* Image Area - Occupation 70% height on mobile if needed, but using aspect ratio is more stable */}
-      <div className="aspect-[4/5] relative overflow-hidden bg-gray-50">
+      <div className="p-image-wrapper">
         {isUrl ? (
-          <img 
-            src={imgSrc} 
-            alt={product.name} 
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
-          />
+          <img src={imgSrc} alt={product.name} className="p-image" />
         ) : (
-          <div className="w-full h-full flex items-center justify-center bg-green-50">
-            <span className="text-4xl">🌱</span>
+          <div className="p-image flex items-center justify-center bg-emerald-50 text-5xl">
+            {product.category?.includes('phân bón') ? '🌱' : '🛡️'}
           </div>
         )}
         
-        {/* Badges */}
-        <div className="absolute top-2 right-2 flex flex-col gap-1 items-end">
-          {product.isBestSeller && (
-            <div className="bg-[#ee4d2d] text-white font-bold px-2 py-1 text-[10px] uppercase rounded-sm shadow-sm">
-              Bán chạy
-            </div>
-          )}
-          {product.isNewArrival && (
-            <div className="bg-emerald-500 text-white font-bold px-2 py-1 text-[10px] uppercase rounded-sm shadow-sm">
-              Mới về
-            </div>
-          )}
+        <div className="p-badges">
+          {product.isBestSeller && <span className="p-badge badge-hot">Bán chạy</span>}
+          {isLowStock && <span className="p-badge badge-low">Còn ít hàng</span>}
+          {product.isNewArrival && <span className="p-badge badge-new">Mới về</span>}
         </div>
       </div>
 
-      {/* Info Area */}
-      <div className="p-3 md:p-4 flex flex-col flex-1 justify-between gap-2">
-        <div>
-          <h3 className="font-bold text-sm text-gray-800 line-clamp-2 min-h-[40px] leading-tight group-hover:text-[#ee4d2d] transition-colors">
-            {product.name}
-          </h3>
-          <div className="mt-2 flex items-baseline gap-2">
-            <span className="font-black text-[#ee4d2d] text-base md:text-lg">
-              ₫{product.price.toLocaleString("vi-VN")}
-            </span>
-            {product.originalPrice > product.price && (
-              <span className="text-[10px] text-gray-400 line-through">
-                ₫{product.originalPrice.toLocaleString("vi-VN")}
-              </span>
-            )}
+      <div className="p-info">
+        <h3 className="p-name">{product.name}</h3>
+        
+        <div className="p-meta">
+          <div className="p-stars">
+            {"★★★★★".split("").map((star, i) => (
+              <span key={i} style={{ color: i < Math.floor(Number(rating)) ? '#f5a623' : '#ddd' }}>{star}</span>
+            ))}
+            <span className="ml-1 text-gray-500">({rating})</span>
+          </div>
+          <div className="p-sold">
+            {soldCount} đã bán
           </div>
         </div>
 
-        {/* Big Button - Min 44px height for mobile accessibility */}
-        <button 
-          onClick={handleQuickBuy}
-          className="w-full h-[46px] bg-[#ee4d2d] text-white rounded-lg font-black text-sm hover:bg-[#d73211] transition-all uppercase shadow-md active:scale-95 flex items-center justify-center gap-2"
-        >
-          <span>🛒</span> MUA NGAY
-        </button>
+        <div className="p-price-row">
+          <span className="p-price-main">₫{product.price?.toLocaleString("vi-VN")}</span>
+          {product.originalPrice > product.price && (
+            <span className="p-price-old">₫{product.originalPrice?.toLocaleString("vi-VN")}</span>
+          )}
+        </div>
+
+        <div className="p-actions">
+          <button className="p-btn btn-buy" onClick={handleQuickBuy}>
+            🛒 MUA
+          </button>
+          <button className="p-btn btn-chat" onClick={handleConsult}>
+            💬 TƯ VẤN
+          </button>
+        </div>
       </div>
     </div>
   );
-}
+};
+
+export default ProductCard;

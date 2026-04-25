@@ -50,17 +50,20 @@ export default function Home() {
 
       {/* FEATURED PRODUCTS */}
       <section className="container mx-auto px-4">
-        <div className="flex justify-between items-end mb-6 border-l-4 border-[#ee4d2d] pl-4">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 gap-4">
           <div>
-            <h2 className="text-2xl md:text-3xl font-black text-gray-900 uppercase">Sản Phẩm Nổi Bật</h2>
-            <p className="text-gray-500 text-sm mt-1">Giải pháp hàng đầu cho vườn sầu riêng, cà phê</p>
+            <div className="inline-block bg-[#ee4d2d] text-white px-3 py-1 rounded-sm text-[10px] font-black uppercase tracking-widest mb-3">
+              Hot Picks
+            </div>
+            <h2 className="text-3xl md:text-4xl font-black text-gray-900 uppercase leading-tight">Sản Phẩm Nổi Bật</h2>
+            <p className="text-gray-500 text-sm mt-2">Giải pháp hàng đầu giúp tăng năng suất và bảo vệ vườn cây bền vững</p>
           </div>
-          <Link href="/danh-muc/phan-bon" className="hidden md:flex text-[#ee4d2d] font-bold hover:underline items-center gap-2 text-sm">
-            XEM TẤT CẢ <span>▶</span>
+          <Link href="/danh-muc/phan-bon" className="text-[#ee4d2d] font-bold hover:underline flex items-center gap-2 group transition-all">
+            XEM TẤT CẢ <span className="group-hover:translate-x-1 transition-transform">▶</span>
           </Link>
         </div>
         
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
           {products.map((product: any, i: number) => (
             <ProductCard key={i} product={product} />
           ))}
