@@ -12,6 +12,7 @@ export default function AdminSidebar() {
     { href: "/admin/dai-ly", label: "Quản lý Đại lý", icon: "🏪", badge: "Mới" },
     { href: "/admin/approve-products", label: "Duyệt SP Đại lý", icon: "⚖️" },
     { href: "/admin/orders", label: "Đơn Hàng", icon: "🛒", badge: "Mới" },
+    { href: "/admin/coupons", label: "Mã Giảm Giá", icon: "🎟️" },
     { href: "/admin/reviews", label: "Đánh Giá SP", icon: "⭐" },
     { href: "/admin/leads", label: "Khách Liên Hệ", icon: "👥" },
     { href: "/admin/flash-sales", label: "Deal Hot / Flash Sale", icon: "⚡" },
