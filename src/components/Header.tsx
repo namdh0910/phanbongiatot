@@ -4,6 +4,7 @@ import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import { useCart } from "@/context/CartContext";
 import { useSettings } from "@/context/SettingsContext";
+import { API_BASE_URL } from "@/utils/api";
 import './HeaderFooter.css';
 
 export default function Header() {
