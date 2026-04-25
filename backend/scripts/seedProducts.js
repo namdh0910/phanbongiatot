@@ -8,11 +8,11 @@ dotenv.config({ path: path.join(__dirname, '../.env') });
 
 const products = [
   {
-    name: "Phân bón Acti Rooti - Phục hồi rễ sầu riêng",
+    name: "Acti Rooti - Siêu Kích Rễ Cực Mạnh (Can 5L)",
     slug: "rooti-4339",
-    category: "Phân bón",
-    price: 180000,
-    originalPrice: 250000,
+    category: "Kích rễ",
+    price: 680000,
+    originalPrice: 850000,
     description: "Acti Rooti là giải pháp hàng đầu để phục hồi bộ rễ sầu riêng sau thu hoạch hoặc sau khi bị bệnh. Giúp rễ tơ ra mạnh, cây xanh lá, bung đọt nhanh.",
     images: ["https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=80&w=800&auto=format&fit=crop"],
     status: 'approved',
@@ -20,11 +20,11 @@ const products = [
     isFeatured: true
   },
   {
-    name: "Phân bón Nemano - Phòng ngừa tuyến trùng",
-    slug: "phan-bon-phong-ngua-tuyen-trung-nemano-9989",
-    category: "Phân bón",
-    price: 180000,
-    originalPrice: 240000,
+    name: "Nemano - Đặc Trị Tuyến Trùng Bảo Vệ Rễ",
+    slug: "nemano-9989",
+    category: "Tuyến trùng",
+    price: 255000,
+    originalPrice: 320000,
     description: "Nemano giúp tiêu diệt tuyến trùng gây hại rễ, ngăn ngừa vàng lá thối rễ trên cây ăn trái và cây công nghiệp. Sản phẩm sinh học an toàn cho đất.",
     images: ["https://images.unsplash.com/photo-1592982537447-7440770cbfc9?q=80&w=800&auto=format&fit=crop"],
     status: 'approved',
@@ -32,39 +32,27 @@ const products = [
     isFeatured: true
   },
   {
-    name: "Phân bón NPK Sinh Học - Cải tạo đất",
-    slug: "phan-bon-npk-sinh-hoc",
+    name: "Amino Acid - Vọt Đọt, Xanh Lá Cấp Tốc",
+    slug: "amino-acid-7822",
     category: "Phân bón",
-    price: 150000,
-    originalPrice: 200000,
-    description: "Cung cấp dinh dưỡng Đa-Trung-Vi lượng cân đối cho cây trồng. Giúp đất tơi xốp, tăng cường hệ vi sinh vật có ích.",
+    price: 99000,
+    originalPrice: 150000,
+    description: "Amino Acid giúp cây hấp thụ dinh dưỡng cực nhanh qua lá, giúp vọt đọt, xanh lá, dày lá chỉ sau vài ngày sử dụng.",
     images: ["https://images.unsplash.com/photo-1628352081506-83c43123ed6d?q=80&w=800&auto=format&fit=crop"],
     status: 'approved',
     stock: 1000,
     isFeatured: true
   },
   {
-    name: "Siêu Lân Đỏ - Kích rễ cực mạnh",
-    slug: "sieu-lan-do-kich-re",
-    category: "Kích rễ",
-    price: 220000,
-    originalPrice: 320000,
-    description: "Kích thích bộ rễ phát triển thần tốc, chống nghẹt rễ, giải độc phèn, ngộ độc hữu cơ cho lúa và cây ăn trái.",
+    name: "Combo Phục Hồi Cây Suy - Sau Thu Hoạch",
+    slug: "combo-phuc-hoi-sau-thu-hoach",
+    category: "Combo tiết kiệm",
+    price: 890000,
+    originalPrice: 1200000,
+    description: "Bộ giải pháp toàn diện bao gồm Kích rễ, Amino và Vi lượng giúp cây sầu riêng, cà phê hồi phục thần tốc sau mùa vụ.",
     images: ["https://images.unsplash.com/photo-1464226184884-fa280b87c399?q=80&w=800&auto=format&fit=crop"],
     status: 'approved',
     stock: 200,
-    isFeatured: true
-  },
-  {
-    name: "Đặc trị Tuyến Trùng Nemano Thế Hệ Mới",
-    slug: "dac-tri-tuyen-trung-nemano",
-    category: "Tuyến trùng",
-    price: 350000,
-    originalPrice: 450000,
-    description: "Phác đồ đặc trị tuyến trùng rễ chuyên sâu, tiêu diệt cả trứng và tuyến trùng trưởng thành. Hiệu quả kéo dài.",
-    images: ["https://images.unsplash.com/photo-1589923188900-85dae523342b?q=80&w=800&auto=format&fit=crop"],
-    status: 'approved',
-    stock: 150,
     isFeatured: true
   },
   {
