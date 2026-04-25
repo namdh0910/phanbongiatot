@@ -7,6 +7,7 @@ const {
   notifyOrderShipping, 
   notifyOrderSuccess 
 } = require('../services/notificationService');
+const { logAdminAction } = require('../utils/logger');
 
 // @desc    Create new order
 // @route   POST /api/orders
@@ -202,6 +203,15 @@ const updateOrderStatus = async (req, res) => {
       order.shippingCode = req.body.shippingCode || order.shippingCode;
 
       const updatedOrder = await order.save();
+
+      // Log action
+      await logAdminAction(
+        req.user._id,
+        'UPDATE_ORDER_STATUS',
+        `Order ${updatedOrder.orderCode}`,
+        { status: req.body.status, paymentStatus: req.body.paymentStatus },
+        req.ip
+      );
       
       // Gửi thông báo tự động theo trạng thái mới
       if (req.body.status === 'confirmed') {
