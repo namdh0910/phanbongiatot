@@ -14,6 +14,7 @@ export default function AdminSidebar() {
     { href: "/admin/orders", label: "Đơn Hàng", icon: "🛒", badge: "Mới" },
     { href: "/admin/reviews", label: "Đánh Giá SP", icon: "⭐" },
     { href: "/admin/leads", label: "Khách Liên Hệ", icon: "👥" },
+    { href: "/admin/flash-sales", label: "Deal Hot / Flash Sale", icon: "⚡" },
     { href: "/admin/blog", label: "Bài Viết", icon: "📝" },
     { href: "/admin/settings", label: "Cài Đặt", icon: "⚙️" },
   ];

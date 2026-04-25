@@ -4,75 +4,50 @@ import Link from 'next/link';
 import './FlashSale.css';
 
 const FlashSale: React.FC = () => {
-  const [timeLeft, setTimeLeft] = useState({
-    hours: 0,
-    minutes: 0,
-    seconds: 0
-  });
+  const [timeLeft, setTimeLeft] = useState({ hours: 0, minutes: 0, seconds: 0 });
+  const [sales, setSales] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const calculateTimeLeft = () => {
-      const now = new Date();
-      const endOfDay = new Date();
-      endOfDay.setHours(23, 59, 59, 999);
-      
-      const difference = endOfDay.getTime() - now.getTime();
-      
-      if (difference <= 0) {
-        return { hours: 0, minutes: 0, seconds: 0 };
+    const fetchSales = async () => {
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/flash-sales/active`);
+        if (res.ok) {
+          const data = await res.json();
+          setSales(data);
+        }
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setIsLoading(false);
       }
+    };
+    fetchSales();
+  }, []);
+
+  useEffect(() => {
+    if (sales.length === 0) return;
+    
+    const endTime = Math.min(...sales.map(s => new Date(s.endAt).getTime()));
+
+    const calculateTimeLeft = () => {
+      const now = new Date().getTime();
+      const difference = endTime - now;
+      if (difference <= 0) return { hours: 0, minutes: 0, seconds: 0 };
 
       return {
-        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+        hours: Math.floor((difference / (1000 * 60 * 60))),
         minutes: Math.floor((difference / 1000 / 60) % 60),
         seconds: Math.floor((difference / 1000) % 60)
       };
     };
 
-    // Initial calculation
     setTimeLeft(calculateTimeLeft());
-
-    const timer = setInterval(() => {
-      setTimeLeft(calculateTimeLeft());
-    }, 1000);
-
+    const timer = setInterval(() => setTimeLeft(calculateTimeLeft()), 1000);
     return () => clearInterval(timer);
-  }, []);
+  }, [sales]);
 
-  const flashProducts = [
-    {
-      slug: "rooti-4339",
-      name: "Acti Rooti - Siêu Kích Rễ Cực Mạnh (Can 5L)",
-      image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=80&w=800&auto=format&fit=crop",
-      oldPrice: "850.000đ",
-      price: "680.000đ",
-      discount: "-20%",
-    },
-    {
-      slug: "nemano-9989",
-      name: "Nemano - Đặc Trị Tuyến Trùng Bảo Vệ Rễ",
-      image: "https://images.unsplash.com/photo-1592982537447-7440770cbfc9?q=80&w=800&auto=format&fit=crop",
-      oldPrice: "320.000đ",
-      price: "255.000đ",
-      discount: "-25%",
-    },
-    {
-      slug: "amino-acid-7822",
-      name: "Amino Acid - Vọt Đọt, Xanh Lá Cấp Tốc",
-      image: "https://images.unsplash.com/photo-1628352081506-83c43123ed6d?q=80&w=800&auto=format&fit=crop",
-      oldPrice: "150.000đ",
-      price: "99.000đ",
-      discount: "-34%",
-    },
-    {
-      slug: "combo-phuc-hoi-sau-thu-hoach",
-      name: "Combo Phục Hồi Cây Suy - Sau Thu Hoạch",
-      image: "https://images.unsplash.com/photo-1464226184884-fa280b87c399?q=80&w=800&auto=format&fit=crop",
-      oldPrice: "1.200.000đ",
-      price: "890.000đ",
-      discount: "-26%",
-    }
-  ];
+  if (isLoading || sales.length === 0) return null;
 
   return (
     <section className="flash-sale-section">
@@ -101,31 +76,35 @@ const FlashSale: React.FC = () => {
         </div>
 
         <div className="flash-sale-grid">
-          {flashProducts.map(product => (
-            <div key={product.slug} className="sale-card">
-              <div className="discount-badge">{product.discount}</div>
-              <div className="sale-image">
-                <img 
-                  src={product.image} 
-                  alt={product.name} 
-                  className="w-full h-full object-cover"
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=80&w=800&auto=format&fit=crop";
-                  }}
-                />
-              </div>
-              <div className="sale-info">
-                <h3 className="sale-name">{product.name}</h3>
-                <div className="sale-prices">
-                  <span className="price-current">{product.price}</span>
-                  <span className="price-old">{product.oldPrice}</span>
+          {sales.map(sale => {
+            const product = sale.product;
+            const discount = Math.round((1 - sale.salePrice / product.originalPrice) * 100);
+            return (
+              <div key={sale._id} className="sale-card">
+                <div className="discount-badge">-{discount}%</div>
+                <div className="sale-image">
+                  <img 
+                    src={product.images?.[0] || "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=80&w=800&auto=format&fit=crop"} 
+                    alt={product.name} 
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=80&w=800&auto=format&fit=crop";
+                    }}
+                  />
                 </div>
-                <Link href={`/san-pham/${product.slug}`} className="buy-btn">
-                  MUA NGAY
-                </Link>
+                <div className="sale-info">
+                  <h3 className="sale-name">{product.name}</h3>
+                  <div className="sale-prices">
+                    <span className="price-current">₫{sale.salePrice.toLocaleString()}</span>
+                    <span className="price-old">₫{product.originalPrice?.toLocaleString()}</span>
+                  </div>
+                  <Link href={`/san-pham/${product.slug}`} className="buy-btn">
+                    MUA NGAY
+                  </Link>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
