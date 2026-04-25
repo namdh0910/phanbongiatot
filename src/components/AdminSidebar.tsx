@@ -7,11 +7,11 @@ export default function AdminSidebar() {
   const router = useRouter();
 
   const links = [
-    { href: "/admin", label: "Sản Phẩm", icon: "📦" },
-    { href: "/admin/approve-products", label: "Duyệt SP", icon: "⚖️", badge: "Mới" },
-    { href: "/admin/vendors", label: "Đối Tác", icon: "🏪" },
+    { href: "/admin", label: "Kho Sản Phẩm", icon: "📦" },
+    { href: "/admin/analytics", label: "Thống kê", icon: "📊" },
+    { href: "/admin/dai-ly", label: "Quản lý Đại lý", icon: "🏪", badge: "Mới" },
+    { href: "/admin/approve-products", label: "Duyệt SP Đại lý", icon: "⚖️" },
     { href: "/admin/orders", label: "Đơn Hàng", icon: "🛒", badge: "Mới" },
-    { href: "/admin/coupons", label: "Mã Giảm Giá", icon: "🎟️" },
     { href: "/admin/reviews", label: "Đánh Giá SP", icon: "⭐" },
     { href: "/admin/leads", label: "Khách Liên Hệ", icon: "👥" },
     { href: "/admin/blog", label: "Bài Viết", icon: "📝" },
