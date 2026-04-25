@@ -8,6 +8,7 @@ const productSchema = mongoose.Schema(
     price: { type: Number, required: true },
     originalPrice: { type: Number },
     description: { type: String, required: true },
+    crops: [{ type: String }],
     benefits: [{ type: String }],
     specifications: { type: String },
     usage: { type: String },

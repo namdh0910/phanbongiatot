@@ -31,9 +31,10 @@ export default function Header() {
 
   const fetchSuggestions = async () => {
     try {
-      const res = await fetch(`${API_BASE_URL}/products`);
+      const res = await fetch(`${API_BASE_URL}/products?limit=100`);
       if (res.ok) {
-        const all = await res.json();
+        const data = await res.json();
+        const all = Array.isArray(data) ? data : data.products || [];
         const q = searchQuery.toLowerCase();
         const filtered = all.filter((p: any) => 
           p.name.toLowerCase().includes(q) || 

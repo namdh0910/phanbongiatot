@@ -4,37 +4,52 @@ const Product = require('../models/Product');
 // @route   GET /api/products
 const getProducts = async (req, res) => {
   try {
-    const keyword = req.query.keyword
-      ? { name: { $regex: req.query.keyword, $options: 'i' } }
-      : {};
-      
-    const category = req.query.category 
-      ? { category: { $regex: `^${req.query.category}$`, $options: 'i' } }
-      : {};
+    const { keyword, category, crop, page = 1, limit = 20 } = req.query;
+    
+    const query = { status: 'approved' };
+    
+    if (keyword) {
+      query.name = { $regex: keyword, $options: 'i' };
+    }
+    
+    if (category) {
+      // Support both name and slug if we want, but for now exact name (case-insensitive)
+      query.category = { $regex: `^${category}$`, $options: 'i' };
+    }
+    
+    if (crop && crop !== 'Tất cả') {
+      query.crops = { $in: [new RegExp(`^${crop}$`, 'i')] };
+    }
 
-    const products = await Product.find({ ...keyword, ...category, status: 'approved' })
+    const skip = (Number(page) - 1) * Number(limit);
+
+    const products = await Product.find(query)
       .populate('seller', 'role vendorInfo')
-      .sort({ createdAt: -1 });
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(Number(limit));
 
-    console.log(`[DEBUG] Found ${products.length} products total for category: ${JSON.stringify(category)}`);
+    const total = await Product.countDocuments(query);
+
+    console.log(`[DEBUG] Found ${products.length}/${total} products for query: ${JSON.stringify(query)}`);
 
     // Permissive filtering: Show if admin, or if seller is approved/not expired
     const filteredProducts = products.filter(product => {
-      if (!product.seller) return true; // Show products without seller as default
-      
+      if (!product.seller) return true;
       const seller = product.seller;
       if (seller.role === 'admin') return true;
-
       if (!seller.vendorInfo) return false;
-      
       const isApproved = seller.vendorInfo.isApproved;
       const trialExpiresAt = new Date(seller.vendorInfo.trialExpiresAt);
-      const isNotExpired = trialExpiresAt > new Date();
-      
-      return isApproved && isNotExpired;
+      return isApproved && trialExpiresAt > new Date();
     });
 
-    res.json(filteredProducts);
+    res.json({
+      products: filteredProducts,
+      page: Number(page),
+      pages: Math.ceil(total / Number(limit)),
+      total
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

@@ -14,14 +14,16 @@ function SearchResults() {
     const fetchResults = async () => {
       setLoading(true);
       try {
-        const res = await fetch(`${API_BASE_URL}/products`);
+        const res = await fetch(`${API_BASE_URL}/products?limit=100`);
         if (res.ok) {
-          const allProducts = await res.json();
+          const data = await res.json();
+          const allProducts = Array.isArray(data) ? data : data.products || [];
+          
           // Filter products locally for speed (assuming catalog isn't massive)
           const searchLower = q.toLowerCase();
           const filtered = allProducts.filter((p: any) => 
             p.name.toLowerCase().includes(searchLower) || 
-            p.description.toLowerCase().includes(searchLower) ||
+            (p.description && p.description.toLowerCase().includes(searchLower)) ||
             (p.category && p.category.toLowerCase().includes(searchLower))
           );
           setProducts(filtered);
