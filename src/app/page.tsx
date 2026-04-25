@@ -8,6 +8,7 @@ import { getSettings } from "@/utils/settings";
 import { useCart } from "@/context/CartContext";
 import Hero from "@/components/Hero";
 import TrustBar from "@/components/TrustBar";
+import FlashSale from "@/components/FlashSale";
 import CategorySection from "@/components/CategorySection";
 import ProductCard from "@/components/ProductCard";
 import { useSettings } from "@/context/SettingsContext";
@@ -44,6 +45,7 @@ export default function Home() {
       {/* NEW HERO SECTION */}
       <Hero />
       <TrustBar />
+      <FlashSale />
       <CategorySection />
 
       {/* FEATURED PRODUCTS */}
