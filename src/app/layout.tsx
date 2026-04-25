@@ -36,9 +36,15 @@ export const metadata: Metadata = {
         url: "https://phanbongiatot.com/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Phân Bón Giá Tốt",
+        alt: "Phân Bón Giá Tốt - Giải Pháp Nông Nghiệp",
       },
     ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Phân Bón Giá Tốt | Giải Pháp Nông Nghiệp Hiệu Quả",
+    description: "Phân bón chính hãng giá tốt cho sầu riêng, cà phê, tiêu. Giao hàng toàn quốc.",
+    images: ["https://phanbongiatot.com/og-image.png"],
   },
 };
 

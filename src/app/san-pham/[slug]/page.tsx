@@ -31,8 +31,27 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     title: `${product.name} | Phân Bón Giá Tốt`,
     description: product.seoDescription || product.description?.slice(0, 160),
     openGraph: {
-      images: product.images?.[0] ? [product.images[0]] : [],
-    }
+      title: `${product.name} | Phân Bón Giá Tốt`,
+      description: product.seoDescription || product.description?.slice(0, 160),
+      url: `https://phanbongiatot.com/san-pham/${product.slug}`,
+      siteName: 'Phân Bón Giá Tốt',
+      locale: 'vi_VN',
+      type: 'website',
+      images: product.images?.[0] ? [
+        {
+          url: product.images[0].startsWith('http') ? product.images[0] : `https://phanbongiatot.com${product.images[0]}`,
+          width: 1200,
+          height: 630,
+          alt: product.name,
+        }
+      ] : [{ url: 'https://phanbongiatot.com/og-image.png', width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: product.name,
+      description: product.description?.slice(0, 160),
+      images: product.images?.[0] ? [product.images[0]] : ['https://phanbongiatot.com/og-image.png'],
+    },
   };
 }
 
