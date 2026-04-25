@@ -1,17 +1,25 @@
 "use client";
 import { useState, useEffect } from "react";
 import { API_BASE_URL } from "@/utils/api";
+import VendorLanding from "@/components/VendorLanding";
 
 export default function VendorDashboard() {
   const [vendor, setVendor] = useState<any>(null);
   const [mounted, setMounted] = useState(false);
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     setMounted(true);
-    const info = JSON.parse(localStorage.getItem("vendorInfo") || "{}");
-    setVendor(info);
-    fetchFreshInfo();
+    const info = JSON.parse(localStorage.getItem("vendorInfo") || "null");
+    const token = localStorage.getItem("vendorToken");
+    
+    if (token && info) {
+      setVendor(info);
+      fetchFreshInfo();
+    } else {
+      setIsLoading(false);
+    }
   }, []);
 
   const fetchFreshInfo = async () => {
@@ -27,6 +35,8 @@ export default function VendorDashboard() {
       }
     } catch (err) {
       console.error(err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -38,7 +48,19 @@ export default function VendorDashboard() {
     return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   };
 
-  if (!mounted || !vendor) return null;
+  if (!mounted) return null;
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-white">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#1a5c2a]"></div>
+      </div>
+    );
+  }
+
+  if (!vendor) {
+    return <VendorLanding />;
+  }
 
   const trialDays = getTrialDays(vendor.trialExpiresAt);
   const isExpired = trialDays <= 0;
