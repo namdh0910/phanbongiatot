@@ -116,7 +116,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
               <div className="flex items-center gap-2">
                 <span className="text-lg">🔗</span> Chia sẻ: 
                 <a href={`https://www.facebook.com/sharer/sharer.php?u=https://phanbongiatot.com/san-pham/${product.slug}`} target="_blank" className="hover:text-[#1a5c2a] font-bold">Facebook</a>
-                <a href={`https://zalo.me/${settings?.zaloId || '0773440966'}`} target="_blank" className="hover:text-[#1a5c2a] font-bold">Zalo</a>
+                <a href="https://zalo.me/0773440966" target="_blank" className="hover:text-[#1a5c2a] font-bold">Zalo</a>
               </div>
               <div className="w-px h-4 bg-gray-200"></div>
               <div className="flex items-center gap-2 cursor-pointer hover:text-[#ee4d2d]">
