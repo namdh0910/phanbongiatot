@@ -157,14 +157,28 @@
   background-color: #f0f7f1;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   .p-info {
-    padding: 0.75rem;
+    padding: 10px;
+    gap: 6px;
+  }
+  .p-name {
+    font-size: 14px;
+    height: 40px; /* roughly 2 lines */
   }
   .p-price-main {
-    font-size: 1.1rem;
+    font-size: 16px;
   }
   .p-actions {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr; /* 2 buttons horizontal as requested */
+    gap: 4px;
+  }
+  .p-btn {
+    padding: 8px 4px;
+    font-size: 11px;
+    letter-spacing: -0.5px;
+  }
+  .p-meta {
+    display: none; /* Hide rating on mobile category to save space */
   }
 }

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { trackEvent } from "@/utils/analytics";
 import { useCart } from "@/context/CartContext";
+import ProductCard from "@/components/ProductCard";
 
 const categoryMap: Record<string, { name: string; icon: string }> = {
   "phan-bon": { name: "Phân bón", icon: "🌱" },
@@ -61,10 +62,27 @@ export default function CategoryPage() {
         </div>
       </div>
 
-      <div className="container mx-auto px-4">
+      {/* Sticky Filter Bar (Mobile) */}
+      <div className="lg:hidden sticky top-16 z-40 bg-white border-b border-gray-100 shadow-sm">
+        <div className="flex overflow-x-auto py-3 px-4 gap-2 scrollbar-hide">
+          {["Tất cả", "Sầu riêng", "Cà phê", "Tiêu", "Lúa", "Rau màu"].map((cat) => (
+            <button 
+              key={cat}
+              className={`flex-shrink-0 px-4 py-1.5 rounded-full text-xs font-bold transition-all ${
+                cat === "Tất cả" ? "bg-[#1a5c2a] text-white" : "bg-gray-100 text-gray-600"
+              }`}
+              style={{ height: '36px' }}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="container mx-auto px-4 py-6">
         <div className="flex flex-col md:flex-row gap-8">
-          {/* Filters Sidebar */}
-          <div className="w-full md:w-1/4">
+          {/* Filters Sidebar (Desktop only now) */}
+          <div className="hidden lg:block w-1/4">
             <div className="bg-white p-6 rounded-sm shadow-sm border border-gray-200 sticky top-28 z-30">
               <h3 className="font-black text-sm mb-6 border-b pb-4 text-gray-900 uppercase tracking-widest">Danh mục</h3>
               <ul className="space-y-3">
@@ -90,54 +108,19 @@ export default function CategoryPage() {
                 {[1,2,3,4,5,6].map(i => <div key={i} className="aspect-[4/5] bg-gray-200 animate-pulse rounded-sm"></div>)}
               </div>
             ) : products.length > 0 ? (
-              <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-6">
-                {products.map((product: any, i: number) => {
-                  const imgSrc = product.images?.[0];
-                  const isUrl = imgSrc && (imgSrc.startsWith("http") || imgSrc.startsWith("/"));
-                  return (
-                    <div 
-                      onClick={() => router.push(`/san-pham/${product.slug}`)}
-                      key={i} 
-                      className="bg-white rounded-sm overflow-hidden shadow-sm border border-transparent hover:border-[#ee4d2d] hover:shadow-lg transition-all group flex flex-col h-full relative cursor-pointer"
-                    >
-                      {/* Image area */}
-                      <div className="aspect-square relative overflow-hidden bg-gradient-to-br from-green-50 to-green-100 flex items-center justify-center">
-                        {isUrl ? (
-                          <img src={imgSrc} alt={product.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                        ) : (
-                          <div className="text-center p-4">
-                             <span className="text-5xl group-hover:scale-110 transition-transform block mb-2">🌱</span>
-                             <span className="font-bold text-green-700 text-[10px] uppercase tracking-tighter line-clamp-1">{product.name}</span>
-                          </div>
-                        )}
-                        <div className="absolute top-0 right-0 flex flex-col gap-1 items-end">
-                          {product.isBestSeller && <div className="bg-[#ee4d2d] text-white font-bold px-1.5 py-0.5 text-[9px] uppercase shadow-sm">Bán chạy</div>}
-                          {product.isNewArrival && <div className="bg-[#00bfa5] text-white font-bold px-1.5 py-0.5 text-[9px] uppercase shadow-sm">Hàng mới</div>}
-                          {(!product.isBestSeller && !product.isNewArrival) && <div className="bg-[#fce015] text-[#ee4d2d] font-bold px-1.5 py-0.5 text-[9px] uppercase shadow-sm">HOT</div>}
-                        </div>
-                      </div>
-                      {/* Info */}
-                      <div className="p-3 md:p-5 flex flex-col flex-1">
-                        <h3 className="font-medium text-xs md:text-sm text-gray-800 group-hover:text-[#ee4d2d] transition-colors line-clamp-2 mb-3 min-h-[32px] md:min-h-[40px]">{product.name}</h3>
-                        <div className="mt-auto">
-                          <div className="flex items-center justify-between mb-3">
-                             <span className="font-black text-[#ee4d2d] text-sm md:text-lg">₫{(product.price).toLocaleString("vi-VN")}</span>
-                          </div>
-                          <button 
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              handleQuickBuy(product);
-                            }}
-                            className="w-full bg-[#ee4d2d] text-white py-2.5 rounded-sm font-bold text-xs hover:bg-[#d73211] transition-colors uppercase shadow-sm active:scale-95"
-                          >
-                            Mua ngay
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-3 md:gap-6">
+                {products.map((product: any, i: number) => (
+                  <ProductCard key={i} product={product} />
+                ))}
               </div>
+            ) : (
+              <div className="bg-white p-20 text-center rounded-sm border border-dashed border-gray-300">
+                 <p className="text-gray-500">Chưa có sản phẩm nào trong danh mục này.</p>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
             ) : (
               <div className="bg-white p-20 text-center rounded-sm border border-dashed border-gray-300">
                  <p className="text-gray-500">Chưa có sản phẩm nào trong danh mục này.</p>

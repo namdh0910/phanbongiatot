@@ -90,25 +90,13 @@ export default function ProductActions({ product }: { product: any }) {
 
       {/* Mobile Sticky Action Bar */}
       <div className="fixed bottom-0 left-0 w-full bg-white border-t border-gray-100 flex md:hidden z-[60] h-[60px] shadow-[0_-4px_15px_rgba(0,0,0,0.1)]">
-        <div className="flex-1 flex border-r border-gray-100">
-           <a 
-            href="https://zalo.me/0773440966" 
-            target="_blank" 
-            onClick={() => trackEvent('Contact', { method: 'Zalo_Mobile_Bar' })}
-            className="flex-1 flex flex-col items-center justify-center text-[10px] text-gray-600 active:bg-gray-50"
-          >
-            <span className="text-xl">💬</span>
-            <span>Chat ngay</span>
-          </a>
-          <div className="w-px h-8 bg-gray-100 self-center"></div>
-          <button 
-            onClick={handleAddToCart}
-            className="flex-1 flex flex-col items-center justify-center text-[10px] text-gray-600 active:bg-gray-50"
-          >
-            <span className="text-xl">🛒</span>
-            <span>Thêm giỏ</span>
-          </button>
-        </div>
+        <a 
+          href="https://zalo.me/0773440966" 
+          target="_blank" 
+          className="flex-1 bg-white text-[#1a5c2a] flex items-center justify-center font-bold text-sm active:bg-gray-50 border-r border-gray-100"
+        >
+          💬 Chat kỹ sư
+        </a>
         <button 
           onClick={handleBuyNow}
           className="flex-1 bg-[#ee4d2d] text-white flex items-center justify-center font-black text-sm active:bg-[#d73211] tracking-wide"

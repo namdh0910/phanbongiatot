@@ -204,9 +204,18 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
            <div className="flex-1 space-y-6">
               {/* Product Info Sections */}
               <div className="bg-white md:rounded-sm shadow-sm overflow-hidden">
-                <h2 className="bg-[#f5f5f5] p-4 text-sm font-bold text-gray-800 uppercase tracking-wider">Thông Tin Chi Tiết</h2>
-                <div className="p-6 space-y-8">
-                   {/* Benefits */}
+                {/* Desktop Titles */}
+                <h2 className="hidden md:block bg-[#f5f5f5] p-4 text-sm font-bold text-gray-800 uppercase tracking-wider">Thông Tin Chi Tiết</h2>
+                
+                {/* Mobile Tabs */}
+                <div className="md:hidden flex border-b border-gray-100">
+                  <button className="flex-1 py-4 text-sm font-bold text-[#ee4d2d] border-b-2 border-[#ee4d2d]">Mô tả</button>
+                  <button className="flex-1 py-4 text-sm font-bold text-gray-500">Kỹ thuật</button>
+                  <button className="flex-1 py-4 text-sm font-bold text-gray-500">Đánh giá</button>
+                </div>
+
+                <div className="p-4 md:p-6 space-y-6 md:space-y-8">
+                   {/* Benefits (visible in both or just desc tab) */}
                    {product.benefits?.length > 0 && (
                      <div className="space-y-4">
                         <p className="font-bold text-gray-900 flex items-center gap-2">💎 Lợi ích vượt trội:</p>
