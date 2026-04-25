@@ -22,6 +22,9 @@ export default function VendorRegister() {
     description: "",
     interests: [] as string[],
     channels: [] as string[],
+    idCardFront: "",
+    idCardBack: "",
+    businessLicense: "",
     agreeTerms: false
   });
   
@@ -81,11 +84,20 @@ export default function VendorRegister() {
 
     setLoading(true);
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      setSuccess(true);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/sellers/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+      
+      if (res.ok) {
+        setSuccess(true);
+      } else {
+        const data = await res.json();
+        alert(data.message || "Có lỗi xảy ra khi gửi đăng ký");
+      }
     } catch {
-      alert("Có lỗi xảy ra, vui lòng thử lại");
+      alert("Lỗi kết nối máy chủ, vui lòng thử lại sau");
     } finally {
       setLoading(false);
     }
@@ -252,6 +264,33 @@ export default function VendorRegister() {
 
             {step === 3 && (
               <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-black text-gray-400 uppercase mb-3">Mặt trước CCCD/CMND *</label>
+                    <div className="aspect-[1.6/1] border-2 border-dashed border-gray-200 rounded-2xl flex flex-col items-center justify-center bg-gray-50 hover:bg-gray-100 transition-all cursor-pointer relative overflow-hidden group">
+                      <span className="text-2xl mb-1 group-hover:scale-110 transition-transform">📸</span>
+                      <span className="text-[10px] font-bold text-gray-400">Bấm để tải ảnh</span>
+                      <input type="file" className="absolute inset-0 opacity-0 cursor-pointer" accept="image/*" />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-xs font-black text-gray-400 uppercase mb-3">Mặt sau CCCD/CMND *</label>
+                    <div className="aspect-[1.6/1] border-2 border-dashed border-gray-200 rounded-2xl flex flex-col items-center justify-center bg-gray-50 hover:bg-gray-100 transition-all cursor-pointer relative overflow-hidden group">
+                      <span className="text-2xl mb-1 group-hover:scale-110 transition-transform">📸</span>
+                      <span className="text-[10px] font-bold text-gray-400">Bấm để tải ảnh</span>
+                      <input type="file" className="absolute inset-0 opacity-0 cursor-pointer" accept="image/*" />
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-black text-gray-400 uppercase mb-3">Giấy phép kinh doanh (Không bắt buộc)</label>
+                  <div className="border-2 border-dashed border-gray-200 rounded-2xl p-4 flex items-center justify-between bg-gray-50">
+                    <span className="text-xs text-gray-400 italic">Chưa chọn tệp nào...</span>
+                    <button type="button" className="text-xs font-black text-[#1a5c2a] bg-white px-3 py-1.5 rounded-lg border border-gray-100 shadow-sm">Chọn tệp</button>
+                  </div>
+                </div>
+
                 <div>
                   <label className="block text-xs font-black text-gray-400 uppercase mb-3">Danh mục anh/chị quan tâm</label>
                   <div className="flex flex-wrap gap-2">

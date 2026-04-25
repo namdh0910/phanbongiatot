@@ -50,6 +50,7 @@ const aiRoutes = require('./routes/aiRoutes');
 const orderRoutes = require('./routes/orderRoutes');
 const socialRoutes = require('./routes/socialRoutes');
 const couponRoutes = require('./routes/couponRoutes');
+const sellerRoutes = require('./routes/sellerApplicationRoutes');
 
 // Mount routers
 app.use('/api/auth', authRoutes);
@@ -63,6 +64,7 @@ app.use('/api/upload', uploadRoutes);
 app.use('/api/reviews', reviewRoutes);
 app.use('/api/settings', settingsRoutes);
 app.use('/api/ai', aiRoutes);
+app.use('/api/sellers', sellerRoutes);
 
 app.get('/', (req, res) => {
   res.json({ status: 'ok', message: 'Phân Bón Giá Tốt API' });
