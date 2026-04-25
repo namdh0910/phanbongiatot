@@ -96,5 +96,3 @@ const ComboSection: React.FC = () => {
 };
 
 export default ComboSection;
-
-export default ComboSection;
