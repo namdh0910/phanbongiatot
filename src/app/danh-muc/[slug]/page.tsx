@@ -30,11 +30,18 @@ export default function CategoryPage() {
     fetch(`${API_BASE_URL}/products?category=${encodeURIComponent(categoryStr)}`)
       .then(res => res.json())
       .then(data => {
-        setProducts(data);
+        if (Array.isArray(data)) {
+          setProducts(data);
+        } else if (data && typeof data === 'object' && Array.isArray((data as any).products)) {
+          setProducts((data as any).products);
+        } else {
+          setProducts([]);
+        }
         setIsLoading(false);
       })
       .catch(err => {
-        console.error(err);
+        console.error("Error fetching category products:", err);
+        setProducts([]);
         setIsLoading(false);
       });
   }, [slug, categoryInfo.name]);
@@ -108,7 +115,7 @@ export default function CategoryPage() {
                 {[1,2,3,4,5,6].map(i => <div key={i} className="aspect-[4/5] bg-gray-200 animate-pulse rounded-sm"></div>)}
               </div>
             ) : products.length > 0 ? (
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-3 md:gap-6">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6">
                 {products.map((product: any, i: number) => (
                   <ProductCard key={i} product={product} />
                 ))}

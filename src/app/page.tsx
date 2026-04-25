@@ -27,14 +27,26 @@ export default function Home() {
     // Fetch products
     fetch(`${API_BASE_URL}/products`, { cache: 'no-store' })
       .then(res => res.json())
-      .then(data => setProducts(data.slice(0, 4)))
-      .catch(err => console.error(err));
+      .then(data => {
+        if (Array.isArray(data)) {
+          setProducts(data.slice(0, 8)); // Hiển thị 8 sản phẩm (2 hàng)
+        } else if (data && typeof data === 'object' && Array.isArray((data as any).products)) {
+          setProducts((data as any).products.slice(0, 8));
+        }
+      })
+      .catch(err => console.error("Error fetching products:", err));
 
     // Fetch blogs
     fetch(`${API_BASE_URL}/blogs`, { cache: 'no-store' })
       .then(res => res.json())
-      .then(data => setBlogs(data.slice(0, 3)))
-      .catch(err => console.error(err));
+      .then(data => {
+        if (Array.isArray(data)) {
+          setBlogs(data.slice(0, 3));
+        } else if (data && typeof data === 'object' && Array.isArray((data as any).blogs)) {
+          setBlogs((data as any).blogs.slice(0, 3));
+        }
+      })
+      .catch(err => console.error("Error fetching blogs:", err));
   }, []);
 
   const handleQuickBuy = (product: any) => {
@@ -67,11 +79,19 @@ export default function Home() {
           </Link>
         </div>
         
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6 px-4 md:px-0">
-          {products.map((product: any, i: number) => (
-            <ProductCard key={i} product={product} />
-          ))}
-        </div>
+        {products.length > 0 ? (
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6 px-4 md:px-0">
+            {products.map((product: any, i: number) => (
+              <ProductCard key={i} product={product} />
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 px-4 md:px-0">
+            {[1,2,3,4].map(i => (
+              <div key={i} className="aspect-[3/4] bg-gray-200 animate-pulse rounded-xl"></div>
+            ))}
+          </div>
+        )}
       </section>
       
       <SocialProof />
@@ -87,19 +107,39 @@ export default function Home() {
             TẤT CẢ <span className="hidden md:inline">BÀI VIẾT</span> <span>▶</span>
           </Link>
         </div>
-        <div className="flex overflow-x-auto pb-4 gap-4 md:grid md:grid-cols-3 md:overflow-visible scrollbar-hide px-4 md:px-0">
-          {blogs.map((blog: any, i: number) => (
-            <Link href={`/blog/${blog.slug}`} key={i} className="flex-shrink-0 w-[80%] md:w-auto group flex flex-col bg-white rounded-sm shadow-sm hover:shadow-md transition-all border border-gray-100 overflow-hidden">
-               <div className="aspect-[16/9] bg-emerald-50 relative flex items-center justify-center overflow-hidden">
-                  <img src={blog.image || ""} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt={blog.title} />
-               </div>
-               <div className="p-3 md:p-5">
-                  <h3 className="font-bold text-gray-900 group-hover:text-emerald-600 transition-colors line-clamp-2 mb-2 text-sm md:text-lg leading-snug">{blog.title}</h3>
-                  <p className="text-xs text-gray-500 line-clamp-2 mb-3 leading-relaxed hidden md:block">{blog.excerpt}</p>
-               </div>
-            </Link>
-          ))}
-        </div>
+        
+        {blogs.length > 0 ? (
+          <div className="flex overflow-x-auto pb-4 gap-4 md:grid md:grid-cols-3 md:overflow-visible scrollbar-hide px-4 md:px-0">
+            {blogs.map((blog: any, i: number) => (
+              <Link href={`/blog/${blog.slug}`} key={i} className="flex-shrink-0 w-[80%] md:w-auto group flex flex-col bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all border border-gray-100 overflow-hidden">
+                <div className="aspect-[16/9] bg-emerald-50 relative flex items-center justify-center overflow-hidden">
+                    <img src={blog.image || "https://img.icons8.com/bubbles/200/000000/news.png"} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt={blog.title} />
+                    <div className="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[10px] font-black text-emerald-700 uppercase shadow-sm">
+                      Mới nhất
+                    </div>
+                </div>
+                <div className="p-5 md:p-6">
+                    <div className="flex items-center gap-2 text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-3">
+                       <span>📅 {new Date(blog.createdAt || Date.now()).toLocaleDateString('vi-VN')}</span>
+                       <span>•</span>
+                       <span>By Kỹ Sư PBGT</span>
+                    </div>
+                    <h3 className="font-black text-gray-900 group-hover:text-emerald-600 transition-colors line-clamp-2 mb-3 text-base md:text-xl leading-tight">{blog.title}</h3>
+                    <p className="text-sm text-gray-500 line-clamp-2 mb-5 leading-relaxed">{blog.excerpt || "Xem chi tiết hướng dẫn kỹ thuật từ đội ngũ kỹ sư nông nghiệp chuyên nghiệp..."}</p>
+                    <div className="flex items-center text-emerald-600 text-sm font-black uppercase tracking-wider group-hover:gap-3 gap-2 transition-all">
+                      Đọc tiếp <span>➜</span>
+                    </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 px-4 md:px-0">
+             {[1,2,3].map(i => (
+               <div key={i} className="aspect-video bg-gray-200 animate-pulse rounded-2xl"></div>
+             ))}
+          </div>
+        )}
       </section>
 
       <BrandMarquee />

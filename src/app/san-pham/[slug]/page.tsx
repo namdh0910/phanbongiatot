@@ -196,12 +196,14 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
               </h3>
               <p className="text-xs text-gray-500 mb-2">Online 5 phút trước</p>
               <div className="flex gap-2">
-                <button className="border border-[#ee4d2d] text-[#ee4d2d] px-3 py-1 rounded-sm text-xs font-medium flex items-center gap-1 hover:bg-red-50">
+                <a href="https://zalo.me/0773440966" target="_blank" className="border border-[#ee4d2d] text-[#ee4d2d] px-3 py-1 rounded-sm text-xs font-medium flex items-center gap-1 hover:bg-red-50">
                   <span>💬</span> Chat Ngay
-                </button>
-                <Link href={`/shop/${product.seller?.username || 'admin'}`} className="border border-gray-200 text-gray-600 px-3 py-1 rounded-sm text-xs font-medium flex items-center gap-1 hover:bg-gray-50">
-                  <span>🏪</span> Xem Shop
-                </Link>
+                </a>
+                {product.seller?.role !== 'admin' && (
+                  <Link href={`/shop/${product.seller?.username || 'admin'}`} className="border border-gray-200 text-gray-600 px-3 py-1 rounded-sm text-xs font-medium flex items-center gap-1 hover:bg-gray-50">
+                    <span>🏪</span> Xem Shop
+                  </Link>
+                )}
               </div>
             </div>
           </div>
