@@ -11,14 +11,47 @@ export default function Header() {
   const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [suggestions, setSuggestions] = useState<any[]>([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
   const { cartCount } = useCart();
   const settings = useSettings();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (searchQuery.trim().length >= 2) {
+        fetchSuggestions();
+      } else {
+        setSuggestions([]);
+      }
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [searchQuery]);
+
+  const fetchSuggestions = async () => {
+    try {
+      const res = await fetch(`${API_BASE_URL}/products`);
+      if (res.ok) {
+        const all = await res.json();
+        const q = searchQuery.toLowerCase();
+        const filtered = all.filter((p: any) => 
+          p.name.toLowerCase().includes(q) || 
+          (p.category && p.category.toLowerCase().includes(q))
+        ).slice(0, 6);
+        setSuggestions(filtered);
+        setShowSuggestions(filtered.length > 0);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
       router.push(`/tim-kiem?q=${encodeURIComponent(searchQuery.trim())}`);
       setMenuOpen(false);
+      setShowSuggestions(false);
     }
   };
 
@@ -81,12 +114,44 @@ export default function Header() {
                  type="text"
                  value={searchQuery}
                  onChange={(e) => setSearchQuery(e.target.value)}
+                 onFocus={() => searchQuery.trim().length >= 2 && setShowSuggestions(true)}
+                 onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
                  placeholder="Tìm kiếm sản phẩm, kỹ thuật sầu riêng, cà phê..."
                  className="w-full bg-gray-50 border-2 border-transparent focus:border-[#1a5c2a] rounded-full py-2.5 pl-5 pr-12 outline-none transition-all text-sm font-medium"
                />
                <button type="submit" className="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 bg-[#1a5c2a] text-white rounded-full flex items-center justify-center hover:bg-green-700 transition-colors">
                  🔍
                </button>
+
+               {/* Suggestions Dropdown */}
+               {showSuggestions && suggestions.length > 0 && (
+                 <div className="absolute top-full left-0 w-full bg-white shadow-2xl rounded-2xl mt-2 py-3 z-[150] border border-gray-100 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
+                    <div className="px-5 pb-2 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-50 mb-2">Gợi ý sản phẩm</div>
+                    {suggestions.map((p) => (
+                      <Link 
+                        key={p._id} 
+                        href={`/san-pham/${p.slug}`}
+                        className="flex items-center gap-4 px-5 py-2.5 hover:bg-green-50 transition-colors group"
+                        onClick={() => setShowSuggestions(false)}
+                      >
+                         <div className="w-12 h-12 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
+                            <img src={p.images[0]} alt={p.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform" />
+                         </div>
+                         <div className="flex-1 min-w-0">
+                            <h4 className="text-sm font-bold text-gray-900 truncate group-hover:text-[#1a5c2a]">{p.name}</h4>
+                            <p className="text-[#ee4d2d] font-black text-xs">{p.price.toLocaleString('vi-VN')}đ</p>
+                         </div>
+                         <span className="text-gray-300 group-hover:text-[#1a5c2a] transition-colors">➜</span>
+                      </Link>
+                    ))}
+                    <button 
+                      onClick={handleSearch}
+                      className="w-full text-center py-2.5 text-xs font-bold text-gray-500 hover:text-[#1a5c2a] hover:bg-gray-50 transition-all border-t border-gray-50 mt-1"
+                    >
+                      Xem tất cả kết quả cho "{searchQuery}"
+                    </button>
+                 </div>
+               )}
             </form>
 
             <a href={`tel:${hotline.replace(/\./g, '')}`} className="flex-shrink-0 flex items-center gap-3 bg-white border-2 border-[#1a5c2a] px-5 py-2 rounded-full hover:bg-green-50 transition-all shadow-sm group">
@@ -166,12 +231,40 @@ export default function Header() {
                  type="text"
                  value={searchQuery}
                  onChange={(e) => setSearchQuery(e.target.value)}
+                 onFocus={() => searchQuery.trim().length >= 2 && setShowSuggestions(true)}
+                 onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
                  placeholder="Tìm kiếm..."
                  className="w-full bg-gray-50 border border-gray-100 rounded-full py-2 pl-4 pr-10 outline-none text-xs"
                />
                <button type="submit" className="absolute right-1 top-1/2 -translate-y-1/2 w-7 h-7 flex items-center justify-center text-gray-400">
                  🔍
                </button>
+
+               {/* Mobile Suggestions */}
+               {showSuggestions && suggestions.length > 0 && (
+                 <div className="absolute top-full left-0 w-screen -ml-12 bg-white shadow-2xl mt-2 py-2 z-[150] border-t border-gray-100 max-h-[60vh] overflow-y-auto">
+                    {suggestions.map((p) => (
+                      <Link 
+                        key={p._id} 
+                        href={`/san-pham/${p.slug}`}
+                        className="flex items-center gap-3 px-4 py-3 border-b border-gray-50"
+                        onClick={() => setShowSuggestions(false)}
+                      >
+                         <img src={p.images[0]} alt={p.name} className="w-10 h-10 object-cover rounded-md flex-shrink-0" />
+                         <div className="flex-1 min-w-0">
+                            <h4 className="text-[13px] font-bold text-gray-900 truncate">{p.name}</h4>
+                            <p className="text-[#ee4d2d] font-black text-[11px]">{p.price.toLocaleString('vi-VN')}đ</p>
+                         </div>
+                      </Link>
+                    ))}
+                    <button 
+                      onClick={handleSearch}
+                      className="w-full text-center py-3 text-xs font-bold text-[#1a5c2a] bg-green-50"
+                    >
+                      Xem tất cả "{searchQuery}"
+                    </button>
+                 </div>
+               )}
             </form>
 
             <button 
