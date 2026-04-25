@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import { useCart } from "@/context/CartContext";
 import { useSettings } from "@/context/SettingsContext";
@@ -8,9 +8,19 @@ import './HeaderFooter.css';
 
 export default function Header() {
   const pathname = usePathname();
+  const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const { cartCount } = useCart();
   const settings = useSettings();
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/tim-kiem?q=${encodeURIComponent(searchQuery.trim())}`);
+      setMenuOpen(false);
+    }
+  };
 
   if (pathname?.startsWith('/admin')) return null;
 
@@ -58,26 +68,34 @@ export default function Header() {
           </div>
 
           {/* Row 2: Logo | Hotline | Logo */}
-          <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+          <div className="container mx-auto px-4 py-4 flex items-center gap-8">
             <Link href="/" className="flex-shrink-0">
               <div className="text-2xl font-black text-[#1a5c2a] tracking-tighter">
                 PhânBón<span className="text-[#f5a623]">GiáTốt</span>
               </div>
             </Link>
 
-            <a href="tel:0773440966" className="flex items-center gap-3 bg-white border-2 border-[#1a5c2a] px-6 py-2 rounded-full hover:bg-green-50 transition-all shadow-sm group">
+            {/* Search Bar Desktop */}
+            <form onSubmit={handleSearch} className="flex-1 max-w-xl relative">
+               <input 
+                 type="text"
+                 value={searchQuery}
+                 onChange={(e) => setSearchQuery(e.target.value)}
+                 placeholder="Tìm kiếm sản phẩm, kỹ thuật sầu riêng, cà phê..."
+                 className="w-full bg-gray-50 border-2 border-transparent focus:border-[#1a5c2a] rounded-full py-2.5 pl-5 pr-12 outline-none transition-all text-sm font-medium"
+               />
+               <button type="submit" className="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 bg-[#1a5c2a] text-white rounded-full flex items-center justify-center hover:bg-green-700 transition-colors">
+                 🔍
+               </button>
+            </form>
+
+            <a href={`tel:${hotline.replace(/\./g, '')}`} className="flex-shrink-0 flex items-center gap-3 bg-white border-2 border-[#1a5c2a] px-5 py-2 rounded-full hover:bg-green-50 transition-all shadow-sm group">
                <div className="w-8 h-8 bg-[#1a5c2a] text-white rounded-full flex items-center justify-center text-sm group-hover:scale-110 transition-transform">📞</div>
                <div className="flex flex-col">
                   <span className="text-[10px] font-black uppercase text-gray-400 leading-none mb-1">Hotline 24/7</span>
-                  <span className="text-lg font-black text-gray-900 leading-none">0773.440.966</span>
+                  <span className="text-lg font-black text-gray-900 leading-none">{hotline}</span>
                </div>
             </a>
-
-            <Link href="/" className="flex-shrink-0">
-              <div className="text-2xl font-black text-[#1a5c2a] tracking-tighter opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all">
-                PhânBón<span className="text-[#f5a623]">GiáTốt</span>
-              </div>
-            </Link>
           </div>
 
           {/* Row 3: Nav Menu & Zalo */}
@@ -102,7 +120,7 @@ export default function Header() {
                </nav>
 
                <div className="flex items-center gap-4">
-                  <a href="https://zalo.me/0773440966" target="_blank" className="bg-[#0068ff] text-white px-6 py-2.5 rounded-xl font-black text-sm flex items-center gap-2 shadow-lg hover:bg-blue-600 transition-all active:scale-95">
+                  <a href={`https://zalo.me/${settings?.zalo || '0773440966'}`} target="_blank" className="bg-[#0068ff] text-white px-6 py-2.5 rounded-xl font-black text-sm flex items-center gap-2 shadow-lg hover:bg-blue-600 transition-all active:scale-95">
                      💬 CHAT ZALO NGAY
                   </a>
                   <Link href="/gio-hang" className="relative p-2 text-gray-800 hover:text-[#1a5c2a] transition-colors">
@@ -119,26 +137,32 @@ export default function Header() {
         </div>
 
         {/* MOBILE HEADER */}
-        <div className="lg:hidden container mx-auto px-4 h-16 flex items-center justify-between">
-          {/* Left: Hotline */}
-          <a href="tel:0773440966" className="flex items-center gap-1 text-[13px] font-bold text-[#1a5c2a] bg-gray-50 px-2 py-1 rounded-full border border-gray-100">
-            <span>📞</span> 0773.440.966
-          </a>
-
-          {/* Center: Logo */}
-          <Link href="/" className="absolute left-1/2 transform -translate-x-1/2">
+        <div className="lg:hidden container mx-auto px-4 h-16 flex items-center justify-between gap-4">
+          <Link href="/" className="flex-shrink-0">
             <div className="text-xl font-black text-[#1a5c2a] tracking-tighter">
-              PhânBón<span className="text-[#f5a623]">GiáTốt</span>
+              PB<span className="text-[#f5a623]">GT</span>
             </div>
           </Link>
 
-          {/* Right: Hamburger */}
+          <form onSubmit={handleSearch} className="flex-1 relative">
+             <input 
+               type="text"
+               value={searchQuery}
+               onChange={(e) => setSearchQuery(e.target.value)}
+               placeholder="Tìm kiếm..."
+               className="w-full bg-gray-50 border border-gray-100 rounded-full py-2 pl-4 pr-10 outline-none text-xs"
+             />
+             <button type="submit" className="absolute right-1 top-1/2 -translate-y-1/2 w-7 h-7 flex items-center justify-center text-gray-400">
+               🔍
+             </button>
+          </form>
+
           <button 
             onClick={() => setMenuOpen(true)}
-            className="w-11 h-11 flex items-center justify-center text-gray-800 hover:text-[#1a5c2a] transition-colors"
+            className="w-10 h-10 flex items-center justify-center text-gray-800 hover:text-[#1a5c2a] transition-colors"
             aria-label="Open Menu"
           >
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
           </button>
         </div>
       </header>
@@ -178,7 +202,7 @@ export default function Header() {
             {/* Bottom Actions */}
             <div className="p-6 border-t bg-gray-50">
               <a 
-                href={`https://zalo.me/${zaloId}`} 
+                href={`https://zalo.me/${settings?.zalo || '0773440966'}`} 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="w-full bg-[#0068ff] text-white py-4 rounded-xl font-black text-center block shadow-lg active:scale-95 transition-transform"

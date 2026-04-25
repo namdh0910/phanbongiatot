@@ -47,11 +47,20 @@ export default function BlogIndex() {
     }
   };
 
+  const toSlug = (str: string) =>
+    str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+      .replace(/đ/g, "d").replace(/[^a-z0-9 -]/g, "")
+      .replace(/\s+/g, "-").replace(/-+/g, "-");
+
   useEffect(() => {
     if (activeTab === 'all') {
       setFilteredPosts(posts);
     } else {
-      setFilteredPosts(posts.filter(p => p.tags?.includes(activeTab) || p.category === activeTab));
+      setFilteredPosts(posts.filter(p => 
+        p.tags?.some((t: string) => toSlug(t).includes(activeTab)) || 
+        (p.category && toSlug(p.category) === activeTab) ||
+        (p.title && toSlug(p.title).includes(activeTab))
+      ));
     }
     setVisibleCount(6);
   }, [activeTab, posts]);

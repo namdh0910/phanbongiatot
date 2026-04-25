@@ -9,7 +9,7 @@ const MobileBottomBar: React.FC = () => {
   const { cartCount } = useCart();
   const settings = useSettings();
   const phone = settings?.hotline || "0773440966";
-  const zaloId = settings?.zaloId || "0773440966";
+  const zaloId = settings?.zalo || "0773440966";
 
   return (
     <div className="mobile-bottom-bar">

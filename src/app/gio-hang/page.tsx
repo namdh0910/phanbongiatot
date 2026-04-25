@@ -6,7 +6,7 @@ import { useCart } from "@/context/CartContext";
 import { API_BASE_URL } from "@/utils/api";
 
 export default function CartPage() {
-  const { cart, removeFromCart, cartTotal } = useCart();
+  const { cart, removeFromCart, updateQuantity, cartTotal } = useCart();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<'cart' | 'orders'>('cart');
   
@@ -137,7 +137,25 @@ export default function CartPage() {
                               </div>
                             </div>
                           </td>
-                          <td className="p-4 text-center font-bold">{item.quantity}</td>
+                          <td className="p-4 text-center">
+                            <div className="flex items-center justify-center gap-0 border border-gray-200 rounded-lg w-fit mx-auto overflow-hidden">
+                              <button 
+                                onClick={() => updateQuantity(i, item.quantity - 1)}
+                                className="w-8 h-8 flex items-center justify-center bg-gray-50 hover:bg-gray-100 transition-colors text-gray-600 font-bold"
+                              >
+                                −
+                              </button>
+                              <div className="w-10 h-8 flex items-center justify-center font-black text-sm border-x border-gray-200 bg-white">
+                                {item.quantity}
+                              </div>
+                              <button 
+                                onClick={() => updateQuantity(i, item.quantity + 1)}
+                                className="w-8 h-8 flex items-center justify-center bg-gray-50 hover:bg-gray-100 transition-colors text-gray-600 font-bold"
+                              >
+                                +
+                              </button>
+                            </div>
+                          </td>
                           <td className="p-4 text-center">
                             <span className="text-[#ee4d2d] font-bold">₫{item.price?.toLocaleString("vi-VN")}</span>
                           </td>

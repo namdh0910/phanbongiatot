@@ -15,7 +15,7 @@ export default function MobileBottomNav() {
     { label: "Trang chủ", icon: "🏠", href: "/" },
     { label: "Danh mục", icon: "📦", href: "/danh-muc/phan-bon" },
     { label: "Giỏ hàng", icon: "🛒", href: "/gio-hang", badge: cartCount },
-    { label: "Zalo", icon: "💬", href: `https://zalo.me/${settings?.zaloId || '0773440966'}`, isExternal: true },
+    { label: "Zalo", icon: "💬", href: `https://zalo.me/${settings?.zalo || '0773440966'}`, isExternal: true },
     { label: "Tài khoản", icon: "👤", href: "/kenh-nguoi-ban/dang-nhap" },
   ];
 

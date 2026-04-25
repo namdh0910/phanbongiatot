@@ -44,13 +44,16 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
   // Fetch related products and best sellers
   let relatedProducts = [];
   let bestSellers = [];
+  let settings: any = null;
   try {
-    const [relRes, bestRes] = await Promise.all([
+    const [relRes, bestRes, setRes] = await Promise.all([
       fetch(`${API_BASE_URL}/products?category=${encodeURIComponent(product.category)}`, { next: { revalidate: 3600 } }),
-      fetch(`${API_BASE_URL}/products`, { next: { revalidate: 3600 } })
+      fetch(`${API_BASE_URL}/products`, { next: { revalidate: 3600 } }),
+      fetch(`${API_BASE_URL}/settings`, { next: { revalidate: 3600 } })
     ]);
     if (relRes.ok) relatedProducts = (await relRes.json()).filter((p: any) => p._id !== product._id).slice(0, 4);
     if (bestRes.ok) bestSellers = (await bestRes.json()).slice(0, 5);
+    if (setRes.ok) settings = await setRes.json();
   } catch (err) {
     console.error(err);
   }
@@ -67,37 +70,34 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
 
   return (
     <div className="bg-[#f5f5f5] min-h-screen pb-24 font-sans text-gray-800">
-      <head>
-        <link rel="preconnect" href="https://zalo.me" />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Product",
-            "name": product.name,
-            "image": validImages,
-            "description": product.description?.slice(0, 200),
-            "sku": product._id,
-            "brand": {
-              "@type": "Brand",
-              "name": "Phân Bón Giá Tốt"
-            },
-            "offers": {
-              "@type": "Offer",
-              "url": `https://phanbongiatot.com/san-pham/${product.slug}`,
-              "priceCurrency": "VND",
-              "price": product.price,
-              "availability": product.stock > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
-              "itemCondition": "https://schema.org/NewCondition"
-            },
-            "aggregateRating": {
-              "@type": "AggregateRating",
-              "ratingValue": fakeRating,
-              "reviewCount": "2100"
-            }
-          }) }}
-        />
-      </head>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Product",
+          "name": product.name,
+          "image": validImages,
+          "description": product.description?.slice(0, 200),
+          "sku": product._id,
+          "brand": {
+            "@type": "Brand",
+            "name": "Phân Bón Giá Tốt"
+          },
+          "offers": {
+            "@type": "Offer",
+            "url": `https://phanbongiatot.com/san-pham/${product.slug}`,
+            "priceCurrency": "VND",
+            "price": product.price,
+            "availability": product.stock > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+            "itemCondition": "https://schema.org/NewCondition"
+          },
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": fakeRating,
+            "reviewCount": "2100"
+          }
+        }) }}
+      />
       <div className="container mx-auto px-0 md:px-4 py-4 max-w-6xl">
         {/* Breadcrumb */}
         <nav className="text-sm text-gray-500 mb-4 px-4 md:px-0 flex items-center gap-2 overflow-x-auto whitespace-nowrap scrollbar-hide">
@@ -116,7 +116,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
               <div className="flex items-center gap-2">
                 <span className="text-lg">🔗</span> Chia sẻ: 
                 <a href={`https://www.facebook.com/sharer/sharer.php?u=https://phanbongiatot.com/san-pham/${product.slug}`} target="_blank" className="hover:text-[#1a5c2a] font-bold">Facebook</a>
-                <a href="https://zalo.me/0773440966" target="_blank" className="hover:text-[#1a5c2a] font-bold">Zalo</a>
+                <a href={`https://zalo.me/${settings?.zalo || '0773440966'}`} target="_blank" className="hover:text-[#1a5c2a] font-bold">Zalo</a>
               </div>
               <div className="w-px h-4 bg-gray-200"></div>
               <div className="flex items-center gap-2 cursor-pointer hover:text-[#ee4d2d]">
@@ -196,7 +196,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
               </h3>
               <p className="text-xs text-gray-500 mb-2">Online 5 phút trước</p>
               <div className="flex gap-2">
-                <a href="https://zalo.me/0773440966" target="_blank" className="border border-[#ee4d2d] text-[#ee4d2d] px-3 py-1 rounded-sm text-xs font-medium flex items-center gap-1 hover:bg-red-50">
+                <a href={`https://zalo.me/${settings?.zalo || '0773440966'}`} target="_blank" className="border border-[#ee4d2d] text-[#ee4d2d] px-3 py-1 rounded-sm text-xs font-medium flex items-center gap-1 hover:bg-red-50">
                   <span>💬</span> Chat Ngay
                 </a>
                 {product.seller?.role !== 'admin' && (

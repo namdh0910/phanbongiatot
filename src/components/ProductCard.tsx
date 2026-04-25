@@ -28,7 +28,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
   const handleConsult = (e: React.MouseEvent) => {
     e.stopPropagation();
-    window.open(`https://zalo.me/${zaloId}`, '_blank');
+    window.open(`https://zalo.me/${settings?.zalo || '0773440966'}`, '_blank');
   };
 
   const imgSrc = product.images?.[0];

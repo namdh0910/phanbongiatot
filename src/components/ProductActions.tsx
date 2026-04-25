@@ -3,12 +3,14 @@ import { useState } from "react";
 import { trackEvent } from "@/utils/analytics";
 import { useCart } from "@/context/CartContext";
 import { useRouter } from "next/navigation";
+import { useSettings } from "@/context/SettingsContext";
 
 export default function ProductActions({ product }: { product: any }) {
   const [showCartSuccess, setShowCartSuccess] = useState(false);
   const [qty, setQty] = useState(1);
   const { addToCart } = useCart();
   const router = useRouter();
+  const settings = useSettings();
 
   const handleAddToCart = () => {
     trackEvent('AddToCart', {
@@ -91,7 +93,7 @@ export default function ProductActions({ product }: { product: any }) {
       {/* Mobile Sticky Action Bar */}
       <div className="fixed bottom-0 left-0 w-full bg-white border-t border-gray-100 flex md:hidden z-[60] h-[60px] shadow-[0_-4px_15px_rgba(0,0,0,0.1)]">
         <a 
-          href="https://zalo.me/0773440966" 
+          href={`https://zalo.me/${settings?.zalo || '0773440966'}`} 
           target="_blank" 
           className="flex-1 bg-white text-[#1a5c2a] flex items-center justify-center font-bold text-sm active:bg-gray-50 border-r border-gray-100"
         >

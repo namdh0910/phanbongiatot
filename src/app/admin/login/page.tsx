@@ -43,7 +43,7 @@ export default function AdminLogin() {
       <div className="bg-white w-full max-w-md rounded-2xl shadow-xl overflow-hidden border border-gray-100">
         <div className="bg-[#0d2a1c] p-8 text-center text-white">
           <h1 className="text-2xl font-black uppercase tracking-tight">Quản Trị Hệ Thống</h1>
-          <p className="text-emerald-400 text-xs mt-2 font-bold">PHANBONGITATOT.COM</p>
+          <p className="text-emerald-400 text-xs mt-2 font-bold">PHANBONGIATOT.COM</p>
         </div>
 
         <form onSubmit={handleLogin} className="p-8 space-y-6">

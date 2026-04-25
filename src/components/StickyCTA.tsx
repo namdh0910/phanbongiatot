@@ -2,10 +2,12 @@
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { trackEvent } from "@/utils/analytics";
+import { useSettings } from "@/context/SettingsContext";
 
 export default function StickyCTA() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+  const settings = useSettings();
 
   if (pathname?.startsWith('/admin')) return null;
 
@@ -39,7 +41,7 @@ export default function StickyCTA() {
 
         {/* Zalo Button */}
         <a 
-          href="https://zalo.me/0773440966" 
+          href={`https://zalo.me/${settings?.zalo || '0773440966'}`} 
           target="_blank" 
           rel="noopener noreferrer" 
           onClick={handleZalo}
@@ -55,7 +57,7 @@ export default function StickyCTA() {
 
         {/* Hotline Button */}
         <a 
-          href="tel:0773440966" 
+          href={`tel:${settings?.hotline || '0773440966'}`} 
           onClick={handleCall}
           className="group relative flex items-center"
         >

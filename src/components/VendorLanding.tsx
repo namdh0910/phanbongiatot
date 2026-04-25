@@ -1,9 +1,11 @@
 "use client";
 import React from 'react';
 import Link from 'next/link';
+import { useSettings } from "@/context/SettingsContext";
 import './VendorLanding.css';
 
 const VendorLanding: React.FC = () => {
+  const settings = useSettings();
   return (
     <div className="vendor-landing">
       {/* Hero Section */}
@@ -19,7 +21,7 @@ const VendorLanding: React.FC = () => {
             <Link href="/kenh-nguoi-ban/dang-ky" className="bg-[#f5a623] text-white px-10 py-4 rounded-full font-black text-lg shadow-2xl hover:scale-105 transition-all">
               Đăng ký ngay — Miễn phí
             </Link>
-            <a href="https://zalo.me/0773440966" target="_blank" className="bg-white text-[#1a5c2a] px-10 py-4 rounded-full font-black text-lg shadow-xl hover:bg-gray-50 transition-all border-2 border-transparent hover:border-white/20">
+            <a href={`https://zalo.me/${settings?.zalo || '0773440966'}`} target="_blank" className="bg-white text-[#1a5c2a] px-10 py-4 rounded-full font-black text-lg shadow-xl hover:bg-gray-50 transition-all border-2 border-transparent hover:border-white/20">
               Nhắn Zalo tư vấn
             </a>
           </div>

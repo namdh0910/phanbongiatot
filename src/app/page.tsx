@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { trackEvent } from "@/utils/analytics";
 import { useCart } from "@/context/CartContext";
+import { useSettings } from "@/context/SettingsContext";
 import Hero from "@/components/Hero";
 import TrustBar from "@/components/TrustBar";
 import FlashSale from "@/components/FlashSale";
@@ -31,6 +32,7 @@ export default function Home() {
   const [blogs, setBlogs] = useState<any[]>([]);
   const [loadingProducts, setLoadingProducts] = useState(true);
   const [loadingBlogs, setLoadingBlogs] = useState(true);
+  const settings = useSettings();
 
   useEffect(() => {
     // Fetch products
@@ -181,11 +183,11 @@ export default function Home() {
                  Đừng để sâu bệnh phá hoại vườn cây của anh/chị. Đội ngũ kỹ sư giàu kinh nghiệm luôn sẵn sàng hỗ trợ phác đồ điều trị nhanh nhất.
               </p>
               <div className="flex flex-col md:flex-row justify-center gap-6">
-                 <a href="https://zalo.me/0773440966" target="_blank" className="bg-yellow-400 text-[#1a5c2a] px-12 py-5 rounded-2xl font-black text-xl shadow-2xl hover:bg-yellow-300 transition-all uppercase tracking-wider active:scale-95">
+                 <a href={`https://zalo.me/${settings?.zalo || '0773440966'}`} target="_blank" className="bg-yellow-400 text-[#1a5c2a] px-12 py-5 rounded-2xl font-black text-xl shadow-2xl hover:bg-yellow-300 transition-all uppercase tracking-wider active:scale-95">
                     💬 NHẬN TƯ VẤN KỸ THUẬT
                  </a>
-                 <a href="tel:0773440966" className="bg-white/10 backdrop-blur-md border-2 border-white/30 text-white px-12 py-5 rounded-2xl font-black text-xl hover:bg-white/20 transition-all uppercase tracking-wider active:scale-95">
-                    📞 GỌI 0773.440.966
+                 <a href={`tel:${settings?.hotline || '0773440966'}`} className="bg-white/10 backdrop-blur-md border-2 border-white/30 text-white px-12 py-5 rounded-2xl font-black text-xl hover:bg-white/20 transition-all uppercase tracking-wider active:scale-95">
+                    📞 GỌI {settings?.hotline || "0773.440.966"}
                  </a>
               </div>
            </div>

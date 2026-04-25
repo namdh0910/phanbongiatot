@@ -10,7 +10,7 @@ const Hero: React.FC = () => {
   const title = settings?.heroTitle || "Tăng Năng Suất Vượt Ngưỡng Kỳ Vọng";
   const subtitle = settings?.heroSubtitle || "Giải pháp phân bón công nghệ cao, giúp cây trồng hấp thụ tối đảo dinh dưỡng, tăng năng suất vượt trội và bền vững cho nhà nông.";
   const banner = settings?.heroBanner || "/images/hero-bg.png";
-  const zaloId = settings?.zaloId || "0773440966";
+  const zaloId = settings?.zalo || "0773440966";
   const hotline = settings?.hotline || "0773.440.966";
   const primaryColor = settings?.primaryColor || "#1a5c2a";
 
@@ -41,13 +41,13 @@ const Hero: React.FC = () => {
           {subtitle}
         </p>
 
-        <a href="tel:0773440966" className="hero-hotline">
-          📞 0773.440.966
+        <a href={`tel:${hotline.replace(/\./g, '')}`} className="hero-hotline">
+          📞 {hotline}
         </a>
         
         <div className="hero-actions">
           <a 
-            href="https://zalo.me/0773440966" 
+            href={`https://zalo.me/${zaloId}`} 
             target="_blank" 
             rel="noopener noreferrer" 
             className="btn btn-primary"

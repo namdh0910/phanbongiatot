@@ -1,12 +1,14 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
+import { useSettings } from "@/context/SettingsContext";
 
 const PROVINCES = [
   "An Giang", "Bà Rịa - Vũng Tàu", "Bắc Giang", "Bắc Kạn", "Bạc Liêu", "Bắc Ninh", "Bến Tre", "Bình Định", "Bình Dương", "Bình Phước", "Bình Thuận", "Cà Mau", "Cần Thơ", "Cao Bằng", "Đà Nẵng", "Đắk Lắk", "Đắk Nông", "Điện Biên", "Đồng Nai", "Đồng Tháp", "Gia Lai", "Hà Giang", "Hà Nam", "Hà Nội", "Hà Tĩnh", "Hải Dương", "Hải Phòng", "Hậu Giang", "Hòa Bình", "Hưng Yên", "Khánh Hòa", "Kiên Giang", "Kon Tum", "Lai Châu", "Lâm Đồng", "Lạng Sơn", "Lào Cai", "Long An", "Nam Định", "Nghệ An", "Ninh Bình", "Ninh Thuận", "Phú Thọ", "Phú Yên", "Quảng Bình", "Quảng Nam", "Quảng Ngãi", "Quảng Ninh", "Quảng Trị", "Sóc Trăng", "Sơn La", "Tây Ninh", "Thái Bình", "Thái Nguyên", "Thanh Hóa", "Thừa Thiên Huế", "Tiền Giang", "TP Hồ Chí Minh", "Trà Vinh", "Tuyên Quang", "Vĩnh Long", "Vĩnh Phúc", "Yên Bái"
 ];
 
 export default function VendorRegister() {
+  const settings = useSettings();
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     fullName: "",
@@ -99,7 +101,7 @@ export default function VendorRegister() {
             Cảm ơn anh/chị <b>{formData.fullName}</b> đã tin tưởng. Kỹ sư chuyên trách sẽ liên hệ tư vấn trong vòng <b>24h</b> tới.
           </p>
           <div className="space-y-4">
-             <a href="https://zalo.me/0773440966" target="_blank" className="block w-full bg-[#0068ff] text-white py-4 rounded-2xl font-black text-lg shadow-lg hover:bg-blue-600 transition-all">
+             <a href={`https://zalo.me/${settings?.zalo || '0773440966'}`} target="_blank" className="block w-full bg-[#0068ff] text-white py-4 rounded-2xl font-black text-lg shadow-lg hover:bg-blue-600 transition-all">
                Chat Zalo để được hỗ trợ sớm hơn
              </a>
              <Link href="/" className="block w-full text-gray-400 font-bold hover:text-gray-600"> Quay lại trang chủ </Link>
