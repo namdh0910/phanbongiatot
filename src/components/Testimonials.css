@@ -1,0 +1,125 @@
+/* Testimonials.css */
+.testimonial-section {
+  padding: 5rem 1rem;
+  background-color: #ffffff;
+  font-family: 'Inter', sans-serif;
+  overflow: hidden;
+}
+
+.testimonial-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.testimonial-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.testimonial-header h2 {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #1a5c2a;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.testimonial-header p {
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.testimonial-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.testimonial-card {
+  background: #f9fafb;
+  border-radius: 20px;
+  padding: 2.5rem 2rem;
+  position: relative;
+  border: 1px solid #eee;
+  transition: all 0.3s ease;
+}
+
+.testimonial-card:hover {
+  background: #fff;
+  border-color: #1a5c2a;
+  box-shadow: 0 20px 40px rgba(26, 92, 42, 0.08);
+  transform: translateY(-5px);
+}
+
+.quote-icon {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 3rem;
+  color: #1a5c2a;
+  opacity: 0.1;
+}
+
+.farmer-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.farmer-avatar {
+  width: 60px;
+  height: 60px;
+  background: #1a5c2a;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.farmer-details h3 {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #111;
+  margin: 0;
+}
+
+.farmer-details p {
+  font-size: 0.85rem;
+  color: #1a5c2a;
+  font-weight: 600;
+  margin: 2px 0 0;
+}
+
+.testimonial-stars {
+  color: #f5a623;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.testimonial-content {
+  font-size: 1rem;
+  color: #444;
+  line-height: 1.6;
+  font-style: italic;
+  margin: 0;
+}
+
+@media (max-width: 1024px) {
+  .testimonial-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .testimonial-grid {
+    grid-template-columns: 1fr;
+  }
+  .testimonial-header h2 {
+    font-size: 2rem;
+  }
+}

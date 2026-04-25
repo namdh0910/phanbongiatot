@@ -10,6 +10,7 @@ import Hero from "@/components/Hero";
 import TrustBar from "@/components/TrustBar";
 import FlashSale from "@/components/FlashSale";
 import ComboSection from "@/components/ComboSection";
+import Testimonials from "@/components/Testimonials";
 import CategorySection from "@/components/CategorySection";
 import ProductCard from "@/components/ProductCard";
 import { useSettings } from "@/context/SettingsContext";
@@ -71,6 +72,8 @@ export default function Home() {
           ))}
         </div>
       </section>
+      
+      <Testimonials />
 
       {/* BLOG / NEWS */}
       <section className="container mx-auto px-4">
