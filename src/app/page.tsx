@@ -75,9 +75,6 @@ export default function Home() {
         </div>
       </section>
 
-        </div>
-      </section>
-
       {/* FEATURED PRODUCTS */}
       <section className="container mx-auto px-4">
         <div className="flex justify-between items-end mb-6 border-l-4 border-[#ee4d2d] pl-4">
