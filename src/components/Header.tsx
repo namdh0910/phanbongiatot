@@ -103,24 +103,54 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Mobile Menu Dropdown */}
-      {menuOpen && (
-        <div className="lg:hidden border-t border-gray-100 bg-white shadow-lg">
-          <nav className="container mx-auto px-4 py-4 flex flex-col gap-2">
-            {navLinks.map(link => (
-              <Link key={link.href} href={link.href} onClick={() => setMenuOpen(false)}
-                className="py-3 px-4 text-gray-700 hover:text-primary hover:bg-gray-50 rounded-xl font-medium transition-colors">
-                {link.label}
-              </Link>
-            ))}
-            <div className="flex flex-col gap-3 mt-4 pt-4 border-t border-gray-100">
-              <a href={`https://zalo.me/${settings.zaloId}`} target="_blank" className="w-full text-center bg-blue-600 text-white py-4 rounded-xl font-black shadow-lg">
-                💬 NHẮN ZALO TƯ VẤN NGAY
-              </a>
+      {/* Mobile Menu Drawer */}
+      <div 
+        className={`fixed inset-0 z-[60] lg:hidden transition-all duration-300 ${menuOpen ? 'visible opacity-100' : 'invisible opacity-0'}`}
+      >
+        {/* Backdrop */}
+        <div 
+          className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+          onClick={() => setMenuOpen(false)}
+        />
+        
+        {/* Drawer Content */}
+        <div 
+          className={`absolute top-0 right-0 h-full w-[280px] bg-white shadow-2xl transition-transform duration-300 transform ${menuOpen ? 'translate-x-0' : 'translate-x-full'}`}
+        >
+          <div className="flex flex-col h-full">
+            <div className="p-6 border-b border-gray-100 flex items-center justify-between bg-primary text-white">
+              <span className="font-black text-lg tracking-tight">MENU</span>
+              <button onClick={() => setMenuOpen(false)} className="p-1 hover:rotate-90 transition-transform">
+                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </button>
             </div>
-          </nav>
+            
+            <nav className="flex-1 overflow-y-auto py-4">
+              {navLinks.map((link, i) => (
+                <Link 
+                  key={link.href} 
+                  href={link.href} 
+                  onClick={() => setMenuOpen(false)}
+                  className="flex items-center justify-between px-6 py-4 text-gray-800 hover:bg-gray-50 border-b border-gray-50 group"
+                >
+                  <span className="font-bold text-sm uppercase tracking-wide group-hover:text-primary transition-colors">{link.label}</span>
+                  <span className="text-gray-300 text-xs transform group-hover:translate-x-1 transition-transform">▶</span>
+                </Link>
+              ))}
+            </nav>
+
+            <div className="p-6 bg-gray-50 border-t border-gray-100">
+               <a 
+                 href={`https://zalo.me/${settings.zaloId}`} 
+                 target="_blank" 
+                 className="flex items-center justify-center gap-3 w-full bg-blue-600 text-white py-4 rounded-xl font-black text-sm shadow-lg hover:bg-blue-700 transition-all active:scale-95"
+               >
+                 💬 CHAT ZALO NGAY
+               </a>
+            </div>
+          </div>
         </div>
-      )}
+      </div>
     </header>
     </div>
   );

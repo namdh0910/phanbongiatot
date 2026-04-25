@@ -6,13 +6,17 @@ import { useRouter } from "next/navigation";
 import { trackEvent } from "@/utils/analytics";
 import { getSettings } from "@/utils/settings";
 import { useCart } from "@/context/CartContext";
+import Hero from "@/components/Hero";
+import CategorySection from "@/components/CategorySection";
+import ProductCard from "@/components/ProductCard";
+import { useSettings } from "@/context/SettingsContext";
 
 export default function Home() {
   const router = useRouter();
   const { addToCart } = useCart();
+  const settings = useSettings();
   const [products, setProducts] = useState<any[]>([]);
   const [blogs, setBlogs] = useState<any[]>([]);
-  const [settings, setSettings] = useState<any>({});
 
   useEffect(() => {
     // Fetch products
@@ -26,9 +30,6 @@ export default function Home() {
       .then(res => res.json())
       .then(data => setBlogs(data.slice(0, 3)))
       .catch(err => console.error(err));
-
-    // Fetch settings
-    getSettings().then(setSettings);
   }, []);
 
   const handleQuickBuy = (product: any) => {
@@ -39,41 +40,10 @@ export default function Home() {
 
   return (
     <div className="flex flex-col gap-10 md:gap-24 pb-20 bg-[#f5f5f5]">
-      {/* HERO SECTION */}
-      <section 
-        className="relative w-full h-[200px] md:h-[600px] flex items-center overflow-hidden"
-        style={{ backgroundColor: settings.primaryColor || '#0d2a1c' }}
-      >
-        {settings.heroBanner && (
-           <img src={settings.heroBanner} className="absolute inset-0 w-full h-full object-cover opacity-30 z-0" alt="Banner" />
-        )}
-        <div className="absolute inset-0 z-0 opacity-40">
-           <div className="w-full h-full bg-gradient-to-r from-black/60 to-transparent mix-blend-multiply" />
-        </div>
-        
-        <div className="container mx-auto px-4 relative z-10 flex flex-col items-start gap-6">
-          <div className="bg-[#fce015] text-gray-900 px-4 py-1.5 rounded-sm font-black text-xs tracking-widest uppercase shadow-lg">
-            GIẢI PHÁP NÔNG NGHIỆP HIỆU QUẢ CAO
-          </div>
-          <h1 className="text-3xl md:text-7xl font-black text-white max-w-4xl leading-[1.1] tracking-tight">
-            Năng Suất Vượt Trội <br /> 
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#fce015] to-[#ffb800] drop-shadow-md">
-               Chi Phí Tối Ưu
-            </span>
-          </h1>
-          <p className="text-base md:text-xl text-gray-300 max-w-2xl font-medium leading-relaxed">
-            {settings.heroSubtitle}
-          </p>
-          <div className="hidden md:flex flex-col sm:flex-row gap-4 mt-6 w-full sm:w-auto">
-            <a href={`https://zalo.me/${settings.zaloId}`} target="_blank" className="px-10 py-5 bg-blue-600 hover:bg-blue-700 text-white rounded-sm font-bold text-lg transition-all shadow-xl flex items-center justify-center gap-3 active:scale-95">
-              💬 NHẮN ZALO TƯ VẤN MIỄN PHÍ
-            </a>
-            <Link href="/danh-muc/phan-bon" className="px-10 py-5 bg-white text-emerald-900 hover:bg-gray-100 rounded-sm font-bold text-lg transition-all flex items-center justify-center border border-white/20 active:scale-95">
-              XEM SẢN PHẨM
-            </Link>
-          </div>
-        </div>
-      </section>
+      {/* NEW HERO SECTION */}
+      <Hero />
+
+      <CategorySection />
 
       {/* FEATURED PRODUCTS */}
       <section className="container mx-auto px-4">
@@ -89,30 +59,7 @@ export default function Home() {
         
         <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-4">
           {products.map((product: any, i: number) => (
-            <div 
-              key={i} 
-              onClick={() => router.push(`/san-pham/${product.slug}`)}
-              className="bg-white rounded-sm overflow-hidden shadow-sm border border-transparent hover:border-[#ee4d2d] hover:shadow-lg transition-all group flex flex-col h-full relative cursor-pointer"
-            >
-              <div className="aspect-square relative overflow-hidden bg-gray-50">
-                <img src={product.images?.[0] || ""} alt={product.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                <div className="absolute top-0 right-0">
-                  {product.isBestSeller && <div className="bg-[#ee4d2d] text-white font-bold px-1.5 py-0.5 text-[9px] uppercase shadow-sm">Bán chạy</div>}
-                </div>
-              </div>
-               <div className="p-3 md:p-4 flex flex-col flex-1">
-                 <h3 className="font-medium text-sm text-gray-800 line-clamp-2 mb-3 min-h-[40px] group-hover:text-[#ee4d2d] transition-colors">{product.name}</h3>
-                 <div className="mt-auto">
-                    <span className="font-black text-[#ee4d2d] text-base md:text-lg">₫{(product.price).toLocaleString("vi-VN")}</span>
-                    <button 
-                       onClick={(e) => { e.stopPropagation(); handleQuickBuy(product); }}
-                       className="w-full mt-3 bg-[#ee4d2d] text-white py-2.5 rounded-sm font-bold text-xs hover:bg-[#d73211] transition-colors uppercase shadow-sm active:scale-95"
-                    >
-                      Mua ngay
-                    </button>
-                 </div>
-              </div>
-            </div>
+            <ProductCard key={i} product={product} />
           ))}
         </div>
       </section>
