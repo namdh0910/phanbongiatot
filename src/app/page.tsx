@@ -75,23 +75,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* TRUST BADGES */}
-      <section className="container mx-auto px-4">
-        <div className="bg-white p-4 md:p-6 rounded-sm shadow-xl flex flex-wrap justify-between gap-4 -mt-16 relative z-20 border-b-4 border-emerald-600">
-          {[
-            { icon: "🏆", title: "CHÍNH HÃNG", desc: "Cam kết 100%" },
-            { icon: "👨‍🌾", title: "KỸ SƯ TẬN TÂM", desc: "Tư vấn kỹ thuật" },
-            { icon: "🚚", title: "GIAO TOÀN QUỐC", desc: "Kiểm tra nhận hàng" },
-            { icon: "💰", title: "GIÁ TỐT NHẤT", desc: "Trực tiếp từ kho" }
-          ].map((item, i) => (
-            <div key={i} className="flex items-center gap-3 flex-1 min-w-[150px]">
-              <span className="text-3xl bg-gray-50 w-12 h-12 flex items-center justify-center rounded-full shadow-inner">{item.icon}</span>
-              <div>
-                <h4 className="font-black text-gray-900 text-xs md:text-sm">{item.title}</h4>
-                <p className="text-[10px] text-gray-500 uppercase tracking-tighter">{item.desc}</p>
-              </div>
-            </div>
-          ))}
         </div>
       </section>
 
@@ -191,38 +174,6 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
-
-      {/* CTA BANNER */}
-      <section className="container mx-auto px-4">
-        <div className="bg-gradient-to-r from-emerald-900 to-green-800 rounded-sm p-8 md:p-12 text-center text-white shadow-2xl relative overflow-hidden">
-           <h2 className="text-3xl md:text-5xl font-black mb-6 leading-tight">Vườn Suy Yếu? <span className="text-[#fce015]">Gặp Kỹ Sư Ngay!</span></h2>
-           <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
-              <a href={`https://zalo.me/${settings.zaloId}`} target="_blank" className="bg-blue-600 text-white px-10 py-5 rounded-sm font-black text-xl shadow-lg hover:bg-blue-700 transition-all uppercase tracking-wider flex items-center gap-3">
-                 💬 NHẬN TƯ VẤN KỸ THUẬT QUA ZALO
-              </a>
-            </div>
-        </div>
-      </section>
-
-      {/* FAQ SECTION */}
-      <section className="container mx-auto px-4 max-w-4xl">
-         <h2 className="text-2xl md:text-3xl font-black text-center mb-12 uppercase tracking-widest text-gray-900">Bà Con Thắc Mắc?</h2>
-         <div className="space-y-4">
-            {[
-               { q: "Sản phẩm có thực sự hiệu quả như quảng cáo không?", a: "Phân Bón Giá Tốt cam kết bằng uy tín kỹ sư. Nếu bà con dùng đúng liệu trình mà không thấy rễ ra thêm, lá xanh lại, chúng tôi sẽ hỗ trợ tận vườn." },
-               { q: "Cách thức đặt hàng và vận chuyển như thế nào?", a: "Rất đơn giản! Bà con chỉ cần bấm nút 'Mua Ngay' hoặc gọi Hotline. Chúng tôi gửi hàng bưu điện tận nhà, bà con mở ra kiểm tra đúng hàng rồi mới trả tiền cho nhân viên giao hàng." },
-               { q: "Giá có tốt nhất thị trường không?", a: "Chúng tôi nhập hàng trực tiếp số lượng lớn từ nhà máy và gửi thẳng đến bà con, không qua đại lý trung gian nên giá luôn rẻ hơn 15-20% so với thị trường." }
-            ].map((faq, i) => (
-               <div key={i} className="bg-white p-6 border border-gray-200 rounded-sm hover:border-emerald-500 transition-colors cursor-pointer group shadow-sm">
-                  <h3 className="font-bold text-gray-900 flex items-center gap-4 text-lg">
-                     <span className="text-[#ee4d2d] font-black italic">Q{i+1}.</span> {faq.q}
-                  </h3>
-                  <div className="h-px bg-gray-100 my-4 group-hover:bg-emerald-100 transition-colors"></div>
-                  <p className="text-gray-600 text-sm leading-relaxed pl-10 border-l-2 border-emerald-500 italic">{faq.a}</p>
-               </div>
-            ))}
-         </div>
       </section>
     </div>
   );
