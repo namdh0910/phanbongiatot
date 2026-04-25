@@ -312,6 +312,22 @@ export default function Header() {
                 <button onClick={() => setMenuOpen(false)} className="w-10 h-10 flex items-center justify-center text-gray-400 text-2xl">✕</button>
               </div>
 
+              {/* Seller Link Mobile */}
+              <div className="px-4 py-3 bg-orange-50 border-b border-orange-100">
+                <Link 
+                  href="/kenh-nguoi-ban" 
+                  onClick={() => setMenuOpen(false)}
+                  className="flex items-center gap-3 px-4 py-3 bg-white rounded-xl border border-orange-200 shadow-sm"
+                >
+                  <span className="text-xl">🏪</span>
+                  <div className="flex flex-col">
+                    <span className="text-sm font-black text-orange-600 leading-none">KÊNH NGƯỜI BÁN</span>
+                    <span className="text-[10px] text-gray-500 mt-1 uppercase font-bold tracking-tighter">Dành cho đối tác nhà vườn</span>
+                  </div>
+                  <span className="ml-auto text-orange-400">➜</span>
+                </Link>
+              </div>
+
               {/* Nav Links */}
               <nav className="flex-1 overflow-y-auto py-2">
                 {navLinks.map((link, i) => {
