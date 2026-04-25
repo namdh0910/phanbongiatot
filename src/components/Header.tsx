@@ -44,72 +44,84 @@ export default function Header() {
       )}
       
       <header className="sticky top-0 z-50 w-full bg-white border-b border-gray-100 shadow-sm">
-        {/* DESKTOP HEADER */}
-        <div className="hidden lg:flex container mx-auto px-4 h-24 items-center justify-between gap-4">
-          <Link href="/" className="flex-shrink-0">
-            <div className="text-3xl font-black text-[#1a5c2a] tracking-tighter">
-              PhânBón<span className="text-[#f5a623]">GiáTốt</span>
-            </div>
-          </Link>
-
-          <div className="flex-1 max-w-2xl mx-8">
-            <div className="header-search-container">
-              <form 
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  const val = (e.currentTarget.elements.namedItem('q') as HTMLInputElement).value;
-                  if (val.trim()) window.location.href = `/tim-kiem?q=${encodeURIComponent(val.trim())}`;
-                }}
-                className="relative"
-              >
-                <input 
-                  name="q"
-                  type="text" 
-                  placeholder="Hôm nay anh/chị cần tìm phân bón gì?" 
-                  className="w-full bg-gray-50 border border-gray-200 rounded-lg px-5 py-3 text-sm outline-none focus:ring-2 focus:ring-[#1a5c2a]/20 focus:border-[#1a5c2a] transition-all text-gray-900 pr-12"
-                />
-                <button type="submit" className="absolute right-4 top-3 text-gray-400 hover:text-[#1a5c2a]">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-                </button>
-              </form>
-              <div className="trending-tags">
-                <span>Xu hướng:</span>
-                {trending.map((t, i) => (
-                  <Link key={i} href={t.href}>{t.label}</Link>
-                ))}
-              </div>
+        {/* DESKTOP HEADER (3 ROWS) */}
+        <div className="hidden lg:block">
+          {/* Row 1: Trending Tags */}
+          <div className="bg-gray-50 border-b border-gray-100 py-2">
+            <div className="container mx-auto px-4 flex justify-center gap-6 text-[11px] font-bold uppercase tracking-wider text-gray-500">
+               <span className="text-gray-400">Xu hướng:</span>
+               {trending.map((t, i) => (
+                 <Link key={i} href={t.href} className="hover:text-[#1a5c2a] transition-colors">{t.label}</Link>
+               ))}
             </div>
           </div>
 
-          <div className="flex items-center header-right-action">
-            <div className="hotline-box">
-              <div className="hotline-icon">📞</div>
-              <div className="hotline-info">
-                <span className="hotline-label">Hotline 24/7</span>
-                <span className="hotline-number">{hotline}</span>
+          {/* Row 2: Logo | Hotline | Logo */}
+          <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+            <Link href="/" className="flex-shrink-0">
+              <div className="text-2xl font-black text-[#1a5c2a] tracking-tighter">
+                PhânBón<span className="text-[#f5a623]">GiáTốt</span>
               </div>
-            </div>
+            </Link>
 
-            <a href={`https://zalo.me/${zaloId}`} target="_blank" className="header-zalo-btn" title="Chat Zalo">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><path d="M12 2C6.477 2 2 6.477 2 12c0 5.523 4.477 10 10 10s10-4.477 10-10c0-5.523-4.477-10-10-10zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"/><path d="M12 7c-2.761 0-5 2.239-5 5s2.239 5 5 5 5-2.239 5-5-2.239-5-5-5zm0 8c-1.654 0-3-1.346-3-3s1.346-3 3-3 3 1.346 3 3-1.346 3-3 3z"/></svg>
+            <a href="tel:0773440966" className="flex items-center gap-3 bg-white border-2 border-[#1a5c2a] px-6 py-2 rounded-full hover:bg-green-50 transition-all shadow-sm group">
+               <div className="w-8 h-8 bg-[#1a5c2a] text-white rounded-full flex items-center justify-center text-sm group-hover:scale-110 transition-transform">📞</div>
+               <div className="flex flex-col">
+                  <span className="text-[10px] font-black uppercase text-gray-400 leading-none mb-1">Hotline 24/7</span>
+                  <span className="text-lg font-black text-gray-900 leading-none">0773.440.966</span>
+               </div>
             </a>
 
-            <Link href="/gio-hang" className="relative p-2 text-gray-800 hover:text-[#1a5c2a] transition-colors">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
-              {cartCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-[#ee4d2d] text-white text-[10px] font-bold min-w-[18px] h-[18px] rounded-full flex items-center justify-center px-1 border-2 border-white">
-                  {cartCount}
-                </span>
-              )}
+            <Link href="/" className="flex-shrink-0">
+              <div className="text-2xl font-black text-[#1a5c2a] tracking-tighter opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all">
+                PhânBón<span className="text-[#f5a623]">GiáTốt</span>
+              </div>
             </Link>
+          </div>
+
+          {/* Row 3: Nav Menu & Zalo */}
+          <div className="border-t border-gray-100 py-3">
+            <div className="container mx-auto px-4 flex items-center justify-between">
+               <nav className="flex items-center gap-8">
+                  <div className="group relative">
+                     <button className="flex items-center gap-2 font-black text-gray-800 uppercase tracking-wide hover:text-[#1a5c2a]">
+                        <span className="text-lg">☰</span> DANH MỤC
+                     </button>
+                     <div className="absolute top-full left-0 w-64 bg-white shadow-2xl rounded-xl py-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-[100] border border-gray-100 mt-2">
+                        {navLinks.slice(0, 4).map((l, i) => (
+                           <Link key={i} href={l.href} className="block px-6 py-3 hover:bg-green-50 font-bold text-gray-700 hover:text-[#1a5c2a]">{l.label}</Link>
+                        ))}
+                     </div>
+                  </div>
+                  {navLinks.slice(4).map((link, i) => (
+                    <Link key={i} href={link.href} className="font-bold text-gray-600 hover:text-[#1a5c2a] uppercase text-sm tracking-wide">
+                      {link.label}
+                    </Link>
+                  ))}
+               </nav>
+
+               <div className="flex items-center gap-4">
+                  <a href="https://zalo.me/0773440966" target="_blank" className="bg-[#0068ff] text-white px-6 py-2.5 rounded-xl font-black text-sm flex items-center gap-2 shadow-lg hover:bg-blue-600 transition-all active:scale-95">
+                     💬 CHAT ZALO NGAY
+                  </a>
+                  <Link href="/gio-hang" className="relative p-2 text-gray-800 hover:text-[#1a5c2a] transition-colors">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+                    {cartCount > 0 && (
+                      <span className="absolute -top-1 -right-1 bg-[#ee4d2d] text-white text-[10px] font-bold min-w-[18px] h-[18px] rounded-full flex items-center justify-center px-1 border-2 border-white">
+                        {cartCount}
+                      </span>
+                    )}
+                  </Link>
+               </div>
+            </div>
           </div>
         </div>
 
         {/* MOBILE HEADER */}
         <div className="lg:hidden container mx-auto px-4 h-16 flex items-center justify-between">
           {/* Left: Hotline */}
-          <a href={`tel:${hotline.replace(/\./g, '')}`} className="flex items-center gap-1 text-[13px] font-bold text-[#1a5c2a] bg-gray-50 px-2 py-1 rounded-full border border-gray-100">
-            <span>📞</span> {hotline}
+          <a href="tel:0773440966" className="flex items-center gap-1 text-[13px] font-bold text-[#1a5c2a] bg-gray-50 px-2 py-1 rounded-full border border-gray-100">
+            <span>📞</span> 0773.440.966
           </a>
 
           {/* Center: Logo */}

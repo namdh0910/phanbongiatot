@@ -41,18 +41,18 @@ const Hero: React.FC = () => {
           {subtitle}
         </p>
 
-        <a href={`tel:${hotline.replace(/\./g, '')}`} className="hero-hotline">
-          📞 {hotline}
+        <a href="tel:0773440966" className="hero-hotline">
+          📞 0773.440.966
         </a>
         
         <div className="hero-actions">
           <a 
-            href={`https://zalo.me/${zaloId}`} 
+            href="https://zalo.me/0773440966" 
             target="_blank" 
             rel="noopener noreferrer" 
             className="btn btn-primary"
           >
-            💬 Chat Zalo tư vấn
+            💬 NHẮN ZALO TƯ VẤN MIỄN PHÍ
           </a>
           
           <Link href="/danh-muc/phan-bon" className="btn btn-secondary">

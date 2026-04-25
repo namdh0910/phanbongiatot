@@ -104,6 +104,27 @@ export default function Home() {
 
       <BrandMarquee />
       
+      {/* FINAL CTA SECTION */}
+      <section className="container mx-auto px-4 mb-20">
+        <div className="bg-gradient-to-br from-[#1a5c2a] to-[#2d7a3e] rounded-3xl p-8 md:p-16 text-center text-white shadow-2xl relative overflow-hidden">
+           <div className="absolute top-0 left-0 w-64 h-64 bg-white/5 rounded-full -ml-32 -mt-32 blur-3xl"></div>
+           <div className="relative z-10">
+              <h2 className="text-3xl md:text-5xl font-black mb-6 uppercase tracking-tight">Cần hỗ trợ kỹ thuật ngay?</h2>
+              <p className="text-lg md:text-xl opacity-90 mb-10 max-w-2xl mx-auto font-medium">
+                 Đội ngũ kỹ sư giàu kinh nghiệm của chúng tôi luôn sẵn sàng hỗ trợ bà con giải quyết mọi vấn đề trên vườn cây.
+              </p>
+              <div className="flex flex-col md:flex-row justify-center gap-4">
+                 <a href="https://zalo.me/0773440966" target="_blank" className="bg-white text-[#1a5c2a] px-10 py-5 rounded-2xl font-black text-xl shadow-xl hover:bg-gray-50 transition-all uppercase tracking-wider">
+                    💬 NHẬN TƯ VẤN KỸ THUẬT
+                 </a>
+                 <a href="tel:0773440966" className="bg-transparent border-2 border-white/30 text-white px-10 py-5 rounded-2xl font-black text-xl hover:bg-white/10 transition-all uppercase tracking-wider">
+                    📞 GỌI 0773.440.966
+                 </a>
+              </div>
+           </div>
+        </div>
+      </section>
+
       {/* VENDOR RECRUITMENT SECTION */}
       <section className="container mx-auto px-0 md:px-4">
         <div className="bg-white md:rounded-sm shadow-sm border-y md:border border-gray-200 overflow-hidden flex flex-col md:flex-row items-center">
