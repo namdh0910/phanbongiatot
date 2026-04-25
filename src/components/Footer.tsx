@@ -40,7 +40,13 @@ export default function Footer() {
             </div>
           </div>
           <div className="pt-4">
-            <img src="https://web.archive.org/web/20210515153257im_/http://online.gov.vn/Content/Images/da-thong-bao.png" alt="Đã thông báo bộ công thương" className="footer-cert" />
+            <img 
+              src="/images/bo-cong-thuong.png" 
+              alt="Đã thông báo bộ công thương" 
+              className="footer-cert" 
+              width="150"
+              height="57"
+            />
           </div>
         </div>
 
