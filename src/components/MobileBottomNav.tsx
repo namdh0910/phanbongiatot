@@ -28,7 +28,7 @@ export default function MobileBottomNav() {
             <div className={`flex flex-col items-center justify-center gap-1 w-full relative ${isActive ? 'text-[#ee4d2d]' : 'text-gray-500'}`}>
               <span className="text-xl">{item.icon}</span>
               <span className={`text-[10px] font-bold ${isActive ? 'opacity-100' : 'opacity-80'}`}>{item.label}</span>
-              {item.badge > 0 && (
+              {item.badge !== undefined && item.badge > 0 && (
                 <span className="absolute -top-1 right-1/4 bg-[#ee4d2d] text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center border-2 border-white">
                   {item.badge}
                 </span>
