@@ -40,32 +40,32 @@ const FlashSale: React.FC = () => {
   const flashProducts = [
     {
       id: 1,
-      name: "Phân bón Acti Rooti - Kích rễ cực mạnh (Can 5L)",
-      image: "🌱",
+      name: "Acti Rooti - Siêu Kích Rễ Cực Mạnh (Can 5L)",
+      image: "ROOTI",
       oldPrice: "850.000đ",
       price: "680.000đ",
       discount: "-20%",
     },
     {
       id: 2,
-      name: "Thuốc Trị Tuyến Trùng Nemano - Bảo vệ bộ rễ",
-      image: "🛡️",
+      name: "Nemano - Đặc Trị Tuyến Trùng Bảo Vệ Rễ",
+      image: "NEMANO",
       oldPrice: "320.000đ",
       price: "255.000đ",
       discount: "-25%",
     },
     {
       id: 3,
-      name: "Phân bón lá Amino Acid - Vọt đọt, xanh lá",
-      image: "🍃",
+      name: "Amino Acid - Vọt Đọt, Xanh Lá Cấp Tốc",
+      image: "AMINO",
       oldPrice: "150.000đ",
       price: "99.000đ",
       discount: "-34%",
     },
     {
       id: 4,
-      name: "Combo Phục Hồi Cây Suy - Sau thu hoạch",
-      image: "📦",
+      name: "Combo Phục Hồi Cây Suy - Sau Thu Hoạch",
+      image: "COMBO",
       oldPrice: "1.200.000đ",
       price: "890.000đ",
       discount: "-26%",
@@ -103,8 +103,7 @@ const FlashSale: React.FC = () => {
             <div key={product.id} className="sale-card">
               <div className="discount-badge">{product.discount}</div>
               <div className="sale-image">
-                <span style={{ position: 'absolute', zIndex: 1 }}>{product.image}</span>
-                <div style={{ width: '100%', height: '100%', background: 'linear-gradient(45deg, #f3f3f3, #e0e0e0)' }}></div>
+                <span className="text-[10px] font-black text-gray-400">{product.image}</span>
               </div>
               <div className="sale-info">
                 <h3 className="sale-name">{product.name}</h3>

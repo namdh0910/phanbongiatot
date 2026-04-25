@@ -196,39 +196,87 @@
 
 @media (max-width: 768px) {
   .flash-sale-section {
-    padding: 24px 16px !important;
+    padding: 24px 0 !important; /* Full width scroll */
+    background: linear-gradient(135deg, #ee4d2d 0%, #ff7337 100%);
+  }
+
+  .flash-sale-container {
+    padding: 0;
   }
   
   .flash-sale-header {
-    margin-bottom: 16px !important;
-    gap: 12px !important;
+    padding: 0 16px;
+    margin-bottom: 12px !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
   }
   
   .flash-sale-title h2 {
-    font-size: clamp(18px, 4vw, 28px) !important;
+    font-size: 18px !important;
   }
   
   .flash-sale-icon {
-    font-size: 20px !important;
+    font-size: 18px !important;
   }
   
   .countdown-timer {
-    width: 100%;
-    justify-content: space-between;
+    display: flex !important;
+    gap: 4px !important;
+    height: 40px !important;
+    align-items: center !important;
+  }
+
+  .countdown-timer > span {
+    display: none; /* Hide text label on mobile */
   }
   
   .time-box {
-    padding: 6px !important;
-    min-width: 45px !important;
+    padding: 0 !important;
+    min-width: 36px !important;
+    height: 36px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: rgba(255, 255, 255, 0.2) !important;
+    border-radius: 4px !important;
   }
   
   .time-value {
-    font-size: 16px !important;
+    font-size: 20px !important; /* Adjusting for fit, 28px might be too large for 36px box */
+    line-height: 1 !important;
+  }
+
+  .time-label {
+    display: none !important;
   }
   
   .flash-sale-grid {
-    grid-template-columns: repeat(2, 1fr) !important; /* Compact grid */
-    gap: 10px !important;
+    display: flex !important;
+    overflow-x: auto !important;
+    padding: 0 16px 12px !important;
+    gap: 12px !important;
+    scroll-snap-type: x mandatory !important;
+    scrollbar-width: none;
+  }
+
+  .flash-sale-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .sale-card {
+    min-width: 160px !important;
+    width: 160px !important;
+    scroll-snap-align: start !important;
+    border-radius: 8px !important;
+  }
+
+  .sale-image {
+    width: 140px !important;
+    height: 140px !important;
+    margin: 10px auto 0 !important;
+    border-radius: 4px !important;
+    overflow: hidden !important;
   }
 
   .sale-info {
@@ -236,17 +284,37 @@
   }
 
   .sale-name {
-    font-size: 13px !important;
-    height: 36px !important;
+    font-size: 12px !important;
+    height: 34px !important; /* Fixed height for 2 lines */
+    margin-bottom: 6px !important;
+    line-height: 1.4 !important;
+  }
+
+  .sale-prices {
     margin-bottom: 8px !important;
+    display: flex;
+    flex-direction: column;
   }
 
   .price-current {
-    font-size: 15px !important;
+    font-size: 16px !important;
+    font-weight: 800 !important;
+  }
+
+  .price-old {
+    font-size: 11px !important;
   }
 
   .buy-btn {
-    padding: 8px !important;
+    padding: 8px 4px !important;
     font-size: 12px !important;
+    width: 100% !important;
+  }
+
+  .discount-badge {
+    top: 5px !important;
+    left: 5px !important;
+    font-size: 10px !important;
+    padding: 2px 6px !important;
   }
 }
