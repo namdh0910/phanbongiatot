@@ -5,6 +5,7 @@ import Link from 'next/link';
 
 export default function TraCuuDonHangPage() {
   const [code, setCode] = useState('');
+  const [phone, setPhone] = useState('');
   const [savedOrders, setSavedOrders] = useState<any[]>([]);
   const router = useRouter();
 
@@ -17,9 +18,10 @@ export default function TraCuuDonHangPage() {
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    const trimmed = code.trim().toUpperCase();
-    if (trimmed) {
-      router.push(`/don-hang/${trimmed}`);
+    const trimmedCode = code.trim().toUpperCase();
+    const trimmedPhone = phone.trim().replace(/\s/g, '');
+    if (trimmedCode && trimmedPhone) {
+      router.push(`/tra-cuu-don-hang/ket-qua?code=${trimmedCode}&phone=${trimmedPhone}`);
     }
   };
 
@@ -32,30 +34,46 @@ export default function TraCuuDonHangPage() {
             📦
           </div>
           <h1 className="text-3xl md:text-4xl font-black text-gray-900 mb-3">Tra Cứu Đơn Hàng</h1>
-          <p className="text-gray-500 text-lg">Nhập mã đơn hàng để kiểm tra tình trạng giao hàng</p>
+          <p className="text-gray-500 text-lg">Nhập mã đơn hàng và số điện thoại để kiểm tra tình trạng</p>
         </div>
 
         {/* Search box */}
-        <form onSubmit={handleSearch} className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 mb-8">
-          <label className="block text-sm font-bold text-gray-700 mb-3">
-            Mã đơn hàng <span className="font-normal text-gray-400">(VD: PBG-260424-0001)</span>
-          </label>
-          <div className="flex gap-3">
+        <form onSubmit={handleSearch} className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 mb-8 space-y-6">
+          <div>
+            <label className="block text-sm font-bold text-gray-700 mb-2">
+              Mã đơn hàng <span className="font-normal text-gray-400">(VD: PBG-260424-0001)</span>
+            </label>
             <input
               type="text"
               value={code}
               onChange={e => setCode(e.target.value)}
-              className="flex-1 border border-gray-300 rounded-xl px-4 py-3 text-lg font-bold focus:ring-2 focus:ring-[#1a5c2a] focus:border-transparent outline-none tracking-wider placeholder:font-normal placeholder:text-gray-300"
+              className="w-full border border-gray-300 rounded-xl px-4 py-3 text-lg font-bold focus:ring-2 focus:ring-[#1a5c2a] focus:border-transparent outline-none tracking-wider placeholder:font-normal placeholder:text-gray-300"
               placeholder="Nhập mã đơn hàng..."
               autoFocus
+              required
             />
-            <button
-              type="submit"
-              className="bg-[#1a5c2a] text-white px-6 py-3 rounded-xl font-black hover:bg-[#2d7a3e] transition-colors shadow-md whitespace-nowrap"
-            >
-              Tìm kiếm
-            </button>
           </div>
+
+          <div>
+            <label className="block text-sm font-bold text-gray-700 mb-2">
+              Số điện thoại đặt hàng
+            </label>
+            <input
+              type="tel"
+              value={phone}
+              onChange={e => setPhone(e.target.value)}
+              className="w-full border border-gray-300 rounded-xl px-4 py-3 text-lg font-bold focus:ring-2 focus:ring-[#1a5c2a] focus:border-transparent outline-none tracking-wider placeholder:font-normal placeholder:text-gray-300"
+              placeholder="Nhập số điện thoại..."
+              required
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="w-full bg-[#1a5c2a] text-white px-6 py-4 rounded-xl font-black text-lg hover:bg-[#2d7a3e] transition-colors shadow-md"
+          >
+            Tìm kiếm đơn hàng
+          </button>
         </form>
 
         {/* Recent orders from localStorage */}

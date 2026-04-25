@@ -91,6 +91,52 @@ ${orderItems.map(item => `- ${item.name} x${item.qty} (${item.price.toLocaleStri
   }
 };
 
+// @desc    Track order by code and phone
+// @route   GET /api/orders/track
+// @access  Public
+const trackOrder = async (req, res) => {
+  try {
+    const { code, phone } = req.query;
+    
+    if (!code || !phone) {
+      return res.status(400).json({ message: 'Vui lòng nhập mã đơn hàng và số điện thoại' });
+    }
+
+    const order = await Order.findOne({ 
+      orderCode: code,
+      'customerInfo.phone': phone.replace(/\s/g, '')
+    });
+
+    if (order) {
+      // Return structured tracking data
+      res.json({
+        orderCode: order.orderCode,
+        orderStatus: order.orderStatus,
+        paymentStatus: order.paymentStatus,
+        createdAt: order.createdAt,
+        totalPrice: order.totalPrice,
+        orderItems: order.orderItems,
+        customerInfo: {
+          name: order.customerInfo.name,
+          address: `${order.customerInfo.address}, ${order.customerInfo.ward}, ${order.customerInfo.district}, ${order.customerInfo.province}`
+        },
+        shippingCode: order.shippingCode || null,
+        // Simulated tracking timeline based on status
+        timeline: [
+          { status: 'new', label: 'Đặt hàng thành công', date: order.createdAt, isDone: true },
+          { status: 'confirmed', label: 'Đã xác nhận', date: order.updatedAt, isDone: ['confirmed', 'shipping', 'done'].includes(order.orderStatus) },
+          { status: 'shipping', label: 'Đang giao hàng', date: order.updatedAt, isDone: ['shipping', 'done'].includes(order.orderStatus) },
+          { status: 'done', label: 'Đã nhận hàng', date: order.updatedAt, isDone: order.orderStatus === 'done' }
+        ]
+      });
+    } else {
+      res.status(404).json({ message: 'Không tìm thấy đơn hàng. Vui lòng kiểm tra lại mã đơn và số điện thoại.' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 // @desc    Get order by ID or Code
 // @route   GET /api/orders/:idOrCode
 // @access  Public
@@ -202,4 +248,5 @@ module.exports = {
   updateOrderStatus,
   getOrders,
   getVendorOrders,
+  trackOrder,
 };
