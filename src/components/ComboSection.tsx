@@ -52,8 +52,15 @@ const ComboSection: React.FC = () => {
           >
             Giải Pháp Tiết Kiệm
           </div>
-          <h2 style={{ color: primaryColor }}>Gói Giải Pháp & Combo</h2>
-          <p className="hidden md:block">Sự kết hợp hoàn hảo giúp bà con tiết kiệm chi phí và đạt hiệu quả tối ưu.</p>
+          <div className="flex justify-between items-end">
+            <div>
+              <h2 style={{ color: primaryColor }}>Gói Giải Pháp & Combo</h2>
+              <p className="hidden md:block">Sự kết hợp hoàn hảo giúp bà con tiết kiệm chi phí và đạt hiệu quả tối ưu.</p>
+            </div>
+            <Link href="/combo" className="text-[#ee4d2d] text-sm font-bold hover:underline flex items-center gap-2 group transition-all mb-2">
+              XEM TẤT CẢ <span className="group-hover:translate-x-1 transition-transform">▶</span>
+            </Link>
+          </div>
         </div>
 
         <div className="combo-grid">

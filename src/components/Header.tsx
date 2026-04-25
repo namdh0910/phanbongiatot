@@ -16,6 +16,7 @@ export default function Header() {
 
   const navLinks = [
     { href: "/danh-muc/phan-bon", label: "Phân bón" },
+    { href: "/combo", label: "Combo tiết kiệm" },
     { href: "/danh-muc/thuoc-tru-sau", label: "Thuốc trừ sâu" },
     { href: "/danh-muc/kich-re", label: "Kích rễ" },
     { href: "/danh-muc/tuyen-trung", label: "Tuyến trùng" },
