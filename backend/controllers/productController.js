@@ -16,6 +16,8 @@ const getProducts = async (req, res) => {
       .populate('seller', 'role vendorInfo')
       .sort({ createdAt: -1 });
 
+    console.log(`[DEBUG] Found ${products.length} products total for category: ${JSON.stringify(category)}`);
+
     // Lọc chỉ lấy sản phẩm của shop đã duyệt và còn hạn, hoặc của Admin
     const filteredProducts = products.filter(product => {
       const seller = product.seller;

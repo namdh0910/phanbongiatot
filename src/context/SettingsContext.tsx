@@ -34,7 +34,7 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
     hotline: '0773440966',
     zalo: '0773440966',
     shopee: 'phanbongiatot',
-    address: 'Trụ sở: 123 Đường Nông Nghiệp, Quận 12, TP. Hồ Chí Minh',
+    address: 'Kho hàng: TP. Buôn Ma Thuột, Tỉnh Đắk Lắk',
     email: 'hotro@phanbongiatot.com',
     facebook: '',
     freeShippingThreshold: 500000,
@@ -49,8 +49,8 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
     businessHours: '7:00 - 21:00',
     announcementEnabled: false,
     announcementText: '',
-    footerAddress: '',
-    footerEmail: ''
+    footerAddress: 'Kho hàng: TP. Buôn Ma Thuột, Tỉnh Đắk Lắk',
+    footerEmail: 'hotro@phanbongiatot.com'
   });
 
   useEffect(() => {
