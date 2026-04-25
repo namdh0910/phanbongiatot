@@ -11,7 +11,7 @@ const combos = [
     retailPrice: 1450000,
     comboPrice: 1160000,
     tag: "Bán chạy nhất",
-    image: "📦",
+    image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=80&w=800&auto=format&fit=crop",
     benefit: "Giúp cây phục hồi nhanh sau thu hoạch, kích rễ cực mạnh."
   },
   {
@@ -20,7 +20,7 @@ const combos = [
     retailPrice: 980000,
     comboPrice: 784000,
     tag: "Phổ biến",
-    image: "☕",
+    image: "https://images.unsplash.com/photo-1592982537447-7440770cbfc9?q=80&w=800&auto=format&fit=crop",
     benefit: "Tối ưu năng suất cà phê, hạt to chắc, cành khỏe."
   },
   {
@@ -29,7 +29,7 @@ const combos = [
     retailPrice: 1100000,
     comboPrice: 880000,
     tag: "Mới",
-    image: "🍃",
+    image: "https://images.unsplash.com/photo-1628352081506-83c43123ed6d?q=80&w=800&auto=format&fit=crop",
     benefit: "Giải pháp toàn diện cho cây bị vàng lá thối rễ."
   }
 ];
@@ -72,7 +72,14 @@ const ComboSection: React.FC = () => {
                 
                 <div className="combo-card-inner">
                   <div className="combo-image-box">
-                    <span className="combo-image-placeholder">{combo.image}</span>
+                    <img 
+                      src={combo.image} 
+                      alt={combo.title} 
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=80&w=800&auto=format&fit=crop";
+                      }}
+                    />
                   </div>
                   
                   <div className="combo-info">

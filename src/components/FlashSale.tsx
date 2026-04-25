@@ -41,7 +41,7 @@ const FlashSale: React.FC = () => {
     {
       id: 1,
       name: "Acti Rooti - Siêu Kích Rễ Cực Mạnh (Can 5L)",
-      image: "ROOTI",
+      image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=80&w=800&auto=format&fit=crop",
       oldPrice: "850.000đ",
       price: "680.000đ",
       discount: "-20%",
@@ -49,7 +49,7 @@ const FlashSale: React.FC = () => {
     {
       id: 2,
       name: "Nemano - Đặc Trị Tuyến Trùng Bảo Vệ Rễ",
-      image: "NEMANO",
+      image: "https://images.unsplash.com/photo-1592982537447-7440770cbfc9?q=80&w=800&auto=format&fit=crop",
       oldPrice: "320.000đ",
       price: "255.000đ",
       discount: "-25%",
@@ -57,7 +57,7 @@ const FlashSale: React.FC = () => {
     {
       id: 3,
       name: "Amino Acid - Vọt Đọt, Xanh Lá Cấp Tốc",
-      image: "AMINO",
+      image: "https://images.unsplash.com/photo-1628352081506-83c43123ed6d?q=80&w=800&auto=format&fit=crop",
       oldPrice: "150.000đ",
       price: "99.000đ",
       discount: "-34%",
@@ -65,7 +65,7 @@ const FlashSale: React.FC = () => {
     {
       id: 4,
       name: "Combo Phục Hồi Cây Suy - Sau Thu Hoạch",
-      image: "COMBO",
+      image: "https://images.unsplash.com/photo-1464226184884-fa280b87c399?q=80&w=800&auto=format&fit=crop",
       oldPrice: "1.200.000đ",
       price: "890.000đ",
       discount: "-26%",
@@ -103,7 +103,14 @@ const FlashSale: React.FC = () => {
             <div key={product.id} className="sale-card">
               <div className="discount-badge">{product.discount}</div>
               <div className="sale-image">
-                <span className="text-[10px] font-black text-gray-400">{product.image}</span>
+                <img 
+                  src={product.image} 
+                  alt={product.name} 
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=80&w=800&auto=format&fit=crop";
+                  }}
+                />
               </div>
               <div className="sale-info">
                 <h3 className="sale-name">{product.name}</h3>
