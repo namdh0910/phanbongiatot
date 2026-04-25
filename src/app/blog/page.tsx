@@ -28,11 +28,12 @@ export default function BlogIndex() {
   const fetchPosts = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`${API_BASE_URL}/blogs`);
+      const res = await fetch(`${API_BASE_URL}/blog`);
       if (!res.ok) throw new Error('Failed');
       const data = await res.json();
-      setPosts(data);
-      setFilteredPosts(data);
+      const postsData = data.blogs || data;
+      setPosts(postsData);
+      setFilteredPosts(postsData);
     } catch (error) {
       // Fallback data
       const fallback = [
