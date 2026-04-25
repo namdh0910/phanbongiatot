@@ -110,3 +110,33 @@ body {
   display: list-item !important;
   margin-bottom: 0.5rem !important;
 }
+/* Global Mobile Overrides */
+@media (max-width: 767px) {
+  section, .section, .py-12, .py-16, .py-20 {
+    padding-top: 24px !important;
+    padding-bottom: 24px !important;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+  
+  .container {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  h2.text-3xl, .section-heading, h2 {
+    font-size: clamp(18px, 4vw, 28px) !important;
+    margin-bottom: 16px !important;
+  }
+}
+
+/* Hide horizontal scrollbar but allow scrolling */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

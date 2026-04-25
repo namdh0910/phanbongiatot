@@ -133,31 +133,49 @@
 
 @media (max-width: 768px) {
   .hero-container {
-    height: auto;
-    padding: 6rem 0 4rem;
+    height: 45vh !important;
+    min-height: 380px;
+    max-height: 45vh !important;
+    padding: 0 !important; /* Reset padding to use height */
   }
   
   .hero-title {
-    font-size: 32px;
-    margin-bottom: 1rem;
+    font-size: clamp(22px, 5vw, 40px) !important;
+    margin-bottom: 8px !important;
     line-height: 1.2;
   }
   
+  .hero-social-proof {
+    font-size: clamp(13px, 3vw, 18px) !important;
+    margin-bottom: 12px !important;
+  }
+
   .hero-subtitle {
-    display: none; /* Hide for brevity as requested */
+    display: none;
   }
   
   .hero-hotline {
-    font-size: 20px;
+    font-size: 18px !important;
+    margin-bottom: 16px !important;
   }
   
   .hero-actions {
     flex-direction: column;
-    gap: 12px;
+    gap: 8px !important;
     width: 100%;
+    padding: 0 10px;
   }
   
   .btn {
-    width: 100%;
+    width: 100% !important;
+    min-height: 52px !important;
+    font-size: 15px !important;
+    padding: 0 1rem !important;
+  }
+
+  .hero-badge {
+    padding: 0.3rem 0.8rem !important;
+    font-size: 0.7rem !important;
+    margin-bottom: 1rem !important;
   }
 }

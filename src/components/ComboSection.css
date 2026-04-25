@@ -186,10 +186,62 @@
 }
 
 @media (max-width: 768px) {
-  .combo-grid {
-    grid-template-columns: 1fr;
+  .combo-section {
+    padding: 24px 16px !important;
   }
+  
+  .combo-header {
+    margin-bottom: 24px !important;
+  }
+  
   .combo-header h2 {
-    font-size: 2rem;
+    font-size: clamp(18px, 4vw, 28px) !important;
+    margin-bottom: 8px !important;
+  }
+
+  .combo-header p {
+    font-size: 14px !important;
+  }
+  
+  .combo-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+  
+  .combo-card {
+    padding: 1.25rem !important;
+    border-radius: 16px !important;
+  }
+
+  .combo-title {
+    font-size: 18px !important;
+    margin-bottom: 1rem !important;
+    padding-bottom: 0.75rem !important;
+  }
+
+  .combo-items h4 {
+    font-size: 11px !important;
+  }
+
+  .combo-item-list li {
+    font-size: 14px !important;
+  }
+
+  .combo-benefits {
+    padding: 12px !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  .price-combo {
+    font-size: 22px !important;
+  }
+
+  .combo-btn {
+    padding: 1rem !important;
+    font-size: 16px !important;
+    min-height: 52px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }

@@ -108,32 +108,69 @@
 }
 
 @media (max-width: 768px) {
-  .stats-bar {
-    grid-template-columns: repeat(2, 2fr);
-    gap: 1.5rem;
-    margin-bottom: 3rem;
+  .social-proof-section {
+    padding: 24px 0 !important; /* Keep 0 for carousel edges */
+  }
+
+  .sp-container {
+    padding: 0 16px !important;
   }
   
+  .stats-bar {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+    margin-bottom: 32px !important;
+  }
+  
+  .stat-item {
+    gap: 0.25rem !important;
+  }
+
   .stat-number {
-    font-size: 1.75rem;
+    font-size: 1.75rem !important;
+  }
+
+  .stat-desc {
+    font-size: 11px !important;
   }
   
   /* Carousel effect on mobile */
   .testimonials-grid {
     display: flex;
     overflow-x: auto;
-    padding: 1rem 0 2rem;
-    gap: 1.5rem;
+    padding: 8px 0 16px !important;
+    gap: 12px !important;
     scroll-snap-type: x mandatory;
-    scrollbar-width: none; /* Hide scrollbar for Firefox */
-  }
-  
-  .testimonials-grid::-webkit-scrollbar {
-    display: none; /* Hide scrollbar for Chrome/Safari */
   }
   
   .testimonial-card {
     min-width: 85%; /* Shows 1 card + 10-15% of next as requested */
     scroll-snap-align: center;
+    padding: 1.25rem !important;
+    border-radius: 16px !important;
+  }
+
+  .farmer-profile {
+    margin-bottom: 1rem !important;
+    gap: 0.75rem !important;
+  }
+
+  .farmer-avatar-img {
+    width: 44px !important;
+    height: 44px !important;
+    font-size: 1.25rem !important;
+  }
+
+  .farmer-name-box h4 {
+    font-size: 15px !important;
+  }
+
+  .farmer-crop {
+    font-size: 12px !important;
+  }
+
+  .testimonial-text-sp {
+    font-size: 14px !important;
+    line-height: 1.5 !important;
   }
 }

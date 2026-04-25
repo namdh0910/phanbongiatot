@@ -194,15 +194,59 @@
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
+  .flash-sale-section {
+    padding: 24px 16px !important;
+  }
+  
   .flash-sale-header {
-    flex-direction: column;
-    align-items: flex-start;
+    margin-bottom: 16px !important;
+    gap: 12px !important;
   }
-  .flash-sale-grid {
-    grid-template-columns: 1fr;
-  }
+  
   .flash-sale-title h2 {
-    font-size: 2rem;
+    font-size: clamp(18px, 4vw, 28px) !important;
+  }
+  
+  .flash-sale-icon {
+    font-size: 20px !important;
+  }
+  
+  .countdown-timer {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .time-box {
+    padding: 6px !important;
+    min-width: 45px !important;
+  }
+  
+  .time-value {
+    font-size: 16px !important;
+  }
+  
+  .flash-sale-grid {
+    grid-template-columns: repeat(2, 1fr) !important; /* Compact grid */
+    gap: 10px !important;
+  }
+
+  .sale-info {
+    padding: 10px !important;
+  }
+
+  .sale-name {
+    font-size: 13px !important;
+    height: 36px !important;
+    margin-bottom: 8px !important;
+  }
+
+  .price-current {
+    font-size: 15px !important;
+  }
+
+  .buy-btn {
+    padding: 8px !important;
+    font-size: 12px !important;
   }
 }
