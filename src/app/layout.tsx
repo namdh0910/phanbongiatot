@@ -120,14 +120,15 @@ export default function RootLayout({
       <body className={`${inter.className} min-h-screen flex flex-col bg-background text-foreground`}>
         <CartProvider>
           <SettingsProvider>
-            <Header />
-            <main className="flex-1">{children}</main>
-            <Footer />
-            <StickyCTA />
-            <MobileBottomBar />
+            <LayoutWrapper>
+              {children}
+            </LayoutWrapper>
           </SettingsProvider>
         </CartProvider>
       </body>
     </html>
   );
 }
+
+// Separate client component to handle conditional rendering
+import LayoutWrapper from "@/components/LayoutWrapper";
