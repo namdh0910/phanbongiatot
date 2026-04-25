@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   }
   
   return {
-    title: `${blog.title} | Kiến thức nông nghiệp`,
+    title: `${blog.title} | Kiến thức nông nghiệp | Phân Bón Giá Tốt`,
     description: blog.excerpt || blog.title,
     alternates: {
       canonical: `https://www.phanbongiatot.com/blog/${slug}`,
@@ -140,24 +140,38 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
                 }}
               />
               
-              {/* Internal CTA */}
-              <div className="mt-12 p-8 bg-gradient-to-br from-emerald-900 to-green-800 rounded-2xl text-white relative overflow-hidden shadow-xl">
-                 <div className="relative z-10">
-                    <h3 className="text-2xl font-bold mb-3">Cần tư vấn kỹ thuật trực tiếp?</h3>
-                    <p className="text-emerald-100 mb-6 text-sm md:text-base">Gửi ảnh vườn hoặc mô tả tình trạng cây trồng để kỹ sư hỗ trợ nhanh nhất.</p>
-                    <Link href="/lien-he" className="inline-block bg-yellow-400 text-emerald-900 px-8 py-4 rounded-xl font-black text-lg hover:bg-yellow-300 transition-all shadow-lg active:scale-95">
-                       📩 GỬI THÔNG TIN NGAY
-                    </Link>
-                 </div>
-                 <span className="absolute -bottom-10 -right-10 text-[150px] opacity-10 rotate-12">👨‍🌾</span>
+              {/* Social Share */}
+              <div className="mt-16 pt-10 border-t border-gray-100">
+                <div className="flex flex-col md:flex-row justify-between items-center gap-6 bg-white p-8 rounded-3xl shadow-sm border border-gray-50">
+                  <div>
+                    <h4 className="font-black text-gray-900 mb-1 italic">Chia sẻ kỹ thuật này cho bà con</h4>
+                    <p className="text-gray-400 text-xs font-bold uppercase tracking-widest">Cùng nhau xây dựng nền nông nghiệp bền vững</p>
+                  </div>
+                  <div className="flex gap-4">
+                    <a href={`https://www.facebook.com/sharer/sharer.php?u=https://www.phanbongiatot.com/blog/${slug}`} target="_blank" className="w-14 h-14 bg-[#1877F2] text-white rounded-2xl flex items-center justify-center text-2xl shadow-lg shadow-blue-100 hover:-translate-y-1 transition-all active:scale-90 font-bold">f</a>
+                    <a href={`https://zalo.me/share?url=https://www.phanbongiatot.com/blog/${slug}`} target="_blank" className="w-14 h-14 bg-[#0068FF] text-white rounded-2xl flex items-center justify-center text-2xl shadow-lg shadow-blue-100 hover:-translate-y-1 transition-all active:scale-90 font-bold italic tracking-tighter">Z</a>
+                  </div>
+                </div>
               </div>
 
-              <div className="mt-12 pt-8 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center gap-6">
-                <span className="font-bold text-gray-800">Chia sẻ kinh nghiệm này cho bà con:</span>
-                <div className="flex gap-3">
-                  <button className="w-12 h-12 bg-[#1877F2] text-white rounded-full flex items-center justify-center font-bold shadow-md hover:-translate-y-1 transition-transform">f</button>
-                  <button className="w-12 h-12 bg-[#0068FF] text-white rounded-full flex items-center justify-center font-bold shadow-md hover:-translate-y-1 transition-transform">Z</button>
-                </div>
+              {/* Related Posts */}
+              <RelatedPosts tags={blog.tags || []} currentSlug={slug} />
+              
+              {/* Internal CTA */}
+              <div className="mt-16 p-10 bg-gradient-to-br from-[#1a5c2a] to-[#2d7a3e] rounded-[2.5rem] text-white relative overflow-hidden shadow-2xl">
+                 <div className="relative z-10">
+                    <h3 className="text-3xl font-black mb-4 uppercase italic tracking-tight">Cần tư vấn kỹ thuật trực tiếp?</h3>
+                    <p className="text-green-100 mb-8 text-sm md:text-lg font-medium">Gửi ảnh vườn hoặc mô tả tình trạng cây trồng để đội ngũ kỹ sư hỗ trợ phác đồ điều trị nhanh nhất.</p>
+                    <div className="flex flex-col sm:flex-row gap-4">
+                       <Link href="/lien-he" className="bg-yellow-400 text-[#1a5c2a] px-10 py-5 rounded-2xl font-black text-lg hover:bg-yellow-300 transition-all shadow-xl shadow-green-900/20 active:scale-95 text-center">
+                          📩 GỬI THÔNG TIN NGAY
+                       </Link>
+                       <a href="tel:0773440966" className="bg-white/20 backdrop-blur-md text-white border-2 border-white/30 px-10 py-5 rounded-2xl font-black text-lg hover:bg-white/30 transition-all text-center">
+                          📞 GỌI KỸ SƯ
+                       </a>
+                    </div>
+                 </div>
+                 <span className="absolute -bottom-10 -right-10 text-[200px] opacity-10 rotate-12 select-none">👨‍🌾</span>
               </div>
             </article>
 
@@ -198,6 +212,43 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  );
+}
+
+async function RelatedPosts({ tags, currentSlug }: { tags: string[], currentSlug: string }) {
+  let related: any[] = [];
+  try {
+    const res = await fetch(`${API_BASE_URL}/blogs`);
+    if (res.ok) {
+      const all = await res.json();
+      related = all.filter((p: any) => 
+        p.slug !== currentSlug && 
+        p.tags?.some((t: string) => tags.includes(t))
+      ).slice(0, 3);
+    }
+  } catch {}
+
+  if (related.length === 0) return null;
+
+  return (
+    <div className="mt-16">
+      <h3 className="text-2xl font-black text-gray-900 mb-8 uppercase italic tracking-tight flex items-center gap-3">
+        <span className="w-10 h-1 bg-[#1a5c2a] rounded-full"></span>
+        Bài viết liên quan
+      </h3>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {related.map((post: any) => (
+          <Link href={`/blog/${post.slug}`} key={post._id} className="group flex flex-col gap-4">
+            <div className="aspect-[16/10] rounded-2xl overflow-hidden bg-gray-100 border border-gray-100 shadow-sm">
+               {post.image ? <img src={post.image} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" /> : <div className="w-full h-full flex items-center justify-center text-4xl opacity-20">📚</div>}
+            </div>
+            <h4 className="font-black text-gray-800 group-hover:text-[#1a5c2a] transition-colors leading-tight line-clamp-2">
+              {post.title}
+            </h4>
+          </Link>
+        ))}
       </div>
     </div>
   );
