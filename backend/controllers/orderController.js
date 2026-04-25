@@ -1,6 +1,12 @@
 const Order = require('../models/Order');
 const Coupon = require('../models/Coupon');
 const { sendTelegramMessage } = require('../utils/telegram');
+const { 
+  notifyOrderReceived, 
+  notifyOrderConfirmed, 
+  notifyOrderShipping, 
+  notifyOrderSuccess 
+} = require('../services/notificationService');
 
 // @desc    Create new order
 // @route   POST /api/orders
@@ -104,6 +110,9 @@ ${orderItems.map(item => `- ${item.name} x${item.qty} (${item.price.toLocaleStri
       
       console.log('Đang gửi thông báo đơn hàng qua Telegram...');
       await sendTelegramMessage(message);
+
+      // Gửi thông báo Zalo OA/SMS cho khách hàng
+      await notifyOrderReceived(createdOrder);
       
       res.status(201).json(createdOrder);
     }
@@ -193,6 +202,16 @@ const updateOrderStatus = async (req, res) => {
       order.shippingCode = req.body.shippingCode || order.shippingCode;
 
       const updatedOrder = await order.save();
+      
+      // Gửi thông báo tự động theo trạng thái mới
+      if (req.body.status === 'confirmed') {
+        await notifyOrderConfirmed(updatedOrder);
+      } else if (req.body.status === 'shipping') {
+        await notifyOrderShipping(updatedOrder, updatedOrder.shippingCode);
+      } else if (req.body.status === 'done') {
+        await notifyOrderSuccess(updatedOrder);
+      }
+
       res.json(updatedOrder);
     } else {
       res.status(404).json({ message: 'Không tìm thấy đơn hàng' });
