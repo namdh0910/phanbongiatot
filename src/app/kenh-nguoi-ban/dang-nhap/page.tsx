@@ -43,71 +43,125 @@ export default function VendorLogin() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f0f2f5] flex items-center justify-center p-4">
-      <div className="bg-white rounded-3xl shadow-xl overflow-hidden max-w-lg w-full p-10">
-        <div className="text-center mb-10">
-          <h1 className="text-3xl font-black text-[#1a5c2a] mb-2 italic">PHÂN BÓN GIÁ TỐT</h1>
-          <p className="text-gray-500 font-bold uppercase tracking-widest text-xs">Cổng quản trị gian hàng</p>
-        </div>
-
-        {error && <div className="bg-red-50 text-red-600 p-4 rounded-xl text-sm mb-6 font-bold text-center">{error}</div>}
-
-        <form onSubmit={handleLogin} className="space-y-6">
-          <div>
-            <label className="block text-xs font-bold text-gray-400 uppercase mb-2 ml-1">Tên đăng nhập</label>
-            <div className="relative">
-              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-xl">👤</span>
-              <input 
-                required 
-                value={username} 
-                onChange={e => setUsername(e.target.value)} 
-                autoComplete="username"
-                className="w-full border border-gray-200 bg-gray-50 rounded-2xl px-12 py-4 text-gray-900 outline-none focus:bg-white focus:border-[#1a5c2a] transition-all" 
-                placeholder="Tên đăng nhập của anh/chị..." 
-              />
-            </div>
-          </div>
-
-          <div>
-            <label className="block text-xs font-bold text-gray-400 uppercase mb-2 ml-1">Mật khẩu</label>
-            <div className="relative">
-              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-xl">🔒</span>
-              <input 
-                type="password" 
-                required 
-                value={password} 
-                onChange={e => setPassword(e.target.value)} 
-                autoComplete="current-password"
-                className="w-full border border-gray-200 bg-gray-50 rounded-2xl px-12 py-4 text-gray-900 outline-none focus:bg-white focus:border-[#1a5c2a] transition-all" 
-                placeholder="Mật khẩu bảo mật..." 
-              />
-            </div>
-          </div>
-
-          <div className="bg-blue-50 p-3 rounded-xl border border-blue-100">
-             <p className="text-[10px] text-blue-600 leading-tight">
-               💡 <b>Lưu ý:</b> Nếu Google hiện cảnh báo "Thay đổi mật khẩu", đó là do mật khẩu của anh/chị quá đơn giản hoặc đã bị lộ ở các trang web khác. Hãy chọn mật khẩu có cả chữ và số để bảo mật tốt nhất.
-             </p>
-          </div>
-
-          <button 
-            type="submit" 
-            disabled={loading}
-            className="w-full bg-[#1a5c2a] text-white py-4 rounded-2xl font-black text-lg hover:bg-[#2d7a3e] transition-all shadow-lg disabled:opacity-50"
-          >
-            {loading ? "Đang xác thực..." : "ĐĂNG NHẬP NGAY"}
-          </button>
-        </form>
-
-        <div className="mt-10 text-center space-y-4">
-          <p className="text-gray-500 text-sm">Chưa có gian hàng trên hệ thống?</p>
-          <Link href="/kenh-nguoi-ban/dang-ky" className="inline-block text-[#1a5c2a] font-black border-2 border-[#1a5c2a] px-8 py-3 rounded-2xl hover:bg-green-50 transition-all">
-            ĐĂNG KÝ HỢP TÁC NGAY
+    <div className="min-h-screen bg-white flex flex-col md:flex-row">
+      {/* Left Column: Form Section */}
+      <div className="w-full md:w-[45%] flex flex-col justify-center p-8 md:p-16 lg:p-24 bg-white relative">
+        <div className="mb-12">
+          <Link href="/" className="inline-block">
+            <h1 className="text-3xl font-black text-[#1a5c2a] italic tracking-tighter">PHÂN BÓN GIÁ TỐT</h1>
+            <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] ml-1">Cổng quản lý gian hàng</p>
           </Link>
-          <div className="pt-4">
-            <Link href="/" className="text-gray-400 text-xs hover:underline">Quay lại trang chủ mua sắm</Link>
+        </div>
+
+        <div className="max-w-md w-full mx-auto md:mx-0">
+          <h2 className="text-4xl font-black text-gray-900 mb-2 leading-tight">Chào mừng đối tác quay trở lại!</h2>
+          <p className="text-gray-500 mb-10 text-lg">Đăng nhập để quản lý đơn hàng và doanh số của anh/chị ngay hôm nay.</p>
+
+          {error && (
+            <div className="bg-red-50 text-red-600 p-4 rounded-2xl text-sm mb-8 font-bold border border-red-100 flex items-center gap-3">
+              <span className="text-xl">⚠️</span> {error}
+            </div>
+          )}
+
+          <form onSubmit={handleLogin} className="space-y-6">
+            <div className="space-y-4">
+              <div>
+                <label className="block text-[10px] font-black text-gray-400 uppercase mb-2 ml-1">Tài khoản quản lý</label>
+                <input 
+                  required 
+                  value={username} 
+                  onChange={e => setUsername(e.target.value)} 
+                  autoComplete="username"
+                  className="w-full border-2 border-gray-100 bg-gray-50 rounded-2xl px-6 py-4 text-gray-900 outline-none focus:bg-white focus:border-[#1a5c2a] focus:ring-4 focus:ring-green-50 transition-all font-medium" 
+                  placeholder="Nhập tên đăng nhập..." 
+                />
+              </div>
+
+              <div>
+                <label className="block text-[10px] font-black text-gray-400 uppercase mb-2 ml-1">Mật khẩu</label>
+                <input 
+                  type="password" 
+                  required 
+                  value={password} 
+                  onChange={e => setPassword(e.target.value)} 
+                  autoComplete="current-password"
+                  className="w-full border-2 border-gray-100 bg-gray-50 rounded-2xl px-6 py-4 text-gray-900 outline-none focus:bg-white focus:border-[#1a5c2a] focus:ring-4 focus:ring-green-50 transition-all font-medium" 
+                  placeholder="Nhập mật khẩu bảo mật..." 
+                />
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between py-2">
+               <label className="flex items-center gap-2 cursor-pointer">
+                  <input type="checkbox" className="w-4 h-4 rounded border-gray-300 text-[#1a5c2a] focus:ring-[#1a5c2a]" />
+                  <span className="text-sm text-gray-600 font-medium">Ghi nhớ đăng nhập</span>
+               </label>
+               <Link href="/quen-mat-khau" className="text-sm text-[#1a5c2a] font-bold hover:underline">Quên mật khẩu?</Link>
+            </div>
+
+            <button 
+              type="submit" 
+              disabled={loading}
+              className="w-full bg-[#1a5c2a] text-white py-5 rounded-2xl font-black text-xl hover:bg-[#2d7a3e] transition-all shadow-xl shadow-green-900/20 disabled:opacity-50 active:scale-95"
+            >
+              {loading ? "ĐANG XÁC THỰC..." : "ĐĂNG NHẬP NGAY"}
+            </button>
+          </form>
+
+          <div className="mt-12 pt-12 border-t border-gray-100 text-center md:text-left">
+            <p className="text-gray-500 mb-4">Anh/chị chưa có gian hàng?</p>
+            <Link href="/kenh-nguoi-ban/dang-ky" className="text-[#1a5c2a] font-black hover:underline text-lg">
+              Đăng ký hợp tác bán hàng cùng chúng tôi ➜
+            </Link>
           </div>
         </div>
+      </div>
+
+      {/* Right Column: Benefits & Trust Signals */}
+      <div className="hidden md:flex flex-1 bg-[#1a5c2a] relative overflow-hidden flex-col justify-center p-20 text-white">
+         {/* Decorative elements */}
+         <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full -mr-48 -mt-48 blur-3xl"></div>
+         <div className="absolute bottom-0 left-0 w-64 h-64 bg-black/10 rounded-full -ml-32 -mb-32 blur-3xl"></div>
+         
+         <div className="relative z-10 max-w-lg">
+            <div className="bg-white/10 backdrop-blur-md p-8 rounded-[2.5rem] border border-white/20 mb-12">
+               <h3 className="text-3xl font-black mb-6 leading-tight uppercase italic">Tại sao nên bán hàng tại Phân Bón Giá Tốt?</h3>
+               <div className="space-y-6">
+                  <div className="flex items-start gap-4">
+                     <span className="text-2xl">📈</span>
+                     <div>
+                        <h4 className="font-bold text-lg">Tiếp cận 500.000+ Nhà vườn</h4>
+                        <p className="text-green-100 text-sm">Hệ thống khách hàng trung thành khắp các tỉnh Tây Nguyên và Miền Tây.</p>
+                     </div>
+                  </div>
+                  <div className="flex items-start gap-4">
+                     <span className="text-2xl">⚡</span>
+                     <div>
+                        <h4 className="font-bold text-lg">Duyệt gian hàng trong 24h</h4>
+                        <p className="text-green-100 text-sm">Quy trình đăng ký đơn giản, hỗ trợ kỹ thuật tận tình 24/7.</p>
+                     </div>
+                  </div>
+                  <div className="flex items-start gap-4">
+                     <span className="text-2xl">🛡️</span>
+                     <div>
+                        <h4 className="font-bold text-lg">Bảo mật & Minh bạch</h4>
+                        <p className="text-green-100 text-sm">Hệ thống báo cáo doanh thu thời gian thực, đối soát dòng tiền rõ ràng.</p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-8 pl-4">
+               <div>
+                  <p className="text-4xl font-black mb-1">500+</p>
+                  <p className="text-green-200 text-xs font-bold uppercase tracking-widest">Đối tác đại lý</p>
+               </div>
+               <div>
+                  <p className="text-4xl font-black mb-1">98%</p>
+                  <p className="text-green-200 text-xs font-bold uppercase tracking-widest">Hài lòng từ seller</p>
+               </div>
+            </div>
+         </div>
       </div>
     </div>
   );
