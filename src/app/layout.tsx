@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
@@ -9,19 +9,36 @@ import MobileBottomBar from "@/components/MobileBottomBar";
 import { CartProvider } from "@/context/CartContext";
 import { SettingsProvider } from "@/context/SettingsContext";
 
-const inter = Inter({ subsets: ["latin", "vietnamese"] });
+const inter = Inter({ subsets: ["latin", "vietnamese"], display: 'swap' });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+};
 
 export const metadata: Metadata = {
   title: "Phân Bón Giá Tốt | Giải Pháp Nông Nghiệp Hiệu Quả",
-  description: "Chuyên cung cấp phân bón, thuốc trừ sâu, kích rễ và các giải pháp bảo vệ thực vật uy tín cho sầu riêng, cà phê, cây ăn trái.",
-  keywords: "phân bón, thuốc trừ sâu, kích rễ, tuyến trùng, vàng lá thối rễ, sầu riêng, cà phê",
+  description: "Phân bón chính hãng giá tốt cho sầu riêng, cà phê, tiêu. Giao hàng toàn quốc, kiểm tra trước khi nhận. Tư vấn kỹ sư miễn phí: 0773.440.966",
+  keywords: "phân bón, thuốc trừ sâu, kích rễ, tuyến trùng, vàng lá thối rễ, sầu riêng, cà phê, phan bong gia tot",
+  alternates: {
+    canonical: "https://phanbongiatot.com",
+  },
   openGraph: {
     title: "Phân Bón Giá Tốt | Giải Pháp Nông Nghiệp Hiệu Quả",
-    description: "Chuyên cung cấp phân bón, thuốc trừ sâu, kích rễ và các giải pháp bảo vệ thực vật uy tín.",
+    description: "Phân bón chính hãng giá tốt cho sầu riêng, cà phê, tiêu. Giao hàng toàn quốc, kiểm tra trước khi nhận.",
     url: "https://phanbongiatot.com",
     siteName: "Phân Bón Giá Tốt",
     locale: "vi_VN",
     type: "website",
+    images: [
+      {
+        url: "https://phanbongiatot.com/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Phân Bón Giá Tốt",
+      },
+    ],
   },
 };
 
@@ -33,6 +50,8 @@ export default function RootLayout({
   return (
     <html lang="vi" className="scroll-smooth">
       <head>
+        <link rel="preconnect" href="https://zalo.me" />
+        <link rel="preconnect" href="https://connect.facebook.net" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify({
@@ -41,11 +60,36 @@ export default function RootLayout({
             "name": "Phân Bón Giá Tốt",
             "url": "https://phanbongiatot.com",
             "logo": "https://phanbongiatot.com/logo.png",
+            "sameAs": [
+              "https://www.facebook.com/phanbongiatot",
+              "https://www.youtube.com/@phanbongiatot"
+            ],
             "contactPoint": {
               "@type": "ContactPoint",
               "telephone": "+84773440966",
-              "contactType": "customer service"
+              "contactType": "customer service",
+              "areaServed": "VN",
+              "availableLanguage": "Vietnamese"
             }
+          }) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "LocalBusiness",
+            "name": "Phân Bón Giá Tốt",
+            "image": "https://phanbongiatot.com/og-image.png",
+            "telephone": "0773440966",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "Kho hàng Tây Nguyên",
+              "addressLocality": "Buôn Ma Thuột",
+              "addressRegion": "Đắk Lắk",
+              "addressCountry": "VN"
+            },
+            "priceRange": "$$",
+            "openingHours": "Mo-Su 07:00-21:00"
           }) }}
         />
         {/* Facebook Pixel - only load if NEXT_PUBLIC_FB_PIXEL_ID is set */}

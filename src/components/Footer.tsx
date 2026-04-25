@@ -25,10 +25,10 @@ export default function Footer() {
           <div className="space-y-4">
             <h4 className="text-xs font-bold uppercase tracking-widest text-gray-500">Kết nối với chúng tôi</h4>
             <div className="footer-social-grid">
-              <a href="#" className="social-icon-btn">f</a>
-              <a href="#" className="social-icon-btn">y</a>
-              <a href="#" className="social-icon-btn">i</a>
-              <a href="#" className="social-icon-btn">t</a>
+              <a href="https://facebook.com/phanbongiatot" target="_blank" className="social-icon-btn" title="Facebook">f</a>
+              <a href="https://youtube.com/@phanbongiatot" target="_blank" className="social-icon-btn" title="Youtube">y</a>
+              <a href={`https://zalo.me/${settings?.zaloId || '0773440966'}`} target="_blank" className="social-icon-btn" title="Zalo">z</a>
+              <a href="https://shopee.vn/phanbongiatot" target="_blank" className="social-icon-btn" title="Shopee">s</a>
             </div>
           </div>
           <div className="pt-4">
@@ -44,9 +44,9 @@ export default function Footer() {
           </h4>
           <ul className="space-y-4 text-gray-400 text-sm font-medium">
             <li><Link href="/danh-muc/phan-bon" className="hover:text-[#1a5c2a] transition-colors">Phân bón sinh học</Link></li>
+            <li><Link href="/danh-muc/thuoc-tru-sau" className="hover:text-[#1a5c2a] transition-colors">Thuốc trừ sâu sinh học</Link></li>
             <li><Link href="/danh-muc/kich-re" className="hover:text-[#1a5c2a] transition-colors">Siêu kích rễ cực mạnh</Link></li>
             <li><Link href="/danh-muc/tuyen-trung" className="hover:text-[#1a5c2a] transition-colors">Đặc trị tuyến trùng</Link></li>
-            <li><Link href="/danh-muc/thuoc-bvtv" className="hover:text-[#1a5c2a] transition-colors">Thuốc BVTV cao cấp</Link></li>
             <li><Link href="/combo" className="hover:text-[#1a5c2a] transition-colors">Gói giải pháp tiết kiệm</Link></li>
           </ul>
         </div>

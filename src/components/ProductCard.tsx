@@ -47,7 +47,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     >
       <div className="p-image-wrapper">
         {isUrl ? (
-          <img src={imgSrc} alt={product.name} className="p-image" />
+          <img src={imgSrc} alt={product.name} className="p-image" loading="lazy" width="300" height="300" />
         ) : (
           <div className="p-image flex items-center justify-center bg-emerald-50 text-5xl">
             {product.category?.includes('phân bón') ? '🌱' : '🛡️'}

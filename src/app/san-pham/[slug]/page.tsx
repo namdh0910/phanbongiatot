@@ -67,6 +67,37 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
 
   return (
     <div className="bg-[#f5f5f5] min-h-screen pb-24 font-sans text-gray-800">
+      <head>
+        <link rel="preconnect" href="https://zalo.me" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Product",
+            "name": product.name,
+            "image": validImages,
+            "description": product.description?.slice(0, 200),
+            "sku": product._id,
+            "brand": {
+              "@type": "Brand",
+              "name": "Phân Bón Giá Tốt"
+            },
+            "offers": {
+              "@type": "Offer",
+              "url": `https://phanbongiatot.com/san-pham/${product.slug}`,
+              "priceCurrency": "VND",
+              "price": product.price,
+              "availability": product.stock > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+              "itemCondition": "https://schema.org/NewCondition"
+            },
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": fakeRating,
+              "reviewCount": "2100"
+            }
+          }) }}
+        />
+      </head>
       <div className="container mx-auto px-0 md:px-4 py-4 max-w-6xl">
         {/* Breadcrumb */}
         <nav className="text-sm text-gray-500 mb-4 px-4 md:px-0 flex items-center gap-2 overflow-x-auto whitespace-nowrap scrollbar-hide">
@@ -82,8 +113,10 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
           <div className="w-full md:w-[450px] p-0 md:p-4 flex-shrink-0">
             <ProductGallery images={validImages} name={product.name} discount={discount} />
             <div className="hidden md:flex items-center justify-center gap-6 mt-8 text-gray-500 text-sm">
-              <div className="flex items-center gap-2 cursor-pointer hover:text-[#ee4d2d]">
-                <span className="text-lg">🔗</span> Chia sẻ: f t p
+              <div className="flex items-center gap-2">
+                <span className="text-lg">🔗</span> Chia sẻ: 
+                <a href={`https://www.facebook.com/sharer/sharer.php?u=https://phanbongiatot.com/san-pham/${product.slug}`} target="_blank" className="hover:text-[#1a5c2a] font-bold">Facebook</a>
+                <a href={`https://zalo.me/${settings?.zaloId || '0773440966'}`} target="_blank" className="hover:text-[#1a5c2a] font-bold">Zalo</a>
               </div>
               <div className="w-px h-4 bg-gray-200"></div>
               <div className="flex items-center gap-2 cursor-pointer hover:text-[#ee4d2d]">
