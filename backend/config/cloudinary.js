@@ -15,7 +15,7 @@ const storage = new CloudinaryStorage({
   params: {
     folder: 'phanbongiatot',
     allowed_formats: ['jpg', 'jpeg', 'png', 'webp'],
-    transformation: [{ width: 1200, crop: 'limit', quality: 'auto', fetch_format: 'webp' }],
+    transformation: [{ width: 800, height: 800, crop: 'limit', quality: 'auto', fetch_format: 'webp' }],
   },
 });
 

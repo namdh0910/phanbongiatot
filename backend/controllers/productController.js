@@ -265,9 +265,43 @@ const createProductReview = async (req, res) => {
     }
 };
 
+// @desc    Get all categories with counts
+// @route   GET /api/categories
+const getCategories = async (req, res) => {
+  try {
+    const { include_count } = req.query;
+    
+    // Fixed categories for Phân Bón Giá Tốt
+    const categories = [
+      { name: 'Phân bón', slug: 'phan-bon' },
+      { name: 'Thuốc trừ sâu', slug: 'thuoc-tru-sau' },
+      { name: 'Kích rễ', slug: 'kich-re' },
+      { name: 'Tuyến trùng', slug: 'tuyen-trung' }
+    ];
+
+    if (include_count === 'true') {
+      const counts = await Product.aggregate([
+        { $match: { status: 'approved' } },
+        { $group: { _id: '$category_id', count: { $sum: 1 } } }
+      ]);
+      
+      const categoriesWithCount = categories.map(cat => {
+        const found = counts.find(c => c._id === cat.slug);
+        return { ...cat, count: found ? found.count : 0 };
+      });
+      return res.json(categoriesWithCount);
+    }
+
+    res.json(categories);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = {
   getProducts,
   getCropTypes,
+  getCategories,
   updateStock,
   approveProduct,
   getProductById,
