@@ -69,6 +69,7 @@ app.use('/api/coupons', couponRoutes);
 app.use('/api/social', socialRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/reviews', reviewRoutes);
+app.use('/api/admin/reviews', reviewRoutes);
 app.use('/api/settings', settingsRoutes);
 app.use('/api/ai', aiRoutes);
 app.use('/api/sellers', sellerRoutes);

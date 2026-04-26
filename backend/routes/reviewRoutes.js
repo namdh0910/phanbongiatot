@@ -8,9 +8,13 @@ const {
 } = require('../controllers/reviewController');
 const { protect, admin } = require('../middleware/authMiddleware');
 
+// Public routes
 router.post('/', createReview);
-router.get('/product/:productId', getProductReviews);
+router.get('/', getProductReviews);
+
+// Admin routes
 router.get('/admin/all', protect, admin, getAdminReviews);
-router.put('/:id/status', protect, admin, updateReviewStatus);
+router.patch('/:id', protect, admin, updateReviewStatus);
+router.patch('/admin/:id', protect, admin, updateReviewStatus); // Supporting both if needed
 
 module.exports = router;

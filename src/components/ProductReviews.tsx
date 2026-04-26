@@ -17,16 +17,17 @@ export default function ProductReviews({ productId }: { productId: string }) {
   const reviewsPerPage = 5;
 
   const [formData, setFormData] = useState({
-    name: "",
-    province: "",
+    reviewer_name: "",
+    reviewer_phone: "",
+    reviewer_province: "",
     rating: 5,
-    comment: "",
+    content: "",
     images: [] as string[]
   });
 
   const fetchReviews = async () => {
     try {
-      const res = await fetch(`${API_BASE_URL}/reviews/product/${productId}?status=approved`);
+      const res = await fetch(`${API_BASE_URL}/reviews?product_id=${productId}&status=approved`);
       const data = await res.json();
       setReviews(Array.isArray(data) ? data : []);
     } catch (error) {
@@ -69,7 +70,7 @@ export default function ProductReviews({ productId }: { productId: string }) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (formData.comment.length < 20) {
+    if (formData.content.length < 20) {
       alert("Nội dung đánh giá phải ít nhất 20 ký tự.");
       return;
     }
@@ -81,13 +82,12 @@ export default function ProductReviews({ productId }: { productId: string }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ 
           ...formData, 
-          product: productId,
-          status: "pending_review"
+          product: productId
         })
       });
       if (res.ok) {
         setShowForm(false);
-        setFormData({ name: "", province: "", rating: 5, comment: "", images: [] });
+        setFormData({ reviewer_name: "", reviewer_phone: "", reviewer_province: "", rating: 5, content: "", images: [] });
         alert("✨ Cảm ơn! Đánh giá của bạn đang chờ duyệt và sẽ hiển thị trong 24h.");
       }
     } catch (error) {
@@ -158,22 +158,34 @@ export default function ProductReviews({ productId }: { productId: string }) {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div>
-                <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">Họ tên anh/chị *</label>
+                <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">Họ tên *</label>
                 <input 
                   required 
-                  value={formData.name} 
-                  onChange={e => setFormData({...formData, name: e.target.value})} 
+                  value={formData.reviewer_name} 
+                  onChange={e => setFormData({...formData, reviewer_name: e.target.value})} 
                   className="w-full border-2 border-gray-50 rounded-2xl px-6 py-4 text-sm outline-none focus:border-[#1a5c2a] bg-gray-50/50 transition-all font-medium"
                   placeholder="Ví dụ: Anh Nam"
                 />
               </div>
               <div>
-                <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">Tỉnh/Thành phố (Tùy chọn)</label>
+                <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">Số điện thoại *</label>
+                <input 
+                  required 
+                  type="tel"
+                  value={formData.reviewer_phone} 
+                  onChange={e => setFormData({...formData, reviewer_phone: e.target.value})} 
+                  className="w-full border-2 border-gray-50 rounded-2xl px-6 py-4 text-sm outline-none focus:border-[#1a5c2a] bg-gray-50/50 transition-all font-medium"
+                  placeholder="Để xác minh mua hàng..."
+                />
+              </div>
+              <div>
+                <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">Tỉnh/Thành phố *</label>
                 <select 
-                  value={formData.province} 
-                  onChange={e => setFormData({...formData, province: e.target.value})} 
+                  required
+                  value={formData.reviewer_province} 
+                  onChange={e => setFormData({...formData, reviewer_province: e.target.value})} 
                   className="w-full border-2 border-gray-50 rounded-2xl px-6 py-4 text-sm outline-none focus:border-[#1a5c2a] bg-gray-50/50 transition-all font-medium"
                 >
                   <option value="">-- Chọn tỉnh --</option>
@@ -186,13 +198,13 @@ export default function ProductReviews({ productId }: { productId: string }) {
               <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">Cảm nhận chi tiết * (Tối thiểu 20 ký tự)</label>
               <textarea 
                 required 
-                value={formData.comment} 
-                onChange={e => setFormData({...formData, comment: e.target.value})} 
+                value={formData.content} 
+                onChange={e => setFormData({...formData, content: e.target.value})} 
                 className="w-full border-2 border-gray-50 rounded-2xl px-6 py-4 text-sm outline-none focus:border-[#1a5c2a] h-40 bg-gray-50/50 transition-all resize-none font-medium leading-relaxed"
                 placeholder="Phân bón dùng rất tốt, rễ ra mạnh, cây xanh lá..."
               />
-              <p className={`text-[10px] mt-2 font-bold ${formData.comment.length < 20 ? 'text-gray-400' : 'text-emerald-500'}`}>
-                Đã nhập: {formData.comment.length}/20 ký tự
+              <p className={`text-[10px] mt-2 font-bold ${formData.content.length < 20 ? 'text-gray-400' : 'text-emerald-500'}`}>
+                Đã nhập: {formData.content.length}/20 ký tự
               </p>
             </div>
 
@@ -251,14 +263,19 @@ export default function ProductReviews({ productId }: { productId: string }) {
                   <div key={i} className="py-10 first:pt-0 last:pb-0 animate-in fade-in duration-700">
                     <div className="flex gap-5 md:gap-8">
                       <div className="w-14 h-14 bg-gradient-to-br from-green-100 to-green-200 text-[#1a5c2a] rounded-2xl flex items-center justify-center font-black text-xl flex-shrink-0 shadow-inner">
-                        {review.name.charAt(0).toUpperCase()}
+                        {review.reviewer_name.charAt(0).toUpperCase()}
                       </div>
                       <div className="flex-1">
                         <div className="flex justify-between items-start mb-2">
                           <div>
                             <h4 className="font-black text-gray-900 text-base flex items-center gap-2">
-                              {review.name}
-                              {review.province && <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full uppercase tracking-tighter">📍 {review.province}</span>}
+                              {review.reviewer_name}
+                              {review.reviewer_province && <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full uppercase tracking-tighter">📍 {review.reviewer_province}</span>}
+                              {review.reviewer_phone && (
+                                <span className="text-[10px] font-bold text-gray-400">
+                                  ({review.reviewer_phone.slice(0, 3)}****{review.reviewer_phone.slice(-3)})
+                                </span>
+                              )}
                             </h4>
                             <div className="flex text-yellow-400 text-xs mt-1">
                               {Array(5).fill(0).map((_, idx) => (
@@ -269,7 +286,7 @@ export default function ProductReviews({ productId }: { productId: string }) {
                           <span className="text-[10px] font-bold text-gray-300 uppercase tracking-tighter">{new Date(review.createdAt).toLocaleDateString("vi-VN")}</span>
                         </div>
                         
-                        <p className="text-gray-700 text-sm leading-relaxed whitespace-pre-line mt-4 font-medium italic">"{review.comment}"</p>
+                        <p className="text-gray-700 text-sm leading-relaxed whitespace-pre-line mt-4 font-medium italic">"{review.content}"</p>
                         
                         {review.images?.length > 0 && (
                           <div className="flex flex-wrap gap-3 mt-6">
@@ -283,7 +300,7 @@ export default function ProductReviews({ productId }: { productId: string }) {
 
                         <div className="mt-8 flex items-center gap-6 text-[10px] text-gray-400 font-black uppercase tracking-widest">
                            <button className="flex items-center gap-1.5 hover:text-[#1a5c2a] transition-colors">
-                              <span className="text-base">👍</span> Hữu ích
+                              <span className="text-base">👍</span> Hữu ích ({review.helpfulVotes || 0})
                            </button>
                            <button className="flex items-center gap-1.5 hover:text-red-500 transition-colors">
                               <span className="text-base">🚩</span> Báo cáo

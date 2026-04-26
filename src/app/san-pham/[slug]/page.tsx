@@ -85,8 +85,9 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
     ? product.images.filter((i: string) => i && (i.startsWith("http") || i.startsWith("/"))) 
     : [];
 
-  const fakeSold = Math.floor(Math.random() * 500) + 120;
-  const fakeRating = (Math.random() * (5.0 - 4.7) + 4.7).toFixed(1);
+  const displayRating = product.rating || 5.0;
+  const displayReviewCount = product.numReviews || 0;
+  const displaySold = product.soldCount || 100 + Math.floor(Math.random() * 200);
 
   return (
     <div className="bg-[#f5f5f5] min-h-screen pb-24 font-sans text-gray-800">
@@ -113,8 +114,8 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
           },
           "aggregateRating": {
             "@type": "AggregateRating",
-            "ratingValue": fakeRating,
-            "reviewCount": "2100"
+            "ratingValue": displayRating,
+            "reviewCount": displayReviewCount || 1
           }
         }) }}
       />
@@ -145,13 +146,19 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
             </h1>
             <div className="flex items-center gap-4 text-xs md:text-sm mb-5">
               <div className="flex items-center text-[#ee4d2d] border-b border-[#ee4d2d] pb-[1px] cursor-pointer">
-                <span className="mr-1 font-bold">{fakeRating}</span>
-                <span className="text-[10px] tracking-tighter">⭐⭐⭐⭐⭐</span>
+                <span className="mr-1 font-bold">{displayRating}</span>
+                <div className="flex text-[10px] tracking-tighter">
+                   {[1,2,3,4,5].map(s => (
+                     <span key={s} className={s <= Math.floor(displayRating) ? "text-[#ee4d2d]" : "text-gray-300"}>⭐</span>
+                   ))}
+                </div>
               </div>
               <div className="w-px h-4 bg-gray-200"></div>
-              <div className="text-gray-500 underline decoration-gray-300">2.1k Đánh giá</div>
+              <div className="text-gray-500 underline decoration-gray-300">
+                {displayReviewCount > 0 ? `${displayReviewCount} Đánh giá` : "Chưa có đánh giá"}
+              </div>
               <div className="w-px h-4 bg-gray-200"></div>
-              <div className="text-gray-500 font-medium"><span className="text-gray-900">{fakeSold}</span> Đã bán</div>
+              <div className="text-gray-500 font-medium"><span className="text-gray-900">{displaySold}</span> Đã bán</div>
             </div>
 
             <div className="bg-[#fafafa] px-5 py-6 mb-8 flex flex-col gap-2 rounded-sm border-y border-gray-50">

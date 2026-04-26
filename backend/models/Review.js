@@ -7,21 +7,26 @@ const reviewSchema = mongoose.Schema(
       ref: 'Product',
       required: true
     },
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User'
-    },
-    name: { type: String, required: true },
-    province: { type: String },
+    reviewer_name: { type: String, required: true },
+    reviewer_phone: { type: String, required: true },
+    reviewer_province: { type: String, required: true },
     rating: { type: Number, required: true, min: 1, max: 5 },
-    comment: { type: String, required: true },
+    content: { type: String, required: true },
     images: [{ type: String }],
     status: {
       type: String,
-      enum: ['pending_review', 'approved', 'rejected'],
-      default: 'pending_review'
+      enum: ['pending', 'approved', 'rejected'],
+      default: 'pending'
     },
-    helpfulVotes: { type: Number, default: 0 }
+    order_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Order'
+    },
+    approved_at: { type: Date },
+    approved_by: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
+    }
   },
   { timestamps: true }
 );
