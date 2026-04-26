@@ -1,4 +1,5 @@
 const SellerApplication = require('../models/SellerApplication');
+const User = require('../models/User');
 const { sendTelegramMessage } = require('../utils/telegram');
 
 // @desc    Register a new seller application
@@ -6,10 +7,24 @@ const { sendTelegramMessage } = require('../utils/telegram');
 // @access  Public
 const registerSeller = async (req, res) => {
   try {
+    const { username, phone } = req.body;
+
+    // Check if user already exists
+    const userExists = await User.findOne({ username });
+    if (userExists) {
+      return res.status(400).json({ message: 'Tên đăng nhập đã tồn tại' });
+    }
+
+    // Check if there is a pending application with same username
+    const pendingApp = await SellerApplication.findOne({ username, status: 'pending' });
+    if (pendingApp) {
+      return res.status(400).json({ message: 'Tên đăng nhập này đang được chờ duyệt' });
+    }
+
     const application = new SellerApplication(req.body);
     const createdApplication = await application.save();
 
-    // Send Telegram Notification
+    // Send Telegram Notification to Admin
     const message = `
 <b>🔔 ĐĂNG KÝ SELLER MỚI!</b>
 ------------------------
@@ -22,9 +37,16 @@ const registerSeller = async (req, res) => {
 <i>Duyệt ngay tại: phanbongiatot.vercel.app/admin/vendors</i>
     `;
     
-    await sendTelegramMessage(message);
+    try {
+      await sendTelegramMessage(message);
+    } catch (err) {
+      console.error('Telegram error:', err.message);
+    }
 
-    res.status(201).json(createdApplication);
+    res.status(201).json({ 
+      success: true, 
+      message: "Đăng ký thành công. Admin sẽ duyệt hồ sơ của bạn trong vòng 24-48h." 
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -50,20 +72,45 @@ const updateApplicationStatus = async (req, res) => {
     const { status, reason } = req.body;
     const application = await SellerApplication.findById(req.params.id);
 
-    if (application) {
-      application.status = status;
-      application.rejectionReason = reason || '';
-      application.reviewedBy = req.user._id;
-      application.reviewedAt = Date.now();
-
-      const updatedApplication = await application.save();
-      
-      // TODO: Trigger Email/Zalo OA notification to seller here
-      
-      res.json(updatedApplication);
-    } else {
-      res.status(404).json({ message: 'Không tìm thấy đơn đăng ký' });
+    if (!application) {
+      return res.status(404).json({ message: 'Không tìm thấy đơn đăng ký' });
     }
+
+    if (application.status !== 'pending') {
+      return res.status(400).json({ message: 'Đơn này đã được xử lý rồi' });
+    }
+
+    application.status = status;
+    application.rejectionReason = reason || '';
+    application.reviewedBy = req.user._id;
+    application.reviewedAt = Date.now();
+
+    if (status === 'approved') {
+      // 1. Create User account for Seller
+      const newUser = new User({
+        username: application.username,
+        password: application.password, // Will be hashed by User model pre-save
+        role: 'vendor',
+        vendorInfo: {
+          storeName: application.storeName,
+          phone: application.phone,
+          address: `${application.address}, ${application.province}`,
+          description: application.description,
+          isApproved: true,
+          zaloPhone: application.phone
+        }
+      });
+
+      await newUser.save();
+
+      // 2. Send SMS/Zalo notification (Placeholder logic as requested)
+      console.log(`[NOTIFICATION] Gửi tin nhắn đến ${application.phone}: Chúc mừng! Gian hàng ${application.storeName} đã được duyệt. Đăng nhập tại: phanbongiatot.com/kenh-nguoi-ban`);
+      
+      // In real scenario, call Zalo OA API here
+    }
+
+    const updatedApplication = await application.save();
+    res.json(updatedApplication);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

@@ -25,7 +25,9 @@ export default function VendorRegister() {
     idCardFront: "",
     idCardBack: "",
     businessLicense: "",
-    agreeTerms: false
+    agreeTerms: false,
+    username: "",
+    password: ""
   });
   
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -43,6 +45,12 @@ export default function VendorRegister() {
         newErrors.phone = "Số điện thoại không đúng định dạng (10 số, đầu 03/05/07/08/09)";
       }
       if (!formData.province) newErrors.province = "Vui lòng chọn tỉnh thành";
+      if (!formData.username.trim()) newErrors.username = "Vui lòng nhập tên đăng nhập";
+      if (!formData.password.trim()) {
+        newErrors.password = "Vui lòng nhập mật khẩu";
+      } else if (formData.password.length < 6) {
+        newErrors.password = "Mật khẩu phải từ 6 ký tự trở lên";
+      }
     }
     
     if (currentStep === 2) {
@@ -110,7 +118,7 @@ export default function VendorRegister() {
           <div className="text-8xl mb-8">🌿</div>
           <h1 className="text-3xl font-black text-gray-900 mb-4">Đăng ký thành công!</h1>
           <p className="text-gray-600 mb-8 leading-relaxed">
-            Cảm ơn anh/chị <b>{formData.fullName}</b> đã tin tưởng. Kỹ sư chuyên trách sẽ liên hệ tư vấn trong vòng <b>24h</b> tới.
+            Cảm ơn anh/chị <b>{formData.fullName}</b> đã tin tưởng. Hồ sơ của bạn đang được xem xét. Kỹ sư chuyên trách sẽ liên hệ và duyệt gian hàng trong vòng <b>24-48h</b> tới.
           </p>
           <div className="space-y-4">
              <a href={`https://zalo.me/${process.env.NEXT_PUBLIC_ZALO_PHONE ?? '0773440966'}`} target="_blank" className="block w-full bg-[#0068ff] text-white py-4 rounded-2xl font-black text-lg shadow-lg hover:bg-blue-600 transition-all">
@@ -194,6 +202,29 @@ export default function VendorRegister() {
                       {PROVINCES.map(p => <option key={p} value={p}>{p}</option>)}
                     </select>
                     {errors.province && <p className="text-red-500 text-xs mt-1 font-bold">{errors.province}</p>}
+                  </div>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-black text-gray-400 uppercase mb-2">Tên đăng nhập *</label>
+                    <input 
+                      className={`w-full bg-gray-50 border-2 rounded-2xl px-5 py-4 outline-none transition-all ${errors.username ? 'border-red-200' : 'border-transparent focus:border-[#1a5c2a] focus:bg-white'}`}
+                      placeholder="Chọn tên đăng nhập..."
+                      value={formData.username}
+                      onChange={e => setFormData({...formData, username: e.target.value})}
+                    />
+                    {errors.username && <p className="text-red-500 text-xs mt-1 font-bold">{errors.username}</p>}
+                  </div>
+                  <div>
+                    <label className="block text-xs font-black text-gray-400 uppercase mb-2">Mật khẩu *</label>
+                    <input 
+                      type="password"
+                      className={`w-full bg-gray-50 border-2 rounded-2xl px-5 py-4 outline-none transition-all ${errors.password ? 'border-red-200' : 'border-transparent focus:border-[#1a5c2a] focus:bg-white'}`}
+                      placeholder="Ít nhất 6 ký tự..."
+                      value={formData.password}
+                      onChange={e => setFormData({...formData, password: e.target.value})}
+                    />
+                    {errors.password && <p className="text-red-500 text-xs mt-1 font-bold">{errors.password}</p>}
                   </div>
                 </div>
               </div>

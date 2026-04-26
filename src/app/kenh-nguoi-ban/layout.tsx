@@ -1,9 +1,9 @@
 "use client";
-import VendorGuard from "@/components/VendorGuard";
-import VendorSidebar from "@/components/VendorSidebar";
+import SellerGuard from "@/components/SellerGuard";
+import SellerSidebar from "@/components/SellerSidebar";
 import { usePathname } from "next/navigation";
 
-export default function VendorLayout({ children }: { children: React.ReactNode }) {
+export default function SellerLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   
   // Skip guard and sidebar for landing, login and register pages
@@ -14,13 +14,18 @@ export default function VendorLayout({ children }: { children: React.ReactNode }
   }
 
   return (
-    <VendorGuard>
-      <div className="flex flex-col md:flex-row bg-[#f7fafc] min-h-screen">
-        <VendorSidebar />
-        <main className="flex-1 md:ml-64 min-h-screen pb-20 md:pb-0">
+    <SellerGuard>
+      <div className="bg-[#f8fafc] min-h-screen">
+        {/* Sidebar only for desktop */}
+        <div className="hidden lg:block">
+          <SellerSidebar />
+        </div>
+        
+        {/* Main Content */}
+        <div className="lg:ml-64 min-h-screen">
           {children}
-        </main>
+        </div>
       </div>
-    </VendorGuard>
+    </SellerGuard>
   );
 }
