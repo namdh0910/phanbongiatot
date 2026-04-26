@@ -7,40 +7,40 @@ import './ComboSection.css';
 
 const combos = [
   {
-    _id: 'combo-sau-rieng-phuc-hoi',
-    title: "Combo Sầu Riêng Phục Hồi Sau Thu Hoạch",
-    items: ["Phân bón Acti Rooti (5L)", "Nemano Tuyến Trùng", "Combi Gold"],
-    retailPrice: 1450000,
-    price: 1160000,
-    tag: "Bán chạy nhất",
-    images: ["https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=80&w=800&auto=format&fit=crop"],
-    slug: "combo-sau-rieng-phuc-hoi",
+    _id: 'combo-rooti-nemano-npk',
+    title: "Combo 01: Phục Hồi & Bảo Vệ Toàn Diện",
+    items: ["Rooti (180k)", "Nemano (180k)", "NPK Sinh Học (150k)"],
+    retailPrice: 510000,
+    price: 420000,
+    tag: "Tiết kiệm 90k",
+    images: ["https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=80&w=800"],
+    slug: "combo-phuc-hoi-bao-ve",
     category: "Combo",
-    benefit: "Giúp cây phục hồi nhanh sau thu hoạch, kích rễ cực mạnh."
+    benefit: "Giải pháp 3 trong 1: Kích rễ, ngừa tuyến trùng và bổ sung dinh dưỡng đa lượng."
   },
   {
-    _id: 'combo-ca-phe-nang-suat-vang',
-    title: "Gói Cà Phê Năng Suất Vàng - Hạt Chắc Cành Khỏe",
-    items: ["NPK Cao Cấp", "Kích ra hoa", "Chống rụng trái"],
-    retailPrice: 980000,
-    price: 784000,
-    tag: "Phổ biến",
-    images: ["https://images.unsplash.com/photo-1592982537447-7440770cbfc9?q=80&w=800&auto=format&fit=crop"],
-    slug: "combo-ca-phe-nang-suat-vang",
+    _id: 'combo-rooti-lan-do',
+    title: "Combo 02: Kích Rễ Cực Mạnh - Bung Đọt Nhanh",
+    items: ["Rooti (180k)", "Siêu Lân Đỏ (220k)"],
+    retailPrice: 400000,
+    price: 330000,
+    tag: "Tiết kiệm 70k",
+    images: ["https://images.unsplash.com/photo-1464226184884-fa280b87c399?q=80&w=800"],
+    slug: "combo-kich-re-bung-dot",
     category: "Combo",
-    benefit: "Tối ưu năng suất cà phê, hạt to chắc, cành khỏe."
+    benefit: "Sự kết hợp hoàn hảo giữa kích rễ sinh học và lân đỏ nồng độ cao."
   },
   {
-    _id: 'combo-vang-la-thoi-re',
-    title: "Combo Đặc Trị Vàng Lá Thối Rễ Cấp Tốc",
-    items: ["Nemano", "Bio Root", "Amino Acid"],
-    retailPrice: 1100000,
-    price: 880000,
-    tag: "Mới",
-    images: ["https://images.unsplash.com/photo-1628352081506-83c43123ed6d?q=80&w=800&auto=format&fit=crop"],
-    slug: "combo-vang-la-thoi-re",
+    _id: 'combo-double-nemano-rooti',
+    title: "Combo 03: Đặc Trị Tuyến Trùng & Vàng Lá",
+    items: ["Nemano x2 (360k)", "Rooti (180k)"],
+    retailPrice: 540000,
+    price: 440000,
+    tag: "Tiết kiệm 100k",
+    images: ["https://images.unsplash.com/photo-1628352081506-83c43123ed6d?q=80&w=800"],
+    slug: "combo-dac-tri-tuyen-trung",
     category: "Combo",
-    benefit: "Giải pháp toàn diện cho cây bị vàng lá thối rễ."
+    benefit: "Liều tấn công cho vườn bị tuyến trùng nặng, giúp tái tạo bộ rễ ngay sau khi sạch bệnh."
   }
 ];
 

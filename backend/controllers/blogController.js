@@ -4,8 +4,12 @@ const Blog = require('../models/Blog');
 // @route   GET /api/blog
 const getBlogs = async (req, res) => {
   try {
-    const { crop, category, page = 1, limit = 10 } = req.query;
+    const { crop, category, page = 1, limit = 10, published } = req.query;
     const query = {};
+    
+    if (published === 'true') {
+      query.status = 'published';
+    }
     
     if (crop && crop !== 'Tất cả') {
       query.crops = { $in: [crop] };

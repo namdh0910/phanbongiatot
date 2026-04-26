@@ -45,7 +45,7 @@ const VendorLanding: React.FC = () => {
               ĐĂNG KÝ NGAY — MIỄN PHÍ
               <span className="group-hover:translate-x-2 transition-transform">➜</span>
             </Link>
-            <a href={`https://zalo.me/${settings?.zalo || '0773440966'}`} target="_blank" className="bg-white/10 backdrop-blur-md text-white px-12 py-5 rounded-[2rem] font-black text-xl border border-white/20 hover:bg-white/20 transition-all">
+            <a href={`https://zalo.me/${process.env.NEXT_PUBLIC_ZALO_PHONE ?? '0773440966'}`} target="_blank" className="bg-white/10 backdrop-blur-md text-white px-12 py-5 rounded-[2rem] font-black text-xl border border-white/20 hover:bg-white/20 transition-all">
               NHẬN TƯ VẤN B2B
             </a>
           </div>

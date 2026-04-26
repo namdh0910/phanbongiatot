@@ -17,7 +17,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const settings = useSettings();
   
   const primaryColor = settings?.primaryColor || "#1a5c2a";
-  const zaloId = settings?.zaloId || "0773440966";
+  const zaloId = process.env.NEXT_PUBLIC_ZALO_PHONE ?? "0773440966";
 
   const handleQuickBuy = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -28,7 +28,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
   const handleConsult = (e: React.MouseEvent) => {
     e.stopPropagation();
-    window.open(`https://zalo.me/${settings?.zalo || '0773440966'}`, '_blank');
+    window.open(`https://zalo.me/${process.env.NEXT_PUBLIC_ZALO_PHONE ?? '0773440966'}`, '_blank');
   };
 
   const imgSrc = product.images?.[0];

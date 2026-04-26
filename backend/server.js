@@ -55,11 +55,14 @@ const userRoutes = require('./routes/userRoutes');
 const flashSaleRoutes = require('./routes/flashSaleRoutes');
 const shippingRoutes = require('./routes/shippingRoutes');
 const analyticsRoutes = require('./routes/analyticsRoutes');
+const searchRoutes = require('./routes/searchRoutes');
 
 // Mount routers
 app.use('/api/auth', authRoutes);
+app.use('/api/search', searchRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/blogs', blogRoutes);
+app.use('/api/posts', blogRoutes); // Alias for compatibility
 app.use('/api/leads', leadRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/coupons', couponRoutes);

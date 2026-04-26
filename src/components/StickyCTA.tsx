@@ -41,7 +41,7 @@ export default function StickyCTA() {
 
         {/* Zalo Button */}
         <a 
-          href={`https://zalo.me/${settings?.zalo || '0773440966'}`} 
+          href={`https://zalo.me/${process.env.NEXT_PUBLIC_ZALO_PHONE ?? '0773440966'}`} 
           target="_blank" 
           rel="noopener noreferrer" 
           onClick={handleZalo}

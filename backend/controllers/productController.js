@@ -4,7 +4,7 @@ const Product = require('../models/Product');
 // @route   GET /api/products
 const getProducts = async (req, res) => {
   try {
-    const { keyword, category, crop, page = 1, limit = 20 } = req.query;
+    const { keyword, category, crop, featured, page = 1, limit = 20 } = req.query;
     
     const query = { status: 'approved' };
     
@@ -13,42 +13,51 @@ const getProducts = async (req, res) => {
     }
     
     if (category) {
-      // Support both name and slug if we want, but for now exact name (case-insensitive)
-      query.category = { $regex: `^${category}$`, $options: 'i' };
+      // Support both display name and slug-like matching
+      const categoryRegex = category.replace(/-/g, '.*');
+      query.category = { $regex: categoryRegex, $options: 'i' };
     }
     
     if (crop && crop !== 'Tất cả') {
       query.crops = { $in: [new RegExp(`^${crop}$`, 'i')] };
     }
 
+    if (featured === 'true') {
+      query.isFeatured = true;
+    }
+
     const skip = (Number(page) - 1) * Number(limit);
 
-    const products = await Product.find(query)
+    // Get products and populate seller
+    let products = await Product.find(query)
       .populate('seller', 'role vendorInfo')
-      .sort({ createdAt: -1 })
+      .sort({ isFeatured: -1, createdAt: -1 })
       .skip(skip)
       .limit(Number(limit));
 
-    const total = await Product.countDocuments(query);
-
-    console.log(`[DEBUG] Found ${products.length}/${total} products for query: ${JSON.stringify(query)}`);
-
-    // Permissive filtering: Show if admin, or if seller is approved/not expired
+    // Permissive filtering: Show if seller is admin, or if seller is approved
+    // In a real marketplace, we'd do this in the DB query with $lookup, 
+    // but keeping it simple and fixing the current logic.
     const filteredProducts = products.filter(product => {
-      if (!product.seller) return true;
+      if (!product.seller) return true; 
       const seller = product.seller;
       if (seller.role === 'admin') return true;
-      if (!seller.vendorInfo) return false;
-      const isApproved = seller.vendorInfo.isApproved;
-      const trialExpiresAt = new Date(seller.vendorInfo.trialExpiresAt);
-      return isApproved && trialExpiresAt > new Date();
+      // For vendors, check if they are approved and not expired
+      if (seller.vendorInfo) {
+        return seller.vendorInfo.isApproved && new Date(seller.vendorInfo.trialExpiresAt) > new Date();
+      }
+      return false;
     });
+
+    const total = await Product.countDocuments(query);
+
+    console.log(`[DEBUG] Found ${filteredProducts.length}/${total} products for query: ${JSON.stringify(query)}`);
 
     res.json({
       products: filteredProducts,
       page: Number(page),
       pages: Math.ceil(total / Number(limit)),
-      total
+      total: total
     });
   } catch (error) {
     res.status(500).json({ message: error.message });

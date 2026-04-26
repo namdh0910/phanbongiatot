@@ -12,21 +12,21 @@ export async function getSettings() {
       hotline: '0773440966',
       zalo: '0773440966',
       shopee: 'phanbongiatot',
-      address: 'Trụ sở: 123 Đường Nông Nghiệp, Quận 12, TP. Hồ Chí Minh',
-      email: 'hotro@phanbongiatot.com',
+      address: 'Kho hàng: TP. Buôn Ma Thuột, Tỉnh Đắk Lắk',
+      email: 'contact@phanbongiatot.com',
       heroTitle: 'Năng Suất Vượt Trội Chi Phí Tối Ưu',
       heroSubtitle: 'Hàng ngàn nhà nông đã tin dùng bộ giải pháp phục hồi rễ, đặc trị tuyến trùng và vàng lá thối rễ của chúng tôi. Cam kết hiệu quả rõ rệt sau 7 ngày!',
       heroBanner: '',
       primaryColor: '#0d2a1c',
       showBlogOnHome: true,
-      phone: '0773.440.966',
+      phone: '0773440966',
       zaloId: '0773440966',
       ctaText: 'Nhận Tư Vấn Miễn Phí',
       businessHours: '7:00 - 21:00',
       announcementEnabled: false,
       announcementText: '',
-      footerAddress: '',
-      footerEmail: ''
+      footerAddress: 'Kho hàng: TP. Buôn Ma Thuột, Tỉnh Đắk Lắk',
+      footerEmail: 'contact@phanbongiatot.com'
     };
   }
 }

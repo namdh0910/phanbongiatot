@@ -17,7 +17,7 @@ const MobileBottomBar: React.FC = () => {
         <span style={{fontSize: '1.2rem'}}>📞</span>
         Gọi ngay
       </a>
-      <a href={`https://zalo.me/${zaloId}`} target="_blank" rel="noopener noreferrer" className="m-btn m-btn-zalo">
+      <a href={`https://zalo.me/${process.env.NEXT_PUBLIC_ZALO_PHONE ?? '0773440966'}`} target="_blank" rel="noopener noreferrer" className="m-btn m-btn-zalo">
         <span style={{fontSize: '1.2rem'}}>💬</span>
         Chat Zalo
       </a>

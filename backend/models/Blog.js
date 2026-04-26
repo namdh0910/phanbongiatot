@@ -13,7 +13,7 @@ const blogSchema = mongoose.Schema({
   seoKeywords: { type: String },
   category: { type: String }, // e.g. 'Kỹ thuật canh tác', 'Phân bón'
   crops: [String], // e.g. ['Sầu riêng', 'Cà phê']
-  isFeatured: { type: Boolean, default: false },
+  status: { type: String, enum: ['published', 'draft'], default: 'published' },
   viewCount: { type: Number, default: 0 }
 }, { timestamps: true });
 

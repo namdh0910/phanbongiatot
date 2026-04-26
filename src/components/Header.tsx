@@ -78,7 +78,7 @@ export default function Header() {
   ];
 
   const hotline = settings?.hotline || "0773.440.966";
-  const zaloId = settings?.zaloId || "0773440966";
+  const zaloId = process.env.NEXT_PUBLIC_ZALO_PHONE ?? "0773440966";
 
   return (
     <div className="w-full">
@@ -203,7 +203,7 @@ export default function Header() {
                </nav>
 
                <div className="flex items-center gap-4">
-                  <a href={`https://zalo.me/${settings?.zalo || '0773440966'}`} target="_blank" className="bg-[#0068ff] text-white px-6 py-2.5 rounded-xl font-black text-sm flex items-center gap-2 shadow-lg hover:bg-blue-600 transition-all active:scale-95">
+                  <a href={`https://zalo.me/${process.env.NEXT_PUBLIC_ZALO_PHONE ?? '0773440966'}`} target="_blank" className="bg-[#0068ff] text-white px-6 py-2.5 rounded-xl font-black text-sm flex items-center gap-2 shadow-lg hover:bg-blue-600 transition-all active:scale-95">
                      💬 CHAT ZALO NGAY
                   </a>
                   <Link href="/gio-hang" className="relative p-2 text-gray-800 hover:text-[#1a5c2a] transition-colors">
@@ -351,7 +351,7 @@ export default function Header() {
               {/* Bottom Actions */}
               <div className="p-6 border-t bg-gray-50">
                 <a 
-                  href={`https://zalo.me/${settings?.zalo || '0773440966'}`} 
+                  href={`https://zalo.me/${process.env.NEXT_PUBLIC_ZALO_PHONE ?? '0773440966'}`} 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="w-full bg-[#0068ff] text-white py-4 rounded-xl font-black text-center block shadow-lg active:scale-95 transition-transform"

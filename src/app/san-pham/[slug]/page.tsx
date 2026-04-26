@@ -129,7 +129,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
               <div className="flex items-center gap-2">
                 <span className="text-lg">🔗</span> Chia sẻ: 
                 <a href={`https://www.facebook.com/sharer/sharer.php?u=https://phanbongiatot.com/san-pham/${product.slug}`} target="_blank" className="hover:text-[#1a5c2a] font-bold">Facebook</a>
-                <a href={`https://zalo.me/${settings?.zalo || '0773440966'}`} target="_blank" className="hover:text-[#1a5c2a] font-bold">Zalo</a>
+                <a href={`https://zalo.me/${process.env.NEXT_PUBLIC_ZALO_PHONE ?? '0773440966'}`} target="_blank" className="hover:text-[#1a5c2a] font-bold">Zalo</a>
               </div>
               <div className="w-px h-4 bg-gray-200"></div>
               <div className="flex items-center gap-2 cursor-pointer hover:text-[#ee4d2d]">
@@ -209,7 +209,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
               </h3>
               <p className="text-xs text-gray-500 mb-2">Online 5 phút trước</p>
               <div className="flex gap-2">
-                <a href={`https://zalo.me/${settings?.zalo || '0773440966'}`} target="_blank" className="border border-[#ee4d2d] text-[#ee4d2d] px-3 py-1 rounded-sm text-xs font-medium flex items-center gap-1 hover:bg-red-50">
+                <a href={`https://zalo.me/${process.env.NEXT_PUBLIC_ZALO_PHONE ?? '0773440966'}`} target="_blank" className="border border-[#ee4d2d] text-[#ee4d2d] px-3 py-1 rounded-sm text-xs font-medium flex items-center gap-1 hover:bg-red-50">
                   <span>💬</span> Chat Ngay
                 </a>
                 {product.seller?.role !== 'admin' && (
