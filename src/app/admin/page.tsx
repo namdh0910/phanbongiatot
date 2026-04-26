@@ -8,30 +8,60 @@ import Link from "next/link";
 export default function AdminDashboard() {
   const [stats, setStats] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const fetchStats = async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const res = await fetch(`${API_BASE_URL}/analytics/dashboard`, {
+        headers: getAuthHeaders()
+      });
+      if (res.ok) {
+        setStats(await res.json());
+      } else {
+        setError(`Lỗi: ${res.status} ${res.statusText}`);
+      }
+    } catch (err: any) {
+      setError(err.message || "Lỗi kết nối máy chủ");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchStats = async () => {
-      try {
-        const res = await fetch(`${API_BASE_URL}/analytics/dashboard`, {
-          headers: getAuthHeaders()
-        });
-        if (res.ok) setStats(await res.json());
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setIsLoading(false);
-      }
-    };
     fetchStats();
   }, []);
 
-  if (isLoading || !stats) {
+  if (isLoading) {
     return (
       <AdminGuard>
         <div className="flex min-h-screen bg-gray-50">
           <AdminSidebar />
-          <div className="flex-1 p-8 ml-64 flex items-center justify-center">
-            <div className="text-gray-400 font-bold animate-pulse">Đang tải dữ liệu vận hành...</div>
+          <div className="flex-1 p-8 ml-64 flex flex-col items-center justify-center">
+            <div className="w-12 h-12 border-4 border-emerald-200 border-t-emerald-600 rounded-full animate-spin mb-4"></div>
+            <div className="text-emerald-600 font-bold animate-pulse">Đang tải dữ liệu vận hành...</div>
+          </div>
+        </div>
+      </AdminGuard>
+    );
+  }
+
+  if (error || !stats) {
+    return (
+      <AdminGuard>
+        <div className="flex min-h-screen bg-gray-50">
+          <AdminSidebar />
+          <div className="flex-1 p-8 ml-64 flex flex-col items-center justify-center text-center">
+            <div className="text-6xl mb-6">⚠️</div>
+            <h2 className="text-2xl font-black text-gray-800 mb-4 uppercase">Không thể tải dữ liệu</h2>
+            <p className="text-gray-500 mb-8 max-w-md">{error || "Hệ thống không trả về dữ liệu thống kê."}</p>
+            <button 
+              onClick={fetchStats}
+              className="bg-[#1a5c2a] text-white px-8 py-3 rounded-xl font-black shadow-lg hover:bg-[#2d7a3e] transition-all"
+            >
+              THỬ LẠI NGAY
+            </button>
           </div>
         </div>
       </AdminGuard>

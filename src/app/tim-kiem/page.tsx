@@ -3,6 +3,7 @@ import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { API_BASE_URL } from "@/utils/api";
+import ProductCard from "@/components/ProductCard";
 
 function SearchResults() {
   const searchParams = useSearchParams();
@@ -101,33 +102,9 @@ function SearchResults() {
                   <div className="w-1.5 h-8 bg-[#1a5c2a] rounded-full"></div>
                   <h2 className="text-2xl font-black text-gray-900 uppercase tracking-tight">Sản Phẩm Đề Xuất</h2>
                 </div>
-                <div className="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
                   {results.products.map((product) => (
-                    <div key={product._id} className="bg-white rounded-2xl p-4 shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group relative">
-                      <Link href={`/san-pham/${product.slug}`} className="block relative aspect-square bg-gray-50 rounded-xl overflow-hidden mb-4">
-                        <img 
-                          src={product.images[0] || "https://placehold.co/400x400/e2e8f0/64748b?text=SP"} 
-                          alt={product.name}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        />
-                      </Link>
-                      <div>
-                        <p className="text-[10px] font-black text-gray-400 mb-1 uppercase tracking-widest">{product.category}</p>
-                        <Link href={`/san-pham/${product.slug}`} className="block">
-                          <h3 className="font-bold text-gray-900 text-sm leading-snug line-clamp-2 hover:text-[#1a5c2a] transition-colors h-10">
-                            {product.name}
-                          </h3>
-                        </Link>
-                        <div className="mt-4 flex items-center justify-between">
-                          <p className="text-[#ee4d2d] font-black text-lg">
-                            {product.price.toLocaleString('vi-VN')}đ
-                          </p>
-                          <Link href={`/san-pham/${product.slug}`} className="w-9 h-9 rounded-full bg-green-50 flex items-center justify-center text-green-600 text-xl font-black group-hover:bg-[#1a5c2a] group-hover:text-white transition-all shadow-sm">
-                            +
-                          </Link>
-                        </div>
-                      </div>
-                    </div>
+                    <ProductCard key={product._id} product={product} />
                   ))}
                 </div>
               </section>

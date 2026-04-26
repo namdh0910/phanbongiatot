@@ -36,17 +36,25 @@ export default function Home() {
 
   useEffect(() => {
     // Fetch products
-    fetch(`${API_BASE_URL}/products`, { cache: 'no-store' })
+    fetch(`${API_BASE_URL}/products?featured=true`, { cache: 'no-store' })
       .then(res => res.json())
       .then(data => {
         let results = [];
         if (Array.isArray(data)) results = data;
         else if (data?.products) results = data.products;
         
-        if (results.length > 0) setProducts(results.slice(0, 8));
-        else setProducts(FALLBACK_PRODUCTS);
+        // If results is empty or null, use fallback
+        if (results && results.length > 0) {
+          setProducts(results.slice(0, 8));
+        } else {
+          console.warn("No products found from API, using fallback data");
+          setProducts(FALLBACK_PRODUCTS);
+        }
       })
-      .catch(() => setProducts(FALLBACK_PRODUCTS))
+      .catch((err) => {
+        console.error("Fetch products failed:", err);
+        setProducts(FALLBACK_PRODUCTS);
+      })
       .finally(() => setLoadingProducts(false));
 
     // Fetch blogs
@@ -202,10 +210,10 @@ export default function Home() {
                Cơ hội hợp tác kinh doanh
             </div>
             <h2 className="text-3xl md:text-5xl font-black text-gray-900 mb-8 leading-tight italic uppercase tracking-tighter">
-              Trở thành <span className="text-[#ee4d2d]">Đối tác bán hàng</span>
+              {settings?.sellerCtaTitle || 'Trở thành Đối tác bán hàng'}
             </h2>
             <p className="text-gray-500 text-base md:text-lg mb-10 leading-relaxed font-medium">
-              Hãy đăng ký mở gian hàng để tiếp cận hàng ngàn nhà nông trên khắp cả nước. Chúng tôi cung cấp hệ thống quản lý chuyên nghiệp, hỗ trợ marketing và giao hàng toàn quốc.
+              {settings?.sellerCtaDescription || 'Hãy đăng ký mở gian hàng để tiếp cận hàng ngàn nhà nông trên khắp cả nước. Chúng tôi cung cấp hệ thống quản lý chuyên nghiệp, hỗ trợ marketing và giao hàng toàn quốc.'}
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-12">
                <div className="flex items-center gap-3 bg-gray-50 p-4 rounded-2xl border border-gray-100">
@@ -217,8 +225,8 @@ export default function Home() {
                   <span className="text-xs font-black uppercase text-gray-600">Duyệt shop trong 24h</span>
                </div>
             </div>
-            <Link href="/kenh-nguoi-ban/dang-nhap" className="inline-block bg-[#1a5c2a] text-white px-12 py-5 rounded-2xl font-black text-lg shadow-2xl shadow-green-100 hover:bg-[#2d7a3e] transition-all uppercase tracking-wider active:scale-95">
-              ĐĂNG KÝ HỢP TÁC NGAY
+            <Link href="/kenh-nguoi-ban/dang-ky" className="inline-block bg-[#1a5c2a] text-white px-12 py-5 rounded-2xl font-black text-lg shadow-2xl shadow-green-100 hover:bg-[#2d7a3e] transition-all uppercase tracking-wider active:scale-95">
+              {settings?.sellerCtaButtonText || 'ĐĂNG KÝ HỢP TÁC NGAY'}
             </Link>
           </div>
           <div className="hidden lg:flex lg:w-1/2 bg-[#f8fafc] items-center justify-center p-20 relative">

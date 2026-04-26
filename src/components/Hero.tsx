@@ -30,8 +30,7 @@ const Hero: React.FC = () => {
       }}></div>
       
       <div className="hero-content">
-        <h1 className="hero-title">
-          Tăng Năng Suất<br/><span>Vượt Ngưỡng Kỳ Vọng</span>
+        <h1 className="hero-title" dangerouslySetInnerHTML={{ __html: title.replace('Vượt', '<br/><span>Vượt') }}>
         </h1>
 
         <div className="hero-social-proof">
@@ -41,6 +40,15 @@ const Hero: React.FC = () => {
         <p className="hero-subtitle">
           {subtitle}
         </p>
+
+        <div className="mt-8 flex gap-4">
+           <a href={settings?.heroCtaUrl || "/san-pham"} className="bg-yellow-400 text-[#1a5c2a] px-8 py-3 rounded-xl font-black text-lg shadow-xl hover:bg-yellow-300 transition-all uppercase">
+              XEM GIẢI PHÁP ➜
+           </a>
+           <a href={`https://zalo.me/${process.env.NEXT_PUBLIC_ZALO_PHONE ?? '0773440966'}`} target="_blank" className="bg-white/10 backdrop-blur-md border border-white/30 text-white px-8 py-3 rounded-xl font-black text-lg hover:bg-white/20 transition-all uppercase">
+              NHẬN TƯ VẤN
+           </a>
+        </div>
       </div>
     </section>
   );
