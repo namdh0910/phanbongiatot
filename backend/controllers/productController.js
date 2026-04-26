@@ -298,10 +298,22 @@ const getCategories = async (req, res) => {
   }
 };
 
+// @desc    Get current seller's products
+// @route   GET /api/seller/products
+const getVendorProducts = async (req, res) => {
+  try {
+    const products = await Product.find({ seller: req.user._id }).sort({ created_at: -1 });
+    res.json(products);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = {
   getProducts,
   getCropTypes,
   getCategories,
+  getVendorProducts,
   updateStock,
   approveProduct,
   getProductById,
