@@ -2,9 +2,8 @@ const express = require('express');
 const router = express.Router();
 const { 
   getProducts, 
-  getVendorProducts, 
-  getAdminProducts,
-  getPendingProducts,
+  getCropTypes,
+  updateStock,
   approveProduct,
   getProductById, 
   getProductBySlug, 
@@ -16,15 +15,27 @@ const {
 } = require('../controllers/productController');
 const { protect, admin } = require('../middleware/authMiddleware');
 
-router.get('/vendor/me', protect, getVendorProducts);
-router.get('/admin/all', protect, admin, getAdminProducts);
-router.post('/bulk-delete', protect, admin, bulkDeleteProducts);
-router.get('/admin/pending', protect, admin, getPendingProducts);
-router.put('/:id/approve', protect, admin, approveProduct);
+// Public routes
+router.get('/', getProducts);
+router.get('/crop-types', getCropTypes);
+router.get('/slug/:slug', getProductBySlug);
+router.get('/:id', getProductById);
 
-router.route('/').get(getProducts).post(protect, createProduct);
-router.route('/slug/:slug').get(getProductBySlug);
-router.route('/:id').get(getProductById).put(protect, updateProduct).delete(protect, deleteProduct);
-router.route('/:id/reviews').post(protect, createProductReview);
+// Protected routes (Admin & Seller)
+router.post('/admin/products', protect, createProduct); // Changed to match specs
+router.patch('/admin/products/:id', protect, updateProduct); // Partial update
+router.patch('/admin/products/:id/stock', protect, updateStock); // Atomic stock update
+
+// Admin only routes
+router.patch('/admin/products/:id/approve', protect, admin, approveProduct);
+router.post('/admin/products/bulk-delete', protect, admin, bulkDeleteProducts);
+
+// Reviews
+router.post('/:id/reviews', protect, createProductReview);
+
+// Legacy/Compatibility support (optional)
+router.post('/', protect, createProduct);
+router.put('/:id', protect, updateProduct);
+router.delete('/:id', protect, deleteProduct);
 
 module.exports = router;
