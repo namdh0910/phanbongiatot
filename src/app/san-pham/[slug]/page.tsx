@@ -85,9 +85,9 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
     ? product.images.filter((i: string) => i && (i.startsWith("http") || i.startsWith("/"))) 
     : [];
 
-  const displayRating = product.rating || 5.0;
+  const displayRating = product.rating || 0;
   const displayReviewCount = product.numReviews || 0;
-  const displaySold = product.soldCount || 100 + Math.floor(Math.random() * 200);
+  const displaySold = product.soldCount || 0;
 
   return (
     <div className="bg-[#f5f5f5] min-h-screen pb-24 font-sans text-gray-800">
@@ -134,7 +134,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
               </div>
               <div className="w-px h-4 bg-gray-200"></div>
               <div className="flex items-center gap-2 cursor-pointer hover:text-[#ee4d2d]">
-                <span className="text-lg text-[#ee4d2d]">❤️</span> Đã thích (2.5k)
+                <span className="text-lg">❤️</span> Đã thích
               </div>
             </div>
           </div>
@@ -230,15 +230,17 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
           <div className="flex-1 grid grid-cols-2 md:grid-cols-3 gap-y-4 gap-x-10 text-xs">
             <div className="flex justify-between">
               <span className="text-gray-400">Đánh Giá</span>
-              <span className="text-[#ee4d2d] font-medium">12.5k</span>
+              <span className="text-[#ee4d2d] font-medium">{product.seller?.vendorInfo?.numReviews || 0}</span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-400">Tham Gia</span>
-              <span className="text-[#ee4d2d] font-medium">2 năm trước</span>
+              <span className="text-[#ee4d2d] font-medium">
+                {product.seller?.createdAt ? new Date(product.seller.createdAt).toLocaleDateString('vi-VN') : 'Mới'}
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-400">Sản Phẩm</span>
-              <span className="text-[#ee4d2d] font-medium">85</span>
+              <span className="text-[#ee4d2d] font-medium">{product.seller?.vendorInfo?.numProducts || 0}</span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-400">Tỉ Lệ Phản Hồi</span>
@@ -250,7 +252,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
             </div>
             <div className="flex justify-between">
               <span className="text-gray-400">Người Theo Dõi</span>
-              <span className="text-[#ee4d2d] font-medium">45.2k</span>
+              <span className="text-[#ee4d2d] font-medium">{product.seller?.vendorInfo?.numFollowers || 0}</span>
             </div>
           </div>
         </div>

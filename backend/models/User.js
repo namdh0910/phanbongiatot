@@ -25,7 +25,10 @@ const userSchema = mongoose.Schema({
       type: Date, 
       default: () => new Date(+new Date() + 30*24*60*60*1000) // Mặc định 30 ngày
     },
-    isPremium: { type: Boolean, default: false }
+    isPremium: { type: Boolean, default: false },
+    numReviews: { type: Number, default: 0 },
+    numProducts: { type: Number, default: 0 },
+    numFollowers: { type: Number, default: 0 }
   }
 }, { timestamps: true });
 

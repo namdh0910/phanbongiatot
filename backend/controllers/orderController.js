@@ -71,13 +71,13 @@ const createOrder = async (req, res) => {
       order.user = customer._id;
       const createdOrder = await order.save();
 
-      // Deduct stock for each product
+      // Deduct stock and increment sold count for each product
       const Product = require('../models/Product');
       for (const item of orderItems) {
         if (item.product) {
           await Product.findByIdAndUpdate(
             item.product,
-            { $inc: { stock: -item.qty } }
+            { $inc: { stock: -item.qty, soldCount: item.qty } }
           );
         }
       }

@@ -220,13 +220,16 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
 async function RelatedPosts({ tags, currentSlug }: { tags: string[], currentSlug: string }) {
   let related: any[] = [];
   try {
-    const res = await fetch(`${API_BASE_URL}/blogs`);
+    const res = await fetch(`${API_BASE_URL}/blog`);
     if (res.ok) {
-      const all = await res.json();
-      related = all.filter((p: any) => 
-        p.slug !== currentSlug && 
-        p.tags?.some((t: string) => tags.includes(t))
-      ).slice(0, 3);
+      const data = await res.json();
+      const all = data.blogs || data;
+      if (Array.isArray(all)) {
+        related = all.filter((p: any) => 
+          p.slug !== currentSlug && 
+          p.tags?.some((t: string) => tags.includes(t))
+        ).slice(0, 3);
+      }
     }
   } catch {}
 

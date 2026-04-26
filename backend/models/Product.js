@@ -23,8 +23,9 @@ const productSchema = mongoose.Schema(
     faq: [{ q: String, a: String }],
     seoTitle: { type: String },
     seoDescription: { type: String },
-    rating: { type: Number, default: 5 },
+    rating: { type: Number, default: 0 },
     numReviews: { type: Number, default: 0 },
+    soldCount: { type: Number, default: 0 },
     seller: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
