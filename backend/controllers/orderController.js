@@ -28,14 +28,13 @@ const createOrder = async (req, res) => {
     if (orderItems && orderItems.length === 0) {
       return res.status(400).json({ message: 'Không có sản phẩm nào trong đơn hàng' });
     } else {
-      // Generate Order Code: PBG-YYMMDD-XXXX
+      // Generate Order Code: PBG-DDMMYY-XXXX (4 random digits)
       const date = new Date();
-      const dateStr = date.getFullYear().toString().slice(-2) + 
-                      String(date.getMonth() + 1).padStart(2, '0') + 
-                      String(date.getDate()).padStart(2, '0');
-      
-      const count = await Order.countDocuments();
-      const orderCode = `PBG-${dateStr}-${String(count + 1).padStart(4, '0')}`;
+      const dd = String(date.getDate()).padStart(2, '0');
+      const mm = String(date.getMonth() + 1).padStart(2, '0');
+      const yy = date.getFullYear().toString().slice(-2);
+      const random = Math.floor(1000 + Math.random() * 9000);
+      const orderCode = `PBG-${dd}${mm}${yy}-${random}`;
 
       const order = new Order({
         orderCode,
@@ -91,29 +90,18 @@ const createOrder = async (req, res) => {
         );
       }
 
-      // Gửi thông báo Telegram
-      const message = `
-<b>🔔 ĐƠN HÀNG MỚI!</b>
-------------------------
-📦 <b>Mã đơn:</b> ${createdOrder.orderCode}
-👤 <b>Khách hàng:</b> ${customerInfo.name}
-📞 <b>SĐT:</b> ${customerInfo.phone}
-🏠 <b>Địa chỉ:</b> ${customerInfo.address}, ${customerInfo.ward}, ${customerInfo.district}, ${customerInfo.province}
-
-🛒 <b>Sản phẩm:</b>
-${orderItems.map(item => `- ${item.name} x${item.qty} (${item.price.toLocaleString()}đ)`).join('\n')}
-
-💰 <b>Tổng tiền:</b> ${totalPrice.toLocaleString()}đ
-💳 <b>Thanh toán:</b> ${paymentMethod}
-------------------------
-<i>Kiểm tra ngay tại: phanbongiatot.vercel.app/admin/orders</i>
-      `;
+      // Gửi thông báo Admin (Telegram/Zalo)
+      const message = `🔔 Đơn mới #${createdOrder.orderCode}: ${customerInfo.name} - ${customerInfo.phone} - ${totalPrice.toLocaleString()}đ`;
       
-      console.log('Đang gửi thông báo đơn hàng qua Telegram...');
+      console.log('Đang gửi thông báo đơn hàng mới...');
       await sendTelegramMessage(message);
 
-      // Gửi thông báo Zalo OA/SMS cho khách hàng
+      // Gửi thông báo cho khách
       await notifyOrderReceived(createdOrder);
+      
+      res.status(201).json(createdOrder);
+    }
+rderReceived(createdOrder);
       
       res.status(201).json(createdOrder);
     }

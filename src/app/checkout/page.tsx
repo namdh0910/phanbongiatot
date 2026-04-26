@@ -234,6 +234,44 @@ export default function CheckoutPage() {
     );
   }
 
+  const [provinces, setProvinces] = useState<any[]>([]);
+  const [districts, setDistricts] = useState<any[]>([]);
+  const [wards, setWards] = useState<any[]>([]);
+
+  // Fetch provinces on mount
+  useEffect(() => {
+    fetch('https://provinces.open-api.vn/api/?p=')
+      .then(res => res.json())
+      .then(data => setProvinces(data));
+  }, []);
+
+  const handleProvinceChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const provinceCode = e.target.selectedOptions[0].getAttribute('data-code');
+    const provinceName = e.target.value;
+    setCustomer({ ...customer, province: provinceName, district: '', ward: '' });
+    setDistricts([]);
+    setWards([]);
+    
+    if (provinceCode) {
+      const res = await fetch(`https://provinces.open-api.vn/api/p/${provinceCode}?depth=2`);
+      const data = await res.json();
+      setDistricts(data.districts || []);
+    }
+  };
+
+  const handleDistrictChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const districtCode = e.target.selectedOptions[0].getAttribute('data-code');
+    const districtName = e.target.value;
+    setCustomer({ ...customer, district: districtName, ward: '' });
+    setWards([]);
+    
+    if (districtCode) {
+      const res = await fetch(`https://provinces.open-api.vn/api/d/${districtCode}?depth=2`);
+      const data = await res.json();
+      setWards(data.wards || []);
+    }
+  };
+
   return (
     <div className="bg-gray-50 min-h-screen py-10 pb-20">
       <div className="container mx-auto px-4 max-w-6xl">
@@ -298,16 +336,25 @@ export default function CheckoutPage() {
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-1">Tỉnh/Thành phố</label>
-                    <input type="text" value={customer.province} onChange={e => setCustomer({...customer, province: e.target.value})} className="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-900 focus:ring-2 focus:ring-[#1a5c2a] focus:border-transparent outline-none transition-all" placeholder="Tỉnh/Thành..." />
+                    <label className="block text-sm font-semibold text-gray-700 mb-1">Tỉnh/Thành phố <span className="text-red-500">*</span></label>
+                    <select required value={customer.province} onChange={handleProvinceChange} className="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-900 focus:ring-2 focus:ring-[#1a5c2a] outline-none">
+                      <option value="">Chọn Tỉnh/Thành</option>
+                      {provinces.map(p => <option key={p.code} value={p.name} data-code={p.code}>{p.name}</option>)}
+                    </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-1">Quận/Huyện</label>
-                    <input type="text" value={customer.district} onChange={e => setCustomer({...customer, district: e.target.value})} className="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-900 focus:ring-2 focus:ring-[#1a5c2a] focus:border-transparent outline-none transition-all" placeholder="Quận/Huyện..." />
+                    <label className="block text-sm font-semibold text-gray-700 mb-1">Quận/Huyện <span className="text-red-500">*</span></label>
+                    <select required value={customer.district} onChange={handleDistrictChange} className="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-900 focus:ring-2 focus:ring-[#1a5c2a] outline-none">
+                      <option value="">Chọn Quận/Huyện</option>
+                      {districts.map(d => <option key={d.code} value={d.name} data-code={d.code}>{d.name}</option>)}
+                    </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-1">Phường/Xã</label>
-                    <input type="text" value={customer.ward} onChange={e => setCustomer({...customer, ward: e.target.value})} className="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-900 focus:ring-2 focus:ring-[#1a5c2a] focus:border-transparent outline-none transition-all" placeholder="Phường/Xã..." />
+                    <label className="block text-sm font-semibold text-gray-700 mb-1">Phường/Xã <span className="text-red-500">*</span></label>
+                    <select required value={customer.ward} onChange={e => setCustomer({...customer, ward: e.target.value})} className="w-full border border-gray-300 rounded-lg px-4 py-3 text-gray-900 focus:ring-2 focus:ring-[#1a5c2a] outline-none">
+                      <option value="">Chọn Phường/Xã</option>
+                      {wards.map(w => <option key={w.code} value={w.name}>{w.name}</option>)}
+                    </select>
                   </div>
                 </div>
 
