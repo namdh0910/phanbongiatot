@@ -91,10 +91,26 @@ const deleteBlog = async (req, res) => {
   }
 };
 
+// @desc    Delete multiple blog posts (Admin)
+// @route   POST /api/blog/bulk-delete
+const deleteBlogsBulk = async (req, res) => {
+  try {
+    const { ids } = req.body;
+    if (!ids || !Array.isArray(ids)) {
+      return res.status(400).json({ message: 'Danh sách ID không hợp lệ' });
+    }
+    await Blog.deleteMany({ _id: { $in: ids } });
+    res.json({ message: 'Đã xóa các bài viết được chọn' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = {
   getBlogs,
   getBlogBySlug,
   createBlog,
   updateBlog,
-  deleteBlog
+  deleteBlog,
+  deleteBlogsBulk
 };
