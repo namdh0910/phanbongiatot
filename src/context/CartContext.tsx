@@ -9,6 +9,14 @@ interface CartItem {
   images: string[];
   slug: string;
   category: string;
+  seller?: {
+    _id: string;
+    username: string;
+    vendorInfo?: {
+      storeName: string;
+    }
+  };
+  selectedVariant?: string;
 }
 
 interface CartContextType {
@@ -43,10 +51,14 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   const addToCart = (product: any, quantity: number = 1) => {
     setCart(prev => {
-      const existing = prev.find(item => item._id === product._id);
+      // Find item with same ID AND same Variant
+      const existing = prev.find(item => 
+        item._id === product._id && item.selectedVariant === product.selectedVariant
+      );
+      
       if (existing) {
         return prev.map(item => 
-          item._id === product._id 
+          (item._id === product._id && item.selectedVariant === product.selectedVariant)
             ? { ...item, quantity: item.quantity + quantity } 
             : item
         );

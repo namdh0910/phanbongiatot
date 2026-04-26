@@ -55,20 +55,32 @@ const orderSchema = new mongoose.Schema(
     paymentMethod: {
       type: String,
       required: true,
-      enum: ['COD', 'Chuyển khoản'],
+      enum: ['COD', 'BANK_TRANSFER', 'MOMO', 'VNPAY'],
       default: 'COD'
     },
     paymentStatus: {
       type: String,
       required: true,
-      enum: ['Chưa thanh toán', 'Đã thanh toán', 'Lỗi'],
-      default: 'Chưa thanh toán'
+      enum: ['PENDING', 'PAID', 'FAILED', 'REFUNDED'],
+      default: 'PENDING'
     },
     orderStatus: {
       type: String,
       required: true,
-      enum: ['Chờ xác nhận', 'Đã xác nhận', 'Đang giao', 'Hoàn thành', 'Đã hủy'],
-      default: 'Chờ xác nhận'
+      enum: ['new', 'confirmed', 'shipping', 'done', 'cancelled'],
+      default: 'new'
+    },
+    seller: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
+    },
+    parentOrder: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Order'
+    },
+    isParent: {
+      type: Boolean,
+      default: false
     },
     shippingCode: { // Mã vận đơn GHN/GHTK sau này
       type: String

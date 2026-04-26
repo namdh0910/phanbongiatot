@@ -32,12 +32,19 @@ const getProducts = async (req, res) => {
       if (max_price) query.price.$lte = Number(max_price);
     }
 
+    const { sort } = req.query;
+    let sortOptions = { isFeatured: -1, createdAt: -1 };
+    if (sort === 'latest') sortOptions = { createdAt: -1 };
+    if (sort === 'price-asc') sortOptions = { price: 1 };
+    if (sort === 'price-desc') sortOptions = { price: -1 };
+    if (sort === 'bestseller') sortOptions = { soldCount: -1 };
+
     const skip = (Number(page) - 1) * Number(limit);
 
     // Get products and populate seller
     let products = await Product.find(query)
       .populate('seller', 'role vendorInfo')
-      .sort({ isFeatured: -1, createdAt: -1 })
+      .sort(sortOptions)
       .skip(skip)
       .limit(Number(limit));
 
@@ -116,13 +123,39 @@ const createProduct = async (req, res) => {
       .replace(/[^\w\s-]/g, '')
       .replace(/\s+/g, '-') + '-' + Math.random().toString(36).substring(2, 7);
 
+    const productData = { ...req.body };
+    // Sync aliases
+    if (productData.crops) productData.crop_types = productData.crops;
+    if (productData.crop_types && !productData.crops) productData.crops = productData.crop_types;
+    
+    if (productData.soldCount) productData.sales_count = productData.soldCount;
+    if (productData.sales_count && !productData.soldCount) productData.soldCount = productData.sales_count;
+
+    if (productData.originalPrice) productData.original_price = productData.originalPrice;
+    if (productData.original_price && !productData.originalPrice) productData.originalPrice = productData.original_price;
+
+    if (productData.isFeatured !== undefined) productData.is_featured = productData.isFeatured;
+    if (productData.is_featured !== undefined && productData.isFeatured === undefined) productData.isFeatured = productData.is_featured;
+
+    if (productData.seoTitle) productData.seo_title = productData.seoTitle;
+    if (productData.seo_title && !productData.seoTitle) productData.seoTitle = productData.seo_title;
+
+    if (productData.seoDescription) productData.seo_desc = productData.seoDescription;
+    if (productData.seo_desc && !productData.seoDescription) productData.seoDescription = productData.seo_desc;
+
     const product = new Product({
-      ...req.body,
+      ...productData,
       slug: productSlug,
       seller: req.user._id,
-      // Admin products are auto-approved, others are pending_review
+      seller_id: req.user._id,
+      // Map statuses for convenience
       status: req.user.role === 'admin' ? 'approved' : 'pending_review'
     });
+    // Final mapping for status if provided in audit format
+    if (productData.status === 'published') product.status = 'approved';
+    if (productData.status === 'draft') product.status = 'pending_review';
+    if (productData.status === 'archived') product.status = 'hidden';
+
     const createdProduct = await product.save();
     res.status(201).json(createdProduct);
   } catch (error) {
@@ -144,9 +177,35 @@ const updateProduct = async (req, res) => {
       return res.status(403).json({ message: 'Not authorized to update this product' });
     }
 
-    // If seller updates a rejected or hidden product, reset it to pending_review
     const updateData = { ...req.body };
-    if (req.user.role !== 'admin' && (product.status === 'rejected' || product.status === 'hidden')) {
+    // Sync aliases
+    if (updateData.crops) updateData.crop_types = updateData.crops;
+    if (updateData.crop_types && !updateData.crops) updateData.crops = updateData.crop_types;
+    
+    if (updateData.soldCount) updateData.sales_count = updateData.soldCount;
+    if (updateData.sales_count && !updateData.soldCount) updateData.soldCount = updateData.sales_count;
+
+    if (updateData.originalPrice) updateData.original_price = updateData.originalPrice;
+    if (updateData.original_price && !updateData.originalPrice) updateData.originalPrice = updateData.original_price;
+
+    if (updateData.isFeatured !== undefined) updateData.is_featured = updateData.isFeatured;
+    if (updateData.is_featured !== undefined && updateData.isFeatured === undefined) updateData.isFeatured = updateData.is_featured;
+
+    if (updateData.seoTitle) updateData.seo_title = updateData.seoTitle;
+    if (updateData.seo_title && !updateData.seoTitle) updateData.seoTitle = updateData.seo_title;
+
+    if (updateData.seoDescription) updateData.seo_desc = updateData.seoDescription;
+    if (updateData.seo_desc && !updateData.seoDescription) updateData.seoDescription = updateData.seo_desc;
+
+    if (updateData.seller) updateData.seller_id = updateData.seller;
+
+    // Map audit statuses back to internal statuses
+    if (updateData.status === 'published') updateData.status = 'approved';
+    if (updateData.status === 'draft') updateData.status = 'pending_review';
+    if (updateData.status === 'archived') updateData.status = 'hidden';
+
+    // If seller updates a rejected or hidden product, reset it to pending_review
+    if (req.user.role !== 'admin' && (product.status === 'rejected' || product.status === 'hidden' || product.status === 'archived')) {
       updateData.status = 'pending_review';
     }
 

@@ -27,80 +27,121 @@ const createOrder = async (req, res) => {
 
     if (orderItems && orderItems.length === 0) {
       return res.status(400).json({ message: 'Không có sản phẩm nào trong đơn hàng' });
-    } else {
-      // Generate Order Code: PBG-DDMMYY-XXXX (4 random digits)
-      const date = new Date();
-      const dd = String(date.getDate()).padStart(2, '0');
-      const mm = String(date.getMonth() + 1).padStart(2, '0');
-      const yy = date.getFullYear().toString().slice(-2);
-      const random = Math.floor(1000 + Math.random() * 9000);
-      const orderCode = `PBG-${dd}${mm}${yy}-${random}`;
-
-      const order = new Order({
-        orderCode,
-        orderItems,
-        customerInfo,
-        paymentMethod,
-        itemsPrice,
-        shippingFee,
-        discountAmount: discountAmount || 0,
-        totalPrice,
-        couponCode,
-      });
-
-      // Create/Link customer record
-      const User = require('../models/User');
-      const cleanPhone = customerInfo.phone.replace(/\s/g, '');
-      let customer = await User.findOne({ username: cleanPhone });
-      
-      if (!customer) {
-        // Create new customer account (using phone as username, no password for now)
-        customer = new User({
-          username: cleanPhone,
-          password: Math.random().toString(36).slice(-8), // Placeholder
-          role: 'customer',
-          vendorInfo: {
-            storeName: customerInfo.name,
-            phone: cleanPhone,
-            address: `${customerInfo.address}, ${customerInfo.ward}, ${customerInfo.district}, ${customerInfo.province}`
-          }
-        });
-        await customer.save();
-      }
-      
-      order.user = customer._id;
-      const createdOrder = await order.save();
-
-      // Deduct stock and increment sold count for each product
-      const Product = require('../models/Product');
-      for (const item of orderItems) {
-        if (item.product) {
-          await Product.findByIdAndUpdate(
-            item.product,
-            { $inc: { stock: -item.qty, soldCount: item.qty } }
-          );
-        }
-      }
-
-      // If coupon used, increment usage count
-      if (couponCode) {
-        await Coupon.findOneAndUpdate(
-          { code: couponCode },
-          { $inc: { usageCount: 1 } }
-        );
-      }
-
-      // Gửi thông báo Admin (Telegram/Zalo)
-      const message = `🛒 Đơn mới #${createdOrder.orderCode}\nKH: ${customerInfo.name} - ${customerInfo.phone}\nSP: ${orderItems.map(i => `${i.name} (x${i.qty})`).join(', ')}\nTổng: ${totalPrice.toLocaleString('vi-VN')}đ`;
-      
-      console.log('Đang gửi thông báo đơn hàng mới...');
-      await sendTelegramMessage(message);
-
-      // Gửi thông báo cho khách
-      await notifyOrderReceived(createdOrder);
-      
-      res.status(201).json(createdOrder);
     }
+
+    // 1. Generate Parent Order Code
+    const date = new Date();
+    const dd = String(date.getDate()).padStart(2, '0');
+    const mm = String(date.getMonth() + 1).padStart(2, '0');
+    const yy = date.getFullYear().toString().slice(-2);
+    const random = Math.floor(1000 + Math.random() * 9000);
+    const parentOrderCode = `PBG-${dd}${mm}${yy}-${random}`;
+
+    // 2. Create Parent Order
+    const parentOrder = new Order({
+      orderCode: parentOrderCode,
+      orderItems,
+      customerInfo,
+      paymentMethod,
+      itemsPrice,
+      shippingFee,
+      discountAmount: discountAmount || 0,
+      totalPrice,
+      couponCode,
+      isParent: true,
+    });
+
+    // Create/Link customer record
+    const User = require('../models/User');
+    const cleanPhone = customerInfo.phone.replace(/\s/g, '');
+    let customer = await User.findOne({ username: cleanPhone });
+    if (!customer) {
+      customer = new User({
+        username: cleanPhone,
+        password: Math.random().toString(36).slice(-8),
+        role: 'customer',
+        vendorInfo: {
+          storeName: customerInfo.name,
+          phone: cleanPhone,
+          address: `${customerInfo.address}, ${customerInfo.ward}, ${customerInfo.district}, ${customerInfo.province}`
+        }
+      });
+      await customer.save();
+    }
+    parentOrder.user = customer._id;
+    const savedParentOrder = await parentOrder.save();
+
+    // 3. Group items by seller and create sub-orders
+    const Product = require('../models/Product');
+    const sellerGroups = {};
+    
+    // Fetch products to get seller info for each item
+    for (const item of orderItems) {
+      const productDoc = await Product.findById(item.product).populate('seller');
+      const sellerId = productDoc.seller?._id?.toString() || 'admin';
+      
+      if (!sellerGroups[sellerId]) {
+        sellerGroups[sellerId] = [];
+      }
+      sellerGroups[sellerId].push({
+        ...item,
+        sellerId // track for later
+      });
+      
+      // Deduct stock
+      await Product.findByIdAndUpdate(
+        item.product,
+        { $inc: { stock: -item.qty, soldCount: item.qty } }
+      );
+    }
+
+    const subOrders = [];
+    const sellerIds = Object.keys(sellerGroups);
+
+    if (sellerIds.length > 1 || (sellerIds.length === 1 && sellerIds[0] !== 'admin')) {
+      for (const sellerId of sellerIds) {
+        const items = sellerGroups[sellerId];
+        const subItemsPrice = items.reduce((acc, item) => acc + (item.price * item.qty), 0);
+        
+        // Simple shipping fee split: only apply to the first sub-order or handle separately
+        // For simplicity: only parent order has the full fee, or split proportionally
+        const subShippingFee = sellerIds.length > 1 ? 0 : shippingFee; 
+        
+        const subOrderCode = `${parentOrderCode}-${subOrders.length + 1}`;
+        
+        const subOrder = new Order({
+          orderCode: subOrderCode,
+          orderItems: items,
+          customerInfo,
+          paymentMethod,
+          itemsPrice: subItemsPrice,
+          shippingFee: subShippingFee,
+          totalPrice: subItemsPrice + subShippingFee,
+          parentOrder: savedParentOrder._id,
+          seller: sellerId === 'admin' ? null : sellerId,
+          isParent: false,
+          user: customer._id
+        });
+        
+        const savedSubOrder = await subOrder.save();
+        subOrders.push(savedSubOrder);
+        
+        // Notify seller (Zalo/Telegram logic would go here)
+        console.log(`[NOTIFY] Seller ${sellerId} received sub-order ${subOrderCode}`);
+      }
+    }
+
+    // 4. Finalize Parent Order notifications
+    const adminMessage = `🛒 Đơn mới #${parentOrderCode}\nKH: ${customerInfo.name} - ${customerInfo.phone}\nTổng: ${totalPrice.toLocaleString('vi-VN')}đ\nSellers: ${sellerIds.length}`;
+    await sendTelegramMessage(adminMessage);
+    await notifyOrderReceived(savedParentOrder);
+
+    res.status(201).json({
+      success: true,
+      order: savedParentOrder,
+      subOrders: subOrders.length > 0 ? subOrders : undefined
+    });
+
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
