@@ -38,6 +38,13 @@ const productSchema = mongoose.Schema(
       enum: ['pending_review', 'approved', 'rejected', 'hidden'],
       default: 'pending_review'
     },
+    variants: [{
+      name: { type: String, required: true }, // e.g., "500ml", "1kg"
+      price: { type: Number, required: true },
+      originalPrice: { type: Number },
+      stock: { type: Number, default: 0 },
+      sku: { type: String }
+    }],
     reviews: [{
       name: { type: String, required: true },
       rating: { type: Number, required: true },

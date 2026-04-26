@@ -11,20 +11,30 @@ export default function ProductActions({ product }: { product: any }) {
   const { addToCart } = useCart();
   const router = useRouter();
   const settings = useSettings();
+  
+  const [selectedVariant, setSelectedVariant] = useState(product.variants?.length > 0 ? product.variants[0] : null);
 
-  const isOutOfStock = product.stock === 0;
-  const isLowStock = product.stock > 0 && product.stock < 10;
+  const displayPrice = selectedVariant ? selectedVariant.price : product.price;
+  const displayStock = selectedVariant ? selectedVariant.stock : product.stock;
+  const isOutOfStock = displayStock === 0;
+  const isLowStock = displayStock > 0 && displayStock < 10;
 
   const handleAddToCart = () => {
     if (isOutOfStock) return;
+    const itemToCart = {
+      ...product,
+      price: displayPrice,
+      selectedVariant: selectedVariant?.name
+    };
     trackEvent('AddToCart', {
       content_name: product.name,
-      value: product.price,
+      value: displayPrice,
       currency: 'VND',
-      quantity: qty
+      quantity: qty,
+      variant: selectedVariant?.name
     });
     
-    addToCart(product, qty);
+    addToCart(itemToCart, qty);
     
     setShowCartSuccess(true);
     setTimeout(() => setShowCartSuccess(false), 3000);
@@ -32,20 +42,48 @@ export default function ProductActions({ product }: { product: any }) {
 
   const handleBuyNow = () => {
     if (isOutOfStock) return;
+    const itemToCart = {
+      ...product,
+      price: displayPrice,
+      selectedVariant: selectedVariant?.name
+    };
     trackEvent('InitiateCheckout', {
       content_name: product.name,
-      value: product.price,
+      value: displayPrice,
       currency: 'VND',
-      quantity: qty
+      quantity: qty,
+      variant: selectedVariant?.name
     });
-    addToCart(product, qty);
+    addToCart(itemToCart, qty);
     router.push('/checkout');
   };
 
   return (
     <>
       <div className="flex flex-col gap-6">
-        {/* Quantity Selector - Desk & Mobile */}
+        {/* Variant Selector */}
+        {product.variants?.length > 0 && (
+          <div className="flex flex-col gap-4">
+            <span className="text-gray-500 text-sm">Phân Loại</span>
+            <div className="flex flex-wrap gap-2">
+              {product.variants.map((v: any) => (
+                <button
+                  key={v.name}
+                  onClick={() => setSelectedVariant(v)}
+                  className={`px-4 py-2 border rounded-sm text-sm font-medium transition-all ${
+                    selectedVariant?.name === v.name
+                      ? "border-[#ee4d2d] text-[#ee4d2d] bg-[#fff5f3]"
+                      : "border-gray-200 text-gray-700 hover:border-[#ee4d2d]"
+                  }`}
+                >
+                  {v.name}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Quantity Selector */}
         <div className="flex items-center gap-6 mb-2">
           <span className="w-24 flex-shrink-0 text-gray-500 text-sm">Số lượng</span>
           <div className="flex items-center gap-4">
@@ -64,7 +102,7 @@ export default function ProductActions({ product }: { product: any }) {
               />
               <button 
                 onClick={() => setQty(qty + 1)}
-                disabled={qty >= (product.stock || 999)}
+                disabled={qty >= (displayStock || 999)}
                 className="px-3 bg-white hover:bg-gray-50 text-gray-600 border-l border-gray-300 transition-colors disabled:opacity-30"
               >
                 +
@@ -73,9 +111,9 @@ export default function ProductActions({ product }: { product: any }) {
             {isOutOfStock ? (
               <span className="text-sm font-black text-[#ee4d2d] uppercase italic">Hết hàng</span>
             ) : isLowStock ? (
-              <span className="text-xs font-bold text-[#ee4d2d]">Chỉ còn {product.stock} sản phẩm có sẵn!</span>
+              <span className="text-xs font-bold text-[#ee4d2d]">Chỉ còn {displayStock} sản phẩm có sẵn!</span>
             ) : (
-              <span className="text-xs text-gray-400">{product.stock || 100} sản phẩm có sẵn</span>
+              <span className="text-xs text-gray-400">{displayStock || 100} sản phẩm có sẵn</span>
             )}
           </div>
         </div>

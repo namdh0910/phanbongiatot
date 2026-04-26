@@ -4,7 +4,7 @@ const Product = require('../models/Product');
 // @route   GET /api/products
 const getProducts = async (req, res) => {
   try {
-    const { keyword, category, crop, featured, page = 1, limit = 20 } = req.query;
+    const { keyword, category, crop, featured, page = 1, limit = 20, min_price, max_price } = req.query;
     
     const query = { status: 'approved' };
     
@@ -24,6 +24,12 @@ const getProducts = async (req, res) => {
 
     if (featured === 'true') {
       query.isFeatured = true;
+    }
+
+    if (min_price || max_price) {
+      query.price = {};
+      if (min_price) query.price.$gte = Number(min_price);
+      if (max_price) query.price.$lte = Number(max_price);
     }
 
     const skip = (Number(page) - 1) * Number(limit);
@@ -277,11 +283,16 @@ const approveProduct = async (req, res) => {
   }
 };
 
-// @desc    Get all unique categories
+// @desc    Get all unique categories with counts
 // @route   GET /api/categories
 const getCategories = async (req, res) => {
   try {
-    const categories = await Product.distinct('category');
+    const categories = await Product.aggregate([
+      { $match: { status: 'approved' } },
+      { $group: { _id: "$category", count: { $sum: 1 } } },
+      { $project: { name: "$_id", count: 1, _id: 0 } },
+      { $sort: { name: 1 } }
+    ]);
     res.json(categories);
   } catch (error) {
     res.status(500).json({ message: error.message });
