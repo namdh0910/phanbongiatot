@@ -91,17 +91,13 @@ const createOrder = async (req, res) => {
       }
 
       // Gửi thông báo Admin (Telegram/Zalo)
-      const message = `🔔 Đơn mới #${createdOrder.orderCode}: ${customerInfo.name} - ${customerInfo.phone} - ${totalPrice.toLocaleString()}đ`;
+      const message = `🛒 Đơn mới #${createdOrder.orderCode}\nKH: ${customerInfo.name} - ${customerInfo.phone}\nSP: ${orderItems.map(i => `${i.name} (x${i.qty})`).join(', ')}\nTổng: ${totalPrice.toLocaleString('vi-VN')}đ`;
       
       console.log('Đang gửi thông báo đơn hàng mới...');
       await sendTelegramMessage(message);
 
       // Gửi thông báo cho khách
       await notifyOrderReceived(createdOrder);
-      
-      res.status(201).json(createdOrder);
-    }
-rderReceived(createdOrder);
       
       res.status(201).json(createdOrder);
     }
