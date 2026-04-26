@@ -28,9 +28,23 @@ export default function VendorAddProduct() {
     unit: "chai"
   });
 
+  const [categories, setCategories] = useState<string[]>([]);
+
   useEffect(() => {
     const token = localStorage.getItem("vendorToken");
-    if (!token) router.push("/kenh-nguoi-ban/dang-nhap");
+    if (!token) {
+      router.push("/kenh-nguoi-ban/dang-nhap");
+      return;
+    }
+    
+    // Load categories
+    fetch(`${API_BASE_URL}/categories`)
+      .then(res => res.json())
+      .then(data => {
+        if (Array.isArray(data)) setCategories(data);
+        else setCategories(["Phân bón", "Kích rễ", "Tuyến trùng", "Thuốc BVTV"]);
+      })
+      .catch(() => setCategories(["Phân bón", "Kích rễ", "Tuyến trùng", "Thuốc BVTV"]));
   }, []);
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -47,6 +61,9 @@ export default function VendorAddProduct() {
     try {
       const res = await fetch(`${API_BASE_URL}/upload`, {
         method: "POST",
+        headers: {
+          "Authorization": `Bearer ${localStorage.getItem("vendorToken")}`
+        },
         body: fd
       });
       if (res.ok) {
@@ -65,7 +82,7 @@ export default function VendorAddProduct() {
     setIsLoading(true);
     try {
       const token = localStorage.getItem("vendorToken");
-      const res = await fetch(`${API_BASE_URL}/products`, {
+      const res = await fetch(`${API_BASE_URL}/seller/products`, {
         method: "POST",
         headers: { 
           "Content-Type": "application/json",
@@ -74,7 +91,7 @@ export default function VendorAddProduct() {
         body: JSON.stringify({ 
           ...form, 
           price: parseInt(form.price),
-          originalPrice: parseInt(form.originalPrice),
+          originalPrice: form.originalPrice ? parseInt(form.originalPrice) : undefined,
           stock: parseInt(form.stock),
           status: "pending_review" 
         })
@@ -141,10 +158,9 @@ export default function VendorAddProduct() {
                         onChange={e => setForm({...form, category: e.target.value})}
                         className="w-full border-2 border-gray-50 bg-gray-50/50 rounded-2xl px-6 py-4 text-sm font-bold text-gray-700 outline-none focus:border-[#1a5c2a] focus:bg-white transition-all"
                       >
-                        <option>Phân bón</option>
-                        <option>Kích rễ</option>
-                        <option>Tuyến trùng</option>
-                        <option>Thuốc BVTV</option>
+                        {categories.map(cat => (
+                          <option key={cat} value={cat}>{cat}</option>
+                        ))}
                       </select>
                     </div>
                     <div>

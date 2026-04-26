@@ -36,6 +36,13 @@ export default function AdminApproveProducts() {
 
   const updateStatus = async (id: string, status: 'approved' | 'rejected') => {
     const token = localStorage.getItem("adminToken");
+    let reason = "";
+    
+    if (status === 'rejected') {
+      reason = prompt("Vui lòng nhập lý do từ chối sản phẩm này:") || "";
+      if (!reason) return; // Cancel if no reason provided
+    }
+
     try {
       const res = await fetch(`${API_BASE_URL}/products/${id}/approve`, {
         method: "PUT",
@@ -43,7 +50,7 @@ export default function AdminApproveProducts() {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${token}` 
         },
-        body: JSON.stringify({ status })
+        body: JSON.stringify({ status, reason })
       });
       if (res.ok) {
         setMessage(status === 'approved' ? "Đã duyệt sản phẩm thành công!" : "Đã từ chối sản phẩm!");
@@ -77,7 +84,13 @@ export default function AdminApproveProducts() {
         ) : products.length === 0 ? (
           <div className="bg-white p-16 rounded-[2rem] shadow-sm text-center text-gray-400 border border-gray-50 font-bold">Hiện không có sản phẩm nào chờ duyệt.</div>
         ) : products.map((product) => (
-          <div key={product._id} className="bg-white p-6 md:p-8 rounded-[2rem] shadow-xl border border-gray-50 flex flex-col md:flex-row gap-6 md:gap-8 hover:shadow-2xl transition-all">
+          <div key={product._id} className="bg-white p-6 md:p-8 rounded-[2rem] shadow-xl border border-gray-100 flex flex-col md:flex-row gap-6 md:gap-8 hover:shadow-2xl transition-all relative overflow-hidden">
+            <div className="absolute top-0 right-0 p-4">
+               <span className="text-[10px] font-black text-gray-300 uppercase tracking-widest">
+                  Gửi lúc: {new Date(product.createdAt).toLocaleDateString('vi-VN')} {new Date(product.createdAt).toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' })}
+               </span>
+            </div>
+
             <div className="w-full md:w-56 aspect-square md:h-56 bg-gray-50 rounded-3xl overflow-hidden flex-shrink-0 flex items-center justify-center border border-gray-100 shadow-inner">
                {product.images && product.images[0] ? (
                  <img src={product.images[0]} className="w-full h-full object-cover" alt="" />
@@ -101,18 +114,17 @@ export default function AdminApproveProducts() {
                   <div className="text-xl md:text-2xl font-black text-red-600 drop-shadow-sm">₫{product.price?.toLocaleString()}</div>
                </div>
                
-               <div className="bg-gray-50/80 p-5 rounded-2xl mb-6 flex-1">
-                  <div className="text-[10px] font-black text-gray-400 uppercase mb-2 tracking-widest">Nội dung mô tả:</div>
-                  <div className="text-sm text-gray-600 leading-relaxed line-clamp-3 md:line-clamp-none">
-                    {product.description || "Sản phẩm này chưa có mô tả chi tiết."}
+               <div className="bg-gray-50/80 p-5 rounded-2xl mb-6 flex-1 max-h-40 overflow-y-auto">
+                  <div className="text-[10px] font-black text-gray-400 uppercase mb-2 tracking-widest">Mô tả sản phẩm:</div>
+                  <div className="text-sm text-gray-600 leading-relaxed" dangerouslySetInnerHTML={{ __html: product.description || "Sản phẩm này chưa có mô tả chi tiết." }}>
                   </div>
                </div>
 
                <div className="flex flex-col md:flex-row gap-3">
-                  <button onClick={() => updateStatus(product._id, 'approved')} className="flex-[2] bg-emerald-600 text-white py-4 rounded-2xl font-black hover:bg-emerald-700 shadow-lg shadow-emerald-200 transition-all active:scale-95 text-sm">
-                     PHÊ DUYỆT NGAY
+                  <button onClick={() => updateStatus(product._id, 'approved')} className="flex-[2] bg-emerald-600 text-white py-4 rounded-2xl font-black hover:bg-emerald-700 shadow-lg shadow-emerald-200 transition-all active:scale-95 text-sm uppercase tracking-tight">
+                     PHÊ DUYỆT SẢN PHẨM
                   </button>
-                  <button onClick={() => updateStatus(product._id, 'rejected')} className="flex-1 bg-red-50 text-red-600 py-4 rounded-2xl font-black hover:bg-red-100 transition-all active:scale-95 text-sm">
+                  <button onClick={() => updateStatus(product._id, 'rejected')} className="flex-1 bg-red-50 text-red-600 py-4 rounded-2xl font-black hover:bg-red-100 transition-all active:scale-95 text-sm uppercase tracking-tight">
                      TỪ CHỐI
                   </button>
                </div>

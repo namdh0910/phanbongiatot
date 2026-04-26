@@ -84,11 +84,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
              <div className="w-4 h-4 rounded-full bg-emerald-100 flex items-center justify-center text-[8px] overflow-hidden">
                 {product.seller.vendorInfo?.logo ? <img src={product.seller.vendorInfo.logo} className="w-full h-full object-cover" /> : '🏪'}
              </div>
-             <span className="text-[10px] font-bold text-emerald-700 group-hover/shop:underline">
-               {product.seller.vendorInfo?.storeName || 'Phân Bón Giá Tốt'}
+             <span className="text-[10px] font-bold text-emerald-700 group-hover/shop:underline truncate max-w-[120px]">
+               {product.seller.role === 'admin' ? 'Hệ thống' : `Đối tác: ${product.seller.vendorInfo?.storeName || 'Gian hàng'}`}
              </span>
              {product.seller.role === 'admin' && (
-               <span className="text-[8px] bg-red-100 text-red-600 px-1 rounded font-black uppercase tracking-tighter">Mall</span>
+               <span className="text-[8px] bg-[#1a5c2a] text-white px-1 rounded font-black uppercase tracking-tighter">Mall</span>
              )}
           </div>
         )}

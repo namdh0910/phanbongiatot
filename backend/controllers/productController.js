@@ -100,11 +100,22 @@ const getProductBySlug = async (req, res) => {
 // @desc    Create a product
 const createProduct = async (req, res) => {
   try {
+    const { name, slug } = req.body;
+    
+    // Auto-generate slug if not provided
+    const productSlug = slug || name
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^\w\s-]/g, '')
+      .replace(/\s+/g, '-') + '-' + Math.random().toString(36).substring(2, 7);
+
     const product = new Product({
       ...req.body,
+      slug: productSlug,
       seller: req.user._id,
-      // Admin products are auto-approved, others are pending
-      status: req.user.role === 'admin' ? 'approved' : 'pending'
+      // Admin products are auto-approved, others are pending_review
+      status: req.user.role === 'admin' ? 'approved' : 'pending_review'
     });
     const createdProduct = await product.save();
     res.status(201).json(createdProduct);
@@ -127,9 +138,15 @@ const updateProduct = async (req, res) => {
       return res.status(403).json({ message: 'Not authorized to update this product' });
     }
 
+    // If seller updates a rejected or hidden product, reset it to pending_review
+    const updateData = { ...req.body };
+    if (req.user.role !== 'admin' && (product.status === 'rejected' || product.status === 'hidden')) {
+      updateData.status = 'pending_review';
+    }
+
     const updatedProduct = await Product.findByIdAndUpdate(
       req.params.id, 
-      req.body, 
+      updateData, 
       { new: true, runValidators: true }
     );
 
@@ -230,7 +247,7 @@ const getAdminProducts = async (req, res) => {
 // @route   GET /api/products/admin/pending
 const getPendingProducts = async (req, res) => {
   try {
-    const products = await Product.find({ status: 'pending' }).populate('seller', 'username vendorInfo').sort({ createdAt: -1 });
+    const products = await Product.find({ status: 'pending_review' }).populate('seller', 'username vendorInfo').sort({ createdAt: -1 });
     res.json(products);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -241,14 +258,31 @@ const getPendingProducts = async (req, res) => {
 // @route   PUT /api/products/:id/approve
 const approveProduct = async (req, res) => {
   try {
+    const { status, reason } = req.body;
     const product = await Product.findById(req.params.id);
     if (product) {
-      product.status = req.body.status; // 'approved' or 'rejected'
+      product.status = status; // 'approved' or 'rejected'
+      if (status === 'rejected') {
+        product.rejectionReason = reason;
+      } else {
+        product.rejectionReason = '';
+      }
       await product.save();
       res.json({ message: 'Trạng thái sản phẩm đã được cập nhật' });
     } else {
       res.status(404).json({ message: 'Không tìm thấy sản phẩm' });
     }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// @desc    Get all unique categories
+// @route   GET /api/categories
+const getCategories = async (req, res) => {
+  try {
+    const categories = await Product.distinct('category');
+    res.json(categories);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -267,4 +301,5 @@ module.exports = {
   deleteProduct,
   bulkDeleteProducts,
   createProductReview,
+  getCategories,
 };

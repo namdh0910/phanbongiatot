@@ -30,10 +30,12 @@ const productSchema = mongoose.Schema(
       ref: 'User',
       required: true
     },
+    unit: { type: String, default: 'chai' },
+    rejectionReason: { type: String },
     status: {
       type: String,
-      enum: ['pending', 'approved', 'rejected'],
-      default: 'approved'
+      enum: ['pending_review', 'approved', 'rejected', 'hidden'],
+      default: 'pending_review'
     },
     reviews: [{
       name: { type: String, required: true },
