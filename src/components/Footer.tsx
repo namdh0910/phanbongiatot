@@ -32,10 +32,10 @@ export default function Footer() {
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.377.505 9.377.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
               </a>
               <a href={`https://zalo.me/${process.env.NEXT_PUBLIC_ZALO_PHONE ?? '0773440966'}`} target="_blank" className="social-icon-btn" title="Zalo">
-                <span className="font-black text-xs">Zalo</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22.047 11.233c.489.176.848.436.96.678.113.242.017.504-.263.754-.28.251-.73.491-1.285.694-1.109.406-2.825.617-4.708.617-1.883 0-3.599-.211-4.708-.617-.555-.203-1.005-.443-1.285-.694-.28-.25-.376-.512-.263-.754.112-.242.471-.502.96-.678.96-.345 2.378-.521 3.938-.521 1.56 0 2.978.176 3.938.521zM11.99 0C5.369 0 0 4.417 0 9.865c0 3.23 1.885 6.096 4.792 7.91l-.988 3.58c-.144.524.234 1.012.766.92l4.168-.718c1.025.215 2.115.334 3.252.334 6.622 0 11.99-4.417 11.99-9.865C23.98 4.417 18.613 0 11.99 0z"/></svg>
               </a>
               <a href="https://shopee.vn/phanbongiatot" target="_blank" className="social-icon-btn" title="Shopee">
-                <span className="font-black text-xs">Shopee</span>
+                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22.047 11.233c.489.176.848.436.96.678.113.242.017.504-.263.754-.28.251-.73.491-1.285.694-1.109.406-2.825.617-4.708.617-1.883 0-3.599-.211-4.708-.617-.555-.203-1.005-.443-1.285-.694-.28-.25-.376-.512-.263-.754.112-.242.471-.502.96-.678.96-.345 2.378-.521 3.938-.521 1.56 0 2.978.176 3.938.521z"/></svg>
               </a>
             </div>
           </div>
@@ -89,14 +89,18 @@ export default function Footer() {
           <div className="space-y-4 text-gray-400 text-sm">
             <div className="flex gap-3">
               <span className="text-[#1a5c2a] text-lg">📍</span>
-              <p>{settings?.footerAddress || "Kho hàng: TP. Buôn Ma Thuột, Tỉnh Đắk Lắk"}</p>
+              <p>Kho hàng: TP. Buôn Ma Thuột, Tỉnh Đắk Lắk</p>
             </div>
             <div className="flex gap-3">
               <span className="text-[#1a5c2a] text-lg">📞</span>
               <div>
-                <p className="font-black text-white text-base">{settings?.hotline || "0773.440.966"}</p>
+                <p className="font-black text-white text-base">0773.440.966</p>
                 <p className="text-[10px] uppercase font-bold text-gray-500">Kỹ sư tư vấn 24/7</p>
               </div>
+            </div>
+            <div className="flex gap-3">
+              <span className="text-[#1a5c2a] text-lg">✉️</span>
+              <p>hotro@phanbongiatot.com</p>
             </div>
             <div className="flex gap-3">
               <span className="text-[#1a5c2a] text-lg">⏰</span>
