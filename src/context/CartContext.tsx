@@ -12,6 +12,7 @@ interface CartItem {
   seller?: {
     _id: string;
     username: string;
+    role?: string;
     vendorInfo?: {
       storeName: string;
     }
