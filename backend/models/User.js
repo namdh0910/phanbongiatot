@@ -9,7 +9,19 @@ const userSchema = mongoose.Schema({
     enum: ['super_admin', 'admin', 'vendor', 'customer'], 
     default: 'customer' 
   },
-  // Vendor specific info
+  status: {
+    type: String,
+    enum: ['pending', 'active', 'suspended', 'banned'],
+    default: 'active'
+  },
+  sellerProfile: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Seller'
+  },
+  lastLoginAt: {
+    type: Date
+  },
+  // Legacy Vendor specific info (keeping for compatibility during transition)
   vendorInfo: {
     storeName: String,
     phone: String,

@@ -2,11 +2,11 @@ const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 
 // Generate Token
-const generateToken = (id) => {
+const generateToken = (id, role, sellerId = null) => {
   if (!process.env.JWT_SECRET) {
     throw new Error('JWT_SECRET is not configured');
   }
-  return jwt.sign({ id }, process.env.JWT_SECRET, {
+  return jwt.sign({ sub: id, role, seller_id: sellerId }, process.env.JWT_SECRET, {
     expiresIn: '7d',
   });
 };
@@ -40,12 +40,16 @@ const authUser = async (req, res) => {
     }
 
     if (isMatch) {
+      user.lastLoginAt = new Date();
+      await user.save();
+
       res.json({
         _id: user._id,
         username: user.username,
         role: user.role,
         vendorInfo: user.vendorInfo,
-        token: generateToken(user._id),
+        seller_id: user.sellerProfile || null,
+        token: generateToken(user._id, user.role, user.sellerProfile),
       });
     } else {
       res.status(401).json({ message: 'Tài khoản hoặc mật khẩu không chính xác' });
