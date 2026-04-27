@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { API_BASE_URL } from '@/utils/api';
+import { FALLBACK_PRODUCTS } from "@/utils/fallbackData";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import ProductCard from "@/components/ProductCard";
@@ -65,25 +66,42 @@ export default function CategoryPage() {
       let url = `${API_BASE_URL}/products?category=${encodeURIComponent(slug)}&page=${pageNum}&limit=12&sort=${sortBy}`;
       if (filters.crop && filters.crop !== 'Tất cả') url += `&crop=${encodeURIComponent(filters.crop)}`;
       
-      if (filters.priceRange) {
-        const [min, max] = filters.priceRange.split('-');
-        url += `&min_price=${min}&max_price=${max}`;
-      }
-      
       const res = await fetch(url, { cache: 'no-store' });
       const data = await res.json();
       
-      const newProducts = data.products || [];
+      let newProducts = data.data || data.products || [];
+      
+      // FALLBACK LOGIC: If API returns nothing, use fallback data
+      if (newProducts.length === 0 && pageNum === 1) {
+        console.log("API returned no products for category, using fallback...");
+        const targetCategory = slugToName[slug] || categoryName;
+        newProducts = FALLBACK_PRODUCTS.filter(p => 
+          p.category === targetCategory || 
+          (targetCategory === "Phân bón" && p.category.includes("Phân bón"))
+        );
+      }
+      
       if (isNew) {
         setProducts(newProducts);
       } else {
         setProducts(prev => [...prev, ...newProducts]);
       }
       
-      setHasMore(pageNum < data.pages);
+      setHasMore(data.pages ? pageNum < data.pages : false);
       setIsLoading(false);
     } catch (err) {
       console.error("Error fetching category products:", err);
+      
+      // Fallback on error too
+      if (pageNum === 1) {
+        const targetCategory = slugToName[slug] || categoryName;
+        const fallback = FALLBACK_PRODUCTS.filter(p => 
+          p.category === targetCategory || 
+          (targetCategory === "Phân bón" && p.category.includes("Phân bón"))
+        );
+        setProducts(fallback);
+      }
+      
       setIsLoading(false);
     }
   };
