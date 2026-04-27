@@ -20,7 +20,7 @@ export default function Footer() {
             PhânBón<span className="text-[#f5a623]">GiáTốt</span>
           </Link>
           <p className="text-gray-400 text-sm leading-relaxed">
-            Chuyên gia cung cấp giải pháp dinh dưỡng và bảo vệ cây trồng hàng đầu Việt Nam. Chúng tôi đồng hành cùng nhà nông nâng tầm giá trị nông sản.
+            Chuyên gia cung cấp giải pháp dinh dưỡng cây trồng hàng đầu Việt Nam. Chúng tôi đồng hành cùng nhà nông nâng tầm giá trị nông sản.
           </p>
           <div className="space-y-4">
             <h4 className="text-xs font-bold uppercase tracking-widest text-gray-500">Kết nối với chúng tôi</h4>
@@ -58,7 +58,7 @@ export default function Footer() {
           </h4>
           <ul className="space-y-4 text-gray-400 text-sm font-medium">
             <li><Link href="/danh-muc/phan-bon" className="hover:text-[#1a5c2a] transition-colors">Phân bón sinh học</Link></li>
-            <li><Link href="/danh-muc/thuoc-tru-sau" className="hover:text-[#1a5c2a] transition-colors">Thuốc trừ sâu sinh học</Link></li>
+            <li><Link href="/danh-muc/phan-bon-la" className="hover:text-[#1a5c2a] transition-colors">Phân bón lá cao cấp</Link></li>
             <li><Link href="/danh-muc/kich-re" className="hover:text-[#1a5c2a] transition-colors">Siêu kích rễ cực mạnh</Link></li>
             <li><Link href="/danh-muc/tuyen-trung" className="hover:text-[#1a5c2a] transition-colors">Đặc trị tuyến trùng</Link></li>
             <li><Link href="/combo" className="hover:text-[#1a5c2a] transition-colors">Gói giải pháp tiết kiệm</Link></li>
