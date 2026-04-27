@@ -74,23 +74,37 @@ const createOrder = async (req, res) => {
     // 3. Group items by seller and create sub-orders
     const Product = require('../models/Product');
     const sellerGroups = {};
+    const validatedItems = []; // To store snapshots from DB
     
-    // Fetch products to get seller info for each item
+    // Fetch products to get authoritative snapshots and seller info
     for (const item of orderItems) {
       const productDoc = await Product.findById(item.product).populate('seller');
+      
+      if (!productDoc) {
+        return res.status(404).json({ message: `Sản phẩm ID ${item.product} không tồn tại` });
+      }
+
+      // Authoritative snapshot from DB (ignores client-sent prices/names)
+      const itemSnapshot = {
+        product: productDoc._id,
+        name: productDoc.name,
+        image: productDoc.images?.[0] || '',
+        qty: item.qty,
+        price: productDoc.price, // Authoritative price
+        seller: productDoc.seller?._id || null
+      };
+
+      validatedItems.push(itemSnapshot);
+
       const sellerId = productDoc.seller?._id?.toString() || 'admin';
       
       if (!sellerGroups[sellerId]) {
         sellerGroups[sellerId] = [];
       }
       
-      // Store item with seller_id denormalized
-      sellerGroups[sellerId].push({
-        ...item,
-        seller: sellerId === 'admin' ? null : sellerId
-      });
+      sellerGroups[sellerId].push(itemSnapshot);
       
-      // Deduct stock with condition to prevent negative stock
+      // Deduct stock atomicly
       const updatedProduct = await Product.findOneAndUpdate(
         { _id: item.product, stock: { $gte: item.qty } },
         { $inc: { stock: -item.qty, soldCount: item.qty } },
@@ -98,11 +112,16 @@ const createOrder = async (req, res) => {
       );
 
       if (!updatedProduct) {
+        // Note: Real transaction rollback would be better, but this prevents the order from finalizing
         return res.status(400).json({ 
           message: `Sản phẩm ${productDoc.name} không đủ tồn kho (còn ${productDoc.stock})` 
         });
       }
     }
+
+    // Update parent order with validated items
+    savedParentOrder.orderItems = validatedItems;
+    await savedParentOrder.save();
 
     const subOrders = [];
     const sellerIds = Object.keys(sellerGroups);
