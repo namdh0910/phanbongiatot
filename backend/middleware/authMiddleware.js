@@ -28,7 +28,7 @@ const vendor = (req, res, next) => {
   if (req.user && (req.user.role === 'vendor' || req.user.role === 'admin' || req.user.role === 'super_admin')) {
     return next();
   }
-  return res.status(403).json({ message: 'Không có quyền người bán' });
+  return res.status(403).json({ message: 'Không có quyền người bán (Vendor required)' });
 };
 
 const superAdmin = (req, res, next) => {
@@ -38,4 +38,36 @@ const superAdmin = (req, res, next) => {
   return res.status(403).json({ message: 'Yêu cầu quyền Super Admin' });
 };
 
-module.exports = { protect, admin, vendor, superAdmin };
+/**
+ * Generic Ownership Check Middleware
+ * @param {string} modelName - 'Product' | 'Order' | etc.
+ * @param {string} ownerField - Field name that stores the owner ID (e.g., 'seller' or 'user')
+ */
+const checkOwnership = (modelName, ownerField = 'seller') => {
+  return async (req, res, next) => {
+    try {
+      const Model = require(`../models/${modelName}`);
+      const resource = await Model.findById(req.params.id);
+      
+      if (!resource) {
+        return res.status(404).json({ message: `${modelName} not found` });
+      }
+
+      const isOwner = resource[ownerField] && resource[ownerField].toString() === req.user._id.toString();
+      const isAdmin = req.user.role === 'admin' || req.user.role === 'super_admin';
+
+      if (isOwner || isAdmin) {
+        req.resource = resource; // Pass the resource to the controller to save a DB query
+        return next();
+      }
+
+      return res.status(403).json({ 
+        message: 'Bạn không có quyền thực hiện hành động này trên tài nguyên của người khác' 
+      });
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  };
+};
+
+module.exports = { protect, admin, vendor, superAdmin, checkOwnership };

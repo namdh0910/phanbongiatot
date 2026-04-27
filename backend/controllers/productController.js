@@ -219,15 +219,8 @@ const createProduct = async (req, res) => {
 
 const updateProduct = async (req, res) => {
   try {
-    const product = await Product.findById(req.params.id);
-    if (!product) return res.status(404).json({ message: 'Product not found' });
-
-    const isAuthorized = req.user.role === 'admin' || req.user.role === 'super_admin' || product.seller.toString() === req.user._id.toString();
+    const product = req.resource; // Loaded from checkOwnership middleware
     
-    if (!isAuthorized) {
-      return res.status(403).json({ message: 'Bạn không có quyền chỉnh sửa sản phẩm này' });
-    }
-
     const updateData = { ...req.body };
     const slugify = (text) => text.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[đĐ]/g, 'd').replace(/[^a-z0-9 -]/g, '').replace(/\s+/g, '-');
     if (updateData.crops) updateData.crop_types = updateData.crops.map(c => slugify(c));
