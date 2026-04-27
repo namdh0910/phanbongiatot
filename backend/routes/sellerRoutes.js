@@ -10,4 +10,9 @@ router.post('/login', authUser);           // POST /api/sellers/login
 // Admin approval for sellers
 router.patch('/admin/sellers/:id/approve', protect, admin, approveVendor);
 
+// SuperAdmin config for sellers (Commission rate, etc)
+const { updateSellerConfig } = require('../controllers/authController');
+const { superAdmin } = require('../middleware/authMiddleware');
+router.patch('/admin/sellers/:id/config', protect, superAdmin, updateSellerConfig);
+
 module.exports = router;

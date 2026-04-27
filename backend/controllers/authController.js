@@ -181,6 +181,28 @@ const extendVendor = async (req, res) => {
   }
 };
 
+// @desc    Update seller config (Admin/SuperAdmin)
+// @route   PATCH /api/auth/vendors/:id/config
+const updateSellerConfig = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (user && (user.role === 'vendor' || user.role === 'admin')) {
+      if (req.body.vendorInfo) {
+        user.vendorInfo = { ...user.vendorInfo, ...req.body.vendorInfo };
+      }
+      if (req.body.role) {
+        user.role = req.body.role;
+      }
+      const updatedUser = await user.save();
+      res.json(updatedUser);
+    } else {
+      res.status(404).json({ message: 'Không tìm thấy người bán' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 // @desc    Get user profile (Current or by username)
 // @route   GET /api/auth/profile
 const getProfile = async (req, res) => {
@@ -301,5 +323,6 @@ module.exports = {
   getProfile, 
   updateProfile,
   sendOtp,
-  verifyOtp
+  verifyOtp,
+  updateSellerConfig
 };

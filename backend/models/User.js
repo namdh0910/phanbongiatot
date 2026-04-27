@@ -6,7 +6,7 @@ const userSchema = mongoose.Schema({
   password: { type: String, required: true },
   role: { 
     type: String, 
-    enum: ['admin', 'vendor', 'customer'], 
+    enum: ['super_admin', 'admin', 'vendor', 'customer'], 
     default: 'customer' 
   },
   // Vendor specific info
@@ -28,7 +28,10 @@ const userSchema = mongoose.Schema({
     isPremium: { type: Boolean, default: false },
     numReviews: { type: Number, default: 0 },
     numProducts: { type: Number, default: 0 },
-    numFollowers: { type: Number, default: 0 }
+    numFollowers: { type: Number, default: 0 },
+    commissionRate: { type: Number, default: 10 }, // % hoa hồng sàn thu
+    totalRevenue: { type: Number, default: 0 },
+    balance: { type: Number, default: 0 }
   }
 }, { timestamps: true });
 

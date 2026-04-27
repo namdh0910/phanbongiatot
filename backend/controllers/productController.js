@@ -206,8 +206,10 @@ const updateProduct = async (req, res) => {
     const product = await Product.findById(req.params.id);
     if (!product) return res.status(404).json({ message: 'Product not found' });
 
-    if (req.user.role !== 'admin' && product.seller.toString() !== req.user._id.toString()) {
-      return res.status(403).json({ message: 'Not authorized' });
+    const isAuthorized = req.user.role === 'admin' || req.user.role === 'super_admin' || product.seller.toString() === req.user._id.toString();
+    
+    if (!isAuthorized) {
+      return res.status(403).json({ message: 'Bạn không có quyền chỉnh sửa sản phẩm này' });
     }
 
     const updateData = { ...req.body };
@@ -225,8 +227,10 @@ const deleteProduct = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
     if (!product) return res.status(404).json({ message: 'Product not found' });
-    if (req.user.role !== 'admin' && product.seller.toString() !== req.user._id.toString()) {
-       return res.status(403).json({ message: 'Not authorized' });
+    const isAuthorized = req.user.role === 'admin' || req.user.role === 'super_admin' || product.seller.toString() === req.user._id.toString();
+    
+    if (!isAuthorized) {
+       return res.status(403).json({ message: 'Bạn không có quyền xóa sản phẩm này' });
     }
     await Product.findByIdAndDelete(req.params.id);
     res.json({ message: 'Product removed' });

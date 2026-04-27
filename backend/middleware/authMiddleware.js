@@ -18,10 +18,24 @@ const protect = async (req, res, next) => {
 };
 
 const admin = (req, res, next) => {
-  if (req.user && req.user.role === 'admin') {
+  if (req.user && (req.user.role === 'admin' || req.user.role === 'super_admin')) {
     return next();
   }
-  return res.status(403).json({ message: 'Not authorized as an admin' });
+  return res.status(403).json({ message: 'Không có quyền quản trị' });
 };
 
-module.exports = { protect, admin };
+const vendor = (req, res, next) => {
+  if (req.user && (req.user.role === 'vendor' || req.user.role === 'admin' || req.user.role === 'super_admin')) {
+    return next();
+  }
+  return res.status(403).json({ message: 'Không có quyền người bán' });
+};
+
+const superAdmin = (req, res, next) => {
+  if (req.user && req.user.role === 'super_admin') {
+    return next();
+  }
+  return res.status(403).json({ message: 'Yêu cầu quyền Super Admin' });
+};
+
+module.exports = { protect, admin, vendor, superAdmin };

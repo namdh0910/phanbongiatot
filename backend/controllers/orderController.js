@@ -85,7 +85,7 @@ const createOrder = async (req, res) => {
       }
       sellerGroups[sellerId].push({
         ...item,
-        sellerId // track for later
+        seller: sellerId === 'admin' ? null : sellerId
       });
       
       // Deduct stock
@@ -223,6 +223,11 @@ const updateOrderStatus = async (req, res) => {
     const order = await Order.findById(req.params.id);
 
     if (order) {
+      const isAuthorized = req.user.role === 'admin' || req.user.role === 'super_admin' || (order.seller && order.seller.toString() === req.user._id.toString());
+      
+      if (!isAuthorized) {
+        return res.status(403).json({ message: 'Bạn không có quyền cập nhật đơn hàng này' });
+      }
       order.orderStatus = req.body.status || order.orderStatus;
       order.paymentStatus = req.body.paymentStatus || order.paymentStatus;
       order.shippingCode = req.body.shippingCode || order.shippingCode;
