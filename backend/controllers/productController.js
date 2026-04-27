@@ -47,7 +47,10 @@ const getProducts = async (req, res) => {
     }
 
     if (featured === 'true') {
-      query.is_featured = true;
+      query.$or = [
+        { is_featured: true },
+        { isFeatured: true }
+      ];
     }
 
     // Price range mapping: 1=<100k, 2=100k-500k, 3=>500k

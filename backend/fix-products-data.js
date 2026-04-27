@@ -8,36 +8,36 @@ const fixProducts = async () => {
     console.log('Connected to MongoDB');
 
     // 1. Fix missing status and approval_status
-    const result = await Product.updateMany(
-      { $or: [
-        { status: { $exists: false } }, 
-        { status: null }, 
-        { approval_status: { $exists: false } }, 
-        { approval_status: null }
-      ]},
+    await Product.updateMany(
+      { $or: [{ status: { $exists: false } }, { status: null }, { approval_status: { $exists: false } }, { approval_status: null }] },
       { $set: { status: 'approved', approval_status: 'approved' } }
     );
-    console.log(`Updated ${result.modifiedCount} products to 'approved' status.`);
 
-    // 2. Fix missing is_featured (ensure at least 4 are featured for homepage)
-    const featuredCount = await Product.countDocuments({ is_featured: true });
+    // 2. Ensure we have featured products
+    let featuredCount = await Product.countDocuments({ $or: [{ is_featured: true }, { isFeatured: true }] });
     if (featuredCount < 4) {
       const toFeature = await Product.find({ status: 'approved' }).limit(8);
       for (const p of toFeature) {
         p.is_featured = true;
+        p.isFeatured = true;
         await p.save();
       }
-      console.log(`Marked ${toFeature.length} products as featured for homepage.`);
+      console.log(`Marked ${toFeature.length} products as featured.`);
     }
 
-    // 3. Fix missing stock
-    const stockResult = await Product.updateMany(
+    // Force sync all featured
+    await Product.updateMany(
+      { $or: [{ is_featured: true }, { isFeatured: true }] },
+      { $set: { is_featured: true, isFeatured: true } }
+    );
+
+    // 3. Fix stock
+    await Product.updateMany(
       { $or: [{ stock: { $exists: false } }, { stock: null }] },
       { $set: { stock: 100 } }
     );
-    console.log(`Updated ${stockResult.modifiedCount} products with default stock (100).`);
 
-    // 4. Fix missing category_id (if category exists)
+    // 4. Fix category_id
     const products = await Product.find({ category_id: { $exists: false } });
     for (const p of products) {
       if (p.category) {
@@ -46,11 +46,11 @@ const fixProducts = async () => {
         await p.save();
       }
     }
-    console.log(`Updated ${products.length} products with category_id slugs.`);
-
+    
+    console.log('Data fix completed.');
     process.exit(0);
   } catch (error) {
-    console.error('Error fixing products:', error);
+    console.error(error);
     process.exit(1);
   }
 };
