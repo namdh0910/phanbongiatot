@@ -73,49 +73,81 @@ const createOrder = async (req, res) => {
 
     // 3. Group items by seller and create sub-orders
     const Product = require('../models/Product');
+    const Combo = require('../models/Combo');
     const sellerGroups = {};
-    const validatedItems = []; // To store snapshots from DB
+    const validatedItems = [];
     
-    // Fetch products to get authoritative snapshots and seller info
+    // Fetch products/combos to get authoritative snapshots
     for (const item of orderItems) {
-      const productDoc = await Product.findById(item.product).populate('seller');
-      
-      if (!productDoc) {
-        return res.status(404).json({ message: `Sản phẩm ID ${item.product} không tồn tại` });
-      }
+      if (item.category === 'Combo') {
+        const comboDoc = await Combo.findById(item.product || item._id).populate('items.product');
+        if (!comboDoc) return res.status(404).json({ message: `Combo ID ${item.product} không tồn tại` });
+        
+        // Expand combo into individual product snapshots
+        for (const ci of comboDoc.items) {
+          const productDoc = ci.product;
+          if (!productDoc) continue;
+          
+          // Calculate proportional price for the item in the combo
+          // (Price * (ComboPrice / OriginalPrice))
+          const ratio = comboDoc.comboPrice / comboDoc.originalPrice;
+          const proportionalPrice = Math.round(productDoc.price * ratio);
 
-      // Authoritative snapshot from DB (ignores client-sent prices/names)
-      const itemSnapshot = {
-        product: productDoc._id,
-        name: productDoc.name,
-        image: productDoc.images?.[0] || '',
-        qty: item.qty,
-        price: productDoc.price, // Authoritative price
-        seller: productDoc.seller?._id || null
-      };
+          const itemSnapshot = {
+            product: productDoc._id,
+            name: `[${comboDoc.name}] ${productDoc.name}`,
+            image: productDoc.images?.[0] || comboDoc.image,
+            qty: ci.quantity * item.qty,
+            price: proportionalPrice,
+            seller: productDoc.seller?._id || comboDoc.seller || null
+          };
+          validatedItems.push(itemSnapshot);
+          
+          const sellerId = itemSnapshot.seller?.toString() || 'admin';
+          if (!sellerGroups[sellerId]) sellerGroups[sellerId] = [];
+          sellerGroups[sellerId].push(itemSnapshot);
 
-      validatedItems.push(itemSnapshot);
+          // Atomic stock decrement for each product in combo
+          const updatedProduct = await Product.findOneAndUpdate(
+            { _id: productDoc._id, stock: { $gte: itemSnapshot.qty } },
+            { $inc: { stock: -itemSnapshot.qty, soldCount: itemSnapshot.qty } },
+            { new: true }
+          );
 
-      const sellerId = productDoc.seller?._id?.toString() || 'admin';
-      
-      if (!sellerGroups[sellerId]) {
-        sellerGroups[sellerId] = [];
-      }
-      
-      sellerGroups[sellerId].push(itemSnapshot);
-      
-      // Deduct stock atomicly
-      const updatedProduct = await Product.findOneAndUpdate(
-        { _id: item.product, stock: { $gte: item.qty } },
-        { $inc: { stock: -item.qty, soldCount: item.qty } },
-        { new: true }
-      );
+          if (!updatedProduct) {
+            return res.status(400).json({ 
+              message: `Sản phẩm ${productDoc.name} trong combo không đủ tồn kho` 
+            });
+          }
+        }
+      } else {
+        // Standard product logic
+        const productDoc = await Product.findById(item.product).populate('seller');
+        if (!productDoc) return res.status(404).json({ message: `Sản phẩm ID ${item.product} không tồn tại` });
 
-      if (!updatedProduct) {
-        // Note: Real transaction rollback would be better, but this prevents the order from finalizing
-        return res.status(400).json({ 
-          message: `Sản phẩm ${productDoc.name} không đủ tồn kho (còn ${productDoc.stock})` 
-        });
+        const itemSnapshot = {
+          product: productDoc._id,
+          name: productDoc.name,
+          image: productDoc.images?.[0] || '',
+          qty: item.qty,
+          price: productDoc.price,
+          seller: productDoc.seller?._id || null
+        };
+        validatedItems.push(itemSnapshot);
+
+        const sellerId = productDoc.seller?._id?.toString() || 'admin';
+        if (!sellerGroups[sellerId]) sellerGroups[sellerId] = [];
+        sellerGroups[sellerId].push(itemSnapshot);
+        
+        const updatedProduct = await Product.findOneAndUpdate(
+          { _id: item.product, stock: { $gte: item.qty } },
+          { $inc: { stock: -item.qty, soldCount: item.qty } },
+          { new: true }
+        );
+
+        if (!updatedProduct) {
+          return res.status(400).json({ message: `Sản phẩm ${productDoc.name} không đủ tồn kho` });
+        }
       }
     }
 
