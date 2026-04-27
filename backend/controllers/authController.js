@@ -72,20 +72,27 @@ const authUser = async (req, res) => {
 };
 
 // @desc    Register a new vendor
-// @route   POST /api/auth/register-vendor
+// @route   POST /api/sellers/register
 const registerVendor = async (req, res) => {
   try {
-    const { username, password, storeName, phone, address, description } = req.body;
+    const { username, password, storeName, phone, address, description, fullName, email } = req.body;
 
     const userExists = await User.findOne({ username });
     if (userExists) {
       return res.status(400).json({ message: 'Tên đăng nhập đã tồn tại' });
     }
 
+    const phoneExists = await User.findOne({ username: phone });
+    if (phoneExists) {
+      return res.status(400).json({ message: 'Số điện thoại này đã được đăng ký' });
+    }
+
+    // 1. Create User first
     const user = await User.create({
       username,
       password,
       role: 'vendor',
+      status: 'pending', // User status is pending
       vendorInfo: {
         storeName,
         phone,
@@ -96,11 +103,27 @@ const registerVendor = async (req, res) => {
     });
 
     if (user) {
+      const Seller = require('../models/Seller');
+      const slugify = (text) => text.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[đĐ]/g, 'd').replace(/[^a-z0-9 -]/g, '').replace(/\s+/g, '-');
+      
+      // 2. Create Seller profile
+      const seller = await Seller.create({
+        user: user._id,
+        storeName,
+        slug: slugify(storeName) + '-' + Math.random().toString(36).substring(2, 7),
+        phone,
+        address,
+        description,
+        approvalStatus: 'pending'
+      });
+
+      user.sellerProfile = seller._id;
+      await user.save();
+
       res.status(201).json({
-        _id: user._id,
-        username: user.username,
-        role: user.role,
-        token: generateToken(user._id),
+        success: true,
+        message: 'Đăng ký thành công. Vui lòng chờ quản trị viên phê duyệt.',
+        _id: user._id
       });
     } else {
       res.status(400).json({ message: 'Dữ liệu không hợp lệ' });
@@ -147,28 +170,43 @@ const getVendors = async (req, res) => {
 };
 
 // @desc    Approve/Reject vendor
-// @route   PUT /api/auth/vendors/:id/approve
+// @route   PATCH /api/admin/sellers/:id/approve
 const approveVendor = async (req, res) => {
   try {
-    const { isApproved } = req.body;
+    const { status, rejectReason } = req.body; // 'approved' or 'rejected'
     
-    // Tìm user để tính toán ngày hết hạn nếu cần
-    const user = await User.findById(req.params.id);
+    const Seller = require('../models/Seller');
+    const seller = await Seller.findById(req.params.id);
+    if (!seller) {
+      return res.status(404).json({ message: 'Không tìm thấy hồ sơ đăng ký' });
+    }
+
+    const user = await User.findById(seller.user);
     if (!user) {
-      return res.status(404).json({ message: 'Không tìm thấy người dùng' });
+      return res.status(404).json({ message: 'Không tìm thấy tài khoản liên kết' });
     }
 
-    const updateData = {
-      'vendorInfo.isApproved': isApproved
-    };
-
-    // Nếu duyệt, gia hạn mặc định 30 ngày nếu chưa có hạn
-    if (isApproved && (!user.vendorInfo.trialExpiresAt || user.vendorInfo.trialExpiresAt < new Date())) {
-      updateData['vendorInfo.trialExpiresAt'] = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
+    if (status === 'approved') {
+      seller.approvalStatus = 'approved';
+      seller.approvedAt = new Date();
+      user.status = 'active';
+      user.vendorInfo.isApproved = true;
+      // Grant 30 days trial
+      user.vendorInfo.trialExpiresAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
+    } else {
+      seller.approvalStatus = 'rejected';
+      seller.rejectReason = rejectReason || 'Hồ sơ không đạt yêu cầu';
+      user.status = 'suspended';
+      user.vendorInfo.isApproved = false;
     }
 
-    await User.findByIdAndUpdate(req.params.id, { $set: updateData });
-    return res.json({ message: 'Cập nhật trạng thái thành công' });
+    await seller.save();
+    await user.save();
+
+    return res.json({ 
+      success: true, 
+      message: status === 'approved' ? 'Đã duyệt gian hàng thành công' : 'Đã từ chối hồ sơ' 
+    });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }

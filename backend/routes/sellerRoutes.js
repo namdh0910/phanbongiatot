@@ -13,11 +13,14 @@ router.get('/dashboard', protect, getSellerDashboard);
 router.get('/revenue', protect, getSellerRevenue);
 
 // Admin approval for sellers
-router.patch('/admin/sellers/:id/approve', protect, admin, approveVendor);
+const Seller = require('../models/Seller');
+router.get('/admin/seller-registrations', protect, admin, async (req, res) => {
+  const { status = 'pending' } = req.query;
+  const registrations = await Seller.find({ approvalStatus: status }).populate('user', 'username email');
+  res.json(registrations);
+});
 
-// SuperAdmin config for sellers (Commission rate, etc)
-const { updateSellerConfig } = require('../controllers/authController');
-const { superAdmin } = require('../middleware/authMiddleware');
-router.patch('/admin/sellers/:id/config', protect, superAdmin, updateSellerConfig);
+router.patch('/admin/seller-registrations/:id/approve', protect, admin, approveVendor);
+router.patch('/admin/seller-registrations/:id/reject', protect, admin, approveVendor);
 
 module.exports = router;
