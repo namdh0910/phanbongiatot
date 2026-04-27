@@ -13,13 +13,13 @@ export default function SellerGuard({ children }: { children: React.ReactNode })
     const role = localStorage.getItem("userRole");
     const info = localStorage.getItem("vendorInfo");
 
-    if (!token || (role !== "vendor" && role !== "admin")) {
+    if (!token || (role !== "vendor" && role !== "admin" && role !== "super_admin")) {
       router.push("/kenh-nguoi-ban/dang-nhap");
     } else {
       if (info) {
         try {
           const parsed = JSON.parse(info);
-          if (parsed.isApproved || role === 'admin') {
+          if (parsed.isApproved || role === 'admin' || role === 'super_admin') {
             setIsApproved(true);
           }
         } catch (e) {}

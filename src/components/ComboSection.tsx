@@ -19,11 +19,11 @@ const ComboSection: React.FC = () => {
   const primaryColor = settings?.primaryColor || "#1a5c2a";
 
   useEffect(() => {
-    fetch(`${API_BASE_URL}/products?category=combo-tiet-kiem&limit=3`)
+    fetch(`${API_BASE_URL}/combos?is_featured=true&limit=3`)
       .then(res => res.json())
       .then(data => {
-        if (data?.data && data.data.length > 0) {
-          setCombos(data.data);
+        if (Array.isArray(data) && data.length > 0) {
+          setCombos(data);
         }
       })
       .catch(err => console.error("Fetch combos failed:", err))
@@ -34,10 +34,10 @@ const ComboSection: React.FC = () => {
     addToCart({
       _id: combo._id || combo.id,
       name: combo.name,
-      price: combo.price,
-      images: combo.images,
+      price: combo.comboPrice,
+      images: [combo.image],
       slug: combo.slug,
-      category: combo.category_id || "Combo"
+      category: "Combo"
     }, 1);
     router.push('/checkout');
   };
@@ -79,17 +79,19 @@ const ComboSection: React.FC = () => {
 
         <div className="combo-grid">
           {combos.map((combo, index) => {
-            const discountPercent = combo.original_price ? Math.round((1 - combo.price / combo.original_price) * 100) : 0;
-            const savings = combo.original_price ? combo.original_price - combo.price : 0;
+            const discountPercent = combo.originalPrice ? Math.round((1 - combo.comboPrice / combo.originalPrice) * 100) : 0;
+            const savings = combo.originalPrice ? combo.originalPrice - combo.comboPrice : 0;
 
             return (
               <div key={index} className="combo-card animate-in fade-in duration-500" style={{ animationDelay: `${index * 100}ms` }}>
-                {savings > 0 && <div className="combo-tag">Tiết kiệm {formatPrice(savings)}</div>}
+                {(savings > 0 || combo.discountLabel) && (
+                  <div className="combo-tag">{combo.discountLabel || `Tiết kiệm ${formatPrice(savings)}`}</div>
+                )}
                 
                 <div className="combo-card-inner">
                   <div className="combo-image-box">
                     <img 
-                      src={combo.images?.[0]} 
+                      src={combo.image} 
                       alt={combo.name} 
                       className="w-full h-full object-cover"
                       onError={(e) => {
@@ -103,12 +105,12 @@ const ComboSection: React.FC = () => {
                     {discountPercent > 0 && <div className="combo-discount-badge">Tiết kiệm {discountPercent}%</div>}
                     
                     <div className="combo-items-list-box">
-                      <p className="line-clamp-2">{combo.short_desc || combo.description}</p>
+                      <p className="line-clamp-2">{combo.short_desc || combo.description || "Gói giải pháp tối ưu cho vườn cây."}</p>
                     </div>
 
                     <div className="combo-pricing">
-                      {combo.original_price && <span className="price-retail">Mua riêng: {formatPrice(combo.original_price)}</span>}
-                      <span className="price-combo">Mua combo: {formatPrice(combo.price)}</span>
+                      {combo.originalPrice && <span className="price-retail">Mua riêng: {formatPrice(combo.originalPrice)}</span>}
+                      <span className="price-combo">Mua combo: {formatPrice(combo.comboPrice)}</span>
                     </div>
                   </div>
                 </div>

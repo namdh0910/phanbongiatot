@@ -62,7 +62,7 @@ export default function CategoryPage() {
   const fetchProducts = async (pageNum: number, isNew: boolean = false) => {
     setIsLoading(true);
     try {
-      let url = `${API_BASE_URL}/products?category=${encodeURIComponent(categoryName)}&page=${pageNum}&limit=12&sort=${sortBy}`;
+      let url = `${API_BASE_URL}/products?category=${encodeURIComponent(slug)}&page=${pageNum}&limit=12&sort=${sortBy}`;
       if (filters.crop && filters.crop !== 'Tất cả') url += `&crop=${encodeURIComponent(filters.crop)}`;
       
       if (filters.priceRange) {

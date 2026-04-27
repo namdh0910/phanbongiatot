@@ -89,22 +89,22 @@ export default function Footer() {
           <div className="space-y-4 text-gray-400 text-sm">
             <div className="flex gap-3">
               <span className="text-[#1a5c2a] text-lg">📍</span>
-              <p>Kho hàng: TP. Buôn Ma Thuột, Tỉnh Đắk Lắk</p>
+              <p>{settings?.address || 'Kho hàng: TP. Buôn Ma Thuột, Tỉnh Đắk Lắk'}</p>
             </div>
             <div className="flex gap-3">
               <span className="text-[#1a5c2a] text-lg">📞</span>
               <div>
-                <p className="font-black text-white text-base">0773.440.966</p>
+                <p className="font-black text-white text-base">{settings?.hotline || '0773.440.966'}</p>
                 <p className="text-[10px] uppercase font-bold text-gray-500">Kỹ sư tư vấn 24/7</p>
               </div>
             </div>
             <div className="flex gap-3">
               <span className="text-[#1a5c2a] text-lg">✉️</span>
-              <p>hotro@phanbongiatot.com</p>
+              <p>{settings?.email || 'hotro@phanbongiatot.com'}</p>
             </div>
             <div className="flex gap-3">
               <span className="text-[#1a5c2a] text-lg">⏰</span>
-              <p>Mở cửa: 07:00 - 21:00 (T2 - CN)</p>
+              <p>Mở cửa: {settings?.openingHours || '07:00 - 21:00 (T2 - CN)'}</p>
             </div>
             
             <div className="footer-map">
