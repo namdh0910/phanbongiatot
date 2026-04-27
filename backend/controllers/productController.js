@@ -23,9 +23,11 @@ const getProducts = async (req, res) => {
     // Mandatory filters for public view (unless admin/seller specific query is allowed)
     // If we want to allow admin to see draft products via this endpoint, we'd check roles.
     // But audit says BẮT BUỘC filter for frontend.
-    query.status = queryStatus || 'approved'; // Map 'published' to 'approved' if needed
-    if (query.status === 'published') query.status = 'approved';
-    
+    // Mandatory filters for public view
+    const statusVal = queryStatus || 'approved';
+    query.status = { $in: ['approved', 'published', 'active'] };
+    if (queryStatus) query.status = statusVal;
+
     query.approval_status = queryApprovalStatus || 'approved';
     
     // stock > 0 filter
