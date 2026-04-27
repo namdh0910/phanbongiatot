@@ -21,6 +21,8 @@ const FlashSale: React.FC = () => {
         console.error(err);
       } finally {
         setIsLoading(false);
+      }
+    };
     fetchSales();
   }, []);
 
