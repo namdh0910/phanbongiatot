@@ -14,7 +14,7 @@ const CATEGORY_SLUG_MAP: Record<string, string> = {
 
 async function getProduct(slug: string) {
   try {
-    const res = await fetch(`${API_BASE_URL}/products/slug/${slug}`, { next: { revalidate: 3600 } });
+    const res = await fetch(`${API_BASE_URL}/products/slug/${slug}`, { next: { revalidate: 300 } });
     if (!res.ok) throw new Error("API failed");
     return await res.json();
   } catch {

@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { API_BASE_URL } from "@/utils/api";
 import Link from "next/link";
 
@@ -10,29 +10,40 @@ export default function OrderTracking() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const handleTrack = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!orderCode || !phone) return;
-
-    setLoading(true);
-    setError("");
-    setOrder(null);
-
+  const fetchOrder = async (code: string, phoneNumber: string) => {
     try {
-      const res = await fetch(`${API_BASE_URL}/orders/track?code=${orderCode.toUpperCase()}&phone=${phone.replace(/\s/g, '')}`);
+      const res = await fetch(`${API_BASE_URL}/orders/track?code=${code.toUpperCase()}&phone=${phoneNumber.replace(/\s/g, '')}`);
       const data = await res.json();
-
       if (res.ok) {
         setOrder(data);
-      } else {
+      } else if (!order) {
         setError(data.message || "Không tìm thấy đơn hàng. Liên hệ 0773.440.966 để được hỗ trợ.");
       }
     } catch (err) {
-      setError("Lỗi kết nối. Vui lòng thử lại sau.");
-    } finally {
-      setLoading(false);
+      if (!order) setError("Lỗi kết nối. Vui lòng thử lại sau.");
     }
   };
+
+  const handleTrack = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!orderCode || !phone) return;
+    setLoading(true);
+    setError("");
+    setOrder(null);
+    await fetchOrder(orderCode, phone);
+    setLoading(false);
+  };
+
+  // Polling logic
+  useEffect(() => {
+    let interval: any;
+    if (order && order.orderStatus !== 'done' && order.orderStatus !== 'cancelled') {
+      interval = setInterval(() => {
+        fetchOrder(orderCode, phone);
+      }, 30000); // 30 seconds
+    }
+    return () => clearInterval(interval);
+  }, [order?.orderStatus, orderCode, phone]);
 
   const getStatusStep = (status: string) => {
     const steps = ['new', 'confirmed', 'shipping', 'done'];
