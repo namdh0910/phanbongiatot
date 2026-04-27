@@ -88,11 +88,18 @@ const createOrder = async (req, res) => {
         seller: sellerId === 'admin' ? null : sellerId
       });
       
-      // Deduct stock
-      await Product.findByIdAndUpdate(
-        item.product,
-        { $inc: { stock: -item.qty, soldCount: item.qty } }
+      // Deduct stock with condition to prevent negative stock
+      const updatedProduct = await Product.findOneAndUpdate(
+        { _id: item.product, stock: { $gte: item.qty } },
+        { $inc: { stock: -item.qty, soldCount: item.qty } },
+        { new: true }
       );
+
+      if (!updatedProduct) {
+        return res.status(400).json({ 
+          message: `Sản phẩm ${productDoc.name} không đủ tồn kho (còn ${productDoc.stock})` 
+        });
+      }
     }
 
     const subOrders = [];

@@ -4,7 +4,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 
 async function getBlog(slug: string) {
   try {
-    const res = await fetch(`${API_BASE_URL}/blogs/slug/${slug}`, { next: { revalidate: 0 } });
+    const res = await fetch(`${API_BASE_URL}/blogs/slug/${slug}`, { next: { revalidate: 3600 } });
     if (!res.ok) throw new Error('API failed');
     return await res.json();
   } catch (error) {
