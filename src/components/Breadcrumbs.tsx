@@ -10,9 +10,10 @@ interface BreadcrumbItem {
 
 interface BreadcrumbsProps {
   items: BreadcrumbItem[];
+  light?: boolean;
 }
 
-export default function Breadcrumbs({ items }: BreadcrumbsProps) {
+export default function Breadcrumbs({ items, light = false }: BreadcrumbsProps) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -25,20 +26,20 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
   };
 
   return (
-    <nav aria-label="breadcrumb" className="py-4 px-4 bg-gray-50 border-b border-gray-100">
+    <nav aria-label="breadcrumb" className={`py-4 px-4 ${light ? 'bg-transparent border-none' : 'bg-gray-50 border-b border-gray-100'}`}>
       <div className="container mx-auto">
-        <ol className="flex flex-wrap items-center gap-2 text-[11px] md:text-xs font-bold uppercase tracking-wider text-gray-400">
+        <ol className={`flex flex-wrap items-center gap-2 text-[11px] md:text-xs font-bold uppercase tracking-wider ${light ? 'text-white/60' : 'text-gray-400'}`}>
           <li className="flex items-center gap-2">
-            <Link href="/" className="hover:text-[#1a5c2a] transition-colors">Trang chủ</Link>
+            <Link href="/" className={`transition-colors ${light ? 'hover:text-white' : 'hover:text-[#1a5c2a]'}`}>Trang chủ</Link>
           </li>
           
           {items.map((item, index) => (
             <li key={index} className="flex items-center gap-2">
-              <span className="text-gray-300 text-[10px]">/</span>
+               <span className={`${light ? 'text-white/20' : 'text-gray-300'} text-[10px]`}>/</span>
               {index === items.length - 1 ? (
-                <span className="text-[#1a5c2a]">{item.label}</span>
+                <span className={light ? 'text-white' : 'text-[#1a5c2a]'}>{item.label}</span>
               ) : (
-                <Link href={item.href || '#'} className="hover:text-[#1a5c2a] transition-colors">
+                <Link href={item.href || '#'} className={`transition-colors ${light ? 'hover:text-white' : 'hover:text-[#1a5c2a]'}`}>
                   {item.label}
                 </Link>
               )}
