@@ -1,5 +1,6 @@
 "use client";
 import React from 'react';
+import Link from 'next/link';
 import { useSettings } from '@/context/SettingsContext';
 import './Hero.css';
 
@@ -41,12 +42,19 @@ const Hero: React.FC = () => {
           {subtitle}
         </p>
 
-        <div className="mt-8 flex gap-4">
-           <a href={settings?.heroCtaUrl || "/san-pham"} className="bg-yellow-400 text-[#1a5c2a] px-8 py-3 rounded-xl font-black text-lg shadow-xl hover:bg-yellow-300 transition-all uppercase">
-              XEM GIẢI PHÁP ➜
-           </a>
-           <a href={`https://zalo.me/${process.env.NEXT_PUBLIC_ZALO_PHONE ?? '0773440966'}`} target="_blank" className="bg-white/10 backdrop-blur-md border border-white/30 text-white px-8 py-3 rounded-xl font-black text-lg hover:bg-white/20 transition-all uppercase">
-              NHẬN TƯ VẤN
+        <div className="mt-8 flex flex-col sm:flex-row gap-4">
+           <Link 
+              href={settings?.heroCtaUrl || "/danh-muc/phan-bon"} 
+              className="bg-yellow-400 text-[#1a5c2a] px-10 py-4 rounded-2xl font-black text-xl shadow-2xl hover:bg-yellow-300 transition-all uppercase text-center active:scale-95"
+           >
+              {settings?.heroCtaText || "XEM GIẢI PHÁP"} ➜
+           </Link>
+           <a 
+              href={`https://zalo.me/${process.env.NEXT_PUBLIC_ZALO_PHONE || settings?.zalo || '0773440966'}`} 
+              target="_blank" 
+              className="bg-white/10 backdrop-blur-md border-2 border-white/30 text-white px-10 py-4 rounded-2xl font-black text-xl hover:bg-white/20 transition-all uppercase text-center active:scale-95"
+           >
+              {settings?.heroSecondaryCtaText || "NHẬN TƯ VẤN"}
            </a>
         </div>
       </div>

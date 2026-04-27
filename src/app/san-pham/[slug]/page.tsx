@@ -1,4 +1,5 @@
 import { API_BASE_URL, getAuthHeaders } from '@/utils/api';
+import { FALLBACK_PRODUCTS } from '@/utils/fallbackData';
 import Link from "next/link";
 import ProductGallery from "@/components/ProductGallery";
 import ProductActions from "@/components/ProductActions";
@@ -15,10 +16,15 @@ const CATEGORY_SLUG_MAP: Record<string, string> = {
 async function getProduct(slug: string) {
   try {
     const res = await fetch(`${API_BASE_URL}/products/slug/${slug}`, { next: { revalidate: 300 } });
-    if (!res.ok) throw new Error("API failed");
-    return await res.json();
+    if (res.ok) {
+      const data = await res.json();
+      if (data) return data;
+    }
+    
+    // Fallback if API fails or returns null
+    return FALLBACK_PRODUCTS.find(p => p.slug === slug) || null;
   } catch {
-    return null;
+    return FALLBACK_PRODUCTS.find(p => p.slug === slug) || null;
   }
 }
 
