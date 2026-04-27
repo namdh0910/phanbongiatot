@@ -83,6 +83,8 @@ const createOrder = async (req, res) => {
       if (!sellerGroups[sellerId]) {
         sellerGroups[sellerId] = [];
       }
+      
+      // Store item with seller_id denormalized
       sellerGroups[sellerId].push({
         ...item,
         seller: sellerId === 'admin' ? null : sellerId
@@ -105,37 +107,36 @@ const createOrder = async (req, res) => {
     const subOrders = [];
     const sellerIds = Object.keys(sellerGroups);
 
-    if (sellerIds.length > 1 || (sellerIds.length === 1 && sellerIds[0] !== 'admin')) {
-      for (const sellerId of sellerIds) {
-        const items = sellerGroups[sellerId];
-        const subItemsPrice = items.reduce((acc, item) => acc + (item.price * item.qty), 0);
-        
-        // Simple shipping fee split: only apply to the first sub-order or handle separately
-        // For simplicity: only parent order has the full fee, or split proportionally
-        const subShippingFee = sellerIds.length > 1 ? 0 : shippingFee; 
-        
-        const subOrderCode = `${parentOrderCode}-${subOrders.length + 1}`;
-        
-        const subOrder = new Order({
-          orderCode: subOrderCode,
-          orderItems: items,
-          customerInfo,
-          paymentMethod,
-          itemsPrice: subItemsPrice,
-          shippingFee: subShippingFee,
-          totalPrice: subItemsPrice + subShippingFee,
-          parentOrder: savedParentOrder._id,
-          seller: sellerId === 'admin' ? null : sellerId,
-          isParent: false,
-          user: customer._id
-        });
-        
-        const savedSubOrder = await subOrder.save();
-        subOrders.push(savedSubOrder);
-        
-        // Notify seller (Zalo/Telegram logic would go here)
-        console.log(`[NOTIFY] Seller ${sellerId} received sub-order ${subOrderCode}`);
-      }
+    // ALWAYS create sub-orders for tracking per seller
+    for (const sellerId of sellerIds) {
+      const items = sellerGroups[sellerId];
+      const subItemsPrice = items.reduce((acc, item) => acc + (item.price * item.qty), 0);
+      
+      // Simple shipping fee: Parent order holds the full fee for now
+      // Sub-orders can have 0 shipping or split proportionally
+      const subShippingFee = 0; 
+      
+      const subOrderCode = `${parentOrderCode}-${subOrders.length + 1}`;
+      
+      const subOrder = new Order({
+        orderCode: subOrderCode,
+        orderItems: items,
+        customerInfo,
+        paymentMethod,
+        itemsPrice: subItemsPrice,
+        shippingFee: subShippingFee,
+        totalPrice: subItemsPrice + subShippingFee,
+        parentOrder: savedParentOrder._id,
+        seller: sellerId === 'admin' ? null : sellerId,
+        isParent: false,
+        user: customer._id
+      });
+      
+      const savedSubOrder = await subOrder.save();
+      subOrders.push(savedSubOrder);
+      
+      // Notify seller
+      console.log(`[NOTIFY] Seller ${sellerId} received sub-order ${subOrderCode}`);
     }
 
     // 4. Finalize Parent Order notifications
@@ -339,7 +340,13 @@ const getOrdersByPhone = async (req, res) => {
 // @access  Private/Admin
 const getOrders = async (req, res) => {
   try {
-    const orders = await Order.find({}).sort({ createdAt: -1 });
+    const { is_parent } = req.query;
+    const query = {};
+    if (is_parent === 'true') query.isParent = true;
+    
+    const orders = await Order.find(query)
+      .populate('user', 'username vendorInfo')
+      .sort({ createdAt: -1 });
     res.json(orders);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -351,31 +358,10 @@ const getOrders = async (req, res) => {
 // @access  Private/Vendor
 const getVendorOrders = async (req, res) => {
   try {
-    const orders = await Order.find({})
-      .populate({
-        path: 'orderItems.product',
-        select: 'seller'
-      })
+    const orders = await Order.find({ seller: req.user._id })
+      .populate('user', 'username vendorInfo')
       .sort({ createdAt: -1 });
-
-    // Lọc những đơn hàng có sản phẩm của vendor này
-    const vendorOrders = orders.filter(order => {
-      return order.orderItems.some(item => 
-        item.product && item.product.seller && item.product.seller.toString() === req.user._id.toString()
-      );
-    }).map(order => {
-      // Chỉ trả về những items thuộc về vendor này
-      const filteredItems = order.orderItems.filter(item => 
-        item.product && item.product.seller && item.product.seller.toString() === req.user._id.toString()
-      );
-      
-      return {
-        ...order._doc,
-        orderItems: filteredItems
-      };
-    });
-
-    res.json(vendorOrders);
+    res.json(orders);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
