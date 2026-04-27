@@ -325,9 +325,10 @@ const getCategories = async (req, res) => {
     // Fixed categories for Phân Bón Giá Tốt
     const categories = [
       { name: 'Phân bón', slug: 'phan-bon' },
-      { name: 'Thuốc trừ sâu', slug: 'thuoc-tru-sau' },
+      { name: 'Phân bón lá', slug: 'phan-bon-la' },
       { name: 'Kích rễ', slug: 'kich-re' },
-      { name: 'Tuyến trùng', slug: 'tuyen-trung' }
+      { name: 'Tuyến trùng', slug: 'tuyen-trung' },
+      { name: 'Combo tiết kiệm', slug: 'combo-tiet-kiem' }
     ];
 
     if (include_count === 'true') {

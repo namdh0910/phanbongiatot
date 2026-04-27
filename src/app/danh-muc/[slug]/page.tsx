@@ -9,7 +9,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 // Map slugs to display names. If not in map, we'll try to unslugify.
 const slugToName: Record<string, string> = {
   "phan-bon": "Phân bón",
-  "thuoc-tru-sau": "Thuốc trừ sâu",
+  "phan-bon-la": "Phân bón lá",
   "kich-re": "Kích rễ",
   "tuyen-trung": "Tuyến trùng",
   "combo-tiet-kiem": "Combo tiết kiệm"
@@ -45,7 +45,7 @@ export default function CategoryPage() {
 
   // Fetch all categories for sidebar
   useEffect(() => {
-    fetch(`${API_BASE_URL}/categories?include_count=true`)
+    fetch(`${API_BASE_URL}/categories?include_count=true`, { cache: 'no-store' })
       .then(res => res.json())
       .then(data => setCategories(data))
       .catch(() => {});
@@ -70,7 +70,7 @@ export default function CategoryPage() {
         url += `&min_price=${min}&max_price=${max}`;
       }
       
-      const res = await fetch(url);
+      const res = await fetch(url, { cache: 'no-store' });
       const data = await res.json();
       
       const newProducts = data.products || [];
