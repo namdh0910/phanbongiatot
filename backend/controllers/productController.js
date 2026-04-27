@@ -24,9 +24,8 @@ const getProducts = async (req, res) => {
     // If we want to allow admin to see draft products via this endpoint, we'd check roles.
     // But audit says BẮT BUỘC filter for frontend.
     // Mandatory filters for public view
-    const statusVal = queryStatus || 'approved';
     query.status = { $in: ['approved', 'published', 'active'] };
-    if (queryStatus) query.status = statusVal;
+    if (queryStatus) query.status = queryStatus;
 
     query.approval_status = queryApprovalStatus || 'approved';
     
@@ -333,7 +332,11 @@ const getCategories = async (req, res) => {
 
     if (include_count === 'true') {
       const counts = await Product.aggregate([
-        { $match: { status: 'approved' } },
+        { $match: { 
+            status: { $in: ['approved', 'published', 'active'] },
+            approval_status: 'approved',
+            stock: { $gt: 0 }
+        } },
         { $group: { _id: '$category_id', count: { $sum: 1 } } }
       ]);
       
