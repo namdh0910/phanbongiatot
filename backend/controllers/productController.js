@@ -331,11 +331,25 @@ const getVendorProducts = async (req, res) => {
   }
 };
 
+// @desc    Get all products (Admin only)
+// @route   GET /api/products/admin/all
+const getAllAdminProducts = async (req, res) => {
+  try {
+    const products = await Product.find({})
+      .populate('seller', 'username vendorInfo role')
+      .sort({ createdAt: -1 });
+    res.json(products);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = {
   getProducts,
   getCropTypes,
   getCategories,
   getVendorProducts,
+  getAllAdminProducts,
   updateStock,
   approveProduct,
   getProductById,

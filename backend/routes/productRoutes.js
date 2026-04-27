@@ -11,7 +11,8 @@ const {
   updateProduct, 
   deleteProduct, 
   bulkDeleteProducts,
-  createProductReview 
+  createProductReview,
+  getAllAdminProducts
 } = require('../controllers/productController');
 const { protect, admin } = require('../middleware/authMiddleware');
 
@@ -27,6 +28,7 @@ router.patch('/admin/products/:id', protect, updateProduct); // Partial update
 router.patch('/admin/products/:id/stock', protect, updateStock); // Atomic stock update
 
 // Admin only routes
+router.get('/admin/all', protect, admin, getAllAdminProducts);
 router.patch('/admin/products/:id/approve', protect, admin, approveProduct);
 router.post('/admin/products/bulk-delete', protect, admin, bulkDeleteProducts);
 
