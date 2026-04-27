@@ -1,4 +1,5 @@
 const Combo = require('../models/Combo');
+const { triggerRevalidate } = require('../utils/revalidate');
 
 // @desc    Get all combos
 // @route   GET /api/combos
@@ -38,6 +39,10 @@ const manageCombo = async (req, res) => {
         name, slug, items, comboPrice, originalPrice, image, isFeatured, status
       });
       await combo.save();
+    }
+
+    if (combo) {
+      triggerRevalidate(['/', '/combo']);
     }
 
     res.json(combo);

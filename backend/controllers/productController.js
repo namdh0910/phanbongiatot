@@ -1,4 +1,5 @@
 const Product = require('../models/Product');
+const { triggerRevalidate } = require('../utils/revalidate');
 
 // @desc    Get all products for frontend
 // @route   GET /api/products
@@ -141,8 +142,11 @@ const approveProduct = async (req, res) => {
       { new: true }
     );
 
-    if (product) res.json(product);
-    else res.status(404).json({ message: 'Product not found' });
+    if (product) {
+      // Revalidate on approve
+      triggerRevalidate(['/', `/san-pham/${product.slug}`, `/danh-muc/${product.category_id}`]);
+      res.json(product);
+    } else res.status(404).json({ message: 'Product not found' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -195,6 +199,11 @@ const createProduct = async (req, res) => {
     });
 
     const createdProduct = await product.save();
+    
+    if (createdProduct.status === 'approved') {
+      triggerRevalidate(['/', `/danh-muc/${createdProduct.category_id}`]);
+    }
+
     res.status(201).json(createdProduct);
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -217,6 +226,11 @@ const updateProduct = async (req, res) => {
     if (updateData.crops) updateData.crop_types = updateData.crops.map(c => slugify(c));
 
     const updatedProduct = await Product.findByIdAndUpdate(req.params.id, updateData, { new: true });
+    
+    if (updatedProduct.status === 'approved') {
+      triggerRevalidate(['/', `/san-pham/${updatedProduct.slug}`, `/danh-muc/${updatedProduct.category_id}`]);
+    }
+
     res.json(updatedProduct);
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -233,6 +247,10 @@ const deleteProduct = async (req, res) => {
        return res.status(403).json({ message: 'Bạn không có quyền xóa sản phẩm này' });
     }
     await Product.findByIdAndDelete(req.params.id);
+    
+    // Revalidate on delete
+    triggerRevalidate(['/', `/danh-muc/${product.category_id}`]);
+
     res.json({ message: 'Product removed' });
   } catch (error) {
     res.status(500).json({ message: error.message });
