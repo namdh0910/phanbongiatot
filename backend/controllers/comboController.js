@@ -12,7 +12,13 @@ const getCombos = async (req, res) => {
     if (is_featured === 'true') query.isFeatured = true;
     if (seller_id) query.seller = seller_id;
 
-    const combos = await Combo.find(query).populate('items.product');
+    let combos = await Combo.find(query).populate('items.product');
+    
+    // Filter out combos where any component is out of stock
+    combos = combos.filter(combo => {
+      return combo.items.every(item => item.product && item.product.stock >= item.quantity);
+    });
+
     res.json(combos);
   } catch (error) {
     res.status(500).json({ message: error.message });
