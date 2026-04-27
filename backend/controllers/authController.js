@@ -40,6 +40,18 @@ const authUser = async (req, res) => {
     }
 
     if (isMatch) {
+      // Check approval status for vendors
+      if (user.role === 'vendor' && user.sellerProfile) {
+        const Seller = require('../models/Seller');
+        const seller = await Seller.findById(user.sellerProfile);
+        if (seller && seller.approvalStatus !== 'approved') {
+          return res.status(403).json({ 
+            message: 'Shop chưa được duyệt hoặc đang bị khóa. Vui lòng liên hệ Admin.',
+            approvalStatus: seller.approvalStatus
+          });
+        }
+      }
+
       user.lastLoginAt = new Date();
       await user.save();
 

@@ -261,6 +261,59 @@ const updateOrderStatus = async (req, res) => {
   }
 };
 
+// @desc    Seller confirm sub-order
+// @route   PATCH /api/seller/sub-orders/:id/confirm
+const confirmSubOrder = async (req, res) => {
+  try {
+    const { estimated_ship_date } = req.body;
+    const order = await Order.findById(req.params.id);
+
+    if (!order || order.isParent) {
+      return res.status(404).json({ message: 'Không tìm thấy đơn hàng' });
+    }
+
+    if (order.seller.toString() !== req.user._id.toString() && req.user.role !== 'admin' && req.user.role !== 'super_admin') {
+      return res.status(403).json({ message: 'Bạn không có quyền xác nhận đơn hàng này' });
+    }
+
+    order.orderStatus = 'confirmed';
+    // We could store estimated_ship_date in a new field if needed
+    const updatedOrder = await order.save();
+    
+    await notifyOrderConfirmed(updatedOrder);
+    res.json(updatedOrder);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// @desc    Seller ship sub-order
+// @route   PATCH /api/seller/sub-orders/:id/ship
+const shipSubOrder = async (req, res) => {
+  try {
+    const { tracking_code, carrier } = req.body;
+    const order = await Order.findById(req.params.id);
+
+    if (!order || order.isParent) {
+      return res.status(404).json({ message: 'Không tìm thấy đơn hàng' });
+    }
+
+    if (order.seller.toString() !== req.user._id.toString() && req.user.role !== 'admin' && req.user.role !== 'super_admin') {
+      return res.status(403).json({ message: 'Bạn không có quyền giao đơn hàng này' });
+    }
+
+    order.orderStatus = 'shipping';
+    order.shippingCode = tracking_code;
+    // carrier could be stored in a new field
+    const updatedOrder = await order.save();
+    
+    await notifyOrderShipping(updatedOrder, tracking_code);
+    res.json(updatedOrder);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 // @desc    Get orders by phone number
 // @route   GET /api/orders/phone/:phone
 // @access  Public
@@ -329,4 +382,6 @@ module.exports = {
   getOrders,
   getVendorOrders,
   trackOrder,
+  confirmSubOrder,
+  shipSubOrder
 };

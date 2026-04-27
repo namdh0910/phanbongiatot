@@ -79,6 +79,8 @@ app.use('/api/shipping', shippingRoutes);
 app.use('/api/analytics', analyticsRoutes);
 app.use('/api/categories', require('./routes/categoryRoutes'));
 app.use('/api/seller/products', require('./routes/sellerProductRoutes'));
+app.use('/api/shops', require('./routes/shopRoutes'));
+app.use('/api/combos', require('./routes/comboRoutes'));
 
 app.get('/', (req, res) => {
   res.json({ status: 'ok', message: 'Phân Bón Giá Tốt API' });
