@@ -45,7 +45,7 @@ export default function CategoryPage() {
 
   // Fetch all categories for sidebar
   useEffect(() => {
-    fetch(`${API_BASE_URL}/categories`)
+    fetch(`${API_BASE_URL}/categories?include_count=true`)
       .then(res => res.json())
       .then(data => setCategories(data))
       .catch(() => {});

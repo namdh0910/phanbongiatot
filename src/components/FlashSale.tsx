@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { API_BASE_URL } from '@/utils/api';
 import './FlashSale.css';
 
 const FlashSale: React.FC = () => {
@@ -11,7 +12,7 @@ const FlashSale: React.FC = () => {
   useEffect(() => {
     const fetchSales = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/flash-sales/active`);
+        const res = await fetch(`${API_BASE_URL}/flash-sales/active`);
         if (res.ok) {
           const data = await res.json();
           setSales(data);
@@ -20,8 +21,6 @@ const FlashSale: React.FC = () => {
         console.error(err);
       } finally {
         setIsLoading(false);
-      }
-    };
     fetchSales();
   }, []);
 

@@ -60,6 +60,8 @@ const getProducts = async (req, res) => {
       else if (price_range === '3') query.price = { $gt: 500000 };
     }
 
+    console.log('Final Products Query:', JSON.stringify(query, null, 2));
+
     // Sort mapping
     let sortOptions = { is_featured: -1, created_at: -1 };
     if (sort === 'latest') sortOptions = { created_at: -1 };
