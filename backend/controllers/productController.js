@@ -130,30 +130,50 @@ const updateStock = async (req, res) => {
   }
 };
 
-// @desc    Approve/Reject product
+// @desc    Approve/Reject/Suspend product (Admin)
 // @route   PATCH /api/admin/products/:id/approve
 const approveProduct = async (req, res) => {
   try {
-    const { action, reason } = req.body;
-    const status = action === 'approve' ? 'approved' : 'rejected';
-    const approval_status = action === 'approve' ? 'approved' : 'rejected';
+    const { action, reason } = req.body; // 'approve', 'reject', 'suspend'
+    const product = await Product.findById(req.params.id);
+    if (!product) return res.status(404).json({ message: 'Không tìm thấy sản phẩm' });
 
-    const product = await Product.findByIdAndUpdate(
-      req.params.id,
-      { 
-        status, 
-        approval_status,
-        reject_reason: reason || null,
-        rejectionReason: reason || null
-      },
-      { new: true }
-    );
+    if (action === 'approve') {
+      product.approval_status = 'approved';
+      product.status = 'published';
+      product.reviewed_by = req.user._id;
+      product.reviewed_at = new Date();
+    } else if (action === 'reject') {
+      product.approval_status = 'rejected';
+      product.status = 'draft';
+      product.reject_reason = reason || 'Nội dung không đạt tiêu chuẩn';
+      product.reviewed_by = req.user._id;
+      product.reviewed_at = new Date();
+    } else if (action === 'suspend') {
+      product.approval_status = 'suspended';
+      product.status = 'archived';
+      product.suspended_reason = reason;
+    }
 
-    if (product) {
-      // Revalidate on approve
+    await product.save();
+
+    if (action === 'approve' || action === 'suspend') {
       triggerRevalidate(['/', `/san-pham/${product.slug}`, `/danh-muc/${product.category_id}`]);
-      res.json(product);
-    } else res.status(404).json({ message: 'Product not found' });
+    }
+
+    res.json({ success: true, message: `Thực hiện ${action} thành công`, product });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// @desc    Get pending products for admin queue
+const getPendingProducts = async (req, res) => {
+  try {
+    const products = await Product.find({ approval_status: 'pending' })
+      .populate('seller', 'username vendorInfo')
+      .sort({ createdAt: -1 });
+    res.json(products);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -222,6 +242,16 @@ const updateProduct = async (req, res) => {
     const product = req.resource; // Loaded from checkOwnership middleware
     
     const updateData = { ...req.body };
+    
+    // Logic: If non-admin edits sensitive fields, reset approval status
+    const isAdmin = req.user.role === 'admin' || req.user.role === 'super_admin';
+    const sensitiveFieldsChanged = updateData.price || updateData.images || updateData.name;
+    
+    if (!isAdmin && sensitiveFieldsChanged) {
+      updateData.approval_status = 'pending';
+      updateData.status = 'draft';
+    }
+
     const slugify = (text) => text.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[đĐ]/g, 'd').replace(/[^a-z0-9 -]/g, '').replace(/\s+/g, '-');
     if (updateData.crops) updateData.crop_types = updateData.crops.map(c => slugify(c));
 
@@ -352,6 +382,7 @@ module.exports = {
   getAllAdminProducts,
   updateStock,
   approveProduct,
+  getPendingProducts,
   getProductById,
   getProductBySlug,
   createProduct,

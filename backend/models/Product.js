@@ -48,15 +48,18 @@ const productSchema = mongoose.Schema(
     },
     unit: { type: String, default: 'chai' },
     rejectionReason: { type: String },
-    reject_reason: { type: String }, // Alias
+    reject_reason: { type: String }, 
+    suspended_reason: { type: String },
+    reviewed_by: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    reviewed_at: { type: Date },
     status: {
       type: String,
       enum: ['pending_review', 'approved', 'rejected', 'hidden', 'draft', 'published', 'archived'],
-      default: 'pending_review'
+      default: 'draft'
     },
     approval_status: {
       type: String,
-      enum: ['pending', 'approved', 'rejected'],
+      enum: ['pending', 'approved', 'rejected', 'suspended'],
       default: 'pending'
     },
     variants: [{

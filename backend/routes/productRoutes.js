@@ -29,6 +29,7 @@ router.patch('/admin/products/:id/stock', protect, vendor, checkOwnership('Produ
 
 // Admin only routes
 router.get('/admin/all', protect, admin, getAllAdminProducts);
+router.get('/admin/pending', protect, admin, getPendingProducts);
 router.patch('/admin/products/:id/approve', protect, admin, approveProduct);
 router.post('/admin/products/bulk-delete', protect, admin, bulkDeleteProducts);
 
