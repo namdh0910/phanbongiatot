@@ -195,12 +195,50 @@ const createOrder = async (req, res) => {
     await sendTelegramMessage(adminMessage);
     await notifyOrderReceived(savedParentOrder);
 
+    // 5. Trigger Notification for Sellers
+    const { notifyNewOrder } = require('../utils/notificationService');
+    notifyNewOrder(savedParentOrder).catch(err => console.error('Noti error:', err));
+
     res.status(201).json({
       success: true,
-      order: savedParentOrder,
-      subOrders: subOrders.length > 0 ? subOrders : undefined
+      message: 'Đặt hàng thành công',
+      orderCode: savedParentOrder.orderCode,
+      orderId: savedParentOrder._id
     });
 
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// @desc    Update order status
+// @route   PATCH /api/orders/:id/status
+const updateOrderStatus = async (req, res) => {
+  try {
+    const { status, shippingCode, carrier } = req.body;
+    const order = await Order.findById(req.params.id);
+    
+    if (!order) return res.status(404).json({ message: 'Order not found' });
+
+    // Enforce ownership/role if not admin (simplified for now, using role from protect)
+    if (req.user.role === 'vendor' && order.seller?.toString() !== req.user._id.toString()) {
+      return res.status(403).json({ message: 'Không có quyền cập nhật đơn hàng của người khác' });
+    }
+
+    const oldStatus = order.orderStatus;
+    order.orderStatus = status || order.orderStatus;
+    if (shippingCode) order.shippingCode = shippingCode;
+    if (carrier) order.carrier = carrier;
+    
+    await order.save();
+
+    // Trigger Notification for Buyer if status changed to Shipping or Delivered
+    const { notifyOrderShipping } = require('../utils/notificationService');
+    if (status === 'shipping' && oldStatus !== 'shipping') {
+      notifyOrderShipping(order).catch(err => console.error('Noti error:', err));
+    }
+
+    res.json(order);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
