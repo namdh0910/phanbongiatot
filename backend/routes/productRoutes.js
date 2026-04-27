@@ -12,7 +12,8 @@ const {
   deleteProduct, 
   bulkDeleteProducts,
   createProductReview,
-  getAllAdminProducts
+  getAllAdminProducts,
+  getPendingProducts
 } = require('../controllers/productController');
 const { protect, admin, vendor, checkOwnership } = require('../middleware/authMiddleware');
 
