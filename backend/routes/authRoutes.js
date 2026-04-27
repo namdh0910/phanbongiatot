@@ -29,7 +29,10 @@ router.put('/test-approve/:id', async (req, res) => {
   }
 });
 router.put('/vendors/:id/extend', protect, admin, extendVendor);
-router.get('/profile', protect, getProfile);
+router.get('/profile', (req, res, next) => {
+  if (req.query.username) return next();
+  protect(req, res, next);
+}, getProfile);
 router.put('/profile', protect, updateProfile);
 router.post('/send-otp', loginLimiter, sendOtp);
 router.post('/verify-otp', verifyOtp);

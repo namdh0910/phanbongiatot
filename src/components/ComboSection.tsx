@@ -1,48 +1,10 @@
 "use client";
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSettings } from '@/context/SettingsContext';
 import { useCart } from '@/context/CartContext';
+import { API_BASE_URL } from '@/utils/api';
 import './ComboSection.css';
-
-const combos = [
-  {
-    _id: 'combo-rooti-nemano-npk',
-    title: "Combo 01: Phục Hồi & Bảo Vệ Toàn Diện",
-    items: ["Rooti (180k)", "Nemano (180k)", "NPK Sinh Học (150k)"],
-    retailPrice: 510000,
-    price: 420000,
-    tag: "Tiết kiệm 90k",
-    images: ["https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=80&w=800"],
-    slug: "combo-phuc-hoi-bao-ve",
-    category: "Combo",
-    benefit: "Giải pháp 3 trong 1: Kích rễ, ngừa tuyến trùng và bổ sung dinh dưỡng đa lượng."
-  },
-  {
-    _id: 'combo-rooti-lan-do',
-    title: "Combo 02: Kích Rễ Cực Mạnh - Bung Đọt Nhanh",
-    items: ["Rooti (180k)", "Siêu Lân Đỏ (220k)"],
-    retailPrice: 400000,
-    price: 330000,
-    tag: "Tiết kiệm 70k",
-    images: ["https://images.unsplash.com/photo-1464226184884-fa280b87c399?q=80&w=800"],
-    slug: "combo-kich-re-bung-dot",
-    category: "Combo",
-    benefit: "Sự kết hợp hoàn hảo giữa kích rễ sinh học và lân đỏ nồng độ cao."
-  },
-  {
-    _id: 'combo-double-nemano-rooti',
-    title: "Combo 03: Đặc Trị Tuyến Trùng & Vàng Lá",
-    items: ["Nemano x2 (360k)", "Rooti (180k)"],
-    retailPrice: 540000,
-    price: 440000,
-    tag: "Tiết kiệm 100k",
-    images: ["https://images.unsplash.com/photo-1628352081506-83c43123ed6d?q=80&w=800"],
-    slug: "combo-dac-tri-tuyen-trung",
-    category: "Combo",
-    benefit: "Liều tấn công cho vườn bị tuyến trùng nặng, giúp tái tạo bộ rễ ngay sau khi sạch bệnh."
-  }
-];
 
 const formatPrice = (price: number) => {
   return price.toLocaleString('vi-VN') + 'đ';
@@ -52,22 +14,44 @@ const ComboSection: React.FC = () => {
   const settings = useSettings();
   const router = useRouter();
   const { addToCart } = useCart();
+  const [combos, setCombos] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
   const primaryColor = settings?.primaryColor || "#1a5c2a";
 
+  useEffect(() => {
+    fetch(`${API_BASE_URL}/products?category=combo-tiet-kiem&limit=3`)
+      .then(res => res.json())
+      .then(data => {
+        if (data?.data && data.data.length > 0) {
+          setCombos(data.data);
+        }
+      })
+      .catch(err => console.error("Fetch combos failed:", err))
+      .finally(() => setLoading(false));
+  }, []);
+
   const handleBuyCombo = (combo: any) => {
-    // Add combo to cart as a product
     addToCart({
-      _id: combo._id,
-      name: combo.title,
+      _id: combo._id || combo.id,
+      name: combo.name,
       price: combo.price,
       images: combo.images,
       slug: combo.slug,
-      category: combo.category
+      category: combo.category_id || "Combo"
     }, 1);
-    
-    // Redirect to checkout
     router.push('/checkout');
   };
+
+  if (loading) return (
+    <div className="py-20 text-center animate-pulse">
+       <div className="h-8 w-64 bg-gray-100 mx-auto rounded-full mb-10"></div>
+       <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 px-4">
+          {[1,2,3].map(i => <div key={i} className="h-[400px] bg-gray-50 rounded-[3rem]"></div>)}
+       </div>
+    </div>
+  );
+
+  if (combos.length === 0) return null;
 
   return (
     <section className="combo-section" style={{ '--primary-color': primaryColor } as React.CSSProperties}>
@@ -85,7 +69,7 @@ const ComboSection: React.FC = () => {
               <p className="hidden md:block">Sự kết hợp hoàn hảo giúp bà con tiết kiệm chi phí và đạt hiệu quả tối ưu.</p>
             </div>
             <button 
-              onClick={() => router.push('/combo')}
+              onClick={() => router.push('/danh-muc/combo-tiet-kiem')}
               className="text-[#ee4d2d] text-sm font-bold hover:underline flex items-center gap-2 group transition-all mb-2"
             >
               XEM TẤT CẢ <span className="group-hover:translate-x-1 transition-transform">▶</span>
@@ -95,16 +79,18 @@ const ComboSection: React.FC = () => {
 
         <div className="combo-grid">
           {combos.map((combo, index) => {
-            const discountPercent = Math.round((1 - combo.price / combo.retailPrice) * 100);
+            const discountPercent = combo.original_price ? Math.round((1 - combo.price / combo.original_price) * 100) : 0;
+            const savings = combo.original_price ? combo.original_price - combo.price : 0;
+
             return (
-              <div key={index} className="combo-card">
-                <div className="combo-tag">{combo.tag}</div>
+              <div key={index} className="combo-card animate-in fade-in duration-500" style={{ animationDelay: `${index * 100}ms` }}>
+                {savings > 0 && <div className="combo-tag">Tiết kiệm {formatPrice(savings)}</div>}
                 
                 <div className="combo-card-inner">
                   <div className="combo-image-box">
                     <img 
-                      src={combo.images[0]} 
-                      alt={combo.title} 
+                      src={combo.images?.[0]} 
+                      alt={combo.name} 
                       className="w-full h-full object-cover"
                       onError={(e) => {
                         (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=80&w=800&auto=format&fit=crop";
@@ -113,15 +99,15 @@ const ComboSection: React.FC = () => {
                   </div>
                   
                   <div className="combo-info">
-                    <h3 className="combo-title">{combo.title}</h3>
-                    <div className="combo-discount-badge">Tiết kiệm {discountPercent}%</div>
+                    <h3 className="combo-title">{combo.name}</h3>
+                    {discountPercent > 0 && <div className="combo-discount-badge">Tiết kiệm {discountPercent}%</div>}
                     
                     <div className="combo-items-list-box">
-                      <p>Gồm: {combo.items.join(", ")}</p>
+                      <p className="line-clamp-2">{combo.short_desc || combo.description}</p>
                     </div>
 
                     <div className="combo-pricing">
-                      <span className="price-retail">Mua riêng: {formatPrice(combo.retailPrice)}</span>
+                      {combo.original_price && <span className="price-retail">Mua riêng: {formatPrice(combo.original_price)}</span>}
                       <span className="price-combo">Mua combo: {formatPrice(combo.price)}</span>
                     </div>
                   </div>

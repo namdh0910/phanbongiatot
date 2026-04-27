@@ -41,6 +41,7 @@ export default function Home() {
       .then(data => {
         let results = [];
         if (Array.isArray(data)) results = data;
+        else if (data?.data) results = data.data;
         else if (data?.products) results = data.products;
         
         // If results is empty or null, use fallback

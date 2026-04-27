@@ -7,7 +7,9 @@ export default function SellerLayout({ children }: { children: React.ReactNode }
   const pathname = usePathname();
   
   // Skip guard and sidebar for landing, login and register pages
-  const isAuthPage = pathname === "/kenh-nguoi-ban" || pathname === "/kenh-nguoi-ban/dang-nhap" || pathname === "/kenh-nguoi-ban/dang-ky";
+  const isAuthPage = pathname === "/kenh-nguoi-ban" || 
+                     pathname?.startsWith("/kenh-nguoi-ban/dang-nhap") || 
+                     pathname?.startsWith("/kenh-nguoi-ban/dang-ky");
 
   if (isAuthPage) {
     return <>{children}</>;

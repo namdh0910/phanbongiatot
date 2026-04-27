@@ -144,6 +144,15 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
               <span className="bg-[#ee4d2d] text-white text-[10px] font-bold px-1.5 py-0.5 rounded-sm mr-2 uppercase">Yêu thích+</span>
               {product.name}
             </h1>
+            
+            {/* Seller attribution under title */}
+            <div className="mb-4 flex items-center gap-2">
+               <span className="text-xs text-gray-400">Bán bởi:</span>
+               <Link href={`/shop/${product.seller?.username || 'admin'}`} className="text-sm font-bold text-[#1a5c2a] hover:underline flex items-center gap-1">
+                  {product.seller?.role === 'admin' ? "Phân Bón Giá Tốt" : (product.seller?.vendorInfo?.storeName || "Gian hàng đối tác")}
+                  {product.seller?.vendorInfo?.isApproved && <span className="text-[10px] bg-blue-100 text-blue-600 px-1 rounded-sm">✓ Mall</span>}
+               </Link>
+            </div>
             <div className="flex items-center gap-4 text-xs md:text-sm mb-5">
               <div className="flex items-center text-[#ee4d2d] border-b border-[#ee4d2d] pb-[1px] cursor-pointer">
                 <span className="mr-1 font-bold">{displayRating}</span>

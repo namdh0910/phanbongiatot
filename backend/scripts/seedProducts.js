@@ -10,67 +10,72 @@ const products = [
   {
     name: "Acti Rooti - Siêu Kích Rễ Cực Mạnh (Can 5L)",
     slug: "rooti-4339",
-    category: "Kích rễ",
+    category_id: "kich-re",
     price: 680000,
-    originalPrice: 850000,
+    original_price: 850000,
     description: "Acti Rooti là giải pháp hàng đầu để phục hồi bộ rễ sầu riêng sau thu hoạch hoặc sau khi bị bệnh. Giúp rễ tơ ra mạnh, cây xanh lá, bung đọt nhanh.",
     crops: ["Sầu riêng", "Cà phê", "Tiêu", "Cây ăn trái"],
+    crop_types: ["sau-rieng", "ca-phe", "tieu", "cay-an-trai"],
     images: ["https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=80&w=800&auto=format&fit=crop"],
     status: 'approved',
+    approval_status: 'approved',
     stock: 500,
-    isFeatured: true
+    is_featured: true,
+    weight_g: 5000,
+    short_desc: "Kích rễ thần tốc cho sầu riêng và cây ăn trái."
   },
   {
     name: "Nemano - Đặc Trị Tuyến Trùng Bảo Vễ Rễ",
     slug: "nemano-9989",
-    category: "Tuyến trùng",
+    category_id: "tuyen-trung",
     price: 255000,
-    originalPrice: 320000,
+    original_price: 320000,
     description: "Nemano giúp tiêu diệt tuyến trùng gây hại rễ, ngăn ngừa vàng lá thối rễ trên cây ăn trái và cây công nghiệp. Sản phẩm sinh học an toàn cho đất.",
     crops: ["Sầu riêng", "Tiêu", "Cà phê", "Thanh long"],
+    crop_types: ["sau-rieng", "tieu", "ca-phe", "thanh-long"],
     images: ["https://images.unsplash.com/photo-1592982537447-7440770cbfc9?q=80&w=800&auto=format&fit=crop"],
     status: 'approved',
+    approval_status: 'approved',
     stock: 350,
-    isFeatured: true
+    is_featured: true,
+    weight_g: 1000,
+    short_desc: "Diệt tuyến trùng, bảo vệ rễ tơ xanh tốt."
   },
   {
-    name: "Amino Acid - Vọt Đọt, Xanh Lá Cấp Tốc",
-    slug: "amino-acid-7822",
-    category: "Phân bón",
-    price: 99000,
-    originalPrice: 150000,
-    description: "Amino Acid giúp cây hấp thụ dinh dưỡng cực nhanh qua lá, giúp vọt đọt, xanh lá, dày lá chỉ sau vài ngày sử dụng.",
-    crops: ["Rau màu", "Lúa", "Cây ăn trái", "Sầu riêng"],
-    images: ["https://images.unsplash.com/photo-1628352081506-83c43123ed6d?q=80&w=800&auto=format&fit=crop"],
-    status: 'approved',
-    stock: 1000,
-    isFeatured: true
-  },
-  {
-    name: "Combo Phục Hồi Cây Suy - Sau Thu Hoạch",
-    slug: "combo-phuc-hoi-sau-thu-hoach",
-    category: "Combo tiết kiệm",
-    price: 890000,
-    originalPrice: 1200000,
-    description: "Bộ giải pháp toàn diện bao gồm Kích rễ, Amino và Vi lượng giúp cây sầu riêng, cà phê hồi phục thần tốc sau mùa vụ.",
+    name: "Combo 01: Phục Hồi & Bảo Vệ Toàn Diện",
+    slug: "combo-phuc-hoi-bao-ve",
+    category_id: "combo-tiet-kiem",
+    price: 420000,
+    original_price: 510000,
+    description: "Giải pháp 3 trong 1: Kích rễ, ngừa tuyến trùng và bổ sung dinh dưỡng đa lượng. Bao gồm: Rooti, Nemano, NPK Sinh Học.",
     crops: ["Sầu riêng", "Cà phê", "Tiêu"],
-    images: ["https://images.unsplash.com/photo-1464226184884-fa280b87c399?q=80&w=800&auto=format&fit=crop"],
+    crop_types: ["sau-rieng", "ca-phe", "tieu"],
+    images: ["https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=80&w=800"],
     status: 'approved',
-    stock: 200,
-    isFeatured: true
+    approval_status: 'approved',
+    stock: 100,
+    is_featured: true,
+    is_combo: true,
+    weight_g: 2000,
+    short_desc: "Tiết kiệm 90k - Giải pháp toàn diện cho nhà vườn."
   },
   {
-    name: "Thuốc Trừ Sâu Sinh Học - Diệt rệp sáp, nhện đỏ",
-    slug: "thuoc-tru-sau-sinh-hoc-diet-rep-sap",
-    category: "Thuốc trừ sâu",
-    price: 195000,
-    originalPrice: 280000,
-    description: "Tiêu diệt rệp sáp, nhện đỏ, bọ trĩ bằng cơ chế nấm ký sinh. Không gây nóng cây, không độc hại cho người phun.",
-    crops: ["Cây ăn trái", "Rau màu", "Sầu riêng"],
-    images: ["https://images.unsplash.com/photo-1591857177580-dc82b9ac4e17?q=80&w=800&auto=format&fit=crop"],
+    name: "Combo 02: Kích Rễ Cực Mạnh - Bung Đọt Nhanh",
+    slug: "combo-kich-re-bung-dot",
+    category_id: "combo-tiet-kiem",
+    price: 330000,
+    original_price: 400000,
+    description: "Sự kết hợp hoàn hảo giữa kích rễ sinh học và lân đỏ nồng độ cao. Giúp cây phục hồi thần tốc.",
+    crops: ["Sầu riêng", "Cà phê", "Tiêu"],
+    crop_types: ["sau-rieng", "ca-phe", "tieu"],
+    images: ["https://images.unsplash.com/photo-1464226184884-fa280b87c399?q=80&w=800"],
     status: 'approved',
-    stock: 400,
-    isFeatured: false
+    approval_status: 'approved',
+    stock: 100,
+    is_featured: true,
+    is_combo: true,
+    weight_g: 1500,
+    short_desc: "Tiết kiệm 70k - Kích rễ bung đọt thần tốc."
   }
 ];
 
@@ -79,27 +84,30 @@ const seedProducts = async () => {
     await mongoose.connect(process.env.MONGO_URI);
     console.log('MongoDB Connected...');
 
-    const admin = await User.findOne({ role: 'admin' });
-    if (!admin) {
-      console.error('Admin user not found. Please create an admin user first.');
+    // Tìm hoặc tạo Seller thật
+    let seller = await User.findOne({ role: 'vendor' });
+    if (!seller) {
+      // Tìm admin làm fallback
+      seller = await User.findOne({ role: 'admin' });
+    }
+
+    if (!seller) {
+      console.error('No seller or admin found. Please run seedAdmin.js first.');
       process.exit(1);
     }
 
-    // Add seller ID to each product
-    const productsWithSeller = products.map(p => ({
-      ...p,
-      seller: admin._id
-    }));
+    console.log(`Using seller: ${seller.username} (${seller.role})`);
 
-    // Clear existing products
-    // await Product.deleteMany(); // User didn't ask to delete, but usually good for seeding. 
-    // Let's just insert many and skip if slug exists? 
-    // Or just insert and hope for the best. The prompt says "Tạo script seed data" and "Chạy script seed".
+    for (const p of products) {
+        const productData = {
+            ...p,
+            seller: seller._id,
+            seller_id: seller._id.toString()
+        };
 
-    for (const p of productsWithSeller) {
         await Product.findOneAndUpdate(
             { slug: p.slug },
-            p,
+            productData,
             { upsert: true, new: true }
         );
     }

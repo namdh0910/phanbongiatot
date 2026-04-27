@@ -181,10 +181,24 @@ const extendVendor = async (req, res) => {
   }
 };
 
-// @desc    Get user profile
+// @desc    Get user profile (Current or by username)
 // @route   GET /api/auth/profile
 const getProfile = async (req, res) => {
   try {
+    const { username } = req.query;
+    
+    if (username) {
+      const user = await User.findOne({ username }).select('-password');
+      if (user) {
+        return res.json(user);
+      }
+      return res.status(404).json({ message: 'Không tìm thấy người dùng' });
+    }
+
+    if (!req.user) {
+      return res.status(401).json({ message: 'Không có quyền truy cập' });
+    }
+
     const user = await User.findById(req.user._id).select('-password');
     if (user) {
       res.json(user);
