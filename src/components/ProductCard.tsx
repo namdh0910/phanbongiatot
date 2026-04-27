@@ -80,7 +80,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </div>
         
         {product.seller && (
-          <div className="flex items-center gap-1.5 mb-2 group/shop cursor-pointer" onClick={(e) => { e.stopPropagation(); router.push(`/shop/${product.seller._id}`); }}>
+          <div className="flex items-center gap-1.5 mb-2 group/shop cursor-pointer" onClick={(e) => { e.stopPropagation(); router.push(`/shop/${product.seller.username || product.seller._id}`); }}>
              <div className="w-4 h-4 rounded-full bg-emerald-100 flex items-center justify-center text-[8px] overflow-hidden">
                 {product.seller.vendorInfo?.logo ? <img src={product.seller.vendorInfo.logo} className="w-full h-full object-cover" /> : '🏪'}
              </div>
