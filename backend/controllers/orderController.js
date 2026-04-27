@@ -211,39 +211,6 @@ const createOrder = async (req, res) => {
   }
 };
 
-// @desc    Update order status
-// @route   PATCH /api/orders/:id/status
-const updateOrderStatus = async (req, res) => {
-  try {
-    const { status, shippingCode, carrier } = req.body;
-    const order = await Order.findById(req.params.id);
-    
-    if (!order) return res.status(404).json({ message: 'Order not found' });
-
-    // Enforce ownership/role if not admin (simplified for now, using role from protect)
-    if (req.user.role === 'vendor' && order.seller?.toString() !== req.user._id.toString()) {
-      return res.status(403).json({ message: 'Không có quyền cập nhật đơn hàng của người khác' });
-    }
-
-    const oldStatus = order.orderStatus;
-    order.orderStatus = status || order.orderStatus;
-    if (shippingCode) order.shippingCode = shippingCode;
-    if (carrier) order.carrier = carrier;
-    
-    await order.save();
-
-    // Trigger Notification for Buyer if status changed to Shipping or Delivered
-    const { notifyOrderShipping } = require('../utils/notificationService');
-    if (status === 'shipping' && oldStatus !== 'shipping') {
-      notifyOrderShipping(order).catch(err => console.error('Noti error:', err));
-    }
-
-    res.json(order);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
-
 // @desc    Track order by code and phone
 // @route   GET /api/orders/track
 // @access  Public
@@ -328,6 +295,7 @@ const updateOrderStatus = async (req, res) => {
       order.orderStatus = req.body.status || order.orderStatus;
       order.paymentStatus = req.body.paymentStatus || order.paymentStatus;
       order.shippingCode = req.body.shippingCode || order.shippingCode;
+      if (req.body.carrier) order.carrier = req.body.carrier;
 
       const updatedOrder = await order.save();
 
@@ -336,7 +304,7 @@ const updateOrderStatus = async (req, res) => {
         req.user._id,
         'UPDATE_ORDER_STATUS',
         `Order ${updatedOrder.orderCode}`,
-        { status: req.body.status, paymentStatus: req.body.paymentStatus },
+        { status: req.body.status, paymentStatus: req.body.paymentStatus, carrier: req.body.carrier },
         req.ip
       );
       
