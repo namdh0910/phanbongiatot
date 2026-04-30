@@ -68,7 +68,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="flex flex-col gap-6 md:gap-24 pb-20 bg-[#f5f5f5]">
+    <div className="flex flex-col gap-4 md:gap-12 pb-20 bg-white">
       <Hero />
       <TrustBar />
       <FlashSale />

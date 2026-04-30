@@ -1,9 +1,9 @@
 /* TrustBar.css */
 .trust-bar {
   background-color: #ffffff;
-  border-bottom: 1px solid #f0f0f0;
-  padding: 1.5rem 0;
+  padding: 1rem 0;
   font-family: 'Inter', sans-serif;
+  border-bottom: 1px solid rgba(0,0,0,0.03);
 }
 
 .trust-container {
@@ -11,33 +11,25 @@
   margin: 0 auto;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   padding: 0 1rem;
-  gap: 1rem;
 }
 
 .trust-main {
   display: flex;
-  flex: 1;
-  justify-content: space-between;
+  gap: 3rem;
 }
 
 .trust-item {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 0 1rem;
-  border-right: 1px solid #f0f0f0;
-  flex: 1;
-}
-
-.trust-item:last-child {
-  border-right: none;
 }
 
 .trust-icon {
   color: var(--primary-color, #1a5c2a);
   flex-shrink: 0;
+  opacity: 0.9;
 }
 
 .trust-text {
@@ -46,68 +38,35 @@
 }
 
 .trust-label {
-  font-weight: 700;
+  font-weight: 800;
   font-size: 0.85rem;
   color: #111;
   line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: -0.2px;
 }
 
 .trust-sublabel {
-  font-size: 0.75rem;
-  color: #666;
-  margin-top: 2px;
+  font-size: 0.7rem;
+  color: #888;
+  margin-top: 1px;
 }
 
 .trust-stats {
-  display: flex;
-  gap: 1.5rem;
-  padding-left: 1.5rem;
-  border-left: 2px solid #1a5c2a;
-  align-items: center;
-}
-
-.stat-box {
-  text-align: center;
-}
-
-.stat-value {
-  font-weight: 900;
-  font-size: 1.1rem;
-  color: var(--primary-color, #1a5c2a);
-  display: block;
-}
-
-.stat-label {
-  font-size: 0.7rem;
-  color: #666;
-  text-transform: uppercase;
-  font-weight: 700;
-  letter-spacing: 0.5px;
+  display: none; /* Hide stats in main trust bar for cleaner look */
 }
 
 @media (max-width: 1024px) {
-  .trust-container {
-    flex-direction: column;
+  .trust-main {
     gap: 1.5rem;
-  }
-  .trust-stats {
-    padding-left: 0;
-    border-left: none;
-    border-top: 1px solid #f0f0f0;
-    padding-top: 1rem;
-    width: 100%;
-    justify-content: center;
   }
 }
 
 @media (max-width: 768px) {
   .trust-bar {
-    padding: 12px 16px !important;
-  }
-
-  .trust-container {
-    padding: 0 !important;
-    gap: 0.75rem !important;
+    padding: 10px 0 !important;
+    background: transparent !important;
+    border-bottom: none !important;
   }
 
   .trust-main {
@@ -115,35 +74,28 @@
     grid-template-columns: 1fr 1fr !important;
     gap: 8px !important;
     width: 100% !important;
+    padding: 0 12px !important;
   }
 
   .trust-item {
-    border-right: none !important;
-    padding: 4px !important;
-    align-items: center !important;
-    gap: 8px !important;
-  }
-
-  .trust-item:nth-child(even) {
-    border-left: none !important;
-    padding-left: 4px !important;
+    background: #ffffff;
+    padding: 8px 12px !important;
+    border-radius: 14px !important;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.03) !important;
+    border: 1px solid rgba(0,0,0,0.02) !important;
   }
 
   .trust-icon svg {
-    width: 18px !important;
-    height: 18px !important;
+    width: 16px !important;
+    height: 16px !important;
   }
 
   .trust-label {
-    font-size: 11px !important;
+    font-size: 10px !important;
+    font-weight: 900 !important;
   }
 
   .trust-sublabel {
-    font-size: 9px !important;
-    margin-top: 0 !important;
-  }
-
-  .trust-stats {
-    display: none !important; /* Hide secondary stats on mobile to save space */
+    display: none !important;
   }
 }
