@@ -34,6 +34,7 @@ export default function CategoryPage() {
   const [products, setProducts] = useState<any[]>([]);
   const [categories, setCategories] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [showFilters, setShowFilters] = useState(false);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [filters, setFilters] = useState({
@@ -159,9 +160,84 @@ export default function CategoryPage() {
       </div>
 
       <div className="container mx-auto px-4 mt-8">
-        <div className="flex flex-col lg:flex-row gap-8">
-          {/* Sidebar */}
-          <aside className="w-full lg:w-72 space-y-8">
+        <div className="lg:hidden flex gap-2 mb-4 overflow-x-auto pb-2 scrollbar-hide">
+          <button 
+            onClick={() => setShowFilters(!showFilters)}
+            className="flex-shrink-0 flex items-center gap-2 bg-white px-4 py-2.5 rounded-xl border border-gray-100 shadow-sm text-xs font-black uppercase text-[#1a5c2a]"
+          >
+            <span>🔍 Bộ lọc & Phân loại</span>
+          </button>
+          {filters.crop !== 'Tất cả' && (
+            <div className="flex-shrink-0 bg-green-50 text-[#1a5c2a] px-4 py-2.5 rounded-xl border border-green-100 text-xs font-bold">
+              Cây: {filters.crop}
+            </div>
+          )}
+        </div>
+
+        <div className="flex flex-col lg:flex-row gap-8 relative">
+          {/* Mobile Filter Overlay */}
+          {showFilters && (
+            <div className="lg:hidden fixed inset-0 z-[200] flex justify-end">
+               <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={() => setShowFilters(false)}></div>
+               <div className="relative w-[85%] bg-white h-full shadow-2xl overflow-y-auto p-6 animate-in slide-in-from-right duration-300">
+                  <div className="flex justify-between items-center mb-8 border-b border-gray-50 pb-4">
+                     <h3 className="font-black text-[#1a5c2a] uppercase italic">Bộ lọc sản phẩm</h3>
+                     <button onClick={() => setShowFilters(false)} className="text-gray-400 text-2xl">✕</button>
+                  </div>
+                  
+                  {/* Category Filter inside Mobile Overlay */}
+                  <div className="mb-8">
+                    <h4 className="text-[10px] font-black uppercase text-gray-400 tracking-widest mb-4">Danh mục</h4>
+                    <div className="grid grid-cols-1 gap-2">
+                      {categories.map((cat) => (
+                        <Link 
+                          key={cat.name} 
+                          href={`/danh-muc/${nameToSlug(cat.name)}`}
+                          onClick={() => setShowFilters(false)}
+                          className={`px-4 py-3 rounded-xl font-bold text-sm ${categoryName === cat.name ? "bg-green-50 text-[#1a5c2a]" : "bg-gray-50 text-gray-600"}`}
+                        >
+                          {cat.name} ({cat.count})
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Price Filter inside Mobile Overlay */}
+                  <div className="mb-8">
+                    <h4 className="text-[10px] font-black uppercase text-gray-400 tracking-widest mb-4">Khoảng giá</h4>
+                    <div className="space-y-3">
+                      {[
+                        { label: "Tất cả giá", value: "" },
+                        { label: "Dưới 100k", value: "0-100000" },
+                        { label: "100k - 500k", value: "100000-500000" },
+                        { label: "Trên 500k", value: "500000-9999999" }
+                      ].map(range => (
+                        <label key={range.value} className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl cursor-pointer">
+                          <input 
+                            type="radio" 
+                            name="mobilePriceRange" 
+                            checked={filters.priceRange === range.value}
+                            onChange={() => { setFilters(f => ({ ...f, priceRange: range.value })); setShowFilters(false); }}
+                            className="w-4 h-4 text-[#1a5c2a]"
+                          />
+                          <span className="text-sm font-bold text-gray-700">{range.label}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+
+                  <button 
+                    onClick={() => setShowFilters(false)}
+                    className="w-full bg-[#1a5c2a] text-white py-4 rounded-2xl font-black uppercase tracking-widest shadow-xl shadow-green-100"
+                  >
+                    Xem kết quả
+                  </button>
+               </div>
+            </div>
+          )}
+
+          {/* Desktop Sidebar (Hidden on Mobile) */}
+          <aside className="hidden lg:block w-full lg:w-72 space-y-8 sticky top-24 self-start">
             {/* Categories */}
             <div className="bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
               <h3 className="text-xs font-black uppercase tracking-widest text-gray-400 mb-6 border-b border-gray-50 pb-4 italic">Danh mục khác</h3>
