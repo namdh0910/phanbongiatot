@@ -107,7 +107,12 @@ export default function BlogIndex() {
              ))}
           </div>
         ) : filteredPosts.length === 0 ? (
-          <div className="text-center py-24 bg-white rounded-[3rem] border-2 border-            <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-8">
+          <div className="text-center py-24 bg-white rounded-[3rem] border-2 border-dashed border-gray-100">
+             <div className="text-7xl mb-6 opacity-20">📚</div>
+             <p className="text-gray-400 font-black uppercase tracking-widest text-xs">Chưa có bài viết trong danh mục này</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-8">
               {filteredPosts.slice(0, visibleCount).map((post, i) => (
                 <Link key={i} href={`/blog/${post.slug}`} className="group bg-white rounded-2xl md:rounded-[2rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all hover:-translate-y-1 md:hover:-translate-y-2 border border-gray-100 flex flex-col h-full">
                   {/* Image Layout */}
