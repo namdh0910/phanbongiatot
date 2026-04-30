@@ -79,6 +79,8 @@ const FlashSale: React.FC = () => {
         <div className="flash-sale-grid">
           {sales.map(sale => {
             const product = sale.product;
+            if (!product || !product.originalPrice) return null;
+            
             const discount = Math.round((1 - sale.salePrice / product.originalPrice) * 100);
             return (
               <div key={sale._id} className="sale-card">

@@ -15,7 +15,6 @@ const Hero: React.FC = () => {
   return (
     <section className="hero-container" style={{ '--primary-color': primaryColor } as React.CSSProperties}>
       <picture>
-        <source srcSet="/images/hero-bg.webp" type="image/webp" />
         <img 
           src="/images/hero-bg.png" 
           alt={title} 
