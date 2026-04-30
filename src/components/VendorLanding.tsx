@@ -42,11 +42,14 @@ const VendorLanding: React.FC = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
             <Link href="/kenh-nguoi-ban/dang-ky" className="group bg-[#ee4d2d] text-white px-12 py-5 rounded-[2rem] font-black text-xl shadow-2xl shadow-orange-900/40 hover:bg-[#ff5722] transition-all hover:scale-105 active:scale-95 flex items-center gap-3">
-              ĐĂNG KÝ NGAY — MIỄN PHÍ
+              ĐĂNG KÝ NGAY
               <span className="group-hover:translate-x-2 transition-transform">➜</span>
             </Link>
+            <Link href="/kenh-nguoi-ban/dang-nhap" className="bg-white text-[#1a5c2a] px-12 py-5 rounded-[2rem] font-black text-xl shadow-xl hover:bg-gray-50 transition-all hover:scale-105 active:scale-95">
+              ĐĂNG NHẬP
+            </Link>
             <a href={`https://zalo.me/${process.env.NEXT_PUBLIC_ZALO_PHONE ?? '0773440966'}`} target="_blank" className="bg-white/10 backdrop-blur-md text-white px-12 py-5 rounded-[2rem] font-black text-xl border border-white/20 hover:bg-white/20 transition-all">
-              NHẬN TƯ VẤN B2B
+              TƯ VẤN B2B
             </a>
           </div>
           
