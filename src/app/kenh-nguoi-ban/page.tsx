@@ -71,7 +71,9 @@ export default function VendorDashboard() {
   };
 
   const handleLogout = () => {
-    localStorage.clear();
+    localStorage.removeItem("vendorToken");
+    localStorage.removeItem("vendorInfo");
+    localStorage.removeItem("userRole");
     window.location.href = "/kenh-nguoi-ban";
   };
 
@@ -140,7 +142,7 @@ export default function VendorDashboard() {
           <p>Bạn có 3 đơn mới cần xác nhận</p>
           <span className="text-[10px] text-orange-600 font-bold uppercase">Ưu tiên xử lý ngay</span>
         </div>
-        <Link href="/kenh-nguoi-ban/orders" className="view-btn">Xem ngay</Link>
+        <Link href="/kenh-nguoi-ban/don-hang" className="view-btn">Xem ngay</Link>
       </div>
 
       {/* Revenue Chart */}
@@ -176,7 +178,7 @@ export default function VendorDashboard() {
               </div>
             </div>
           ))}
-          <Link href="/kenh-nguoi-ban/orders" className="view-all-btn">
+          <Link href="/kenh-nguoi-ban/don-hang" className="view-all-btn">
             Xem tất cả đơn hàng →
           </Link>
         </div>
@@ -188,15 +190,15 @@ export default function VendorDashboard() {
           <span className="nav-icon">📊</span>
           <span className="nav-label">Tổng quan</span>
         </Link>
-        <Link href="/kenh-nguoi-ban/orders" className="nav-item">
+        <Link href="/kenh-nguoi-ban/don-hang" className="nav-item">
           <span className="nav-icon">📦</span>
           <span className="nav-label">Đơn hàng</span>
         </Link>
-        <Link href="/kenh-nguoi-ban/products" className="nav-item">
+        <Link href="/kenh-nguoi-ban/san-pham" className="nav-item">
           <span className="nav-icon">🌱</span>
           <span className="nav-label">Sản phẩm</span>
         </Link>
-        <Link href="/kenh-nguoi-ban/profile" className="nav-item">
+        <Link href="/kenh-nguoi-ban/ho-so" className="nav-item">
           <span className="nav-icon">👤</span>
           <span className="nav-label">Tài khoản</span>
         </Link>
