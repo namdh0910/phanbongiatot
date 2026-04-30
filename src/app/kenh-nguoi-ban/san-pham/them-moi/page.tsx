@@ -2,14 +2,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { API_BASE_URL, getAuthHeaders } from "@/utils/api";
-import dynamic from 'next/dynamic';
-import 'react-quill-new/dist/quill.snow.css';
-
-const ReactQuill = dynamic(() => import('react-quill-new').then((mod) => mod.default), { 
-  ssr: false,
-  loading: () => <div className="h-[250px] bg-gray-50 animate-pulse rounded-2xl"></div>
-});
-
 export default function VendorAddProduct() {
   const [step, setStep] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
@@ -190,11 +182,12 @@ export default function VendorAddProduct() {
                   <div>
                     <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">Mô tả chi tiết *</label>
                     <div className="bg-gray-50/50 rounded-2xl border-2 border-gray-50 overflow-hidden min-h-[300px]">
-                      <ReactQuill 
-                        theme="snow" 
+                      <textarea 
+                        required 
                         value={form.description} 
-                        onChange={val => setForm({...form, description: val})}
-                        className="h-[250px] mb-12"
+                        onChange={e => setForm({...form, description: e.target.value})}
+                        className="w-full border-2 border-gray-50 bg-gray-50/50 rounded-2xl px-6 py-4 text-sm font-medium outline-none focus:border-[#1a5c2a] focus:bg-white transition-all h-[250px] resize-none"
+                        placeholder="Mô tả chi tiết công dụng, cách dùng và thành phần..."
                       />
                     </div>
                   </div>
