@@ -5,7 +5,10 @@ import { API_BASE_URL, getAuthHeaders } from "@/utils/api";
 import dynamic from 'next/dynamic';
 import 'react-quill-new/dist/quill.snow.css';
 
-const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
+const ReactQuill = dynamic(() => import('react-quill-new').then((mod) => mod.default), { 
+  ssr: false,
+  loading: () => <div className="h-[250px] bg-gray-50 animate-pulse rounded-2xl"></div>
+});
 
 export default function VendorAddProduct() {
   const [step, setStep] = useState(1);
