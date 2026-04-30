@@ -304,6 +304,30 @@ export default function AdminProducts() {
                         </div>
                         <input ref={fileInputRef} type="file" multiple accept="image/*" className="hidden" onChange={e => e.target.files && handleImageFiles(e.target.files)} />
                      </div>
+
+                     <div className="bg-[#f6f7f7] border border-gray-200 p-4 rounded-sm">
+                        <h3 className="font-bold text-sm mb-4 border-b border-gray-200 pb-2">Tối ưu SEO</h3>
+                        <div className="space-y-4">
+                           <div>
+                              <label className="block text-[10px] font-bold text-gray-500 uppercase mb-1">SEO Title</label>
+                              <input 
+                                 className="w-full border border-gray-300 rounded px-2 py-1 text-xs outline-none focus:border-[#2271b1]"
+                                 value={form.seoTitle}
+                                 onChange={e => setForm({...form, seoTitle: e.target.value})}
+                                 placeholder="Mặc định là tên SP"
+                              />
+                           </div>
+                           <div>
+                              <label className="block text-[10px] font-bold text-gray-500 uppercase mb-1">SEO Description</label>
+                              <textarea 
+                                 className="w-full border border-gray-300 rounded px-2 py-1 text-xs outline-none focus:border-[#2271b1] h-20 resize-none"
+                                 value={form.seoDescription}
+                                 onChange={e => setForm({...form, seoDescription: e.target.value})}
+                                 placeholder="Mô tả ngắn cho Google..."
+                              />
+                           </div>
+                        </div>
+                     </div>
                   </div>
                 </div>
 

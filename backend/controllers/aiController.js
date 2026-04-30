@@ -90,26 +90,38 @@ const generateContent = async (req, res) => {
       const contentPrompt = `
 Hãy đóng vai một Kỹ sư Nông nghiệp dày dạn kinh nghiệm. Viết bài hướng dẫn chuyên sâu về: "${prompt}".
 YÊU CẦU BẮT BUỘC:
-- Độ dài: Trên 2000 từ, hành văn chuyên nghiệp, giàu kiến thức thực tế.
-- Cấu trúc bài viết phải rõ ràng:
-  I. Mở đầu (Dùng số La Mã cho đề mục lớn)
-  II. Nguyên nhân kỹ thuật
-  III. Dấu hiệu nhận biết
-  IV. Quy trình xử lý chi tiết (Dùng các số 1., 2., 3. cho các bước)
-  V. Kết luận và Phòng ngừa
-- Định dạng bài viết:
-  - BẮT BUỘC dùng ## hoặc Số La Mã (I., II., III.) cho tiêu đề H2.
-  - BẮT BUỘC dùng ### hoặc Số thứ tự (1., 2., 3.) cho tiêu đề H3.
-  - Dùng ** cho các thuật ngữ chuyên môn.
-- Hình ảnh: Chèn 3 ảnh vào các vị trí thích hợp bằng tag: <img src="https://loremflickr.com/800/600/agriculture,farm,plants,soil/all?lock=${seed}" style="width:100%; border-radius:16px; margin:30px 0; box-shadow:0 10px 15px -3px rgba(0,0,0,0.1);">
+- Độ dài: Trên 2000 từ, hành văn chuyên nghiệp, gần gũi với nông dân.
+- Cấu trúc bài viết:
+  I. Mở đầu (Bối cảnh và tầm quan trọng)
+  II. Nguyên nhân & Cơ chế kỹ thuật
+  III. Dấu hiệu nhận biết thực tế tại vườn
+  IV. Quy trình xử lý chi tiết (Từng bước 1, 2, 3...)
+  V. Danh mục sản phẩm khuyên dùng (Ghi chú: [BOX_SAN_PHAM]...[/BOX_SAN_PHAM])
+  VI. Kết luận & Lịch phòng ngừa định kỳ
+- Định dạng:
+  - Dùng ## hoặc Số La Mã (I., II.) cho H2.
+  - Dùng ### hoặc Số thứ tự (1., 2.) cho H3.
+  - Dùng ** để nhấn mạnh các lưu ý quan trọng.
+- Hình ảnh: Chèn 3 ảnh vào các vị trí thích hợp bằng tag: <img src="https://loremflickr.com/800/600/agriculture,farm,plantation,crop,soil/all?lock=${seed + 1}" style="width:100%; border-radius:16px; margin:30px 0; box-shadow:0 10px 15px -3px rgba(0,0,0,0.1);">
 - Ngôn ngữ: Tiếng Việt.
 `;
 
       const rawContent = await callAI(contentPrompt);
       const contentHTML = cleanGeminiOutput(rawContent);
 
-      const metaPrompt = `Phân tích bài "${prompt}". Trả về JSON: {"excerpt":"tóm tắt ngắn","tags":["tag1","tag2"]}`;
-      let meta = { excerpt: "", tags: [] };
+      const metaPrompt = `Phân tích bài viết về "${prompt}". Trả về JSON duy nhất: {
+        "excerpt": "tóm tắt ngắn 150 ký tự",
+        "tags": ["tag1", "tag2", "tag3"],
+        "seoTitle": "Tiêu đề chuẩn SEO dưới 60 ký tự",
+        "seoDescription": "Mô tả chuẩn SEO dưới 160 ký tự chứa từ khóa chính"
+      }`;
+      
+      let meta = { 
+        excerpt: "", 
+        tags: [], 
+        seoTitle: `${prompt} | Kỹ thuật & Giải pháp | Phân Bón Giá Tốt`,
+        seoDescription: `Hướng dẫn chi tiết về ${prompt}. Quy trình kỹ thuật chuẩn từ kỹ sư nông nghiệp. Xem ngay!`
+      };
       
       try {
         const rawMeta = await callAI(metaPrompt);
@@ -119,8 +131,10 @@ YÊU CẦU BẮT BUỘC:
           const parsed = JSON.parse(match[0]);
           meta.excerpt = parsed.excerpt || "";
           meta.tags = Array.isArray(parsed.tags) ? parsed.tags : [];
+          meta.seoTitle = parsed.seoTitle || meta.seoTitle;
+          meta.seoDescription = parsed.seoDescription || meta.seoDescription;
         }
-      } catch (e) { console.error(e); }
+      } catch (e) { console.error("Lỗi parse Meta AI:", e); }
 
       // Fallback
       if (!meta.excerpt) meta.excerpt = "Hướng dẫn chi tiết về " + prompt;
@@ -130,7 +144,9 @@ YÊU CẦU BẮT BUỘC:
         content: contentHTML,
         excerpt: meta.excerpt,
         tags: meta.tags,
-        image: `https://loremflickr.com/800/600/agriculture,plantation,farming/all?lock=${seed}`
+        seoTitle: meta.seoTitle,
+        seoDescription: meta.seoDescription,
+        image: `https://loremflickr.com/800/600/agriculture,farming,fruit/all?lock=${seed}`
       });
     }
 

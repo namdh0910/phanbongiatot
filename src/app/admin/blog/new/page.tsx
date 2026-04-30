@@ -61,9 +61,25 @@ export default function NewBlogPost() {
       <div className="flex min-h-screen bg-gray-50">
         <AdminSidebar />
         <div className="flex-1 p-8 ml-64">
-          <div className="flex items-center gap-4 mb-8">
-             <button onClick={() => router.back()} className="w-10 h-10 bg-white rounded-xl shadow-sm flex items-center justify-center text-gray-400 hover:text-gray-900 transition-colors">←</button>
-             <h1 className="text-2xl font-black text-gray-900 uppercase tracking-tight">Viết bài mới</h1>
+          <div className="flex items-center justify-between gap-4 mb-8">
+             <div className="flex items-center gap-4">
+                <button onClick={() => router.back()} className="w-10 h-10 bg-white rounded-xl shadow-sm flex items-center justify-center text-gray-400 hover:text-gray-900 transition-colors">←</button>
+                <h1 className="text-2xl font-black text-gray-900 uppercase tracking-tight">Viết bài mới</h1>
+             </div>
+             <AIGenerator 
+               title={formData.title} 
+               onGenerated={(data) => {
+                 setFormData(prev => ({
+                   ...prev,
+                   content: data.content,
+                   excerpt: data.excerpt,
+                   image: data.image,
+                   tags: data.tags,
+                   seoTitle: data.seoTitle,
+                   seoDescription: data.seoDescription
+                 }));
+               }} 
+             />
           </div>
 
           <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -127,7 +143,31 @@ export default function NewBlogPost() {
                      />
                   </div>
 
-                  <div>
+                  <div className="pt-4 border-t border-gray-50">
+                     <h4 className="text-[10px] font-black text-[#1a5c2a] uppercase tracking-widest mb-4">Cấu hình SEO</h4>
+                     <div className="space-y-4">
+                        <div>
+                           <label className="block text-[9px] font-bold text-gray-400 uppercase mb-1">SEO Title</label>
+                           <input 
+                              className="w-full bg-gray-50 border border-gray-100 rounded-lg px-3 py-2 text-xs outline-none focus:border-[#1a5c2a]"
+                              value={formData.seoTitle}
+                              onChange={e => setFormData({...formData, seoTitle: e.target.value})}
+                              placeholder="Tiêu đề hiển thị trên Google..."
+                           />
+                        </div>
+                        <div>
+                           <label className="block text-[9px] font-bold text-gray-400 uppercase mb-1">SEO Description</label>
+                           <textarea 
+                              className="w-full bg-gray-50 border border-gray-100 rounded-lg px-3 py-2 text-xs outline-none focus:border-[#1a5c2a] h-20 resize-none"
+                              value={formData.seoDescription}
+                              onChange={e => setFormData({...formData, seoDescription: e.target.value})}
+                              placeholder="Mô tả hiển thị trên Google..."
+                           />
+                        </div>
+                     </div>
+                  </div>
+
+                  <div className="pt-4 border-t border-gray-50">
                      <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">Chuyên mục</label>
                      <select 
                        className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-2 text-xs font-bold outline-none"
@@ -181,5 +221,58 @@ export default function NewBlogPost() {
         </div>
       </div>
     </AdminGuard>
+  );
+}
+
+// Separate component for AI Generator
+function AIGenerator({ onGenerated, title }: { onGenerated: (data: any) => void, title: string }) {
+  const [isGenerating, setIsGenerating] = useState(false);
+
+  const handleAIWrite = async () => {
+    if (!title) return alert("Vui lòng nhập tiêu đề để AI có dữ liệu viết bài!");
+    setIsGenerating(true);
+    try {
+      const res = await fetch(`${API_BASE_URL}/ai/generate`, {
+        method: 'POST',
+        headers: {
+          ...getAuthHeaders(),
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ prompt: title, type: 'blog' })
+      });
+      if (res.ok) {
+        const data = await res.json();
+        onGenerated(data);
+      } else {
+        alert("Lỗi AI: Vui lòng thử lại sau hoặc kiểm tra API Key.");
+      }
+    } catch (err) {
+      alert("Lỗi kết nối AI");
+    } finally {
+      setIsGenerating(false);
+    }
+  };
+
+  return (
+    <button 
+      type="button"
+      onClick={handleAIWrite}
+      disabled={isGenerating}
+      className={`px-6 py-4 rounded-2xl font-black text-xs uppercase tracking-widest transition-all shadow-lg flex items-center gap-2 ${
+        isGenerating 
+        ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
+        : 'bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:scale-105 active:scale-95 shadow-purple-200'
+      }`}
+    >
+      {isGenerating ? (
+        <>
+          <span className="animate-spin text-lg">⏳</span> ĐANG SUY NGHĨ...
+        </>
+      ) : (
+        <>
+          <span className="text-lg">✨</span> AI TỰ VIẾT BÀI
+        </>
+      )}
+    </button>
   );
 }

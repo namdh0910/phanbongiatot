@@ -147,7 +147,31 @@ export default function EditBlogPost({ params }: { params: Promise<{ id: string 
                      />
                   </div>
 
-                  <div>
+                  <div className="pt-4 border-t border-gray-50">
+                     <h4 className="text-[10px] font-black text-[#1a5c2a] uppercase tracking-widest mb-4">Cấu hình SEO</h4>
+                     <div className="space-y-4">
+                        <div>
+                           <label className="block text-[9px] font-bold text-gray-400 uppercase mb-1">SEO Title</label>
+                           <input 
+                              className="w-full bg-gray-50 border border-gray-100 rounded-lg px-3 py-2 text-xs outline-none focus:border-[#1a5c2a]"
+                              value={formData.seoTitle}
+                              onChange={e => setFormData({...formData, seoTitle: e.target.value})}
+                              placeholder="Tiêu đề hiển thị trên Google..."
+                           />
+                        </div>
+                        <div>
+                           <label className="block text-[9px] font-bold text-gray-400 uppercase mb-1">SEO Description</label>
+                           <textarea 
+                              className="w-full bg-gray-50 border border-gray-100 rounded-lg px-3 py-2 text-xs outline-none focus:border-[#1a5c2a] h-20 resize-none"
+                              value={formData.seoDescription}
+                              onChange={e => setFormData({...formData, seoDescription: e.target.value})}
+                              placeholder="Mô tả hiển thị trên Google..."
+                           />
+                        </div>
+                     </div>
+                  </div>
+
+                  <div className="pt-4 border-t border-gray-50">
                      <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">Chuyên mục</label>
                      <select 
                        className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-2 text-xs font-bold outline-none"
