@@ -308,24 +308,24 @@ export default function Header() {
           {menuOpen && (
             <div className="flex flex-col h-full">
               {/* Header in Menu */}
-              <div className="p-5 border-b flex justify-between items-center bg-gray-50">
-                <span className="font-black text-[#1a5c2a]">DANH MỤC</span>
-                <button onClick={() => setMenuOpen(false)} className="w-10 h-10 flex items-center justify-center text-gray-400 text-2xl">✕</button>
+              <div className="p-4 border-b flex justify-between items-center bg-gray-50/50">
+                <span className="font-black text-[#1a5c2a] text-xs uppercase tracking-widest italic">Menu Danh Mục</span>
+                <button onClick={() => setMenuOpen(false)} className="w-8 h-8 flex items-center justify-center text-gray-400 text-xl hover:text-red-500 transition-colors">✕</button>
               </div>
 
               {/* Seller Link Mobile */}
-              <div className="px-4 py-3 bg-orange-50 border-b border-orange-100">
+              <div className="px-4 py-4 bg-orange-50/30 border-b border-orange-100/50">
                 <Link 
                   href="/kenh-nguoi-ban" 
                   onClick={() => setMenuOpen(false)}
-                  className="flex items-center gap-3 px-4 py-3 bg-white rounded-xl border border-orange-200 shadow-sm"
+                  className="flex items-center gap-3 px-4 py-2.5 bg-white rounded-xl border border-orange-200 shadow-sm active:scale-95 transition-transform"
                 >
-                  <span className="text-xl">🏪</span>
+                  <span className="text-lg">🏪</span>
                   <div className="flex flex-col">
-                    <span className="text-sm font-black text-orange-600 leading-none">KÊNH NGƯỜI BÁN</span>
-                    <span className="text-[10px] text-gray-500 mt-1 uppercase font-bold tracking-tighter">Dành cho đối tác nhà vườn</span>
+                    <span className="text-[11px] font-black text-orange-600 leading-none uppercase tracking-tighter">Kênh Người Bán</span>
+                    <span className="text-[9px] text-gray-400 mt-1 font-bold uppercase">Dành cho đối tác</span>
                   </div>
-                  <span className="ml-auto text-orange-400">➜</span>
+                  <span className="ml-auto text-orange-300 text-xs">▶</span>
                 </Link>
               </div>
 
@@ -349,17 +349,18 @@ export default function Header() {
               </nav>
 
               {/* Bottom Actions */}
-              <div className="p-6 border-t bg-gray-50">
+              {/* Bottom Actions - Added padding-bottom to avoid overlap with Sticky Footer */}
+              <div className="p-6 pb-24 border-t bg-gray-50/50">
                 <a 
                   href={`https://zalo.me/${process.env.NEXT_PUBLIC_ZALO_PHONE ?? '0773440966'}`} 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="w-full bg-[#0068ff] text-white py-4 rounded-xl font-black text-center block shadow-lg active:scale-95 transition-transform"
+                  className="w-full bg-[#0068ff] text-white py-4 rounded-xl font-black text-xs text-center block shadow-lg active:scale-95 transition-transform uppercase tracking-widest"
                 >
-                  💬 CHAT ZALO NGAY
+                  💬 Chat Zalo tư vấn ngay
                 </a>
-                <p className="text-center text-[10px] text-gray-400 mt-4 font-bold uppercase tracking-widest">
-                  Kỹ sư hỗ trợ 24/7
+                <p className="text-center text-[9px] text-gray-400 mt-4 font-bold uppercase tracking-widest opacity-60">
+                   Đội ngũ kỹ sư hỗ trợ 24/7
                 </p>
               </div>
             </div>
