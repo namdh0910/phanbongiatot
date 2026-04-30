@@ -81,7 +81,7 @@ export default function Header() {
   const zaloId = process.env.NEXT_PUBLIC_ZALO_PHONE ?? "0773440966";
 
   return (
-    <div className="w-full">
+    <div className="w-full sticky top-0 z-[100] bg-white shadow-sm">
       {/* Announcement Bar */}
       {settings?.announcementEnabled && (
         <div className="bg-[#1a5c2a] text-white py-2 px-4 text-center text-[10px] md:text-xs font-bold uppercase tracking-widest">
@@ -89,7 +89,7 @@ export default function Header() {
         </div>
       )}
       
-      <header className="sticky top-0 z-[100] w-full bg-white border-b border-gray-100 shadow-sm">
+      <header className="w-full bg-white border-b border-gray-100">
         {/* DESKTOP HEADER (3 ROWS) */}
         <div className="hidden lg:block">
           {/* Row 1: Trending Tags */}
