@@ -5,7 +5,6 @@ const { getSellerDashboard, getSellerRevenue } = require('../controllers/sellerC
 const { protect, admin } = require('../middleware/authMiddleware');
 
 // Seller Portal Specs
-router.post('/register', registerVendor); // POST /api/sellers/register
 router.post('/login', authUser);           // POST /api/sellers/login
 
 // Analytics

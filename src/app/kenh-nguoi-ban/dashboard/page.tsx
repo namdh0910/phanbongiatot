@@ -2,26 +2,19 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-
-// Mock Data
-const MOCK_STATS = {
-  ordersToday: 5,
-  revenueMonth: 12500000,
-  activeProducts: 12,
-  pendingProducts: 3,
-  rejectedProducts: 1
-};
-
-const MOCK_ORDERS = [
-  { id: "PBG-1001", customer: "Nguyễn Văn A", total: 450000, status: "new", time: "10:30 AM" },
-  { id: "PBG-1002", customer: "Trần Thị B", total: 1200000, status: "shipping", time: "09:15 AM" },
-  { id: "PBG-1003", customer: "Lê Văn C", total: 350000, status: "done", time: "Hôm qua" },
-  { id: "PBG-1004", customer: "Phạm Văn D", total: 850000, status: "new", time: "Hôm qua" },
-  { id: "PBG-1005", customer: "Hoàng Văn E", total: 600000, status: "cancelled", time: "Hôm qua" }
-];
+import { API_BASE_URL, getAuthHeaders } from "@/utils/api";
 
 export default function SellerDashboard() {
   const [shopName, setShopName] = useState("Cửa hàng");
+  const [stats, setStats] = useState({
+    pending_orders: 0,
+    confirmed_orders: 0,
+    total_products: 0,
+    revenue_today: 0,
+    rejected_products: 0 // Assume we have this in real stats later
+  });
+  const [orders, setOrders] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
@@ -32,7 +25,32 @@ export default function SellerDashboard() {
         setShopName(parsed.storeName || "Cửa hàng");
       } catch (e) {}
     }
+    fetchData();
   }, []);
+
+  const fetchData = async () => {
+    setIsLoading(true);
+    try {
+      const [statsRes, ordersRes] = await Promise.all([
+        fetch(`${API_BASE_URL}/sellers/dashboard`, { headers: getAuthHeaders() }),
+        fetch(`${API_BASE_URL}/orders/vendor/me`, { headers: getAuthHeaders() })
+      ]);
+
+      if (statsRes.ok) {
+        const statsData = await statsRes.json();
+        setStats(statsData);
+      }
+
+      if (ordersRes.ok) {
+        const ordersData = await ordersRes.json();
+        setOrders(ordersData.slice(0, 5)); // Only show top 5 recent
+      }
+    } catch (error) {
+      console.error("Error fetching dashboard data:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleLogout = () => {
     localStorage.removeItem("vendorToken");
@@ -65,36 +83,36 @@ export default function SellerDashboard() {
           <div className="bg-white p-6 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-md transition-all">
             <div className="w-10 h-10 bg-blue-50 text-blue-500 rounded-xl flex items-center justify-center mb-4 text-xl">📦</div>
             <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Đơn hàng mới</p>
-            <p className="text-2xl font-black text-gray-900">{MOCK_STATS.ordersToday}</p>
-            <p className="text-[10px] text-blue-500 font-bold mt-1">+2 so với hôm qua</p>
+            <p className="text-2xl font-black text-gray-900">{stats.pending_orders}</p>
+            <p className="text-[10px] text-blue-500 font-bold mt-1">Chờ xác nhận</p>
           </div>
           <div className="bg-white p-6 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-md transition-all">
             <div className="w-10 h-10 bg-emerald-50 text-emerald-500 rounded-xl flex items-center justify-center mb-4 text-xl">💰</div>
-            <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Doanh thu tháng</p>
-            <p className="text-2xl font-black text-gray-900">{(MOCK_STATS.revenueMonth / 1000000).toFixed(1)}M</p>
+            <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Doanh thu hôm nay</p>
+            <p className="text-2xl font-black text-gray-900">{stats.revenue_today.toLocaleString()}đ</p>
             <p className="text-[10px] text-emerald-500 font-bold mt-1">Đã cập nhật</p>
           </div>
           <div className="bg-white p-6 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-md transition-all">
             <div className="w-10 h-10 bg-orange-50 text-orange-500 rounded-xl flex items-center justify-center mb-4 text-xl">✨</div>
             <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Sản phẩm bán</p>
-            <p className="text-2xl font-black text-gray-900">{MOCK_STATS.activeProducts}</p>
+            <p className="text-2xl font-black text-gray-900">{stats.total_products}</p>
             <p className="text-[10px] text-gray-400 font-bold mt-1">Đang hiển thị</p>
           </div>
           <div className="bg-white p-6 rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-md transition-all">
             <div className="w-10 h-10 bg-purple-50 text-purple-500 rounded-xl flex items-center justify-center mb-4 text-xl">⏳</div>
-            <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Chờ duyệt</p>
-            <p className="text-2xl font-black text-gray-900">{MOCK_STATS.pendingProducts}</p>
-            <p className="text-[10px] text-purple-500 font-bold mt-1">Đang xử lý</p>
+            <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Xác nhận</p>
+            <p className="text-2xl font-black text-gray-900">{stats.confirmed_orders}</p>
+            <p className="text-[10px] text-purple-500 font-bold mt-1">Đã xác nhận</p>
           </div>
         </div>
 
         {/* Rejected Products Alert */}
-        {MOCK_STATS.rejectedProducts > 0 && (
+        {stats.rejected_products > 0 && (
           <div className="bg-red-50 border border-red-100 p-4 rounded-2xl mb-8 flex items-center justify-between animate-pulse">
             <div className="flex items-center gap-3">
               <span className="text-xl">⚠️</span>
               <p className="text-red-800 font-bold text-sm">
-                Bạn có {MOCK_STATS.rejectedProducts} sản phẩm bị từ chối phê duyệt.
+                Bạn có {stats.rejected_products} sản phẩm bị từ chối phê duyệt.
               </p>
             </div>
             <Link href="/kenh-nguoi-ban/san-pham?filter=rejected" className="text-red-600 text-xs font-black underline uppercase tracking-widest">
@@ -121,28 +139,32 @@ export default function SellerDashboard() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-50">
-                {MOCK_ORDERS.map((order) => (
-                  <tr key={order.id} className="hover:bg-gray-50/30 transition-colors">
+                {isLoading ? (
+                  <tr><td colSpan={5} className="p-10 text-center text-gray-400">Đang tải đơn hàng...</td></tr>
+                ) : orders.length === 0 ? (
+                  <tr><td colSpan={5} className="p-10 text-center text-gray-400">Chưa có đơn hàng nào</td></tr>
+                ) : orders.map((order) => (
+                  <tr key={order._id} className="hover:bg-gray-50/30 transition-colors">
                     <td className="px-6 py-4">
-                      <span className="font-black text-blue-600 text-xs">{order.id}</span>
+                      <span className="font-black text-blue-600 text-xs">{order.orderCode}</span>
                     </td>
                     <td className="px-6 py-4">
-                      <span className="font-bold text-gray-800 text-sm">{order.customer}</span>
+                      <span className="font-bold text-gray-800 text-sm">{order.shippingAddress?.fullName || 'Khách lẻ'}</span>
                     </td>
                     <td className="px-6 py-4">
-                      <span className="font-black text-gray-900 text-sm">₫{order.total.toLocaleString()}</span>
+                      <span className="font-black text-gray-900 text-sm">₫{order.totalPrice.toLocaleString()}</span>
                     </td>
                     <td className="px-6 py-4">
                       <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase ${
-                        order.status === 'new' ? 'bg-blue-100 text-blue-600' :
-                        order.status === 'shipping' ? 'bg-yellow-100 text-yellow-600' :
-                        order.status === 'done' ? 'bg-green-100 text-green-600' : 'bg-gray-100 text-gray-500'
+                        order.orderStatus === 'new' ? 'bg-blue-100 text-blue-600' :
+                        order.orderStatus === 'shipping' ? 'bg-yellow-100 text-yellow-600' :
+                        order.orderStatus === 'done' ? 'bg-green-100 text-green-600' : 'bg-gray-100 text-gray-500'
                       }`}>
-                        {order.status === 'new' ? 'Mới' : order.status === 'shipping' ? 'Giao hàng' : order.status === 'done' ? 'Hoàn tất' : 'Đã hủy'}
+                        {order.orderStatus === 'new' ? 'Mới' : order.orderStatus === 'shipping' ? 'Giao hàng' : order.orderStatus === 'done' ? 'Hoàn tất' : 'Đã hủy'}
                       </span>
                     </td>
                     <td className="px-6 py-4 text-right">
-                      <span className="text-[10px] text-gray-400 font-bold uppercase">{order.time}</span>
+                      <span className="text-[10px] text-gray-400 font-bold uppercase">{new Date(order.createdAt).toLocaleDateString('vi-VN')}</span>
                     </td>
                   </tr>
                 ))}

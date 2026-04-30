@@ -3,7 +3,10 @@ export const API_BASE_URL = rawUrl.endsWith('/api') ? rawUrl : `${rawUrl.replace
 
 export const getAuthHeaders = (isMultipart = false): any => {
   if (typeof window === 'undefined') return {};
-  const token = localStorage.getItem("adminToken");
+  
+  // Try adminToken first, then vendorToken
+  const token = localStorage.getItem("adminToken") || localStorage.getItem("vendorToken");
+  
   const headers: any = {
     ...(token ? { "Authorization": `Bearer ${token}` } : {})
   };
