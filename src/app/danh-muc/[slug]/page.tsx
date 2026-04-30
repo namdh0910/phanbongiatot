@@ -133,9 +133,9 @@ export default function CategoryPage() {
     <div className="bg-[#f8fafc] min-h-screen pb-20">
       <Breadcrumbs items={[{ label: categoryName }]} />
       
-      <div className="bg-white border-b border-gray-100 mb-0 pt-8 pb-4">
+      <div className="bg-white border-b border-gray-100 pt-4 md:pt-8 pb-2 md:pb-4">
         <div className="container mx-auto px-4">
-            <div className="max-w-4xl mb-6">
+            <div className="hidden md:block max-w-4xl mb-6">
                <h1 className="text-3xl md:text-5xl font-black text-gray-900 tracking-tighter uppercase italic">{categoryName}</h1>
                <p className="text-gray-500 text-sm md:text-base mt-2 font-medium">Khám phá bộ sưu tập giải pháp chuyên dụng giúp tăng năng suất vượt trội cho nhà vườn.</p>
             </div>
@@ -159,7 +159,7 @@ export default function CategoryPage() {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 mt-8">
+      <div className="container mx-auto px-4 mt-4 md:mt-8">
         <div className="lg:hidden flex gap-2 mb-4 overflow-x-auto pb-2 scrollbar-hide">
           <button 
             onClick={() => setShowFilters(!showFilters)}
