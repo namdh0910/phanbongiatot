@@ -66,31 +66,31 @@
 
 @media (max-width: 768px) {
   .hero-container {
-    height: 320px !important;
-    min-height: 320px !important;
-    max-height: 320px !important;
+    height: 220px !important;
+    min-height: 220px !important;
+    max-height: 220px !important;
     padding: 0 !important;
   }
   
+  .hero-content {
+    padding-top: 10px !important;
+  }
+  
   .hero-title {
-    font-size: clamp(20px, 6vw, 28px) !important;
-    margin-bottom: 8px !important;
+    font-size: clamp(18px, 5.5vw, 24px) !important;
+    margin-bottom: 4px !important;
     line-height: 1.1;
   }
   
   .hero-social-proof {
     display: block !important;
-    font-size: 0.7rem !important;
-    margin-bottom: 12px !important;
-    opacity: 0.9;
+    font-size: 0.65rem !important;
+    margin-bottom: 0 !important;
+    opacity: 0.8;
   }
   
   .hero-subtitle {
-    display: block !important;
-    font-size: 0.8rem !important;
-    padding: 0 1.5rem;
-    line-height: 1.5;
-    opacity: 0.8;
+    display: none !important;
   }
   
   .hero-hotline {
