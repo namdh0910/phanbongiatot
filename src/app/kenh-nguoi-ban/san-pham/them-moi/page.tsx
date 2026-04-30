@@ -153,9 +153,13 @@ export default function VendorAddProduct() {
                         onChange={e => setForm({...form, category: e.target.value})}
                         className="w-full border-2 border-gray-50 bg-gray-50/50 rounded-2xl px-6 py-4 text-sm font-bold text-gray-700 outline-none focus:border-[#1a5c2a] focus:bg-white transition-all"
                       >
-                        {categories.map(cat => (
-                          <option key={cat} value={cat}>{cat}</option>
-                        ))}
+                        {categories.map((cat: any) => {
+                          const catName = typeof cat === 'string' ? cat : cat.name;
+                          const catSlug = typeof cat === 'string' ? cat : (cat.slug || cat.name);
+                          return (
+                            <option key={catSlug} value={catSlug}>{catName}</option>
+                          );
+                        })}
                       </select>
                     </div>
                     <div>
