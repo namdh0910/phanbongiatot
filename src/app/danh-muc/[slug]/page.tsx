@@ -63,8 +63,22 @@ export default function CategoryPage() {
   const fetchProducts = async (pageNum: number, isNew: boolean = false) => {
     setIsLoading(true);
     try {
-      let url = `${API_BASE_URL}/products?category=${encodeURIComponent(slug)}&page=${pageNum}&limit=12&sort=${sortBy}`;
-      if (filters.crop && filters.crop !== 'Tất cả') url += `&crop=${encodeURIComponent(filters.crop)}`;
+      // Backend expects: category_id (via 'category'), crop_type, price_range, sort
+      let url = `${API_BASE_URL}/products?category=${encodeURIComponent(slug)}&page=${pageNum}&limit=12&sort=${sortBy.replace('-', '_')}`;
+      
+      if (filters.crop && filters.crop !== 'Tất cả') {
+        url += `&crop_type=${encodeURIComponent(filters.crop)}`;
+      }
+      
+      if (filters.priceRange) {
+        // Backend expects '1', '2', '3' for price ranges
+        let pRange = '';
+        if (filters.priceRange === '0-100000') pRange = '1';
+        else if (filters.priceRange === '100000-500000') pRange = '2';
+        else if (filters.priceRange === '500000-9999999') pRange = '3';
+        
+        if (pRange) url += `&price_range=${pRange}`;
+      }
       
       const res = await fetch(url, { cache: 'no-store' });
       const data = await res.json();
