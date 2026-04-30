@@ -1,4 +1,5 @@
 "use client";
+// Global Settings Context for Phân Bón Giá Tốt
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { API_BASE_URL } from '@/utils/api';
 

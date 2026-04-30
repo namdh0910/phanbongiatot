@@ -1,4 +1,5 @@
 "use client";
+// Unified Footer Component for Phân Bón Giá Tốt
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSettings } from "@/context/SettingsContext";
