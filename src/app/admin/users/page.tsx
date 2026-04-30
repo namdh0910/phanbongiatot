@@ -26,6 +26,32 @@ export default function AdminUsers() {
     }
   };
 
+  const handleStatusChange = async (id: string, newStatus: string) => {
+    try {
+      const res = await fetch(`${API_BASE_URL}/users/${id}/status`, {
+        method: 'PATCH',
+        headers: { ...getAuthHeaders(), 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: newStatus })
+      });
+      if (res.ok) fetchUsers();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleDelete = async (id: string) => {
+    if (!confirm('Bạn có chắc chắn muốn xóa người dùng này?')) return;
+    try {
+      const res = await fetch(`${API_BASE_URL}/users/${id}`, {
+        method: 'DELETE',
+        headers: getAuthHeaders()
+      });
+      if (res.ok) fetchUsers();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
       <div className="flex justify-between items-center">
@@ -72,13 +98,48 @@ export default function AdminUsers() {
                    </span>
                 </td>
                 <td className="px-8 py-5">
-                   <span className="flex items-center gap-1.5 text-[10px] font-bold text-green-500 uppercase">
-                      <span className="w-1.5 h-1.5 bg-green-500 rounded-full"></span> Hoạt động
+                   <span className={`flex items-center gap-1.5 text-[10px] font-bold uppercase ${
+                     user.status === 'active' ? 'text-green-500' : 
+                     user.status === 'pending' ? 'text-yellow-500' : 'text-red-500'
+                   }`}>
+                      <span className={`w-1.5 h-1.5 rounded-full ${
+                        user.status === 'active' ? 'bg-green-500' : 
+                        user.status === 'pending' ? 'bg-yellow-500' : 'bg-red-500'
+                      }`}></span> 
+                      {user.status === 'active' ? 'Hoạt động' : user.status === 'pending' ? 'Chờ duyệt' : 'Đã khóa'}
                    </span>
                 </td>
                 <td className="px-8 py-5 text-right space-x-2">
-                   <button className="text-gray-400 hover:text-[#1a5c2a] transition-colors">✏️</button>
-                   <button className="text-gray-400 hover:text-red-500 transition-colors">🗑️</button>
+                   {user.status === 'pending' && (
+                     <button 
+                       onClick={() => handleStatusChange(user._id, 'active')}
+                       className="bg-green-600 text-white px-3 py-1 rounded-lg text-[10px] font-black uppercase hover:bg-green-700 transition-colors"
+                     >
+                       Duyệt
+                     </button>
+                   )}
+                   {user.status === 'active' && user.role !== 'admin' && (
+                     <button 
+                       onClick={() => handleStatusChange(user._id, 'suspended')}
+                       className="text-gray-400 hover:text-orange-500 transition-colors text-[10px] font-bold"
+                     >
+                       Khóa
+                     </button>
+                   )}
+                   {user.status === 'suspended' && (
+                     <button 
+                       onClick={() => handleStatusChange(user._id, 'active')}
+                       className="text-gray-400 hover:text-green-500 transition-colors text-[10px] font-bold"
+                     >
+                       Mở khóa
+                     </button>
+                   )}
+                   <button 
+                     onClick={() => handleDelete(user._id)}
+                     className="text-gray-400 hover:text-red-500 transition-colors"
+                   >
+                     🗑️
+                   </button>
                 </td>
               </tr>
             ))}

@@ -51,6 +51,7 @@ const orderRoutes = require('./routes/orderRoutes');
 const socialRoutes = require('./routes/socialRoutes');
 const couponRoutes = require('./routes/couponRoutes');
 const sellerRoutes = require('./routes/sellerRoutes');
+const sellerApplicationRoutes = require('./routes/sellerApplicationRoutes');
 const userRoutes = require('./routes/userRoutes');
 const flashSaleRoutes = require('./routes/flashSaleRoutes');
 const shippingRoutes = require('./routes/shippingRoutes');
@@ -72,7 +73,8 @@ app.use('/api/reviews', reviewRoutes);
 app.use('/api/admin/reviews', reviewRoutes);
 app.use('/api/settings', settingsRoutes);
 app.use('/api/ai', aiRoutes);
-app.use('/api/sellers', sellerRoutes);
+app.use('/api/sellers', sellerApplicationRoutes); // Use the application routes first
+app.use('/api/sellers', sellerRoutes); // Then the general seller routes (will be merged)
 app.use('/api/users', userRoutes);
 app.use('/api/flash-sales', flashSaleRoutes);
 app.use('/api/shipping', shippingRoutes);

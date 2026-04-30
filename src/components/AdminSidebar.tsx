@@ -14,6 +14,7 @@ export default function AdminSidebar() {
     { href: "/admin/products", label: "Quản lý Sản phẩm", icon: "📦" },
     { href: "/admin/categories", label: "Quản lý Danh mục", icon: "📂" },
     { href: "/admin/blog", label: "Quản lý Blog", icon: "📝" },
+    { href: "/admin/vendors", label: "Duyệt Đăng Ký", icon: "📋", badge: "Sellers" },
     { href: "/admin/users", label: "Quản lý Người dùng", icon: "👥" },
     { href: "/admin/settings", label: "Cài đặt", icon: "⚙️" },
   ];
