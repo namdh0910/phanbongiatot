@@ -89,7 +89,7 @@ export default function Header() {
         </div>
       )}
       
-      <header className="sticky top-0 z-50 w-full bg-white border-b border-gray-100 shadow-sm">
+      <header className="sticky top-0 z-[100] w-full bg-white border-b border-gray-100 shadow-sm">
         {/* DESKTOP HEADER (3 ROWS) */}
         <div className="hidden lg:block">
           {/* Row 1: Trending Tags */}

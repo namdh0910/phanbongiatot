@@ -28,7 +28,7 @@ export default function BlogIndex() {
   const fetchPosts = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`${API_BASE_URL}/blog`);
+      const res = await fetch(`${API_BASE_URL}/blogs`);
       if (!res.ok) throw new Error('Failed');
       const data = await res.json();
       const postsData = data.blogs || data;
@@ -81,7 +81,7 @@ export default function BlogIndex() {
       </div>
 
       {/* Category Pills */}
-      <div className="sticky top-16 z-30 bg-white/80 backdrop-blur-md border-b border-gray-100">
+      <div className="bg-white/80 backdrop-blur-md border-b border-gray-100">
         <div className="container mx-auto px-4 py-4 overflow-x-auto no-scrollbar flex gap-3">
           {CATEGORIES.map(cat => (
             <button

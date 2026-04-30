@@ -58,10 +58,14 @@ async function getProducts() {
 }
 
 export default async function BlogDetail({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
+  const paramsData = await params;
+  const slug = paramsData?.slug;
+  
+  if (!slug) return <div className="text-center py-20">Lỗi: Không tìm thấy bài viết</div>;
+
   const blog = await getBlog(slug);
   const products = await getProducts();
-  const featuredProducts = products.slice(0, 4);
+  const featuredProducts = Array.isArray(products) ? products.slice(0, 4) : (products?.products || []).slice(0, 4);
 
   if (!blog) return <div className="text-center py-20">Bài viết không tồn tại</div>;
 
@@ -220,7 +224,7 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
 async function RelatedPosts({ tags, currentSlug }: { tags: string[], currentSlug: string }) {
   let related: any[] = [];
   try {
-    const res = await fetch(`${API_BASE_URL}/blog`);
+    const res = await fetch(`${API_BASE_URL}/blogs`);
     if (res.ok) {
       const data = await res.json();
       const all = data.blogs || data;
