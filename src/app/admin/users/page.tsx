@@ -33,8 +33,15 @@ export default function AdminUsers() {
         headers: { ...getAuthHeaders(), 'Content-Type': 'application/json' },
         body: JSON.stringify({ status: newStatus })
       });
-      if (res.ok) fetchUsers();
+      const data = await res.json();
+      if (res.ok) {
+        alert(newStatus === 'active' ? 'Đã duyệt người dùng thành công!' : 'Đã cập nhật trạng thái!');
+        fetchUsers();
+      } else {
+        alert(data.message || 'Cập nhật thất bại');
+      }
     } catch (err) {
+      alert('Lỗi kết nối máy chủ');
       console.error(err);
     }
   };
@@ -46,8 +53,15 @@ export default function AdminUsers() {
         method: 'DELETE',
         headers: getAuthHeaders()
       });
-      if (res.ok) fetchUsers();
+      if (res.ok) {
+        alert('Đã xóa người dùng');
+        fetchUsers();
+      } else {
+        const data = await res.json();
+        alert(data.message || 'Xóa thất bại');
+      }
     } catch (err) {
+      alert('Lỗi kết nối máy chủ');
       console.error(err);
     }
   };
