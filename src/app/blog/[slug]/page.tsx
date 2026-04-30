@@ -99,12 +99,12 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
                     <span className="text-xl">👨‍🔬</span> Kỹ sư Phân Bón Giá Tốt
                   </span>
                   <span className="flex items-center gap-2">
-                    <span className="opacity-50">📅</span> {new Date(blog.createdAt).toLocaleDateString('vi-VN')}
+                    <span className="opacity-50">📅</span> {blog.createdAt ? new Date(blog.createdAt).toLocaleDateString('vi-VN') : 'Mới cập nhật'}
                   </span>
                 </div>
               </header>
 
-              {/* Table of Contents Placeholder - We'll add logic if possible, or just style the one in HTML */}
+              {/* Content with safety check */}
               <div 
                 className="prose prose-emerald prose-lg md:prose-xl max-w-none text-gray-700 leading-relaxed 
                 prose-img:rounded-3xl prose-img:shadow-2xl prose-img:my-12
@@ -117,7 +117,7 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
                 break-words overflow-hidden"
                 dangerouslySetInnerHTML={{ 
                   __html: (() => {
-                    let html = blog.content;
+                    let html = blog.content || '<p>Đang cập nhật nội dung...</p>';
                     // Fix relative image paths to absolute for SSR
                     html = html.replace(/src="(\/images\/blog\/[^"]+)"/g, 'src="https://www.phanbongiatot.com$1"');
                     // Normalize shortcodes - strip any HTML tags wrapping them

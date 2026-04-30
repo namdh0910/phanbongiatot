@@ -107,52 +107,43 @@ export default function BlogIndex() {
              ))}
           </div>
         ) : filteredPosts.length === 0 ? (
-          <div className="text-center py-24 bg-white rounded-[3rem] border-2 border-dashed border-gray-100">
-             <div className="text-7xl mb-6 opacity-20">📚</div>
-             <p className="text-gray-400 font-black uppercase tracking-widest text-xs">Chưa có bài viết trong danh mục này</p>
-          </div>
-        ) : (
-          <>
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="text-center py-24 bg-white rounded-[3rem] border-2 border-            <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-8">
               {filteredPosts.slice(0, visibleCount).map((post, i) => (
-                <Link key={i} href={`/blog/${post.slug}`} className="group bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all hover:-translate-y-2 border border-gray-100 flex flex-col h-full">
+                <Link key={i} href={`/blog/${post.slug}`} className="group bg-white rounded-2xl md:rounded-[2rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all hover:-translate-y-1 md:hover:-translate-y-2 border border-gray-100 flex flex-col h-full">
                   {/* Image Layout */}
-                  <div className="hidden lg:block relative aspect-[16/10] overflow-hidden bg-gray-100">
+                  <div className="relative aspect-[4/3] md:aspect-[16/10] overflow-hidden bg-gray-100">
                      {post.image ? (
                        <img src={post.image} className="w-full h-full object-cover group-hover:scale-110 transition-all duration-700" alt={post.title} />
                      ) : (
-                       <div className="w-full h-full flex items-center justify-center text-6xl opacity-20 bg-emerald-50">📖</div>
+                       <div className="w-full h-full flex items-center justify-center text-4xl md:text-6xl opacity-20 bg-emerald-50">📖</div>
                      )}
-                     <div className="absolute top-4 left-4 bg-[#1a5c2a] text-white px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest shadow-lg">
-                        Mới nhất
+                     <div className="absolute top-2 left-2 md:top-4 md:left-4 bg-[#1a5c2a] text-white px-2 md:px-3 py-1 rounded-full text-[8px] md:text-[9px] font-black uppercase tracking-widest shadow-lg">
+                        Mới
                      </div>
                   </div>
 
-                  {/* Mobile Layout (Horizontal) / Desktop Info */}
-                  <div className="flex flex-row lg:flex-col flex-1 p-5 md:p-6 lg:p-8 gap-4 md:gap-6 lg:gap-0">
-                     {/* Mobile Image */}
-                     <div className="w-28 h-28 md:w-40 md:h-40 lg:hidden flex-shrink-0 rounded-2xl overflow-hidden bg-gray-50 border border-gray-100 shadow-inner">
-                        {post.image ? <img src={post.image} className="w-full h-full object-cover" /> : <div className="w-full h-full flex items-center justify-center text-3xl opacity-20">📚</div>}
-                     </div>
-
-                     <div className="flex-1 flex flex-col">
-                        <div className="flex items-center gap-3 text-[10px] font-black text-gray-400 uppercase tracking-widest mb-3">
-                           <span className="text-emerald-600">Kiến thức</span>
-                           <span className="opacity-30">|</span>
-                           <span>{new Date(post.createdAt).toLocaleDateString('vi-VN')}</span>
-                        </div>
-                        <h3 className="text-lg md:text-xl font-black text-gray-900 group-hover:text-[#1a5c2a] transition-colors leading-tight mb-3 line-clamp-2">
-                          {post.title}
-                        </h3>
-                        <p className="text-gray-500 text-xs md:text-sm font-medium line-clamp-2 leading-relaxed mb-6 hidden md:block">
-                          {post.excerpt}
-                        </p>
-                        <div className="mt-auto flex items-center justify-between">
-                           <span className="text-[#1a5c2a] font-black text-xs uppercase tracking-widest flex items-center gap-2 group-hover:gap-3 transition-all">
-                              Đọc tiếp <span className="text-lg">→</span>
-                           </span>
-                           {post.tags?.[0] && (
-                             <span className="text-[9px] bg-gray-50 text-gray-400 px-2 py-1 rounded font-bold uppercase border border-gray-100">
+                  {/* Info Layout */}
+                  <div className="flex flex-col flex-1 p-3 md:p-6 lg:p-8">
+                      <div className="flex items-center gap-2 text-[8px] md:text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2 md:mb-3">
+                         <span className="text-emerald-600">Kiến thức</span>
+                         <span className="opacity-30">|</span>
+                         <span className="hidden md:inline">{new Date(post.createdAt || Date.now()).toLocaleDateString('vi-VN')}</span>
+                      </div>
+                      <h3 className="text-sm md:text-xl font-black text-gray-900 group-hover:text-[#1a5c2a] transition-colors leading-tight mb-2 md:mb-4 line-clamp-2">
+                        {post.title}
+                      </h3>
+                      <p className="text-gray-500 text-xs md:text-sm font-medium line-clamp-2 leading-relaxed mb-4 hidden md:block">
+                        {post.excerpt}
+                      </p>
+                      <div className="mt-auto flex items-center justify-between">
+                         <span className="text-[#1a5c2a] font-black text-[10px] md:text-xs uppercase tracking-widest flex items-center gap-1 md:gap-2 group-hover:gap-3 transition-all">
+                            Xem ngay <span className="text-sm md:text-lg">→</span>
+                         </span>
+                      </div>
+                  </div>
+                </Link>
+              ))}
+            </div>percase border border-gray-100">
                                #{post.tags[0]}
                              </span>
                            )}
