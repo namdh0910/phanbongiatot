@@ -19,6 +19,7 @@ export default function SellerSidebar() {
   }, []);
 
   const links = [
+    { href: "/", label: "Quay lại Website", icon: "🌐" },
     { href: "/kenh-nguoi-ban/dashboard", label: "Tổng Quan", icon: "🏠" },
     { href: "/kenh-nguoi-ban/san-pham", label: "Quản Lý Sản Phẩm", icon: "📦" },
     { href: "/kenh-nguoi-ban/don-hang", label: "Đơn Hàng Mới", icon: "🛒", badge: "2" },
