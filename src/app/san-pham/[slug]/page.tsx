@@ -334,17 +334,16 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
                    <div className="relative space-y-6">
                       <span id="mo-ta" className="absolute -top-[130px]" aria-hidden="true"></span>
                       
-                      <div className="flex items-center gap-4 mb-2">
-                        <h3 className="text-xl font-black text-gray-900 uppercase flex items-center gap-3">
-                          <div className="w-10 h-10 bg-[#ee4d2d] text-white rounded-xl flex items-center justify-center text-lg shadow-lg shadow-red-200">🔍</div>
+                      <div className="flex items-center gap-3 mb-6">
+                        <div className="w-1.5 h-6 bg-[#ee4d2d] rounded-full"></div>
+                        <h3 className="text-lg font-bold text-gray-900 uppercase">
                           Chi tiết sản phẩm
                         </h3>
-                        <div className="h-px bg-gray-100 flex-1"></div>
                       </div>
 
-                      <div className="bg-white/50 rounded-3xl border border-gray-50 p-0">
+                      <div className="w-full">
                         <div 
-                          className="text-gray-700 text-[15px] md:text-base leading-relaxed prose prose-emerald max-w-none prose-p:my-4 prose-headings:mb-6 prose-headings:mt-10 prose-strong:text-[#1a5c2a] prose-strong:bg-orange-50/50 prose-img:mx-auto px-1 md:px-0"
+                          className="text-gray-700 text-base leading-relaxed prose max-w-none prose-p:mb-4"
                           dangerouslySetInnerHTML={{ 
                             __html: product.description?.includes('<') 
                               ? product.description 
