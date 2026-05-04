@@ -7,9 +7,9 @@
 
 ## 📊 TRẠNG THÁI DỰ ÁN
 
-**Cập nhật lần cuối:** 23/04/2026 — Session tích hợp AI + Admin Customizer
-**Phase hiện tại:** Phase 2 — Feature completion
-**Health:** 🟡 Stable — AI working, một số UI field chưa tự điền
+**Cập nhật lần cuối:** 04/05/2026 — Session Tối ưu Admin Dashboard & Checkout CRO
+**Phase hiện tại:** Phase 3 — Performance & Conversion Optimization
+**Health:** ✅ Healthy — Real-time analytics, optimized checkout flow, security fixed
 
 ### Trang đã hoàn thiện
 - [x] Homepage (Hero dynamic từ Settings, Trust Bar, Products)
@@ -22,9 +22,11 @@
 - [x] Pop-up khuyến mãi
 - [ ] AI tự điền ảnh minh họa trong bài (đang fix — 2-step approach đã làm)
 - [ ] AI tự điền ảnh đại diện, hashtags, SEO excerpt (đang test)
-- [ ] Product listing page (cần review)
-- [ ] Cart & Checkout
-- [ ] SEO optimization
+- [x] Product listing page
+- [x] Cart & Checkout (với Upsell & Free Ship hint)
+- [x] SEO optimization (Autocomplete + Blog suggestions)
+- [x] Mobile Sticky CTA
+- [x] Security (Order access control fixed)
 
 ---
 
@@ -87,6 +89,18 @@ Status: ✅ Working
 ---
 
 ## 📝 SESSION LOG
+
+### Session 04/05/2026 — Sprint 2: Analytics & Conversion (DEPLOYED)
+```
+Đã làm:
+- Admin Dashboard: Kết nối dữ liệu thực (doanh thu tháng/tuần, tăng trưởng %, hàng tồn, biểu đồ 30 ngày).
+- Checkout CRO: Thêm Upsell section (Best sellers), Free shipping hint, và validate SĐT real-time.
+- Mobile UX: Thêm Sticky CTA (Mua ngay) cho trang chi tiết sản phẩm.
+- Search: Tối ưu autocomplete dùng /api/search (nhanh hơn), thêm gợi ý bài viết Blog.
+- Security: Fix Audit #12 — Chặn truy cập trái phép đơn hàng giữa các seller và khách vãng lai.
+- Performance: Fix Layout Shift bằng Skeletons trên trang tìm kiếm.
+- Deployment: Push code lên origin main (đã build test OK).
+```
 
 ### Session 23/04/2026 — UI Audit & AI Enhancements
 ```
@@ -184,6 +198,6 @@ Zalo: 0773440966
 Shopee: phanbongiatot
 Dev Frontend: localhost:3000
 Dev Backend:  localhost:5000
-Production: [chưa deploy — cần Render/Vercel]
+Production: https://phanbongiatot.com (Đã push code mới 04/05/2026)
 Admin URL: /admin/login
 ```
