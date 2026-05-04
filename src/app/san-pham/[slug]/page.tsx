@@ -132,7 +132,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
 
         {/* Product Card */}
         <div className="bg-white md:rounded-sm shadow-sm flex flex-col md:flex-row mb-6 overflow-hidden">
-          <div className="w-full md:w-[450px] p-0 md:p-4 flex-shrink-0">
+          <div className="w-full md:w-[450px] p-0 flex-shrink-0">
             <ProductGallery images={validImages} name={product.name} discount={discount} />
             <div className="hidden md:flex items-center justify-center gap-6 mt-8 text-gray-500 text-sm">
               <div className="flex items-center gap-2">
@@ -175,7 +175,12 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
                 {displayReviewCount > 0 ? `${displayReviewCount} Đánh giá` : "Chưa có đánh giá"}
               </div>
               <div className="w-px h-4 bg-gray-200"></div>
-              <div className="text-gray-500 font-medium"><span className="text-gray-900">{displaySold}</span> Đã bán</div>
+              <div className="text-gray-500 font-medium">
+                {displaySold > 0
+                  ? <><span className="text-gray-900">{displaySold}</span> Đã bán</>
+                  : <span className="text-green-600 font-bold text-xs">✨ Hãy là người đầu tiên!</span>
+                }
+              </div>
             </div>
 
             <div className="bg-[#fafafa] px-5 py-6 mb-8 flex flex-col gap-2 rounded-sm border-y border-gray-50">

@@ -65,10 +65,12 @@ const FlashSale: React.FC = () => {
               <span className="time-value">{timeLeft.hours.toString().padStart(2, '0')}</span>
               <span className="time-label">Giờ</span>
             </div>
+            <span style={{fontWeight: 900, fontSize: '1.2rem', opacity: 0.7}}>:</span>
             <div className="time-box">
               <span className="time-value">{timeLeft.minutes.toString().padStart(2, '0')}</span>
               <span className="time-label">Phút</span>
             </div>
+            <span style={{fontWeight: 900, fontSize: '1.2rem', opacity: 0.7}}>:</span>
             <div className="time-box">
               <span className="time-value">{timeLeft.seconds.toString().padStart(2, '0')}</span>
               <span className="time-label">Giây</span>

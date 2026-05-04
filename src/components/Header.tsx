@@ -384,7 +384,7 @@ export default function Header() {
                   href={`https://zalo.me/${process.env.NEXT_PUBLIC_ZALO_PHONE ?? '0773440966'}`} 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="w-full bg-[#0068ff] text-white py-4 rounded-xl font-black text-xs text-center block shadow-lg active:scale-95 transition-transform uppercase tracking-widest"
+                  className="w-full bg-[#1a5c2a] text-white py-4 rounded-xl font-black text-xs text-center block shadow-lg active:scale-95 transition-transform uppercase tracking-widest"
                 >
                   💬 Chat Zalo tư vấn ngay
                 </a>

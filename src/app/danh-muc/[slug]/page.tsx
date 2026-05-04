@@ -140,21 +140,25 @@ export default function CategoryPage() {
                <p className="text-gray-500 text-sm md:text-base mt-2 font-medium">Khám phá bộ sưu tập giải pháp chuyên dụng giúp tăng năng suất vượt trội cho nhà vườn.</p>
             </div>
 
-            {/* Horizontal Crop Filter Tabs */}
-            <div className="flex items-center gap-2 overflow-x-auto pb-4 scrollbar-hide no-scrollbar">
-              {cropFilters.map(crop => (
-                <button 
-                  key={crop}
-                  onClick={() => setFilters(f => ({ ...f, crop: crop === 'Tất cả' ? '' : crop }))}
-                  className={`px-6 py-2.5 rounded-full text-xs font-black uppercase tracking-widest transition-all whitespace-nowrap border-2 ${
-                    (filters.crop === crop || (crop === 'Tất cả' && !filters.crop))
-                    ? "bg-[#1a5c2a] text-white border-[#1a5c2a] shadow-lg shadow-green-100 scale-105" 
-                    : "bg-white text-gray-400 border-gray-100 hover:border-gray-200"
-                  }`}
-                >
-                  {crop}
-                </button>
-              ))}
+            {/* Horizontal Crop Filter Tabs — M1 Fix: gradient scroll indicator */}
+            <div className="relative">
+              <div className="flex items-center gap-2 overflow-x-auto pb-4 scrollbar-hide no-scrollbar" style={{scrollbarWidth: 'none'}}>
+                {cropFilters.map(crop => (
+                  <button 
+                    key={crop}
+                    onClick={() => setFilters(f => ({ ...f, crop: crop === 'Tất cả' ? '' : crop }))}
+                    className={`px-6 py-2.5 rounded-full text-xs font-black uppercase tracking-widest transition-all whitespace-nowrap border-2 ${
+                      (filters.crop === crop || (crop === 'Tất cả' && !filters.crop))
+                      ? "bg-[#1a5c2a] text-white border-[#1a5c2a] shadow-lg shadow-green-100 scale-105" 
+                      : "bg-white text-gray-400 border-gray-100 hover:border-gray-200"
+                    }`}
+                  >
+                    {crop}
+                  </button>
+                ))}
+              </div>
+              {/* Scroll fade indicator */}
+              <div className="pointer-events-none absolute right-0 top-0 h-full w-12 bg-gradient-to-l from-white to-transparent md:hidden" />
             </div>
         </div>
       </div>
