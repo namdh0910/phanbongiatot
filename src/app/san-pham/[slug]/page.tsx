@@ -258,13 +258,10 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
         <div className="bg-white md:rounded-sm shadow-sm p-6 mb-6 flex flex-col md:flex-row items-center gap-6">
           <div className="flex items-center gap-4 md:border-r md:pr-10">
             <div className={`relative w-20 h-20 rounded-full border ${product.seller?.role === 'admin' ? 'border-[#ee4d2d]' : 'border-gray-100'} overflow-hidden bg-gray-50 flex items-center justify-center p-1 shadow-sm`}>
-              <img 
+              <img
                 src={product.seller?.role === 'admin' ? "https://img.icons8.com/bubbles/100/000000/administrator-male.png" : (product.seller?.vendorInfo?.logo || "https://img.icons8.com/bubbles/100/000000/shop.png")} 
                 className="w-full h-full object-cover rounded-full"
                 alt="Store Logo"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).src = "https://img.icons8.com/bubbles/100/000000/shop.png";
-                }}
               />
               {product.seller?.role === 'admin' && (
                 <div className="absolute bottom-0 left-0 right-0 bg-[#ee4d2d] text-white text-[8px] text-center font-bold py-0.5">YÊU THÍCH</div>
@@ -440,7 +437,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
                     {relatedProducts.length > 0 ? relatedProducts.map((p: any) => (
                        <Link href={`/san-pham/${p.slug}`} key={p._id} className="group cursor-pointer">
                           <div className="aspect-square bg-gray-50 rounded-sm mb-2 flex items-center justify-center overflow-hidden group-hover:bg-gray-100 transition-colors">
-                            {p.images?.[0] ? <img src={p.images[0]} className="w-full h-full object-cover" onError={(e) => { (e.target as HTMLImageElement).src = '/og-image.png'; }} /> : <span className="text-3xl">🌿</span>}
+                            {p.images?.[0] ? <img src={getImageUrl(p.images[0])} className="w-full h-full object-cover" alt={p.name} /> : <span className="text-3xl">🌿</span>}
                           </div>
                           <p className="text-xs font-medium text-gray-700 line-clamp-2 group-hover:text-[#ee4d2d]">{p.name}</p>
                           <p className="text-sm font-bold text-[#ee4d2d] mt-1">₫{p.price.toLocaleString("vi-VN")}</p>
@@ -483,7 +480,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
                     {bestSellers.map((p: any) => (
                       <Link href={`/san-pham/${p.slug}`} key={p._id} className="flex flex-col gap-3 group cursor-pointer">
                          <div className="aspect-square bg-gray-50 rounded-sm flex items-center justify-center overflow-hidden group-hover:scale-105 transition-transform">
-                           {p.images?.[0] ? <img src={p.images[0]} className="w-full h-full object-cover" onError={(e) => { (e.target as HTMLImageElement).src = '/og-image.png'; }} /> : <span className="text-4xl">🌱</span>}
+                           {p.images?.[0] ? <img src={getImageUrl(p.images[0])} className="w-full h-full object-cover" alt={p.name} /> : <span className="text-4xl">🌱</span>}
                          </div>
                          <p className="text-xs font-medium line-clamp-2 group-hover:text-[#ee4d2d]">{p.name}</p>
                          <p className="text-sm font-bold text-[#ee4d2d]">₫{p.price.toLocaleString("vi-VN")}</p>

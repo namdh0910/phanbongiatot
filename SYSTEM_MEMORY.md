@@ -100,6 +100,16 @@ Status: ✅ Working
 - Security: Fix Audit #12 — Chặn truy cập trái phép đơn hàng giữa các seller và khách vãng lai.
 - Performance: Fix Layout Shift bằng Skeletons trên trang tìm kiếm.
 - Deployment: Push code lên origin main (đã build test OK).
+
+### Session 04/05/2026 (Chiều) — Fix Product Detail Crash (DEPLOYED)
+```
+Vấn đề: Nhấp vào chi tiết sản phẩm bị lỗi "This page couldn't load" do dữ liệu hình ảnh từ API không đồng nhất (object vs string) gây crash Server Component.
+Đã làm:
+- Tạo src/utils/image.ts để xử lý hình ảnh an toàn.
+- Fix ProductDetail, ProductCard, ProductGallery, ProductStickyCTA để dùng helper mới.
+- Thêm safety checks cho Promise.all fetches và Date parsing.
+- Build test OK và push lên origin main.
+```
 ```
 
 ### Session 23/04/2026 — UI Audit & AI Enhancements
