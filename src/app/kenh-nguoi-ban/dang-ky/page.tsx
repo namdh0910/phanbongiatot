@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useSettings } from "@/context/SettingsContext";
+import { API_BASE_URL } from "@/utils/api";
 
 const PROVINCES = [
   "An Giang", "Bà Rịa - Vũng Tàu", "Bắc Giang", "Bắc Kạn", "Bạc Liêu", "Bắc Ninh", "Bến Tre", "Bình Định", "Bình Dương", "Bình Phước", "Bình Thuận", "Cà Mau", "Cần Thơ", "Cao Bằng", "Đà Nẵng", "Đắk Lắk", "Đắk Nông", "Điện Biên", "Đồng Nai", "Đồng Tháp", "Gia Lai", "Hà Giang", "Hà Nam", "Hà Nội", "Hà Tĩnh", "Hải Dương", "Hải Phòng", "Hậu Giang", "Hòa Bình", "Hưng Yên", "Khánh Hòa", "Kiên Giang", "Kon Tum", "Lai Châu", "Lâm Đồng", "Lạng Sơn", "Lào Cai", "Long An", "Nam Định", "Nghệ An", "Ninh Bình", "Ninh Thuận", "Phú Thọ", "Phú Yên", "Quảng Bình", "Quảng Nam", "Quảng Ngãi", "Quảng Ninh", "Quảng Trị", "Sóc Trăng", "Sơn La", "Tây Ninh", "Thái Bình", "Thái Nguyên", "Thanh Hóa", "Thừa Thiên Huế", "Tiền Giang", "TP Hồ Chí Minh", "Trà Vinh", "Tuyên Quang", "Vĩnh Long", "Vĩnh Phúc", "Yên Bái"
@@ -67,10 +68,18 @@ export default function VendorRegister() {
   };
 
   const nextStep = () => {
-    if (validateStep(step)) setStep(step + 1);
+    if (validateStep(step)) {
+      setStep(step + 1);
+      window.scrollTo(0, 0);
+    } else {
+      window.scrollTo({ top: 100, behavior: 'smooth' });
+    }
   };
 
-  const prevStep = () => setStep(step - 1);
+  const prevStep = () => {
+    setStep(step - 1);
+    window.scrollTo(0, 0);
+  };
 
   const toggleInterest = (item: string) => {
     const newInterests = formData.interests.includes(item)
@@ -84,6 +93,30 @@ export default function VendorRegister() {
       ? formData.channels.filter(i => i !== item)
       : [...formData.channels, item];
     setFormData({ ...formData, channels: newChannels });
+  };
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>, field: string) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    
+    setLoading(true);
+    const fd = new FormData();
+    fd.append("images", file);
+    
+    try {
+      const res = await fetch(`${API_BASE_URL}/upload`, {
+        method: "POST",
+        body: fd
+      });
+      if (res.ok) {
+        const { urls } = await res.json();
+        setFormData({ ...formData, [field]: urls[0] });
+      }
+    } catch (err) {
+      alert("Lỗi tải ảnh lên.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -299,17 +332,29 @@ export default function VendorRegister() {
                   <div>
                     <label className="block text-xs font-black text-gray-400 uppercase mb-3">Mặt trước CCCD/CMND *</label>
                     <div className="aspect-[1.6/1] border-2 border-dashed border-gray-200 rounded-2xl flex flex-col items-center justify-center bg-gray-50 hover:bg-gray-100 transition-all cursor-pointer relative overflow-hidden group">
-                      <span className="text-2xl mb-1 group-hover:scale-110 transition-transform">📸</span>
-                      <span className="text-[10px] font-bold text-gray-400">Bấm để tải ảnh</span>
-                      <input type="file" className="absolute inset-0 opacity-0 cursor-pointer" accept="image/*" />
+                      {formData.idCardFront ? (
+                        <img src={formData.idCardFront} className="w-full h-full object-cover" />
+                      ) : (
+                        <>
+                          <span className="text-2xl mb-1 group-hover:scale-110 transition-transform">📸</span>
+                          <span className="text-[10px] font-bold text-gray-400">Bấm để tải ảnh</span>
+                        </>
+                      )}
+                      <input type="file" className="absolute inset-0 opacity-0 cursor-pointer" accept="image/*" onChange={e => handleFileUpload(e, 'idCardFront')} />
                     </div>
                   </div>
                   <div>
                     <label className="block text-xs font-black text-gray-400 uppercase mb-3">Mặt sau CCCD/CMND *</label>
                     <div className="aspect-[1.6/1] border-2 border-dashed border-gray-200 rounded-2xl flex flex-col items-center justify-center bg-gray-50 hover:bg-gray-100 transition-all cursor-pointer relative overflow-hidden group">
-                      <span className="text-2xl mb-1 group-hover:scale-110 transition-transform">📸</span>
-                      <span className="text-[10px] font-bold text-gray-400">Bấm để tải ảnh</span>
-                      <input type="file" className="absolute inset-0 opacity-0 cursor-pointer" accept="image/*" />
+                      {formData.idCardBack ? (
+                        <img src={formData.idCardBack} className="w-full h-full object-cover" />
+                      ) : (
+                        <>
+                          <span className="text-2xl mb-1 group-hover:scale-110 transition-transform">📸</span>
+                          <span className="text-[10px] font-bold text-gray-400">Bấm để tải ảnh</span>
+                        </>
+                      )}
+                      <input type="file" className="absolute inset-0 opacity-0 cursor-pointer" accept="image/*" onChange={e => handleFileUpload(e, 'idCardBack')} />
                     </div>
                   </div>
                 </div>

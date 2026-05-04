@@ -124,6 +124,12 @@ export default function VendorProductList() {
                        <>
                          <button className="flex-1 bg-gray-50 text-gray-600 py-3 rounded-xl text-[10px] font-black uppercase tracking-tight hover:bg-gray-100 transition-colors">Sửa</button>
                          <button 
+                           onClick={() => router.push(`/kenh-nguoi-ban/san-pham/them-moi?duplicate=${p._id}`)}
+                           className="flex-1 bg-blue-50 text-blue-600 py-3 rounded-xl text-[10px] font-black uppercase tracking-tight hover:bg-blue-100 transition-colors"
+                         >
+                           Sao chép
+                         </button>
+                         <button 
                            onClick={() => handleStatusUpdate(p._id, 'hidden')}
                            className="flex-1 bg-gray-50 text-gray-500 py-3 rounded-xl text-[10px] font-black uppercase tracking-tight hover:bg-orange-50 hover:text-orange-600 transition-colors"
                          >
@@ -140,6 +146,12 @@ export default function VendorProductList() {
                     {p.status === 'hidden' && (
                        <>
                          <button className="flex-1 bg-gray-50 text-gray-600 py-3 rounded-xl text-[10px] font-black uppercase tracking-tight hover:bg-gray-100 transition-colors">Sửa</button>
+                         <button 
+                           onClick={() => router.push(`/kenh-nguoi-ban/san-pham/them-moi?duplicate=${p._id}`)}
+                           className="flex-1 bg-blue-50 text-blue-600 py-3 rounded-xl text-[10px] font-black uppercase tracking-tight hover:bg-blue-100 transition-colors"
+                         >
+                           Sao chép
+                         </button>
                          <button 
                            onClick={() => handleStatusUpdate(p._id, 'approved')}
                            className="flex-1 bg-emerald-50 text-emerald-600 py-3 rounded-xl text-[10px] font-black uppercase tracking-tight hover:bg-emerald-100 transition-colors"

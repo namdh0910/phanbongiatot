@@ -1,6 +1,6 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { API_BASE_URL, getAuthHeaders } from "@/utils/api";
 export default function VendorAddProduct() {
   const [step, setStep] = useState(1);
@@ -8,6 +8,8 @@ export default function VendorAddProduct() {
   const [uploading, setUploading] = useState(false);
   const [previewImages, setPreviewImages] = useState<string[]>([]);
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const duplicateId = searchParams.get("duplicate");
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [form, setForm] = useState({
@@ -40,7 +42,31 @@ export default function VendorAddProduct() {
         else setCategories(["Phân bón", "Kích rễ", "Tuyến trùng", "Thuốc BVTV"]);
       })
       .catch(() => setCategories(["Phân bón", "Kích rễ", "Tuyến trùng", "Thuốc BVTV"]));
-  }, []);
+
+    // If duplicate mode, fetch product data
+    if (duplicateId) {
+      fetch(`${API_BASE_URL}/products/${duplicateId}`)
+        .then(res => res.json())
+        .then(data => {
+          if (data) {
+            setForm({
+              name: `${data.name} (Bản sao)`,
+              category: data.category || "Phân bón",
+              brand: data.brand || "",
+              shortDescription: data.shortDescription || "",
+              description: data.description || "",
+              images: data.images || [],
+              originalPrice: data.originalPrice?.toString() || "",
+              price: data.price?.toString() || "",
+              stock: data.stock?.toString() || "100",
+              unit: data.unit || "chai"
+            });
+            setPreviewImages(data.images || []);
+          }
+        })
+        .catch(err => console.error("Error fetching product for duplication:", err));
+    }
+  }, [duplicateId]);
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files?.length) return;
