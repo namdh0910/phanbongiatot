@@ -46,7 +46,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       type: 'website',
       images: product.images?.[0] ? [
         {
-          url: product.images[0].startsWith('http') ? product.images[0] : `https://phanbongiatot.com${product.images[0]}`,
+          url: (typeof product.images?.[0] === 'string' && product.images[0].startsWith('http')) 
+            ? product.images[0] 
+            : `https://phanbongiatot.com${(typeof product.images?.[0] === 'string' && product.images[0].startsWith('/')) ? product.images[0] : '/og-image.png'}`,
           width: 1200,
           height: 630,
           alt: product.name,
@@ -64,6 +66,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function ProductDetail({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
+  console.log(`[DEBUG] Rendering ProductDetail for slug: ${slug}`);
   const product = await getProduct(slug);
 
   if (!product) return <div className="p-20 text-center">Sản phẩm không tồn tại</div>;
@@ -253,7 +256,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
           <div className="flex items-center gap-4 md:border-r md:pr-10">
             <div className={`relative w-20 h-20 rounded-full border ${product.seller?.role === 'admin' ? 'border-[#ee4d2d]' : 'border-gray-100'} overflow-hidden bg-gray-50 flex items-center justify-center p-1 shadow-sm`}>
               <img 
-                src={product.seller?.role === 'admin' ? "https://res.cloudinary.com/dztidbkhv/image/upload/v1715410000/logos/logo-pbgt-mall.png" : (product.seller?.vendorInfo?.logo || "https://img.icons8.com/bubbles/100/000000/shop.png")} 
+                src={product.seller?.role === 'admin' ? "https://img.icons8.com/bubbles/100/000000/administrator-male.png" : (product.seller?.vendorInfo?.logo || "https://img.icons8.com/bubbles/100/000000/shop.png")} 
                 className="w-full h-full object-cover rounded-full"
                 alt="Store Logo"
                 onError={(e) => {
@@ -291,7 +294,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
             </div>
             <div className="flex justify-between">
               <span className="text-gray-400">Tham Gia</span>
-              <span className="text-[#ee4d2d] font-medium">
+              <span className="text-[#ee4d2d] font-medium" suppressHydrationWarning>
                 {product.seller?.createdAt ? new Date(product.seller.createdAt).toLocaleDateString('vi-VN') : 'Mới'}
               </span>
             </div>

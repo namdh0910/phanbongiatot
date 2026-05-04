@@ -38,11 +38,12 @@ const seedData = async () => {
         originalPrice: 150000,
         description: 'Acti Rooti là chế phẩm kích rễ thế hệ mới, giúp bộ rễ phát triển cực mạnh, giải độc phèn, ngộ độc hữu cơ. Phù hợp cho sầu riêng, cà phê và cây ăn trái.',
         short_desc: 'Kích rễ cực mạnh, phục hồi bộ rễ sau thu hoạch.',
-        images: ['https://res.cloudinary.com/dztidbkhv/image/upload/v1714810000/products/acti-rooti.jpg'],
+        images: ['https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=80&w=800&auto=format&fit=crop'],
         stock: 500,
         soldCount: 0,
         seller: admin._id,
         status: 'approved',
+        approval_status: 'approved',
         benefits: ['Kích thích ra rễ tơ cực nhanh', 'Giải độc phèn, ngộ độc hữu cơ', 'Tăng khả năng hấp thụ phân bón'],
         usageInstructions: 'Pha 1L cho 400-600L nước tưới gốc hoặc 800L nước phun lá.',
         dosage: 'Sử dụng định kỳ 7-10 ngày/lần trong giai đoạn kiến thiết cơ bản hoặc sau thu hoạch.'
@@ -55,11 +56,12 @@ const seedData = async () => {
         originalPrice: 165000,
         description: 'Acti Flora cung cấp Amino Acid và vi lượng giúp cây ra hoa đồng loạt, tăng tỷ lệ đậu trái, chống rụng trái non sinh lý.',
         short_desc: 'Đậu trái cực mạnh, chống rụng trái non.',
-        images: ['https://res.cloudinary.com/dztidbkhv/image/upload/v1714810000/products/acti-flora.jpg'],
+        images: ['https://images.unsplash.com/photo-1592982537447-7440770cbfc9?q=80&w=800&auto=format&fit=crop'],
         stock: 300,
         soldCount: 0,
         seller: admin._id,
         status: 'approved',
+        approval_status: 'approved',
         benefits: ['Tăng tỷ lệ thụ phấn', 'Chống rụng bông và trái non', 'Trái lớn nhanh, bóng đẹp'],
         usageInstructions: 'Pha 500ml cho 400L nước phun đều tán lá.',
         dosage: 'Phun giai đoạn trước khi ra hoa và giai đoạn nuôi trái non.'
@@ -72,53 +74,20 @@ const seedData = async () => {
         originalPrice: 300000,
         description: 'Nemano tiêu diệt tuyến trùng gây hại rễ bằng cơ chế sinh học, bảo vệ bộ rễ khỏi nấm bệnh xâm nhập.',
         short_desc: 'Tiêu diệt tuyến trùng rễ, bảo vệ vườn cây.',
-        images: ['https://res.cloudinary.com/dztidbkhv/image/upload/v1714810000/products/nemano.jpg'],
+        images: ['https://images.unsplash.com/photo-1628352081506-83c43123ed6d?q=80&w=800&auto=format&fit=crop'],
         stock: 200,
         soldCount: 0,
         seller: admin._id,
         status: 'approved',
+        approval_status: 'approved',
         benefits: ['Diệt tuyến trùng tận gốc', 'Ngừa thối rễ, vàng lá', 'An toàn cho người và môi trường'],
         usageInstructions: 'Pha 1L cho 400L nước tưới đẫm vùng rễ cây.',
         dosage: 'Tưới phòng định kỳ 2-3 lần/năm hoặc khi cây có biểu hiện vàng lá thối rễ.'
-      },
-      {
-        name: 'Combo Phục Hồi Vườn 3 Bước Sau Thu Hoạch',
-        slug: 'combo-phuc-hoi-vuon-3-buoc',
-        category: 'Combo tiết kiệm',
-        price: 450000,
-        originalPrice: 520000,
-        description: 'Bộ combo gồm Acti Rooti + Nemano + Phân bón lá giúp phục hồi vườn cây suy kiệt sau mùa thu hoạch nặng nề.',
-        short_desc: 'Bộ 3 phục hồi, nuôi cây khỏe mạnh.',
-        images: ['https://res.cloudinary.com/dztidbkhv/image/upload/v1714810000/products/combo-phuc-hoi.jpg'],
-        stock: 100,
-        soldCount: 0,
-        seller: admin._id,
-        status: 'approved',
-        benefits: ['Cây xanh tốt trở lại nhanh chóng', 'Tẩy sạch nấm bệnh trong đất', 'Tiết kiệm chi phí 15%'],
-        usageInstructions: 'Sử dụng theo phác đồ hướng dẫn đi kèm bộ sản phẩm.',
-        dosage: 'Áp dụng ngay sau khi thu hoạch trái.'
-      },
-      {
-        name: 'Combo Siêu Đậu Trái & Dưỡng Trái Non',
-        slug: 'combo-sieu-dau-trai-duong-trai-non',
-        category: 'Combo tiết kiệm',
-        price: 280000,
-        originalPrice: 350000,
-        description: 'Bộ đôi Acti Flora và Bo-Canxi giúp bông sáng, đậu trái cực mạnh, chống nứt trái và rụng trái sinh lý.',
-        short_desc: 'Sáng bông, đậu trái, chống rụng.',
-        images: ['https://res.cloudinary.com/dztidbkhv/image/upload/v1714810000/products/combo-dau-trai.jpg'],
-        stock: 150,
-        soldCount: 0,
-        seller: admin._id,
-        status: 'approved',
-        benefits: ['Bông to, sáng, khỏe', 'Tăng tỷ lệ đậu trái 40%', 'Chống rụng trái non'],
-        usageInstructions: 'Phun định kỳ 10 ngày/lần giai đoạn hoa xổ nhụy và trái non.',
-        dosage: 'Dùng cho sầu riêng, cam, quýt, bưởi.'
       }
     ];
 
     await Product.insertMany(products);
-    console.log('Inserted 5 real products successfully!');
+    console.log('Inserted clean real products successfully!');
 
     process.exit();
   } catch (error) {
