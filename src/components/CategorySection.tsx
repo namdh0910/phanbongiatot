@@ -24,9 +24,8 @@ const categories = [
     bgColor: "#fff3e0", // Pastel orange
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="#ef6c00" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="m3 22 3-3" />
-        <path d="M9 18V5l4 2" />
-        <path d="M12 22a9 9 0 1 0-9-9" />
+        <path d="M12 20v-5M9 20v-8M15 20v-7M12 15c-3 0-6-2-6-5s3-5 6-5 6 2 6 5-3 5-6 5z" />
+        <path d="M12 5V3" />
       </svg>
     )
   },
@@ -49,8 +48,8 @@ const categories = [
     bgColor: "#e1f5fe", // Pastel blue
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="#0277bd" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-        <path d="M5 11h14v10H5z" />
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+        <path d="m9 12 2 2 4-4" />
       </svg>
     )
   },

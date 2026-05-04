@@ -288,9 +288,9 @@ export default function Header() {
           </div>
 
           {/* MOBILE TRENDING TAGS ROW */}
-          <div className="trending-mobile-wrapper bg-gray-50/50 py-2 px-4 relative overflow-hidden border-b border-gray-100">
+          <div className="trending-mobile-wrapper bg-white py-3 px-4 relative overflow-hidden">
             <div className="trending-mobile-scroll">
-              <span className="text-[9px] font-black text-gray-400 mr-1 flex-shrink-0">HOT:</span>
+              <span className="text-[10px] font-black text-[#1a5c2a] mr-2 flex-shrink-0 bg-green-50 px-2 py-0.5 rounded">HOT:</span>
               {trending.map((t, i) => (
                 <Link key={i} href={t.href} className="trending-chip">
                   {t.label}

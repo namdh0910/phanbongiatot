@@ -15,32 +15,31 @@ const brands = [
 
 const BrandMarquee: React.FC = () => {
   return (
-    <section className="brand-section">
-      <div className="brand-header">
-        <h2>Thương hiệu chính hãng chúng tôi phân phối</h2>
-      </div>
+    <section className="brand-section bg-gray-50/50 py-16">
+      <div className="brand-container max-w-7xl mx-auto px-4">
+        <div className="brand-header text-center mb-12">
+          <div className="inline-block px-4 py-1 rounded-full bg-green-50 text-[#1a5c2a] text-[10px] font-black uppercase tracking-widest mb-4">
+            Đối Tác Chiến Lược
+          </div>
+          <h2 className="text-2xl md:text-3xl font-black text-gray-900">Thương hiệu chính hãng phân phối</h2>
+          <div className="w-20 h-1.5 bg-[#f5a623] mx-auto mt-4 rounded-full"></div>
+        </div>
 
-      <div className="marquee-container">
-        <div className="marquee-track">
-          {/* Duplicate for seamless scrolling */}
-          {[...brands, ...brands].map((brand, index) => (
-            <div key={index} className="brand-logo">
-              <svg width="150" height="60" viewBox="0 0 150 60">
-                <text 
-                  x="50%" 
-                  y="50%" 
-                  dominantBaseline="middle" 
-                  textAnchor="middle" 
-                  fill="#333" 
-                  fontSize="14" 
-                  fontWeight="900"
-                  fontFamily="sans-serif"
-                >
+        <div className="marquee-container relative overflow-hidden py-8">
+          <div className="marquee-track flex items-center">
+            {/* Duplicate for seamless scrolling */}
+            {[...brands, ...brands, ...brands].map((brand, index) => (
+              <div key={index} className="brand-logo px-8 md:px-12 opacity-40 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 cursor-default">
+                <div className="text-xl md:text-2xl font-black text-gray-800 tracking-tighter whitespace-nowrap">
                   {brand}
-                </text>
-              </svg>
-            </div>
-          ))}
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          {/* Gradient Overlays */}
+          <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-gray-50/50 to-transparent z-10"></div>
+          <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-gray-50/50 to-transparent z-10"></div>
         </div>
       </div>
     </section>
