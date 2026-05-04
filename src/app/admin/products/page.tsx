@@ -204,10 +204,7 @@ export default function AdminProducts() {
   };
 
   return (
-    <AdminGuard>
-    <div className="flex min-h-screen bg-gray-50">
-      <AdminSidebar />
-      <div className="flex-1 p-8 ml-64">
+    <div className="space-y-6">
         <div className="flex justify-between items-center mb-8 bg-white p-6 rounded-xl shadow-sm border border-gray-200">
           <div className="flex items-center gap-4">
              <h1 className="text-xl font-bold text-gray-800">Sản phẩm</h1>
@@ -436,9 +433,6 @@ export default function AdminProducts() {
               </tbody>
             </table>
           </div>
-        </div>
-      </div>
     </div>
-    </AdminGuard>
   );
 }

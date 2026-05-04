@@ -65,7 +65,7 @@ body {
 
 /* Prose Headings Styling */
 .prose h1 {
-  font-size: clamp(1.5rem, 4vw, 2.25rem) !important;
+  font-size: clamp(1.25rem, 3.5vw, 2rem) !important;
   font-weight: 800 !important;
   color: #1a5c2a !important;
   margin-top: 1.5rem !important;
@@ -74,7 +74,7 @@ body {
 }
 
 .prose h2 {
-  font-size: clamp(1.25rem, 3.5vw, 1.875rem) !important;
+  font-size: clamp(1.1rem, 3vw, 1.5rem) !important;
   font-weight: 700 !important;
   color: #166534 !important; /* Green 800 */
   margin-top: 1.25rem !important;
