@@ -195,9 +195,7 @@ const createOrder = async (req, res) => {
     await sendTelegramMessage(adminMessage);
     await notifyOrderReceived(savedParentOrder);
 
-    // 5. Trigger Notification for Sellers
-    const { notifyNewOrder } = require('../utils/notificationService');
-    notifyNewOrder(savedParentOrder).catch(err => console.error('Noti error:', err));
+    // Notification already fired via notifyOrderReceived above
 
     res.status(201).json({
       success: true,

@@ -86,10 +86,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
              </div>
              <span className="text-[10px] font-bold text-emerald-700 group-hover/shop:underline truncate max-w-[120px]">
                {product.seller.role === 'admin' 
-                 ? 'Phân Bón Giá Tốt' 
+                 ? '🏅 Phân Bón Giá Tốt' 
                  : (product.seller.vendorInfo?.storeName && product.seller.vendorInfo.storeName !== 'nam' 
-                    ? `Đối tác: ${product.seller.vendorInfo.storeName}` 
-                    : 'Đối tác: Hệ thống')}
+                    ? `🏪 ${product.seller.vendorInfo.storeName}` 
+                    : '✅ Đại lý chính hãng')}
              </span>
              {product.seller.role === 'admin' && (
                <span className="text-[8px] bg-[#1a5c2a] text-white px-1 rounded font-black uppercase tracking-tighter">Mall</span>

@@ -41,7 +41,23 @@ const Hero: React.FC = () => {
           {subtitle}
         </p>
 
-        {/* Buttons removed per user request to make banner look better */}
+        {/* Hero CTAs */}
+        <div className="hero-actions">
+          <Link
+            href="/danh-muc/phan-bon"
+            className="hero-btn hero-btn-primary"
+          >
+            🛒 Mua ngay
+          </Link>
+          <a
+            href={`https://zalo.me/${process.env.NEXT_PUBLIC_ZALO_PHONE ?? '0773440966'}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hero-btn hero-btn-secondary"
+          >
+            💬 Tư vấn miễn phí
+          </a>
+        </div>
       </div>
     </section>
   );
