@@ -169,7 +169,7 @@ export default function AdminFlashSales() {
                         Giá Sale (VNĐ) — <span className="text-red-500 normal-case">phải &gt; 0 và &lt; giá gốc</span>
                       </label>
                       <input
-                        type="number" required min={1}
+                        type="number" required min={1000}
                         className="w-full border-2 border-gray-100 rounded-xl px-4 py-2 text-sm font-bold"
                         value={formData.salePrice || ''}
                         placeholder="VD: 200000"

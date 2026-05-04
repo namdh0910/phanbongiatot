@@ -79,9 +79,9 @@ const FlashSale: React.FC = () => {
         </div>
 
         <div className="flash-sale-grid">
-          {sales.map(sale => {
+          {sales.filter(s => s.salePrice > 0).map(sale => {
             const product = sale.product;
-            if (!product || !product.originalPrice) return null;
+            if (!product) return null;
             
             const discount = Math.round((1 - sale.salePrice / product.originalPrice) * 100);
             return (
@@ -89,11 +89,11 @@ const FlashSale: React.FC = () => {
                 <div className="discount-badge">-{discount}%</div>
                 <div className="sale-image">
                   <img 
-                    src={product.images?.[0] || "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=80&w=800&auto=format&fit=crop"} 
+                    src={product.images?.[0] || "/og-image.png"} 
                     alt={product.name} 
                     className="w-full h-full object-cover"
                     onError={(e) => {
-                      (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=80&w=800&auto=format&fit=crop";
+                      (e.target as HTMLImageElement).src = "/og-image.png";
                     }}
                   />
                 </div>

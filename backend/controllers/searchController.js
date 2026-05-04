@@ -1,6 +1,24 @@
 const Product = require('../models/Product');
 const Blog = require('../models/Blog');
 
+const makeAccentInsensitiveRegex = (str) => {
+  const map = {
+    'a': '[aàáảãạăằắẳẵặâầấẩẫậ]',
+    'e': '[eèéẻẽẹêềếểễệ]',
+    'i': '[iìíỉĩị]',
+    'o': '[oòóỏõọôồốổỗộơờớởỡợ]',
+    'u': '[uùúủũụưừứửữự]',
+    'y': '[yỳýỷỹỵ]',
+    'd': '[dđ]'
+  };
+  
+  let regexStr = '';
+  for (let char of str.toLowerCase()) {
+    regexStr += map[char] || char;
+  }
+  return new RegExp(regexStr, 'i');
+};
+
 // @desc    Search products and blogs
 // @route   GET /api/search
 // @access  Public
@@ -12,7 +30,7 @@ const searchAll = async (req, res) => {
       return res.json({ products: [], blogs: [] });
     }
 
-    const searchRegex = new RegExp(q, 'i');
+    const searchRegex = makeAccentInsensitiveRegex(q);
 
     // Search Products
     const products = await Product.find({
