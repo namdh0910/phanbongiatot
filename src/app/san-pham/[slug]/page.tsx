@@ -328,7 +328,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
                 
                 <ProductTabs hasTechnical={!!(product.usageInstructions?.trim() || product.dosage?.trim())} />
 
-                <div className="p-4 md:p-6 space-y-8">
+                <div className="p-3 md:p-6 space-y-8">
 
                    {/* Main Description */}
                    <div className="relative space-y-6">
@@ -342,9 +342,9 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
                         <div className="h-px bg-gray-100 flex-1"></div>
                       </div>
 
-                      <div className="bg-white/50 rounded-3xl border border-gray-50 p-1">
+                      <div className="bg-white/50 rounded-3xl border border-gray-50 p-0">
                         <div 
-                          className="text-gray-700 text-[15px] md:text-base leading-relaxed prose prose-emerald max-w-none prose-p:my-4 prose-headings:mb-6 prose-headings:mt-10 prose-strong:text-[#1a5c2a] prose-strong:bg-orange-50/50 prose-img:mx-auto"
+                          className="text-gray-700 text-[15px] md:text-base leading-relaxed prose prose-emerald max-w-none prose-p:my-4 prose-headings:mb-6 prose-headings:mt-10 prose-strong:text-[#1a5c2a] prose-strong:bg-orange-50/50 prose-img:mx-auto px-1 md:px-0"
                           dangerouslySetInnerHTML={{ 
                             __html: product.description?.includes('<') 
                               ? product.description 
