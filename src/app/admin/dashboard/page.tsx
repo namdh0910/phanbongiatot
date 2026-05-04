@@ -137,24 +137,28 @@ export default function DashboardPage() {
           <div className="space-y-8 flex-1">
             <div className="flex justify-between items-end border-b border-gray-700 pb-4">
               <div>
-                <p className="text-[10px] font-black text-gray-500 uppercase">Tổng doanh thu</p>
-                <h4 className="text-3xl font-black italic">₫{(stats.month?.revenue || 125000000).toLocaleString()}</h4>
+                <p className="text-[10px] font-black text-gray-500 uppercase">Tổng doanh thu tháng</p>
+                <h4 className="text-3xl font-black italic">₫{(stats.month?.revenue || 0).toLocaleString()}</h4>
               </div>
               <span className="text-xs text-green-400 font-bold">+12% ↑</span>
             </div>
             <div className="flex justify-between items-end border-b border-gray-700 pb-4">
               <div>
-                <p className="text-[10px] font-black text-gray-500 uppercase">Tổng đơn hàng</p>
-                <h4 className="text-3xl font-black italic">{stats.month?.newOrders || 340}</h4>
+                <p className="text-[10px] font-black text-gray-500 uppercase">Tổng đơn tháng</p>
+                <h4 className="text-3xl font-black italic">{stats.month?.newOrders || 0}</h4>
               </div>
               <span className="text-xs text-green-400 font-bold">+5% ↑</span>
             </div>
             <div className="flex justify-between items-end">
               <div>
                 <p className="text-[10px] font-black text-gray-500 uppercase">Giá trị TB đơn</p>
-                <h4 className="text-3xl font-black italic">₫368.000</h4>
+                <h4 className="text-3xl font-black italic">
+                  ₫{stats.month?.newOrders > 0 
+                    ? Math.round(stats.month.revenue / stats.month.newOrders).toLocaleString() 
+                    : '0'}
+                </h4>
               </div>
-              <span className="text-xs text-red-400 font-bold">-2% ↓</span>
+              <span className="text-xs text-gray-400 font-bold">~</span>
             </div>
           </div>
           <Link href="/admin/analytics" className="mt-8 w-full py-4 bg-green-500 hover:bg-green-600 text-white text-center rounded-2xl font-black text-xs uppercase tracking-widest transition-all">
@@ -171,10 +175,16 @@ export default function DashboardPage() {
              <span className="w-2 h-2 bg-red-500 rounded-full animate-ping"></span>
           </div>
           <div className="space-y-4">
-            <NotificationItem icon="🚨" text="Có 5 đơn hàng chưa xác nhận quá 2 giờ" time="10 phút trước" urgent />
-            <NotificationItem icon="💬" text="Bạn có 3 yêu cầu hỗ trợ mới từ khách hàng" time="25 phút trước" />
-            <NotificationItem icon="⭐" text="Có đánh giá 1 sao mới cho sản phẩm Sầu Riêng" time="1 giờ trước" urgent />
-            <NotificationItem icon="📝" text="Sản phẩm 'Phân bón lá Acti-Root' vừa hết hàng" time="3 giờ trước" />
+            {stats.notifications?.unconfirmedLong > 0 && (
+              <NotificationItem 
+                icon="🚨" 
+                text={`Có ${stats.notifications.unconfirmedLong} đơn hàng chưa xác nhận quá 2 giờ`} 
+                time="Ngay bây giờ" 
+                urgent 
+              />
+            )}
+            <NotificationItem icon="💬" text="Bạn có 3 yêu cầu hỗ trợ mới từ khách hàng" time="Mô phỏng" />
+            <NotificationItem icon="⭐" text="Có đánh giá 1 sao mới cho sản phẩm Sầu Riêng" time="Mô phỏng" urgent />
           </div>
         </div>
 
@@ -184,15 +194,23 @@ export default function DashboardPage() {
              <Link href="/admin/products" className="text-[10px] font-black text-green-600 hover:underline">Xem kho →</Link>
           </div>
           <div className="grid grid-cols-2 gap-4">
-            {[1, 2, 3, 4].map(i => (
-              <div key={i} className="flex items-center gap-3 p-3 bg-gray-50 rounded-2xl border border-gray-100">
-                 <div className="w-10 h-10 bg-gray-200 rounded-lg flex-shrink-0"></div>
-                 <div className="flex-1 min-w-0">
-                    <p className="text-[11px] font-bold text-gray-800 truncate">Sản phẩm #{i}</p>
-                    <p className="text-[10px] font-black text-red-500">Còn 2 SP</p>
-                 </div>
+            {stats.products?.lowStock?.length > 0 ? (
+              stats.products.lowStock.map((p: any) => (
+                <div key={p._id} className="flex items-center gap-3 p-3 bg-gray-50 rounded-2xl border border-gray-100">
+                   <div className="w-10 h-10 bg-gray-200 rounded-lg flex-shrink-0 overflow-hidden">
+                     {p.images?.[0] && <img src={p.images[0]} className="w-full h-full object-cover" />}
+                   </div>
+                   <div className="flex-1 min-w-0">
+                      <p className="text-[11px] font-bold text-gray-800 truncate">{p.name}</p>
+                      <p className="text-[10px] font-black text-red-500">Còn {p.stock} SP</p>
+                   </div>
+                </div>
+              ))
+            ) : (
+              <div className="col-span-2 py-10 text-center text-gray-400 text-xs font-bold uppercase tracking-widest">
+                Kho hàng đang ở trạng thái an toàn ✅
               </div>
-            ))}
+            )}
           </div>
         </div>
       </div>

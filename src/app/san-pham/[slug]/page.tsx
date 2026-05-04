@@ -5,6 +5,7 @@ import ProductGallery from "@/components/ProductGallery";
 import ProductActions from "@/components/ProductActions";
 import ProductReviews from "@/components/ProductReviews";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import ProductStickyCTA from "@/components/ProductStickyCTA";
 
 const CATEGORY_SLUG_MAP: Record<string, string> = {
   "Phân bón": "phan-bon",
@@ -127,6 +128,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
       />
       <div className="container mx-auto px-0 md:px-4 py-4 max-w-6xl">
         <Breadcrumbs items={[{ label: product.category, href: `/danh-muc/${catSlug}` }, { label: product.name }]} />
+        <ProductStickyCTA product={product} />
 
         {/* Product Card */}
         <div className="bg-white md:rounded-sm shadow-sm flex flex-col md:flex-row mb-6 overflow-hidden">

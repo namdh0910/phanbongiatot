@@ -20,6 +20,20 @@ const protect = async (req, res, next) => {
   }
   return res.status(401).json({ message: 'No token' });
 };
+const optionalProtect = async (req, res, next) => {
+  let token;
+  if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+    try {
+      token = req.headers.authorization.split(' ')[1];
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const userId = decoded.sub || decoded.id;
+      req.user = await User.findById(userId).select('-password');
+    } catch (error) {
+      // Just continue without user
+    }
+  }
+  next();
+};
 
 const admin = (req, res, next) => {
   if (req.user && (req.user.role === 'admin' || req.user.role === 'super_admin')) {
@@ -74,4 +88,4 @@ const checkOwnership = (modelName, ownerField = 'seller') => {
   };
 };
 
-module.exports = { protect, admin, vendor, superAdmin, checkOwnership };
+module.exports = { protect, optionalProtect, admin, vendor, superAdmin, checkOwnership };

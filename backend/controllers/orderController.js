@@ -257,21 +257,46 @@ const trackOrder = async (req, res) => {
 
 // @desc    Get order by ID or Code
 // @route   GET /api/orders/:idOrCode
-// @access  Public
+// @desc    Get order by ID or Code
+// @route   GET /api/orders/:idOrCode
+// @access  Public (Limited) / Private (Full)
 const getOrderByIdOrCode = async (req, res) => {
   try {
     const { idOrCode } = req.params;
-    
-    // Check if it looks like an order code or MongoDB ObjectId
     const query = idOrCode.startsWith('PBG-') ? { orderCode: idOrCode } : { _id: idOrCode };
     
     const order = await Order.findOne(query);
 
-    if (order) {
-      res.json(order);
-    } else {
-      res.status(404).json({ message: 'Không tìm thấy đơn hàng' });
+    if (!order) {
+      return res.status(404).json({ message: 'Không tìm thấy đơn hàng' });
     }
+
+    // AUTH CHECK
+    const user = req.user;
+    const isAdmin = user && (user.role === 'admin' || user.role === 'super_admin');
+    const isSellerOwner = user && order.seller && order.seller.toString() === user._id.toString();
+    const isCustomerOwner = user && order.user && order.user.toString() === user._id.toString();
+
+    // If authenticated as Admin or Owner, return full data
+    if (isAdmin || isSellerOwner || isCustomerOwner) {
+      return res.json(order);
+    }
+
+    // If public or unauthorized seller/user, return only LIMITED data
+    // (To support "Order Success" page without full data leak)
+    return res.json({
+      orderCode: order.orderCode,
+      totalPrice: order.totalPrice,
+      orderStatus: order.orderStatus,
+      paymentMethod: order.paymentMethod,
+      createdAt: order.createdAt,
+      isParent: order.isParent,
+      customerInfo: {
+        name: order.customerInfo?.name ? `${order.customerInfo.name.substring(0, 2)}***` : '***',
+        phone: order.customerInfo?.phone ? `*******${order.customerInfo.phone.slice(-3)}` : '***'
+      }
+    });
+
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

@@ -12,7 +12,7 @@ export default function Header() {
   const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [suggestions, setSuggestions] = useState<any[]>([]);
+  const [suggestions, setSuggestions] = useState<{ products: any[], blogs: any[] }>({ products: [], blogs: [] });
   const [showSuggestions, setShowSuggestions] = useState(false);
   const { cartCount } = useCart();
   const settings = useSettings();
@@ -22,7 +22,7 @@ export default function Header() {
       if (searchQuery.trim().length >= 2) {
         fetchSuggestions();
       } else {
-        setSuggestions([]);
+        setSuggestions({ products: [], blogs: [] });
       }
     }, 300);
 
@@ -31,17 +31,14 @@ export default function Header() {
 
   const fetchSuggestions = async () => {
     try {
-      const res = await fetch(`${API_BASE_URL}/products?limit=100`);
+      const res = await fetch(`${API_BASE_URL}/search?q=${encodeURIComponent(searchQuery.trim())}`);
       if (res.ok) {
         const data = await res.json();
-        const all = Array.isArray(data) ? data : data.products || [];
-        const q = searchQuery.toLowerCase();
-        const filtered = all.filter((p: any) => 
-          p.name.toLowerCase().includes(q) || 
-          (p.category && p.category.toLowerCase().includes(q))
-        ).slice(0, 6);
-        setSuggestions(filtered);
-        setShowSuggestions(filtered.length > 0);
+        setSuggestions({
+          products: (data.products || []).slice(0, 5),
+          blogs: (data.blogs || []).slice(0, 3)
+        });
+        setShowSuggestions((data.products?.length > 0) || (data.blogs?.length > 0));
       }
     } catch (e) {
       console.error(e);
@@ -125,35 +122,58 @@ export default function Header() {
                  🔍
                </button>
 
-               {/* Suggestions Dropdown */}
-               {showSuggestions && suggestions.length > 0 && (
-                 <div className="absolute top-full left-0 w-full bg-white shadow-2xl rounded-2xl mt-2 py-3 z-[150] border border-gray-100 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
-                    <div className="px-5 pb-2 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-50 mb-2">Gợi ý sản phẩm</div>
-                    {suggestions.map((p) => (
-                      <Link 
-                        key={p._id} 
-                        href={`/san-pham/${p.slug}`}
-                        className="flex items-center gap-4 px-5 py-2.5 hover:bg-green-50 transition-colors group"
-                        onClick={() => setShowSuggestions(false)}
-                      >
-                         <div className="w-12 h-12 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
-                            <img src={p.images[0]} alt={p.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform" />
-                         </div>
-                         <div className="flex-1 min-w-0">
-                            <h4 className="text-sm font-bold text-gray-900 truncate group-hover:text-[#1a5c2a]">{p.name}</h4>
-                            <p className="text-[#ee4d2d] font-black text-xs">{p.price.toLocaleString('vi-VN')}đ</p>
-                         </div>
-                         <span className="text-gray-300 group-hover:text-[#1a5c2a] transition-colors">➜</span>
-                      </Link>
-                    ))}
-                    <button 
-                      onClick={handleSearch}
-                      className="w-full text-center py-2.5 text-xs font-bold text-gray-500 hover:text-[#1a5c2a] hover:bg-gray-50 transition-all border-t border-gray-50 mt-1"
-                    >
-                      Xem tất cả kết quả cho "{searchQuery}"
-                    </button>
-                 </div>
-               )}
+                {/* Suggestions Dropdown */}
+                {showSuggestions && (suggestions.products.length > 0 || suggestions.blogs.length > 0) && (
+                  <div className="absolute top-full left-0 w-full bg-white shadow-2xl rounded-2xl mt-2 py-3 z-[150] border border-gray-100 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
+                     {/* Products Section */}
+                     {suggestions.products.length > 0 && (
+                       <>
+                         <div className="px-5 pb-2 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-50 mb-2">Sản phẩm gợi ý</div>
+                         {suggestions.products.map((p) => (
+                           <Link 
+                             key={p._id} 
+                             href={`/san-pham/${p.slug}`}
+                             className="flex items-center gap-4 px-5 py-2 hover:bg-green-50 transition-colors group"
+                             onClick={() => setShowSuggestions(false)}
+                           >
+                              <div className="w-10 h-10 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
+                                 <img src={p.images[0]} alt={p.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform" />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                 <h4 className="text-sm font-bold text-gray-900 truncate group-hover:text-[#1a5c2a]">{p.name}</h4>
+                                 <p className="text-[#ee4d2d] font-black text-xs">{p.price.toLocaleString('vi-VN')}đ</p>
+                              </div>
+                           </Link>
+                         ))}
+                       </>
+                     )}
+
+                     {/* Blogs Section */}
+                     {suggestions.blogs.length > 0 && (
+                       <div className={`${suggestions.products.length > 0 ? 'mt-4 pt-2 border-t border-gray-50' : ''}`}>
+                         <div className="px-5 pb-2 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-50 mb-2">Kiến thức nông nghiệp</div>
+                         {suggestions.blogs.map((b) => (
+                           <Link 
+                             key={b._id} 
+                             href={`/blog/${b.slug}`}
+                             className="flex items-center gap-4 px-5 py-2 hover:bg-green-50 transition-colors group"
+                             onClick={() => setShowSuggestions(false)}
+                           >
+                              <div className="w-5 h-5 bg-blue-50 text-blue-500 rounded flex items-center justify-center text-[10px] flex-shrink-0">📖</div>
+                              <h4 className="text-xs font-bold text-gray-700 truncate group-hover:text-[#1a5c2a]">{b.title}</h4>
+                           </Link>
+                         ))}
+                       </div>
+                     )}
+
+                     <button 
+                       onClick={handleSearch}
+                       className="w-full text-center py-2.5 text-xs font-bold text-gray-500 hover:text-[#1a5c2a] hover:bg-gray-50 transition-all border-t border-gray-50 mt-1"
+                     >
+                       Xem tất cả cho "{searchQuery}"
+                     </button>
+                  </div>
+                )}
             </form>
 
             <a href={`tel:${hotline.replace(/\./g, '')}`} className="flex-shrink-0 flex items-center gap-3 bg-white border-2 border-[#1a5c2a] px-5 py-2 rounded-full hover:bg-green-50 transition-all shadow-sm group">
@@ -243,9 +263,9 @@ export default function Header() {
                </button>
 
                {/* Mobile Suggestions */}
-               {showSuggestions && suggestions.length > 0 && (
+               {showSuggestions && (suggestions.products.length > 0 || suggestions.blogs.length > 0) && (
                  <div className="absolute top-full left-0 w-screen -ml-12 bg-white shadow-2xl mt-2 py-2 z-[150] border-t border-gray-100 max-h-[60vh] overflow-y-auto">
-                    {suggestions.map((p) => (
+                    {suggestions.products.map((p) => (
                       <Link 
                         key={p._id} 
                         href={`/san-pham/${p.slug}`}
@@ -257,6 +277,17 @@ export default function Header() {
                             <h4 className="text-[13px] font-bold text-gray-900 truncate">{p.name}</h4>
                             <p className="text-[#ee4d2d] font-black text-[11px]">{p.price.toLocaleString('vi-VN')}đ</p>
                          </div>
+                      </Link>
+                    ))}
+                    {suggestions.blogs.map((b) => (
+                      <Link 
+                        key={b._id} 
+                        href={`/blog/${b.slug}`}
+                        className="flex items-center gap-3 px-4 py-3 border-b border-gray-50"
+                        onClick={() => setShowSuggestions(false)}
+                      >
+                         <div className="w-8 h-8 bg-blue-50 rounded flex items-center justify-center text-xs flex-shrink-0">📖</div>
+                         <h4 className="text-[13px] font-bold text-gray-800 truncate">{b.title}</h4>
                       </Link>
                     ))}
                     <button 

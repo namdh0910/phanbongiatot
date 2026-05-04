@@ -47,9 +47,23 @@ function SearchResults() {
 
   if (loading) {
     return (
-      <div className="flex flex-col justify-center items-center py-32 gap-4">
-        <div className="w-12 h-12 border-4 border-green-200 border-t-green-600 rounded-full animate-spin"></div>
-        <p className="text-gray-500 font-bold animate-pulse">Đang tìm kiếm giải pháp cho bà con...</p>
+      <div className="bg-[#f8fafc] min-h-screen">
+        <div className="bg-white border-b border-gray-100 py-12 mb-8 animate-pulse">
+          <div className="container mx-auto px-4">
+            <div className="h-10 w-3/4 bg-gray-100 rounded-lg mb-2"></div>
+            <div className="h-5 w-1/2 bg-gray-50 rounded-lg"></div>
+          </div>
+        </div>
+        <div className="container mx-auto px-4 pb-20 space-y-16">
+          <section>
+            <div className="h-8 w-48 bg-gray-200 rounded-full mb-8 animate-pulse"></div>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
+              {[1, 2, 3, 4, 5].map(i => (
+                <div key={i} className="bg-white rounded-3xl h-64 animate-pulse border border-gray-50"></div>
+              ))}
+            </div>
+          </section>
+        </div>
       </div>
     );
   }

@@ -138,12 +138,36 @@ export default function CheckoutPage() {
   const [provinces, setProvinces] = useState<any[]>([]);
   const [districts, setDistricts] = useState<any[]>([]);
   const [wards, setWards] = useState<any[]>([]);
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+  const [upsellProducts, setUpsellProducts] = useState<any[]>([]);
 
   useEffect(() => {
     fetch('https://provinces.open-api.vn/api/?p=')
       .then(res => res.json())
       .then(data => setProvinces(data));
+    
+    // Fetch upsell products (best sellers)
+    fetch(`${API_BASE_URL}/products?limit=4`)
+      .then(res => res.json())
+      .then(data => {
+        if (Array.isArray(data)) setUpsellProducts(data);
+        else if (data.products) setUpsellProducts(data.products);
+      })
+      .catch(() => {});
   }, []);
+
+  const validatePhone = (phone: string) => {
+    const cleanPhone = phone.replace(/\s/g, '');
+    const phoneRegex = /^(03|05|07|08|09)\d{8}$/;
+    if (!cleanPhone) return 'Số điện thoại không được để trống';
+    if (!phoneRegex.test(cleanPhone)) return 'SĐT không hợp lệ (cần 10 số, đầu 03,05,07,08,09)';
+    return '';
+  };
+
+  const handlePhoneBlur = () => {
+    const error = validatePhone(customer.phone);
+    setFieldErrors(prev => ({ ...prev, phone: error }));
+  };
 
   const handleProvinceChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
     const provinceCode = e.target.selectedOptions[0].getAttribute('data-code');
@@ -169,6 +193,8 @@ export default function CheckoutPage() {
       setWards(data.wards || []);
     }
   };
+
+  const { addToCart } = useCart();
 
   if (cart.length === 0) {
     return (
@@ -217,7 +243,16 @@ export default function CheckoutPage() {
                 </div>
                 <div>
                   <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2 ml-1">Số điện thoại liên hệ</label>
-                  <input type="tel" required value={customer.phone} onChange={e => setCustomer({...customer, phone: e.target.value})} className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-4 text-gray-900 focus:bg-white focus:ring-4 focus:ring-emerald-50 focus:border-[#1a5c2a] outline-none transition-all font-black tracking-widest" placeholder="0xxx xxx xxx" />
+                  <input 
+                    type="tel" 
+                    required 
+                    value={customer.phone} 
+                    onChange={e => setCustomer({...customer, phone: e.target.value})} 
+                    onBlur={handlePhoneBlur}
+                    className={`w-full bg-gray-50 border ${fieldErrors.phone ? 'border-red-400' : 'border-gray-100'} rounded-2xl px-6 py-4 text-gray-900 focus:bg-white focus:ring-4 focus:ring-emerald-50 focus:border-[#1a5c2a] outline-none transition-all font-black tracking-widest`} 
+                    placeholder="0xxx xxx xxx" 
+                  />
+                  {fieldErrors.phone && <p className="text-red-500 text-[10px] font-bold mt-1 ml-1">{fieldErrors.phone}</p>}
                 </div>
               </div>
 
@@ -316,6 +351,13 @@ export default function CheckoutPage() {
           <div className="lg:w-[24rem] flex-shrink-0">
             <div className="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-gray-200/50 sticky top-10 border border-gray-100">
               <h2 className="text-2xl font-black text-gray-800 mb-8 tracking-tight">Tóm tắt đơn hàng</h2>
+
+              {shippingFee > 0 && (
+                <div className="bg-amber-50 border border-amber-100 p-4 rounded-2xl mb-8">
+                  <p className="text-[10px] font-black text-amber-600 uppercase tracking-widest mb-1">💡 Bí quyết tiết kiệm</p>
+                  <p className="text-xs font-bold text-gray-700">Mua thêm <span className="text-[#ee4d2d]">₫{(250000 - cartTotal).toLocaleString()}</span> để được <span className="text-emerald-600">MIỄN PHÍ VẬN CHUYỂN</span></p>
+                </div>
+              )}
               
               {/* Split by Shop */}
               <div className="space-y-8 mb-8 max-h-[40vh] overflow-y-auto pr-2 custom-scrollbar">
@@ -343,6 +385,33 @@ export default function CheckoutPage() {
                   </div>
                 ))}
               </div>
+
+              {/* Upsell / Suggested Products */}
+              {upsellProducts.length > 0 && (
+                <div className="mt-8 pt-8 border-t border-gray-100">
+                  <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-4">⚡ Có thể bà con sẽ cần</p>
+                  <div className="space-y-3">
+                    {upsellProducts.slice(0, 3).map(p => (
+                      <div key={p._id} className="flex items-center gap-3 p-2 bg-gray-50 rounded-2xl border border-gray-100 group">
+                        <div className="w-10 h-10 rounded-lg overflow-hidden bg-white flex-shrink-0">
+                          <img src={p.images?.[0]} className="w-full h-full object-cover" alt="" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-[10px] font-bold text-gray-800 truncate">{p.name}</p>
+                          <p className="text-[10px] font-black text-[#ee4d2d]">₫{p.price?.toLocaleString()}</p>
+                        </div>
+                        <button 
+                          type="button"
+                          onClick={() => addToCart(p, 1)}
+                          className="w-8 h-8 bg-white border border-gray-100 rounded-full flex items-center justify-center text-xs text-emerald-600 hover:bg-emerald-600 hover:text-white transition-all shadow-sm"
+                        >
+                          +
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               {/* Totals */}
               <div className="space-y-4 pt-8 border-t border-gray-100">
