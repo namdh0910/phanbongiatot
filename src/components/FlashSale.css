@@ -1,6 +1,6 @@
 /* FlashSale.css */
 .flash-sale-section {
-  background: linear-gradient(135deg, #ff5722 0%, #f44336 100%);
+  background: linear-gradient(135deg, #0f3d1b 0%, #1a5c2a 100%);
   padding: 4rem 1rem;
   color: white;
   font-family: 'Inter', sans-serif;
@@ -108,8 +108,8 @@
   position: absolute;
   top: 10px;
   left: 10px;
-  background: #ff5722;
-  color: white;
+  background: #f5a623;
+  color: #1a3a0a;
   padding: 0.25rem 0.75rem;
   border-radius: 20px;
   font-weight: 900;
@@ -161,7 +161,7 @@
 .price-current {
   font-size: 1.25rem;
   font-weight: 900;
-  color: #f44336;
+  color: #1a5c2a;
   margin-right: 0.5rem;
 }
 
@@ -172,7 +172,7 @@
 }
 
 .buy-btn {
-  background: #f44336;
+  background: #1a5c2a;
   color: white;
   border: none;
   padding: 0.75rem;
@@ -185,7 +185,7 @@
 }
 
 .buy-btn:hover {
-  background: #d32f2f;
+  background: #0f3d1b;
 }
 
 @media (max-width: 1024px) {
@@ -197,7 +197,7 @@
 @media (max-width: 768px) {
   .flash-sale-section {
     padding: 24px 0 !important; /* Full width scroll */
-    background: linear-gradient(135deg, #ee4d2d 0%, #ff7337 100%);
+    background: linear-gradient(135deg, #0f3d1b 0%, #1a5c2a 100%);
   }
 
   .flash-sale-container {
