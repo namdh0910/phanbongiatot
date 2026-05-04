@@ -249,7 +249,7 @@ export default function AdminProducts() {
                            theme="snow" 
                            value={form.description} 
                            onChange={val => setForm(f => ({ ...f, description: val }))}
-                           className="h-80 mb-12"
+                           className="min-h-[400px] mb-12"
                            modules={{
                              toolbar: [
                                [{ 'header': '1'}, { 'header': '2'}, { 'header': '3'}, { 'font': [] }],
@@ -262,6 +262,16 @@ export default function AdminProducts() {
                              ],
                            }}
                          />
+                       </div>
+                     </div>
+                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-gray-100">
+                       <div>
+                         <label className="block text-sm font-bold text-gray-700 mb-2">Cách sử dụng (Hướng dẫn chuẩn)</label>
+                         <textarea value={form.usageInstructions} onChange={e => setForm(f => ({ ...f, usageInstructions: e.target.value }))} className="w-full border border-gray-300 rounded px-4 py-2 focus:ring-1 focus:ring-[#2271b1] focus:border-[#2271b1] outline-none text-sm min-h-[120px] resize-y" placeholder="VD:&#10;• Tưới gốc: Pha 1L cho 400-600L nước.&#10;• Phun lá: Pha 1L cho 800L nước." />
+                       </div>
+                       <div>
+                         <label className="block text-sm font-bold text-gray-700 mb-2">Liều lượng & Thời điểm</label>
+                         <textarea value={form.dosage} onChange={e => setForm(f => ({ ...f, dosage: e.target.value }))} className="w-full border border-gray-300 rounded px-4 py-2 focus:ring-1 focus:ring-[#2271b1] focus:border-[#2271b1] outline-none text-sm min-h-[120px] resize-y" placeholder="VD:&#10;• Giai đoạn cây con: Giúp bộ rễ phát triển mạnh.&#10;• Giai đoạn sau thu hoạch: Phục hồi cây nhanh chóng." />
                        </div>
                      </div>
                   </div>
