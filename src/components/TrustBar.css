@@ -64,35 +64,44 @@
 
 @media (max-width: 768px) {
   .trust-bar {
-    padding: 10px 0 !important;
-    background: transparent !important;
-    border-bottom: none !important;
+    padding: 8px 0 !important;
+    background: #f8fafc !important;
+    border-bottom: 1px solid #f1f5f9 !important;
   }
 
   .trust-main {
-    display: grid !important;
-    grid-template-columns: 1fr 1fr !important;
+    display: flex !important;
+    flex-direction: row !important;
+    overflow-x: auto !important;
     gap: 8px !important;
     width: 100% !important;
     padding: 0 12px !important;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .trust-main::-webkit-scrollbar {
+    display: none;
   }
 
   .trust-item {
     background: #ffffff;
-    padding: 8px 12px !important;
-    border-radius: 14px !important;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.03) !important;
-    border: 1px solid rgba(0,0,0,0.02) !important;
+    padding: 6px 10px !important;
+    border-radius: 10px !important;
+    border: 1px solid #e2e8f0 !important;
+    flex-shrink: 0 !important;
+    gap: 6px !important;
   }
 
   .trust-icon svg {
-    width: 16px !important;
-    height: 16px !important;
+    width: 14px !important;
+    height: 14px !important;
   }
 
   .trust-label {
-    font-size: 10px !important;
+    font-size: 9px !important;
     font-weight: 900 !important;
+    white-space: nowrap;
   }
 
   .trust-sublabel {

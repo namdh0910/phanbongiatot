@@ -91,10 +91,9 @@ const TrustBar: React.FC = () => {
         </div>
       </div>
 
-      {/* Mobile Trending Chips — non-sticky, below trust bar */}
-      <div className="md:hidden trending-mobile-wrapper bg-white py-3 px-4 relative overflow-hidden border-b border-gray-100">
+      {/* Mobile Trending Chips — hidden to save space, categories accessible via menu */}
+      <div className="hidden">
         <div className="trending-mobile-scroll">
-          <span className="text-[10px] font-black text-[#1a5c2a] mr-2 flex-shrink-0 bg-green-50 px-2 py-1 rounded">HOT:</span>
           {trending.map((t, i) => (
             <Link key={i} href={t.href} className="trending-chip">
               {t.label}

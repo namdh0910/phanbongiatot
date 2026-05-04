@@ -68,31 +68,29 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="flex flex-col gap-4 md:gap-12 pb-20 bg-white">
+    <div className="flex flex-col gap-0 md:gap-12 pb-20 bg-white">
       <Hero />
       <TrustBar />
       <FlashSale />
-      <ComboSection />
-      <CategorySection />
 
-      {/* FEATURED PRODUCTS */}
-      <section className="container mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-6 md:mb-10 gap-4 px-4 md:px-0">
+      {/* FEATURED PRODUCTS — hiện ngay sau hero trên mobile */}
+      <section className="container mx-auto mt-4 md:mt-0">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-4 md:mb-10 gap-2 px-4 md:px-0">
           <div>
-            <div className="inline-block bg-[#ee4d2d] text-white px-3 py-1 rounded-sm text-[10px] font-black uppercase tracking-widest mb-2">
-              Hot Picks
+            <div className="inline-flex items-center gap-1.5 bg-[#ee4d2d] text-white px-3 py-1 rounded-sm text-[10px] font-black uppercase tracking-widest mb-1.5">
+              <span className="animate-pulse">🔥</span> Sản Phẩm Bán Chạy
             </div>
-            <h2 className="text-2xl md:text-4xl font-black text-gray-900 uppercase leading-tight m-0">Sản Phẩm Nổi Bật</h2>
-            <p className="text-gray-500 text-xs md:text-sm mt-1">Giải pháp hàng đầu giúp tăng năng suất và bảo vệ vườn cây bền vững</p>
+            <h2 className="text-xl md:text-4xl font-black text-gray-900 uppercase leading-tight m-0">Flash Sale Hôm Nay</h2>
+            <p className="text-gray-500 text-xs md:text-sm mt-0.5 hidden md:block">Giải pháp hàng đầu giúp tăng năng suất và bảo vệ vườn cây bền vững</p>
           </div>
-          <Link href="/danh-muc/phan-bon" className="text-[#ee4d2d] text-sm font-bold hover:underline flex items-center gap-2 group transition-all">
+          <Link href="/danh-muc/phan-bon" className="text-[#ee4d2d] text-xs font-black hover:underline flex items-center gap-1 group transition-all">
             XEM TẤT CẢ <span className="group-hover:translate-x-1 transition-transform">▶</span>
           </Link>
         </div>
         
         <div className="px-4 md:px-0">
           {loadingProducts ? (
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6">
               {[1,2,3,4].map(i => (
                 <div key={i} className="bg-white rounded-3xl p-4 shadow-sm border border-gray-100">
                   <div className="aspect-square skeleton rounded-2xl mb-4"></div>
@@ -111,7 +109,13 @@ export default function Home() {
           )}
         </div>
       </section>
-      
+
+      {/* CATEGORY SECTION — ẩn trên mobile, chỉ desktop */}
+      <div className="hidden md:block">
+        <CategorySection />
+      </div>
+
+      <ComboSection />
       <SocialProof />
 
       {/* BLOG / NEWS */}
