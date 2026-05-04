@@ -338,7 +338,9 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
 
                    {/* Technical Protocol Section */}
                    {(product.usageInstructions || product.dosage) && (
-                   <div id="ky-thuat" className="bg-[#f0f9f4] p-6 rounded-2xl border border-emerald-100 scroll-mt-[120px]">
+                   <div className="relative">
+                      <span id="ky-thuat" className="absolute -top-[130px]" aria-hidden="true"></span>
+                      <div className="bg-[#f0f9f4] p-6 rounded-2xl border border-emerald-100">
                       <h3 className="text-lg font-black text-[#1a5c2a] uppercase mb-4 flex items-center gap-2">
                         <span className="text-2xl">📋</span> Phác đồ kỹ thuật & Hướng dẫn
                       </h3>
@@ -369,6 +371,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
                          )}
                       </div>
                    </div>
+                   </div>
                    )}
 
                    {/* Benefits */}
@@ -387,7 +390,8 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
                    )}
 
                    {/* Main Description */}
-                   <div id="mo-ta" className="space-y-4 pt-4 scroll-mt-[120px]">
+                   <div className="relative space-y-4 pt-4">
+                      <span id="mo-ta" className="absolute -top-[130px]" aria-hidden="true"></span>
                       <p className="font-black text-gray-900 text-lg uppercase flex items-center gap-2">🔍 Chi tiết sản phẩm:</p>
                       <div 
                         className="text-gray-700 text-sm leading-relaxed prose prose-emerald max-w-none prose-p:my-4 prose-headings:mb-4 prose-headings:mt-8 prose-ul:list-disc prose-ul:pl-5 prose-ol:list-decimal prose-ol:pl-5 prose-li:my-2"
@@ -420,7 +424,8 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
               </div>
 
               {/* Reviews Section */}
-              <div id="danh-gia" className="scroll-mt-[120px]">
+              <div className="relative">
+                <span id="danh-gia" className="absolute -top-[130px]" aria-hidden="true"></span>
                 <ProductReviews productId={product._id} />
               </div>
 
