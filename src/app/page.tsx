@@ -80,7 +80,7 @@ export default function Home() {
             <div className="inline-flex items-center gap-1.5 bg-[#ee4d2d] text-white px-3 py-1 rounded-sm text-[10px] font-black uppercase tracking-widest mb-1.5">
               <span className="animate-pulse">🔥</span> Sản Phẩm Bán Chạy
             </div>
-            <h2 className="text-xl md:text-4xl font-black text-gray-900 uppercase leading-tight m-0">Flash Sale Hôm Nay</h2>
+            <h2 className="text-xl md:text-4xl font-black text-gray-900 uppercase leading-tight m-0">Sản Phẩm Nổi Bật</h2>
             <p className="text-gray-500 text-xs md:text-sm mt-0.5 hidden md:block">Giải pháp hàng đầu giúp tăng năng suất và bảo vệ vườn cây bền vững</p>
           </div>
           <Link href="/danh-muc/phan-bon" className="text-[#ee4d2d] text-xs font-black hover:underline flex items-center gap-1 group transition-all">
