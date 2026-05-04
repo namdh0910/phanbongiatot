@@ -394,7 +394,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
                    </div>
 
                    {/* Benefits */}
-                   {product.benefits?.length > 0 && (
+                   {Array.isArray(product.benefits) && product.benefits.length > 0 && (
                      <div className="space-y-4 pt-4">
                         <p className="font-black text-gray-900 text-lg uppercase flex items-center gap-2">✨ Lợi ích vượt trội:</p>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -445,7 +445,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
               <ProductReviews productId={product._id} />
 
               {/* FAQ */}
-              {product.faq?.length > 0 && (
+              {Array.isArray(product.faq) && product.faq.length > 0 && (
                 <div className="bg-white md:rounded-sm shadow-sm overflow-hidden">
                   <h2 className="bg-[#f5f5f5] p-4 text-sm font-bold text-gray-800 uppercase tracking-wider">Giải đáp thắc mắc</h2>
                   <div className="p-6 space-y-6">

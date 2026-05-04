@@ -11,9 +11,11 @@ export const FALLBACK_PRODUCTS = [
     images: ['https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=80&w=800&auto=format&fit=crop'],
     stock: 500,
     soldCount: 0,
-    rating: 0,
-    numReviews: 0,
-    seller: { role: 'admin', vendorInfo: { storeName: 'Phân Bón Giá Tốt', isApproved: true } }
+    rating: 5,
+    numReviews: 1,
+    benefits: ['Ra rễ cực nhanh', 'Xanh lá, mập đọt', 'Phục hồi cây suy yếu'],
+    faq: [{ q: 'Dùng cho cây con được không?', a: 'Dạ được, giúp cây con nhanh bắt đất và phát triển.' }],
+    seller: { role: 'admin', username: 'admin', vendorInfo: { storeName: 'Phân Bón Giá Tốt', isApproved: true } }
   },
   {
     _id: '2',
@@ -27,56 +29,10 @@ export const FALLBACK_PRODUCTS = [
     images: ['https://images.unsplash.com/photo-1592982537447-7440770cbfc9?q=80&w=800&auto=format&fit=crop'],
     stock: 300,
     soldCount: 0,
-    rating: 0,
-    numReviews: 0,
-    seller: { role: 'admin', vendorInfo: { storeName: 'Phân Bón Giá Tốt', isApproved: true } }
-  },
-  {
-    _id: '3',
-    name: 'Nemano - Chế Phẩm Sinh Học Đặc Trị Tuyến Trùng (1L)',
-    slug: 'nemano-dac-tri-tuyen-trung-sinh-hoc',
-    category: 'Tuyến trùng',
-    price: 250000,
-    originalPrice: 300000,
-    description: 'Nemano tiêu diệt tuyến trùng gây hại rễ bằng cơ chế sinh học.',
-    short_desc: 'Tiêu diệt tuyến trùng rễ, bảo vệ vườn cây.',
-    images: ['https://images.unsplash.com/photo-1628352081506-83c43123ed6d?q=80&w=800&auto=format&fit=crop'],
-    stock: 200,
-    soldCount: 0,
-    rating: 0,
-    numReviews: 0,
-    seller: { role: 'admin', vendorInfo: { storeName: 'Phân Bón Giá Tốt', isApproved: true } }
-  },
-  {
-    _id: '4',
-    name: 'Combo Phục Hồi Vườn 3 Bước Sau Thu Hoạch',
-    slug: 'combo-phuc-hoi-vuon-3-buoc',
-    category: 'Combo tiết kiệm',
-    price: 450000,
-    originalPrice: 520000,
-    description: 'Bộ combo gồm Acti Rooti + Nemano + Phân bón lá.',
-    short_desc: 'Bộ 3 phục hồi, nuôi cây khỏe mạnh.',
-    images: ['https://images.unsplash.com/photo-1464226184884-fa280b87c399?q=80&w=800&auto=format&fit=crop'],
-    stock: 100,
-    soldCount: 0,
-    rating: 0,
-    numReviews: 0,
-    seller: { role: 'admin', vendorInfo: { storeName: 'Phân Bón Giá Tốt', isApproved: true } }
-  },
-  {
-    _id: '5',
-    name: 'Combo Siêu Đậu Trái & Dưỡng Trái Non',
-    slug: 'combo-sieu-dau-trai-duong-trai-non',
-    category: 'Combo tiết kiệm',
-    price: 280000,
-    originalPrice: 350000,
-    description: 'Bộ đôi Acti Flora và Bo-Canxi giúp bông sáng, đậu trái cực mạnh.',
-    short_desc: 'Sáng bông, đậu trái, chống rụng.',
-    images: ['https://images.unsplash.com/photo-1595113316349-9fa404641847?q=80&w=800&auto=format&fit=crop'],
-    stock: 150,
-    soldCount: 0,
-    rating: 0,
-    numReviews: 0,
-    seller: { role: 'admin', vendorInfo: { storeName: 'Phân Bón Giá Tốt', isApproved: true } }
+    rating: 5,
+    numReviews: 1,
+    benefits: ['Ra hoa đồng loạt', 'Chống rụng trái non', 'Tăng năng suất'],
+    faq: [{ q: 'Phun lúc đang ra hoa được không?', a: 'Dạ được, sản phẩm mát bông không gây cháy bông.' }],
+    seller: { role: 'admin', username: 'admin', vendorInfo: { storeName: 'Phân Bón Giá Tốt', isApproved: true } }
   }
 ];
