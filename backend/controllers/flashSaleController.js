@@ -55,9 +55,25 @@ const deleteFlashSale = async (req, res) => {
   }
 };
 
+// @desc    Update flash sale (Admin)
+// @route   PUT /api/flash-sales/:id
+const updateFlashSale = async (req, res) => {
+  try {
+    const sale = await FlashSale.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
+    if (sale) {
+      res.json(sale);
+    } else {
+      res.status(404).json({ message: 'Không tìm thấy flash sale' });
+    }
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
 module.exports = {
   getActiveFlashSales,
   getFlashSales,
   createFlashSale,
+  updateFlashSale,
   deleteFlashSale
 };

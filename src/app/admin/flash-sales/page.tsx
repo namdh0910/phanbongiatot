@@ -8,6 +8,7 @@ export default function AdminFlashSales() {
   const [products, setProducts] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
+  const [editId, setEditId] = useState<string | null>(null);
   const [formError, setFormError] = useState("");
   const [formData, setFormData] = useState({
     product: "",
@@ -70,13 +71,18 @@ export default function AdminFlashSales() {
         startAt: new Date(formData.startAt).toISOString(),
         endAt: new Date(formData.endAt).toISOString()
       };
-      const res = await fetch(`${API_BASE_URL}/flash-sales`, {
-        method: 'POST',
+      
+      const url = editId ? `${API_BASE_URL}/flash-sales/${editId}` : `${API_BASE_URL}/flash-sales`;
+      const method = editId ? 'PUT' : 'POST';
+
+      const res = await fetch(url, {
+        method,
         headers: { ...getAuthHeaders(), 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
       if (res.ok) {
         setShowForm(false);
+        setEditId(null);
         setFormError("");
         setFormData({ product: '', salePrice: 0, startAt: '', endAt: '', maxQty: 0 });
         fetchData();
@@ -102,6 +108,25 @@ export default function AdminFlashSales() {
     }
   };
 
+  const handleEdit = (sale: any) => {
+    // Format date for datetime-local input (YYYY-MM-DDThh:mm)
+    const formatForInput = (isoString: string) => {
+      const d = new Date(isoString);
+      d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+      return d.toISOString().slice(0, 16);
+    };
+
+    setFormData({
+      product: sale.product?._id || "",
+      salePrice: sale.salePrice,
+      startAt: formatForInput(sale.startAt),
+      endAt: formatForInput(sale.endAt),
+      maxQty: sale.maxQty || 0
+    });
+    setEditId(sale._id);
+    setShowForm(true);
+  };
+
   return (
     <div className="flex min-h-screen bg-gray-50">
       <AdminSidebar />
@@ -116,7 +141,9 @@ export default function AdminFlashSales() {
         {showForm && (
           <div className="fixed inset-0 bg-black/50 z-[60] flex items-center justify-center p-4">
              <div className="bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl">
-                <h2 className="text-xl font-black text-gray-900 mb-6 uppercase tracking-tight">Thiết lập Deal Hot ⚡</h2>
+                <h2 className="text-xl font-black text-gray-900 mb-6 uppercase tracking-tight">
+                  {editId ? "Chỉnh sửa Deal Hot ⚡" : "Thiết lập Deal Hot ⚡"}
+                </h2>
                 <form onSubmit={handleSubmit} className="space-y-4">
                    {formError && (
                      <div className="bg-red-50 border border-red-200 text-red-700 text-xs font-bold px-4 py-3 rounded-xl flex items-start gap-2">
@@ -181,8 +208,10 @@ export default function AdminFlashSales() {
                       </div>
                    </div>
                    <div className="flex gap-4 pt-4">
-                      <button type="button" onClick={() => { setShowForm(false); setFormError(''); }} className="flex-1 px-6 py-3 text-sm font-black text-gray-400">HỦY</button>
-                      <button type="submit" className="flex-1 bg-[#1a5c2a] text-white px-6 py-3 rounded-xl font-black text-sm uppercase">TẠO DEAL ⚡</button>
+                      <button type="button" onClick={() => { setShowForm(false); setEditId(null); setFormError(''); }} className="flex-1 px-6 py-3 text-sm font-black text-gray-400">HỦY</button>
+                      <button type="submit" className="flex-1 bg-[#1a5c2a] text-white px-6 py-3 rounded-xl font-black text-sm uppercase">
+                        {editId ? "CẬP NHẬT ⚡" : "TẠO DEAL ⚡"}
+                      </button>
                    </div>
                 </form>
              </div>
@@ -242,7 +271,8 @@ export default function AdminFlashSales() {
                         {isRunning ? '🟢 Đang diễn ra' : isUpcoming ? '🔵 Sắp diễn ra' : '⚫ Đã kết thúc'}
                       </span>
                     </td>
-                    <td className="px-6 py-4 text-right">
+                    <td className="px-6 py-4 text-right flex justify-end gap-2">
+                      <button onClick={() => handleEdit(sale)} className="text-gray-400 hover:text-blue-500 p-2 transition-colors">✏️</button>
                       <button onClick={() => handleDelete(sale._id)} className="text-gray-400 hover:text-red-500 p-2 transition-colors">🗑️</button>
                     </td>
                   </tr>

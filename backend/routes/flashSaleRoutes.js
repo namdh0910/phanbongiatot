@@ -4,6 +4,7 @@ const {
   getActiveFlashSales,
   getFlashSales,
   createFlashSale,
+  updateFlashSale,
   deleteFlashSale
 } = require('../controllers/flashSaleController');
 const { protect, admin } = require('../middleware/authMiddleware');
@@ -11,6 +12,7 @@ const { protect, admin } = require('../middleware/authMiddleware');
 router.get('/active', getActiveFlashSales);
 router.get('/', protect, admin, getFlashSales);
 router.post('/', protect, admin, createFlashSale);
+router.put('/:id', protect, admin, updateFlashSale);
 router.delete('/:id', protect, admin, deleteFlashSale);
 
 module.exports = router;
