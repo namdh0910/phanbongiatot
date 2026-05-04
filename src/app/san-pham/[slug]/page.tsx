@@ -331,19 +331,27 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
                 <div className="p-4 md:p-6 space-y-8">
 
                    {/* Main Description */}
-                   <div className="relative space-y-4">
+                   <div className="relative space-y-6">
                       <span id="mo-ta" className="absolute -top-[130px]" aria-hidden="true"></span>
-                      <h3 className="text-lg font-black text-gray-900 uppercase flex items-center gap-2">
-                        <span className="text-2xl">🔍</span> Chi tiết sản phẩm
-                      </h3>
-                      <div 
-                        className="text-gray-700 text-sm md:text-base leading-relaxed prose prose-emerald max-w-none prose-p:my-4 prose-headings:mb-4 prose-headings:mt-8 prose-ul:list-disc prose-ul:pl-5 prose-ol:list-decimal prose-ol:pl-5 prose-li:my-2"
-                        dangerouslySetInnerHTML={{ 
-                          __html: product.description?.includes('<') 
-                            ? product.description 
-                            : product.description?.replace(/\n/g, '<br/>') || "" 
-                        }}
-                      />
+                      
+                      <div className="flex items-center gap-4 mb-2">
+                        <h3 className="text-xl font-black text-gray-900 uppercase flex items-center gap-3">
+                          <div className="w-10 h-10 bg-[#ee4d2d] text-white rounded-xl flex items-center justify-center text-lg shadow-lg shadow-red-200">🔍</div>
+                          Chi tiết sản phẩm
+                        </h3>
+                        <div className="h-px bg-gray-100 flex-1"></div>
+                      </div>
+
+                      <div className="bg-white/50 rounded-3xl border border-gray-50 p-1">
+                        <div 
+                          className="text-gray-700 text-[15px] md:text-base leading-relaxed prose prose-emerald max-w-none prose-p:my-4 prose-headings:mb-6 prose-headings:mt-10 prose-strong:text-[#1a5c2a] prose-strong:bg-orange-50/50 prose-img:mx-auto"
+                          dangerouslySetInnerHTML={{ 
+                            __html: product.description?.includes('<') 
+                              ? product.description 
+                              : product.description?.replace(/\n/g, '<br/>') || "" 
+                          }}
+                        />
+                      </div>
                    </div>
 
                    {/* Technical Protocol Section */}
