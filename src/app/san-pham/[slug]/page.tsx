@@ -1,4 +1,5 @@
 import { API_BASE_URL, getAuthHeaders } from '@/utils/api';
+import { getImageUrl, isValidImageUrl } from '@/utils/image';
 import { FALLBACK_PRODUCTS } from '@/utils/fallbackData';
 import Link from "next/link";
 import ProductGallery from "@/components/ProductGallery";
@@ -83,12 +84,12 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
     ]);
     if (relRes.ok) {
       const relData = await relRes.json();
-      const relList = Array.isArray(relData) ? relData : (relData.data || []);
+      const relList = Array.isArray(relData) ? relData : (relData?.data || []);
       relatedProducts = relList.filter((p: any) => p._id !== product._id).slice(0, 4);
     }
     if (bestRes.ok) {
       const bestData = await bestRes.json();
-      bestSellers = (Array.isArray(bestData) ? bestData : (bestData.data || [])).slice(0, 5);
+      bestSellers = (Array.isArray(bestData) ? bestData : (bestData?.data || [])).slice(0, 5);
     }
     if (setRes.ok) settings = await setRes.json();
   } catch (err) {
@@ -99,7 +100,9 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
   const catSlug = CATEGORY_SLUG_MAP[product.category] || "phan-bon";
   
   const validImages: string[] = Array.isArray(product.images) 
-    ? product.images.filter((i: string) => i && (i.startsWith("http") || i.startsWith("/"))) 
+    ? product.images
+        .map((img: any) => getImageUrl(img))
+        .filter((url: string) => isValidImageUrl(url))
     : [];
 
   const displayRating = product.rating || 0;
@@ -295,7 +298,11 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
             <div className="flex justify-between">
               <span className="text-gray-400">Tham Gia</span>
               <span className="text-[#ee4d2d] font-medium" suppressHydrationWarning>
-                {product.seller?.createdAt ? new Date(product.seller.createdAt).toLocaleDateString('vi-VN') : 'Mới'}
+                {(() => {
+                  if (!product.seller?.createdAt) return 'Mới';
+                  const d = new Date(product.seller.createdAt);
+                  return isNaN(d.getTime()) ? 'Mới' : d.toLocaleDateString('vi-VN');
+                })()}
               </span>
             </div>
             <div className="flex justify-between">

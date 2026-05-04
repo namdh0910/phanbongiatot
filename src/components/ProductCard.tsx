@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useCart } from "@/context/CartContext";
 import { useSettings } from "@/context/SettingsContext";
 import { trackEvent } from "@/utils/analytics";
+import { getImageUrl, isValidImageUrl } from "@/utils/image";
 import './ProductCard.css';
 
 interface ProductCardProps {
@@ -31,8 +32,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     window.open(`https://zalo.me/${process.env.NEXT_PUBLIC_ZALO_PHONE ?? '0773440966'}`, '_blank');
   };
 
-  const imgSrc = product.images?.[0];
-  const isUrl = imgSrc && (imgSrc.startsWith("http") || imgSrc.startsWith("/"));
+  const imgSrc = getImageUrl(product.images?.[0]);
+  const isUrl = isValidImageUrl(imgSrc);
 
   // Real data from API
   const rating = product.rating || 0;

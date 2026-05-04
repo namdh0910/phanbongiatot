@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { useCart } from "@/context/CartContext";
 import { useRouter } from "next/navigation";
+import { getImageUrl } from "@/utils/image";
 
 interface ProductStickyCTAProps {
   product: any;
@@ -30,7 +31,7 @@ export default function ProductStickyCTA({ product }: ProductStickyCTAProps) {
   return (
     <div className="lg:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-100 p-3 z-[90] flex items-center gap-3 animate-in slide-in-from-bottom duration-300 shadow-[0_-5px_15px_rgba(0,0,0,0.05)]">
       <div className="w-12 h-12 rounded-lg overflow-hidden bg-gray-50 flex-shrink-0">
-        <img src={product.images?.[0]} className="w-full h-full object-cover" alt="" />
+        <img src={getImageUrl(product.images?.[0])} className="w-full h-full object-cover" alt="" />
       </div>
       <div className="flex-1 min-w-0">
         <h4 className="text-xs font-bold text-gray-900 truncate">{product.name}</h4>

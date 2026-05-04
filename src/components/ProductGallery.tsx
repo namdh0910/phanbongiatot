@@ -1,13 +1,14 @@
 "use client";
 import { useState } from "react";
+import { getImageUrl, isValidImageUrl } from "@/utils/image";
 
 export default function ProductGallery({ images, name, discount }: { images: string[], name: string, discount: number }) {
   const [activeImg, setActiveImg] = useState(0);
   
-  const allImages = images.length > 0 ? images : [];
+  const allImages = Array.isArray(images) ? images : [];
   const hasImages = allImages.length > 0;
-  const currentSrc = allImages[activeImg];
-  const isUrl = currentSrc && (currentSrc.startsWith("http") || currentSrc.startsWith("/"));
+  const currentSrc = getImageUrl(allImages[activeImg]);
+  const isUrl = isValidImageUrl(currentSrc);
 
   return (
     <div className="flex flex-col gap-4">
@@ -43,7 +44,8 @@ export default function ProductGallery({ images, name, discount }: { images: str
       {allImages.length > 1 && (
         <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
           {allImages.map((img, i) => {
-            const thumbUrl = img && (img.startsWith("http") || img.startsWith("/"));
+            const currentThumb = getImageUrl(img);
+            const thumbUrl = isValidImageUrl(currentThumb);
             return (
               <div 
                 key={i} 
@@ -52,7 +54,7 @@ export default function ProductGallery({ images, name, discount }: { images: str
               >
                 {thumbUrl ? (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img src={img} alt={`${name} ${i + 1}`} className="w-full h-full object-cover" />
+                  <img src={currentThumb} alt={`${name} ${i + 1}`} className="w-full h-full object-cover" />
                 ) : (
                   <div className="w-full h-full bg-gray-100 flex items-center justify-center text-2xl">🌿</div>
                 )}
