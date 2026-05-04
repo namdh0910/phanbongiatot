@@ -6,8 +6,8 @@ const { authUser, registerUser, registerVendor, getVendors, approveVendor, exten
 const { protect, admin } = require('../middleware/authMiddleware');
 
 const loginLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 5,
+  windowMs: 15 * 60 * 1000, // 15 phút
+  max: 20, // Tối đa 20 lần thử / 15 phút
   message: { message: 'Thử đăng nhập quá nhiều lần. Vui lòng quay lại sau 15 phút.' },
   standardHeaders: true,
   legacyHeaders: false,
