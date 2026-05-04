@@ -12,8 +12,13 @@ const brands = [
   "DAP ĐÌNH VŨ",
   "ACTI AGRI"
 ];
+import { useSettings } from "@/context/SettingsContext";
 
 const BrandMarquee: React.FC = () => {
+  const settings = useSettings();
+  
+  const brandsString = settings?.brands || "BÌNH ĐIỀN, ĐẠM PHÚ MỸ, PHÂN BÓN MIỀN NAM, YARA, HAIFA GROUP, BEHN MEYER, DAP ĐÌNH VŨ, ACTI AGRI";
+  const brandsList = brandsString.split(',').map((b: string) => b.trim()).filter(Boolean);
   return (
     <section className="brand-section bg-gray-50/50 py-16">
       <div className="brand-container max-w-7xl mx-auto px-4">
@@ -28,7 +33,7 @@ const BrandMarquee: React.FC = () => {
         <div className="marquee-container relative overflow-hidden py-8">
           <div className="marquee-track flex items-center">
             {/* Duplicate for seamless scrolling */}
-            {[...brands, ...brands, ...brands].map((brand, index) => (
+            {[...brandsList, ...brandsList, ...brandsList].map((brand: string, index: number) => (
               <div key={index} className="brand-logo px-8 md:px-12 opacity-40 hover:opacity-100 transition-opacity grayscale hover:grayscale-0 cursor-default">
                 <div className="text-xl md:text-2xl font-black text-gray-800 tracking-tighter whitespace-nowrap">
                   {brand}

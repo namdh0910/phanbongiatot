@@ -30,7 +30,8 @@ export default function AdminSettings() {
     footerEmail: "",
     defaultSeoTitle: "",
     defaultSeoDescription: "",
-    defaultSeoImage: ""
+    defaultSeoImage: "",
+    brands: ""
   });
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
@@ -197,6 +198,11 @@ export default function AdminSettings() {
                      <div className="flex items-center gap-3 py-2">
                         <input type="checkbox" id="showBlogOnHome" checked={settings.showBlogOnHome} onChange={e => setSettings({...settings, showBlogOnHome: e.target.checked})} className="w-4 h-4" />
                         <label htmlFor="showBlogOnHome" className="text-sm font-bold text-gray-700">Hiển thị mục Blog ngoài trang chủ</label>
+                     </div>
+
+                     <div>
+                        <label className="block text-xs font-bold text-gray-400 uppercase mb-2">Thương hiệu phân phối (Cách nhau bởi dấu phẩy)</label>
+                        <textarea value={settings.brands || ""} onChange={e => setSettings({...settings, brands: e.target.value})} rows={3} className="w-full border border-gray-300 rounded px-3 py-2 text-sm outline-none focus:border-[#2271b1]" placeholder="YARA, ĐẠM PHÚ MỸ, HAIFA GROUP..." />
                      </div>
 
                      <div>

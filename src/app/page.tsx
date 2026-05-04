@@ -180,27 +180,6 @@ export default function Home() {
 
       <BrandMarquee />
       
-      {/* FINAL CTA SECTION */}
-      <section className="container mx-auto px-4 mb-20">
-        <div className="bg-gradient-to-br from-[#1a5c2a] to-[#2d7a3e] rounded-[3rem] p-10 md:p-20 text-center text-white shadow-2xl relative overflow-hidden">
-           <div className="absolute top-0 left-0 w-96 h-96 bg-white/5 rounded-full -ml-48 -mt-48 blur-3xl"></div>
-           <div className="relative z-10">
-              <h2 className="text-3xl md:text-6xl font-black mb-8 uppercase italic tracking-tighter">Cần hỗ trợ kỹ thuật ngay?</h2>
-              <p className="text-lg md:text-2xl opacity-90 mb-12 max-w-3xl mx-auto font-medium leading-relaxed">
-                 Đừng để sâu bệnh phá hoại vườn cây của anh/chị. Đội ngũ kỹ sư giàu kinh nghiệm luôn sẵn sàng hỗ trợ phác đồ điều trị nhanh nhất.
-              </p>
-              <div className="flex flex-col md:flex-row justify-center gap-6">
-                 <a href={`https://zalo.me/${process.env.NEXT_PUBLIC_ZALO_PHONE ?? '0773440966'}`} target="_blank" className="bg-yellow-400 text-[#1a5c2a] px-12 py-5 rounded-2xl font-black text-xl shadow-2xl hover:bg-yellow-300 transition-all uppercase tracking-wider active:scale-95">
-                    💬 NHẬN TƯ VẤN KỸ THUẬT
-                 </a>
-                 <a href={`tel:${settings?.hotline || '0773440966'}`} className="bg-white/10 backdrop-blur-md border-2 border-white/30 text-white px-12 py-5 rounded-2xl font-black text-xl hover:bg-white/20 transition-all uppercase tracking-wider active:scale-95">
-                    📞 GỌI {settings?.hotline || "0773.440.966"}
-                 </a>
-              </div>
-           </div>
-        </div>
-      </section>
-
       {/* VENDOR RECRUITMENT SECTION */}
       <section className="container mx-auto px-4">
         <div className="bg-white rounded-[3rem] shadow-xl shadow-gray-200/50 border border-gray-100 overflow-hidden flex flex-col lg:flex-row items-center">

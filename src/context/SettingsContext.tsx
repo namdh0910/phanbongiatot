@@ -25,6 +25,7 @@ interface Settings {
   announcementText: string;
   footerAddress: string;
   footerEmail: string;
+  brands: string;
 }
 
 const SettingsContext = createContext<any>(null);
@@ -51,7 +52,8 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
     announcementEnabled: false,
     announcementText: '',
     footerAddress: 'Kho hàng: TP. Buôn Ma Thuột, Tỉnh Đắk Lắk',
-    footerEmail: 'hotro@phanbongiatot.com'
+    footerEmail: 'hotro@phanbongiatot.com',
+    brands: 'BÌNH ĐIỀN, ĐẠM PHÚ MỸ, PHÂN BÓN MIỀN NAM, YARA, HAIFA GROUP, BEHN MEYER, DAP ĐÌNH VŨ, ACTI AGRI'
   });
 
   useEffect(() => {
