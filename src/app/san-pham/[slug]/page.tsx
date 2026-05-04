@@ -1,6 +1,5 @@
 import { API_BASE_URL, getAuthHeaders } from '@/utils/api';
 import { getImageUrl, isValidImageUrl } from '@/utils/image';
-import { FALLBACK_PRODUCTS } from '@/utils/fallbackData';
 import Link from "next/link";
 import ProductGallery from "@/components/ProductGallery";
 import ProductActions from "@/components/ProductActions";
@@ -22,11 +21,9 @@ async function getProduct(slug: string) {
       const data = await res.json();
       if (data) return data;
     }
-    
-    // Fallback if API fails or returns null
-    return FALLBACK_PRODUCTS.find(p => p.slug === slug) || null;
+    return null;
   } catch {
-    return FALLBACK_PRODUCTS.find(p => p.slug === slug) || null;
+    return null;
   }
 }
 

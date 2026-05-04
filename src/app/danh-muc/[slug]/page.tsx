@@ -1,7 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
 import { API_BASE_URL } from '@/utils/api';
-import { FALLBACK_PRODUCTS } from "@/utils/fallbackData";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import ProductCard from "@/components/ProductCard";
@@ -86,16 +85,6 @@ export default function CategoryPage() {
       
       let newProducts = data.data || data.products || [];
       
-      // FALLBACK LOGIC: If API returns nothing, use fallback data
-      if (newProducts.length === 0 && pageNum === 1) {
-        console.log("API returned no products for category, using fallback...");
-        const targetCategory = slugToName[slug] || categoryName;
-        newProducts = FALLBACK_PRODUCTS.filter(p => 
-          p.category === targetCategory || 
-          (targetCategory === "Phân bón" && p.category.includes("Phân bón"))
-        );
-      }
-      
       if (isNew) {
         setProducts(newProducts);
       } else {
@@ -106,17 +95,7 @@ export default function CategoryPage() {
       setIsLoading(false);
     } catch (err) {
       console.error("Error fetching category products:", err);
-      
-      // Fallback on error too
-      if (pageNum === 1) {
-        const targetCategory = slugToName[slug] || categoryName;
-        const fallback = FALLBACK_PRODUCTS.filter(p => 
-          p.category === targetCategory || 
-          (targetCategory === "Phân bón" && p.category.includes("Phân bón"))
-        );
-        setProducts(fallback);
-      }
-      
+      if (isNew) setProducts([]);
       setIsLoading(false);
     }
   };

@@ -1,7 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
 import { API_BASE_URL } from '@/utils/api';
-import { FALLBACK_PRODUCTS } from '@/utils/fallbackData';
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { trackEvent } from "@/utils/analytics";
@@ -15,11 +14,6 @@ import SocialProof from "@/components/SocialProof";
 import BrandMarquee from "@/components/BrandMarquee";
 import CategorySection from "@/components/CategorySection";
 import ProductCard from "@/components/ProductCard";
-
-const FALLBACK_BLOGS = [
-  { _id: 'b1', title: "Bí Quyết Phục Hồi Sầu Riêng Sau Thu Hoạch", excerpt: "Sau một mùa vụ nuôi trái mệt mỏi, cây sầu riêng cần được chăm sóc đặc biệt để phục hồi bộ rễ và cành lá...", createdAt: "2026-04-24T00:00:00Z", slug: "bi-quyet-phuc-hoi-sau-rieng-sau-thu-hoach", image: "" },
-  { _id: 'b2', title: "Sự Thật Về Rệp Sáp: Kẻ Sát Nhân Thầm Lặng", excerpt: "Rệp sáp không chỉ hút nhựa mà còn là vật trung gian truyền bệnh virus nguy hiểm. Đây là phác đồ tiêu diệt tận gốc...", createdAt: "2026-04-24T00:00:00Z", slug: "su-that-ve-rep-sap", image: "" }
-];
 
 export default function Home() {
   const [products, setProducts] = useState<any[]>([]);
@@ -44,15 +38,10 @@ export default function Home() {
           results = Array.isArray(data) ? data : (data?.data || data?.products || []);
         }
 
-        if (results && results.length > 0) {
-          setProducts(results.slice(0, 12));
-        } else {
-          console.warn("No products found from API, using fallback data");
-          setProducts(FALLBACK_PRODUCTS);
-        }
+        setProducts(results.slice(0, 12));
       } catch (err) {
         console.error("Fetch products failed:", err);
-        setProducts(FALLBACK_PRODUCTS);
+        setProducts([]);
       } finally {
         setLoadingProducts(false);
       }
@@ -67,11 +56,9 @@ export default function Home() {
         let results = [];
         if (Array.isArray(data)) results = data;
         else if (data?.blogs) results = data.blogs;
-
-        if (results.length > 0) setBlogs(results.slice(0, 3));
-        else setBlogs(FALLBACK_BLOGS);
+        setBlogs(results.slice(0, 3));
       })
-      .catch(() => setBlogs(FALLBACK_BLOGS))
+      .catch(() => setBlogs([]))
       .finally(() => setLoadingBlogs(false));
   }, []);
 
@@ -107,6 +94,12 @@ export default function Home() {
                   <div className="h-6 skeleton rounded-full w-2/3"></div>
                 </div>
               ))}
+            </div>
+          ) : products.length === 0 ? (
+            <div className="py-20 text-center">
+              <div className="text-6xl mb-6 opacity-20">📦</div>
+              <h3 className="text-xl font-black text-gray-700 mb-2">Chưa có sản phẩm nào</h3>
+              <p className="text-gray-400 text-sm">Sản phẩm sẽ được hiển thị sau khi được thêm và phê duyệt.</p>
             </div>
           ) : (
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6 animate-in fade-in duration-700">
