@@ -17,7 +17,7 @@ const CATEGORY_SLUG_MAP: Record<string, string> = {
 
 async function getProduct(slug: string) {
   try {
-    const res = await fetch(`${API_BASE_URL}/products/slug/${slug}`, { next: { revalidate: 300 } });
+    const res = await fetch(`${API_BASE_URL}/products/slug/${slug}`, { next: { revalidate: 60 } });
     if (res.ok) {
       const data = await res.json();
       if (data) return data;
@@ -326,7 +326,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
                 {/* Desktop Titles */}
                 <h2 className="hidden md:block bg-[#f5f5f5] p-4 text-sm font-bold text-gray-800 uppercase tracking-wider">Thông Tin Chi Tiết</h2>
                 
-                <ProductTabs hasTechnical={!!(product.usageInstructions || product.dosage)} />
+                <ProductTabs hasTechnical={!!(product.usageInstructions?.trim() || product.dosage?.trim())} />
 
                 <div className="p-4 md:p-6 space-y-8">
 
@@ -347,7 +347,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
                    </div>
 
                    {/* Technical Protocol Section */}
-                   {(product.usageInstructions || product.dosage) && (
+                   {(product.usageInstructions?.trim() || product.dosage?.trim()) && (
                    <div className="relative pt-8 mt-4 border-t border-gray-50">
                       <span id="ky-thuat" className="absolute -top-[130px]" aria-hidden="true"></span>
                       <div className="bg-[#f0f9f4] p-5 md:p-8 rounded-3xl border-2 border-emerald-50 shadow-sm shadow-emerald-100/50">
@@ -357,7 +357,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
                       </h3>
                       
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                         {product.usageInstructions && (
+                         {product.usageInstructions?.trim() && (
                          <div className="space-y-4">
                             <p className="font-bold text-gray-900 flex items-center gap-3 text-sm">
                               <span className="w-7 h-7 bg-emerald-600 text-white rounded-lg flex items-center justify-center text-[11px] font-black shadow-md">01</span>
@@ -369,7 +369,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
                          </div>
                          )}
 
-                         {product.dosage && (
+                         {product.dosage?.trim() && (
                          <div className="space-y-4">
                             <p className="font-bold text-gray-900 flex items-center gap-3 text-sm">
                               <span className="w-7 h-7 bg-emerald-600 text-white rounded-lg flex items-center justify-center text-[11px] font-black shadow-md">02</span>
