@@ -326,76 +326,50 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
                 <h2 className="hidden md:block bg-[#f5f5f5] p-4 text-sm font-bold text-gray-800 uppercase tracking-wider">Thông Tin Chi Tiết</h2>
                 
                 {/* Mobile Tabs */}
-                <div className="md:hidden flex border-b border-gray-100">
-                  <button className="flex-1 py-4 text-sm font-bold text-[#ee4d2d] border-b-2 border-[#ee4d2d]">Mô tả</button>
-                  <button className="flex-1 py-4 text-sm font-bold text-gray-500">Kỹ thuật</button>
-                  <button className="flex-1 py-4 text-sm font-bold text-gray-500">Đánh giá</button>
+                <div className="md:hidden flex border-b border-gray-100 sticky top-[60px] bg-white z-40">
+                  <a href="#mo-ta" className="flex-1 py-4 text-center text-sm font-bold text-[#ee4d2d] border-b-2 border-[#ee4d2d]">Mô tả</a>
+                  {(product.usageInstructions || product.dosage) && (
+                    <a href="#ky-thuat" className="flex-1 py-4 text-center text-sm font-bold text-gray-500">Kỹ thuật</a>
+                  )}
+                  <a href="#danh-gia" className="flex-1 py-4 text-center text-sm font-bold text-gray-500">Đánh giá</a>
                 </div>
 
                 <div className="p-4 md:p-6 space-y-8">
+
                    {/* Technical Protocol Section */}
-                   <div className="bg-[#f0f9f4] p-6 rounded-2xl border border-emerald-100">
+                   {(product.usageInstructions || product.dosage) && (
+                   <div id="ky-thuat" className="bg-[#f0f9f4] p-6 rounded-2xl border border-emerald-100 scroll-mt-[120px]">
                       <h3 className="text-lg font-black text-[#1a5c2a] uppercase mb-4 flex items-center gap-2">
                         <span className="text-2xl">📋</span> Phác đồ kỹ thuật & Hướng dẫn
                       </h3>
                       
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                         {product.usageInstructions && (
                          <div className="space-y-4">
                             <p className="font-bold text-gray-900 flex items-center gap-2 text-sm">
                               <span className="w-6 h-6 bg-emerald-600 text-white rounded-full flex items-center justify-center text-[10px]">1</span>
-                              Đối tượng cây trồng phù hợp:
-                            </p>
-                            <div className="flex flex-wrap gap-2 ml-8">
-                               {product.category === 'Kích rễ' || product.category === 'Phân bón' ? (
-                                 <>
-                                   <span className="px-3 py-1 bg-white rounded-full text-xs font-bold text-emerald-700 border border-emerald-200">Sầu riêng</span>
-                                   <span className="px-3 py-1 bg-white rounded-full text-xs font-bold text-emerald-700 border border-emerald-200">Cà phê</span>
-                                   <span className="px-3 py-1 bg-white rounded-full text-xs font-bold text-emerald-700 border border-emerald-200">Cây ăn trái</span>
-                                   <span className="px-3 py-1 bg-white rounded-full text-xs font-bold text-emerald-700 border border-emerald-200">Hồ tiêu</span>
-                                 </>
-                               ) : (
-                                 <span className="px-3 py-1 bg-white rounded-full text-xs font-bold text-emerald-700 border border-emerald-200">Đa dạng các loại cây trồng</span>
-                               )}
-                            </div>
-                         </div>
-
-                         <div className="space-y-4">
-                            <p className="font-bold text-gray-900 flex items-center gap-2 text-sm">
-                              <span className="w-6 h-6 bg-emerald-600 text-white rounded-full flex items-center justify-center text-[10px]">2</span>
-                              Thành phần chính:
-                            </p>
-                            <p className="text-gray-600 text-sm ml-8 leading-relaxed italic">
-                               {product.ingredients || "Chất hữu cơ, Amino Acid, Vi lượng khoáng, Vi sinh vật có ích..."}
-                            </p>
-                         </div>
-                      </div>
-
-                      <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8 pt-8 border-t border-emerald-100">
-                         <div className="space-y-4">
-                            <p className="font-bold text-gray-900 flex items-center gap-2 text-sm">
-                              <span className="w-6 h-6 bg-emerald-600 text-white rounded-full flex items-center justify-center text-[10px]">3</span>
                               Cách sử dụng (Hướng dẫn chuẩn):
                             </p>
                             <div className="text-gray-700 text-sm ml-8 leading-relaxed whitespace-pre-line">
-                               {product.usageInstructions || `• Tưới gốc: Pha 1L cho 400-600L nước.
-• Phun lá: Pha 1L cho 800L nước.
-• Định kỳ 7-10 ngày/lần để đạt hiệu quả cao nhất.`}
+                               {product.usageInstructions}
                             </div>
                          </div>
+                         )}
 
+                         {product.dosage && (
                          <div className="space-y-4">
                             <p className="font-bold text-gray-900 flex items-center gap-2 text-sm">
-                              <span className="w-6 h-6 bg-emerald-600 text-white rounded-full flex items-center justify-center text-[10px]">4</span>
+                              <span className="w-6 h-6 bg-emerald-600 text-white rounded-full flex items-center justify-center text-[10px]">2</span>
                               Liều lượng & Thời điểm:
                             </p>
                             <div className="text-gray-700 text-sm ml-8 leading-relaxed whitespace-pre-line">
-                               {product.dosage || `• Giai đoạn cây con: Giúp bộ rễ phát triển mạnh.
-• Giai đoạn sau thu hoạch: Phục hồi cây nhanh chóng.
-• Giai đoạn nuôi trái: Tăng khả năng hấp thụ dinh dưỡng.`}
+                               {product.dosage}
                             </div>
                          </div>
+                         )}
                       </div>
                    </div>
+                   )}
 
                    {/* Benefits */}
                    {Array.isArray(product.benefits) && product.benefits.length > 0 && (
@@ -413,7 +387,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
                    )}
 
                    {/* Main Description */}
-                   <div className="space-y-4 pt-4">
+                   <div id="mo-ta" className="space-y-4 pt-4 scroll-mt-[120px]">
                       <p className="font-black text-gray-900 text-lg uppercase flex items-center gap-2">🔍 Chi tiết sản phẩm:</p>
                       <div 
                         className="text-gray-700 text-sm leading-relaxed prose prose-emerald max-w-none prose-p:my-4 prose-headings:mb-4 prose-headings:mt-8 prose-ul:list-disc prose-ul:pl-5 prose-ol:list-decimal prose-ol:pl-5 prose-li:my-2"
@@ -446,7 +420,9 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
               </div>
 
               {/* Reviews Section */}
-              <ProductReviews productId={product._id} />
+              <div id="danh-gia" className="scroll-mt-[120px]">
+                <ProductReviews productId={product._id} />
+              </div>
 
               {/* FAQ */}
               {Array.isArray(product.faq) && product.faq.length > 0 && (
