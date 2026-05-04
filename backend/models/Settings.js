@@ -31,7 +31,8 @@ const settingsSchema = mongoose.Schema({
   footerEmail: { type: String, default: '' },
   defaultSeoTitle: { type: String, default: 'Phân Bón Giá Tốt - Giải Pháp Nông Nghiệp Xanh' },
   defaultSeoDescription: { type: String, default: 'Chuyên cung cấp phân bón, thuốc trừ sâu, kích rễ chất lượng cao cho bà con nông dân.' },
-  defaultSeoImage: { type: String, default: '' }
+  defaultSeoImage: { type: String, default: '' },
+  brands: { type: String, default: 'BÌNH ĐIỀN, ĐẠM PHÚ MỸ, PHÂN BÓN MIỀN NAM, YARA, HAIFA GROUP, BEHN MEYER, DAP ĐÌNH VŨ, ACTI AGRI' }
 }, { timestamps: true });
 
 module.exports = mongoose.model('Settings', settingsSchema);
