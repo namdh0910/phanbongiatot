@@ -67,6 +67,16 @@ export default function Header() {
     { href: "/lien-he", label: "Liên hệ" },
   ];
 
+  const cropSolutions = [
+    { href: "/tim-kiem?q=sau+rieng", label: "Sầu riêng", icon: "🌳" },
+    { href: "/tim-kiem?q=ca+phe", label: "Cà phê", icon: "☕" },
+    { href: "/tim-kiem?q=lua", label: "Lúa", icon: "🌾" },
+    { href: "/tim-kiem?q=ho+tieu", label: "Hồ tiêu", icon: "🌿" },
+    { href: "/tim-kiem?q=cay+co+mui", label: "Cây có múi", icon: "🍊" },
+  ];
+
+  const [mobileTab, setMobileTab] = useState<'products' | 'crops'>('products');
+
   const trending = [
     { label: "Sầu riêng", href: "/tim-kiem?q=sau+rieng" },
     { label: "Cà phê", href: "/tim-kiem?q=ca+phe" },
@@ -190,21 +200,40 @@ export default function Header() {
             <div className="container mx-auto px-4 flex items-center justify-between">
                <nav className="flex items-center gap-8">
                   <div className="group relative">
-                     <button className={`flex items-center gap-2 font-black uppercase tracking-wide transition-colors ${pathname?.startsWith('/danh-muc') ? 'text-[#1a5c2a]' : 'text-gray-800 hover:text-[#1a5c2a]'}`}>
-                        <span className="text-lg">☰</span> DANH MỤC
-                     </button>
-                     <div className="absolute top-full left-0 w-64 bg-white shadow-2xl rounded-xl py-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-[100] border border-gray-100 mt-2">
-                        {navLinks.slice(0, 4).map((l, i) => (
-                           <Link 
-                             key={i} 
-                             href={l.href} 
-                             className={`block px-6 py-3 hover:bg-green-50 font-bold transition-colors ${pathname === l.href ? 'text-[#1a5c2a] bg-green-50' : 'text-gray-700 hover:text-[#1a5c2a]'}`}
-                           >
-                             {l.label}
-                           </Link>
-                        ))}
-                     </div>
-                  </div>
+                      <button className={`flex items-center gap-2 font-black uppercase tracking-wide transition-colors ${pathname?.startsWith('/danh-muc') ? 'text-[#1a5c2a]' : 'text-gray-800 hover:text-[#1a5c2a]'}`}>
+                         <span className="text-lg">☰</span> DANH MỤC
+                      </button>
+                      <div className="absolute top-full left-0 w-[600px] bg-white shadow-2xl rounded-2xl p-8 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-[100] border border-gray-100 mt-2 grid grid-cols-2 gap-8">
+                         <div>
+                            <h4 className="text-[10px] font-black text-[#1a5c2a] uppercase tracking-widest mb-4 border-b border-green-50 pb-2">Theo loại sản phẩm</h4>
+                            <div className="grid grid-cols-1 gap-1">
+                               {navLinks.slice(0, 5).map((l, i) => (
+                                  <Link 
+                                    key={i} 
+                                    href={l.href} 
+                                    className={`block px-4 py-2.5 rounded-xl hover:bg-green-50 font-bold transition-all ${pathname === l.href ? 'text-[#1a5c2a] bg-green-50' : 'text-gray-700 hover:text-[#1a5c2a]'}`}
+                                  >
+                                    {l.label}
+                                  </Link>
+                               ))}
+                            </div>
+                         </div>
+                         <div>
+                            <h4 className="text-[10px] font-black text-[#f5a623] uppercase tracking-widest mb-4 border-b border-orange-50 pb-2">Giải pháp theo cây trồng</h4>
+                            <div className="grid grid-cols-1 gap-1">
+                               {cropSolutions.map((l, i) => (
+                                  <Link 
+                                    key={i} 
+                                    href={l.href} 
+                                    className="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-orange-50 font-bold text-gray-700 hover:text-orange-600 transition-all"
+                                  >
+                                    <span className="text-lg">{l.icon}</span> {l.label}
+                                  </Link>
+                               ))}
+                            </div>
+                         </div>
+                      </div>
+                   </div>
                   {navLinks.slice(4).map((link, i) => {
                     const isActive = pathname === link.href;
                     return (
@@ -358,24 +387,56 @@ export default function Header() {
                 </Link>
               </div>
 
-              {/* Nav Links */}
-              <nav className="flex-1 overflow-y-auto py-2">
-                {navLinks.map((link, i) => {
-                  const isActive = pathname === link.href;
-                  return (
-                    <Link 
-                      key={i} 
-                      href={link.href} 
-                      onClick={() => setMenuOpen(false)}
-                      className={`flex items-center px-6 py-4 border-b border-gray-50 font-bold text-[15px] uppercase tracking-wide transition-colors ${isActive ? 'text-[#1a5c2a] bg-green-50' : 'text-gray-800 hover:bg-gray-50'}`}
-                      style={{ minHeight: '52px' }}
-                    >
-                      {link.label}
-                      {isActive && <span className="ml-auto text-xl">➜</span>}
-                    </Link>
-                  );
-                })}
-              </nav>
+               {/* Tab Switcher Mobile */}
+               <div className="flex border-b border-gray-100">
+                  <button 
+                    onClick={() => setMobileTab('products')}
+                    className={`flex-1 py-4 text-[10px] font-black uppercase tracking-widest transition-all relative ${mobileTab === 'products' ? 'text-[#1a5c2a]' : 'text-gray-400'}`}
+                  >
+                    🛒 Sản phẩm
+                    {mobileTab === 'products' && <span className="absolute bottom-0 left-0 w-full h-1 bg-[#1a5c2a]"></span>}
+                  </button>
+                  <button 
+                    onClick={() => setMobileTab('crops')}
+                    className={`flex-1 py-4 text-[10px] font-black uppercase tracking-widest transition-all relative ${mobileTab === 'crops' ? 'text-[#f5a623]' : 'text-gray-400'}`}
+                  >
+                    🌱 Cây trồng
+                    {mobileTab === 'crops' && <span className="absolute bottom-0 left-0 w-full h-1 bg-[#f5a623]"></span>}
+                  </button>
+               </div>
+
+               {/* Nav Links Mobile */}
+               <nav className="flex-1 overflow-y-auto py-2">
+                 {mobileTab === 'products' ? (
+                   navLinks.map((link, i) => {
+                     const isActive = pathname === link.href;
+                     return (
+                       <Link 
+                         key={i} 
+                         href={link.href} 
+                         onClick={() => setMenuOpen(false)}
+                         className={`flex items-center px-6 py-4 border-b border-gray-50 font-bold text-[14px] uppercase tracking-wide transition-colors ${isActive ? 'text-[#1a5c2a] bg-green-50' : 'text-gray-800 hover:bg-gray-50'}`}
+                       >
+                         {link.label}
+                         <span className="ml-auto text-gray-300 text-xs">➜</span>
+                       </Link>
+                     );
+                   })
+                 ) : (
+                   cropSolutions.map((link, i) => (
+                     <Link 
+                       key={i} 
+                       href={link.href} 
+                       onClick={() => setMenuOpen(false)}
+                       className="flex items-center gap-4 px-6 py-5 border-b border-gray-50 font-black text-[14px] uppercase tracking-wide text-gray-800 hover:bg-orange-50 transition-colors"
+                     >
+                       <span className="text-2xl">{link.icon}</span>
+                       <span>Giải pháp {link.label}</span>
+                       <span className="ml-auto text-orange-200">▶</span>
+                     </Link>
+                   ))
+                 )}
+               </nav>
 
               {/* Bottom Actions */}
               {/* Bottom Actions - Added padding-bottom to avoid overlap with Sticky Footer */}
