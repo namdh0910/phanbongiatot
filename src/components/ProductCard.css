@@ -150,7 +150,7 @@
 
 @media (max-width: 768px) {
   .p-card {
-    border-radius: 20px !important;
+    border-radius: 16px !important;
   }
   
   .p-info {
@@ -166,7 +166,16 @@
   }
   
   .p-actions {
-    display: none !important; /* Hide actions on home grid to make it cleaner */
+    display: grid !important; /* Restore on mobile */
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+
+  .p-btn {
+    padding: 8px 0 !important;
+    font-size: 9px !important;
+    min-height: 40px;
+    border-radius: 10px !important;
   }
   
   .p-card:hover {

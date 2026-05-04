@@ -1,7 +1,16 @@
 "use client";
 import React from 'react';
+import Link from 'next/link';
 import { useSettings } from '@/context/SettingsContext';
 import './TrustBar.css';
+
+const trending = [
+  { label: "🍈 Sầu riêng", href: "/tim-kiem?q=sau+rieng" },
+  { label: "☕ Cà phê", href: "/tim-kiem?q=ca+phe" },
+  { label: "🌱 Kích rễ", href: "/tim-kiem?q=kich+re" },
+  { label: "🦠 Tuyến trùng", href: "/tim-kiem?q=tuyen+trung" },
+  { label: "🌶️ Tiêu", href: "/tim-kiem?q=ho+tieu" },
+];
 
 const TrustBar: React.FC = () => {
   const settings = useSettings();
@@ -54,32 +63,46 @@ const TrustBar: React.FC = () => {
   ];
 
   return (
-    <div className="trust-bar" style={{ '--primary-color': primaryColor } as React.CSSProperties}>
-      <div className="trust-container">
-        <div className="trust-main">
-          {items.map((item, index) => (
-            <div key={index} className="trust-item">
-              <div className="trust-icon">{item.icon}</div>
-              <div className="trust-text">
-                <span className="trust-label">{item.label}</span>
-                <span className="trust-sublabel">{item.sub}</span>
+    <>
+      <div className="trust-bar" style={{ '--primary-color': primaryColor } as React.CSSProperties}>
+        <div className="trust-container">
+          <div className="trust-main">
+            {items.map((item, index) => (
+              <div key={index} className="trust-item">
+                <div className="trust-icon">{item.icon}</div>
+                <div className="trust-text">
+                  <span className="trust-label">{item.label}</span>
+                  <span className="trust-sublabel">{item.sub}</span>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="trust-stats">
-          <div className="stat-box">
-            <span className="stat-value">500+</span>
-            <span className="stat-label">Đơn/Tháng</span>
+            ))}
           </div>
-          <div className="stat-box">
-            <span className="stat-value">4.8/5</span>
-            <span className="stat-label">Đánh Giá Sao</span>
+
+          <div className="trust-stats">
+            <div className="stat-box">
+              <span className="stat-value">500+</span>
+              <span className="stat-label">Đơn/Tháng</span>
+            </div>
+            <div className="stat-box">
+              <span className="stat-value">4.8/5</span>
+              <span className="stat-label">Đánh Giá Sao</span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+
+      {/* Mobile Trending Chips — non-sticky, below trust bar */}
+      <div className="md:hidden trending-mobile-wrapper bg-white py-3 px-4 relative overflow-hidden border-b border-gray-100">
+        <div className="trending-mobile-scroll">
+          <span className="text-[10px] font-black text-[#1a5c2a] mr-2 flex-shrink-0 bg-green-50 px-2 py-1 rounded">HOT:</span>
+          {trending.map((t, i) => (
+            <Link key={i} href={t.href} className="trending-chip">
+              {t.label}
+            </Link>
+          ))}
+        </div>
+      </div>
+    </>
   );
 };
 

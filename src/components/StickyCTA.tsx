@@ -16,7 +16,7 @@ export default function StickyCTA() {
   const handleMessenger = () => trackEvent('Contact', { method: 'Messenger' });
 
   return (
-    <div className="fixed bottom-6 right-6 md:bottom-10 md:right-10 flex flex-col items-end gap-4 z-[99]">
+    <div className="fixed bottom-[88px] right-4 md:bottom-10 md:right-10 flex flex-col items-end gap-4 z-[89]">
       
       {/* Expanded Menu Items */}
       <div className={`flex flex-col items-end gap-4 transition-all duration-300 origin-bottom ${isOpen ? 'scale-100 opacity-100 translate-y-0' : 'scale-75 opacity-0 translate-y-10 pointer-events-none'}`}>
@@ -77,7 +77,7 @@ export default function StickyCTA() {
         onClick={() => setIsOpen(!isOpen)}
         className="bg-[#1a5c2a] text-white w-14 h-14 rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(26,92,42,0.4)] hover:scale-110 transition-transform relative z-10"
       >
-        <span className="absolute inset-0 bg-white/20 rounded-full animate-ping opacity-50"></span>
+        <span className="absolute inset-0 bg-white/20 rounded-full animate-ping opacity-50" style={{ animationIterationCount: 3 }}></span>
         {isOpen ? (
           <span className="text-2xl font-bold leading-none select-none">✕</span>
         ) : (

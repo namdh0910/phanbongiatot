@@ -81,7 +81,7 @@ export default function Header() {
   const zaloId = process.env.NEXT_PUBLIC_ZALO_PHONE ?? "0773440966";
 
   return (
-    <div className="w-full sticky top-0 z-[100] bg-white shadow-sm">
+    <div className="w-full sticky top-0 z-[100] bg-white shadow-sm border-b border-gray-100">
       {/* Announcement Bar */}
       {settings?.announcementEnabled && (
         <div className="bg-[#1a5c2a] text-white py-2 px-4 text-center text-[10px] md:text-xs font-bold uppercase tracking-widest">
@@ -287,17 +287,6 @@ export default function Header() {
             </button>
           </div>
 
-          {/* MOBILE TRENDING TAGS ROW */}
-          <div className="trending-mobile-wrapper bg-white py-3 px-4 relative overflow-hidden">
-            <div className="trending-mobile-scroll">
-              <span className="text-[10px] font-black text-[#1a5c2a] mr-2 flex-shrink-0 bg-green-50 px-2 py-0.5 rounded">HOT:</span>
-              {trending.map((t, i) => (
-                <Link key={i} href={t.href} className="trending-chip">
-                  {t.label}
-                </Link>
-              ))}
-            </div>
-          </div>
         </div>
       </header>
 
