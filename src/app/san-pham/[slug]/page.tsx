@@ -15,6 +15,22 @@ const CATEGORY_SLUG_MAP: Record<string, string> = {
   "Thuốc trừ sâu": "thuoc-tru-sau",
 };
 
+/**
+ * Strip inline styles (font-size, color, background) injected by copy-paste
+ * from Word, Google Docs or other rich-text editors.
+ * Preserves structural HTML tags (h1-h6, ul, ol, li, p, strong, em, etc.)
+ */
+function sanitizeHtml(html: string): string {
+  if (!html) return "";
+  // Remove style attributes that override our CSS
+  return html
+    .replace(/style="[^"]*font-size[^"]*"/gi, "")
+    .replace(/style="[^"]*color[^"]*"/gi, "")
+    .replace(/style="[^"]*background[^"]*"/gi, "")
+    .replace(/style="[^"]*font-family[^"]*"/gi, "")
+    .replace(/style=""/gi, ""); // clean leftover empty style attrs
+}
+
 async function getProduct(slug: string) {
   try {
     const res = await fetch(`${API_BASE_URL}/products/slug/${slug}`, { next: { revalidate: 60 } });
@@ -334,23 +350,24 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
                    <div className="relative space-y-6">
                       <span id="mo-ta" className="absolute -top-[130px]" aria-hidden="true"></span>
                       
-                      <div className="flex items-center gap-3 mb-6">
-                        <div className="w-1.5 h-6 bg-[#ee4d2d] rounded-full"></div>
-                        <h3 className="text-lg font-bold text-gray-900 uppercase">
-                          Chi tiết sản phẩm
+                      <div className="flex items-center gap-3 mb-4">
+                        <h3 className="text-base font-black text-gray-800 uppercase flex items-center gap-2">
+                          <span className="w-8 h-8 bg-[#1a5c2a] text-white rounded-lg flex items-center justify-center text-sm">📄</span>
+                          Mô tả sản phẩm
                         </h3>
+                        <div className="h-px bg-gray-100 flex-1"></div>
                       </div>
 
-                      <div className="w-full">
-                        <div 
-                          className="text-gray-700 text-base leading-relaxed prose max-w-none prose-p:mb-4"
-                          dangerouslySetInnerHTML={{ 
-                            __html: product.description?.includes('<') 
+                      <div 
+                        className="prose max-w-none"
+                        dangerouslySetInnerHTML={{ 
+                          __html: sanitizeHtml(
+                            product.description?.includes('<') 
                               ? product.description 
-                              : product.description?.replace(/\n/g, '<br/>') || "" 
-                          }}
-                        />
-                      </div>
+                              : product.description?.replace(/\n/g, '<br/>') || ""
+                          )
+                        }}
+                      />
                    </div>
 
                    {/* Technical Protocol Section */}
