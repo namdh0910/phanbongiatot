@@ -7,6 +7,23 @@ import { API_BASE_URL, getAuthHeaders } from "@/utils/api";
 import dynamic from 'next/dynamic';
 import 'react-quill-new/dist/quill.snow.css';
 
+// Override Quill editor styles to match frontend display
+// This prevents the "paste looks different from output" issue
+const QUILL_EDITOR_STYLES = `
+  .ql-container {
+    font-size: 15px !important;
+    font-family: Arial, Helvetica, sans-serif !important;
+    line-height: 1.7 !important;
+    color: #374151 !important;
+  }
+  .ql-editor h1 { font-size: 1.125rem !important; font-weight: 800 !important; color: #1a5c2a !important; }
+  .ql-editor h2 { font-size: 1.0rem !important; font-weight: 700 !important; color: #166534 !important; border-left: 3px solid #f5a623; padding-left: 0.5rem; }
+  .ql-editor h3 { font-size: 0.9375rem !important; font-weight: 700 !important; color: #1e293b !important; }
+  .ql-editor p { font-size: 15px !important; line-height: 1.7 !important; margin-bottom: 0.75rem !important; }
+  .ql-editor strong { color: #1a3d0f !important; font-weight: 700 !important; }
+  .ql-editor ul li, .ql-editor ol li { font-size: 15px !important; }
+`;
+
 const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
 
 export default function AdminProducts() {
@@ -205,6 +222,9 @@ export default function AdminProducts() {
 
   return (
     <div className="space-y-6">
+        {/* Inject Quill editor styles to match frontend display */}
+        <style dangerouslySetInnerHTML={{ __html: QUILL_EDITOR_STYLES }} />
+
         <div className="flex justify-between items-center mb-8 bg-white p-6 rounded-xl shadow-sm border border-gray-200">
           <div className="flex items-center gap-4">
              <h1 className="text-xl font-bold text-gray-800">Sản phẩm</h1>
@@ -239,28 +259,29 @@ export default function AdminProducts() {
                        <label className="block text-sm font-bold text-gray-700 mb-2">Tên sản phẩm</label>
                        <input required value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} className="w-full border border-gray-300 rounded px-4 py-2 focus:ring-1 focus:ring-[#2271b1] focus:border-[#2271b1] outline-none text-lg font-medium" />
                      </div>
-                     <div>
-                       <label className="block text-sm font-bold text-gray-700 mb-2">Mô tả sản phẩm</label>
-                       <div className="bg-white border border-gray-300 rounded overflow-hidden">
-                         <ReactQuill 
-                           theme="snow" 
-                           value={form.description} 
-                           onChange={val => setForm(f => ({ ...f, description: val }))}
-                           className="min-h-[400px] mb-12"
-                           modules={{
-                             toolbar: [
-                               [{ 'header': '1'}, { 'header': '2'}, { 'header': '3'}, { 'font': [] }],
-                               ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-                               [{ 'color': [] }, { 'background': [] }],
-                               [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-                               [{ 'align': [] }],
-                               ['link', 'image', 'video'],
-                               ['clean']
-                             ],
-                           }}
-                         />
-                       </div>
-                     </div>
+                      <div>
+                        <label className="block text-sm font-bold text-gray-700 mb-1">
+                          Mô tả sản phẩm
+                          <span className="ml-2 text-xs font-normal text-amber-600">⚠ Không chọn màu/cỡ chữ — hệ thống tự chuẩn hóa khi hiển thị</span>
+                        </label>
+                        <div className="bg-white border border-gray-300 rounded overflow-hidden">
+                          <ReactQuill 
+                            theme="snow" 
+                            value={form.description} 
+                            onChange={val => setForm(f => ({ ...f, description: val }))}
+                            className="min-h-[400px] mb-12"
+                            modules={{
+                              toolbar: [
+                                [{ 'header': '1'}, { 'header': '2'}, { 'header': '3'}],
+                                ['bold', 'italic', 'underline'],
+                                [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                                ['link'],
+                                ['clean']
+                              ],
+                            }}
+                          />
+                        </div>
+                      </div>
                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-gray-100">
                        <div>
                          <label className="block text-sm font-bold text-gray-700 mb-2">Cách sử dụng (Hướng dẫn chuẩn)</label>

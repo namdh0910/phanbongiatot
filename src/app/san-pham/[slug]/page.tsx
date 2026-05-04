@@ -345,27 +345,20 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
 
         <div className="flex flex-col lg:flex-row gap-6">
            <div className="flex-1 space-y-6">
-              {/* Product Info Sections */}
+                 {/* Product Info Sections */}
               <div className="bg-white md:rounded-sm shadow-sm overflow-hidden">
                 {/* Desktop Titles */}
-                <h2 className="hidden md:block bg-[#f5f5f5] p-4 text-sm font-bold text-gray-800 uppercase tracking-wider">Thông Tin Chi Tiết</h2>
+                <h2 className="hidden md:block bg-[#f5f5f5] px-4 py-3 text-xs font-bold text-gray-500 uppercase tracking-wider">Thông Tin Chi Tiết</h2>
                 
                 <ProductTabs hasTechnical={!!(product.usageInstructions?.trim() || product.dosage?.trim())} />
 
-                <div className="p-3 md:p-6 space-y-8">
+                <div className="px-4 py-5 md:p-6 space-y-6">
 
                    {/* Main Description */}
-                   <div className="relative space-y-6">
-                      <span id="mo-ta" className="absolute -top-[130px]" aria-hidden="true"></span>
+                   <div className="relative">
+                      {/* Anchor offset = header (64px) + tabs (48px) + gap (8px) = 120px */}
+                      <span id="mo-ta" className="absolute -top-[120px]" aria-hidden="true"></span>
                       
-                      <div className="flex items-center gap-3 mb-4">
-                        <h3 className="text-base font-black text-gray-800 uppercase flex items-center gap-2">
-                          <span className="w-8 h-8 bg-[#1a5c2a] text-white rounded-lg flex items-center justify-center text-sm">📄</span>
-                          Mô tả sản phẩm
-                        </h3>
-                        <div className="h-px bg-gray-100 flex-1"></div>
-                      </div>
-
                       <div 
                         className="prose max-w-none"
                         dangerouslySetInnerHTML={{ 
