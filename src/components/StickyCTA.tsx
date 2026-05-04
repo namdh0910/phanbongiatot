@@ -16,7 +16,7 @@ export default function StickyCTA() {
   const handleMessenger = () => trackEvent('Contact', { method: 'Messenger' });
 
   return (
-    <div className="fixed bottom-[88px] right-4 md:bottom-10 md:right-10 flex flex-col items-end gap-4 z-[89]">
+    <div className="fixed bottom-[104px] right-4 md:bottom-10 md:right-10 flex flex-col items-end gap-4 z-[89]">
       
       {/* Expanded Menu Items */}
       <div className={`flex flex-col items-end gap-4 transition-all duration-300 origin-bottom ${isOpen ? 'scale-100 opacity-100 translate-y-0' : 'scale-75 opacity-0 translate-y-10 pointer-events-none'}`}>

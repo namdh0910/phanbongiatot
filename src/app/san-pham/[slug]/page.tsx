@@ -395,7 +395,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
                     {relatedProducts.length > 0 ? relatedProducts.map((p: any) => (
                        <Link href={`/san-pham/${p.slug}`} key={p._id} className="group cursor-pointer">
                           <div className="aspect-square bg-gray-50 rounded-sm mb-2 flex items-center justify-center overflow-hidden group-hover:bg-gray-100 transition-colors">
-                            {p.images?.[0] ? <img src={p.images[0]} className="w-full h-full object-cover" /> : <span className="text-3xl">🌿</span>}
+                            {p.images?.[0] ? <img src={p.images[0]} className="w-full h-full object-cover" onError={(e) => { (e.target as HTMLImageElement).src = '/og-image.png'; }} /> : <span className="text-3xl">🌿</span>}
                           </div>
                           <p className="text-xs font-medium text-gray-700 line-clamp-2 group-hover:text-[#ee4d2d]">{p.name}</p>
                           <p className="text-sm font-bold text-[#ee4d2d] mt-1">₫{p.price.toLocaleString("vi-VN")}</p>
@@ -438,7 +438,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
                     {bestSellers.map((p: any) => (
                       <Link href={`/san-pham/${p.slug}`} key={p._id} className="flex flex-col gap-3 group cursor-pointer">
                          <div className="aspect-square bg-gray-50 rounded-sm flex items-center justify-center overflow-hidden group-hover:scale-105 transition-transform">
-                           {p.images?.[0] ? <img src={p.images[0]} className="w-full h-full object-cover" /> : <span className="text-4xl">🌱</span>}
+                           {p.images?.[0] ? <img src={p.images[0]} className="w-full h-full object-cover" onError={(e) => { (e.target as HTMLImageElement).src = '/og-image.png'; }} /> : <span className="text-4xl">🌱</span>}
                          </div>
                          <p className="text-xs font-medium line-clamp-2 group-hover:text-[#ee4d2d]">{p.name}</p>
                          <p className="text-sm font-bold text-[#ee4d2d]">₫{p.price.toLocaleString("vi-VN")}</p>

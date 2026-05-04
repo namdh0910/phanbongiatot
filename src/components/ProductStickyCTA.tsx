@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useCart } from "@/context/CartContext";
+import { useRouter } from "next/navigation";
 
 interface ProductStickyCTAProps {
   product: any;
@@ -9,6 +10,7 @@ interface ProductStickyCTAProps {
 export default function ProductStickyCTA({ product }: ProductStickyCTAProps) {
   const [show, setShow] = useState(false);
   const { addToCart } = useCart();
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -35,7 +37,10 @@ export default function ProductStickyCTA({ product }: ProductStickyCTAProps) {
         <p className="text-[#ee4d2d] font-black text-sm">₫{product.price?.toLocaleString()}</p>
       </div>
       <button 
-        onClick={() => addToCart(product, 1)}
+        onClick={() => {
+          addToCart(product, 1);
+          router.push('/checkout');
+        }}
         className="bg-[#ee4d2d] text-white px-6 py-2.5 rounded-full font-black text-xs uppercase tracking-wider shadow-lg shadow-red-100 active:scale-95 transition-transform"
       >
         MUA NGAY

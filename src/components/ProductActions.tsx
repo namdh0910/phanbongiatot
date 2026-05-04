@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import { useSettings } from "@/context/SettingsContext";
 
 export default function ProductActions({ product }: { product: any }) {
-  const [showCartSuccess, setShowCartSuccess] = useState(false);
   const [qty, setQty] = useState(1);
   const { addToCart } = useCart();
   const router = useRouter();
@@ -35,9 +34,6 @@ export default function ProductActions({ product }: { product: any }) {
     });
     
     addToCart(itemToCart, qty);
-    
-    setShowCartSuccess(true);
-    setTimeout(() => setShowCartSuccess(false), 3000);
   };
 
   const handleBuyNow = () => {
@@ -118,12 +114,7 @@ export default function ProductActions({ product }: { product: any }) {
           </div>
         </div>
 
-        {showCartSuccess && (
-          <div className="bg-green-50 text-green-700 px-4 py-3 rounded-sm text-sm font-medium animate-in fade-in slide-in-from-top-2 border border-green-100 flex items-center gap-2">
-            <span className="text-lg">✅</span> Đã thêm vào giỏ hàng thành công!
-          </div>
-        )}
-        
+
         <div className="hidden md:flex flex-row gap-4">
           <button 
             onClick={handleAddToCart}

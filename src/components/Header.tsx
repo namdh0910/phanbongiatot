@@ -256,7 +256,7 @@ export default function Header() {
                  onFocus={() => searchQuery.trim().length >= 2 && setShowSuggestions(true)}
                  onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
                  placeholder="Tìm kiếm..."
-                 className="w-full bg-gray-50 border border-gray-100 rounded-full py-2 pl-4 pr-10 outline-none text-xs"
+                 className="w-full bg-gray-50 border border-gray-100 rounded-full py-2.5 pl-4 pr-10 outline-none text-sm font-medium"
                />
                <button type="submit" className="absolute right-1 top-1/2 -translate-y-1/2 w-7 h-7 flex items-center justify-center text-gray-400">
                  🔍

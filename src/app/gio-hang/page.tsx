@@ -159,7 +159,7 @@ export default function CartPage() {
                             <div key={`${item._id}-${item.selectedVariant || i}`} className="p-6 flex flex-col md:flex-row items-center gap-6 group hover:bg-gray-50/30 transition-colors">
                               <div className="flex items-center gap-4 flex-1 w-full">
                                 <div className="w-20 h-20 bg-gray-50 rounded-2xl flex items-center justify-center text-3xl flex-shrink-0 overflow-hidden border border-gray-100 group-hover:scale-105 transition-transform">
-                                  {item.images?.[0] ? <img src={item.images[0]} className="w-full h-full object-cover" /> : "🌿"}
+                                  {item.images?.[0] ? <img src={item.images[0]} className="w-full h-full object-cover" onError={(e) => { (e.target as HTMLImageElement).src = '/og-image.png'; }} /> : "🌿"}
                                 </div>
                                 <div className="flex-1">
                                   <Link href={`/san-pham/${item.slug}`} className="font-bold text-gray-900 hover:text-[#ee4d2d] line-clamp-2 text-sm leading-snug">
@@ -187,16 +187,16 @@ export default function CartPage() {
                                 <div className="flex items-center gap-0 border border-gray-200 rounded-xl overflow-hidden bg-white shadow-sm">
                                   <button 
                                     onClick={() => updateQuantity(cartIndex, item.quantity - 1)}
-                                    className="w-10 h-10 flex items-center justify-center hover:bg-gray-50 transition-colors text-gray-400 font-black"
+                                    className="w-12 h-12 flex items-center justify-center hover:bg-gray-50 transition-colors text-gray-400 font-black text-lg"
                                   >
                                     −
                                   </button>
-                                  <div className="w-12 h-10 flex items-center justify-center font-black text-sm border-x border-gray-100 text-gray-800">
+                                  <div className="w-14 h-12 flex items-center justify-center font-black text-sm border-x border-gray-100 text-gray-800">
                                     {item.quantity}
                                   </div>
                                   <button 
                                     onClick={() => updateQuantity(cartIndex, item.quantity + 1)}
-                                    className="w-10 h-10 flex items-center justify-center hover:bg-gray-50 transition-colors text-gray-400 font-black"
+                                    className="w-12 h-12 flex items-center justify-center hover:bg-gray-50 transition-colors text-gray-400 font-black text-lg"
                                   >
                                     +
                                   </button>

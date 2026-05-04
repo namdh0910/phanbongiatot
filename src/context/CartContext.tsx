@@ -35,6 +35,7 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [sessionId, setSessionId] = useState<string>("");
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   useEffect(() => {
     // 1. Initialize Session ID
@@ -121,6 +122,10 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       }
       return [...prev, { ...product, quantity }];
     });
+    
+    // Show Toast
+    setToastMessage(`Đã thêm ${product.name} vào giỏ hàng`);
+    setTimeout(() => setToastMessage(null), 3000);
   };
 
   const removeFromCart = (index: number) => {
@@ -143,6 +148,12 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   return (
     <CartContext.Provider value={{ cart, addToCart, removeFromCart, updateQuantity, clearCart, cartCount, cartTotal }}>
       {children}
+      {toastMessage && (
+        <div className="fixed top-20 right-4 md:right-10 z-[200] bg-white border-l-4 border-[#1a5c2a] shadow-xl p-4 rounded-md animate-in slide-in-from-right fade-in duration-300 flex items-center gap-3">
+          <div className="w-8 h-8 bg-green-50 text-green-600 rounded-full flex items-center justify-center text-lg flex-shrink-0">✓</div>
+          <p className="text-sm font-bold text-gray-800">{toastMessage}</p>
+        </div>
+      )}
     </CartContext.Provider>
   );
 }
