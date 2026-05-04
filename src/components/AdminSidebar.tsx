@@ -13,6 +13,7 @@ export default function AdminSidebar() {
     { href: "/admin/orders", label: "Quản lý Đơn hàng", icon: "🛒", badge: "Mới" },
     { href: "/admin/products", label: "Quản lý Sản phẩm", icon: "📦" },
     { href: "/admin/categories", label: "Quản lý Danh mục", icon: "📂" },
+    { href: "/admin/flash-sales", label: "Quản lý Flash Sale", icon: "⚡", badge: "Hot" },
     { href: "/admin/blog", label: "Quản lý Blog", icon: "📝" },
     { href: "/admin/vendors", label: "Duyệt Đăng Ký", icon: "📋", badge: "Sellers" },
     { href: "/admin/users", label: "Quản lý Người dùng", icon: "👥" },
