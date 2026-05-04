@@ -170,7 +170,7 @@ const approveProduct = async (req, res) => {
 const getPendingProducts = async (req, res) => {
   try {
     const products = await Product.find({ approval_status: 'pending' })
-      .populate('seller', 'username vendorInfo')
+      .populate('seller', 'username vendorInfo role')
       .sort({ createdAt: -1 });
     res.json(products);
   } catch (error) {
@@ -182,7 +182,7 @@ const getPendingProducts = async (req, res) => {
 
 const getProductById = async (req, res) => {
   try {
-    const product = await Product.findById(req.params.id).populate('seller', 'username vendorInfo');
+    const product = await Product.findById(req.params.id).populate('seller', 'username vendorInfo role');
     if (product) res.json(product);
     else res.status(404).json({ message: 'Product not found' });
   } catch (error) {
@@ -192,7 +192,7 @@ const getProductById = async (req, res) => {
 
 const getProductBySlug = async (req, res) => {
   try {
-    const product = await Product.findOne({ slug: req.params.slug }).populate('seller', 'username vendorInfo');
+    const product = await Product.findOne({ slug: req.params.slug }).populate('seller', 'username vendorInfo role');
     if (product) {
       product.view_count = (product.view_count || 0) + 1;
       await product.save();

@@ -240,19 +240,25 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
         {/* Shop Info Section */}
         <div className="bg-white md:rounded-sm shadow-sm p-6 mb-6 flex flex-col md:flex-row items-center gap-6">
           <div className="flex items-center gap-4 md:border-r md:pr-10">
-            <div className="w-20 h-20 rounded-full border border-gray-100 overflow-hidden bg-gray-50 flex items-center justify-center p-1">
+            <div className={`relative w-20 h-20 rounded-full border ${product.seller?.role === 'admin' ? 'border-[#ee4d2d]' : 'border-gray-100'} overflow-hidden bg-gray-50 flex items-center justify-center p-1 shadow-sm`}>
               <img 
-                src={product.seller?.vendorInfo?.logo || "https://img.icons8.com/bubbles/100/000000/shop.png"} 
+                src={product.seller?.role === 'admin' ? "/images/logo-pbgt.png" : (product.seller?.vendorInfo?.logo || "https://img.icons8.com/bubbles/100/000000/shop.png")} 
                 className="w-full h-full object-cover rounded-full"
                 alt="Store Logo"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src = "https://img.icons8.com/bubbles/100/000000/shop.png";
+                }}
               />
               {product.seller?.role === 'admin' && (
-                <div className="absolute bottom-0 right-0 bg-[#ee4d2d] text-white text-[8px] px-1 rounded-sm font-bold">Yêu thích</div>
+                <div className="absolute bottom-0 left-0 right-0 bg-[#ee4d2d] text-white text-[8px] text-center font-bold py-0.5">YÊU THÍCH</div>
               )}
             </div>
             <div>
-              <h3 className="font-bold text-gray-900 text-lg">
+              <h3 className="font-bold text-gray-900 text-lg flex items-center gap-2">
                 {product.seller?.role === 'admin' ? "Phân Bón Giá Tốt (Chính hãng)" : (product.seller?.vendorInfo?.storeName || "Gian hàng đối tác")}
+                {product.seller?.role === 'admin' && (
+                  <span className="bg-[#ee4d2d] text-white text-[10px] px-1.5 py-0.5 rounded-sm font-black uppercase tracking-tighter">Mall</span>
+                )}
               </h3>
               <p className="text-xs text-gray-500 mb-2">Online 5 phút trước</p>
               <div className="flex gap-2">
