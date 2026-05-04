@@ -156,10 +156,14 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
             {/* Seller attribution under title */}
             <div className="mb-4 flex items-center gap-2">
                <span className="text-xs text-gray-400">Bán bởi:</span>
-               <Link href={`/shop/${product.seller?.username || 'admin'}`} className="text-sm font-bold text-[#1a5c2a] hover:underline flex items-center gap-1">
-                  {product.seller?.role === 'admin' ? "Phân Bón Giá Tốt" : (product.seller?.vendorInfo?.storeName || "Gian hàng đối tác")}
-                  {product.seller?.vendorInfo?.isApproved && <span className="text-[10px] bg-blue-100 text-blue-600 px-1 rounded-sm">✓ Mall</span>}
-               </Link>
+               {product.seller ? (
+                 <Link href={`/shop/${product.seller.username || 'admin'}`} className="text-sm font-bold text-[#1a5c2a] hover:underline flex items-center gap-1">
+                    {product.seller.role === 'admin' ? "Phân Bón Giá Tốt" : (product.seller.vendorInfo?.storeName || "Gian hàng đối tác")}
+                    {product.seller.vendorInfo?.isApproved && <span className="text-[10px] bg-blue-100 text-blue-600 px-1 rounded-sm">✓ Mall</span>}
+                 </Link>
+               ) : (
+                 <span className="text-sm font-bold text-[#1a5c2a]">Phân Bón Giá Tốt</span>
+               )}
             </div>
             <div className="flex items-center gap-4 text-xs md:text-sm mb-5">
               <div className="flex items-center text-[#ee4d2d] border-b border-[#ee4d2d] pb-[1px] cursor-pointer">
@@ -242,7 +246,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
           <div className="flex items-center gap-4 md:border-r md:pr-10">
             <div className={`relative w-20 h-20 rounded-full border ${product.seller?.role === 'admin' ? 'border-[#ee4d2d]' : 'border-gray-100'} overflow-hidden bg-gray-50 flex items-center justify-center p-1 shadow-sm`}>
               <img 
-                src={product.seller?.role === 'admin' ? "/images/logo-pbgt.png" : (product.seller?.vendorInfo?.logo || "https://img.icons8.com/bubbles/100/000000/shop.png")} 
+                src={product.seller?.role === 'admin' ? "https://res.cloudinary.com/dztidbkhv/image/upload/v1715410000/logos/logo-pbgt-mall.png" : (product.seller?.vendorInfo?.logo || "https://img.icons8.com/bubbles/100/000000/shop.png")} 
                 className="w-full h-full object-cover rounded-full"
                 alt="Store Logo"
                 onError={(e) => {
