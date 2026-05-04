@@ -16,20 +16,28 @@ const CATEGORY_SLUG_MAP: Record<string, string> = {
 };
 
 /**
- * Strip inline styles (font-size, color, background) injected by copy-paste
- * from Word, Google Docs or other rich-text editors.
- * Preserves structural HTML tags (h1-h6, ul, ol, li, p, strong, em, etc.)
+ * Sanitize HTML from rich-text editor (TipTap/Quill/Word paste):
+ * 1. Strip ALL inline style attributes (cause font-size/color override)
+ * 2. Replace &nbsp; with regular space (cause word-break to fail)
+ * 3. Remove empty span tags left over from editor formatting
+ * Preserves structural HTML: h1-h6, ul, ol, li, p, strong, em, br, etc.
  */
 function sanitizeHtml(html: string): string {
   if (!html) return "";
-  // Remove style attributes that override our CSS
   return html
-    .replace(/style="[^"]*font-size[^"]*"/gi, "")
-    .replace(/style="[^"]*color[^"]*"/gi, "")
-    .replace(/style="[^"]*background[^"]*"/gi, "")
-    .replace(/style="[^"]*font-family[^"]*"/gi, "")
-    .replace(/style=""/gi, ""); // clean leftover empty style attrs
+    // 1. Strip ALL style="..." attributes (handles multi-value styles too)
+    .replace(/\s*style="[^"]*"/gi, "")
+    // 2. Convert &nbsp; to regular space so browser can line-wrap naturally
+    .replace(/&nbsp;/gi, " ")
+    // 3. Remove empty span tags that editors leave behind
+    .replace(/<span[^>]*>\s*<\/span>/gi, "")
+    // 4. Remove class attributes injected by editors (ql-*, tiptap-*)
+    .replace(/\s*class="[^"]*"/gi, "")
+    // 5. Collapse multiple spaces into one
+    .replace(/ {2,}/g, " ");
 }
+
+
 
 async function getProduct(slug: string) {
   try {
