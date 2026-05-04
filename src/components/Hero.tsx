@@ -34,7 +34,7 @@ const Hero: React.FC = () => {
         </h1>
 
         <div className="hero-social-proof">
-          ✓ Hơn 5.000 nhà vườn tin dùng | Giao hàng toàn quốc
+          ✓ Cam kết chính hãng | Kỹ sư tư vấn 24/7 | Giao hàng toàn quốc
         </div>
         
         <p className="hero-subtitle">

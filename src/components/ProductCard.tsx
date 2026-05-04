@@ -34,9 +34,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const imgSrc = product.images?.[0];
   const isUrl = imgSrc && (imgSrc.startsWith("http") || imgSrc.startsWith("/"));
 
-  // Random data if missing from API
-  const rating = product.rating || (4.5 + Math.random() * 0.5).toFixed(1);
-  const soldCount = product.soldCount || Math.floor(Math.random() * 500) + 100;
+  // Real data from API
+  const rating = product.rating || 0;
+  const soldCount = product.soldCount || 0;
   const isLowStock = product.stock > 0 && product.stock < 10;
 
   return (
@@ -86,11 +86,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                 {product.seller.vendorInfo?.logo ? <img src={product.seller.vendorInfo.logo} className="w-full h-full object-cover" /> : '🏪'}
              </div>
              <span className="text-[10px] font-bold text-emerald-700 group-hover/shop:underline truncate max-w-[120px]">
-               {product.seller.role === 'admin' 
+               {product.seller?.role === 'admin' 
                  ? '🏅 Phân Bón Giá Tốt' 
-                 : (product.seller.vendorInfo?.storeName && product.seller.vendorInfo.storeName !== 'nam' 
-                    ? `🏪 ${product.seller.vendorInfo.storeName}` 
-                    : '✅ Đại lý chính hãng')}
+                 : (product.seller?.vendorInfo?.storeName || '✅ Đại lý chính hãng')}
              </span>
              {product.seller.role === 'admin' && (
                <span className="text-[8px] bg-[#1a5c2a] text-white px-1 rounded font-black uppercase tracking-tighter">Mall</span>
@@ -98,17 +96,19 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           </div>
         )}
         
-          <div className="p-meta">
-            <div className="p-stars">
-              {"★★★★★".split("").map((star, i) => (
-                <span key={i} style={{ color: i < Math.floor(Number(rating)) ? '#f5a623' : '#ddd' }}>{star}</span>
-              ))}
+          {soldCount > 0 && (
+            <div className="p-meta">
+              <div className="p-stars">
+                {"★★★★★".split("").map((star, i) => (
+                  <span key={i} style={{ color: i < Math.floor(Number(rating)) ? '#f5a623' : '#ddd' }}>{star}</span>
+                ))}
+              </div>
+              <div className="w-px h-3 bg-gray-200 mx-2"></div>
+              <div className="p-sold">
+                Đã bán {soldCount >= 1000 ? (soldCount/1000).toFixed(1) + 'k' : soldCount}
+              </div>
             </div>
-            <div className="w-px h-3 bg-gray-200 mx-2"></div>
-            <div className="p-sold">
-              Đã bán {soldCount >= 1000 ? (soldCount/1000).toFixed(1) + 'k' : soldCount}
-            </div>
-          </div>
+          )}
 
         <div className="p-price-row">
           <span className="p-price-main">₫{product.price?.toLocaleString("vi-VN")}</span>

@@ -34,24 +34,12 @@ const SocialProof: React.FC = () => {
     <section className="social-proof-section">
       <div className="sp-container">
         {/* STATS BAR */}
+        {/* STATS BAR REMOVED PER USER REQUEST */}
+        {/* 
         <div className="stats-bar">
-          <div className="stat-item">
-            <span className="stat-number">5.000+</span>
-            <span className="stat-desc">Nhà vườn đã đặt hàng</span>
-          </div>
-          <div className="stat-item">
-            <span className="stat-number">63</span>
-            <span className="stat-desc">Tỉnh thành giao hàng</span>
-          </div>
-          <div className="stat-item">
-            <span className="stat-number">100%</span>
-            <span className="stat-desc">Kiểm tra trước khi nhận</span>
-          </div>
-          <div className="stat-item">
-            <span className="stat-number">4.8★</span>
-            <span className="stat-desc">Đánh giá trung bình</span>
-          </div>
+          ...
         </div>
+        */}
 
         {/* TESTIMONIALS CAROUSEL */}
         <div className="text-center mb-12">
