@@ -38,10 +38,16 @@ export default function AdminFlashSales() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
+      const payload = {
+        ...formData,
+        startAt: new Date(formData.startAt).toISOString(),
+        endAt: new Date(formData.endAt).toISOString()
+      };
+
       const res = await fetch(`${API_BASE_URL}/flash-sales`, {
         method: 'POST',
         headers: { ...getAuthHeaders(), 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(payload)
       });
       if (res.ok) {
         setShowForm(false);
