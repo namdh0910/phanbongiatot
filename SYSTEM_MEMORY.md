@@ -101,6 +101,17 @@ Status: ✅ Working
 - Performance: Fix Layout Shift bằng Skeletons trên trang tìm kiếm.
 - Deployment: Push code lên origin main (đã build test OK).
 
+### Session 04/05/2026 (Tối) — Fix Product Detail UX & Tabs (DEPLOYED)
+```
+Vấn đề: Layout phần Kỹ thuật và Mô tả bị lộn xộn, không highlight tab khi cuộn, anchor jump bị lệch.
+Đã làm:
+- Tạo ProductTabs (Client Component) hỗ trợ highlight active tab & smooth scroll.
+- Reorder: Đưa Chi tiết sản phẩm (Mô tả) lên trước Phác đồ kỹ thuật.
+- Nâng cấp UI phần Phác đồ kỹ thuật: rounded-3xl, shadow, icon custom premium.
+- Fix sticky header offset (top-[64px]).
+- Build test OK và push code lên origin main.
+```
+
 ### Session 04/05/2026 (Chiều) — Fix Product Detail Crash (DEPLOYED)
 ```
 Vấn đề: Nhấp vào chi tiết sản phẩm bị lỗi "This page couldn't load" do dữ liệu hình ảnh từ API không đồng nhất (object vs string) gây crash Server Component.

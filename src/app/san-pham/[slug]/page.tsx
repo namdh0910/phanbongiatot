@@ -6,6 +6,7 @@ import ProductActions from "@/components/ProductActions";
 import ProductReviews from "@/components/ProductReviews";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ProductStickyCTA from "@/components/ProductStickyCTA";
+import ProductTabs from "@/components/ProductTabs";
 
 const CATEGORY_SLUG_MAP: Record<string, string> = {
   "Phân bón": "phan-bon",
@@ -325,34 +326,44 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
                 {/* Desktop Titles */}
                 <h2 className="hidden md:block bg-[#f5f5f5] p-4 text-sm font-bold text-gray-800 uppercase tracking-wider">Thông Tin Chi Tiết</h2>
                 
-                {/* Mobile Tabs */}
-                <div className="md:hidden flex border-b border-gray-100 sticky top-[60px] bg-white z-40">
-                  <a href="#mo-ta" className="flex-1 py-4 text-center text-sm font-bold text-[#ee4d2d] border-b-2 border-[#ee4d2d]">Mô tả</a>
-                  {(product.usageInstructions || product.dosage) && (
-                    <a href="#ky-thuat" className="flex-1 py-4 text-center text-sm font-bold text-gray-500">Kỹ thuật</a>
-                  )}
-                  <a href="#danh-gia" className="flex-1 py-4 text-center text-sm font-bold text-gray-500">Đánh giá</a>
-                </div>
+                <ProductTabs hasTechnical={!!(product.usageInstructions || product.dosage)} />
 
                 <div className="p-4 md:p-6 space-y-8">
 
+                   {/* Main Description */}
+                   <div className="relative space-y-4">
+                      <span id="mo-ta" className="absolute -top-[130px]" aria-hidden="true"></span>
+                      <h3 className="text-lg font-black text-gray-900 uppercase flex items-center gap-2">
+                        <span className="text-2xl">🔍</span> Chi tiết sản phẩm
+                      </h3>
+                      <div 
+                        className="text-gray-700 text-sm md:text-base leading-relaxed prose prose-emerald max-w-none prose-p:my-4 prose-headings:mb-4 prose-headings:mt-8 prose-ul:list-disc prose-ul:pl-5 prose-ol:list-decimal prose-ol:pl-5 prose-li:my-2"
+                        dangerouslySetInnerHTML={{ 
+                          __html: product.description?.includes('<') 
+                            ? product.description 
+                            : product.description?.replace(/\n/g, '<br/>') || "" 
+                        }}
+                      />
+                   </div>
+
                    {/* Technical Protocol Section */}
                    {(product.usageInstructions || product.dosage) && (
-                   <div className="relative">
+                   <div className="relative pt-8 mt-4 border-t border-gray-50">
                       <span id="ky-thuat" className="absolute -top-[130px]" aria-hidden="true"></span>
-                      <div className="bg-[#f0f9f4] p-6 rounded-2xl border border-emerald-100">
-                      <h3 className="text-lg font-black text-[#1a5c2a] uppercase mb-4 flex items-center gap-2">
-                        <span className="text-2xl">📋</span> Phác đồ kỹ thuật & Hướng dẫn
+                      <div className="bg-[#f0f9f4] p-5 md:p-8 rounded-3xl border-2 border-emerald-50 shadow-sm shadow-emerald-100/50">
+                      <h3 className="text-xl font-black text-[#1a5c2a] uppercase mb-6 flex items-center gap-3">
+                        <div className="w-10 h-10 bg-[#1a5c2a] text-white rounded-xl flex items-center justify-center text-lg shadow-lg shadow-emerald-200">📋</div>
+                        Phác đồ kỹ thuật & Hướng dẫn
                       </h3>
                       
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                          {product.usageInstructions && (
                          <div className="space-y-4">
-                            <p className="font-bold text-gray-900 flex items-center gap-2 text-sm">
-                              <span className="w-6 h-6 bg-emerald-600 text-white rounded-full flex items-center justify-center text-[10px]">1</span>
+                            <p className="font-bold text-gray-900 flex items-center gap-3 text-sm">
+                              <span className="w-7 h-7 bg-emerald-600 text-white rounded-lg flex items-center justify-center text-[11px] font-black shadow-md">01</span>
                               Cách sử dụng (Hướng dẫn chuẩn):
                             </p>
-                            <div className="text-gray-700 text-sm ml-8 leading-relaxed whitespace-pre-line">
+                            <div className="text-gray-700 text-[13px] md:text-sm ml-10 leading-relaxed whitespace-pre-line bg-white/50 p-4 rounded-xl border border-emerald-50">
                                {product.usageInstructions}
                             </div>
                          </div>
@@ -360,11 +371,11 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
 
                          {product.dosage && (
                          <div className="space-y-4">
-                            <p className="font-bold text-gray-900 flex items-center gap-2 text-sm">
-                              <span className="w-6 h-6 bg-emerald-600 text-white rounded-full flex items-center justify-center text-[10px]">2</span>
+                            <p className="font-bold text-gray-900 flex items-center gap-3 text-sm">
+                              <span className="w-7 h-7 bg-emerald-600 text-white rounded-lg flex items-center justify-center text-[11px] font-black shadow-md">02</span>
                               Liều lượng & Thời điểm:
                             </p>
-                            <div className="text-gray-700 text-sm ml-8 leading-relaxed whitespace-pre-line">
+                            <div className="text-gray-700 text-[13px] md:text-sm ml-10 leading-relaxed whitespace-pre-line bg-white/50 p-4 rounded-xl border border-emerald-50">
                                {product.dosage}
                             </div>
                          </div>
@@ -389,19 +400,6 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
                      </div>
                    )}
 
-                   {/* Main Description */}
-                   <div className="relative space-y-4 pt-4">
-                      <span id="mo-ta" className="absolute -top-[130px]" aria-hidden="true"></span>
-                      <p className="font-black text-gray-900 text-lg uppercase flex items-center gap-2">🔍 Chi tiết sản phẩm:</p>
-                      <div 
-                        className="text-gray-700 text-sm leading-relaxed prose prose-emerald max-w-none prose-p:my-4 prose-headings:mb-4 prose-headings:mt-8 prose-ul:list-disc prose-ul:pl-5 prose-ol:list-decimal prose-ol:pl-5 prose-li:my-2"
-                        dangerouslySetInnerHTML={{ 
-                          __html: product.description?.includes('<') 
-                            ? product.description 
-                            : product.description?.replace(/\n/g, '<br/>') || "" 
-                        }}
-                      />
-                   </div>
                 </div>
               </div>
 
