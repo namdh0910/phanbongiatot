@@ -30,16 +30,7 @@ export default function ProductTabs({ hasTechnical }: ProductTabsProps) {
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
-      const offset = 120; // Header + Tabs
-      const bodyRect = document.body.getBoundingClientRect().top;
-      const elementRect = el.getBoundingClientRect().top;
-      const elementPosition = elementRect - bodyRect;
-      const offsetPosition = elementPosition - offset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth"
-      });
+      el.scrollIntoView({ behavior: "smooth" });
       setActiveTab(id);
     }
   };

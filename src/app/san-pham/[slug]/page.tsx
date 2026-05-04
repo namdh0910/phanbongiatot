@@ -346,18 +346,16 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
         <div className="flex flex-col lg:flex-row gap-6">
            <div className="flex-1 space-y-6">
                  {/* Product Info Sections */}
-              <div className="bg-white md:rounded-sm shadow-sm overflow-hidden">
+              <div className="bg-white md:rounded-sm shadow-sm overflow-hidden mt-0">
                 {/* Desktop Titles */}
-                <h2 className="hidden md:block bg-[#f5f5f5] px-4 py-3 text-xs font-bold text-gray-500 uppercase tracking-wider">Thông Tin Chi Tiết</h2>
+                <div className="hidden md:block bg-[#f5f5f5] px-4 py-3 text-xs font-bold text-gray-500 uppercase tracking-wider">Thông Tin Chi Tiết</div>
                 
                 <ProductTabs hasTechnical={!!(product.usageInstructions?.trim() || product.dosage?.trim())} />
 
-                <div className="px-4 py-5 md:p-6 space-y-6">
+                <div className="px-4 py-6 md:p-6 space-y-6">
 
                    {/* Main Description */}
-                   <div className="relative">
-                      {/* Anchor offset = header (64px) + tabs (48px) + gap (8px) = 120px */}
-                      <span id="mo-ta" className="absolute -top-[120px]" aria-hidden="true"></span>
+                   <div id="mo-ta" className="relative scroll-mt-[130px]">
                       
                       <div 
                         className="prose max-w-none"
@@ -373,8 +371,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
 
                    {/* Technical Protocol Section */}
                    {(product.usageInstructions?.trim() || product.dosage?.trim()) && (
-                   <div className="relative pt-8 mt-4 border-t border-gray-50">
-                      <span id="ky-thuat" className="absolute -top-[130px]" aria-hidden="true"></span>
+                   <div id="ky-thuat" className="relative pt-8 mt-4 border-t border-gray-50 scroll-mt-[130px]">
                       <div className="bg-[#f0f9f4] p-5 md:p-8 rounded-3xl border-2 border-emerald-50 shadow-sm shadow-emerald-100/50">
                       <h3 className="text-xl font-black text-[#1a5c2a] uppercase mb-6 flex items-center gap-3">
                         <div className="w-10 h-10 bg-[#1a5c2a] text-white rounded-xl flex items-center justify-center text-lg shadow-lg shadow-emerald-200">📋</div>
@@ -447,8 +444,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
               </div>
 
               {/* Reviews Section */}
-              <div className="relative">
-                <span id="danh-gia" className="absolute -top-[130px]" aria-hidden="true"></span>
+              <div id="danh-gia" className="relative scroll-mt-[130px]">
                 <ProductReviews productId={product._id} />
               </div>
 
