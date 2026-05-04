@@ -78,8 +78,15 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
       fetch(`${API_BASE_URL}/products`, { next: { revalidate: 3600 } }),
       fetch(`${API_BASE_URL}/settings`, { next: { revalidate: 3600 } })
     ]);
-    if (relRes.ok) relatedProducts = (await relRes.json()).filter((p: any) => p._id !== product._id).slice(0, 4);
-    if (bestRes.ok) bestSellers = (await bestRes.json()).slice(0, 5);
+    if (relRes.ok) {
+      const relData = await relRes.json();
+      const relList = Array.isArray(relData) ? relData : (relData.data || []);
+      relatedProducts = relList.filter((p: any) => p._id !== product._id).slice(0, 4);
+    }
+    if (bestRes.ok) {
+      const bestData = await bestRes.json();
+      bestSellers = (Array.isArray(bestData) ? bestData : (bestData.data || [])).slice(0, 5);
+    }
     if (setRes.ok) settings = await setRes.json();
   } catch (err) {
     console.error(err);
@@ -197,9 +204,9 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
                 </div>
               )}
               <div className="flex items-center gap-3">
-                {product.originalPrice && <span className="text-gray-400 line-through text-base">₫{product.originalPrice.toLocaleString("vi-VN")}</span>}
-                <span className="text-[#ee4d2d] text-3xl font-bold">₫{product.price.toLocaleString("vi-VN")}</span>
-                {discount > 0 && <span className="bg-[#ee4d2d] text-white text-[10px] font-bold px-1 py-0.5 rounded-sm ml-2">-{discount}% GIẢM</span>}
+                {product.originalPrice && <span className="text-gray-400 line-through text-base">₫{product.originalPrice?.toLocaleString("vi-VN")}</span>}
+                <span className="text-[#ee4d2d] text-3xl font-bold">₫{product.price?.toLocaleString("vi-VN")}</span>
+                {discount > 0 && <span className="bg-[#ee4d2d] text-white text-[10px] font-bold px-1.5 py-0.5 rounded-sm ml-2">-{discount}% GIẢM</span>}
               </div>
               <div className="flex items-center gap-2 text-[#ee4d2d] text-xs font-bold mt-2">
                 <span className="border border-[#ee4d2d] px-1 rounded-sm">Gì cũng rẻ</span>
