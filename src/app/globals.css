@@ -72,7 +72,21 @@ body {
 .prose {
   word-wrap: break-word;
   overflow-wrap: break-word;
-  word-break: break-word;
+  word-break: normal; /* Fixes "h-umic" split issue */
+  text-align: left;
+}
+
+/* Force override any inline styles from copy-pasted content */
+.prose * {
+  font-size: inherit !important;
+  font-family: inherit !important;
+  line-height: inherit !important;
+  color: inherit !important;
+  background-color: transparent !important;
+}
+
+.prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6, .prose strong, .prose b {
+  color: var(--color-primary) !important;
 }
 
 .prose h1 {
