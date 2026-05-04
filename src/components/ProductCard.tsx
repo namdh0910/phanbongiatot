@@ -67,8 +67,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <div className="p-badges">
           {product.isBestSeller && <span className="p-badge badge-hot">Bán chạy</span>}
           {product.stock === 0 && <span className="p-badge badge-soldout">Hết hàng</span>}
-          {isLowStock && <span className="p-badge badge-low">Còn ít hàng</span>}
+          {isLowStock && <span className="p-badge badge-low">Sắp cháy hàng</span>}
           {product.isNewArrival && <span className="p-badge badge-new">Mới về</span>}
+          {product.originalPrice > product.price && <span className="p-badge badge-discount">-{Math.round((1 - product.price/product.originalPrice)*100)}%</span>}
         </div>
       </div>
 
@@ -97,17 +98,17 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           </div>
         )}
         
-        <div className="p-meta">
-          <div className="p-stars">
-            {"★★★★★".split("").map((star, i) => (
-              <span key={i} style={{ color: i < Math.floor(Number(rating)) ? '#f5a623' : '#ddd' }}>{star}</span>
-            ))}
-            <span className="ml-1 text-gray-500">({rating})</span>
+          <div className="p-meta">
+            <div className="p-stars">
+              {"★★★★★".split("").map((star, i) => (
+                <span key={i} style={{ color: i < Math.floor(Number(rating)) ? '#f5a623' : '#ddd' }}>{star}</span>
+              ))}
+            </div>
+            <div className="w-px h-3 bg-gray-200 mx-2"></div>
+            <div className="p-sold">
+              Đã bán {soldCount >= 1000 ? (soldCount/1000).toFixed(1) + 'k' : soldCount}
+            </div>
           </div>
-          <div className="p-sold">
-            {soldCount} đã bán
-          </div>
-        </div>
 
         <div className="p-price-row">
           <span className="p-price-main">₫{product.price?.toLocaleString("vi-VN")}</span>

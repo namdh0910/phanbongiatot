@@ -183,7 +183,15 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
               </div>
             </div>
 
-            <div className="bg-[#fafafa] px-5 py-6 mb-8 flex flex-col gap-2 rounded-sm border-y border-gray-50">
+            <div className="bg-[#fafafa] px-5 py-6 mb-4 flex flex-col gap-2 rounded-sm border-y border-gray-50">
+              {discount > 20 && (
+                <div className="flex items-center justify-between bg-[#ee4d2d] text-white px-4 py-2 rounded-sm mb-2 animate-pulse">
+                  <div className="flex items-center gap-2 font-black text-sm">
+                    <span>⚡ FLASH SALE</span>
+                  </div>
+                  <div className="text-xs font-bold uppercase tracking-tighter">Kết thúc sau 02:45:12</div>
+                </div>
+              )}
               <div className="flex items-center gap-3">
                 {product.originalPrice && <span className="text-gray-400 line-through text-base">₫{product.originalPrice.toLocaleString("vi-VN")}</span>}
                 <span className="text-[#ee4d2d] text-3xl font-bold">₫{product.price.toLocaleString("vi-VN")}</span>
@@ -193,6 +201,16 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
                 <span className="border border-[#ee4d2d] px-1 rounded-sm">Gì cũng rẻ</span>
                 <span className="text-gray-500 font-normal">Giá tốt nhất thị trường nông nghiệp</span>
               </div>
+            </div>
+
+            {/* Vouchers Section */}
+            <div className="flex items-center gap-4 mb-6 text-sm">
+               <span className="w-24 md:w-28 flex-shrink-0 text-gray-400">Mã Giảm Giá</span>
+               <div className="flex flex-wrap gap-2">
+                  <span className="bg-[#fff5f3] text-[#ee4d2d] border border-dashed border-[#ee4d2d] px-2 py-0.5 text-[11px] font-medium rounded-sm">Giảm ₫20k</span>
+                  <span className="bg-[#fff5f3] text-[#ee4d2d] border border-dashed border-[#ee4d2d] px-2 py-0.5 text-[11px] font-medium rounded-sm">Giảm ₫50k</span>
+                  <span className="bg-[#fff5f3] text-[#ee4d2d] border border-dashed border-[#ee4d2d] px-2 py-0.5 text-[11px] font-medium rounded-sm">Mua 2 giảm 5%</span>
+               </div>
             </div>
 
             <div className="space-y-6 text-sm text-gray-600 mb-8">
