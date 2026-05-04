@@ -284,12 +284,17 @@ export default function AdminProducts() {
                       </div>
                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-gray-100">
                        <div>
-                         <label className="block text-sm font-bold text-gray-700 mb-2">Cách sử dụng (Hướng dẫn chuẩn)</label>
-                         <textarea value={form.usageInstructions} onChange={e => setForm(f => ({ ...f, usageInstructions: e.target.value }))} className="w-full border border-gray-300 rounded px-4 py-2 focus:ring-1 focus:ring-[#2271b1] focus:border-[#2271b1] outline-none text-sm min-h-[120px] resize-y" placeholder="VD:&#10;• Tưới gốc: Pha 1L cho 400-600L nước.&#10;• Phun lá: Pha 1L cho 800L nước." />
+                         <label className="block text-sm font-bold text-gray-700 mb-2">Cách pha chuẩn (Bình dân, dễ hiểu)</label>
+                         <textarea value={form.usageInstructions} onChange={e => setForm(f => ({ ...f, usageInstructions: e.target.value }))} className="w-full border border-gray-300 rounded px-4 py-2 focus:ring-1 focus:ring-[#2271b1] focus:border-[#2271b1] outline-none text-sm min-h-[120px] resize-y" placeholder="VD:&#10;• Tưới gốc phục hồi: Pha 1 chai 500ml cho 1 phuy 200L nước." />
                        </div>
                        <div>
-                         <label className="block text-sm font-bold text-gray-700 mb-2">Liều lượng & Thời điểm</label>
-                         <textarea value={form.dosage} onChange={e => setForm(f => ({ ...f, dosage: e.target.value }))} className="w-full border border-gray-300 rounded px-4 py-2 focus:ring-1 focus:ring-[#2271b1] focus:border-[#2271b1] outline-none text-sm min-h-[120px] resize-y" placeholder="VD:&#10;• Giai đoạn cây con: Giúp bộ rễ phát triển mạnh.&#10;• Giai đoạn sau thu hoạch: Phục hồi cây nhanh chóng." />
+                         <label className="block text-sm font-bold text-gray-700 mb-2">Giải quyết bệnh/triệu chứng gì? (Mỗi dòng 1 ý)</label>
+                         <textarea 
+                           value={form.benefits.join('\n')} 
+                           onChange={e => setForm(f => ({ ...f, benefits: e.target.value.split('\n') }))} 
+                           className="w-full border border-gray-300 rounded px-4 py-2 focus:ring-1 focus:ring-[#2271b1] focus:border-[#2271b1] outline-none text-sm min-h-[120px] resize-y" 
+                           placeholder="VD:&#10;Phục hồi rễ suy sau thu hoạch&#10;Chống rụng trái non sinh lý" 
+                         />
                        </div>
                      </div>
                   </div>
