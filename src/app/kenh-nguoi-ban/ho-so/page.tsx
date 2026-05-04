@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { API_BASE_URL } from "@/utils/api";
+import { API_BASE_URL, getAuthHeaders } from "@/utils/api";
 
 export default function VendorProfile() {
   const [formData, setFormData] = useState({
@@ -24,10 +24,9 @@ export default function VendorProfile() {
   }, []);
 
   const fetchProfile = async () => {
-    const token = localStorage.getItem("vendorToken");
     try {
       const res = await fetch(`${API_BASE_URL}/auth/profile`, {
-        headers: { "Authorization": `Bearer ${token}` }
+        headers: getAuthHeaders()
       });
       const data = await res.json();
       if (res.ok) {
@@ -51,7 +50,6 @@ export default function VendorProfile() {
     if (!e.target.files || e.target.files.length === 0) return;
     
     setUploading(type);
-    const token = localStorage.getItem("vendorToken");
     const file = e.target.files[0];
     const uploadData = new FormData();
     uploadData.append("images", file);
@@ -59,7 +57,7 @@ export default function VendorProfile() {
     try {
       const res = await fetch(`${API_BASE_URL}/upload`, {
         method: "POST",
-        headers: { "Authorization": `Bearer ${token}` },
+        headers: getAuthHeaders(true),
         body: uploadData
       });
       const data = await res.json();
@@ -78,14 +76,10 @@ export default function VendorProfile() {
     setLoading(true);
     setMessage("");
 
-    const token = localStorage.getItem("vendorToken");
     try {
       const res = await fetch(`${API_BASE_URL}/auth/profile`, {
         method: "PUT",
-        headers: { 
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
-        },
+        headers: getAuthHeaders(),
         body: JSON.stringify({ vendorInfo: formData })
       });
       const data = await res.json();

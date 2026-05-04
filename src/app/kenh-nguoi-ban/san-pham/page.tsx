@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { API_BASE_URL } from "@/utils/api";
+import { API_BASE_URL, getAuthHeaders } from "@/utils/api";
 
 export default function VendorProductList() {
   const [products, setProducts] = useState<any[]>([]);
@@ -10,18 +10,18 @@ export default function VendorProductList() {
   const router = useRouter();
 
   useEffect(() => {
-    const token = localStorage.getItem("vendorToken");
-    if (!token) {
+    const headers = getAuthHeaders();
+    if (!headers.Authorization) {
       router.push("/kenh-nguoi-ban/dang-nhap");
       return;
     }
-    fetchProducts(token);
+    fetchProducts();
   }, []);
 
-  const fetchProducts = async (token: string) => {
+  const fetchProducts = async () => {
     try {
       const res = await fetch(`${API_BASE_URL}/seller/products`, {
-        headers: { "Authorization": `Bearer ${token}` }
+        headers: getAuthHeaders()
       });
       if (res.ok) {
         const data = await res.json();
@@ -35,18 +35,14 @@ export default function VendorProductList() {
   };
 
   const handleStatusUpdate = async (id: string, newStatus: string) => {
-    const token = localStorage.getItem("vendorToken");
     try {
       const res = await fetch(`${API_BASE_URL}/seller/products/${id}`, {
         method: "PUT",
-        headers: { 
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}` 
-        },
+        headers: getAuthHeaders(),
         body: JSON.stringify({ status: newStatus })
       });
       if (res.ok) {
-        fetchProducts(token!);
+        fetchProducts();
       }
     } catch (error) {
       alert("Lỗi cập nhật trạng thái.");

@@ -30,27 +30,35 @@ export default function Home() {
 
   useEffect(() => {
     // Fetch products
-    fetch(`${API_BASE_URL}/products?featured=true`, { cache: 'no-store' })
-      .then(res => res.json())
-      .then(data => {
-        let results = [];
-        if (Array.isArray(data)) results = data;
-        else if (data?.data) results = data.data;
-        else if (data?.products) results = data.products;
-        
-        // If results is empty or null, use fallback
+    const fetchProducts = async () => {
+      try {
+        // First try featured products
+        let res = await fetch(`${API_BASE_URL}/products?featured=true`, { cache: 'no-store' });
+        let data = await res.json();
+        let results = Array.isArray(data) ? data : (data?.data || data?.products || []);
+
+        // If no featured products, try all products
+        if (results.length === 0) {
+          res = await fetch(`${API_BASE_URL}/products`, { cache: 'no-store' });
+          data = await res.json();
+          results = Array.isArray(data) ? data : (data?.data || data?.products || []);
+        }
+
         if (results && results.length > 0) {
-          setProducts(results.slice(0, 8));
+          setProducts(results.slice(0, 12));
         } else {
           console.warn("No products found from API, using fallback data");
           setProducts(FALLBACK_PRODUCTS);
         }
-      })
-      .catch((err) => {
+      } catch (err) {
         console.error("Fetch products failed:", err);
         setProducts(FALLBACK_PRODUCTS);
-      })
-      .finally(() => setLoadingProducts(false));
+      } finally {
+        setLoadingProducts(false);
+      }
+    };
+
+    fetchProducts();
 
     // Fetch blogs
     fetch(`${API_BASE_URL}/blogs`, { cache: 'no-store' })

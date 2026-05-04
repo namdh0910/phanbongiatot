@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { API_BASE_URL } from "@/utils/api";
+import { API_BASE_URL, getAuthHeaders } from "@/utils/api";
 import { useParams, useRouter } from "next/navigation";
 
 export default function EditProduct() {
@@ -50,7 +50,6 @@ export default function EditProduct() {
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files || e.target.files.length === 0) return;
     setUploading(true);
-    const token = localStorage.getItem("vendorToken");
     const uploadData = new FormData();
     Array.from(e.target.files).forEach(file => {
       uploadData.append("images", file);
@@ -59,7 +58,7 @@ export default function EditProduct() {
     try {
       const res = await fetch(`${API_BASE_URL}/upload`, {
         method: "POST",
-        headers: { "Authorization": `Bearer ${token}` },
+        headers: getAuthHeaders(true),
         body: uploadData
       });
       const data = await res.json();
@@ -83,14 +82,10 @@ export default function EditProduct() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    const token = localStorage.getItem("vendorToken");
     try {
       const res = await fetch(`${API_BASE_URL}/products/${id}`, {
         method: "PUT",
-        headers: { 
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
-        },
+        headers: getAuthHeaders(),
         body: JSON.stringify(formData)
       });
       if (res.ok) {

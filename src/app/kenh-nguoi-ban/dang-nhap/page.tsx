@@ -24,12 +24,15 @@ export default function VendorLogin() {
       });
       const data = await res.json();
       if (res.ok) {
-        if (data.role !== 'vendor' && data.role !== 'admin') {
+        const allowedRoles = ['vendor', 'admin', 'super_admin'];
+        if (!allowedRoles.includes(data.role)) {
           setError("Tài khoản này không có quyền truy cập gian hàng");
           return;
         }
+        // Store token as vendorToken so all Seller Portal pages can use it
         localStorage.setItem("vendorToken", data.token);
-        localStorage.setItem("vendorInfo", JSON.stringify(data.vendorInfo));
+        localStorage.setItem("adminToken", data.token); // Also set adminToken for getAuthHeaders
+        localStorage.setItem("vendorInfo", JSON.stringify(data.vendorInfo || {}));
         localStorage.setItem("userRole", data.role);
         router.push("/kenh-nguoi-ban/dashboard");
       } else {

@@ -215,13 +215,15 @@ const createProduct = async (req, res) => {
     const productData = { ...req.body };
     if (productData.crops) productData.crop_types = productData.crops.map(c => slugify(c));
     
+    const isAdmin = req.user.role === 'admin' || req.user.role === 'super_admin';
+    
     const product = new Product({
       ...productData,
       slug: productSlug,
       seller: req.user._id,
       seller_id: req.user._id,
-      approval_status: req.user.role === 'admin' ? 'approved' : 'pending',
-      status: req.user.role === 'admin' ? 'approved' : 'pending_review'
+      approval_status: isAdmin ? 'approved' : 'pending',
+      status: isAdmin ? 'approved' : 'pending_review'
     });
 
     const createdProduct = await product.save();

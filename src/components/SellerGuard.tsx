@@ -9,7 +9,7 @@ export default function SellerGuard({ children }: { children: React.ReactNode })
   const router = useRouter();
 
   useEffect(() => {
-    const token = localStorage.getItem("vendorToken");
+    const token = localStorage.getItem("adminToken") || localStorage.getItem("vendorToken");
     const role = localStorage.getItem("userRole");
     const info = localStorage.getItem("vendorInfo");
 

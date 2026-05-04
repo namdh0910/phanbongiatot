@@ -28,7 +28,7 @@ export default function VendorAddProduct() {
   const [categories, setCategories] = useState<string[]>([]);
 
   useEffect(() => {
-    const token = localStorage.getItem("vendorToken");
+    const token = localStorage.getItem("adminToken") || localStorage.getItem("vendorToken");
     if (!token) {
       router.push("/kenh-nguoi-ban/dang-nhap");
       return;
@@ -82,9 +82,7 @@ export default function VendorAddProduct() {
     try {
       const res = await fetch(`${API_BASE_URL}/upload`, {
         method: "POST",
-        headers: {
-          "Authorization": `Bearer ${localStorage.getItem("vendorToken")}`
-        },
+        headers: getAuthHeaders(true),
         body: fd
       });
       if (res.ok) {
@@ -102,13 +100,9 @@ export default function VendorAddProduct() {
   const handleSubmit = async () => {
     setIsLoading(true);
     try {
-      const token = localStorage.getItem("vendorToken");
       const res = await fetch(`${API_BASE_URL}/seller/products`, {
         method: "POST",
-        headers: { 
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}` 
-        },
+        headers: getAuthHeaders(),
         body: JSON.stringify({ 
           ...form, 
           price: parseInt(form.price),
