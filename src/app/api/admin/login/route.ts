@@ -20,7 +20,8 @@ export async function POST(request: Request) {
         .sign(JWT_SECRET);
 
       // XSS mitigation: Set HttpOnly cookie
-      cookies().set({
+      const cookieStore = await cookies();
+      cookieStore.set({
         name: 'adminToken',
         value: token,
         httpOnly: true,
