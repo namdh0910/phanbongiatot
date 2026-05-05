@@ -12,7 +12,7 @@ export default function DurianNematodeSolution() {
 
   return (
     <div className="bg-white min-h-screen font-sans text-gray-900 pb-20">
-      {/* BLOCK 1 - HEADER + CTA FLOATING (Zalo button handled by global StickyCTA but I'll add a specific one if needed) */}
+      {/* BLOCK 1 - HEADER */}
       <header className="bg-gradient-to-br from-[#2d7a2d] to-[#1e5c1e] text-white pt-8 pb-12 px-4">
         <div className="max-w-4xl mx-auto">
           <nav className="flex items-center gap-2 text-[10px] uppercase font-bold tracking-widest text-emerald-100/70 mb-4 overflow-hidden whitespace-nowrap">
@@ -27,12 +27,31 @@ export default function DurianNematodeSolution() {
           </h1>
           <div className="mt-6 flex items-center gap-3">
              <div className="w-10 h-10 rounded-full bg-emerald-800/50 flex items-center justify-center border border-emerald-400/30">
-               <AlertCircle className="text-emerald-300" size={20} />
+                <AlertCircle className="text-emerald-300" size={20} />
              </div>
              <p className="text-sm font-medium text-emerald-50">Kỹ sư tư vấn: Bà con cần xử lý ngay để tránh chết cây hàng loạt.</p>
           </div>
         </div>
       </header>
+
+      {/* BLOCK 3 - VIDEO PHÁC ĐỒ (MOVED UP FOR PRIORITY) */}
+      <section className="py-12 bg-gray-50 border-y border-gray-100 overflow-hidden">
+        <div className="max-w-4xl mx-auto px-0 md:px-4 text-center">
+          <h2 className="text-xl md:text-3xl font-black text-[#2d7a2d] uppercase mb-8 px-4">Video Phác Đồ Điều Trị Thực Tế</h2>
+          <div className="aspect-video bg-black md:rounded-[2rem] overflow-hidden shadow-2xl relative group">
+            <iframe 
+              src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+              className="absolute inset-0 w-full h-full"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              loading="eager"
+            ></iframe>
+          </div>
+          <div className="mt-6 p-4 bg-emerald-100/50 mx-4 rounded-2xl border border-emerald-200">
+             <p className="text-sm font-bold text-emerald-900 italic">Bà con xem kỹ video để nắm rõ quy trình xử lý phục hồi vườn.</p>
+          </div>
+        </div>
+      </section>
 
       {/* BLOCK 2 - TRIỆU CHỨNG */}
       <section className="py-12 px-4 max-w-4xl mx-auto">
@@ -76,37 +95,11 @@ export default function DurianNematodeSolution() {
         </div>
       </section>
 
-      {/* BLOCK 3 - NGUYÊN NHÂN */}
-      <section className="py-16 px-4 bg-gray-50 border-y border-gray-100">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-xl md:text-3xl font-black text-[#2d7a2d] uppercase mb-6">Tại Sao Cây Bị Như Vậy?</h2>
-          <p className="text-base md:text-lg text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed">
-            Tuyến trùng là những con giun cực nhỏ sống trong đất. Chúng chích hút nhựa ở đầu rễ non, tạo ra các vết thương. 
-            Từ đó, nấm nấm thối rễ (Phytophthora) tấn công vào khiến rễ bị đen và không còn hút được nước, phân bón nuôi cây. 
-            Đó là lý do bà con bón bao nhiêu phân cây cũng không xanh lại được.
-          </p>
-          <div className="aspect-video bg-black rounded-[2rem] overflow-hidden shadow-2xl relative group cursor-pointer">
-            <div className="absolute inset-0 flex items-center justify-center z-10">
-              <div className="w-20 h-20 bg-[#f59e0b] rounded-full flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform">
-                <PlayCircle size={40} fill="white" />
-              </div>
-            </div>
-            <img src="https://images.unsplash.com/photo-1590779033100-9f60705a2f3b?auto=format&fit=crop&q=80&w=1200" alt="Video hướng dẫn" className="w-full h-full object-cover opacity-60" />
-            <div className="absolute bottom-6 left-6 text-left text-white z-10">
-               <p className="text-xs font-black uppercase tracking-widest text-[#f59e0b] mb-1">Video thực tế</p>
-               <h4 className="font-bold text-lg">Cách nhận biết tuyến trùng tại vườn</h4>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* BLOCK 4 - QUY TRÌNH XỬ LÝ 3 BƯỚC */}
       <section className="py-16 px-4 max-w-4xl mx-auto">
         <h2 className="text-xl md:text-3xl font-black text-[#2d7a2d] uppercase mb-12 text-center">Xử Lý Như Thế Nào?</h2>
         <div className="relative space-y-12">
-          {/* Timeline Line */}
           <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-1 bg-gray-100 -translate-x-1/2 hidden md:block"></div>
-          
           {[
             { 
               step: "1", 
@@ -150,11 +143,9 @@ export default function DurianNematodeSolution() {
                   </div>
                 </div>
               </div>
-              
               <div className={`absolute left-0 md:left-1/2 -translate-x-1/2 w-12 h-12 ${item.color} rounded-full flex items-center justify-center text-white font-black text-xl z-10 shadow-lg border-4 border-white`}>
                 {item.step}
               </div>
-              
               <div className="flex-1 hidden md:block"></div>
             </div>
           ))}

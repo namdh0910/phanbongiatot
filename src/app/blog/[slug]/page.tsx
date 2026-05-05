@@ -80,10 +80,10 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
         <div className="flex flex-col lg:flex-row gap-12 max-w-7xl mx-auto">
           {/* MAIN CONTENT AREA */}
           <div className="lg:flex-1 min-w-0">
-            {/* Video-First Section */}
+            {/* Video-First Section - Optimized for Mobile Full-Width */}
             {blog.videoUrl && (
-              <div className="mb-16">
-                 <div className="relative aspect-video rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white ring-1 ring-gray-100">
+              <div className="-mx-4 md:mx-0 mb-10 md:mb-16">
+                 <div className="relative aspect-video md:rounded-[2.5rem] overflow-hidden shadow-2xl md:border-4 border-white ring-1 ring-gray-100">
                     <iframe 
                       src={blog.videoUrl}
                       className="absolute inset-0 w-full h-full"
@@ -92,17 +92,17 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
                       loading="lazy"
                     ></iframe>
                  </div>
-                 <div className="mt-6 flex items-center gap-4 p-4 bg-emerald-50 rounded-2xl border border-emerald-100">
-                    <div className="w-10 h-10 bg-[#1a5c2a] text-white rounded-full flex items-center justify-center animate-pulse">
+                 <div className="mt-4 md:mt-6 mx-4 md:mx-0 flex items-center gap-4 p-4 bg-emerald-50 rounded-2xl border border-emerald-100">
+                    <div className="w-10 h-10 bg-[#1a5c2a] text-white rounded-full flex items-center justify-center animate-pulse flex-shrink-0">
                        <Play fill="currentColor" size={18} />
                     </div>
-                    <p className="text-emerald-900 font-bold text-sm italic">Mời bà con xem video thực tế kỹ sư xử lý trực tiếp tại vườn.</p>
+                    <p className="text-emerald-900 font-bold text-sm italic leading-snug">Mời bà con xem video thực tế kỹ sư xử lý trực tiếp tại vườn.</p>
                  </div>
               </div>
             )}
 
             {!blog.videoUrl && (
-               <div className="mb-16 rounded-[2.5rem] overflow-hidden shadow-2xl">
+               <div className="-mx-4 md:mx-0 mb-10 md:mb-16 md:rounded-[2.5rem] overflow-hidden shadow-2xl">
                   <img src={blog.image} alt={blog.title} className="w-full h-full object-cover" />
                </div>
             )}

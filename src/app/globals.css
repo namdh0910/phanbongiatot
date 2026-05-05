@@ -75,7 +75,7 @@ body {
   word-break: normal !important;
   hyphens: none !important;
   text-align: left !important;
-  font-size: 15px !important;
+  font-size: 16px !important;
   line-height: 1.75 !important;
   color: #374151 !important;
 }
@@ -141,7 +141,7 @@ body {
 }
 
 .prose p {
-  font-size: 15px !important;
+  font-size: 16px !important;
   line-height: 1.75 !important;
   color: #374151 !important;
   margin-bottom: 1rem !important;
@@ -160,7 +160,7 @@ body {
 }
 
 .prose ul li {
-  font-size: 15px !important;
+  font-size: 16px !important;
   line-height: 1.7 !important;
   color: #374151 !important;
   margin-bottom: 0.4rem !important;
@@ -180,7 +180,7 @@ body {
 }
 
 .prose ol li {
-  font-size: 15px !important;
+  font-size: 16px !important;
   line-height: 1.7 !important;
   color: #374151 !important;
   margin-bottom: 0.4rem !important;
@@ -217,7 +217,7 @@ body {
 
   /* Maximize text width on mobile product pages */
   .prose {
-    font-size: 14px !important; /* Slightly smaller for max readability on narrow screens */
+    font-size: 16px !important;
   }
 
   .prose h1 {
@@ -235,7 +235,7 @@ body {
   }
 
   .prose p, .prose li {
-    font-size: 14px !important;
+    font-size: 16px !important;
   }
 }
 

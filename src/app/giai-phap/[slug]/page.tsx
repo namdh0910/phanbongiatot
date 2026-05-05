@@ -79,6 +79,27 @@ export default async function SolutionDetail({ params }: { params: { slug: strin
         </div>
       </section>
 
+      {/* Section: Video Phác Đồ (Ưu tiên load trước) */}
+      <section className="bg-gray-50 border-y border-gray-100 overflow-hidden">
+        <div className="container mx-auto px-0 md:px-4 py-12 text-center">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-xl md:text-3xl font-black text-[#1a5c2a] uppercase mb-8 px-4">Video Phác Đồ Điều Trị Thực Tế</h2>
+            <div className="aspect-video bg-black md:rounded-[2.5rem] overflow-hidden shadow-2xl relative group">
+              <iframe 
+                src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                className="absolute inset-0 w-full h-full"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                loading="eager"
+              ></iframe>
+            </div>
+            <div className="mt-6 p-4 bg-emerald-100/50 mx-4 rounded-2xl border border-emerald-200">
+               <p className="text-sm font-bold text-emerald-900 italic">Bà con xem kỹ video để nắm rõ quy trình phục hồi cho vườn mình.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Section 2: Bóc Trần Sai Lầm (The Trap) */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
