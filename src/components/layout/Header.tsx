@@ -310,9 +310,10 @@ export default function Header() {
                 <h4 className="text-xs font-black text-gray-600 uppercase tracking-widest mb-4">Gợi ý cho bạn</h4>
                 <div className="space-y-4">
                   {suggestions.products.map((p: any, i: number) => (
-                    <Link 
+                    <a 
                       key={i} 
-                      href={`/san-pham/${p.slug}`}
+                      href={`https://zalo.me/0773440966?text=${encodeURIComponent(`Chào kỹ sư, tôi muốn tư vấn về sản phẩm: ${p.name}`)}`}
+                      target="_blank"
                       onClick={() => setIsSearchFocused(false)}
                       className="flex items-center gap-3"
                     >

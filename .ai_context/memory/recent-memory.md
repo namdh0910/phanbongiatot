@@ -40,6 +40,12 @@
     - Resolved persistent TypeScript incompatibility in dynamic API routes (`[id]/route.ts`) by using `context: any`.
     - **Src Directory Cleanup**: Restored missing imports and fixed broken "Related Content" logic across Solution, Product, and Blog detail pages.
     - **Blog File Recovery**: Overwrote corrupted `blog/[slug]/page.tsx` to fix encoding issues and finalized the removal of all local JSON dependencies in favor of API fetching.
+  - **Project Directory Cleanup (Source Optimization)**: 
+    - **Purged Legacy Routes**: Deleted all e-commerce and redundant folders in `src/app` (including `/shop`, `/combo`, `/tai-khoan`, `/kenh-nguoi-ban`, `/landing`, `/san-pham`, and duplicate/empty route groups).
+    - **Cleaned Admin Panel**: Removed redundant admin subfolders (`coupons`, `flash-sales`, `analytics`, etc.) that were not in use by the lead-generation dashboard.
+    - **Eliminated Static Overrides**: Removed static folders in `giai-phap` and `san-pham` that conflicted with dynamic `[slug]` routing.
+    - **Unified Data Source**: Updated the main Landing Page (`src/app/page.tsx`) to fetch pathologies directly from the API, removing the last remaining dependency on `pathologies.json`.
+    - **Broken Link Fix**: Redirected all legacy product links (`/san-pham/*`) to direct Zalo consultation hooks in `Header.tsx` and `SolutionProductCard.tsx` to ensure a 100% conversion funnel.
 
 
 
@@ -49,6 +55,7 @@
 ## 🚧 Active Tasks
 - **UI Testing**: Verified mobile responsiveness and conversion hooks on localhost.
 - **System Sync**: Finalizing the synchronization of all directives in `COMMUNICATION_BRIDGE.md`.
+- **Performance Audit**: Plan to re-check PageSpeed after directory cleanup and reduced bundle size.
 
 ## 💡 Key Learnings / Gotchas
 - **Contextual Zalo Links**: Using `encodeURIComponent` with dynamic page titles significantly improves the professionalism of the first touchpoint in the sales funnel.

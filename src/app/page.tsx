@@ -20,7 +20,6 @@ import {
 } from 'lucide-react';
 import { API_BASE_URL } from '@/utils/api';
 import { useSettings } from '@/context/SettingsContext';
-import pathologies from '@/data/pathologies.json';
 import LiteYouTube from '@/components/shared/LiteYouTube';
 
 // Reusable Components for the Landing Page
@@ -105,6 +104,8 @@ export default function LandingPage() {
   const [scrolled, setScrolled] = useState(false);
   const [blogs, setBlogs] = useState<any[]>([]);
   const [loadingBlogs, setLoadingBlogs] = useState(true);
+  const [activePathologies, setActivePathologies] = useState<any[]>([]);
+
   const settings = useSettings() || {
     hotline: '0773.440.966',
     zalo: '0773440966',
@@ -128,6 +129,17 @@ export default function LandingPage() {
       })
       .catch(() => setBlogs([]))
       .finally(() => setLoadingBlogs(false));
+
+    // Fetch real pathologies
+    fetch(`${API_BASE_URL}/pathologies`)
+      .then(res => res.json())
+      .then(data => {
+        let results = [];
+        if (data?.pathologies) results = data.pathologies;
+        else if (Array.isArray(data)) results = data;
+        setActivePathologies(results.slice(0, 4));
+      })
+      .catch(() => setActivePathologies([]));
 
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -271,14 +283,16 @@ export default function LandingPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 md:gap-10 max-w-5xl mx-auto">
-            {pathologies.map((pathology, idx) => (
+            {activePathologies.length > 0 ? activePathologies.map((pathology, idx) => (
               <DiseaseCard 
                 key={idx}
                 title={pathology.title}
                 slug={pathology.slug}
                 painPoint={pathology.painPoint}
               />
-            ))}
+            )) : (
+              <p className="text-gray-400 text-center col-span-full">Đang tải phác đồ điều trị...</p>
+            )}
           </div>
         </div>
       </section>
