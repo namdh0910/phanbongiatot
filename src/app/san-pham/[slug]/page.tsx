@@ -8,6 +8,17 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import ProductStickyCTA from "@/components/ProductStickyCTA";
 import ProductTabs from "@/components/ProductTabs";
 import LeadForm from "@/components/LeadForm";
+import { 
+  ShieldAlert, 
+  Droplets, 
+  Zap, 
+  CheckCircle2, 
+  MessageCircle, 
+  ChevronRight, 
+  ArrowRight,
+  ShieldCheck,
+  AlertTriangle
+} from 'lucide-react';
 
 const CATEGORY_SLUG_MAP: Record<string, string> = {
   "Phân bón": "phan-bon",
@@ -131,6 +142,169 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
   const displayRating = product.rating || 0;
   const displayReviewCount = product.numReviews || 0;
   const displaySold = product.soldCount || 0;
+  const zaloUrl = `https://zalo.me/${settings?.zalo?.replace(/\./g, '') || '0773440966'}`;
+
+  // NEW: Solution Landing Template for specific products like Nemano
+  if (slug === 'nemano') {
+    return (
+      <div className="bg-white min-h-screen font-sans text-gray-900 overflow-x-hidden">
+        {/* 1. Section Nỗi đau - Hero Pain */}
+        <section className="bg-red-50 py-16 md:py-24 border-b-4 border-red-100">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto text-center">
+              <div className="inline-flex items-center gap-2 bg-red-600 text-white px-4 py-2 rounded-full text-xs font-black uppercase tracking-widest mb-8 animate-pulse">
+                <AlertTriangle size={16} /> Cảnh báo đỏ tại vườn
+              </div>
+              <h1 className="text-3xl md:text-5xl lg:text-6xl font-black text-red-900 mb-8 leading-tight uppercase">
+                Vườn đang bị <span className="underline decoration-red-500 decoration-8 underline-offset-8">vàng lá, rụng lóng, sưng rễ</span> cục bộ?
+              </h1>
+              <div className="relative group max-w-2xl mx-auto rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
+                <img src="/nematode-pain.png" alt="Rễ cây bị tuyến trùng" className="w-full h-auto grayscale-[30%] group-hover:grayscale-0 transition-all duration-700" />
+                <div className="absolute inset-0 bg-gradient-to-t from-red-900/40 to-transparent"></div>
+                <div className="absolute bottom-4 left-0 right-0 text-white font-bold text-sm md:text-lg italic">Cận cảnh rễ bị bướu sưng tấy do tuyến trùng</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 2. Section Nguyên nhân */}
+        <section className="py-16 md:py-24 bg-white relative">
+          <div className="container mx-auto px-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center max-w-5xl mx-auto">
+              <div className="space-y-6">
+                <h2 className="text-2xl md:text-4xl font-black text-gray-900 uppercase">Kẻ sát nhân thầm lặng <span className="text-red-600">dưới lòng đất</span></h2>
+                <div className="w-20 h-2 bg-red-600 rounded-full"></div>
+                <p className="text-gray-700 text-lg md:text-xl font-medium leading-relaxed">
+                  Tuyến trùng không thể nhìn thấy bằng mắt thường, chúng tấn công trực tiếp vào bộ rễ, tạo ra các vết thương hở và các khối u (bướu rễ).
+                </p>
+                <div className="bg-gray-50 p-6 rounded-2xl border-l-8 border-red-600">
+                  <p className="text-gray-900 font-black italic">"Khiến cây không thể hút nước và dinh dưỡng, dẫn đến vàng lá, còi cọc và CHẾT cây hàng loạt nếu không xử lý kịp thời!"</p>
+                </div>
+              </div>
+              <div className="bg-emerald-50 p-8 rounded-[3rem] border-2 border-emerald-100 flex flex-col gap-6">
+                {[
+                  "Lá vàng đều, không xanh lại dù bón phân",
+                  "Cây còi cọc, chậm phát triển so với vườn bên",
+                  "Rễ tơ bị đen, thối, hoặc xuất hiện nốt sần",
+                  "Cây suy kiệt nhanh sau khi mang trái"
+                ].map((item, i) => (
+                  <div key={i} className="flex items-center gap-4">
+                    <div className="w-8 h-8 bg-red-100 text-red-600 rounded-full flex items-center justify-center flex-shrink-0 font-black">!</div>
+                    <span className="text-gray-800 font-bold">{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 3. Section Giải pháp - NEMANO */}
+        <section className="py-20 md:py-32 bg-[#0d2a1c] text-white relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+          <div className="container mx-auto px-4 relative z-10">
+            <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+              <div className="relative">
+                <div className="absolute -top-10 -left-10 w-40 h-40 bg-[#f5a623]/20 rounded-full blur-2xl"></div>
+                <img src={validImages[0]} alt="Phân bón Nemano" className="relative z-10 rounded-[2rem] shadow-2xl border-4 border-white/10 w-full max-w-md mx-auto" />
+                <div className="mt-8 flex justify-center gap-4">
+                  <div className="bg-white/10 px-4 py-2 rounded-xl border border-white/20 text-xs font-black uppercase tracking-widest">Hữu cơ 100%</div>
+                  <div className="bg-white/10 px-4 py-2 rounded-xl border border-white/20 text-xs font-black uppercase tracking-widest">An toàn sinh học</div>
+                </div>
+              </div>
+              <div className="space-y-8">
+                <div className="inline-flex items-center gap-2 text-[#f5a623] font-black uppercase tracking-widest text-sm">
+                  <Zap size={18} /> Đột phá công nghệ vi sinh
+                </div>
+                <h2 className="text-4xl md:text-6xl font-black leading-tight uppercase">
+                  NEMANO - <span className="text-[#f5a623]">Khắc tinh</span> của tuyến trùng
+                </h2>
+                <p className="text-white/80 text-xl font-medium leading-relaxed">
+                  Không giống như thuốc hóa học gây cháy rễ và độc hại đất, Nemano sử dụng cơ chế <span className="text-[#f5a623] font-black">NẤM ĐỐI KHÁNG</span> tiêu diệt trứng và tuyến trùng trưởng thành một cách êm dịu nhất.
+                </p>
+                <div className="space-y-4">
+                  {[
+                    "Tiêu diệt tuyến trùng và trứng ngay trong đất",
+                    "Kích thích bung rễ trắng chỉ sau 5-7 ngày",
+                    "Cải tạo nền đất tơi xốp, giàu vi sinh vật có lợi",
+                    "Hoàn toàn không độc hại cho người và vật nuôi"
+                  ].map((benefit, i) => (
+                    <div key={i} className="flex items-center gap-4 bg-white/5 p-4 rounded-2xl border border-white/10">
+                      <CheckCircle2 className="text-[#f5a623] flex-shrink-0" size={24} />
+                      <span className="font-bold text-lg">{benefit}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 4. Section Bằng chứng - Before/After */}
+        <section className="py-20 md:py-32 bg-gray-50">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-5xl font-black text-gray-900 uppercase mb-4">Kết quả <span className="text-emerald-600">thực chiến</span> tại vườn</h2>
+              <div className="w-20 h-2 bg-emerald-600 rounded-full mx-auto"></div>
+            </div>
+            
+            <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-0 bg-white rounded-[3rem] overflow-hidden shadow-2xl border-8 border-white">
+              {/* Before */}
+              <div className="relative group overflow-hidden">
+                <img src="/nematode-pain.png" alt="Trước khi dùng Nemano" className="w-full aspect-[4/3] object-cover transition-transform duration-700 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-black/40 flex flex-col justify-center items-center text-white p-6">
+                  <div className="bg-red-600 px-6 py-2 rounded-full font-black text-xl mb-4">TRƯỚC</div>
+                  <p className="text-center font-bold">Rễ sưng tấy, thối đen, cây đứng đọt, vàng lá</p>
+                </div>
+              </div>
+              {/* After */}
+              <div className="relative group overflow-hidden">
+                <img src="/root-recovery.png" alt="Sau khi dùng Nemano" className="w-full aspect-[4/3] object-cover transition-transform duration-700 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-emerald-900/40 flex flex-col justify-center items-center text-white p-6">
+                  <div className="bg-emerald-600 px-6 py-2 rounded-full font-black text-xl mb-4">SAU 7 NGÀY</div>
+                  <p className="text-center font-bold">Bung rễ trắng, tơi xốp đất, dàn lá xanh mướt</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 5. Section Chốt chặn - CTA */}
+        <section className="py-20 md:py-32 bg-emerald-900 relative overflow-hidden">
+          <div className="container mx-auto px-4 relative z-10">
+            <div className="max-w-4xl mx-auto bg-white rounded-[3rem] p-8 md:p-16 text-center shadow-[0_20px_50px_rgba(0,0,0,0.3)] border-4 border-emerald-500">
+              <h2 className="text-3xl md:text-5xl font-black text-gray-900 mb-8 leading-tight">
+                Vườn nhà bạn đang gặp tình trạng này?
+              </h2>
+              <p className="text-gray-600 text-xl md:text-2xl font-bold mb-12">
+                Đừng để quá muộn! Gắn ảnh vườn gửi qua Zalo để nhận phác đồ trị tuyến trùng <span className="text-emerald-600">MIỄN PHÍ</span> từ kỹ sư.
+              </p>
+              
+              <div className="flex flex-col items-center gap-6">
+                <a 
+                  href={zaloUrl} 
+                  className="group w-full md:w-auto px-8 md:px-16 h-24 bg-[#0068FF] hover:bg-blue-600 text-white rounded-3xl font-black text-xl md:text-2xl flex items-center justify-center gap-6 transition-all active:scale-95 shadow-2xl shadow-blue-200 animate-heartbeat"
+                >
+                  <svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor"><path d="M12.003 2c-5.523 0-10 4.03-10 9s4.477 9 10 9c1.01 0 1.977-.136 2.894-.388.941.777 2.083 1.581 3.42 1.993.447.137.818-.28.625-.688-.236-.49-.496-1.127-.58-1.74a9.012 9.012 0 0 0 3.644-7.177c0-4.97-4.477-9-10-9z"/></svg>
+                  NHẬN PHÁC ĐỒ QUA ZALO
+                </a>
+                <p className="text-gray-400 font-bold uppercase tracking-widest text-sm">Hỗ trợ bà con 24/7 - Không mua không sao</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Bottom Sticky Bar for Solution Page */}
+        <div className="fixed bottom-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-t border-gray-100 flex p-3 gap-3 md:hidden">
+          <a href={zaloUrl} className="flex-1 bg-[#0068FF] text-white rounded-2xl h-14 font-black flex items-center justify-center gap-2 shadow-lg shadow-blue-100">
+            Gửi Ảnh Qua Zalo
+          </a>
+          <a href={`tel:${settings?.phone || '0773440966'}`} className="w-14 h-14 bg-emerald-600 text-white rounded-2xl font-black flex items-center justify-center shadow-lg shadow-emerald-100">
+            📞
+          </a>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-[#f5f5f5] min-h-screen pb-24 font-sans text-gray-800">
