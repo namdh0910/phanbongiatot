@@ -57,7 +57,7 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
   const relatedProducts = products.filter(p => 
     p.tags.some(tag => {
       const t = tag.toLowerCase();
-      return blogTags.some(bt => t.includes(bt) || bt.includes(t)) || blogCat.includes(t) || t.includes(blogCat);
+      return blogTags.some((bt: string) => t.includes(bt) || bt.includes(t)) || blogCat.includes(t) || t.includes(blogCat);
     })
   ).slice(0, 3);
 

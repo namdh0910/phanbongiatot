@@ -3,12 +3,11 @@
 ## 🕒 Current Context
 - **Date**: 2026-05-05
 - **Latest Activities**: 
-  - **Build Fix (Admin Dashboard)**: Resolved a syntax error (redundant closing tags) in `src/app/admin/dashboard/page.tsx` that caused a Turbopack build failure on Vercel.
+  - **TypeScript Fix (Blog Page)**: Resolved an implicit 'any' type error in the related products matching logic within `src/app/blog/[slug]/page.tsx`.
+  - **Build Fix (Admin Dashboard)**: Resolved a syntax error (redundant closing tags) in `src/app/admin/dashboard/page.tsx`.
   - **Modular SiteConfig System**: Implemented a key-value-group based configuration system (`SiteConfig` model + `/api/config`). Replaced the static admin dashboard with a tab-based UI for managing Hero, Contact, Announcement, and SEO settings.
   - **Auto Related Products**: Integrated a smart widget in `blog/[slug]/page.tsx` that automatically matches blog content with relevant products from `products.json` based on tags/categories.
   - **SEO Automation (Auto-Slug)**: Created `slugify.ts` utility and integrated it into the Admin Blog Editor for automatic, SEO-friendly URL generation from titles.
-  - **E-commerce Purge**: Finalized the removal of legacy e-commerce folders and `CartContext.tsx`.
-  - **Lead System Upgrade**: Added `symptoms` and `urgency` fields to `Lead` model and updated Admin UI for clinical review.
 
 ## 🚧 Active Tasks
 - **Database Seeding**: Preparing to seed `SiteConfig` with production-ready default values.
