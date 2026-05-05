@@ -3,13 +3,11 @@
 ## 🕒 Current Context
 - **Date**: 2026-05-05
 - **Latest Activities**: 
+  - **Build Failure Resolution**: Fixed global "Module not found" errors by converting all component imports to absolute paths (`@/components/...`).
+  - **Dependency Management**: Installed `mongoose` to the root `package.json` to support the new API architecture.
+  - **TypeScript & Build Optimization**: Resolved type errors in `ProductGallery` and configured API routes as `force-dynamic` to ensure successful Vercel deployment. Verified with a 100% successful local build.
   - **Major Architectural Refactor**: Unified the project into a single Next.js App Router structure. Deleted redundant `frontend/` and `scratch/` folders. Organized `src/components` into atomic categories (`ui`, `layout`, `shared`, `solution`).
   - **API Migration (Settings & Leads)**: Migrated backend logic to Next.js API Routes (`/api/settings`, `/api/leads`). Established a TypeScript-based MongoDB connection and models for centralized management of Hotline/Zalo/Leads.
-  - **Dynamic Data Binding**: Integrated the new APIs with `SettingsContext`, `MobileBottomBar`, `StickyCTA`, and `LeadForm`. All contact points now update in real-time based on database configuration.
-  - **Agricultural-First Lead Capture**: Upgraded `LeadForm` to include crop types and pathology categories, ensuring technical engineers have enough context for consultations.
-  - **SEO-Ready Dynamic Routing**: Created dynamic route templates for `/giai-phap/[slug]` and `/san-pham/[slug]` focusing on solution-based landing pages.
-  - **System-Wide UI/UX Upgrade**: Refined the Mobile Header, added a scrollable crop-category bar, and a global Scroll Progress Indicator.
-  - **Trust & Credibility Enhancement**: Integrated 'Brand Trust Marquee', 'Kỹ sư thực tế' Video section, and upgraded Social Proof.
 
 ## 🚧 Active Tasks
 - **Telegram/Email Notification Integration**: Implement a utility to notify engineers when a new lead is captured.

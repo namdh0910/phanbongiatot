@@ -3,7 +3,7 @@ import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { API_BASE_URL } from "@/utils/api";
-import ProductCard from "@/components/ProductCard";
+import ProductCard from "@/components/solution/ProductCard";
 
 function SearchResults() {
   const searchParams = useSearchParams();
@@ -178,3 +178,4 @@ export default function SearchPage() {
     </Suspense>
   );
 }
+

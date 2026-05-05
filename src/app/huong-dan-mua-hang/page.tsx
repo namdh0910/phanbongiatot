@@ -1,5 +1,5 @@
 "use client";
-import Breadcrumbs from "@/components/Breadcrumbs";
+import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import Link from "next/link";
 
 export default function BuyingGuide() {
@@ -103,3 +103,4 @@ export default function BuyingGuide() {
     </div>
   );
 }
+

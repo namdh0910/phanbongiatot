@@ -2,8 +2,8 @@ import mongoose from 'mongoose';
 
 const MONGODB_URI = process.env.MONGO_URI || '';
 
-if (!MONGODB_URI) {
-  throw new Error('Please define the MONGO_URI environment variable inside .env');
+if (!MONGODB_URI && process.env.NODE_ENV === 'production') {
+  console.warn('Warning: MONGO_URI is not defined. Database features will not work.');
 }
 
 /**

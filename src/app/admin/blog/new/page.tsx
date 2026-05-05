@@ -2,8 +2,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { API_BASE_URL, getAuthHeaders } from "@/utils/api";
-import AdminSidebar from "@/components/AdminSidebar";
-import AdminGuard from "@/components/AdminGuard";
+import AdminSidebar from "@/components/layout/AdminSidebar";
+import AdminGuard from "@/components/shared/AdminGuard";
 
 export default function NewBlogPost() {
   const router = useRouter();
@@ -276,3 +276,4 @@ function AIGenerator({ onGenerated, title }: { onGenerated: (data: any) => void,
     </button>
   );
 }
+

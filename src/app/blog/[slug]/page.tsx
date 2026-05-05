@@ -1,6 +1,6 @@
 import { API_BASE_URL, getAuthHeaders } from '@/utils/api';
 import Link from "next/link";
-import Breadcrumbs from "@/components/Breadcrumbs";
+import Breadcrumbs from "@/components/ui/Breadcrumbs";
 
 async function getBlog(slug: string) {
   try {

@@ -1,8 +1,8 @@
 "use client";
 import { API_BASE_URL, getAuthHeaders } from '@/utils/api';
 import { useState, useEffect, useRef } from "react";
-import AdminSidebar from "@/components/AdminSidebar";
-import AdminGuard from "@/components/AdminGuard";
+import AdminSidebar from "@/components/layout/AdminSidebar";
+import AdminGuard from "@/components/shared/AdminGuard";
 
 export default function AdminSettings() {
   const [activeTab, setActiveTab] = useState("general");
@@ -276,3 +276,4 @@ export default function AdminSettings() {
     </AdminGuard>
   );
 }
+

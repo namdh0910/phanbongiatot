@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
-import AdminSidebar from "@/components/AdminSidebar";
-import AdminGuard from "@/components/AdminGuard";
+import AdminSidebar from "@/components/layout/AdminSidebar";
+import AdminGuard from "@/components/shared/AdminGuard";
 import { useRouter } from "next/navigation";
 import { API_BASE_URL, getAuthHeaders } from "@/utils/api";
 import dynamic from 'next/dynamic';
@@ -475,3 +475,4 @@ export default function AdminProducts() {
     </div>
   );
 }
+

@@ -1,7 +1,7 @@
 import { API_BASE_URL } from '@/utils/api';
 import Link from "next/link";
-import ProductCard from "@/components/ProductCard";
-import Breadcrumbs from "@/components/Breadcrumbs";
+import ProductCard from "@/components/solution/ProductCard";
+import Breadcrumbs from "@/components/ui/Breadcrumbs";
 
 async function getShopInfo(username: string) {
   try {

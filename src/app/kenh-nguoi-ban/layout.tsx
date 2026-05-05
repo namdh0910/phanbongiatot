@@ -1,7 +1,7 @@
 "use client";
-import SellerGuard from "@/components/SellerGuard";
-import SellerSidebar from "@/components/SellerSidebar";
-import SellerMobileHeader from "@/components/SellerMobileHeader";
+import SellerGuard from "@/components/shared/SellerGuard";
+import SellerSidebar from "@/components/layout/SellerSidebar";
+import SellerMobileHeader from "@/components/layout/SellerMobileHeader";
 import { usePathname } from "next/navigation";
 
 export default function SellerLayout({ children }: { children: React.ReactNode }) {
@@ -35,3 +35,4 @@ export default function SellerLayout({ children }: { children: React.ReactNode }
     </SellerGuard>
   );
 }
+

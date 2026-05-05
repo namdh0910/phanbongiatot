@@ -1,11 +1,11 @@
 "use client";
 import React from 'react';
 import { usePathname } from 'next/navigation';
-import Header from './Header';
-import Footer from './Footer';
-import StickyCTA from './StickyCTA';
-import FloatingSocialProof from './FloatingSocialProof';
-import MobileBottomNav from './MobileBottomNav';
+import Header from '@/components/layout/Header';
+import Footer from '@/components/layout/Footer';
+import StickyCTA from '@/components/shared/StickyCTA';
+import FloatingSocialProof from '@/components/shared/FloatingSocialProof';
+import MobileBottomNav from '@/components/layout/MobileBottomNav';
 
 export default function LayoutWrapper({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -33,6 +33,3 @@ export default function LayoutWrapper({ children }: { children: React.ReactNode 
     </>
   );
 }
-
-
-

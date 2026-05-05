@@ -1,5 +1,5 @@
 "use client";
-import Breadcrumbs from "@/components/Breadcrumbs";
+import Breadcrumbs from "@/components/ui/Breadcrumbs";
 
 export default function WarrantyPolicy() {
   return (
@@ -90,3 +90,4 @@ export default function WarrantyPolicy() {
     </div>
   );
 }
+

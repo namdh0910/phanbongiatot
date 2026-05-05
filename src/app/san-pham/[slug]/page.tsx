@@ -29,7 +29,11 @@ export default async function ProductDetailPage({ params }: { params: { slug: st
         <div className="grid md:grid-cols-2 gap-8">
           {/* Product Gallery */}
           <div>
-            <ProductGallery />
+            <ProductGallery 
+              images={[]} 
+              name={product.name} 
+              discount={0} 
+            />
           </div>
 
           {/* Product Info */}

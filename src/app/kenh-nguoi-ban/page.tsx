@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { API_BASE_URL } from "@/utils/api";
-import VendorLanding from "@/components/VendorLanding";
+import VendorLanding from "@/components/solution/VendorLanding";
 import Link from "next/link";
 import './VendorDashboard.css';
 
@@ -206,3 +206,4 @@ export default function VendorDashboard() {
     </div>
   );
 }
+

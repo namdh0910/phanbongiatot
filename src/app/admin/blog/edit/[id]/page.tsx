@@ -2,8 +2,8 @@
 import { useState, useEffect, use } from "react";
 import { useRouter } from "next/navigation";
 import { API_BASE_URL, getAuthHeaders } from "@/utils/api";
-import AdminSidebar from "@/components/AdminSidebar";
-import AdminGuard from "@/components/AdminGuard";
+import AdminSidebar from "@/components/layout/AdminSidebar";
+import AdminGuard from "@/components/shared/AdminGuard";
 
 export default function EditBlogPost({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);

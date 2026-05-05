@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import dbConnect from '@/lib/db';
 import Lead from '@/lib/models/Lead';
 
+export const dynamic = 'force-dynamic';
+
 export async function POST(request: Request) {
   try {
     await dbConnect();

@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
-import AdminSidebar from "@/components/AdminSidebar";
-import AdminGuard from "@/components/AdminGuard";
+import AdminSidebar from "@/components/layout/AdminSidebar";
+import AdminGuard from "@/components/shared/AdminGuard";
 import { API_BASE_URL, getAuthHeaders } from "@/utils/api";
 
 export default function AdminAgencies() {
@@ -203,3 +203,4 @@ export default function AdminAgencies() {
     </AdminGuard>
   );
 }
+

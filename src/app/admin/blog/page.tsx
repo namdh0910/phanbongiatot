@@ -1,8 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
 import { API_BASE_URL, getAuthHeaders } from "@/utils/api";
-import AdminSidebar from "@/components/AdminSidebar";
-import AdminGuard from "@/components/AdminGuard";
+import AdminSidebar from "@/components/layout/AdminSidebar";
+import AdminGuard from "@/components/shared/AdminGuard";
 import Link from "next/link";
 
 export default function AdminBlogList() {
@@ -107,3 +107,4 @@ export default function AdminBlogList() {
     </AdminGuard>
   );
 }
+

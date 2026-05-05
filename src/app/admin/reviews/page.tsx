@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { API_BASE_URL, getAuthHeaders } from "@/utils/api";
-import AdminSidebar from "@/components/AdminSidebar";
+import AdminSidebar from "@/components/layout/AdminSidebar";
 
 export default function AdminReviews() {
   const [reviews, setReviews] = useState<any[]>([]);
@@ -131,3 +131,4 @@ export default function AdminReviews() {
     </div>
   );
 }
+

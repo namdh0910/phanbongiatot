@@ -1,5 +1,5 @@
 "use client";
-import Breadcrumbs from "@/components/Breadcrumbs";
+import Breadcrumbs from "@/components/ui/Breadcrumbs";
 
 export default function ShippingPolicy() {
   return (
@@ -83,3 +83,4 @@ export default function ShippingPolicy() {
     </div>
   );
 }
+
