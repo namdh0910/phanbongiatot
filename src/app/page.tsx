@@ -362,10 +362,10 @@ export default function LandingPage() {
             </p>
             
             <div className="flex flex-col md:flex-row items-center justify-center gap-4">
-              <a href={zaloUrl} className="w-full md:w-auto bg-[#0068FF] hover:bg-blue-600 text-white font-black px-10 py-5 rounded-2xl flex items-center justify-center gap-3 transition-all active:scale-95 shadow-xl shadow-blue-200">
+              <a href={zaloUrl} className="w-full md:w-auto bg-[#f5a623] hover:bg-[#fbb940] text-white font-black px-10 py-5 rounded-2xl flex items-center justify-center gap-3 transition-all active:scale-95 shadow-xl shadow-orange-100">
                 <MessageCircle fill="currentColor" /> Chat Zalo Ngay
               </a>
-              <a href={callUrl} className="w-full md:w-auto bg-[#1a5c2a] hover:bg-emerald-800 text-white font-black px-10 py-5 rounded-2xl flex items-center justify-center gap-3 transition-all active:scale-95 shadow-xl shadow-emerald-200">
+              <a href={callUrl} className="w-full md:w-auto bg-white border-2 border-emerald-600 text-emerald-700 hover:bg-emerald-50 font-black px-10 py-5 rounded-2xl flex items-center justify-center gap-3 transition-all active:scale-95">
                 <Phone /> Gọi: {settings.phone}
               </a>
             </div>
