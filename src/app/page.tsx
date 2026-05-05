@@ -65,8 +65,7 @@ export default function Home() {
   return (
     <div className="flex flex-col gap-0 md:gap-12 pb-20 bg-white">
       {/* 1. HERO MESSAGE MỚI (CHIẾN LƯỢC GIẢI PHÁP) */}
-      <section className="relative bg-gradient-to-br from-emerald-50 via-white to-blue-50 pt-16 pb-20 px-4 text-center overflow-hidden">
-        {/* Background Decorative Elements */}
+      <section className="relative bg-gradient-to-br from-emerald-50 via-white to-blue-50 pt-12 pb-16 px-4 text-center overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-full pointer-events-none opacity-40">
           <div className="absolute top-[-10%] left-[-5%] w-64 h-64 bg-emerald-200 rounded-full blur-[100px]"></div>
           <div className="absolute bottom-[-10%] right-[-5%] w-64 h-64 bg-blue-200 rounded-full blur-[100px]"></div>
@@ -74,89 +73,58 @@ export default function Home() {
 
         <div className="relative z-10 container mx-auto max-w-4xl">
           <div className="inline-block bg-emerald-100 text-emerald-700 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest mb-6 animate-fade-in">
-            🌿 Chuyên gia nông nghiệp 4.0
+            🌿 Chuyên gia phân bón & kỹ thuật
           </div>
-          <h1 className="text-4xl md:text-7xl font-black text-gray-900 mb-6 leading-[1.1] tracking-tight uppercase italic">
+          <h1 className="text-3xl md:text-7xl font-black text-gray-900 mb-6 leading-[1.1] tracking-tight uppercase italic">
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-emerald-700 to-green-600">Bắt Đúng Bệnh</span><br/>
-            <span className="text-emerald-900">Kê Đúng Thuốc</span>
+            <span className="text-emerald-900">Kê Đúng Phân</span>
           </h1>
-          <p className="text-gray-500 text-base md:text-xl mb-10 max-w-2xl mx-auto font-medium leading-relaxed">
-            Chuyên trị Tuyến trùng, Vàng lá, Phục hồi cây suy cho <span className="text-emerald-700 font-bold">Sầu Riêng, Cà Phê, Hồ Tiêu</span>. 
-            Giúp bà con tiết kiệm chi phí, cứu vườn dứt điểm.
+          <p className="text-gray-500 text-sm md:text-xl mb-10 max-w-2xl mx-auto font-medium leading-relaxed">
+            Phác đồ dinh dưỡng chuyên sâu cho <span className="text-emerald-700 font-bold">Sầu Riêng, Cà Phê, Hồ Tiêu</span>. 
+            Giúp bà con phục hồi vườn bền vững, tiết kiệm chi phí.
           </p>
           <div className="flex flex-col md:flex-row items-center justify-center gap-4">
-            <a href="https://zalo.me/0773440966" className="group w-full md:w-auto inline-flex items-center justify-center gap-3 bg-blue-600 text-white px-10 py-5 rounded-2xl font-black text-lg shadow-2xl shadow-blue-200 hover:bg-blue-700 transition-all hover:scale-105 active:scale-95">
-              <span className="text-2xl group-hover:rotate-12 transition-transform">💬</span> Tư Vấn Miễn Phí Zalo
+            <a href="https://zalo.me/0773440966" className="group w-full md:w-auto inline-flex items-center justify-center gap-3 bg-blue-600 text-white px-8 py-4 rounded-2xl font-black text-base shadow-2xl shadow-blue-200 hover:bg-blue-700 transition-all hover:scale-105 active:scale-95">
+              <span className="text-xl group-hover:rotate-12 transition-transform">💬</span> Tư Vấn Miễn Phí Zalo
             </a>
-            <a href="#giai-phap" className="w-full md:w-auto inline-flex items-center justify-center px-10 py-5 rounded-2xl font-black text-lg text-emerald-700 border-2 border-emerald-100 bg-white/50 hover:bg-white transition-all">
-              Xem Giải Pháp
+            <a href="#giai-phap" className="w-full md:w-auto inline-flex items-center justify-center px-8 py-4 rounded-2xl font-black text-base text-emerald-700 border-2 border-emerald-100 bg-white/50 hover:bg-white transition-all">
+              Xem Phác Đồ
             </a>
           </div>
         </div>
       </section>
 
-      {/* 2. GIẢI PHÁP KỸ THUẬT TỪ CHUYÊN GIA */}
-      <section id="giai-phap" className="py-20 px-4 scroll-mt-20">
+      {/* 2. GIẢI PHÁP KỸ THUẬT TỪ CHUYÊN GIA - GRID TIN GỌN */}
+      <section id="giai-phap" className="py-12 md:py-20 px-4 scroll-mt-20 bg-white">
         <div className="container mx-auto max-w-5xl">
-          <div className="flex flex-col md:flex-row justify-between items-center mb-12 gap-6">
-            <div className="text-center md:text-left">
-              <h2 className="text-3xl md:text-4xl font-black text-gray-900 uppercase tracking-tighter italic">Giải Pháp Kỹ Thuật</h2>
-              <p className="text-gray-500 mt-2 font-medium">Phác đồ chuẩn kỹ sư - Trị dứt điểm, tiết kiệm chi phí</p>
-            </div>
-            <div className="h-px flex-1 bg-gray-100 hidden md:block mx-8"></div>
-            <div className="flex items-center gap-2">
-              <span className="w-3 h-3 bg-emerald-500 rounded-full animate-pulse"></span>
-              <span className="text-[10px] font-black uppercase tracking-widest text-emerald-600">Đang cập nhật phác đồ mới nhất</span>
-            </div>
+          <div className="text-center mb-10">
+            <h2 className="text-2xl md:text-4xl font-black text-gray-900 uppercase tracking-tighter italic">Danh Mục Giải Pháp</h2>
+            <div className="w-12 h-1 bg-emerald-500 mx-auto mt-3 rounded-full"></div>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Link href="/giai-phap/sau-rieng-vang-la-thoi-re" className="group bg-white p-8 rounded-[2rem] border border-gray-100 flex items-start gap-6 hover:border-emerald-200 hover:shadow-2xl hover:shadow-emerald-100/50 transition-all">
-              <div className="w-16 h-16 bg-emerald-50 rounded-2xl flex items-center justify-center text-3xl flex-shrink-0 group-hover:bg-emerald-600 group-hover:text-white transition-all shadow-inner">🍂</div>
-              <div className="flex-1">
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="text-[9px] font-black bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded uppercase tracking-tighter">Sầu riêng</span>
-                  <span className="text-[9px] font-black bg-blue-100 text-blue-700 px-2 py-0.5 rounded uppercase tracking-tighter">Bệnh rễ</span>
-                </div>
-                <h3 className="font-black text-gray-900 text-xl mb-2 group-hover:text-emerald-700 transition-colors">Vàng Lá Thối Rễ</h3>
-                <p className="text-sm text-gray-500 leading-relaxed">Phác đồ điều trị 3 bước giúp phục hồi hệ rễ cám dứt điểm sau 15 ngày.</p>
-              </div>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
+            <Link href="/giai-phap/sau-rieng-vang-la-thoi-re" className="group bg-gray-50/50 p-4 md:p-6 rounded-3xl border border-transparent hover:border-emerald-200 hover:bg-white hover:shadow-xl transition-all flex flex-col items-center text-center">
+              <div className="w-12 h-12 md:w-16 md:h-16 bg-white rounded-2xl flex items-center justify-center text-2xl md:text-3xl mb-4 shadow-sm group-hover:bg-emerald-600 group-hover:text-white transition-all">🍂</div>
+              <h3 className="font-black text-gray-900 text-xs md:text-base mb-1 group-hover:text-emerald-700">Vàng Lá Thối Rễ</h3>
+              <p className="text-[10px] md:text-xs text-gray-400 font-medium line-clamp-1">Phục hồi rễ cám</p>
             </Link>
 
-            <Link href="/giai-phap/tuyen-trung-ho-tieu" className="group bg-white p-8 rounded-[2rem] border border-gray-100 flex items-start gap-6 hover:border-amber-200 hover:shadow-2xl hover:shadow-amber-100/50 transition-all">
-              <div className="w-16 h-16 bg-amber-50 rounded-2xl flex items-center justify-center text-3xl flex-shrink-0 group-hover:bg-amber-500 group-hover:text-white transition-all shadow-inner">🐛</div>
-              <div className="flex-1">
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="text-[9px] font-black bg-amber-100 text-amber-700 px-2 py-0.5 rounded uppercase tracking-tighter">Tiêu / Cà phê</span>
-                  <span className="text-[9px] font-black bg-red-100 text-red-700 px-2 py-0.5 rounded uppercase tracking-tighter">Đặc trị</span>
-                </div>
-                <h3 className="font-black text-gray-900 text-xl mb-2 group-hover:text-amber-700 transition-colors">Diệt Tuyến Trùng</h3>
-                <p className="text-sm text-gray-500 leading-relaxed">Giải pháp sinh học diệt trứng và ấu trùng tuyến trùng mà không làm cháy rễ tơ.</p>
-              </div>
+            <Link href="/giai-phap/tuyen-trung-ho-tieu" className="group bg-gray-50/50 p-4 md:p-6 rounded-3xl border border-transparent hover:border-amber-200 hover:bg-white hover:shadow-xl transition-all flex flex-col items-center text-center">
+              <div className="w-12 h-12 md:w-16 md:h-16 bg-white rounded-2xl flex items-center justify-center text-2xl md:text-3xl mb-4 shadow-sm group-hover:bg-amber-500 group-hover:text-white transition-all">🐛</div>
+              <h3 className="font-black text-gray-900 text-xs md:text-base mb-1 group-hover:text-amber-700">Trị Tuyến Trùng</h3>
+              <p className="text-[10px] md:text-xs text-gray-400 font-medium line-clamp-1">Diệt trứng & ấu trùng</p>
             </Link>
 
-            <Link href="/giai-phap/phuc-hoi-ca-phe" className="group bg-white p-8 rounded-[2rem] border border-gray-100 flex items-start gap-6 hover:border-blue-200 hover:shadow-2xl hover:shadow-blue-100/50 transition-all">
-              <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center text-3xl flex-shrink-0 group-hover:bg-blue-600 group-hover:text-white transition-all shadow-inner">🌱</div>
-              <div className="flex-1">
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="text-[9px] font-black bg-blue-100 text-blue-700 px-2 py-0.5 rounded uppercase tracking-tighter">Đa dạng cây</span>
-                  <span className="text-[9px] font-black bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded uppercase tracking-tighter">Phục hồi</span>
-                </div>
-                <h3 className="font-black text-gray-900 text-xl mb-2 group-hover:text-blue-700 transition-colors">Phục Hồi Cây Suy Còi</h3>
-                <p className="text-sm text-gray-500 leading-relaxed">Kích rễ bung đọt siêu tốc, xanh lá, dày lá chỉ sau 2 lần tưới.</p>
-              </div>
+            <Link href="/giai-phap/phuc-hoi-ca-phe" className="group bg-gray-50/50 p-4 md:p-6 rounded-3xl border border-transparent hover:border-blue-200 hover:bg-white hover:shadow-xl transition-all flex flex-col items-center text-center">
+              <div className="w-12 h-12 md:w-16 md:h-16 bg-white rounded-2xl flex items-center justify-center text-2xl md:text-3xl mb-4 shadow-sm group-hover:bg-blue-600 group-hover:text-white transition-all">🌱</div>
+              <h3 className="font-black text-gray-900 text-xs md:text-base mb-1 group-hover:text-blue-700">Phục Hồi Cây Suy</h3>
+              <p className="text-[10px] md:text-xs text-gray-400 font-medium line-clamp-1">Kích rễ bung đọt</p>
             </Link>
 
-            <Link href="/giai-phap/sau-rieng-rung-trai" className="group bg-white p-8 rounded-[2rem] border border-gray-100 flex items-start gap-6 hover:border-emerald-200 hover:shadow-2xl hover:shadow-emerald-100/50 transition-all">
-              <div className="w-16 h-16 bg-emerald-50 rounded-2xl flex items-center justify-center text-3xl flex-shrink-0 group-hover:bg-emerald-600 group-hover:text-white transition-all shadow-inner">🍈</div>
-              <div className="flex-1">
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="text-[9px] font-black bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded uppercase tracking-tighter">Sầu riêng</span>
-                  <span className="text-[9px] font-black bg-amber-100 text-amber-700 px-2 py-0.5 rounded uppercase tracking-tighter">Chống rụng</span>
-                </div>
-                <h3 className="font-black text-gray-900 text-xl mb-2 group-hover:text-emerald-700 transition-colors">Chống Rụng Trái Non</h3>
-                <p className="text-sm text-gray-500 leading-relaxed">Giúp cây chống sốc nước, cân bằng dinh dưỡng và giữ trái chắc chắn.</p>
-              </div>
+            <Link href="/giai-phap/sau-rieng-rung-trai" className="group bg-gray-50/50 p-4 md:p-6 rounded-3xl border border-transparent hover:border-emerald-200 hover:bg-white hover:shadow-xl transition-all flex flex-col items-center text-center">
+              <div className="w-12 h-12 md:w-16 md:h-16 bg-white rounded-2xl flex items-center justify-center text-2xl md:text-3xl mb-4 shadow-sm group-hover:bg-emerald-600 group-hover:text-white transition-all">🍈</div>
+              <h3 className="font-black text-gray-900 text-xs md:text-base mb-1 group-hover:text-emerald-700">Chống Rụng Trái</h3>
+              <p className="text-[10px] md:text-xs text-gray-400 font-medium line-clamp-1">Chống sốc & giữ trái</p>
             </Link>
           </div>
         </div>
@@ -185,9 +153,9 @@ export default function Home() {
               <h3 className="text-xl font-black text-gray-700 mb-2">Đang cập nhật sản phẩm</h3>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 animate-in fade-in duration-700">
-              {/* Highlight top 3 products for Drop-shipping focus */}
-              {products.slice(0, 3).map((product: any, i: number) => (
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-8 animate-in fade-in duration-700">
+              {/* Show all featured/available products for variety focus */}
+              {products.map((product: any, i: number) => (
                 <div key={i} className="transform hover:-translate-y-2 transition-transform duration-300">
                   <ProductCard product={product} />
                   {/* Additional CTA underneath for quick consultation */}
