@@ -4,12 +4,41 @@ import Lead from '@/lib/models/Lead';
 
 export const dynamic = 'force-dynamic';
 
+async function sendTelegramNotification(lead: any) {
+  const token = process.env.TELEGRAM_BOT_TOKEN;
+  const chatId = process.env.TELEGRAM_CHAT_ID;
+
+  if (!token || !chatId) {
+    console.warn('Telegram configuration missing. Skipping notification.');
+    return;
+  }
+
+  const message = `🚨 CÓ CA BỆNH CẤP CỨU!
+- Nông dân: ${lead.name}
+- SĐT: \`${lead.phone}\`
+- Cây trồng: ${lead.cropType || 'Chưa rõ'}
+- Tình trạng: ${lead.pathology || lead.note || 'Cần tư vấn ngay'}`;
+
+  try {
+    await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: chatId,
+        text: message,
+        parse_mode: 'MarkdownV2'
+      }),
+    });
+  } catch (error) {
+    console.error('Failed to send Telegram notification:', error);
+  }
+}
+
 export async function POST(request: Request) {
   try {
     await dbConnect();
     const data = await request.json();
     
-    // Validation cơ bản
     if (!data.name || !data.phone) {
       return NextResponse.json({ error: 'Tên và số điện thoại là bắt buộc' }, { status: 400 });
     }
@@ -20,8 +49,8 @@ export async function POST(request: Request) {
       status: 'pending'
     });
     
-    // TODO: Chuẩn bị gửi thông báo về Telegram/Email cho kỹ sư tại đây
-    console.log(`[New Lead] ${lead.name} - ${lead.phone} - ${lead.cropType}`);
+    // Gửi thông báo Telegram
+    await sendTelegramNotification(lead);
     
     return NextResponse.json({ success: true, lead }, { status: 201 });
   } catch (error: any) {
@@ -30,7 +59,6 @@ export async function POST(request: Request) {
 }
 
 export async function GET() {
-  // Chỉ dùng cho Admin kiểm tra lead (nếu cần sau này)
   try {
     await dbConnect();
     const leads = await Lead.find().sort({ createdAt: -1 });
