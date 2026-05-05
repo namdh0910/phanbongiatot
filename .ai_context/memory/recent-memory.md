@@ -3,6 +3,7 @@
 ## 🕒 Current Context
 - **Date**: 2026-05-05
 - **Latest Activities (Directive 03, 04, 05 DONE)**:
+  - **Full Codebase Structure Scan**: Performed a comprehensive analysis of the project structure. Mapped all 30 routes (Page & API), identified 3 dynamic frontend routes, and flagged 28 files as potential dead code (legacy dashboard components and unimported CSS). Generated a detailed audit report in `codebase_scan_report.md`.
   - **Zalo Dynamic Hook (Directive 05)**: Implemented context-aware Zalo message templates in `StickyCTA` and blog pages. Tin nhắn sẽ tự động điền theo bệnh lý/bài viết khách đang xem.
   - **Admin Quick-Response Scripts**: Built a library of advisory scripts in `src/utils/scripts.ts` and integrated a copy-paste feature into the Admin Lead Dashboard.
   - **Frontend SiteConfig Integration**: The homepage now dynamically consumes configurations from the SiteConfig API (Hero, Hotline, Zalo).
