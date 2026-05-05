@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import dbConnect from '@/lib/db';
 import Product from '@/lib/models/Product';
 import { verifyAdmin } from '@/lib/auth';
@@ -45,6 +46,12 @@ export async function PUT(
     if (!product) {
       return NextResponse.json({ error: 'Product not found' }, { status: 404 });
     }
+
+    // On-demand revalidation
+    revalidatePath('/danh-muc/[slug]', 'page');
+    revalidatePath(`/san-pham/${product.slug}`);
+    revalidatePath('/');
+
     return NextResponse.json(product);
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
@@ -68,6 +75,12 @@ export async function DELETE(
     if (!product) {
       return NextResponse.json({ error: 'Product not found' }, { status: 404 });
     }
+
+    // On-demand revalidation
+    revalidatePath('/danh-muc/[slug]', 'page');
+    revalidatePath(`/san-pham/${product.slug}`);
+    revalidatePath('/');
+
     return NextResponse.json({ message: 'Product deleted successfully' });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });

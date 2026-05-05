@@ -10,11 +10,17 @@ interface Product {
   name: string;
   slug: string;
   price: number;
+  originalPrice: number;
   description: string;
   images: string[];
   category: string;
   useCase: string;
   tags: string[];
+  stock: number;
+  soldCount: number;
+  isHot: boolean;
+  isBestSeller: boolean;
+  isNewArrival: boolean;
   isAvailable: boolean;
   createdAt?: string;
 }
@@ -27,11 +33,17 @@ export default function AdminProducts() {
     name: "",
     slug: "",
     price: 0,
+    originalPrice: 0,
     description: "",
     images: [""],
     category: "Phân bón sinh học",
     useCase: "Phục hồi rễ",
     tags: [],
+    stock: 99,
+    soldCount: 0,
+    isHot: false,
+    isBestSeller: false,
+    isNewArrival: false,
     isAvailable: true,
   });
   const [message, setMessage] = useState("");
@@ -68,11 +80,17 @@ export default function AdminProducts() {
       name: "",
       slug: "",
       price: 0,
+      originalPrice: 0,
       description: "",
       images: [""],
       category: "Phân bón sinh học",
       useCase: "Phục hồi rễ",
       tags: [],
+      stock: 99,
+      soldCount: 0,
+      isHot: false,
+      isBestSeller: false,
+      isNewArrival: false,
       isAvailable: true,
     });
     setIsEditing(true);
@@ -207,15 +225,26 @@ export default function AdminProducts() {
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-[10px] font-black text-gray-400 uppercase mb-2 ml-1 tracking-widest">Giá (VNĐ)</label>
-                      <input 
-                        required
-                        type="number" 
-                        value={currentProduct.price}
-                        onChange={(e) => setCurrentProduct({...currentProduct, price: Number(e.target.value)})}
-                        className="w-full bg-gray-50 border-2 border-gray-100 rounded-2xl px-6 py-4 outline-none focus:bg-white focus:border-[#1a5c2a] transition-all font-bold text-gray-800"
-                      />
+                    <div className="space-y-4">
+                       <div>
+                         <label className="block text-[10px] font-black text-gray-400 uppercase mb-2 ml-1 tracking-widest">Giá bán hiện tại (VNĐ)</label>
+                         <input 
+                           required
+                           type="number" 
+                           value={currentProduct.price}
+                           onChange={(e) => setCurrentProduct({...currentProduct, price: Number(e.target.value)})}
+                           className="w-full bg-gray-50 border-2 border-gray-100 rounded-2xl px-6 py-4 outline-none focus:bg-white focus:border-[#1a5c2a] transition-all font-bold text-gray-800"
+                         />
+                       </div>
+                       <div>
+                         <label className="block text-[10px] font-black text-gray-400 uppercase mb-2 ml-1 tracking-widest">Giá gốc (Để hiển thị % giảm giá)</label>
+                         <input 
+                           type="number" 
+                           value={currentProduct.originalPrice}
+                           onChange={(e) => setCurrentProduct({...currentProduct, originalPrice: Number(e.target.value)})}
+                           className="w-full bg-gray-50 border-2 border-gray-100 rounded-2xl px-6 py-4 outline-none focus:bg-white focus:border-[#1a5c2a] transition-all font-bold text-gray-500"
+                         />
+                       </div>
                     </div>
                     <div>
                       <label className="block text-[10px] font-black text-gray-400 uppercase mb-2 ml-1 tracking-widest">Danh mục</label>
@@ -233,14 +262,13 @@ export default function AdminProducts() {
                   </div>
 
                   <div>
-                    <label className="block text-[10px] font-black text-gray-400 uppercase mb-2 ml-1 tracking-widest">Ảnh sản phẩm (URL)</label>
-                    <input 
+                    <label className="block text-[10px] font-black text-gray-400 uppercase mb-2 ml-1 tracking-widest">Ảnh sản phẩm (URL - Cách nhau bởi dấu phẩy)</label>
+                    <textarea 
                       required
-                      type="text" 
-                      value={currentProduct.images[0]}
-                      onChange={(e) => setCurrentProduct({...currentProduct, images: [e.target.value]})}
-                      className="w-full bg-gray-50 border-2 border-gray-100 rounded-2xl px-6 py-4 outline-none focus:bg-white focus:border-[#1a5c2a] transition-all font-bold text-gray-800 text-sm"
-                      placeholder="URL hình ảnh sản phẩm..."
+                      value={currentProduct.images.join(', ')}
+                      onChange={(e) => setCurrentProduct({...currentProduct, images: e.target.value.split(',').map(s => s.trim())})}
+                      className="w-full bg-gray-50 border-2 border-gray-100 rounded-2xl px-6 py-4 outline-none focus:bg-white focus:border-[#1a5c2a] transition-all font-bold text-gray-800 text-sm h-24"
+                      placeholder="URL hình ảnh sản phẩm 1, URL hình ảnh sản phẩm 2..."
                     />
                   </div>
                </div>
@@ -257,15 +285,68 @@ export default function AdminProducts() {
                     />
                   </div>
 
-                  <div>
-                    <label className="block text-[10px] font-black text-gray-400 uppercase mb-2 ml-1 tracking-widest">Trường hợp sử dụng (Use Case)</label>
-                    <input 
-                      type="text" 
-                      value={currentProduct.useCase}
-                      onChange={(e) => setCurrentProduct({...currentProduct, useCase: e.target.value})}
-                      className="w-full bg-gray-50 border-2 border-gray-100 rounded-2xl px-6 py-4 outline-none focus:bg-white focus:border-[#1a5c2a] transition-all font-bold text-gray-800"
-                      placeholder="VD: Phục hồi sau thu hoạch, Trị tuyến trùng..."
-                    />
+                  <div className="grid grid-cols-2 gap-4">
+                     <div>
+                       <label className="block text-[10px] font-black text-gray-400 uppercase mb-2 ml-1 tracking-widest">Tồn kho</label>
+                       <input 
+                         type="number" 
+                         value={currentProduct.stock}
+                         onChange={(e) => setCurrentProduct({...currentProduct, stock: Number(e.target.value)})}
+                         className="w-full bg-gray-50 border-2 border-gray-100 rounded-2xl px-6 py-4 outline-none focus:bg-white focus:border-[#1a5c2a] transition-all font-bold text-gray-800"
+                       />
+                     </div>
+                     <div>
+                       <label className="block text-[10px] font-black text-gray-400 uppercase mb-2 ml-1 tracking-widest">Đã bán (Giả lập)</label>
+                       <input 
+                         type="number" 
+                         value={currentProduct.soldCount}
+                         onChange={(e) => setCurrentProduct({...currentProduct, soldCount: Number(e.target.value)})}
+                         className="w-full bg-gray-50 border-2 border-gray-100 rounded-2xl px-6 py-4 outline-none focus:bg-white focus:border-[#1a5c2a] transition-all font-bold text-gray-800"
+                       />
+                     </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4 bg-gray-50 p-6 rounded-[2rem]">
+                     <div className="flex items-center gap-3">
+                        <input 
+                          type="checkbox" 
+                          id="isHot"
+                          checked={currentProduct.isHot}
+                          onChange={(e) => setCurrentProduct({...currentProduct, isHot: e.target.checked})}
+                          className="w-5 h-5 accent-red-600"
+                        />
+                        <label htmlFor="isHot" className="text-[10px] font-black text-red-900 uppercase">Sản phẩm HOT</label>
+                     </div>
+                     <div className="flex items-center gap-3">
+                        <input 
+                          type="checkbox" 
+                          id="isBestSeller"
+                          checked={currentProduct.isBestSeller}
+                          onChange={(e) => setCurrentProduct({...currentProduct, isBestSeller: e.target.checked})}
+                          className="w-5 h-5 accent-orange-600"
+                        />
+                        <label htmlFor="isBestSeller" className="text-[10px] font-black text-orange-900 uppercase">Bán chạy</label>
+                     </div>
+                     <div className="flex items-center gap-3">
+                        <input 
+                          type="checkbox" 
+                          id="isNewArrival"
+                          checked={currentProduct.isNewArrival}
+                          onChange={(e) => setCurrentProduct({...currentProduct, isNewArrival: e.target.checked})}
+                          className="w-5 h-5 accent-blue-600"
+                        />
+                        <label htmlFor="isNewArrival" className="text-[10px] font-black text-blue-900 uppercase">Hàng mới</label>
+                     </div>
+                     <div className="flex items-center gap-3">
+                        <input 
+                          type="checkbox" 
+                          id="isAvailable"
+                          checked={currentProduct.isAvailable}
+                          onChange={(e) => setCurrentProduct({...currentProduct, isAvailable: e.target.checked})}
+                          className="w-5 h-5 accent-emerald-600"
+                        />
+                        <label htmlFor="isAvailable" className="text-[10px] font-black text-emerald-900 uppercase">Còn hàng</label>
+                     </div>
                   </div>
 
                   <div>

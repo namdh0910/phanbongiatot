@@ -3,6 +3,10 @@
 ## 🕒 Current Context
 - **Date**: 2026-05-05
 - **Latest Activities (Directive 03, 04, 05 DONE)**:
+  - **Product Sync & Detail Page Recovery**: 
+    - **Recovery**: Created `src/app/san-pham/[slug]/page.tsx` to resolve site-wide 404 errors on product links.
+    - **Data Alignment**: Standardized `images` field across Model, Admin, and Frontend. Added missing business logic fields (`originalPrice`, `stock`, `soldCount`).
+    - **Real-time Updates**: Integrated `revalidatePath` in Product API for instant price/inventory updates.
   - **Blog Sync Hotfix**: Resolved critical synchronicity issues between Admin and Frontend. 
     - **Key Mapping**: Fixed broken thumbnails by aligning frontend keys (`image` -> `coverImage`) with the database schema.
     - **SEO Expansion**: Added `excerpt` field to the Blog model and Admin UI to power meta descriptions and article summaries.

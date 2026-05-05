@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import dbConnect from '@/lib/db';
 import Product from '@/lib/models/Product';
 import { verifyAdmin } from '@/lib/auth';
@@ -43,7 +44,17 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Name and Slug are required' }, { status: 400 });
     }
 
+    if (!body.id) {
+      body.id = `PROD-${Date.now()}`;
+    }
+    
     const product = await Product.create(body);
+    
+    // On-demand revalidation
+    revalidatePath('/danh-muc/[slug]', 'page');
+    revalidatePath(`/san-pham/${product.slug}`);
+    revalidatePath('/');
+    
     return NextResponse.json({ product }, { status: 201 });
   } catch (error: any) {
     if (error.code === 11000) {

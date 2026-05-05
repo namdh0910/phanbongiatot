@@ -118,8 +118,8 @@ export default async function CategoryPage({ params }: { params: { slug: string 
                   {products.map((product: any) => (
                     <div key={product.slug} className="group bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden hover:shadow-2xl transition-all">
                       <div className="aspect-square bg-gray-50 relative overflow-hidden">
-                        {product.image ? (
-                          <img src={product.image} alt={product.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                        {product.images?.[0] ? (
+                          <img src={product.images[0]} alt={product.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                         ) : (
                           <div className="w-full h-full flex items-center justify-center text-gray-300">📦</div>
                         )}
