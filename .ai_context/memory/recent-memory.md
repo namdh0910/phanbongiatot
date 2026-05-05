@@ -3,8 +3,9 @@
 ## 🕒 Current Context
 - **Date**: 2026-05-05
 - **Latest Activities**: 
-  - **Solution Landing Page (Nemano)**: Deployed a new psychological-driven template for the 'Nemano' product. Replaced the e-commerce layout with a high-conversion funnel (Pain -> Cause -> Solution -> Evidence -> CTA).
-  - **Social Media Integration**: Integrated official Facebook and YouTube links into the 'Video Guide' section and Footer. Added high-contrast branded icons for better visual recognition.
+  - **System-Wide UI/UX Upgrade**: Refined the Mobile Header with a premium dark-green glassmorphism aesthetic. Added a scrollable crop-category bar and circular quick-links for instant solution access.
+  - **Trust & Credibility Enhancement**: Integrated a 'Brand Trust Marquee' with major partners (Bình Điền, Yara, etc.) and upgraded the Floating Social Proof with smoother animations and a 'Verified' pulse effect.
+  - **Performance & Navigation**: Added a global Scroll Progress Indicator and optimized mobile typography for maximum readability.
   - **Homepage Section Reordering (CRO)**: Renamed 'Giải Pháp Chuyên Sâu' to 'Giải Pháp Theo Tình Trạng Vườn'. Removed dealer recruitment sections.
   - **New Video Guide Section**: Added a 'Kỹ sư hướng dẫn thực tế tại vườn' section with a 9:16 vertical video embed to provide social proof and expert technical demonstrations.
   - **Hero Banner Redesign**: Redesigned the primary hero section to target Durian and Coffee farmers. Used high-impact headlines ("CỨU VƯỜN SẦU RIÊNG...") and a heartbeat-animated CTA for "Chụp Ảnh Vườn Gửi Kỹ Sư".

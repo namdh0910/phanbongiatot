@@ -130,9 +130,26 @@ export default function LandingPage() {
   const zaloUrl = `https://zalo.me/${settings.zalo.replace(/\./g, '')}`;
   const callUrl = `tel:${settings.hotline.replace(/\./g, '')}`;
 
+  // Scroll Progress Logic
+  const [scrollProgress, setScrollProgress] = useState(0);
+  useEffect(() => {
+    const updateScrollProgress = () => {
+      const currentScroll = window.scrollY;
+      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+      setScrollProgress((currentScroll / scrollHeight) * 100);
+    };
+    window.addEventListener('scroll', updateScrollProgress);
+    return () => window.removeEventListener('scroll', updateScrollProgress);
+  }, []);
+
   return (
-    <div className="min-h-screen bg-white font-sans text-gray-900 selection:bg-emerald-100 selection:text-[#1a5c2a]">
+    <div className="min-h-screen bg-white font-sans text-gray-900 selection:bg-emerald-100 selection:text-[#1a5c2a] overflow-x-hidden">
       
+      {/* Scroll Progress Bar */}
+      <div className="fixed top-0 left-0 w-full h-1 z-[110] pointer-events-none">
+        <div className="h-full bg-gradient-to-r from-[#f5a623] to-[#ff6b35] transition-all duration-150" style={{ width: `${scrollProgress}%` }} />
+      </div>
+
       {/* 1. Header */}
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white/90 backdrop-blur-lg shadow-md py-3' : 'bg-transparent py-5'}`}>
         <div className="container mx-auto px-4 flex items-center justify-between">
@@ -242,7 +259,41 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 3. Trust Badges */}
+      {/* 2.5 Quick Category Links (Mobile Only) */}
+      <section className="md:hidden py-8 bg-white overflow-hidden">
+        <div className="px-4 flex items-center justify-between gap-4 overflow-x-auto scrollbar-hide">
+          {[
+            { name: "Sầu riêng", icon: "🌳", bg: "bg-emerald-50", text: "text-emerald-700", href: "/tim-kiem?q=sau-rieng" },
+            { name: "Cà phê", icon: "☕", bg: "bg-amber-50", text: "text-amber-700", href: "/tim-kiem?q=ca-phe" },
+            { name: "Hồ tiêu", icon: "🌿", bg: "bg-green-50", text: "text-green-700", href: "/tim-kiem?q=ho-tieu" },
+            { name: "Kích rễ", icon: "⚡", bg: "bg-orange-50", text: "text-orange-700", href: "/tim-kiem?q=kich-re" },
+            { name: "Kiến thức", icon: "📖", bg: "bg-blue-50", text: "text-blue-700", href: "/blog" }
+          ].map((item, i) => (
+            <Link key={i} href={item.href} className="flex flex-col items-center gap-2 flex-shrink-0">
+              <div className={`w-14 h-14 ${item.bg} rounded-2xl flex items-center justify-center text-2xl shadow-sm active:scale-90 transition-transform`}>
+                {item.icon}
+              </div>
+              <span className={`text-[10px] font-black uppercase tracking-widest ${item.text}`}>{item.name}</span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* 3. Brand Marquee - Building Credibility */}
+      <section className="bg-gray-50 py-10 border-y border-gray-100 overflow-hidden">
+         <div className="container mx-auto px-4 mb-6">
+            <p className="text-center text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">Đối tác kỹ thuật & Giải pháp chính hãng</p>
+         </div>
+         <div className="flex gap-12 whitespace-nowrap animate-marquee px-4">
+            {["Bình Điền", "Yara", "DAP", "Phú Mỹ", "Hợp Trí", "Nemano", "Bình Điền", "Yara", "DAP", "Phú Mỹ", "Bình Điền", "Yara", "DAP", "Phú Mỹ", "Hợp Trí", "Nemano", "Bình Điền", "Yara", "DAP", "Phú Mỹ"].map((brand, i) => (
+              <span key={i} className="text-xl md:text-2xl font-black text-gray-300 hover:text-gray-400 transition-colors cursor-default uppercase tracking-tighter italic">
+                {brand}
+              </span>
+            ))}
+         </div>
+      </section>
+
+      {/* 3.5 Trust Badges */}
       <section className="bg-white py-12 md:py-20">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-12">

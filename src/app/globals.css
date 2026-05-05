@@ -299,5 +299,16 @@ body {
 }
 
 .animate-heartbeat {
-  animation: heartBeat 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
+  animation: heartBeat 2s infinite cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
 }
