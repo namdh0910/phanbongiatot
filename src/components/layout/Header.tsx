@@ -188,12 +188,13 @@ export default function Header() {
 
         {/* MOBILE HEADER - REFINED PREMIUM DESIGN */}
         <div className="lg:hidden">
-          <div className="flex items-center gap-3 px-4 h-[56px] bg-gradient-to-r from-[#1B5E20] to-[#2E7D32] text-white shadow-lg relative z-[200]">
+          <div className="flex items-center gap-3 px-4 h-[64px] bg-gradient-to-r from-[#1B5E20] to-[#2E7D32] text-white shadow-lg relative z-[200]">
             <button 
               onClick={() => setIsMenuOpen(true)}
-              className="flex-shrink-0 w-9 h-9 flex items-center justify-center bg-white/10 rounded-lg active:scale-95 transition-transform"
+              className="flex-shrink-0 flex flex-col items-center justify-center w-12 h-12 bg-white/10 rounded-xl active:scale-95 transition-transform"
             >
-              <Menu size={22} />
+              <Menu size={20} />
+              <span className="text-[8px] font-black uppercase mt-0.5 tracking-tighter">Menu</span>
             </button>
 
             <Link href="/" className="flex-shrink-0 active:scale-95 transition-transform">
