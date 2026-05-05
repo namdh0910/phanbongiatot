@@ -79,26 +79,29 @@ export default async function SolutionDetail({ params }: { params: { slug: strin
         </div>
       </section>
 
-      {/* Section: Video Phác Đồ (Ưu tiên load trước) */}
-      <section className="bg-gray-50 border-y border-gray-100 overflow-hidden">
-        <div className="container mx-auto px-0 md:px-4 py-12 text-center">
+      {/* Section 1.5: Video Phác Đồ (Ưu tiên load trước) */}
+      <section className="py-12 bg-gray-50 border-b border-gray-100 overflow-hidden">
+        <div className="container mx-auto px-0 md:px-4 text-center">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-xl md:text-3xl font-black text-[#1a5c2a] uppercase mb-8 px-4">Video Phác Đồ Điều Trị Thực Tế</h2>
-            <div className="aspect-video bg-black md:rounded-[2.5rem] overflow-hidden shadow-2xl relative group">
+            <h2 className="text-xl md:text-3xl font-black text-[#1a5c2a] uppercase mb-8 px-4">Video Hướng Dẫn Phục Hồi Thực Tế</h2>
+            <div className="aspect-video bg-black md:rounded-[2.5rem] overflow-hidden shadow-2xl relative group border-b-4 md:border-4 border-white ring-1 ring-gray-100">
               <iframe 
-                src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
                 className="absolute inset-0 w-full h-full"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
                 loading="eager"
               ></iframe>
             </div>
-            <div className="mt-6 p-4 bg-emerald-100/50 mx-4 rounded-2xl border border-emerald-200">
-               <p className="text-sm font-bold text-emerald-900 italic">Bà con xem kỹ video để nắm rõ quy trình phục hồi cho vườn mình.</p>
+            <div className="mt-6 mx-4 p-4 bg-emerald-100/50 rounded-2xl border border-emerald-200 flex items-center gap-4 text-left">
+               <div className="w-10 h-10 bg-[#1a5c2a] text-white rounded-full flex items-center justify-center animate-pulse flex-shrink-0">▶</div>
+               <p className="text-sm font-bold text-emerald-900 italic leading-snug">Kỹ sư hướng dẫn bà con cách nhận biết và xử lý {pathology.title.toLowerCase()} ngay tại vườn.</p>
             </div>
           </div>
         </div>
       </section>
+
+
 
       {/* Section 2: Bóc Trần Sai Lầm (The Trap) */}
       <section className="py-20 bg-white">
