@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Clock, User, Share2, ArrowLeft, Play, Camera, MessageCircle, ChevronRight } from "lucide-react";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import LeadForm from "@/components/shared/LeadForm";
+import products from "@/data/products.json";
 
 async function getBlog(slug: string) {
   try {
@@ -48,6 +49,19 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
   const blog = await getBlog(slug);
 
   if (!blog) return <div className="text-center py-20 font-black uppercase">Không tìm thấy bài viết</div>;
+
+  // Auto-Related Products Logic
+  const blogTags = (blog.tags || []).map((t: string) => t.toLowerCase());
+  const blogCat = (blog.category || "").toLowerCase();
+  
+  const relatedProducts = products.filter(p => 
+    p.tags.some(tag => {
+      const t = tag.toLowerCase();
+      return blogTags.some(bt => t.includes(bt) || bt.includes(t)) || blogCat.includes(t) || t.includes(blogCat);
+    })
+  ).slice(0, 3);
+
+  const displayedProducts = relatedProducts.length > 0 ? relatedProducts : products.slice(0, 3);
 
   return (
     <div className="bg-white min-h-screen">
@@ -139,6 +153,33 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
                <div className="flex gap-3 w-full md:w-auto">
                   <button className="flex-1 md:flex-none bg-[#1877F2] text-white px-8 py-4 rounded-2xl font-black text-sm uppercase tracking-widest shadow-lg shadow-blue-100">Facebook</button>
                   <button className="flex-1 md:flex-none bg-[#0068FF] text-white px-8 py-4 rounded-2xl font-black text-sm uppercase tracking-widest shadow-lg shadow-blue-100">Zalo Share</button>
+               </div>
+            </div>
+
+            {/* Auto Related Products Widget */}
+            <div className="mt-20">
+               <div className="flex items-center gap-3 mb-8">
+                  <div className="w-10 h-10 bg-[#f5a623] text-white rounded-xl flex items-center justify-center text-xl shadow-lg">📦</div>
+                  <h3 className="text-xl md:text-2xl font-black text-gray-900 uppercase italic tracking-tight">Sản phẩm khuyên dùng cho vườn</h3>
+               </div>
+               
+               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {displayedProducts.map((product: any) => (
+                    <Link 
+                      key={product.id} 
+                      href={`/san-pham/${product.slug}`}
+                      className="bg-white border border-gray-100 rounded-3xl p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all group"
+                    >
+                      <div className="w-14 h-14 bg-gray-50 rounded-2xl flex items-center justify-center text-3xl mb-4 group-hover:scale-110 transition-transform">
+                        {product.icon}
+                      </div>
+                      <h4 className="font-black text-gray-900 mb-2 leading-tight group-hover:text-emerald-700 transition-colors">{product.name}</h4>
+                      <p className="text-gray-500 text-xs line-clamp-2 mb-4 font-medium">{product.description}</p>
+                      <div className="flex items-center gap-1 text-[10px] font-black text-emerald-600 uppercase tracking-widest">
+                        Xem chi tiết <ChevronRight size={12} />
+                      </div>
+                    </Link>
+                  ))}
                </div>
             </div>
 

@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Plus, Edit, Trash2, Save, X, Video, FileText, CheckCircle, Eye } from "lucide-react";
+import { Plus, Edit, Trash2, Save, X, Video, FileText, CheckCircle, Eye, Link as LinkIcon } from "lucide-react";
+import { slugify } from "@/utils/slugify";
 
 interface Blog {
   _id?: string;
@@ -149,15 +150,33 @@ export default function AdminBlogs() {
             <div className="grid md:grid-cols-2 gap-8">
                <div className="space-y-6">
                   <div>
-                    <label className="block text-[10px] font-black text-gray-400 uppercase mb-2 ml-1 tracking-widest">Tiêu đề bài viết/video</label>
                     <input 
                       required
                       type="text" 
                       value={currentBlog.title}
-                      onChange={(e) => setCurrentBlog({...currentBlog, title: e.target.value})}
+                      onChange={(e) => {
+                        const newTitle = e.target.value;
+                        const newSlug = !currentBlog._id ? slugify(newTitle) : currentBlog.slug;
+                        setCurrentBlog({...currentBlog, title: newTitle, slug: newSlug});
+                      }}
                       className="w-full bg-gray-50 border-2 border-gray-100 rounded-2xl px-6 py-4 outline-none focus:bg-white focus:border-[#1a5c2a] transition-all font-bold text-gray-800"
                       placeholder="VD: Cách phục hồi sầu riêng bị vàng lá thối rễ..."
                     />
+                  </div>
+
+                  <div>
+                    <label className="block text-[10px] font-black text-gray-400 uppercase mb-2 ml-1 tracking-widest">Đường dẫn SEO (Slug)</label>
+                    <div className="relative">
+                       <LinkIcon className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
+                       <input 
+                         required
+                         type="text" 
+                         value={currentBlog.slug}
+                         onChange={(e) => setCurrentBlog({...currentBlog, slug: slugify(e.target.value)})}
+                         className="w-full bg-gray-50 border-2 border-gray-100 rounded-2xl pl-12 pr-6 py-4 outline-none focus:bg-white focus:border-[#1a5c2a] transition-all font-bold text-gray-700 text-sm"
+                         placeholder="auto-tao-tu-tieu-de"
+                       />
+                    </div>
                   </div>
 
                   <div>

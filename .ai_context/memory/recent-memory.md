@@ -3,18 +3,19 @@
 ## 🕒 Current Context
 - **Date**: 2026-05-05
 - **Latest Activities**: 
-  - **Zalo-First & E-commerce Purge**: Completely removed legacy e-commerce folders (`/tra-cuu-don-hang`, `/don-hang`, `/checkout`, etc.) and `CartContext.tsx`. All CTAs now trigger Zalo/Phone consultations.
-  - **Data Infrastructure (Lead.ts)**: Upgraded `Lead` model with `city`, `symptoms`, and `urgency` fields. Updated Telegram notifications and Admin Lead dashboard to utilize these clinical data points.
-  - **Video-First Blog UX**: Optimized `blog/[slug]/page.tsx` with auto-playing technical videos (muted) and a high-conversion "Zalo Hook" button pre-filled with context-aware messages.
-  - **Mobile UI Polish**: Integrated `animate-heartbeat` for the Zalo bottom bar and ensured minimum 18px typography across the site.
-  - **Safe Area & UI Integrity**: Verified `env(safe-area-inset-top/bottom)` integration across all sticky components.
+  - **Modular SiteConfig System**: Implemented a key-value-group based configuration system (`SiteConfig` model + `/api/config`). Replaced the static admin dashboard with a tab-based UI for managing Hero, Contact, Announcement, and SEO settings.
+  - **Auto Related Products**: Integrated a smart widget in `blog/[slug]/page.tsx` that automatically matches blog content with relevant products from `products.json` based on tags/categories.
+  - **SEO Automation (Auto-Slug)**: Created `slugify.ts` utility and integrated it into the Admin Blog Editor for automatic, SEO-friendly URL generation from titles.
+  - **E-commerce Purge**: Finalized the removal of legacy e-commerce folders and `CartContext.tsx`.
+  - **Lead System Upgrade**: Added `symptoms` and `urgency` fields to `Lead` model and updated Admin UI for clinical review.
 
 ## 🚧 Active Tasks
-- **Pathology Data Enrichment**: Adding real-world symptom data to `pathologies.json` to leverage new Lead model fields.
-- **AI Bot Integration Prep**: Ensuring API structure is ready for future Zalo AI Bot automated responses.
+- **Database Seeding**: Preparing to seed `SiteConfig` with production-ready default values.
+- **Pathology Data Enrichment**: Mapping new `SiteConfig` hero values to specific high-conversion solutions.
 
 ## 💡 Key Learnings / Gotchas
-- **Context-Aware CTA**: Adding the blog title to the Zalo pre-filled message significantly lowers the friction for farmers seeking advice.
-- **Muted Autoplay**: Using `autoplay=1&mute=1` in YouTube iframes increases engagement without being intrusive on mobile data.
-- **Memory Sync**: Maintaining a strict documentation loop ensures architecture consistency across multiple agent sessions.
+- **Grouped Configs**: Managing settings by logical groups (Hero, SEO, etc.) prevents the admin UI from becoming cluttered as the site grows.
+- **Contextual Matching**: Substring matching between blog tags and product tags provides a reliable "fallback" for related content even with slightly different naming conventions.
+- **Slug Verification**: Allowing manual override of auto-generated slugs is critical for long-tail SEO optimization.
+
 
