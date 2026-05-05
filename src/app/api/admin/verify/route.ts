@@ -2,7 +2,11 @@ import { NextResponse } from 'next/server';
 import { jwtVerify } from 'jose';
 import { cookies } from 'next/headers';
 
-const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET || 'phanbongiatot_secret_2026');
+const JWT_SECRET_STR = process.env.JWT_SECRET;
+if (!JWT_SECRET_STR) {
+  throw new Error('JWT_SECRET environment variable is missing');
+}
+const JWT_SECRET = new TextEncoder().encode(JWT_SECRET_STR);
 
 export async function GET(request: Request) {
   try {

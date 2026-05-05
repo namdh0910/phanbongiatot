@@ -15,9 +15,15 @@ export default function AdminSidebar() {
     { href: "/admin/products", label: "Sản Phẩm (Catalog)", icon: "📦" },
   ];
 
-  const handleLogout = () => {
-    localStorage.removeItem("adminToken");
-    router.push("/admin/login");
+  const handleLogout = async () => {
+    try {
+      await fetch('/api/admin/logout', { method: 'POST' });
+      router.push("/admin/login");
+    } catch (error) {
+      console.error("Logout failed", error);
+      // Fallback
+      router.push("/admin/login");
+    }
   };
 
   return (

@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import dbConnect from '@/lib/db';
 import Lead from '@/lib/models/Lead';
+import { verifyAdmin } from '@/lib/auth';
 
 export const dynamic = 'force-dynamic';
 
@@ -61,6 +62,11 @@ export async function POST(request: Request) {
 
 export async function GET() {
   try {
+    const isAdmin = await verifyAdmin();
+    if (!isAdmin) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     await dbConnect();
     const leads = await Lead.find().sort({ createdAt: -1 });
     return NextResponse.json(leads);

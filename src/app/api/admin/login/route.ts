@@ -2,7 +2,11 @@ import { NextResponse } from 'next/server';
 import { SignJWT } from 'jose';
 import { cookies } from 'next/headers';
 
-const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET || 'phanbongiatot_secret_2026');
+const JWT_SECRET_STR = process.env.JWT_SECRET;
+if (!JWT_SECRET_STR) {
+  throw new Error('JWT_SECRET environment variable is missing');
+}
+const JWT_SECRET = new TextEncoder().encode(JWT_SECRET_STR);
 
 export async function POST(request: Request) {
   try {
@@ -10,7 +14,12 @@ export async function POST(request: Request) {
     await new Promise(resolve => setTimeout(resolve, 1500));
 
     const { password } = await request.json();
-    const adminPassword = process.env.ADMIN_PASSWORD || 'admin123';
+    const adminPassword = process.env.ADMIN_PASSWORD;
+
+    if (!adminPassword) {
+      console.error('ADMIN_PASSWORD environment variable is missing');
+      return NextResponse.json({ success: false, message: 'Lỗi cấu hình hệ thống' }, { status: 500 });
+    }
 
     if (password === adminPassword) {
       const token = await new SignJWT({ role: 'admin' })

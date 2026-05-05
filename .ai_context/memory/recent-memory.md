@@ -3,6 +3,12 @@
 ## 🕒 Current Context
 - **Date**: 2026-05-05
 - **Latest Activities (Directive 03, 04, 05 DONE)**:
+  - **Security Hardening (Auth Patch)**: Implemented critical security fixes identified in the audit. 
+    - **API Protection**: Enforced `verifyAdmin` check across all sensitive API routes (Leads GET, Blogs/Products POST/PUT/DELETE, Config POST).
+    - **Global Middleware**: Created `src/middleware.ts` to protect all `/admin` routes at the framework level.
+    - **Logout Fix**: Implemented `/api/admin/logout` to clear HttpOnly cookies and updated `AdminSidebar` UI.
+    - **Secret Enforcement**: Removed hardcoded `JWT_SECRET` and `ADMIN_PASSWORD` fallbacks, forcing environment variable usage.
+    - **Route Normalization**: Renamed `%5Bid%5D` folders to `[id]` to follow Next.js standards.
   - **Authentication Audit**: Conducted a deep-dive security audit. Discovered critical vulnerabilities: API routes (/api/leads, /api/blogs, etc.) lack server-side auth, logout logic is broken (clearing localStorage instead of HttpOnly cookies), and hardcoded secret fallbacks exist in API routes. Detailed report generated in `auth_audit_report.md`.
   - **Full Codebase Structure Scan**: Performed a comprehensive analysis of the project structure. Mapped all 30 routes (Page & API), identified 3 dynamic frontend routes, and flagged 28 files as potential dead code (legacy dashboard components and unimported CSS). Generated a detailed audit report in `codebase_scan_report.md`.
   - **Zalo Dynamic Hook (Directive 05)**: Implemented context-aware Zalo message templates in `StickyCTA` and blog pages. Tin nhắn sẽ tự động điền theo bệnh lý/bài viết khách đang xem.

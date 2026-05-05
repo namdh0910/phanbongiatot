@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import dbConnect from '@/lib/db';
 import Blog from '@/lib/models/Blog';
 import { generateHashtags, generateSEODescription } from '@/utils/seo';
+import { verifyAdmin } from '@/lib/auth';
 
 export async function GET() {
   try {
@@ -15,6 +16,11 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
+    const isAdmin = await verifyAdmin();
+    if (!isAdmin) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     await dbConnect();
     const body = await request.json();
     
