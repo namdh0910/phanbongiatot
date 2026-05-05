@@ -114,7 +114,7 @@ export default async function CategoryPage({ params }: { params: { slug: string 
               </div>
 
               {products.length > 0 ? (
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
                   {products.map((product: any) => (
                     <div key={product.slug} className="group bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden hover:shadow-2xl transition-all">
                       <div className="aspect-square bg-gray-50 relative overflow-hidden">

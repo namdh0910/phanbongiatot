@@ -25,12 +25,15 @@ export async function POST(request: Request) {
     await dbConnect();
     const data = await request.json();
     
-    let settings = await Settings.findOne();
-    if (settings) {
-      settings = await Settings.findOneAndUpdate({}, data, { new: true });
-    } else {
-      settings = await Settings.create(data);
-    }
+    const settings = await Settings.findOneAndUpdate({}, data, { 
+      upsert: true, 
+      new: true,
+      setDefaultsOnInsert: true 
+    });
+    
+    // revalidate all paths since settings affect global layout
+    const { revalidatePath } = require('next/cache');
+    revalidatePath('/', 'layout');
     
     return NextResponse.json(settings);
   } catch (error: any) {

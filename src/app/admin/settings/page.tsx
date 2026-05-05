@@ -91,9 +91,9 @@ export default function AdminSettings() {
 
           <div className="bg-white rounded-sm border border-gray-200 shadow-sm overflow-hidden max-w-5xl">
             <div className="flex border-b border-gray-200 bg-[#f6f7f7]">
-               <button onClick={() => setActiveTab("general")} className={`px-6 py-3 font-bold text-sm ${activeTab === 'general' ? 'bg-white border-t-2 border-t-[#2271b1] text-[#2271b1]' : 'text-gray-500 hover:text-gray-700'}`}>Cài đặt chung</button>
-               <button onClick={() => setActiveTab("appearance")} className={`px-6 py-3 font-bold text-sm ${activeTab === 'appearance' ? 'bg-white border-t-2 border-t-[#2271b1] text-[#2271b1]' : 'text-gray-500 hover:text-gray-700'}`}>Giao diện</button>
-               <button onClick={() => setActiveTab("seo")} className={`px-6 py-3 font-bold text-sm ${activeTab === 'seo' ? 'bg-white border-t-2 border-t-[#2271b1] text-[#2271b1]' : 'text-gray-500 hover:text-gray-700'}`}>Cấu hình SEO</button>
+               <button onClick={() => setActiveTab("general")} className={`px-8 py-4 font-bold text-base ${activeTab === 'general' ? 'bg-white border-t-2 border-t-[#2271b1] text-[#2271b1]' : 'text-gray-500 hover:text-gray-700'}`}>Cài đặt chung</button>
+               <button onClick={() => setActiveTab("appearance")} className={`px-8 py-4 font-bold text-base ${activeTab === 'appearance' ? 'bg-white border-t-2 border-t-[#2271b1] text-[#2271b1]' : 'text-gray-500 hover:text-gray-700'}`}>Giao diện</button>
+               <button onClick={() => setActiveTab("seo")} className={`px-8 py-4 font-bold text-base ${activeTab === 'seo' ? 'bg-white border-t-2 border-t-[#2271b1] text-[#2271b1]' : 'text-gray-500 hover:text-gray-700'}`}>Cấu hình SEO</button>
             </div>
 
             {isLoading ? (
@@ -106,29 +106,29 @@ export default function AdminSettings() {
                       <div className="space-y-4">
                         <div>
                           <label className="block text-xs font-bold text-gray-400 uppercase mb-2">Tên Website</label>
-                          <input value={settings.siteName} onChange={e => setSettings({...settings, siteName: e.target.value})} className="w-full border border-gray-300 rounded px-3 py-2 text-sm outline-none focus:border-[#2271b1]" />
+                          <input value={settings.siteName} onChange={e => setSettings({...settings, siteName: e.target.value})} className="w-full border border-gray-300 rounded px-4 py-3 text-base outline-none focus:border-[#2271b1]" />
                         </div>
                         <div>
                           <label className="block text-xs font-bold text-gray-400 uppercase mb-2">Hotline (Click to call)</label>
-                          <input value={settings.hotline} onChange={e => setSettings({...settings, hotline: e.target.value})} className="w-full border border-gray-300 rounded px-3 py-2 text-sm outline-none focus:border-[#2271b1]" />
+                          <input value={settings.hotline} onChange={e => setSettings({...settings, hotline: e.target.value})} className="w-full border border-gray-300 rounded px-4 py-3 text-base outline-none focus:border-[#2271b1]" />
                         </div>
                         <div>
                           <label className="block text-xs font-bold text-gray-400 uppercase mb-2">Số điện thoại hiển thị</label>
-                          <input value={settings.phone} onChange={e => setSettings({...settings, phone: e.target.value})} className="w-full border border-gray-300 rounded px-3 py-2 text-sm outline-none focus:border-[#2271b1]" placeholder="0773.440.966" />
+                          <input value={settings.phone} onChange={e => setSettings({...settings, phone: e.target.value})} className="w-full border border-gray-300 rounded px-4 py-3 text-base outline-none focus:border-[#2271b1]" placeholder="0773.440.966" />
                         </div>
                       </div>
                       <div className="space-y-4">
                         <div>
                           <label className="block text-xs font-bold text-gray-400 uppercase mb-2">Zalo ID (Số điện thoại Zalo)</label>
-                          <input value={settings.zaloId} onChange={e => setSettings({...settings, zaloId: e.target.value})} className="w-full border border-gray-300 rounded px-3 py-2 text-sm outline-none focus:border-[#2271b1]" />
+                          <input value={settings.zaloId} onChange={e => setSettings({...settings, zaloId: e.target.value})} className="w-full border border-gray-300 rounded px-4 py-3 text-base outline-none focus:border-[#2271b1]" />
                         </div>
                         <div>
                           <label className="block text-xs font-bold text-gray-400 uppercase mb-2">Giờ làm việc</label>
-                          <input value={settings.businessHours} onChange={e => setSettings({...settings, businessHours: e.target.value})} className="w-full border border-gray-300 rounded px-3 py-2 text-sm outline-none focus:border-[#2271b1]" placeholder="7:00 - 21:00" />
+                          <input value={settings.businessHours} onChange={e => setSettings({...settings, businessHours: e.target.value})} className="w-full border border-gray-300 rounded px-4 py-3 text-base outline-none focus:border-[#2271b1]" placeholder="7:00 - 21:00" />
                         </div>
                         <div>
                           <label className="block text-xs font-bold text-gray-400 uppercase mb-2">Shopee URL/Name</label>
-                          <input value={settings.shopee} onChange={e => setSettings({...settings, shopee: e.target.value})} className="w-full border border-gray-300 rounded px-3 py-2 text-sm outline-none focus:border-[#2271b1]" />
+                          <input value={settings.shopee} onChange={e => setSettings({...settings, shopee: e.target.value})} className="w-full border border-gray-300 rounded px-4 py-3 text-base outline-none focus:border-[#2271b1]" />
                         </div>
                       </div>
                     </div>
@@ -141,7 +141,7 @@ export default function AdminSettings() {
                       </div>
                       <div>
                         <label className="block text-xs font-bold text-gray-400 uppercase mb-2">Nội dung thông báo</label>
-                        <input value={settings.announcementText} onChange={e => setSettings({...settings, announcementText: e.target.value})} className="w-full border border-gray-300 rounded px-3 py-2 text-sm outline-none focus:border-[#2271b1]" placeholder="Ví dụ: 🔥 Khuyến mãi tháng 4: Giảm 10% tất cả phân bón" />
+                        <input value={settings.announcementText} onChange={e => setSettings({...settings, announcementText: e.target.value})} className="w-full border border-gray-300 rounded px-4 py-3 text-base outline-none focus:border-[#2271b1]" placeholder="Ví dụ: 🔥 Khuyến mãi tháng 4: Giảm 10% tất cả phân bón" />
                       </div>
                     </div>
 
@@ -150,11 +150,11 @@ export default function AdminSettings() {
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div>
                           <label className="block text-xs font-bold text-gray-400 uppercase mb-2">Địa chỉ Footer</label>
-                          <textarea value={settings.footerAddress} onChange={e => setSettings({...settings, footerAddress: e.target.value})} rows={3} className="w-full border border-gray-300 rounded px-3 py-2 text-sm outline-none focus:border-[#2271b1] resize-none" />
+                          <textarea value={settings.footerAddress} onChange={e => setSettings({...settings, footerAddress: e.target.value})} rows={3} className="w-full border border-gray-300 rounded px-4 py-3 text-base outline-none focus:border-[#2271b1] resize-none" />
                         </div>
                         <div>
                           <label className="block text-xs font-bold text-gray-400 uppercase mb-2">Email Footer</label>
-                          <input value={settings.footerEmail} onChange={e => setSettings({...settings, footerEmail: e.target.value})} className="w-full border border-gray-300 rounded px-3 py-2 text-sm outline-none focus:border-[#2271b1]" />
+                          <input value={settings.footerEmail} onChange={e => setSettings({...settings, footerEmail: e.target.value})} className="w-full border border-gray-300 rounded px-4 py-3 text-base outline-none focus:border-[#2271b1]" />
                         </div>
                       </div>
                     </div>
@@ -172,11 +172,11 @@ export default function AdminSettings() {
                         <div className="space-y-4">
                            <div>
                               <label className="block text-xs font-bold text-gray-400 uppercase mb-2">Tiêu đề Hero (Trang chủ)</label>
-                              <input value={settings.heroTitle} onChange={e => setSettings({...settings, heroTitle: e.target.value})} className="w-full border border-gray-300 rounded px-3 py-2 text-sm outline-none focus:border-[#2271b1]" />
+                              <input value={settings.heroTitle} onChange={e => setSettings({...settings, heroTitle: e.target.value})} className="w-full border border-gray-300 rounded px-4 py-3 text-base outline-none focus:border-[#2271b1]" />
                            </div>
                            <div>
                               <label className="block text-xs font-bold text-gray-400 uppercase mb-2">Mô tả Hero</label>
-                              <textarea value={settings.heroSubtitle} onChange={e => setSettings({...settings, heroSubtitle: e.target.value})} rows={2} className="w-full border border-gray-300 rounded px-3 py-2 text-sm outline-none focus:border-[#2271b1]" />
+                              <textarea value={settings.heroSubtitle} onChange={e => setSettings({...settings, heroSubtitle: e.target.value})} rows={2} className="w-full border border-gray-300 rounded px-4 py-3 text-base outline-none focus:border-[#2271b1]" />
                            </div>
                         </div>
                         
@@ -190,7 +190,7 @@ export default function AdminSettings() {
                            </div>
                            <div>
                               <label className="block text-xs font-bold text-gray-400 uppercase mb-2">Text nút CTA chính</label>
-                              <input value={settings.ctaText} onChange={e => setSettings({...settings, ctaText: e.target.value})} className="w-full border border-gray-300 rounded px-3 py-2 text-sm outline-none focus:border-[#2271b1]" placeholder="Nhận Tư Vấn Miễn Phí" />
+                              <input value={settings.ctaText} onChange={e => setSettings({...settings, ctaText: e.target.value})} className="w-full border border-gray-300 rounded px-4 py-3 text-base outline-none focus:border-[#2271b1]" placeholder="Nhận Tư Vấn Miễn Phí" />
                            </div>
                         </div>
                      </div>
@@ -202,7 +202,7 @@ export default function AdminSettings() {
 
                      <div>
                         <label className="block text-xs font-bold text-gray-400 uppercase mb-2">Thương hiệu phân phối (Cách nhau bởi dấu phẩy)</label>
-                        <textarea value={settings.brands || ""} onChange={e => setSettings({...settings, brands: e.target.value})} rows={3} className="w-full border border-gray-300 rounded px-3 py-2 text-sm outline-none focus:border-[#2271b1]" placeholder="YARA, ĐẠM PHÚ MỸ, HAIFA GROUP..." />
+                        <textarea value={settings.brands || ""} onChange={e => setSettings({...settings, brands: e.target.value})} rows={3} className="w-full border border-gray-300 rounded px-4 py-3 text-base outline-none focus:border-[#2271b1]" placeholder="YARA, ĐẠM PHÚ MỸ, HAIFA GROUP..." />
                      </div>
 
                      <div>
@@ -233,13 +233,13 @@ export default function AdminSettings() {
                      <div className="space-y-6">
                         <div>
                           <label className="block text-xs font-bold text-gray-400 uppercase mb-2">Tiêu đề SEO mặc định</label>
-                          <input value={settings.defaultSeoTitle} onChange={e => setSettings({...settings, defaultSeoTitle: e.target.value})} className="w-full border border-gray-300 rounded px-3 py-2 text-sm outline-none focus:border-[#2271b1]" placeholder="Phân Bón Giá Tốt - Giải Pháp Nông Nghiệp Xanh" />
+                          <input value={settings.defaultSeoTitle} onChange={e => setSettings({...settings, defaultSeoTitle: e.target.value})} className="w-full border border-gray-300 rounded px-4 py-3 text-base outline-none focus:border-[#2271b1]" placeholder="Phân Bón Giá Tốt - Giải Pháp Nông Nghiệp Xanh" />
                           <p className="text-[10px] text-gray-400 mt-1">Độ dài khuyên dùng: 50-60 ký tự</p>
                         </div>
                         
                         <div>
                           <label className="block text-xs font-bold text-gray-400 uppercase mb-2">Mô tả SEO mặc định (Description)</label>
-                          <textarea value={settings.defaultSeoDescription} onChange={e => setSettings({...settings, defaultSeoDescription: e.target.value})} rows={3} className="w-full border border-gray-300 rounded px-3 py-2 text-sm outline-none focus:border-[#2271b1] resize-none" placeholder="Chuyên cung cấp các sản phẩm nông nghiệp..." />
+                          <textarea value={settings.defaultSeoDescription} onChange={e => setSettings({...settings, defaultSeoDescription: e.target.value})} rows={3} className="w-full border border-gray-300 rounded px-4 py-3 text-base outline-none focus:border-[#2271b1] resize-none" placeholder="Chuyên cung cấp các sản phẩm nông nghiệp..." />
                           <p className="text-[10px] text-gray-400 mt-1">Độ dài khuyên dùng: 150-160 ký tự</p>
                         </div>
 
@@ -263,7 +263,7 @@ export default function AdminSettings() {
                    <button 
                      disabled={isSaving}
                      type="submit" 
-                     className="bg-[#2271b1] text-white px-8 py-2.5 rounded-sm font-bold hover:bg-[#135e96] shadow-md transition-all disabled:bg-gray-400 flex items-center gap-2"
+                     className="bg-[#2271b1] text-white px-10 py-4 rounded-xl font-bold hover:bg-[#135e96] shadow-md transition-all disabled:bg-gray-400 flex items-center gap-2 text-base"
                    >
                      {isSaving ? "⏳ ĐANG LƯU..." : "💾 LƯU TẤT CẢ THAY ĐỔI"}
                    </button>

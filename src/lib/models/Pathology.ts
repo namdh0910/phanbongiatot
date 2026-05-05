@@ -11,7 +11,7 @@ const PathologySchema = new mongoose.Schema({
     name: String,
     time: String,
     description: String,
-    product: String
+    product: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' }
   }],
   wrongActions: [{ type: String }],
   stats: {

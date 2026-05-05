@@ -179,7 +179,7 @@ export default function FAQPage() {
             <input 
               type="text" 
               placeholder="Tìm câu hỏi của bà con (ví dụ: vàng lá, tuyến trùng...)"
-              className="w-full bg-white/10 border border-white/20 rounded-2xl px-16 py-5 text-white placeholder:text-gray-500 focus:outline-none focus:border-emerald-500 transition-all"
+              className="w-full bg-white/10 border border-white/20 rounded-2xl px-16 py-5 text-white placeholder:text-gray-500 focus:outline-none focus:border-emerald-500 transition-all text-lg font-bold"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />

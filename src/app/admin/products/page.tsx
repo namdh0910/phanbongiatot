@@ -224,7 +224,7 @@ export default function AdminProducts() {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-4">
                        <div>
                          <label className="block text-[10px] font-black text-gray-400 uppercase mb-2 ml-1 tracking-widest">Giá bán hiện tại (VNĐ)</label>
@@ -285,7 +285,7 @@ export default function AdminProducts() {
                     />
                   </div>
 
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                      <div>
                        <label className="block text-[10px] font-black text-gray-400 uppercase mb-2 ml-1 tracking-widest">Tồn kho</label>
                        <input 
@@ -306,7 +306,7 @@ export default function AdminProducts() {
                      </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-4 bg-gray-50 p-6 rounded-[2rem]">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-gray-50 p-6 rounded-[2rem]">
                      <div className="flex items-center gap-3">
                         <input 
                           type="checkbox" 

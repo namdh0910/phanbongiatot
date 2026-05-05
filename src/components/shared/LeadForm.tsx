@@ -74,58 +74,73 @@ export default function LeadForm({ product, initialPathology, initialCrop }: Lea
          <p className="text-gray-500 text-sm mt-2">Bà con điền thông tin, kỹ sư sẽ gọi lại tư vấn phác đồ chuẩn nhất cho vườn của mình.</p>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <input 
-            required
-            type="text" 
-            placeholder="Tên của bà con..." 
-            value={formData.name}
-            onChange={(e) => setFormData({...formData, name: e.target.value})}
-            className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-4 outline-none focus:border-[#1a5c2a] transition-all font-medium text-gray-800"
-          />
-          <input 
-            required
-            type="tel" 
-            placeholder="Số điện thoại..." 
-            value={formData.phone}
-            onChange={(e) => setFormData({...formData, phone: e.target.value})}
-            className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-4 outline-none focus:border-[#1a5c2a] transition-all font-medium text-gray-800"
-          />
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-2">
+            <label className="text-[11px] font-black uppercase text-gray-400 ml-4 tracking-widest">Tên của bà con</label>
+            <input 
+              required
+              type="text" 
+              placeholder="Ví dụ: Chú Ba, Anh Tuấn..." 
+              value={formData.name}
+              onChange={(e) => setFormData({...formData, name: e.target.value})}
+              className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-4 outline-none focus:border-[#1a5c2a] transition-all font-bold text-gray-800 text-base"
+            />
+          </div>
+          <div className="space-y-2">
+            <label className="text-[11px] font-black uppercase text-gray-400 ml-4 tracking-widest">Số điện thoại</label>
+            <input 
+              required
+              type="tel" 
+              placeholder="0773.440.966" 
+              value={formData.phone}
+              onChange={(e) => setFormData({...formData, phone: e.target.value})}
+              className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-4 outline-none focus:border-[#1a5c2a] transition-all font-bold text-gray-800 text-base"
+            />
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <select 
-            value={formData.cropType}
-            onChange={(e) => setFormData({...formData, cropType: e.target.value})}
-            className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-4 outline-none focus:border-[#1a5c2a] transition-all font-medium text-gray-800 appearance-none"
-          >
-            <option value="">Loại cây trồng...</option>
-            <option value="Sầu riêng">Sầu riêng</option>
-            <option value="Cà phê">Cà phê</option>
-            <option value="Hồ tiêu">Hồ tiêu</option>
-            <option value="Cây ăn trái khác">Cây ăn trái khác</option>
-          </select>
-          <select 
-            value={formData.pathology}
-            onChange={(e) => setFormData({...formData, pathology: e.target.value})}
-            className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-4 outline-none focus:border-[#1a5c2a] transition-all font-medium text-gray-800 appearance-none"
-          >
-            <option value="">Tình trạng bệnh...</option>
-            <option value="Vàng lá thối rễ">Vàng lá thối rễ</option>
-            <option value="Tuyến trùng">Tuyến trùng</option>
-            <option value="Rụng trái/Bông">Rụng trái/Bông</option>
-            <option value="Cây còi cọc/Suy">Cây còi cọc/Suy</option>
-            <option value="Khác">Khác...</option>
-          </select>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-2">
+            <label className="text-[11px] font-black uppercase text-gray-400 ml-4 tracking-widest">Loại cây trồng</label>
+            <select 
+              value={formData.cropType}
+              onChange={(e) => setFormData({...formData, cropType: e.target.value})}
+              className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-4 outline-none focus:border-[#1a5c2a] transition-all font-bold text-gray-800 appearance-none text-base"
+            >
+              <option value="">Chọn loại cây...</option>
+              <option value="Sầu riêng">Sầu riêng</option>
+              <option value="Cà phê">Cà phê</option>
+              <option value="Hồ tiêu">Hồ tiêu</option>
+              <option value="Cây ăn trái khác">Cây ăn trái khác</option>
+            </select>
+          </div>
+          <div className="space-y-2">
+            <label className="text-[11px] font-black uppercase text-gray-400 ml-4 tracking-widest">Tình trạng vườn</label>
+            <select 
+              value={formData.pathology}
+              onChange={(e) => setFormData({...formData, pathology: e.target.value})}
+              className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-4 outline-none focus:border-[#1a5c2a] transition-all font-bold text-gray-800 appearance-none text-base"
+            >
+              <option value="">Chọn tình trạng...</option>
+              <option value="Vàng lá thối rễ">Vàng lá thối rễ</option>
+              <option value="Tuyến trùng">Tuyến trùng</option>
+              <option value="Rụng trái/Bông">Rụng trái/Bông</option>
+              <option value="Cây còi cọc/Suy">Cây còi cọc/Suy</option>
+              <option value="Khác">Khác...</option>
+            </select>
+          </div>
         </div>
 
-        <textarea 
-          placeholder="Ghi chú thêm (Diện tích vườn, tuổi cây...)" 
-          value={formData.note}
-          onChange={(e) => setFormData({...formData, note: e.target.value})}
-          className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-4 outline-none focus:border-[#1a5c2a] transition-all font-medium text-gray-800 h-24"
-        />
+        <div className="space-y-2">
+          <label className="text-[11px] font-black uppercase text-gray-400 ml-4 tracking-widest">Ghi chú thêm cho kỹ sư</label>
+          <textarea 
+            placeholder="Ví dụ: Vườn sầu riêng 3 năm tuổi, diện tích 2ha..." 
+            value={formData.note}
+            onChange={(e) => setFormData({...formData, note: e.target.value})}
+            className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-4 outline-none focus:border-[#1a5c2a] transition-all font-bold text-gray-800 h-28 text-base"
+          />
+        </div>
 
         <button 
           disabled={isSubmitting}

@@ -243,9 +243,25 @@ export default async function SolutionDetail({ params }: { params: Promise<{ slu
                 <div className="flex-1 text-center md:text-left">
                   <h3 className="text-2xl font-black text-gray-900 mb-2">{step.name}</h3>
                   <p className="text-lg text-gray-600 font-medium leading-tight mb-4">{step.description}</p>
-                  <div className="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 px-4 py-1 rounded-full text-sm font-black uppercase">
-                     <ShoppingBag size={14} /> SP Dùng: {step.product}
-                  </div>
+                  {typeof step.product === 'object' && step.product !== null ? (
+                    <Link 
+                      href={`/san-pham/${step.product.slug}`} 
+                      className="group inline-flex items-center gap-3 bg-emerald-50 text-emerald-700 px-5 py-3 rounded-2xl text-sm font-black uppercase hover:bg-emerald-700 hover:text-white transition-all shadow-sm border border-emerald-100"
+                    >
+                      <div className="w-10 h-10 bg-white rounded-xl overflow-hidden flex-shrink-0 border border-emerald-200">
+                        <img src={step.product.images?.[0] || '/og-image.png'} className="w-full h-full object-contain p-1" alt={step.product.name} />
+                      </div>
+                      <div className="flex flex-col items-start leading-tight">
+                        <span className="text-[10px] opacity-60">Vật tư khuyên dùng:</span>
+                        <span>{step.product.name}</span>
+                      </div>
+                      <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform ml-2" />
+                    </Link>
+                  ) : (
+                    <div className="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 px-4 py-2 rounded-full text-sm font-black uppercase">
+                       <ShoppingBag size={14} /> SP Dùng: {step.product || 'Đang cập nhật'}
+                    </div>
+                  )}
                 </div>
               </div>
             ))}

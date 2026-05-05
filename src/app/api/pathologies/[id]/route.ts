@@ -12,9 +12,12 @@ export async function GET(
     const params = await context.params;
     const id = params.id;
     
+    // Ensure Product model is registered for population
+    require('@/lib/models/Product');
+    
     const pathology = id.match(/^[0-9a-fA-F]{24}$/) 
-      ? await Pathology.findById(id)
-      : await Pathology.findOne({ slug: id });
+      ? await Pathology.findById(id).populate('steps.product')
+      : await Pathology.findOne({ slug: id }).populate('steps.product');
 
     if (!pathology) return NextResponse.json({ error: 'Not found' }, { status: 404 });
     return NextResponse.json(pathology);
@@ -38,6 +41,12 @@ export async function PUT(
     const id = params.id;
     const body = await request.json();
     const pathology = await Pathology.findByIdAndUpdate(id, body, { new: true });
+    
+    const { revalidatePath } = require('next/cache');
+    revalidatePath('/giai-phap');
+    revalidatePath(`/giai-phap/${pathology.slug}`);
+    revalidatePath('/');
+    
     return NextResponse.json(pathology);
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });

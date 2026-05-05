@@ -202,8 +202,8 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
                   <h4 className="font-black text-gray-900 uppercase italic text-sm">Chia sẻ kỹ thuật</h4>
                </div>
                <div className="flex gap-2 w-full md:w-auto">
-                  <button className="flex-1 md:flex-none bg-[#1877F2] text-white px-4 py-3 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-lg">Facebook</button>
-                  <button className="flex-1 md:flex-none bg-[#0068FF] text-white px-4 py-3 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-lg">Zalo</button>
+                  <button className="flex-1 md:flex-none bg-[#1877F2] text-white px-6 py-4 rounded-xl font-black text-xs uppercase tracking-widest shadow-lg active:scale-95 transition-transform">Facebook</button>
+                  <button className="flex-1 md:flex-none bg-[#0068FF] text-white px-6 py-4 rounded-xl font-black text-xs uppercase tracking-widest shadow-lg active:scale-95 transition-transform">Zalo</button>
                </div>
             </div>
 

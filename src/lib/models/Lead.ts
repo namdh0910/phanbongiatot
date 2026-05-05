@@ -17,7 +17,11 @@ export interface ILead {
 
 const leadSchema = new Schema<ILead>({
   name: { type: String, required: true },
-  phone: { type: String, required: true },
+  phone: { 
+    type: String, 
+    required: true,
+    match: [/^(0[3|5|7|8|9])+([0-9]{8})$/, 'Số điện thoại không hợp lệ']
+  },
   city: { type: String },
   cropType: { type: String }, // Sầu riêng, Cà phê...
   symptoms: { type: String }, // Triệu chứng

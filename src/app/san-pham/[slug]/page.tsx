@@ -254,7 +254,7 @@ export default async function ProductDetailPage({ params }: { params: { slug: st
                   </Link>
                </div>
 
-               <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
                   {(relatedProducts || []).map((p: any) => (
                     <Link key={p.slug} href={`/san-pham/${p.slug}`} className="group bg-white rounded-3xl border border-gray-100 p-4 hover:shadow-2xl hover:-translate-y-1 transition-all">
                        <div className="aspect-square rounded-2xl bg-gray-50 mb-4 overflow-hidden p-4">

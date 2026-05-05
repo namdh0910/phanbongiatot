@@ -38,7 +38,7 @@ export default function MobileBottomNav() {
           const Content = (
             <div className={`flex flex-col items-center justify-center gap-1 w-full min-h-[48px] min-w-[48px] relative ${isActive ? 'text-[#1b5e20]' : 'text-gray-600'}`}>
               <span className="text-xl">{item.icon}</span>
-              <span className={`text-[10px] font-bold ${isActive ? 'opacity-100' : 'opacity-90'}`}>{item.label}</span>
+              <span className={`text-[12px] font-bold ${isActive ? 'opacity-100' : 'opacity-90'}`}>{item.label}</span>
             </div>
           );
 
