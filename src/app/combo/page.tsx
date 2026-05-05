@@ -3,7 +3,7 @@ import React from 'react';
 import { useRouter } from 'next/navigation';
 import { useSettings } from '@/context/SettingsContext';
 import { useCart } from '@/context/CartContext';
-import Breadcrumbs from '@/components/Breadcrumbs';
+import Breadcrumbs from '@/components/ui/Breadcrumbs';
 
 const combos = [
   {

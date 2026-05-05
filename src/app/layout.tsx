@@ -2,10 +2,10 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import StickyCTA from "@/components/StickyCTA";
-import MobileBottomBar from "@/components/MobileBottomBar";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
+import StickyCTA from "@/components/shared/StickyCTA";
+import MobileBottomBar from "@/components/layout/MobileBottomBar";
 import { CartProvider } from "@/context/CartContext";
 import { SettingsProvider } from "@/context/SettingsContext";
 
@@ -137,4 +137,4 @@ export default function RootLayout({
 }
 
 // Separate client component to handle conditional rendering
-import LayoutWrapper from "@/components/LayoutWrapper";
+import LayoutWrapper from "@/components/layout/LayoutWrapper";

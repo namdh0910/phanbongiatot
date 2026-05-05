@@ -57,13 +57,16 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
   });
 
   useEffect(() => {
-    fetch(`${API_BASE_URL}/settings`)
+    // Fetch from local Next.js API
+    fetch('/api/settings')
       .then(res => res.json())
       .then(data => {
-        const cleanData = Object.fromEntries(
-          Object.entries(data).filter(([_, v]) => v != null)
-        );
-        setSettings(prev => ({ ...prev, ...cleanData }));
+        if (data && !data.error) {
+          const cleanData = Object.fromEntries(
+            Object.entries(data).filter(([_, v]) => v != null)
+          );
+          setSettings(prev => ({ ...prev, ...cleanData }));
+        }
       })
       .catch(err => console.error('Settings context fetch failed', err));
   }, []);

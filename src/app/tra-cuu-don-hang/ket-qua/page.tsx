@@ -3,7 +3,7 @@ import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { API_BASE_URL } from '@/utils/api';
-import Breadcrumbs from '@/components/Breadcrumbs';
+import Breadcrumbs from '@/components/ui/Breadcrumbs';
 
 function TrackingResults() {
   const searchParams = useSearchParams();

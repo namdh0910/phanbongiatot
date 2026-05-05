@@ -1,80 +1,64 @@
-import Link from 'next/link';
-import { AlertTriangle, CheckCircle2 } from 'lucide-react';
-import type { Metadata } from 'next';
+import React from 'react';
+import { Metadata } from 'next';
+import MobileBottomBar from '@/components/layout/MobileBottomBar';
 
+// Mock function to simulate data fetching based on slug
 async function getSolution(slug: string) {
-  try {
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
-    const res = await fetch(`${API_URL}/blogs/slug/${slug}`, { next: { revalidate: 60 } });
-    if (!res.ok) return null;
-    return res.json();
-  } catch (error) {
-    return null;
-  }
-}
-
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
-  const { slug } = await params;
-  const solution = await getSolution(slug);
-  
-  if (!solution) {
-    return { title: 'Giải pháp | Phân Bón Giá Tốt' };
-  }
+  // In reality, this would fetch from src/data/solutions.json or a DB
   return {
-    title: solution.seoTitle || solution.title,
-    description: solution.seoDescription || solution.excerpt,
+    title: `Giải pháp phục hồi ${slug.replace(/-/g, ' ')}`,
+    description: 'Phác đồ điều trị sinh học giúp cây xanh lá, dày cơi, phục hồi bộ rễ bền vững.',
+    content: 'Nội dung chi tiết về phác đồ điều trị...',
   };
 }
 
-export default async function SolutionPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
-  const solution = await getSolution(slug);
-  
-  if (!solution) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-[#f5f5f5]">
-        <h1 className="text-2xl font-bold text-gray-500">Không tìm thấy bài viết</h1>
-      </div>
-    );
-  }
-  
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const solution = await getSolution(params.slug);
+  return {
+    title: `${solution.title} | PhanBongiTot.com`,
+    description: solution.description,
+  };
+}
+
+export default async function SolutionDetailPage({ params }: { params: { slug: string } }) {
+  const solution = await getSolution(params.slug);
+
   return (
-    <div className="bg-[#f5f5f5] min-h-screen">
-      <article className="max-w-3xl mx-auto px-4 pb-24 pt-6 bg-white shadow-sm min-h-screen">
-        
-        {/* Tiêu đề đập vào mắt */}
-        <h1 className="text-2xl md:text-4xl font-extrabold text-green-900 mb-4 leading-tight">
-          {solution.title}
-        </h1>
-        
-        <div className="flex items-center gap-2 text-sm text-gray-500 mb-6 pb-4 border-b">
-          <span>{solution.author || 'Kỹ sư Nông nghiệp tư vấn'}</span>
-          <span>•</span>
-          <span>Đã kiểm duyệt chuyên môn</span>
+    <div className="min-h-screen bg-white pb-24">
+      {/* Hero Section with Problem Image */}
+      <section className="bg-green-50 p-6 md:p-12">
+        <h1 className="text-3xl font-bold text-green-800 mb-4">{solution.title}</h1>
+        <p className="text-lg text-gray-700">{solution.description}</p>
+      </section>
+
+      {/* Main Content Area */}
+      <main className="max-w-4xl mx-auto p-6">
+        <div className="prose prose-green lg:prose-xl">
+          {solution.content}
         </div>
 
-        {/* Nội dung bài viết */}
-        <div 
-          className="solution-content prose prose-green max-w-none text-gray-800"
-          dangerouslySetInnerHTML={{ __html: solution.content }} 
-        />
-
-        {/* Lời kêu gọi hành động (CTA) cực mạnh */}
-        <section className="bg-gradient-to-br from-green-600 to-green-800 rounded-xl p-6 md:p-8 text-center text-white shadow-xl mb-8">
-          <h3 className="text-2xl font-black mb-3">Mỗi vườn một mức độ bệnh khác nhau!</h3>
-          <p className="mb-6 text-green-50 text-base md:text-lg">Bà con đừng vội đi mua thuốc bừa bãi. Hãy chụp ảnh lá và gốc cây gửi qua Zalo, kỹ sư sẽ xem trực tiếp và tư vấn phác đồ chuẩn xác nhất.</p>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="https://zalo.me/0773440966" target="_blank" rel="noopener noreferrer" className="bg-white text-green-800 font-black px-8 py-4 rounded-full text-lg shadow-lg active:scale-95 transition-transform flex items-center justify-center gap-2 hover:bg-gray-100">
-              <span className="text-2xl">💬</span> Gửi Ảnh Nhận Tư Vấn Zalo
+        {/* CTA Section */}
+        <div className="mt-12 p-6 bg-brown-50 border-l-4 border-brown-500 rounded-r-lg">
+          <h3 className="text-xl font-bold text-brown-900 mb-2">Nhận phác đồ chi tiết cho vườn của bạn</h3>
+          <p className="mb-6">Gửi hình ảnh tình trạng cây để Kỹ sư tư vấn phác đồ phục hồi tối ưu nhất.</p>
+          <div className="flex flex-col gap-4 sm:flex-row">
+            <a 
+              href="https://zalo.me/your-zalo-id" 
+              className="flex-1 bg-green-600 text-white text-center py-4 rounded-full font-bold text-lg hover:bg-green-700 transition"
+            >
+              Nhắn tin Zalo ngay
             </a>
-            <a href="tel:0773440966" className="bg-transparent border-2 border-white text-white font-black px-8 py-4 rounded-full text-lg shadow-lg active:scale-95 transition-transform flex items-center justify-center gap-2 hover:bg-white/10">
-              <span className="text-xl">📞</span> Gọi Kỹ Sư Ngay
+            <a 
+              href="tel:0123456789" 
+              className="flex-1 border-2 border-green-600 text-green-600 text-center py-4 rounded-full font-bold text-lg hover:bg-green-50 transition"
+            >
+              Gọi Hotline tư vấn
             </a>
           </div>
-        </section>
+        </div>
+      </main>
 
-      </article>
+      <MobileBottomBar />
     </div>
   );
 }
