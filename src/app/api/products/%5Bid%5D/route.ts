@@ -4,11 +4,12 @@ import Product from '@/lib/models/Product';
 
 export async function GET(
   request: Request,
-  { params }: { params: Promise<{ id: string }> }
+  props: { params: Promise<{ id: string }> }
 ) {
   try {
     await dbConnect();
-    const { id } = await params;
+    const params = await props.params;
+    const id = params.id;
     
     // Check if it's a slug or ID
     const product = id.match(/^[0-9a-fA-F]{24}$/) 
@@ -26,11 +27,12 @@ export async function GET(
 
 export async function PUT(
   request: Request,
-  { params }: { params: Promise<{ id: string }> }
+  props: { params: Promise<{ id: string }> }
 ) {
   try {
     await dbConnect();
-    const { id } = await params;
+    const params = await props.params;
+    const id = params.id;
     const body = await request.json();
     
     const product = await Product.findByIdAndUpdate(id, body, { new: true });
@@ -45,11 +47,12 @@ export async function PUT(
 
 export async function DELETE(
   request: Request,
-  { params }: { params: Promise<{ id: string }> }
+  props: { params: Promise<{ id: string }> }
 ) {
   try {
     await dbConnect();
-    const { id } = await params;
+    const params = await props.params;
+    const id = params.id;
     const product = await Product.findByIdAndDelete(id);
     if (!product) {
       return NextResponse.json({ error: 'Product not found' }, { status: 404 });

@@ -4,11 +4,12 @@ import Pathology from '@/lib/models/Pathology';
 
 export async function GET(
   request: Request,
-  { params }: { params: Promise<{ id: string }> }
+  props: { params: Promise<{ id: string }> }
 ) {
   try {
     await dbConnect();
-    const { id } = await params;
+    const params = await props.params;
+    const id = params.id;
     
     const pathology = id.match(/^[0-9a-fA-F]{24}$/) 
       ? await Pathology.findById(id)
@@ -23,11 +24,12 @@ export async function GET(
 
 export async function PUT(
   request: Request,
-  { params }: { params: Promise<{ id: string }> }
+  props: { params: Promise<{ id: string }> }
 ) {
   try {
     await dbConnect();
-    const { id } = await params;
+    const params = await props.params;
+    const id = params.id;
     const body = await request.json();
     const pathology = await Pathology.findByIdAndUpdate(id, body, { new: true });
     return NextResponse.json(pathology);

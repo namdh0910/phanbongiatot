@@ -35,7 +35,10 @@
     - **Product & Pathology Migration**: Created Mongoose models and CRUD APIs for Products and Pathologies. Transitioned frontend components to fetch from these APIs.
     - **Admin Synchronization**: Linked Admin Dashboards to the new DB-backed APIs, enabling real-time content management.
     - **Seed Automation**: Built migration scripts to move legacy JSON data into MongoDB.
-  - **Hotfix: Build Success**: Resolved a syntax error (`Expected ',', got '}'`) in `src/app/api/admin/seed-blogs/route.ts` that caused Vercel deployment to fail.
+  - **Hotfix: Build Success**: 
+    - Resolved a syntax error in `seed-blogs/route.ts`.
+    - Fixed TypeScript incompatibility in dynamic API routes (`[id]/route.ts`) by adopting the Next.js 16 `props.params` Promise pattern to satisfy Vercel's strict type checking.
+
 
 
 
