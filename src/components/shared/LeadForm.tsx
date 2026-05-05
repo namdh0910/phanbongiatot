@@ -1,15 +1,34 @@
-import { useState } from "react";
+"use client";
+import { useState, useEffect } from "react";
 
-export default function LeadForm({ product }: { product?: any }) {
+interface LeadFormProps {
+  product?: any;
+  initialPathology?: string;
+  initialCrop?: string;
+}
+
+export default function LeadForm({ product, initialPathology, initialCrop }: LeadFormProps) {
   const [formData, setFormData] = useState({ 
     name: "", 
     phone: "", 
-    cropType: "", 
-    pathology: "",
+    cropType: initialCrop || "", 
+    pathology: initialPathology || "",
     note: ""
   });
+  
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+
+  // Sync props to state if they change
+  useEffect(() => {
+    if (initialPathology || initialCrop) {
+      setFormData(prev => ({
+        ...prev,
+        pathology: initialPathology || prev.pathology,
+        cropType: initialCrop || prev.cropType
+      }));
+    }
+  }, [initialPathology, initialCrop]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

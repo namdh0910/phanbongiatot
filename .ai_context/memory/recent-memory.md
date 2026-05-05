@@ -3,14 +3,14 @@
 ## 🕒 Current Context
 - **Date**: 2026-05-05
 - **Latest Activities**: 
+  - **Dynamic Solution Landing Pages**: Implemented a conversion-focused template at `/giai-phap/[slug]` using `pathologies.json`. Designed with a psychological funnel: Pain (Hero) -> Trap (Mistakes) -> Cure (Bio-Solution) -> Lead Capture.
+  - **Smart LeadForm Integration**: Upgraded `LeadForm` with prop-based pre-selection. Solution pages now automatically pre-fill the "Crop Type" and "Pathology" fields to reduce user friction.
   - **Telegram Bot Integration**: Connected the Leads API to a Telegram Bot for real-time notifications. Formatted messages for quick engineer response (MarkdownV2 with clickable phone numbers).
   - **Agricultural Pathologies Core**: Established `src/data/pathologies.json` as the source of truth for solution-based marketing. Focuses on biological recovery (Nematodes, Root Rot) instead of chemical pesticides.
-  - **Environment Standardization**: Created `.env.example` to manage secrets for MongoDB, Admin password, and Telegram configuration.
-  - **Streamlined Admin Dashboard**: Created a unified admin interface at `/admin` with two main sections: Settings and Leads. Used a mobile-first design with Tailwind CSS.
 
 ## 🚧 Active Tasks
-- **Solution Landing Page Generator**: Build a dynamic page at `/giai-phap/[slug]` that renders content from `pathologies.json`.
-- **Mobile UI Polishing**: Ensure all moved components maintain their styling and responsive behavior.
+- **Homepage Solution Integration**: Link the new dynamic solution pages to the homepage category/solution sections.
+- **Masterclass Content Expansion**: Add more technical solution data to `pathologies.json` for Pepper, Fruit trees, etc.
 - **Admin CMS Extension**: (Future) Add functionality to manage Blog posts and Products through the new Admin UI.
 - **Admin CMS Extension**: (Future) Add functionality to manage Blog posts and Products through the new Admin UI.
 
