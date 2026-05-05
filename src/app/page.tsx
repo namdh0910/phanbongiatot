@@ -14,10 +14,12 @@ import {
   Wallet,
   BookOpen,
   ArrowRight,
-  HelpCircle
+  HelpCircle,
+  AlertTriangle
 } from 'lucide-react';
 import { API_BASE_URL } from '@/utils/api';
 import { useSettings } from '@/context/SettingsContext';
+import pathologies from '@/data/pathologies.json';
 
 // Reusable Components for the Landing Page
 const Button = ({ children, variant = 'primary', className = '', ...props }: any) => {
@@ -38,23 +40,24 @@ const Button = ({ children, variant = 'primary', className = '', ...props }: any
   );
 };
 
-const SolutionCard = ({ title, image, description }: any) => (
-  <div className="bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all group">
-    <div className="aspect-[4/3] overflow-hidden relative">
-      <img src={image} alt={title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
-        <h3 className="text-white font-black text-xl leading-tight">{title}</h3>
+const DiseaseCard = ({ title, slug, painPoint }: any) => (
+  <Link href={`/giai-phap/${slug}`} className="bg-white rounded-3xl p-8 border border-gray-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 group relative overflow-hidden">
+    <div className="absolute top-0 right-0 p-6 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity">
+       <AlertTriangle size={120} />
+    </div>
+    <div className="relative z-10">
+      <div className="w-12 h-12 bg-red-50 text-red-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-red-600 group-hover:text-white transition-colors">
+        <AlertTriangle size={24} />
+      </div>
+      <h3 className="text-xl md:text-2xl font-black text-gray-900 mb-4 leading-tight group-hover:text-[#1a5c2a] transition-colors">{title}</h3>
+      <p className="text-gray-500 text-sm mb-8 line-clamp-3 font-medium leading-relaxed italic">
+        "{painPoint.length > 100 ? painPoint.substring(0, 100) + '...' : painPoint}"
+      </p>
+      <div className="inline-flex items-center gap-2 text-[#1a5c2a] font-black uppercase tracking-widest text-xs group-hover:gap-3 transition-all">
+        Xem phác đồ cứu cây <ArrowRight size={16} />
       </div>
     </div>
-    <div className="p-6">
-      <p className="text-gray-600 text-sm mb-6 line-clamp-3 font-medium leading-relaxed">
-        {description}
-      </p>
-      <Link href="/blog" className="inline-flex items-center gap-2 text-[#1a5c2a] font-black uppercase tracking-wider text-xs group-hover:gap-3 transition-all">
-        Tìm Hiểu Kỹ Thuật <ArrowRight size={16} />
-      </Link>
-    </div>
-  </div>
+  </Link>
 );
 
 const KnowledgeCard = ({ title, excerpt, image, category, slug }: any) => (
@@ -313,35 +316,29 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 4. Core Solutions */}
+      {/* 4. Core Solutions - Now dynamically rendering Pathologies */}
       <section id="solutions" className="bg-gray-50 py-16 md:py-24">
         <div className="container mx-auto px-4">
           <div className="flex flex-col items-center text-center mb-12 md:mb-16">
+            <span className="text-[#f5a623] font-black uppercase tracking-widest text-xs mb-3">Dấu hiệu nhận biết</span>
             <h2 className="text-3xl md:text-5xl font-black text-gray-900 uppercase tracking-tighter mb-4">
-              Giải Pháp Theo <span className="text-[#1a5c2a]">Tình Trạng Vườn</span>
+              Vườn Bà Con Đang <span className="text-red-600">Gặp Vấn Đề Gì?</span>
             </h2>
             <div className="w-20 h-2 bg-[#f5a623] rounded-full" />
             <p className="mt-6 text-gray-500 max-w-xl font-medium">
-              Chúng tôi tập trung xử lý dứt điểm các vấn đề nan giải nhất của nhà nông khu vực Tây Nguyên.
+              Chọn đúng dấu hiệu vườn đang mắc phải để nhận phác đồ phục hồi sinh học chuyên sâu từ kỹ sư.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
-            <SolutionCard 
-              title="Phục Hồi Cây Suy Giảm"
-              image="https://images.unsplash.com/photo-1592878904946-b3cd8ae243d0?q=80&w=800&auto=format&fit=crop"
-              description="Phác đồ đặc biệt phục hồi cây sau thu hoạch hoặc cây bị suy kiệt do sâu bệnh. Kích rễ mới, xanh lá thần tốc."
-            />
-            <SolutionCard 
-              title="Xử Lý Tuyến Trùng Rễ"
-              image="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=80&w=800&auto=format&fit=crop"
-              description="Giải pháp sinh học tiêu diệt tuyến trùng và nấm Phytophthora gây thối rễ, vàng lá trên Sầu riêng và Cà phê."
-            />
-            <SolutionCard 
-              title="Chống Sốc & Giữ Trái"
-              image="https://images.unsplash.com/photo-1615485240388-1473b6339cc0?q=80&w=800&auto=format&fit=crop" 
-              description="Kỹ thuật cân bằng dinh dưỡng giúp cây giữ trái chắc chắn, hạn chế rụng sinh lý trong điều kiện thời tiết khắc nghiệt."
-            />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 md:gap-10 max-w-5xl mx-auto">
+            {pathologies.map((pathology, idx) => (
+              <DiseaseCard 
+                key={idx}
+                title={pathology.title}
+                slug={pathology.slug}
+                painPoint={pathology.painPoint}
+              />
+            ))}
           </div>
         </div>
       </section>
