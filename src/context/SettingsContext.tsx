@@ -57,15 +57,29 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
   });
 
   useEffect(() => {
-    // Fetch from local Next.js API
-    fetch('/api/settings')
+    // Fetch from new Modular Config API
+    fetch('/api/config')
       .then(res => res.json())
       .then(data => {
-        if (data && !data.error) {
-          const cleanData = Object.fromEntries(
-            Object.entries(data).filter(([_, v]) => v != null)
-          );
-          setSettings(prev => ({ ...prev, ...cleanData }));
+        if (data && data.configs) {
+          const configObject = data.configs.reduce((acc: any, curr: any) => {
+            acc[curr.key] = curr.value;
+            return acc;
+          }, {});
+          
+          setSettings(prev => ({ 
+            ...prev, 
+            ...configObject,
+            // Map keys if they differ
+            phone: configObject.phone_primary || prev.phone,
+            hotline: configObject.phone_primary || prev.hotline,
+            zalo: configObject.zalo_id || prev.zalo,
+            zaloId: configObject.zalo_id || prev.zaloId,
+            heroTitle: configObject.hero_title || prev.heroTitle,
+            heroSubtitle: configObject.hero_subtitle || prev.heroSubtitle,
+            announcementText: configObject.announcement_message || prev.announcementText,
+            announcementEnabled: configObject.announcement_enabled === 'true'
+          }));
         }
       })
       .catch(err => console.error('Settings context fetch failed', err));

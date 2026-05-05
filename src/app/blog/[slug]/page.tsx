@@ -103,7 +103,7 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
                  {/* Zalo Hook - High conversion CTA directly under video */}
                  <div className="mt-4 md:mt-6">
                     <a 
-                      href={`https://zalo.me/0773440966?text=${encodeURIComponent(`Chào kỹ sư, tôi vừa xem video "${blog.title}". Tôi muốn nhận phác đồ điều trị như video này cho vườn nhà mình.`)}`}
+                      href={`https://zalo.me/0773440966?text=${encodeURIComponent(`Chào kỹ sư, tôi vừa xem video về cách chữa ${blog.title} và muốn nhận phác đồ cho vườn ở [Tỉnh của tôi] của tôi.`)}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="w-full bg-[#0068FF] hover:bg-blue-600 text-white py-4 md:py-6 rounded-2xl font-black text-sm md:text-lg uppercase tracking-widest flex items-center justify-center gap-3 shadow-xl shadow-blue-100 transition-all active:scale-95 animate-heartbeat"
@@ -141,6 +141,17 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
               prose-strong:text-gray-900 prose-strong:font-black"
               dangerouslySetInnerHTML={{ __html: blog.content }}
             />
+
+            {/* Hashtags Display (Directive 04) */}
+            {blog.hashtags && blog.hashtags.length > 0 && (
+              <div className="flex flex-wrap gap-2 mt-12">
+                {blog.hashtags.map((tag: string) => (
+                  <span key={tag} className="px-4 py-1.5 bg-gray-50 text-gray-500 rounded-full text-[10px] font-black uppercase tracking-widest border border-gray-100">
+                    #{tag}
+                  </span>
+                ))}
+              </div>
+            )}
 
             {/* Social Share Bottom */}
             <div className="mt-20 pt-10 border-t border-gray-100 flex flex-col md:flex-row items-center justify-between gap-8">

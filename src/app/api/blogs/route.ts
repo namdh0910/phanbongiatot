@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import dbConnect from '@/lib/db';
 import Blog from '@/lib/models/Blog';
+import { generateHashtags, generateSEODescription } from '@/utils/seo';
 
 export async function GET() {
   try {
@@ -20,6 +21,14 @@ export async function POST(request: Request) {
     // Simple validation
     if (!body.title || !body.coverImage || !body.content) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+    }
+
+    // Auto-generate SEO metadata if not provided
+    if (!body.hashtags || body.hashtags.length === 0) {
+      body.hashtags = generateHashtags(body.title, body.content);
+    }
+    if (!body.seoDescription) {
+      body.seoDescription = generateSEODescription(body.content);
     }
 
     const blog = await Blog.create(body);

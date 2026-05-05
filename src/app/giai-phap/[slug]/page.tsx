@@ -2,6 +2,9 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import LeadForm from "@/components/shared/LeadForm";
 import pathologies from "@/data/pathologies.json";
+import products from "@/data/products.json";
+import Link from "next/link";
+import { ChevronRight } from "lucide-react";
 
 interface Pathology {
   slug: string;
@@ -157,6 +160,37 @@ export default async function SolutionDetail({ params }: { params: { slug: strin
                </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Section 3.5: Sản Phẩm Khuyên Dùng (New from Directive 03) */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+           <div className="max-w-4xl mx-auto">
+              <div className="flex items-center gap-3 mb-10">
+                 <div className="w-12 h-12 bg-[#f5a623] text-white rounded-2xl flex items-center justify-center text-2xl shadow-xl shadow-orange-100">📦</div>
+                 <h3 className="text-2xl md:text-4xl font-black text-gray-900 uppercase italic tracking-tighter">Bộ giải pháp chuyên dụng</h3>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                 {products.filter(p => p.relatedPathologies?.includes(slug)).map((product) => (
+                    <Link 
+                      key={product.id} 
+                      href={`/san-pham/${product.slug}`}
+                      className="bg-gray-50 border border-gray-100 rounded-[2.5rem] p-8 hover:bg-white hover:shadow-2xl hover:-translate-y-2 transition-all group"
+                    >
+                       <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-4xl mb-6 shadow-sm group-hover:scale-110 transition-transform">
+                          {product.icon}
+                       </div>
+                       <h4 className="text-lg font-black text-gray-900 mb-2 leading-tight group-hover:text-emerald-700 transition-colors">{product.name}</h4>
+                       <p className="text-gray-500 text-xs font-medium line-clamp-2 mb-6 leading-relaxed">{product.description}</p>
+                       <div className="flex items-center gap-2 text-[10px] font-black text-emerald-600 uppercase tracking-widest">
+                          Xem phác đồ chi tiết <ChevronRight size={14} />
+                       </div>
+                    </Link>
+                 ))}
+              </div>
+           </div>
         </div>
       </section>
 

@@ -1,13 +1,38 @@
-import { usePathname } from "next/navigation";
+import { usePathname, useParams } from "next/navigation";
 import { useSettings } from "@/context/SettingsContext";
+import pathologies from "@/data/pathologies.json";
+import { useEffect, useState } from "react";
+import { API_BASE_URL } from "@/utils/api";
 
 export default function StickyCTA() {
   const pathname = usePathname();
+  const params = useParams();
   const settings = useSettings();
+  const [pageTitle, setPageTitle] = useState("");
+
+  useEffect(() => {
+    if (pathname?.includes('/giai-phap/') && params?.slug) {
+      const p = (pathologies as any[]).find(item => item.slug === params.slug);
+      if (p) setPageTitle(p.title);
+    } else if (pathname?.includes('/blog/') && params?.slug) {
+      // In a real app, we'd fetch or use a global state. For now, we try to get from document title or simple fetch
+      fetch(`${API_BASE_URL}/blogs/${params.slug}`)
+        .then(res => res.json())
+        .then(data => {
+          if (data && data.blog) setPageTitle(data.blog.title);
+        })
+        .catch(() => {});
+    }
+  }, [pathname, params]);
 
   const hotline = settings?.hotline || "0773.440.966";
   const zalo = settings?.zalo || "0773440966";
-  const zaloUrl = `https://zalo.me/${zalo.replace(/\./g, '')}`;
+  
+  const message = pageTitle 
+    ? `Chào kỹ sư, tôi vừa xem video về cách chữa ${pageTitle} và muốn nhận phác đồ cho vườn ở [Tỉnh của tôi] của tôi`
+    : `Chào kỹ sư, tôi cần tư vấn kỹ thuật phục hồi vườn cho vườn ở [Tỉnh của tôi] của tôi.`;
+  
+  const zaloUrl = `https://zalo.me/${zalo.replace(/\./g, '')}?text=${encodeURIComponent(message)}`;
   const callUrl = `tel:${hotline.replace(/\./g, '')}`;
 
   if (pathname?.startsWith('/admin') || pathname?.startsWith('/kenh-nguoi-ban')) return null;

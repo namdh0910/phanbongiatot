@@ -1,5 +1,6 @@
-"use client";
 import { useState, useEffect } from "react";
+import { getScriptForLead } from "@/utils/scripts";
+import { Copy, Check } from "lucide-react";
 
 export default function AdminLeads() {
   const [leads, setLeads] = useState<any[]>([]);
@@ -122,7 +123,25 @@ export default function AdminLeads() {
                    </div>
                 </td>
                 <td className="px-6 py-5 text-center">
-                  {getUrgentBadge(lead)}
+                  <div className="flex flex-col items-center gap-2">
+                    {getUrgentBadge(lead)}
+                    <button 
+                      onClick={() => {
+                        const script = getScriptForLead(lead);
+                        navigator.clipboard.writeText(script);
+                        // Using a simple state-based alert or just let the button change
+                        const btn = document.getElementById(`btn-${lead._id}`);
+                        if (btn) {
+                          btn.innerHTML = '✅ Đã copy';
+                          setTimeout(() => { btn.innerHTML = '📋 Kịch bản'; }, 2000);
+                        }
+                      }}
+                      id={`btn-${lead._id}`}
+                      className="text-[9px] font-black uppercase tracking-widest bg-gray-900 text-white px-2 py-1 rounded-lg hover:bg-emerald-600 transition-colors"
+                    >
+                      📋 Kịch bản
+                    </button>
+                  </div>
                 </td>
               </tr>
             ))}
@@ -173,6 +192,17 @@ export default function AdminLeads() {
             >
                <span>💬</span> NHẮN ZALO TƯ VẤN
             </a>
+            
+            <button 
+              onClick={() => {
+                const script = getScriptForLead(lead);
+                navigator.clipboard.writeText(script);
+                alert('Đã copy kịch bản tư vấn!');
+              }}
+              className="w-full border-2 border-gray-900 text-gray-900 py-3 rounded-xl flex items-center justify-center gap-2 font-black text-xs uppercase tracking-widest"
+            >
+               <Copy size={14} /> Copy Kịch bản tư vấn
+            </button>
           </div>
         ))}
       </div>

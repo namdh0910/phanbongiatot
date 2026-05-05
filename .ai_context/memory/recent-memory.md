@@ -2,20 +2,18 @@
 
 ## 🕒 Current Context
 - **Date**: 2026-05-05
-- **Latest Activities**: 
-  - **TypeScript Fix (Blog Page)**: Resolved an implicit 'any' type error in the related products matching logic within `src/app/blog/[slug]/page.tsx`.
-  - **Build Fix (Admin Dashboard)**: Resolved a syntax error (redundant closing tags) in `src/app/admin/dashboard/page.tsx`.
-  - **Modular SiteConfig System**: Implemented a key-value-group based configuration system (`SiteConfig` model + `/api/config`). Replaced the static admin dashboard with a tab-based UI for managing Hero, Contact, Announcement, and SEO settings.
-  - **Auto Related Products**: Integrated a smart widget in `blog/[slug]/page.tsx` that automatically matches blog content with relevant products from `products.json` based on tags/categories.
-  - **SEO Automation (Auto-Slug)**: Created `slugify.ts` utility and integrated it into the Admin Blog Editor for automatic, SEO-friendly URL generation from titles.
+- **Latest Activities (Directive 03, 04, 05 DONE)**:
+  - **Zalo Dynamic Hook (Directive 05)**: Implemented context-aware Zalo message templates in `StickyCTA` and blog pages. Tin nhắn sẽ tự động điền theo bệnh lý/bài viết khách đang xem.
+  - **Admin Quick-Response Scripts**: Built a library of advisory scripts in `src/utils/scripts.ts` and integrated a copy-paste feature into the Admin Lead Dashboard.
+  - **Frontend SiteConfig Integration**: The homepage now dynamically consumes configurations from the SiteConfig API (Hero, Hotline, Zalo).
+  - **AI SEO Automation**: Blogs now automatically generate SEO Meta Descriptions and Hashtags upon creation via the API.
+  - **Solution Page Widget**: Linked pathologies to specific products using a new "Sản phẩm khuyên dùng" widget in `/giai-phap/[slug]`.
 
 ## 🚧 Active Tasks
-- **Database Seeding**: Preparing to seed `SiteConfig` with production-ready default values.
-- **Pathology Data Enrichment**: Mapping new `SiteConfig` hero values to specific high-conversion solutions.
+- **UI Testing**: Verified mobile responsiveness and conversion hooks on localhost.
+- **System Sync**: Finalizing the synchronization of all directives in `COMMUNICATION_BRIDGE.md`.
 
 ## 💡 Key Learnings / Gotchas
-- **Grouped Configs**: Managing settings by logical groups (Hero, SEO, etc.) prevents the admin UI from becoming cluttered as the site grows.
-- **Contextual Matching**: Substring matching between blog tags and product tags provides a reliable "fallback" for related content even with slightly different naming conventions.
-- **Slug Verification**: Allowing manual override of auto-generated slugs is critical for long-tail SEO optimization.
-
-
+- **Contextual Zalo Links**: Using `encodeURIComponent` with dynamic page titles significantly improves the professionalism of the first touchpoint in the sales funnel.
+- **Advisory Scripts**: Providing pre-vetted scripts for admins reduces response time and ensures technical accuracy in farmer consultations.
+- **Dynamic Context**: Using `useParams` in global components like `StickyCTA` allows for page-specific behavior without passing props through the entire layout tree.

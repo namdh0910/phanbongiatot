@@ -8,6 +8,8 @@ export interface IBlog extends Document {
   coverImage: string;
   content: string;
   isPublished: boolean;
+  seoDescription?: string;
+  hashtags?: string[];
   createdAt: Date;
   updatedAt: Date;
 }
@@ -25,6 +27,8 @@ const BlogSchema: Schema = new Schema({
   coverImage: { type: String, required: true },
   content: { type: String, required: true },
   isPublished: { type: Boolean, default: false },
+  seoDescription: { type: String },
+  hashtags: { type: [String], default: [] },
 }, { timestamps: true });
 
 // Auto-generate slug from title if not provided or ensure it exists

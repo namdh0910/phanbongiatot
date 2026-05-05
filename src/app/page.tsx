@@ -245,12 +245,16 @@ export default function LandingPage() {
             </div>
             
             <h1 className="text-4xl md:text-7xl lg:text-8xl font-black text-white mb-6 leading-[1.1] tracking-tight animate-in slide-in-from-bottom duration-700 delay-100 uppercase">
-              CỨU VƯỜN SẦU RIÊNG, CÀ PHÊ <br className="hidden md:block" />
-              <span className="text-[#f5a623]">VÀNG LÁ, SUY RỄ</span>
+              {settings.heroTitle || "CỨU VƯỜN SẦU RIÊNG, CÀ PHÊ"} <br className="hidden md:block" />
+              <span className="text-[#f5a623]">{settings.heroSubtitle ? "" : "VÀNG LÁ, SUY RỄ"}</span>
+              {settings.heroSubtitle && <span className="text-[#f5a623]">{settings.heroTitle ? "" : settings.heroSubtitle}</span>}
+              {/* If heroTitle is set from config, we might want a specific split logic, but for now simple override */}
+              {!settings.heroTitle && <span className="text-[#f5a623]">VÀNG LÁ, SUY RỄ</span>}
+              {settings.heroTitle && <span>{settings.heroTitle.includes('\n') ? settings.heroTitle.split('\n')[0] : settings.heroTitle}</span>}
             </h1>
             
             <h2 className="text-xl md:text-3xl text-white/95 mb-12 max-w-3xl mx-auto font-bold leading-relaxed animate-in slide-in-from-bottom duration-700 delay-200">
-              Phục Hồi Nhanh Dàn Lá, Bung Rễ Trắng Chỉ Sau 7 Ngày.
+              {settings.heroSubtitle || "Phục Hồi Nhanh Dàn Lá, Bung Rễ Trắng Chỉ Sau 7 Ngày."}
             </h2>
             
             <div className="flex flex-col items-center gap-6 animate-in slide-in-from-bottom duration-700 delay-300">
