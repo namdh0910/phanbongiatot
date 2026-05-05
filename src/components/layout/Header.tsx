@@ -176,7 +176,6 @@ export default function Header() {
                     </div>
                   </div>
                 ))}
-                <Link href="/san-pham" className="font-black text-sm uppercase tracking-wide text-gray-700 hover:text-emerald-700 transition-colors">Sản Phẩm</Link>
                 <Link href="/blog" className="font-black text-sm uppercase tracking-wide text-gray-700 hover:text-emerald-700 transition-colors">Kiến Thức</Link>
                 <Link href="/ve-chung-toi" className="font-black text-sm uppercase tracking-wide text-gray-700 hover:text-emerald-700 transition-colors">Về chúng tôi</Link>
               </nav>
@@ -213,7 +212,6 @@ export default function Header() {
           <div className="bg-white border-b border-gray-100 py-3 overflow-x-auto scrollbar-hide flex items-center gap-2 px-4 shadow-sm">
             {[
               { name: "Tất cả", icon: "🏠", href: "/" },
-              { name: "Sản phẩm", icon: "🛍️", href: "/san-pham" },
               { name: "Sầu riêng", icon: "🌳", href: "/tim-kiem?q=sau-rieng" },
               { name: "Cà phê", icon: "☕", href: "/tim-kiem?q=ca-phe" },
               { name: "Hồ tiêu", icon: "🌿", href: "/tim-kiem?q=ho-tieu" },

@@ -13,7 +13,7 @@
   - **Hotfix**: Resolved Vercel build type error (`Property 'set' does not exist on type 'Promise<ReadonlyRequestCookies>'`) by properly awaiting `cookies()` in Next.js 16 APIs.
   - **Layout Unification**: Removed hardcoded duplicate `<header>` and `<footer>` sections from the landing page (`src/app/page.tsx`) to enforce a single source of truth via the global `LayoutWrapper`.
   - **Footer Design Sync**: Restored the preferred dark-blue landing page footer design globally by replacing the generic `Footer.tsx` content with it, while maintaining the `pb-[100px]` mobile overlap fix.
-  - **Navigation Expansion**: Exposed hidden pages by adding 'Sản Phẩm' to the global Desktop and Mobile Headers, and updating the 'Liên Kết Nhanh' in the Footer to link to actual functional pages (`/san-pham`, `/combo`, `/chinh-sach-bao-hanh`, etc.).
+  - **Navigation Strictness (Anti-Ecommerce)**: Removed e-commerce related pages (`/san-pham`, `/combo`, `/chinh-sach-*`) from the navigation and footer to strictly enforce the pure lead-generation and consultation model. Footer links now only point to `/blog`, `/ve-chung-toi`, and direct Zalo consultation.
 
 ## 🚧 Active Tasks
 - **UI Testing**: Verified mobile responsiveness and conversion hooks on localhost.
