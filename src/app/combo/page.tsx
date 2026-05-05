@@ -2,7 +2,7 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import { useSettings } from '@/context/SettingsContext';
-import { useCart } from '@/context/CartContext';
+
 import Breadcrumbs from '@/components/ui/Breadcrumbs';
 
 const combos = [
@@ -47,7 +47,6 @@ const combos = [
 export default function ComboPage() {
   const settings = useSettings();
   const router = useRouter();
-  const { addToCart } = useCart();
   const primaryColor = settings?.primaryColor || "#1a5c2a";
 
   const handleBuyCombo = (combo: any) => {

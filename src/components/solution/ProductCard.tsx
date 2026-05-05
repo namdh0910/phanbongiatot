@@ -2,7 +2,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { useRouter } from "next/navigation";
-import { useCart } from "@/context/CartContext";
+
 import { useSettings } from "@/context/SettingsContext";
 import { trackEvent } from "@/utils/analytics";
 import { getImageUrl, isValidImageUrl } from "@/utils/image";
@@ -14,7 +14,6 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const router = useRouter();
-  const { addToCart } = useCart();
   const settings = useSettings();
   
   const primaryColor = settings?.primaryColor || "#1a5c2a";

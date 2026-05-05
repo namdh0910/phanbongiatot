@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSettings } from '@/context/SettingsContext';
-import { useCart } from '@/context/CartContext';
+
 import { API_BASE_URL } from '@/utils/api';
 import './ComboSection.css';
 
@@ -13,7 +13,6 @@ const formatPrice = (price: number) => {
 const ComboSection: React.FC = () => {
   const settings = useSettings();
   const router = useRouter();
-  const { addToCart } = useCart();
   const [combos, setCombos] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const primaryColor = settings?.primaryColor || "#1a5c2a";
@@ -111,7 +110,7 @@ const ComboSection: React.FC = () => {
                   onClick={() => handleBuyCombo(combo)}
                   className="combo-buy-btn"
                 >
-                  ĐẶT MUA COMBO NGAY
+                  NHẬN TƯ VẤN COMBO
                 </button>
               </div>
             );

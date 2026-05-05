@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { useCart } from "@/context/CartContext";
+
 import { useRouter } from "next/navigation";
 import { getImageUrl } from "@/utils/image";
 
@@ -10,7 +10,6 @@ interface ProductStickyCTAProps {
 
 export default function ProductStickyCTA({ product }: ProductStickyCTAProps) {
   const [show, setShow] = useState(false);
-  const { addToCart } = useCart();
   const router = useRouter();
 
   useEffect(() => {

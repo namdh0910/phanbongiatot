@@ -35,6 +35,11 @@ const nextConfig: NextConfig = {
         source: '/tra-cuu-don-hang/:path*',
         destination: '/',
         permanent: true,
+      },
+      {
+        source: '/combo',
+        destination: '/blog',
+        permanent: true,
       }
     ]
   },
