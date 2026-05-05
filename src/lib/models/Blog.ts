@@ -28,7 +28,7 @@ const BlogSchema: Schema = new Schema({
 }, { timestamps: true });
 
 // Auto-generate slug from title if not provided or ensure it exists
-BlogSchema.pre('validate', function(next) {
+BlogSchema.pre('validate', function(this: any, next) {
   if (this.title && !this.slug) {
     this.slug = this.title.toLowerCase()
       .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
