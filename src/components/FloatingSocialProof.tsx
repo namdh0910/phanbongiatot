@@ -34,7 +34,7 @@ export default function FloatingSocialProof() {
 
   return (
     <div 
-      className={`fixed bottom-24 left-4 z-[100] transition-all duration-500 transform ${
+      className={`fixed bottom-32 left-4 z-[100] transition-all duration-500 transform ${
         isVisible ? 'translate-y-0 opacity-100 scale-100' : 'translate-y-10 opacity-0 scale-95 pointer-events-none'
       }`}
     >
