@@ -157,7 +157,7 @@ export default function LandingPage() {
 
 
       {/* 2. Hero Section - Targeted Agricultural Solution */}
-      <section className="relative min-h-[65vh] md:min-h-[85vh] flex items-center pt-24 pb-12 md:py-32 overflow-hidden">
+      <section className="relative min-h-[50vh] md:min-h-[85vh] flex items-center pt-20 pb-10 md:py-32 overflow-hidden">
         {/* Background Image Optimized for LCP */}
         <div className="absolute inset-0 z-0">
           <Image 
@@ -174,32 +174,28 @@ export default function LandingPage() {
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-5xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 bg-[#f5a623] text-white px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-widest mb-8 animate-in slide-in-from-top duration-700">
+            <div className="inline-flex items-center gap-2 bg-[#f5a623] text-white px-4 py-1.5 rounded-full text-[10px] md:text-xs font-black uppercase tracking-widest mb-6 animate-in slide-in-from-top duration-700">
               <ShieldCheck size={14} /> Chẩn đoán bệnh cây chuẩn 100%
             </div>
             
-            <h1 className="text-4xl md:text-7xl lg:text-8xl font-black text-white mb-6 leading-[1.1] tracking-tight animate-in slide-in-from-bottom duration-700 delay-100 uppercase">
+            <h1 className="text-3xl md:text-7xl lg:text-8xl font-black text-white mb-4 leading-tight tracking-tight animate-in slide-in-from-bottom duration-700 delay-100 uppercase">
               {settings.heroTitle || "CỨU VƯỜN SẦU RIÊNG, CÀ PHÊ"} <br className="hidden md:block" />
               <span className="text-[#f5a623]">{settings.heroSubtitle ? "" : "VÀNG LÁ, SUY RỄ"}</span>
-              {settings.heroSubtitle && <span className="text-[#f5a623]">{settings.heroTitle ? "" : settings.heroSubtitle}</span>}
-              {/* If heroTitle is set from config, we might want a specific split logic, but for now simple override */}
-              {!settings.heroTitle && <span className="text-[#f5a623]">VÀNG LÁ, SUY RỄ</span>}
-              {settings.heroTitle && <span>{settings.heroTitle.includes('\n') ? settings.heroTitle.split('\n')[0] : settings.heroTitle}</span>}
             </h1>
             
-            <h2 className="text-xl md:text-3xl text-white/95 mb-12 max-w-3xl mx-auto font-bold leading-relaxed animate-in slide-in-from-bottom duration-700 delay-200">
+            <h2 className="text-lg md:text-3xl text-white/95 mb-8 max-w-3xl mx-auto font-bold leading-relaxed animate-in slide-in-from-bottom duration-700 delay-200">
               {settings.heroSubtitle || "Phục Hồi Nhanh Dàn Lá, Bung Rễ Trắng Chỉ Sau 7 Ngày."}
             </h2>
             
-            <div className="flex flex-col items-center gap-6 animate-in slide-in-from-bottom duration-700 delay-300">
+            <div className="flex flex-col items-center gap-4 animate-in slide-in-from-bottom duration-700 delay-300">
               <a 
                 href={zaloUrl} 
-                className="group relative px-6 md:px-12 py-4 md:h-20 bg-[#f5a623] hover:bg-[#fbb940] text-white rounded-2xl font-black text-base md:text-xl shadow-2xl flex items-center justify-center gap-3 md:gap-4 transition-all active:scale-95 animate-heartbeat"
+                className="group relative px-8 md:px-12 py-3 md:h-20 bg-[#f5a623] hover:bg-[#fbb940] text-white rounded-xl md:rounded-2xl font-black text-sm md:text-xl shadow-2xl flex items-center justify-center gap-3 transition-all active:scale-95 animate-heartbeat"
               >
-                <MessageCircle className="w-6 h-6 md:w-7 md:h-7" fill="currentColor" />
-                Chụp Ảnh Vườn Gửi Kỹ Sư Ngay
+                <MessageCircle className="w-5 h-5 md:w-7 md:h-7" fill="currentColor" />
+                Chụp Ảnh Vườn Gửi Kỹ Sư
               </a>
-              <p className="text-white/60 text-[10px] md:text-sm font-bold uppercase tracking-widest">Tư vấn miễn phí qua Zalo 24/7</p>
+              <p className="text-white/60 text-[9px] md:text-sm font-bold uppercase tracking-widest">Tư vấn miễn phí qua Zalo 24/7</p>
             </div>
           </div>
         </div>

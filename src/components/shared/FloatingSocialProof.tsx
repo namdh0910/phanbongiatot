@@ -53,7 +53,7 @@ export default function FloatingSocialProof() {
 
   return (
     <div 
-      className={`fixed top-20 md:top-auto md:bottom-10 left-4 right-4 md:right-auto z-[200] transition-all duration-700 transform ${
+      className={`fixed top-24 md:top-auto md:bottom-10 left-4 right-4 md:right-auto z-[200] transition-all duration-700 transform ${
         isVisible ? 'translate-y-0 opacity-100 scale-100' : '-translate-y-12 md:translate-y-12 opacity-0 scale-90 pointer-events-none'
       }`}
     >
@@ -69,7 +69,7 @@ export default function FloatingSocialProof() {
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between mb-0.5">
             <span className="text-[9px] md:text-[10px] text-emerald-700 font-black uppercase tracking-widest">
-               Thực tế từ vườn
+              Thực tế từ vườn
             </span>
             <span className="text-[8px] md:text-[9px] text-gray-400 font-bold uppercase">{story.time}</span>
           </div>
