@@ -9,15 +9,12 @@ export default function AdminSidebar() {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   const links = [
-    { href: "/admin/dashboard", label: "Dashboard", icon: "📊" },
-    { href: "/admin/orders", label: "Quản lý Đơn hàng", icon: "🛒", badge: "Mới" },
-    { href: "/admin/products", label: "Quản lý Sản phẩm", icon: "📦" },
-    { href: "/admin/categories", label: "Quản lý Danh mục", icon: "📂" },
-    { href: "/admin/flash-sales", label: "Quản lý Flash Sale", icon: "⚡", badge: "Hot" },
-    { href: "/admin/blog", label: "Quản lý Blog", icon: "📝" },
-    { href: "/admin/vendors", label: "Duyệt Đăng Ký", icon: "📋", badge: "Sellers" },
-    { href: "/admin/users", label: "Quản lý Người dùng", icon: "👥" },
-    { href: "/admin/settings", label: "Cài đặt", icon: "⚙️" },
+    { href: "/admin/dashboard", label: "Tổng Quan", icon: "📊" },
+    { href: "/admin/leads", label: "Yêu Cầu Tư Vấn", icon: "💬", badge: "Mới" },
+    { href: "/admin/products", label: "Sản Phẩm Niche", icon: "📦" },
+    { href: "/admin/categories", label: "Danh Mục", icon: "📂" },
+    { href: "/admin/blog", label: "Kiến Thức & Giải Pháp", icon: "📖" },
+    { href: "/admin/settings", label: "Cấu Hình Hệ Thống", icon: "⚙️" },
   ];
 
   const handleLogout = () => {

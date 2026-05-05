@@ -48,7 +48,7 @@ export default function AdminBlogList() {
         <AdminSidebar />
         <div className="flex-1 p-8 ml-64">
           <div className="flex justify-between items-center mb-8">
-            <h1 className="text-2xl font-black text-gray-900 uppercase tracking-tight">Kiến thức nhà nông (Blog)</h1>
+            <h1 className="text-2xl font-black text-gray-900 uppercase tracking-tight">Kiến Thức & Giải Pháp Kỹ Thuật</h1>
             <Link href="/admin/blog/new" className="bg-[#1a5c2a] text-white px-6 py-2.5 rounded-xl font-black text-xs uppercase tracking-widest hover:bg-[#2d7a3e] transition-all shadow-md">
                + Viết Bài Mới
             </Link>
