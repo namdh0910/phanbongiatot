@@ -151,6 +151,9 @@ export default function LandingPage() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const zaloUrl = `https://zalo.me/${settings.zalo.replace(/\./g, '')}`;
+  const callUrl = `tel:${settings.hotline.replace(/\./g, '')}`;
+
   return (
     <div className="min-h-screen bg-white font-sans text-gray-900 selection:bg-emerald-100 selection:text-[#1a5c2a] overflow-x-hidden">
       
