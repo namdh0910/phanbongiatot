@@ -201,33 +201,42 @@ export default function LandingPage() {
         </div>
       )}
 
-      {/* 2. Hero Section */}
+      {/* 2. Hero Section - Targeted Agricultural Solution */}
       <section className="relative min-h-[90vh] flex items-center pt-20 overflow-hidden">
-        {/* Background Image with Overlay */}
+        {/* Background Image with 40% Overlay */}
         <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-[#0d2a1c]" />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent md:bg-gradient-to-r md:from-black/70 md:to-transparent" />
+          <img 
+            src="/hero-bg.png" 
+            alt="Vườn sầu riêng cà phê xanh tốt" 
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-black/40 bg-gradient-to-b from-black/60 via-black/40 to-[#0d2a1c]/80" />
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 bg-[#f5a623] text-white px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-widest mb-6 animate-in slide-in-from-left duration-700">
-              <ShieldCheck size={14} /> Chuyên Gia Nông Nghiệp Tây Nguyên
+          <div className="max-w-5xl mx-auto text-center">
+            <div className="inline-flex items-center gap-2 bg-[#f5a623] text-white px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-widest mb-8 animate-in slide-in-from-top duration-700">
+              <ShieldCheck size={14} /> Chẩn đoán bệnh cây chuẩn 100%
             </div>
-            <h1 className="text-4xl md:text-7xl font-black text-white mb-6 leading-[1.05] tracking-tight animate-in slide-in-from-left duration-700 delay-100">
-              Giải Pháp Nông Nghiệp<br/>
-              <span className="text-[#f5a623]">Hiệu Quả Cao</span>
+            
+            <h1 className="text-4xl md:text-7xl lg:text-8xl font-black text-white mb-6 leading-[1.1] tracking-tight animate-in slide-in-from-bottom duration-700 delay-100 uppercase">
+              CỨU VƯỜN SẦU RIÊNG, CÀ PHÊ <br className="hidden md:block" />
+              <span className="text-[#f5a623]">VÀNG LÁ, SUY RỄ</span>
             </h1>
-            <p className="text-white/80 text-lg md:text-2xl mb-10 max-w-xl font-medium leading-relaxed animate-in slide-in-from-left duration-700 delay-200">
-              Phục hồi rễ, đặc trị tuyến trùng và vàng lá. Được hàng ngàn nhà nông tin dùng với hiệu quả rõ rệt.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 animate-in slide-in-from-left duration-700 delay-300">
-              <a href={zaloUrl} className="px-10 h-16 bg-[#f5a623] hover:bg-[#fbb940] text-white rounded-2xl font-black text-lg shadow-lg flex items-center justify-center gap-2 transition-all active:scale-95">
-                Bắt Bệnh Cây Qua Zalo
+            
+            <h2 className="text-xl md:text-3xl text-white/95 mb-12 max-w-3xl mx-auto font-bold leading-relaxed animate-in slide-in-from-bottom duration-700 delay-200">
+              Phục Hồi Nhanh Dàn Lá, Bung Rễ Trắng Chỉ Sau 7 Ngày.
+            </h2>
+            
+            <div className="flex flex-col items-center gap-6 animate-in slide-in-from-bottom duration-700 delay-300">
+              <a 
+                href={zaloUrl} 
+                className="group relative px-8 md:px-12 h-20 bg-[#f5a623] hover:bg-[#fbb940] text-white rounded-2xl font-black text-lg md:text-xl shadow-2xl flex items-center justify-center gap-4 transition-all active:scale-95 animate-heartbeat"
+              >
+                <MessageCircle size={28} fill="currentColor" />
+                Chụp Ảnh Vườn Gửi Kỹ Sư Chẩn Đoán Ngay
               </a>
-              <a href="#solutions" className="px-10 h-16 border-2 border-white text-white hover:bg-white/10 rounded-2xl font-black text-lg flex items-center justify-center gap-2 transition-all active:scale-95">
-                Nhận Phác Đồ Phục Hồi
-              </a>
+              <p className="text-white/60 text-sm font-bold uppercase tracking-widest">Tư vấn miễn phí qua Zalo 24/7</p>
             </div>
           </div>
         </div>
