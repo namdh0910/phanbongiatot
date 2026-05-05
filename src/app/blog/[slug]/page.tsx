@@ -5,6 +5,7 @@ import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import LeadForm from "@/components/shared/LeadForm";
 import products from "@/data/products.json";
 import SchemaMarkup from "@/components/shared/SchemaMarkup";
+import LiteYouTube from "@/components/shared/LiteYouTube";
 
 async function getBlog(slug: string) {
   try {
@@ -114,35 +115,31 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
                <span className="bg-emerald-600 text-white px-3 py-1 rounded-lg text-[9px] md:text-[10px] font-black uppercase tracking-widest">{blog.category}</span>
             </div>
 
-            {/* Video-First Section - Repositioned to be above-the-fold */}
+            {/* Video-First Section - Optimized with LiteYouTube */}
             {blog.videoUrl && (
               <div className="mt-8 mb-4">
-                 <div className="relative aspect-video rounded-2xl md:rounded-[2.5rem] overflow-hidden shadow-2xl border-2 md:border-4 border-white ring-1 ring-gray-200">
-                    <iframe 
-                      src={`${blog.videoUrl}${blog.videoUrl.includes('?') ? '&' : '?'}autoplay=1&mute=1&rel=0&playsinline=1`}
-                      className="absolute inset-0 w-full h-full"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                      loading="eager"
-                    ></iframe>
-                 </div>
-                 
-                 {/* Zalo Hook - High conversion CTA directly under video */}
-                 <div className="mt-4 md:mt-6">
-                    <a 
-                      href={`https://zalo.me/0773440966?text=${encodeURIComponent(`Chào kỹ sư, tôi vừa xem video về cách chữa ${blog.title} và muốn nhận phác đồ cho vườn ở [Tỉnh của tôi] của tôi.`)}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full bg-[#0068FF] hover:bg-blue-600 text-white py-4 md:py-6 rounded-2xl font-black text-sm md:text-lg uppercase tracking-widest flex items-center justify-center gap-3 shadow-xl shadow-blue-100 transition-all active:scale-95 animate-heartbeat"
-                    >
-                       <span className="text-xl md:text-2xl">💬</span> 
-                       Nhận phác đồ như video này
-                    </a>
-                    <div className="mt-3 flex items-center justify-center gap-2 text-[10px] md:text-xs text-gray-400 font-bold uppercase tracking-widest">
-                       <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
-                       Kỹ sư đang trực tuyến hỗ trợ bà con
-                    </div>
-                 </div>
+                  <LiteYouTube 
+                    videoId={blog.videoUrl.split('/').pop()?.split('?')[0] || ""} 
+                    title={blog.title} 
+                    className="md:rounded-[2.5rem] shadow-2xl ring-1 ring-gray-200"
+                  />
+                  
+                  {/* Zalo Hook - High conversion CTA directly under video */}
+                  <div className="mt-4 md:mt-6">
+                     <a 
+                       href={`https://zalo.me/0773440966?text=${encodeURIComponent(`Chào kỹ sư, tôi vừa xem video về cách chữa ${blog.title} và muốn nhận phác đồ cho vườn ở [Tỉnh của tôi] của tôi.`)}`}
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       className="w-full bg-[#0068FF] hover:bg-blue-600 text-white py-4 md:py-6 rounded-2xl font-black text-sm md:text-lg uppercase tracking-widest flex items-center justify-center gap-3 shadow-xl shadow-blue-100 transition-all active:scale-95 animate-heartbeat"
+                     >
+                        <span className="text-xl md:text-2xl">💬</span> 
+                        Nhận phác đồ như video này
+                     </a>
+                     <div className="mt-3 flex items-center justify-center gap-2 text-[10px] md:text-xs text-gray-400 font-bold uppercase tracking-widest">
+                        <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
+                        Kỹ sư đang trực tuyến hỗ trợ bà con
+                     </div>
+                  </div>
               </div>
             )}
           </div>

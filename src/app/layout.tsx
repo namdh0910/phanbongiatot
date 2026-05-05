@@ -54,7 +54,10 @@ export default function RootLayout({
     <html lang="vi" className="scroll-smooth">
       <head>
         <link rel="preconnect" href="https://zalo.me" />
+        <link rel="preconnect" href="https://www.youtube.com" />
         <link rel="preconnect" href="https://connect.facebook.net" />
+        <link rel="dns-prefetch" href="https://zalo.me" />
+        <link rel="dns-prefetch" href="https://www.youtube.com" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify({

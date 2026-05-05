@@ -21,6 +21,7 @@ import {
 import { API_BASE_URL } from '@/utils/api';
 import { useSettings } from '@/context/SettingsContext';
 import pathologies from '@/data/pathologies.json';
+import LiteYouTube from '@/components/shared/LiteYouTube';
 
 // Reusable Components for the Landing Page
 const Button = ({ children, variant = 'primary', className = '', ...props }: any) => {
@@ -366,15 +367,12 @@ export default function LandingPage() {
             
             {/* 9:16 Vertical Video Container */}
             <div className="flex justify-center">
-              <div className="relative w-full max-w-[350px] aspect-[9/16] bg-black rounded-[2.5rem] overflow-hidden shadow-2xl border-[8px] border-gray-900">
-                <iframe 
-                  className="absolute inset-0 w-full h-full"
-                  src="https://www.youtube.com/embed/17SIPDywIXk?autoplay=0&controls=1&rel=0" 
-                  title="Kỹ sư hướng dẫn thực tế"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe>
+              <div className="w-full max-w-[350px]">
+                <LiteYouTube 
+                  videoId="17SIPDywIXk" 
+                  title="Kỹ sư hướng dẫn thực tế" 
+                  className="rounded-[2.5rem] border-[8px] border-gray-900 shadow-2xl"
+                />
               </div>
             </div>
             
