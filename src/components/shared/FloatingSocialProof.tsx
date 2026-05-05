@@ -53,8 +53,8 @@ export default function FloatingSocialProof() {
 
   return (
     <div 
-      className={`fixed top-24 md:top-auto md:bottom-10 left-4 right-4 md:right-auto z-[200] transition-all duration-700 transform ${
-        isVisible ? 'translate-y-0 opacity-100 scale-100' : '-translate-y-12 md:translate-y-12 opacity-0 scale-90 pointer-events-none'
+      className={`fixed bottom-[80px] md:bottom-10 left-4 right-4 md:right-auto z-[200] transition-all duration-700 transform ${
+        isVisible ? 'translate-y-0 opacity-100 scale-100' : 'translate-y-12 opacity-0 scale-90 pointer-events-none'
       }`}
     >
       <div className="glass-panel border border-emerald-100/50 p-2 md:p-4 rounded-xl md:rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.1)] flex items-center gap-3 md:gap-4 max-w-full md:min-w-[300px] md:max-w-[340px]">
