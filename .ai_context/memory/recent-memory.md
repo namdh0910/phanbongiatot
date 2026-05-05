@@ -3,6 +3,7 @@
 ## 🕒 Current Context
 - **Date**: 2026-05-05
 - **Latest Activities (Directive 03, 04, 05 DONE)**:
+  - **Authentication Audit**: Conducted a deep-dive security audit. Discovered critical vulnerabilities: API routes (/api/leads, /api/blogs, etc.) lack server-side auth, logout logic is broken (clearing localStorage instead of HttpOnly cookies), and hardcoded secret fallbacks exist in API routes. Detailed report generated in `auth_audit_report.md`.
   - **Full Codebase Structure Scan**: Performed a comprehensive analysis of the project structure. Mapped all 30 routes (Page & API), identified 3 dynamic frontend routes, and flagged 28 files as potential dead code (legacy dashboard components and unimported CSS). Generated a detailed audit report in `codebase_scan_report.md`.
   - **Zalo Dynamic Hook (Directive 05)**: Implemented context-aware Zalo message templates in `StickyCTA` and blog pages. Tin nhắn sẽ tự động điền theo bệnh lý/bài viết khách đang xem.
   - **Admin Quick-Response Scripts**: Built a library of advisory scripts in `src/utils/scripts.ts` and integrated a copy-paste feature into the Admin Lead Dashboard.
