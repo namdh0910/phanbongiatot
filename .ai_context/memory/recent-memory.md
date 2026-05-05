@@ -3,6 +3,7 @@
 ## 🕒 Current Context
 - **Date**: 2026-05-05
 - **Latest Activities**: 
+  - **Social Media Integration**: Integrated official Facebook and YouTube links into the 'Video Guide' section and Footer. Added high-contrast branded icons for better visual recognition.
   - **Homepage Section Reordering (CRO)**: Renamed 'Giải Pháp Chuyên Sâu' to 'Giải Pháp Theo Tình Trạng Vườn'. Removed dealer recruitment sections.
   - **New Video Guide Section**: Added a 'Kỹ sư hướng dẫn thực tế tại vườn' section with a 9:16 vertical video embed to provide social proof and expert technical demonstrations.
   - **Hero Banner Redesign**: Redesigned the primary hero section to target Durian and Coffee farmers. Used high-impact headlines ("CỨU VƯỜN SẦU RIÊNG...") and a heartbeat-animated CTA for "Chụp Ảnh Vườn Gửi Kỹ Sư".

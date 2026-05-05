@@ -14,7 +14,9 @@ import {
   Wallet,
   BookOpen,
   ArrowRight,
-  HelpCircle
+  HelpCircle,
+  Facebook,
+  Youtube
 } from 'lucide-react';
 import { API_BASE_URL } from '@/utils/api';
 import { useSettings } from '@/context/SettingsContext';
@@ -393,9 +395,23 @@ export default function LandingPage() {
             
             <div className="mt-12 text-center">
               <p className="text-gray-500 font-bold uppercase tracking-widest text-sm mb-6">Theo dõi các video kỹ thuật mới nhất</p>
-              <div className="flex justify-center gap-4">
-                <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center text-white cursor-pointer hover:scale-110 transition-transform">f</div>
-                <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center text-white cursor-pointer hover:scale-110 transition-transform">t</div>
+              <div className="flex justify-center gap-6">
+                <a 
+                  href="https://www.facebook.com/phanbongiatot1" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-14 h-14 bg-[#1877F2] rounded-full flex items-center justify-center text-white cursor-pointer hover:scale-110 transition-transform shadow-lg shadow-blue-100"
+                >
+                  <Facebook size={24} />
+                </a>
+                <a 
+                  href="https://www.youtube.com/@phanbongiatot" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-14 h-14 bg-[#FF0000] rounded-full flex items-center justify-center text-white cursor-pointer hover:scale-110 transition-transform shadow-lg shadow-red-100"
+                >
+                  <Youtube size={24} />
+                </a>
               </div>
             </div>
           </div>
@@ -442,6 +458,14 @@ export default function LandingPage() {
               <p className="text-gray-400 font-medium leading-relaxed mb-8">
                 Nền tảng chia sẻ kiến thức kỹ thuật và cung cấp giải pháp nông nghiệp chuyên biệt cho cây trồng vùng cao nguyên.
               </p>
+              <div className="flex gap-4">
+                <a href="https://www.facebook.com/phanbongiatot1" target="_blank" className="w-10 h-10 bg-white/10 rounded-xl hover:bg-[#1877F2] transition-colors flex items-center justify-center">
+                  <Facebook size={20} />
+                </a>
+                <a href="https://www.youtube.com/@phanbongiatot" target="_blank" className="w-10 h-10 bg-white/10 rounded-xl hover:bg-[#FF0000] transition-colors flex items-center justify-center">
+                  <Youtube size={20} />
+                </a>
+              </div>
             </div>
 
             <div>
