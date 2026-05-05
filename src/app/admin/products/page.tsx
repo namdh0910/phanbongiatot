@@ -45,6 +45,7 @@ export default function AdminProducts() {
     benefits: [""], faq: [{ q: "", a: "" }],
     images: [] as string[], stock: "100",
     seoTitle: "", seoDescription: "", 
+    supplierLink: "",
     isFeatured: false, isNewArrival: false, isBestSeller: false
   };
   const [form, setForm] = useState(emptyForm);
@@ -141,6 +142,7 @@ export default function AdminProducts() {
       faq: p.faq?.length ? p.faq : [{ q: "", a: "" }],
       images: p.images || [], stock: p.stock?.toString() || "100",
       seoTitle: p.seoTitle || "", seoDescription: p.seoDescription || "",
+      supplierLink: p.supplierLink || "",
       isFeatured: p.isFeatured || false,
       isNewArrival: p.isNewArrival || false,
       isBestSeller: p.isBestSeller || false
@@ -358,6 +360,16 @@ export default function AdminProducts() {
                                  onChange={e => setForm({...form, seoDescription: e.target.value})}
                                  placeholder="Mô tả ngắn cho Google..."
                               />
+                           </div>
+                           <div className="pt-4 border-t border-gray-200 mt-4">
+                              <label className="block text-[10px] font-black text-blue-600 uppercase mb-1">Link nhập hàng (Drop-shipping)</label>
+                              <input 
+                                 className="w-full border border-blue-100 bg-blue-50/30 rounded px-2 py-1 text-xs outline-none focus:border-blue-500"
+                                 value={form.supplierLink}
+                                 onChange={e => setForm({...form, supplierLink: e.target.value})}
+                                 placeholder="Dán link kho gốc tại đây..."
+                              />
+                              <p className="text-[9px] text-gray-400 mt-1 italic">Dùng để đặt hàng nhanh khi có khách chốt Zalo</p>
                            </div>
                         </div>
                      </div>

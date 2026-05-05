@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation';
 import Header from './Header';
 import Footer from './Footer';
 import StickyCTA from './StickyCTA';
+import FloatingSocialProof from './FloatingSocialProof';
 
 export default function LayoutWrapper({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -26,6 +27,8 @@ export default function LayoutWrapper({ children }: { children: React.ReactNode 
       </main>
       <Footer />
       <StickyCTA />
+      <FloatingSocialProof />
     </>
   );
 }
+

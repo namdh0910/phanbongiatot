@@ -7,6 +7,7 @@ import ProductReviews from "@/components/ProductReviews";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ProductStickyCTA from "@/components/ProductStickyCTA";
 import ProductTabs from "@/components/ProductTabs";
+import LeadForm from "@/components/LeadForm";
 
 const CATEGORY_SLUG_MAP: Record<string, string> = {
   "Phân bón": "phan-bon",
@@ -402,10 +403,17 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
                          <div className="space-y-4">
                             <p className="font-bold text-gray-900 flex items-center gap-3 text-sm">
                               <span className="w-7 h-7 bg-emerald-600 text-white rounded-lg flex items-center justify-center text-[11px] font-black shadow-md">01</span>
-                              Cách sử dụng (Hướng dẫn chuẩn):
+                              Quy trình sử dụng chuẩn:
                             </p>
-                            <div className="text-gray-700 text-[13px] md:text-sm ml-10 leading-relaxed whitespace-pre-line bg-white/50 p-4 rounded-xl border border-emerald-50">
-                               {product.usageInstructions}
+                            <div className="text-gray-700 text-[13px] md:text-sm ml-10 space-y-4">
+                               {product.usageInstructions.split('\n').map((line: string, i: number) => (
+                                 line.trim() && (
+                                   <div key={i} className="flex gap-3 bg-white/60 p-3 rounded-xl border border-emerald-50/50">
+                                     <span className="text-emerald-500 font-bold">●</span>
+                                     <span>{line.trim()}</span>
+                                   </div>
+                                 )
+                               ))}
                             </div>
                          </div>
                          )}
@@ -416,15 +424,27 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
                               <span className="w-7 h-7 bg-emerald-600 text-white rounded-lg flex items-center justify-center text-[11px] font-black shadow-md">02</span>
                               Liều lượng & Thời điểm:
                             </p>
-                            <div className="text-gray-700 text-[13px] md:text-sm ml-10 leading-relaxed whitespace-pre-line bg-white/50 p-4 rounded-xl border border-emerald-50">
-                               {product.dosage}
+                            <div className="text-gray-700 text-[13px] md:text-sm ml-10 space-y-4">
+                               {product.dosage.split('\n').map((line: string, i: number) => (
+                                 line.trim() && (
+                                   <div key={i} className="flex gap-3 bg-white/60 p-3 rounded-xl border border-emerald-50/50">
+                                     <span className="text-blue-500 font-bold">→</span>
+                                     <span>{line.trim()}</span>
+                                   </div>
+                                 )
+                               ))}
                             </div>
                          </div>
                          )}
                       </div>
                    </div>
+
+                   {/* Lead Form for Consultation */}
+                   <div className="mt-12 mb-8">
+                      <LeadForm product={product} />
                    </div>
-                   )}
+                 </div>
+                 )}
 
                    {/* Benefits */}
                    {Array.isArray(product.benefits) && product.benefits.length > 0 && (
