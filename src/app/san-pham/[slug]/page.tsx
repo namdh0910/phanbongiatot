@@ -348,17 +348,19 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
                  {/* Product Info Sections */}
               <div className="bg-white md:rounded-sm shadow-sm overflow-hidden mt-0">
                 {/* Desktop Titles */}
-                <div className="hidden md:block bg-[#f5f5f5] px-4 py-3 text-xs font-bold text-gray-500 uppercase tracking-wider">Thông Tin Chi Tiết</div>
+                <div className="hidden md:block bg-emerald-600 px-4 py-3 text-sm font-black text-white uppercase tracking-wider text-center">
+                  Cơ Chế Tác Động & Hiệu Quả Vượt Trội
+                </div>
                 
                 <ProductTabs hasTechnical={!!(product.usageInstructions?.trim() || product.dosage?.trim())} />
 
-                <div className="px-4 py-6 md:p-6 space-y-6">
+                <div className="px-4 py-6 md:p-8 space-y-8">
 
                    {/* Main Description */}
                    <div id="mo-ta" className="relative scroll-mt-[130px]">
                       
                       <div 
-                        className="prose max-w-none"
+                        className="prose max-w-none text-gray-800 leading-relaxed text-base md:text-lg"
                         dangerouslySetInnerHTML={{ 
                           __html: sanitizeHtml(
                             product.description?.includes('<') 
@@ -367,6 +369,14 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
                           )
                         }}
                       />
+                   </div>
+
+                   {/* Inline CTA 1 */}
+                   <div className="flex flex-col items-center justify-center pt-4 pb-8 border-b border-gray-100">
+                     <p className="text-gray-500 mb-4 text-sm font-medium">Bà con cần tư vấn thêm về triệu chứng vườn nhà?</p>
+                     <a href={`https://zalo.me/${process.env.NEXT_PUBLIC_ZALO_PHONE ?? '0773440966'}?text=${encodeURIComponent(`Chào kỹ sư, tôi muốn hỏi về sản phẩm ${product.name}`)}`} target="_blank" className="bg-blue-600 text-white px-8 py-4 rounded-full font-black text-lg flex items-center gap-2 hover:bg-blue-700 hover:scale-105 transition-all shadow-lg shadow-blue-200 animate-pulse">
+                        <span className="text-2xl">💬</span> Gửi Ảnh Vườn Qua Zalo
+                     </a>
                    </div>
 
                    {/* Technical Protocol Section */}
@@ -427,7 +437,7 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
 
               {/* Related Products Widget */}
               <div className="bg-white md:rounded-sm shadow-sm overflow-hidden p-6">
-                 <h2 className="font-bold text-gray-800 uppercase tracking-wider mb-6 pb-2 border-b">Sản phẩm liên quan</h2>
+                 <h2 className="font-bold text-gray-800 uppercase tracking-wider mb-6 pb-2 border-b">Sản phẩm kết hợp khuyên dùng</h2>
                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     {relatedProducts.length > 0 ? relatedProducts.map((p: any) => (
                        <Link href={`/san-pham/${p.slug}`} key={p._id} className="group cursor-pointer">
@@ -443,9 +453,15 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
                  </div>
               </div>
 
-              {/* Reviews Section */}
-              <div id="danh-gia" className="relative scroll-mt-[130px]">
-                <ProductReviews productId={product._id} />
+              {/* Reviews / Feedback Section */}
+              <div id="danh-gia" className="relative scroll-mt-[130px] bg-white md:rounded-sm shadow-sm overflow-hidden mt-6">
+                <div className="bg-orange-50 px-6 py-4 border-b border-orange-100 flex items-center gap-3">
+                  <span className="text-3xl">⭐</span>
+                  <h2 className="text-lg md:text-xl font-black text-orange-800 uppercase m-0">Phản Hồi Thực Tế Từ Bà Con</h2>
+                </div>
+                <div className="p-2 md:p-6">
+                  <ProductReviews productId={product._id} />
+                </div>
               </div>
 
               {/* FAQ */}

@@ -103,6 +103,14 @@ export default function VendorOrders() {
     setCancelReason("");
   };
 
+  const handleQuickUpdate = async (orderId: string, nextStatus: string) => {
+    setUpdating(orderId);
+    // Simulate API
+    await new Promise(r => setTimeout(r, 800));
+    setOrders(prev => prev.map(o => o._id === orderId ? {...o, orderStatus: nextStatus} : o));
+    setUpdating(null);
+  };
+
   const getStatusClass = (status: string) => {
     switch(status) {
       case 'Mới': return 'status-new';
@@ -201,7 +209,24 @@ export default function VendorOrders() {
               </div>
               <div className="card-actions">
                 <button className="action-outline-btn" onClick={() => setSelectedOrder(order)}>Chi tiết</button>
-                <button className="action-solid-btn" onClick={() => setStatusToUpdate({orderId: order._id, status: order.orderStatus})}>Cập nhật</button>
+                {order.orderStatus === 'Mới' && (
+                   <button className="action-solid-btn bg-[#1a5c2a]" onClick={() => handleQuickUpdate(order._id, 'Đang xử lý')}>
+                     {updating === order._id ? '...' : 'Xác nhận'}
+                   </button>
+                )}
+                {order.orderStatus === 'Đang xử lý' && (
+                   <button className="action-solid-btn bg-[#dd6b20]" onClick={() => handleQuickUpdate(order._id, 'Đang giao')}>
+                     {updating === order._id ? '...' : 'Giao hàng'}
+                   </button>
+                )}
+                {order.orderStatus === 'Đang giao' && (
+                   <button className="action-solid-btn bg-[#38a169]" onClick={() => handleQuickUpdate(order._id, 'Hoàn thành')}>
+                     {updating === order._id ? '...' : 'Đã giao'}
+                   </button>
+                )}
+                {['Hoàn thành', 'Đã hủy'].includes(order.orderStatus) ? null : (
+                  <button className="action-outline-btn border-0 bg-gray-100 text-gray-500 font-bold px-3" onClick={() => setStatusToUpdate({orderId: order._id, status: order.orderStatus})}>⋮</button>
+                )}
               </div>
             </div>
           </div>

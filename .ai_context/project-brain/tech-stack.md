@@ -1,4 +1,5 @@
-# 🛠️ 07_TECH_STACK.md
+# Tech Stack
+
 ## Frontend
 - **Framework**: Next.js 16 (App Router)
 - **Styling**: Tailwind CSS 4.0

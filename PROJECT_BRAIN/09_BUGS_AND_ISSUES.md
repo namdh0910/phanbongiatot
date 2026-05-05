@@ -1,5 +1,0 @@
-- Menu rối
-- [x] Nút "MUA NGAY" quá nhỏ (Đã fix lên min-height 48px)
-- [x] Mobile bottom bar che khuất Footer (Đã fix bằng body padding)
-- [x] Thanh "Xu hướng" mobile bị cắt (Đã fix scroll ngang + fade)
-- Seller phức tạp

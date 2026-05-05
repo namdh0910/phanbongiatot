@@ -1,57 +1,26 @@
 "use client";
 import { useState } from "react";
 import { trackEvent } from "@/utils/analytics";
-import { useCart } from "@/context/CartContext";
-import { useRouter } from "next/navigation";
-import { useSettings } from "@/context/SettingsContext";
 
 export default function ProductActions({ product }: { product: any }) {
   const [qty, setQty] = useState(1);
-  const { addToCart } = useCart();
-  const router = useRouter();
-  const settings = useSettings();
-  
   const [selectedVariant, setSelectedVariant] = useState(product.variants?.length > 0 ? product.variants[0] : null);
 
-  const displayPrice = selectedVariant ? selectedVariant.price : product.price;
   const displayStock = selectedVariant ? selectedVariant.stock : product.stock;
   const isOutOfStock = displayStock === 0;
-  const isLowStock = displayStock > 0 && displayStock < 10;
-
-  const handleAddToCart = () => {
-    if (isOutOfStock) return;
-    const itemToCart = {
-      ...product,
-      price: displayPrice,
-      selectedVariant: selectedVariant?.name
-    };
-    trackEvent('AddToCart', {
-      content_name: product.name,
-      value: displayPrice,
-      currency: 'VND',
-      quantity: qty,
-      variant: selectedVariant?.name
-    });
-    
-    addToCart(itemToCart, qty);
+  
+  const zaloPhone = process.env.NEXT_PUBLIC_ZALO_PHONE ?? '0773440966';
+  const hotline = process.env.NEXT_PUBLIC_HOTLINE ?? '0773440966';
+  
+  const handleZaloClick = () => {
+    trackEvent('Contact', { method: 'Zalo', product: product.name });
+    const text = encodeURIComponent(`Chào chuyên gia, tôi quan tâm sản phẩm ${product.name} (Số lượng: ${qty}). Xin tư vấn thêm.`);
+    window.open(`https://zalo.me/${zaloPhone}?text=${text}`, '_blank');
   };
 
-  const handleBuyNow = () => {
-    if (isOutOfStock) return;
-    const itemToCart = {
-      ...product,
-      price: displayPrice,
-      selectedVariant: selectedVariant?.name
-    };
-    trackEvent('InitiateCheckout', {
-      content_name: product.name,
-      value: displayPrice,
-      currency: 'VND',
-      quantity: qty,
-      variant: selectedVariant?.name
-    });
-    addToCart(itemToCart, qty);
-    router.push('/checkout');
+  const handleCallClick = () => {
+    trackEvent('Contact', { method: 'Phone', product: product.name });
+    window.location.href = `tel:${hotline}`;
   };
 
   return (
@@ -98,56 +67,50 @@ export default function ProductActions({ product }: { product: any }) {
               />
               <button 
                 onClick={() => setQty(qty + 1)}
-                disabled={qty >= (displayStock || 999)}
-                className="px-3 bg-white hover:bg-gray-50 text-gray-600 border-l border-gray-300 transition-colors disabled:opacity-30"
+                className="px-3 bg-white hover:bg-gray-50 text-gray-600 border-l border-gray-300 transition-colors"
               >
                 +
               </button>
             </div>
             {isOutOfStock ? (
               <span className="text-sm font-black text-[#ee4d2d] uppercase italic">Hết hàng</span>
-            ) : isLowStock ? (
-              <span className="text-xs font-bold text-[#ee4d2d]">Chỉ còn {displayStock} sản phẩm có sẵn!</span>
             ) : (
-              <span className="text-xs text-gray-400">{displayStock || 100} sản phẩm có sẵn</span>
+              <span className="text-xs text-green-600 font-bold">Còn hàng - Giao ngay</span>
             )}
           </div>
         </div>
 
-
+        {/* Desktop Buttons */}
         <div className="hidden md:flex flex-row gap-4">
           <button 
-            onClick={handleAddToCart}
-            disabled={isOutOfStock}
-            className={`flex-1 py-4 px-6 rounded-sm transition-colors font-medium flex items-center justify-center gap-2 shadow-sm ${isOutOfStock ? 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed' : 'bg-[#ffefe8] border border-[#ee4d2d] text-[#ee4d2d] hover:bg-[#ffeae0]'}`}
+            onClick={handleCallClick}
+            className={`flex-1 py-4 px-6 rounded-sm transition-colors font-bold text-lg flex items-center justify-center gap-2 shadow-sm bg-[#ffefe8] border border-[#ee4d2d] text-[#ee4d2d] hover:bg-[#ffeae0]`}
           >
-            <span className="text-2xl">🛒</span> {isOutOfStock ? 'Hết hàng' : 'Thêm Vào Giỏ Hàng'}
+            <span className="text-2xl">📞</span> Gọi Hotline Đặt Hàng
           </button>
           <button 
-            onClick={handleBuyNow}
-            disabled={isOutOfStock}
-            className={`flex-1 py-4 px-6 rounded-sm transition-colors font-bold text-lg shadow-md ${isOutOfStock ? 'bg-gray-300 text-white cursor-not-allowed' : 'bg-[#ee4d2d] text-white hover:bg-[#d73211]'}`}
+            onClick={handleZaloClick}
+            className={`flex-1 py-4 px-6 rounded-sm transition-colors font-bold text-lg flex items-center justify-center gap-2 shadow-md bg-blue-600 text-white hover:bg-blue-700`}
           >
-            Mua Ngay
+            <span className="text-2xl">💬</span> Nhận Tư Vấn & Mua Qua Zalo
           </button>
         </div>
       </div>
 
       {/* Mobile Sticky Action Bar */}
-      <div className="fixed bottom-0 left-0 w-full bg-white border-t border-gray-100 flex md:hidden z-[60] h-[60px] shadow-[0_-4px_15px_rgba(0,0,0,0.1)]">
-        <a 
-          href={`https://zalo.me/${process.env.NEXT_PUBLIC_ZALO_PHONE ?? '0773440966'}`} 
-          target="_blank" 
-          className="flex-1 bg-white text-[#1a5c2a] flex items-center justify-center font-bold text-sm active:bg-gray-50 border-r border-gray-100"
-        >
-          💬 Chat kỹ sư
-        </a>
+      <div className="fixed bottom-0 left-0 w-full bg-white flex md:hidden z-[60] h-[60px] shadow-[0_-4px_15px_rgba(0,0,0,0.1)]">
         <button 
-          onClick={handleBuyNow}
-          disabled={isOutOfStock}
-          className={`flex-1 flex items-center justify-center font-black text-sm tracking-wide ${isOutOfStock ? 'bg-gray-300 text-white cursor-not-allowed' : 'bg-[#ee4d2d] text-white active:bg-[#d73211]'}`}
+          onClick={handleCallClick}
+          className="flex-1 bg-white text-[#ee4d2d] flex items-center justify-center font-bold text-sm active:bg-gray-50 border-t border-r border-[#ee4d2d] border-opacity-30 flex-col leading-tight gap-1"
         >
-          {isOutOfStock ? 'HẾT HÀNG' : 'MUA NGAY'}
+          <span className="text-lg leading-none">📞</span>
+          <span>Gọi Mua Ngay</span>
+        </button>
+        <button 
+          onClick={handleZaloClick}
+          className="flex-[2] flex items-center justify-center font-black text-sm tracking-wide bg-blue-600 text-white active:bg-blue-700 gap-2"
+        >
+          <span className="text-xl">💬</span> MUA QUA ZALO
         </button>
       </div>
     </>
