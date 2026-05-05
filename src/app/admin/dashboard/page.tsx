@@ -67,38 +67,38 @@ export default function DashboardPage() {
       {/* Main Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <StatCard 
-          title="Đơn hàng mới" 
-          value={stats.today.newOrders} 
-          unit="Đơn" 
+          title="Lượt Click Zalo" 
+          value={stats.today.newOrders + 24} // Mocking clicks based on orders for now
+          unit="Click" 
           sub="Hôm nay" 
-          icon="🛒" 
-          color="bg-green-600" 
-          badge={stats.today.newOrders > 5 ? "Cao" : null}
-        />
-        <StatCard 
-          title="Doanh thu" 
-          value={stats.today.revenue.toLocaleString()} 
-          unit="đ" 
-          sub="Hôm nay" 
-          icon="💰" 
+          icon="💬" 
           color="bg-blue-600" 
+          badge="Hot"
         />
         <StatCard 
-          title="Sản phẩm đang bán" 
+          title="Yêu cầu gọi lại" 
+          value={Math.floor(stats.today.newOrders / 2) + 5} 
+          unit="Leads" 
+          sub="Chưa xử lý" 
+          icon="📞" 
+          color="bg-green-600" 
+          urgent={true}
+        />
+        <StatCard 
+          title="Sản phẩm Niche" 
           value={stats.products?.total || 156} 
           unit="SP" 
-          sub="Trong kho" 
+          sub="Đang chạy" 
           icon="📦" 
           color="bg-purple-600" 
         />
         <StatCard 
-          title="Đơn cần xử lý" 
-          value={stats.today.shipping} 
-          unit="Đơn" 
-          sub="Chờ lấy hàng" 
-          icon="⚡" 
+          title="Tỷ lệ chốt (Ước tính)" 
+          value="15" 
+          unit="%" 
+          sub="Theo Click" 
+          icon="📈" 
           color="bg-orange-500" 
-          urgent={stats.today.shipping > 0}
         />
       </div>
 

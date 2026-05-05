@@ -119,11 +119,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </div>
 
         <div className="p-actions">
-          <button className="p-btn btn-buy" onClick={handleQuickBuy}>
-            🛒 MUA NGAY
+          <button className="p-btn btn-buy !bg-blue-600 !border-blue-600" onClick={handleConsult}>
+            💬 ZALO TƯ VẤN
           </button>
-          <button className="p-btn btn-chat" onClick={handleConsult}>
-            💬 TƯ VẤN
+          <button className="p-btn btn-chat" onClick={() => router.push(`/san-pham/${product.slug}`)}>
+            👁️ CHI TIẾT
           </button>
         </div>
       </div>

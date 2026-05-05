@@ -200,6 +200,15 @@ export default async function ProductDetail({ params }: { params: Promise<{ slug
                  <span className="text-sm font-bold text-[#1a5c2a]">Phân Bón Giá Tốt</span>
                )}
             </div>
+            {/* Expert Trust Badge */}
+            <div className="bg-emerald-50 border border-emerald-100 rounded-xl p-4 mb-6 flex items-center gap-4">
+               <div className="w-12 h-12 bg-emerald-600 text-white rounded-full flex items-center justify-center text-xl shadow-md flex-shrink-0">👨‍🔬</div>
+               <div>
+                  <p className="text-[#1a5c2a] font-black text-sm uppercase tracking-tight">Kỹ sư hỗ trợ 24/7</p>
+                  <p className="text-[11px] text-emerald-700 font-medium leading-tight">Bà con hãy yên tâm, chúng tôi sẽ theo sát vườn của bà con cho đến khi hết bệnh.</p>
+               </div>
+            </div>
+
             <div className="flex items-center gap-4 text-xs md:text-sm mb-5">
               <div className="flex items-center text-[#ee4d2d] border-b border-[#ee4d2d] pb-[1px] cursor-pointer">
                 <span className="mr-1 font-bold">{displayRating}</span>
