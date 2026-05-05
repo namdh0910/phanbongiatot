@@ -3,19 +3,18 @@
 ## 🕒 Current Context
 - **Date**: 2026-05-05
 - **Latest Activities**: 
-  - **Zalo-First & Lead Gen Focus**: Successfully deactivated legacy e-commerce routes (`/gio-hang`, `/checkout`, `/tra-cuu-don-hang`) via `next.config.ts` redirects. Transitioned the Hero CTA from "Mua ngay" to "Xem giải pháp" to focus on agricultural consultation.
-  - **Social Proof Automation**: Connected `FloatingSocialProof.tsx` to a new real-time API `/api/leads/recent`. Leads are anonymized (e.g., "Anh B***") to build trust while maintaining privacy.
-  - **LCP Optimization**: Refactored the Home Hero section using `next/image` with `priority` and `eager` loading, ensuring an LCP < 2.5s on mobile 4G connections.
-  - **Video-First Blog UX**: Optimized `blog/[slug]/page.tsx` to display technical videos above-the-fold with reduced header padding and eager iframe loading.
-  - **Typography & Accessibility**: Enforced a minimum **18px** font size for mobile blog content to cater to older farmers.
-  - **Safe Area & UI Integrity**: Integrated `env(safe-area-inset-top/bottom)` across Header and StickyCTA components. Fixed z-index (1000) for the Zalo action bar to ensure it's always top-most.
-  - **JWT Authentication Upgrade**: Implemented `jose` for secure, stateless admin access.
+  - **Zalo-First & E-commerce Purge**: Completely removed legacy e-commerce folders (`/tra-cuu-don-hang`, `/don-hang`, `/checkout`, etc.) and `CartContext.tsx`. All CTAs now trigger Zalo/Phone consultations.
+  - **Data Infrastructure (Lead.ts)**: Upgraded `Lead` model with `city`, `symptoms`, and `urgency` fields. Updated Telegram notifications and Admin Lead dashboard to utilize these clinical data points.
+  - **Video-First Blog UX**: Optimized `blog/[slug]/page.tsx` with auto-playing technical videos (muted) and a high-conversion "Zalo Hook" button pre-filled with context-aware messages.
+  - **Mobile UI Polish**: Integrated `animate-heartbeat` for the Zalo bottom bar and ensured minimum 18px typography across the site.
+  - **Safe Area & UI Integrity**: Verified `env(safe-area-inset-top/bottom)` integration across all sticky components.
 
 ## 🚧 Active Tasks
-- **Pathology Data Enrichment**: Continuing to add real YouTube/TikTok phác đồ URLs to `pathologies.json`.
-- **Admin Lead Dashboard**: Enhancing lead management to track consultation results.
+- **Pathology Data Enrichment**: Adding real-world symptom data to `pathologies.json` to leverage new Lead model fields.
+- **AI Bot Integration Prep**: Ensuring API structure is ready for future Zalo AI Bot automated responses.
 
 ## 💡 Key Learnings / Gotchas
-- **Above-the-Fold Video**: Positioning the video iframe as high as possible significantly increases watch time for technical agricultural content.
-- **Social Proof Sync**: Fetching from real lead data creates a dynamic, "living" feel to the platform compared to static mockups.
-- **Notch Compatibility**: Always test sticky elements with safe-area-insets to avoid OS overlay issues.
+- **Context-Aware CTA**: Adding the blog title to the Zalo pre-filled message significantly lowers the friction for farmers seeking advice.
+- **Muted Autoplay**: Using `autoplay=1&mute=1` in YouTube iframes increases engagement without being intrusive on mobile data.
+- **Memory Sync**: Maintaining a strict documentation loop ensures architecture consistency across multiple agent sessions.
+

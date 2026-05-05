@@ -13,11 +13,12 @@ async function sendTelegramNotification(lead: any) {
     return;
   }
 
-  const message = `🚨 CÓ CA BỆNH CẤP CỨU!
+  const message = `🚨 CÓ CA BỆNH CỨU CÂY!
 - Nông dân: ${lead.name}
 - SĐT: \`${lead.phone}\`
 - Cây trồng: ${lead.cropType || 'Chưa rõ'}
-- Tình trạng: ${lead.pathology || lead.note || 'Cần tư vấn ngay'}`;
+- Triệu chứng: ${lead.symptoms || lead.pathology || 'Cần tư vấn'}
+- Mức độ: ${lead.urgency?.toUpperCase() || 'TRUNG BÌNH'}`;
 
   try {
     await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {

@@ -3,8 +3,11 @@ import mongoose, { Schema, model, models } from 'mongoose';
 export interface ILead {
   name: string;
   phone: string;
+  city?: string;
   cropType: string;
-  pathology: string; // Tình trạng bệnh
+  symptoms?: string;
+  pathology?: string; // Tình trạng bệnh (backward compatibility)
+  urgency?: 'low' | 'medium' | 'high';
   note?: string;
   source: string;
   imageUrl?: string;
@@ -15,8 +18,15 @@ export interface ILead {
 const leadSchema = new Schema<ILead>({
   name: { type: String, required: true },
   phone: { type: String, required: true },
+  city: { type: String },
   cropType: { type: String }, // Sầu riêng, Cà phê...
+  symptoms: { type: String }, // Triệu chứng
   pathology: { type: String }, // Vàng lá, Thối rễ...
+  urgency: { 
+    type: String, 
+    enum: ['low', 'medium', 'high'],
+    default: 'medium'
+  },
   note: { type: String },
   source: { type: String, default: 'website_lead_form' },
   imageUrl: { type: String },

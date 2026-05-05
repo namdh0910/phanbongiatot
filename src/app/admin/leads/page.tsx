@@ -14,20 +14,38 @@ export default function AdminLeads() {
       });
   }, []);
 
-  const getUrgentBadge = (pathology: string) => {
+  const getUrgentBadge = (lead: any) => {
+    // Priority 1: Explicit urgency field from Lead model
+    if (lead.urgency === 'high') {
+      return (
+        <span className="bg-red-100 text-red-600 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-tighter animate-pulse border border-red-200">
+          ⚠️ CẤP BÁCH
+        </span>
+      );
+    }
+    if (lead.urgency === 'medium') {
+      return (
+        <span className="bg-orange-50 text-orange-600 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-tighter border border-orange-100">
+          Cần xử lý
+        </span>
+      );
+    }
+    
+    // Priority 2: Keyword detection as fallback
     const urgentTerms = ['vàng lá', 'tuyến trùng', 'thối rễ', 'cấp bách', 'nặng'];
-    const isUrgent = urgentTerms.some(term => pathology?.toLowerCase().includes(term));
+    const textToSearch = `${lead.pathology || ''} ${lead.symptoms || ''}`.toLowerCase();
+    const isUrgent = urgentTerms.some(term => textToSearch.includes(term));
     
     if (isUrgent) {
       return (
-        <span className="bg-red-100 text-red-600 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-tighter animate-pulse border border-red-200">
-          ⚠️ Cần tư vấn ngay
+        <span className="bg-red-50 text-red-500 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-tighter border border-red-100">
+          ⚠️ Ưu tiên
         </span>
       );
     }
     return (
       <span className="bg-blue-50 text-blue-600 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-tighter border border-blue-100">
-        Đang chờ
+        Bình thường
       </span>
     );
   };
@@ -86,13 +104,25 @@ export default function AdminLeads() {
                 <td className="px-6 py-5">
                   <span className="text-xs font-bold text-gray-600 bg-gray-100 px-3 py-1 rounded-lg">{lead.cropType || 'Chưa rõ'}</span>
                 </td>
-                <td className="px-6 py-5">
-                  <p className="text-sm text-gray-700 font-medium line-clamp-1 max-w-[200px]" title={lead.pathology}>
-                    {lead.pathology || lead.note || 'Cần tư vấn chung'}
-                  </p>
+                 <td className="px-6 py-5">
+                   <div className="flex flex-col gap-1 max-w-[250px]">
+                      <p className="text-sm text-gray-800 font-bold line-clamp-1" title={lead.pathology}>
+                        {lead.pathology || 'Chưa rõ bệnh'}
+                      </p>
+                      {lead.symptoms && (
+                        <p className="text-[11px] text-gray-500 italic line-clamp-1" title={lead.symptoms}>
+                          TC: {lead.symptoms}
+                        </p>
+                      )}
+                      {lead.city && (
+                        <p className="text-[10px] text-emerald-700 font-black uppercase tracking-widest mt-1">
+                          📍 {lead.city}
+                        </p>
+                      )}
+                   </div>
                 </td>
                 <td className="px-6 py-5 text-center">
-                  {getUrgentBadge(lead.pathology)}
+                  {getUrgentBadge(lead)}
                 </td>
               </tr>
             ))}
@@ -114,13 +144,14 @@ export default function AdminLeads() {
                    <span className="text-[10px] text-gray-400 font-bold uppercase">{new Date(lead.createdAt).toLocaleString('vi-VN')}</span>
                 </div>
               </div>
-              {getUrgentBadge(lead.pathology)}
+               {getUrgentBadge(lead)}
             </div>
 
             <div className="grid grid-cols-2 gap-4 pt-2">
                <div className="flex flex-col gap-1">
                   <span className="text-[9px] font-black text-gray-400 uppercase tracking-widest">Liên hệ</span>
                   <a href={`tel:${lead.phone}`} className="text-sm font-black text-blue-600 underline">{lead.phone}</a>
+                  {lead.city && <span className="text-[10px] font-bold text-emerald-700">📍 {lead.city}</span>}
                </div>
                <div className="flex flex-col gap-1">
                   <span className="text-[9px] font-black text-gray-400 uppercase tracking-widest">Loại cây</span>
@@ -129,8 +160,9 @@ export default function AdminLeads() {
             </div>
 
             <div className="bg-gray-50 p-4 rounded-2xl border border-gray-100">
-               <span className="text-[9px] font-black text-gray-400 uppercase tracking-widest block mb-1">Tình trạng bệnh</span>
-               <p className="text-sm text-gray-700 font-medium italic">"{lead.pathology || lead.note || 'Cần tư vấn chung'}"</p>
+               <span className="text-[9px] font-black text-gray-400 uppercase tracking-widest block mb-1">Tình trạng & Triệu chứng</span>
+               <p className="text-sm text-gray-700 font-bold leading-snug">{lead.pathology || 'Cần tư vấn chung'}</p>
+               {lead.symptoms && <p className="text-[11px] text-gray-500 italic mt-2">"{lead.symptoms}"</p>}
             </div>
             
             <a 

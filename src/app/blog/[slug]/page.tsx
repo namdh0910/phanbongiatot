@@ -52,7 +52,7 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
   return (
     <div className="bg-white min-h-screen">
       {/* 1. Progress Bar / Header */}
-      <div className="pt-20 pb-8 md:pt-24 md:pb-12 bg-gray-50 border-b border-gray-100">
+      <div className="pt-[calc(64px+env(safe-area-inset-top))] pb-4 md:pt-24 md:pb-8 bg-gray-50 border-b border-gray-100">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <Breadcrumbs items={[
@@ -72,6 +72,38 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
                <span className="flex items-center gap-2 text-xs md:text-sm"><Clock size={14} /> {new Date(blog.createdAt).toLocaleDateString('vi-VN')}</span>
                <span className="bg-emerald-600 text-white px-3 py-1 rounded-lg text-[9px] md:text-[10px] font-black uppercase tracking-widest">{blog.category}</span>
             </div>
+
+            {/* Video-First Section - Repositioned to be above-the-fold */}
+            {blog.videoUrl && (
+              <div className="mt-8 mb-4">
+                 <div className="relative aspect-video rounded-2xl md:rounded-[2.5rem] overflow-hidden shadow-2xl border-2 md:border-4 border-white ring-1 ring-gray-200">
+                    <iframe 
+                      src={`${blog.videoUrl}${blog.videoUrl.includes('?') ? '&' : '?'}autoplay=1&mute=1&rel=0&playsinline=1`}
+                      className="absolute inset-0 w-full h-full"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      loading="eager"
+                    ></iframe>
+                 </div>
+                 
+                 {/* Zalo Hook - High conversion CTA directly under video */}
+                 <div className="mt-4 md:mt-6">
+                    <a 
+                      href={`https://zalo.me/0773440966?text=${encodeURIComponent(`Chào kỹ sư, tôi vừa xem video "${blog.title}". Tôi muốn nhận phác đồ điều trị như video này cho vườn nhà mình.`)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full bg-[#0068FF] hover:bg-blue-600 text-white py-4 md:py-6 rounded-2xl font-black text-sm md:text-lg uppercase tracking-widest flex items-center justify-center gap-3 shadow-xl shadow-blue-100 transition-all active:scale-95 animate-heartbeat"
+                    >
+                       <span className="text-xl md:text-2xl">💬</span> 
+                       Nhận phác đồ như video này
+                    </a>
+                    <div className="mt-3 flex items-center justify-center gap-2 text-[10px] md:text-xs text-gray-400 font-bold uppercase tracking-widest">
+                       <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
+                       Kỹ sư đang trực tuyến hỗ trợ bà con
+                    </div>
+                 </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -80,27 +112,6 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
         <div className="flex flex-col lg:flex-row gap-12 max-w-7xl mx-auto">
           {/* MAIN CONTENT AREA */}
           <div className="lg:flex-1 min-w-0">
-            {/* Video-First Section - Optimized for Mobile Full-Width */}
-            {blog.videoUrl && (
-              <div className="-mx-4 md:mx-0 mb-8 md:mb-16">
-                 <div className="relative aspect-video md:rounded-[2.5rem] overflow-hidden shadow-2xl md:border-4 border-white ring-1 ring-gray-100">
-                    <iframe 
-                      src={blog.videoUrl}
-                      className="absolute inset-0 w-full h-full"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                      loading="eager"
-                    ></iframe>
-                 </div>
-                 <div className="mt-4 md:mt-6 mx-4 md:mx-0 flex items-center gap-4 p-4 bg-emerald-50 rounded-2xl border border-emerald-100">
-                    <div className="w-10 h-10 bg-[#1a5c2a] text-white rounded-full flex items-center justify-center animate-pulse flex-shrink-0">
-                       <Play fill="currentColor" size={18} />
-                    </div>
-                    <p className="text-emerald-900 font-bold text-sm italic leading-snug">Mời bà con xem video thực tế kỹ sư xử lý trực tiếp tại vườn.</p>
-                 </div>
-              </div>
-            )}
-
             {!blog.videoUrl && (
                <div className="-mx-4 md:mx-0 mb-10 md:mb-16 md:rounded-[2.5rem] overflow-hidden shadow-2xl">
                   <img src={blog.image} alt={blog.title} className="w-full h-full object-cover" />
