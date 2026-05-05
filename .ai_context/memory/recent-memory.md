@@ -30,6 +30,12 @@
     - Authored a 1500+ word technical blog post: "Sầu Riêng Vàng Lá Thối Rễ: Kỹ Sư Chỉ Đúng Cách Cứu Vườn Trong 7 Ngày".
     - Content features: Storytelling (Anh Hùng - Cư M'gar), practical symptoms, 3-phase biological recovery protocol (Days 1-7), and detailed dosage for farmers.
     - Optimized for SEO keywords: "sầu riêng vàng lá thối rễ", "kỹ sư nông nghiệp Tây Nguyên".
+  - **Dynamic Content Architecture (Directive 09)**:
+    - **Eliminated Front-end Fallbacks**: Removed all hardcoded demo data from Blog and Solution pages. The site now strictly relies on API responses.
+    - **Product & Pathology Migration**: Created Mongoose models and CRUD APIs for Products and Pathologies. Transitioned frontend components to fetch from these APIs.
+    - **Admin Synchronization**: Linked Admin Dashboards to the new DB-backed APIs, enabling real-time content management.
+    - **Seed Automation**: Built migration scripts to move legacy JSON data into MongoDB.
+
 
 ## 🚧 Active Tasks
 - **UI Testing**: Verified mobile responsiveness and conversion hooks on localhost.

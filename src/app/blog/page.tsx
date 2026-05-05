@@ -33,41 +33,8 @@ export default function BlogIndex() {
       }));
       setPosts(postsData);
     } catch (error) {
-      // Fallback data with realistic types
-      const fallback = [
-        { 
-          title: "Hành trình phục hồi 5ha Sầu riêng suy kiệt tại Đắk Nông", 
-          excerpt: "Từ vườn cây vàng lá trơ cành, sau 3 tháng áp dụng phác đồ phục hồi sinh học rễ đã bung trắng xóa.", 
-          createdAt: new Date().toISOString(), 
-          image: "https://res.cloudinary.com/dztidbkhv/image/upload/v1776989061/phanbongiatot/oiaa2gdldtypwevu8qs6.jpg", 
-          slug: "nhat-ky-phuc-hoi-dak-nong", 
-          type: 'article', 
-          category: 'Nhật ký phục hồi vườn',
-          categorySlug: 'nhat-ky-phuc-hoi'
-        },
-        { 
-          title: "Video: Tại sao rễ tơ bị cháy khi bón phân hóa học quá liều?", 
-          excerpt: "Kỹ sư Nam giải thích cơ chế thẩm thấu ngược làm cháy lông hút rễ tơ và cách khắc phục bằng Humic.", 
-          createdAt: new Date().toISOString(), 
-          image: "https://res.cloudinary.com/dztidbkhv/image/upload/v1776989073/phanbongiatot/y6imlcebopgmarsfpp8e.jpg", 
-          slug: "tai-sao-chay-re-to", 
-          type: 'video', 
-          videoUrl: 'https://youtube.com/embed/8Idd0GyGA-4',
-          category: 'Mỗi chất - Một vấn đề',
-          categorySlug: 'moi-chat-mot-van-de'
-        },
-        { 
-          title: "Phác đồ 3 bước trị dứt điểm Tuyến trùng sưng rễ", 
-          excerpt: "Tuyến trùng là nỗi ám ảnh của nhà vườn. Bài viết này phân tích sâu về vòng đời và cách tiêu diệt bằng Nemano.", 
-          createdAt: new Date().toISOString(), 
-          image: "https://res.cloudinary.com/dztidbkhv/image/upload/v1776989048/phanbongiatot/jpjgjjvfg7pglnnh0a1a.jpg", 
-          slug: "phac-do-tri-tuyen-trung", 
-          type: 'article', 
-          category: 'Cẩm nang kỹ thuật',
-          categorySlug: 'cam-nang-ky-thuat'
-        }
-      ];
-      setPosts(fallback);
+      console.error('Failed to fetch blogs:', error);
+      setPosts([]);
     } finally {
       setLoading(false);
     }

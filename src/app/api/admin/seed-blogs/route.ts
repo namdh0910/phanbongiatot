@@ -124,6 +124,29 @@ export async function GET() {
         seoDescription: "Hướng dẫn cách kích rễ cây trồng hiệu quả, an toàn bằng Humic, Fulvic giúp tối ưu phân bón.",
         hashtags: ["kich-re", "nong-nghiep-sinh-hoc", "humic-kmax"]
       }
+      },
+      {
+        title: "Sầu Riêng Vàng Lá Thối Rễ: Kỹ Sư Chỉ Đúng Cách Cứu Vườn Trong 7 Ngày",
+        category: "Cẩm nang kỹ thuật",
+        coverImage: "https://res.cloudinary.com/dztidbkhv/image/upload/v1776989061/phanbongiatot/oiaa2gdldtypwevu8qs6.jpg",
+        content: `
+          <h2>Câu chuyện từ vườn anh Hùng ở Cư M'gar</h2>
+          <p>Khi tôi xuống vườn, cảnh tượng thật xót xa. Những cây sầu riêng 5-6 năm tuổi, trái đang lủng lẳng mà bộ lá thì "lờ đờ", vàng vọt. Anh Hùng đã dùng đủ loại thuốc hóa học cực mạnh nhưng cây càng ngày càng yếu...</p>
+          
+          <h2>1. Triệu chứng nhận biết: Đừng để "quá muộn" mới cứu</h2>
+          <p>Lá già bị vàng lờ đờ, gân lá chuyển vàng trước phiến lá. Khi bới rễ tơ thấy thối đen, vỏ rễ tuột ra...</p>
+          
+          <h2>2. Phác đồ xử lý 3 bước: Cứu vườn trong 7 ngày</h2>
+          <p><strong>Ngày 1-3:</strong> Sát khuẩn rễ bằng Phytopin + Nemano (liều 500ml mỗi loại cho 400L nước).<br>
+          <strong>Ngày 4-7:</strong> Kích rễ bằng Humic K-Max (1kg cho 600L nước).<br>
+          <strong>Ngày 15:</strong> Phun dưỡng lá bằng Amino Plus.</p>
+          
+          <p><em>Chụp ảnh vườn gửi Zalo Kỹ sư 0773.440.966 để nhận phác đồ riêng.</em></p>
+        `,
+        isPublished: true,
+        seoDescription: "Kỹ sư 10 năm kinh nghiệm chỉ cách trị sầu riêng vàng lá thối rễ hiệu quả trong 7 ngày bằng phác đồ sinh học.",
+        hashtags: ["sau-rieng", "vang-la-thoi-re", "phuc-hoi-vuon"]
+      }
     ];
 
     for (const blogData of blogs) {

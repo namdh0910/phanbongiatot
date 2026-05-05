@@ -9,22 +9,13 @@ import LiteYouTube from "@/components/shared/LiteYouTube";
 
 async function getBlog(slug: string) {
   try {
-    // Standardizing slug handling for Vietnamese URLs
     const res = await fetch(`${API_BASE_URL}/blogs/slug/${slug}`, { next: { revalidate: 3600 } });
-    if (!res.ok) throw new Error('API failed');
-    return await res.json();
+    if (!res.ok) return null;
+    const data = await res.json();
+    return data;
   } catch (error) {
-    // Fallback logic for demo/build
-    return {
-      title: "Hành trình phục hồi 5ha Sầu riêng suy kiệt tại Đắk Nông",
-      excerpt: "Từ vườn cây vàng lá trơ cành, sau 3 tháng áp dụng phác đồ phục hồi sinh học rễ đã bung trắng xóa.",
-      content: "<p>Nội dung chi tiết đang được cập nhật. Kỹ sư đã sử dụng bộ đôi Humic K-Max và Nemano để xử lý tuyến trùng trước khi kích rễ...</p><h2>Bước 1: Xử lý nền đất</h2><p>Đất tại vườn bị chai cứng, pH thấp...</p>",
-      image: "https://res.cloudinary.com/dztidbkhv/image/upload/v1776989061/phanbongiatot/oiaa2gdldtypwevu8qs6.jpg",
-      videoUrl: "https://www.youtube.com/embed/8Idd0GyGA-4",
-      category: "Nhật ký phục hồi vườn",
-      createdAt: new Date().toISOString(),
-      tags: ["sau-rieng", "phuc-hoi"]
-    };
+    console.error('Fetch error:', error);
+    return null;
   }
 }
 

@@ -1,8 +1,7 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import LeadForm from "@/components/shared/LeadForm";
-import pathologies from "@/data/pathologies.json";
-import products from "@/data/products.json";
+import { API_BASE_URL } from '@/utils/api';
 import Link from "next/link";
 import { ChevronRight, CheckCircle2, AlertTriangle, ShieldCheck, Zap, MessageCircle, Star, ShoppingBag, Phone } from "lucide-react";
 import SchemaMarkup from "@/components/shared/SchemaMarkup";
@@ -22,9 +21,31 @@ interface Pathology {
   testimonials?: { name: string; location: string; quote: string }[];
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+async function getPathology(slug: string) {
+  try {
+    const res = await fetch(`${API_BASE_URL}/pathologies/${slug}`, { next: { revalidate: 3600 } });
+    if (!res.ok) return null;
+    return await res.json();
+  } catch (error) {
+    console.error('Fetch error:', error);
+    return null;
+  }
+}
+
+async function getProducts() {
+  try {
+    const res = await fetch(`${API_BASE_URL}/products`, { next: { revalidate: 3600 } });
+    if (!res.ok) return [];
+    const data = await res.json();
+    return data.products || [];
+  } catch (error) {
+    return [];
+  }
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const pathology = (pathologies as Pathology[]).find((p) => p.slug === slug);
+  const pathology = await getPathology(slug);
 
   if (!pathology) {
     return {
@@ -45,9 +66,10 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default async function SolutionDetail({ params }: { params: { slug: string } }) {
+export default async function SolutionDetail({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const pathology = (pathologies as Pathology[]).find((p) => p.slug === slug);
+  const pathology = await getPathology(slug);
+  const products = await getProducts();
 
   if (!pathology) {
     notFound();

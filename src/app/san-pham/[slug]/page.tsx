@@ -1,27 +1,30 @@
-import React from 'react';
-import { Metadata } from 'next';
-import Link from 'next/link';
-import { notFound } from "next/navigation";
-import { ArrowRight, Beaker, ShieldCheck, Zap, AlertTriangle, Phone, MessageCircle } from 'lucide-react';
-import products from '@/data/products.json';
-import pathologies from '@/data/pathologies.json';
+import { API_BASE_URL } from '@/utils/api';
 import LeadForm from '@/components/shared/LeadForm';
 
-interface Product {
-  id: string;
-  name: string;
-  slug: string;
-  useCase: string;
-  tags: string[];
-  description: string;
-  icon: string;
-  mechanism: { title: string; desc: string }[];
-  relatedPathologies: string[];
-  warning: string;
+async function getProduct(slug: string) {
+  try {
+    const res = await fetch(`${API_BASE_URL}/products/${slug}`, { next: { revalidate: 3600 } });
+    if (!res.ok) return null;
+    return await res.json();
+  } catch (error) {
+    return null;
+  }
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const product = (products as Product[]).find(p => p.slug === params.slug);
+async function getPathologies() {
+  try {
+    const res = await fetch(`${API_BASE_URL}/pathologies`, { next: { revalidate: 3600 } });
+    if (!res.ok) return [];
+    const data = await res.json();
+    return data.pathologies || [];
+  } catch (error) {
+    return [];
+  }
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const product = await getProduct(slug);
   if (!product) return { title: "Chế Phẩm Sinh Học | Phân Bón Giá Tốt" };
   
   return {
@@ -35,16 +38,18 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default async function ProductDetailPage({ params }: { params: { slug: string } }) {
-  const product = (products as Product[]).find(p => p.slug === params.slug);
+export default async function ProductDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const product = await getProduct(slug);
 
   if (!product) {
     notFound();
   }
 
-  // Get related pathology objects
-  const relatedPathologyData = pathologies.filter(path => 
-    product.relatedPathologies.includes(path.slug)
+  // Get related pathology objects from API
+  const allPathologies = await getPathologies();
+  const relatedPathologyData = allPathologies.filter((path: any) => 
+    product.relatedPathologies?.includes(path.slug)
   );
 
   return (
