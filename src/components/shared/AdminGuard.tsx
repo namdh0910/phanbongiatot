@@ -12,11 +12,30 @@ export default function AdminGuard({ children }: { children: React.ReactNode }) 
   const router = useRouter();
 
   useEffect(() => {
-    const token = typeof window !== 'undefined' ? localStorage.getItem("adminToken") : null;
-    if (token === 'simple_admin_token_2026') {
-      setAuthorized(true);
-    }
-    setChecking(false);
+    const checkAuth = async () => {
+      const token = typeof window !== 'undefined' ? localStorage.getItem("adminToken") : null;
+      if (!token) {
+        setChecking(false);
+        return;
+      }
+
+      try {
+        const res = await fetch('/api/admin/verify', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (res.ok) {
+          setAuthorized(true);
+        } else {
+          localStorage.removeItem("adminToken");
+        }
+      } catch (err) {
+        console.error("Auth check failed", err);
+      } finally {
+        setChecking(false);
+      }
+    };
+
+    checkAuth();
   }, []);
 
   const handleLogin = async (e: React.FormEvent) => {

@@ -1,4 +1,7 @@
 import { NextResponse } from 'next/server';
+import { SignJWT } from 'jose';
+
+const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET || 'phanbongiatot_secret_2026');
 
 export async function POST(request: Request) {
   try {
@@ -6,8 +9,13 @@ export async function POST(request: Request) {
     const adminPassword = process.env.ADMIN_PASSWORD || 'admin123';
 
     if (password === adminPassword) {
-      // Trong thực tế nên dùng JWT, nhưng theo yêu cầu "simple auth" ta trả về success
-      return NextResponse.json({ success: true, token: 'simple_admin_token_2026' });
+      const token = await new SignJWT({ role: 'admin' })
+        .setProtectedHeader({ alg: 'HS256' })
+        .setIssuedAt()
+        .setExpirationTime('24h')
+        .sign(JWT_SECRET);
+
+      return NextResponse.json({ success: true, token });
     }
 
     return NextResponse.json({ success: false, message: 'Mật khẩu không chính xác' }, { status: 401 });
