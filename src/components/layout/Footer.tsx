@@ -54,11 +54,18 @@ export default function Footer() {
           <div>
             <h4 className="font-black text-xl mb-8">Liên Kết Nhanh</h4>
             <ul className="space-y-4">
-              {['Tài liệu kỹ thuật', 'Đặt lịch tư vấn', 'Giới thiệu', 'Kết quả nhà vườn'].map((link) => (
-                <li key={link}>
-                  <Link href="#" className="text-gray-400 hover:text-white flex items-center gap-2 group transition-colors">
+              {[
+                { label: 'Tất cả sản phẩm', href: '/san-pham' },
+                { label: 'Gói giải pháp tiết kiệm', href: '/combo' },
+                { label: 'Tài liệu kỹ thuật', href: '/blog' },
+                { label: 'Giới thiệu', href: '/ve-chung-toi' },
+                { label: 'Chính sách vận chuyển', href: '/chinh-sach-van-chuyen' },
+                { label: 'Chính sách bảo hành', href: '/chinh-sach-bao-hanh' },
+              ].map((link) => (
+                <li key={link.label}>
+                  <Link href={link.href} className="text-gray-400 hover:text-white flex items-center gap-2 group transition-colors">
                     <ChevronRight size={14} className="text-[#f5a623] group-hover:translate-x-1 transition-transform" />
-                    {link}
+                    {link.label}
                   </Link>
                 </li>
               ))}
