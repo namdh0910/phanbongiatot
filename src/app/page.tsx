@@ -105,6 +105,7 @@ export default function LandingPage() {
   const [blogs, setBlogs] = useState<any[]>([]);
   const [loadingBlogs, setLoadingBlogs] = useState(true);
   const [activePathologies, setActivePathologies] = useState<any[]>([]);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   const settings = useSettings() || {
     hotline: '0773.440.966',
