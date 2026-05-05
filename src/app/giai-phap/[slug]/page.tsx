@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import LeadForm from "@/components/shared/LeadForm";
 import pathologies from "@/data/pathologies.json";
@@ -8,6 +9,39 @@ interface Pathology {
   painPoint: string;
   wrongAction: string;
   biologicalSolution: string;
+}
+
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const { slug } = await params;
+  const pathology = (pathologies as Pathology[]).find((p) => p.slug === slug);
+
+  if (!pathology) {
+    return {
+      title: "Giải Pháp Nông Nghiệp | Phân Bón Giá Tốt",
+    };
+  }
+
+  const description = pathology.painPoint.length > 160 
+    ? pathology.painPoint.substring(0, 157) + "..." 
+    : pathology.painPoint;
+
+  return {
+    title: `${pathology.title} | Phân Bón Giá Tốt`,
+    description: description,
+    openGraph: {
+      title: `${pathology.title} | Phân Bón Giá Tốt`,
+      description: description,
+      type: "article",
+      images: [
+        {
+          url: "/images/default-og-share.jpg",
+          width: 1200,
+          height: 630,
+          alt: pathology.title,
+        },
+      ],
+    },
+  };
 }
 
 export default async function SolutionDetail({ params }: { params: { slug: string } }) {
