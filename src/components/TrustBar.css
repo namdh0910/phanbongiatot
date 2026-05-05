@@ -1,110 +1,40 @@
-/* TrustBar.css */
-.trust-bar {
+.trust-bar-marquee {
+  height: 28px;
   background-color: #ffffff;
-  padding: 1rem 0;
-  font-family: 'Inter', sans-serif;
-  border-bottom: 1px solid rgba(0,0,0,0.03);
-}
-
-.trust-container {
-  max-width: 1200px;
-  margin: 0 auto;
+  border-bottom: 1px solid #f1f1f1;
+  overflow: hidden;
+  position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 0 1rem;
 }
 
-.trust-main {
+.marquee-content {
   display: flex;
-  gap: 3rem;
+  white-space: nowrap;
+  animation: marquee 20s linear infinite;
 }
 
-.trust-item {
+.marquee-item {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-}
-
-.trust-icon {
-  color: var(--primary-color, #1a5c2a);
-  flex-shrink: 0;
-  opacity: 0.9;
-}
-
-.trust-text {
-  display: flex;
-  flex-direction: column;
-}
-
-.trust-label {
-  font-weight: 800;
-  font-size: 0.85rem;
-  color: #111;
-  line-height: 1.2;
+  padding: 0 20px;
+  color: #1b5e20;
+  font-size: 11px;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: -0.2px;
+  letter-spacing: 0.5px;
 }
 
-.trust-sublabel {
-  font-size: 0.7rem;
-  color: #888;
-  margin-top: 1px;
+.marquee-item span {
+  margin-right: 6px;
+  color: #f5a623;
 }
 
-.trust-stats {
-  display: none; /* Hide stats in main trust bar for cleaner look */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
-@media (max-width: 1024px) {
-  .trust-main {
-    gap: 1.5rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .trust-bar {
-    padding: 8px 0 !important;
-    background: #f8fafc !important;
-    border-bottom: 1px solid #f1f5f9 !important;
-  }
-
-  .trust-main {
-    display: flex !important;
-    flex-direction: row !important;
-    overflow-x: auto !important;
-    gap: 8px !important;
-    width: 100% !important;
-    padding: 0 12px !important;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
-
-  .trust-main::-webkit-scrollbar {
-    display: none;
-  }
-
-  .trust-item {
-    background: #ffffff;
-    padding: 6px 10px !important;
-    border-radius: 10px !important;
-    border: 1px solid #e2e8f0 !important;
-    flex-shrink: 0 !important;
-    gap: 6px !important;
-  }
-
-  .trust-icon svg {
-    width: 14px !important;
-    height: 14px !important;
-  }
-
-  .trust-label {
-    font-size: 9px !important;
-    font-weight: 900 !important;
-    white-space: nowrap;
-  }
-
-  .trust-sublabel {
-    display: none !important;
-  }
+.trust-bar-marquee:hover .marquee-content {
+  animation-play-state: paused;
 }

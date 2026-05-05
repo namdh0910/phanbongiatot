@@ -292,8 +292,24 @@ body {
   }
 }
 
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-in {
+  animation-duration: 200ms;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  animation-fill-mode: both;
+}
+
+.fade-in {
+  animation-name: fadeIn;
+}
+
 @media (max-width: 768px) {
   body {
-    padding-bottom: 56px !important;
+    padding-bottom: calc(64px + env(safe-area-inset-bottom)) !important;
   }
 }
+

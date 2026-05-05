@@ -3,18 +3,18 @@
 ## 🕒 Current Context
 - **Date**: 2026-05-05
 - **Latest Activities**: 
-  - **Strategic Shift**: Formally transitioned the project model to **Drop-shipping Niche**, prioritizing Nemano and plant recovery solutions.
-  - **Homepage Restructuring**: Removed generic categories. Positioned "Technical Solutions from Experts" below the banner. Featured 3 Hero products with direct Zalo CTAs.
-  - **Product Page Optimization**: Transformed standard product pages into long-form **Sales Pages**. Injected "Symptoms -> Mechanism -> Feedback" flow and sprinkled Zalo/Hotline CTAs throughout.
-  - **Order Flow Optimization**: Replaced the shopping cart system with a direct "Call Hotline" or "Consult via Zalo" model for faster mobile conversion.
-  - **AI Context Update**: Updated `.ai_context/project-brain/ai-system.md` to lock in the new Niche focus.
-  - **Project Restructuring**: Verified `.ai_context/` as the single source of truth for project brain and memory.
+  - **Mobile Header Redesign**: Implemented a new 56px sticky header with #1B5E20 background. Added a Logo, "Gọi ngay" pill button (#FF6B35), and a fullscreen search overlay.
+  - **Fullscreen Search Overlay**: Added a high-conversion search interface with Trending keywords (Sầu riêng, Cà phê, etc.), Search History (localStorage), and real-time product suggestions.
+  - **Bottom Navigation (5-Tab)**: Replaced the hamburger menu with a bottom nav bar (Trang chủ, Danh mục, Tìm kiếm, Zalo, Tài khoản) with 44px tap targets.
+  - **Marquee Trust Bar**: Updated the trust bar to a 28px thin marquee scroll ("✓ Chính hãng 100% | ✓ Giao toàn quốc | ✓ Kỹ sư 24/7") located directly below the header.
+  - **Layout Integration**: Centralized these components in `LayoutWrapper.tsx` and optimized global CSS for mobile safe areas and search animations.
 
 ## 🚧 Active Tasks
-- Scaling content based on the "Solution-First" niche model.
-- Monitoring conversion rates of the new direct Zalo/Phone order flow.
+- Continue expanding the "Giải pháp kỹ thuật" catalog for other crops (Cà phê, Hồ tiêu).
+- Refine the SEO content within the new solution templates to target specific disease keywords.
 
 ## 💡 Key Learnings / Gotchas
-- Drop-shipping niche requires high trust; Sales Pages must emphasize symptoms and expert mechanism.
-- Direct contact (Zalo/Phone) is significantly more effective for Vietnamese farmers than traditional checkout.
-- AI system must now filter all suggestions through the "Drop-shipping Niche" lens.
+- **Mobile Navigation**: Removing the hamburger menu in favor of a bottom nav bar significantly improves reachability for one-handed use.
+- **Search Intent**: Fullscreen overlays with suggestions and history increase user engagement and time on site.
+- **Marquee Performance**: CSS-based marquee is lightweight and effective for displaying secondary trust signals without cluttering the UI.
+
