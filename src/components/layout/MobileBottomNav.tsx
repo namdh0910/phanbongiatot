@@ -6,6 +6,13 @@ import { useSettings } from "@/context/SettingsContext";
 export default function MobileBottomNav() {
   const pathname = usePathname();
   const settings = useSettings();
+  const [docTitle, setDocTitle] = useState("");
+
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      setDocTitle(document.title.split('|')[0].trim());
+    }
+  }, [pathname]);
 
   if (pathname?.startsWith('/admin')) return null;
 
@@ -16,7 +23,7 @@ export default function MobileBottomNav() {
     { 
       label: "Zalo", 
       icon: "💬", 
-      href: `https://zalo.me/${settings?.zalo || '0773440966'}?text=${typeof window !== 'undefined' ? encodeURIComponent('Tôi cần tư vấn về: ' + document.title) : ''}`, 
+      href: `https://zalo.me/${settings?.zalo || '0773440966'}?text=${encodeURIComponent('Tôi cần tư vấn về: ' + (docTitle || 'Giải pháp nông nghiệp'))}`, 
       isExternal: true 
     },
     { label: "Gọi điện", icon: "📞", href: `tel:${(settings?.phone || '0773440966').replace(/\./g, '')}`, isExternal: true },

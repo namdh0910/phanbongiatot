@@ -127,8 +127,8 @@ export default async function ProductDetailPage({ params }: { params: { slug: st
               
               {product.images && product.images.length > 1 && (
                 <div className="grid grid-cols-4 gap-4">
-                  {product.images.map((img: string, i: number) => (
-                    <div key={i} className="aspect-square rounded-2xl overflow-hidden border border-gray-100 bg-gray-50 cursor-pointer hover:border-emerald-500 transition-colors">
+                  {(product.images || []).map((img: string, i: number) => (
+                    <div key={i} className="aspect-square rounded-2xl overflow-hidden border border-gray-100 bg-gray-50 cursor-pointer hover:border-emerald-500 transition-all">
                       <img src={img} alt={`${product.name} ${i}`} className="w-full h-full object-cover p-2" />
                     </div>
                   ))}
@@ -229,7 +229,7 @@ export default async function ProductDetailPage({ params }: { params: { slug: st
 
                    {product.features && product.features.length > 0 && (
                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {product.features.map((feature: string, i: number) => (
+                        {(product.features || []).map((feature: string, i: number) => (
                            <div key={i} className="flex items-start gap-3 bg-gray-50 p-4 rounded-2xl">
                               <CheckCircle2 className="text-emerald-600 mt-0.5 flex-shrink-0" size={18} />
                               <span className="text-sm font-bold text-gray-700">{feature}</span>
@@ -255,7 +255,7 @@ export default async function ProductDetailPage({ params }: { params: { slug: st
                </div>
 
                <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                  {relatedProducts.map((p: any) => (
+                  {(relatedProducts || []).map((p: any) => (
                     <Link key={p.slug} href={`/san-pham/${p.slug}`} className="group bg-white rounded-3xl border border-gray-100 p-4 hover:shadow-2xl hover:-translate-y-1 transition-all">
                        <div className="aspect-square rounded-2xl bg-gray-50 mb-4 overflow-hidden p-4">
                           <img src={p.images?.[0] || '/og-image.png'} alt={p.name} className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500" />

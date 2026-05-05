@@ -186,7 +186,7 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
 
             {blog.hashtags && blog.hashtags.length > 0 && (
               <div className="flex flex-wrap gap-2 mt-12">
-                {blog.hashtags.map((tag: string) => (
+                {(blog.hashtags || []).map((tag: string) => (
                   <span key={tag} className="px-4 py-1.5 bg-gray-50 text-gray-500 rounded-full text-[10px] font-black uppercase tracking-widest border border-gray-100">
                     #{tag}
                   </span>

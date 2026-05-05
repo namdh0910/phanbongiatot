@@ -17,10 +17,12 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [expandedCrops, setExpandedCrops] = useState<string[]>([]);
   const [searchHistory, setSearchHistory] = useState<string[]>([]);
+  const [isMounted, setIsMounted] = useState(false);
   const settings = useSettings();
   const searchInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
+    setIsMounted(true);
     const history = localStorage.getItem("search_history");
     if (history) setSearchHistory(JSON.parse(history));
   }, []);
