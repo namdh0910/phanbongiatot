@@ -7,14 +7,17 @@ import { useSettings } from "@/context/SettingsContext";
 export default function MobileBottomNav() {
   const pathname = usePathname();
   const settings = useSettings();
+  const [isMounted, setIsMounted] = useState(false);
   const [docTitle, setDocTitle] = useState("");
 
   useEffect(() => {
+    setIsMounted(true);
     if (typeof document !== 'undefined') {
       setDocTitle(document.title.split('|')[0].trim());
     }
   }, [pathname]);
 
+  if (!isMounted) return null;
   if (pathname?.startsWith('/admin')) return null;
 
   const navItems = [

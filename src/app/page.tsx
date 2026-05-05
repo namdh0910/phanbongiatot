@@ -115,48 +115,39 @@ export default function LandingPage() {
   };
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', handleScroll);
-    
-    // Fetch real blogs
-    fetch(`${API_BASE_URL}/blogs`)
-      .then(res => res.json())
-      .then(data => {
-        let results = [];
-        if (Array.isArray(data)) results = data;
-        else if (data?.blogs) results = data.blogs;
-        setBlogs(results.slice(0, 3));
-      })
-      .catch(() => setBlogs([]))
-      .finally(() => setLoadingBlogs(false));
-
-    // Fetch real pathologies
-    fetch(`${API_BASE_URL}/pathologies`)
-      .then(res => res.json())
-      .then(data => {
-        let results = [];
-        if (data?.pathologies) results = data.pathologies;
-        else if (Array.isArray(data)) results = data;
-        setActivePathologies(results.slice(0, 4));
-      })
-      .catch(() => setActivePathologies([]));
-
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const zaloUrl = `https://zalo.me/${settings.zalo.replace(/\./g, '')}`;
-  const callUrl = `tel:${settings.hotline.replace(/\./g, '')}`;
-
-  // Scroll Progress Logic
-  const [scrollProgress, setScrollProgress] = useState(0);
-  useEffect(() => {
-    const updateScrollProgress = () => {
+    const handleScroll = () => {
+      // 1. Scrolled state for header/elements
+      setScrolled(window.scrollY > 20);
+      
+      // 2. Progress bar calculation
       const currentScroll = window.scrollY;
       const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-      setScrollProgress((currentScroll / scrollHeight) * 100);
+      if (scrollHeight > 0) {
+        setScrollProgress((currentScroll / scrollHeight) * 100);
+      }
     };
-    window.addEventListener('scroll', updateScrollProgress);
-    return () => window.removeEventListener('scroll', updateScrollProgress);
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    // Initial fetch of data
+    Promise.all([
+      fetch(`${API_BASE_URL}/blogs`).then(res => res.json()),
+      fetch(`${API_BASE_URL}/pathologies`).then(res => res.json())
+    ]).then(([blogsData, pathologiesData]) => {
+      // Handle Blogs
+      let bResults = Array.isArray(blogsData) ? blogsData : (blogsData?.blogs || []);
+      setBlogs(bResults.slice(0, 3));
+      setLoadingBlogs(false);
+      
+      // Handle Pathologies
+      let pResults = Array.isArray(pathologiesData) ? pathologiesData : (pathologiesData?.pathologies || []);
+      setActivePathologies(pResults.slice(0, 4));
+    }).catch(err => {
+      console.error("Data fetch error", err);
+      setLoadingBlogs(false);
+    });
+
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
@@ -181,6 +172,7 @@ export default function LandingPage() {
             loading="eager"
             className="object-cover"
             sizes="100vw"
+            {...({ fetchPriority: "high" } as any)}
           />
           <div className="absolute inset-0 bg-black/40 bg-gradient-to-b from-black/60 via-black/40 to-[#0d2a1c]/80" />
         </div>
