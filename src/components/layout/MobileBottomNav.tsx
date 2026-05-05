@@ -11,10 +11,15 @@ export default function MobileBottomNav() {
 
   const navItems = [
     { label: "Trang chủ", icon: "🏠", href: "/" },
-    { label: "Danh mục", icon: "📦", href: "/danh-muc" },
-    { label: "Tìm kiếm", icon: "🔍", href: "/tim-kiem" },
-    { label: "Zalo", icon: "💬", href: `https://zalo.me/${settings?.zalo || '0773440966'}`, isExternal: true },
-    { label: "Tài khoản", icon: "👤", href: "/kenh-nguoi-ban/dang-nhap" },
+    { label: "Giải pháp", icon: "🩺", href: "/giai-phap" },
+    { label: "Kiến thức", icon: "📖", href: "/blog" },
+    { 
+      label: "Zalo", 
+      icon: "💬", 
+      href: `https://zalo.me/${settings?.zalo || '0773440966'}?text=${typeof window !== 'undefined' ? encodeURIComponent('Tôi cần tư vấn về: ' + document.title) : ''}`, 
+      isExternal: true 
+    },
+    { label: "Gọi điện", icon: "📞", href: `tel:${(settings?.phone || '0773440966').replace(/\./g, '')}`, isExternal: true },
   ];
 
   return (

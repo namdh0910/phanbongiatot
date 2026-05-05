@@ -27,7 +27,10 @@ export default function LayoutWrapper({ children }: { children: React.ReactNode 
         {children}
       </main>
       <Footer />
-      <StickyCTA />
+      <div className="hidden lg:block">
+        <StickyCTA />
+      </div>
+      <MobileBottomNav />
       <FloatingSocialProof />
     </>
   );
