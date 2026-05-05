@@ -3,9 +3,9 @@
 ## 🕒 Current Context
 - **Date**: 2026-05-05
 - **Latest Activities**: 
+  - **Homepage Section Reordering (CRO)**: Renamed 'Giải Pháp Chuyên Sâu' to 'Giải Pháp Theo Tình Trạng Vườn'. Removed dealer recruitment sections.
+  - **New Video Guide Section**: Added a 'Kỹ sư hướng dẫn thực tế tại vườn' section with a 9:16 vertical video embed to provide social proof and expert technical demonstrations.
   - **Hero Banner Redesign**: Redesigned the primary hero section to target Durian and Coffee farmers. Used high-impact headlines ("CỨU VƯỜN SẦU RIÊNG...") and a heartbeat-animated CTA for "Chụp Ảnh Vườn Gửi Kỹ Sư".
-  - **CTA Standardization**: Updated all site-wide buttons (Homepage, Product Cards, Product Details) from e-commerce text ("Mua Ngay") to consulting text ("Chat Zalo Bắt Bệnh Cây", "Nhận Phác Đồ Phục Hồi").
-  - **Sticky Action Bar Enhanced**: Redesigned the mobile sticky bar with a 50/50 split: "Gửi ảnh qua Zalo" (Blue) and "Gọi Kỹ Sư" (Red). Optimized for speed and high-conversion technical diagnosis.
   - **Dynamic Data Integration**: Connected the new landing page to `SettingsContext` and `API_BASE_URL` for real-time contact info (Zalo/Hotline) and technical blog posts.
 
 ## 🚧 Active Tasks

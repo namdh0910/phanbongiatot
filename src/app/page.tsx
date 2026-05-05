@@ -267,7 +267,7 @@ export default function LandingPage() {
         <div className="container mx-auto px-4">
           <div className="flex flex-col items-center text-center mb-12 md:mb-16">
             <h2 className="text-3xl md:text-5xl font-black text-gray-900 uppercase tracking-tighter mb-4">
-              Giải Pháp <span className="text-[#1a5c2a]">Chuyên Sâu</span>
+              Giải Pháp Theo <span className="text-[#1a5c2a]">Tình Trạng Vườn</span>
             </h2>
             <div className="w-20 h-2 bg-[#f5a623] rounded-full" />
             <p className="mt-6 text-gray-500 max-w-xl font-medium">
@@ -361,6 +361,42 @@ export default function LandingPage() {
               <a href={callUrl} className="w-full md:w-auto bg-[#1a5c2a] hover:bg-emerald-800 text-white font-black px-10 py-5 rounded-2xl flex items-center justify-center gap-3 transition-all active:scale-95 shadow-xl shadow-emerald-200">
                 <Phone /> Gọi: {settings.phone}
               </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 6.5. Practical Video Guide Section */}
+      <section className="bg-gray-50 py-16 md:py-24">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-5xl font-black text-gray-900 uppercase tracking-tighter mb-4">
+                Kỹ sư hướng dẫn <span className="text-[#f5a623]">thực tế tại vườn</span>
+              </h2>
+              <div className="w-20 h-2 bg-[#1a5c2a] rounded-full mx-auto" />
+            </div>
+            
+            {/* 9:16 Vertical Video Container */}
+            <div className="flex justify-center">
+              <div className="relative w-full max-w-[350px] aspect-[9/16] bg-black rounded-[2.5rem] overflow-hidden shadow-2xl border-[8px] border-gray-900">
+                <iframe 
+                  className="absolute inset-0 w-full h-full"
+                  src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0&controls=1&rel=0" 
+                  title="Kỹ sư hướng dẫn thực tế"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
+              </div>
+            </div>
+            
+            <div className="mt-12 text-center">
+              <p className="text-gray-500 font-bold uppercase tracking-widest text-sm mb-6">Theo dõi các video kỹ thuật mới nhất</p>
+              <div className="flex justify-center gap-4">
+                <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center text-white cursor-pointer hover:scale-110 transition-transform">f</div>
+                <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center text-white cursor-pointer hover:scale-110 transition-transform">t</div>
+              </div>
             </div>
           </div>
         </div>
