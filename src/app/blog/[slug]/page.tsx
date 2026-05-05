@@ -222,7 +222,7 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
             </div>
 
             {/* Final Lead Form */}
-            <div className="mt-24 p-10 bg-gray-50 rounded-[3rem] border border-gray-100 relative overflow-hidden">
+            <div className="mt-20 p-10 bg-gray-50 rounded-[3rem] border border-gray-100 relative overflow-hidden">
                <div className="absolute top-0 right-0 p-8 opacity-[0.03] select-none text-[150px] rotate-12">👨‍🌾</div>
                <div className="relative z-10">
                   <h3 className="text-3xl md:text-5xl font-black text-gray-900 uppercase italic tracking-tighter mb-6">
@@ -230,6 +230,35 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
                   </h3>
                   <p className="text-gray-600 text-lg mb-10 font-medium">Để lại thông tin, Kỹ sư sẽ gọi lại tư vấn phác đồ chuẩn nhất cho vườn nhà mình.</p>
                   <LeadForm initialPathology={blog.category} initialCrop="Sầu riêng" />
+               </div>
+            </div>
+
+            {/* Related Articles Widget (Directive 02) */}
+            <div className="mt-20 pt-20 border-t border-gray-100">
+               <div className="flex items-center justify-between mb-8">
+                  <h3 className="text-2xl font-black text-gray-900 uppercase italic tracking-tight">Kiến thức cùng chủ đề</h3>
+                  <Link href="/blog" className="text-emerald-700 font-black text-xs uppercase tracking-widest hover:translate-x-1 transition-transform">Xem thêm ➔</Link>
+               </div>
+               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Since this is server-side, we fetch all and filter for related */}
+                  {(await (async () => {
+                     const res = await fetch(`${API_BASE_URL}/blogs`);
+                     const data = await res.json();
+                     const allBlogs = Array.isArray(data) ? data : (data.blogs || []);
+                     return allBlogs
+                        .filter((b: any) => b.slug !== blog.slug && (b.category === blog.category || b.tags?.some((t: string) => blog.tags?.includes(t))))
+                        .slice(0, 2);
+                  })()).map((b: any) => (
+                     <Link key={b.slug} href={`/blog/${b.slug}`} className="bg-white border border-gray-100 p-4 rounded-3xl flex gap-4 hover:shadow-xl transition-all group">
+                        <div className="w-24 h-24 bg-gray-100 rounded-2xl overflow-hidden flex-shrink-0">
+                           <img src={b.image} alt="" className="w-full h-full object-cover group-hover:scale-110 transition-transform" />
+                        </div>
+                        <div className="flex-1 min-w-0 flex flex-col justify-center">
+                           <p className="text-[10px] font-black text-emerald-600 uppercase tracking-widest mb-1">{b.category}</p>
+                           <h4 className="font-black text-gray-900 text-sm line-clamp-2 leading-tight group-hover:text-emerald-700">{b.title}</h4>
+                        </div>
+                     </Link>
+                  ))}
                </div>
             </div>
           </div>

@@ -81,10 +81,24 @@ export default async function SolutionDetail({ params }: { params: { slug: strin
     "totalTime": "P21D"
   };
 
+  const combinedSchema = [faqSchema, howToSchema];
+
   return (
     <div className="bg-white min-h-screen">
-      <SchemaMarkup data={faqSchema} />
-      <SchemaMarkup data={howToSchema} />
+      <SchemaMarkup data={combinedSchema} />
+      
+      {/* 0. Breadcrumbs (Directive 03) */}
+      <div className="bg-gray-50 border-b border-gray-100 py-4">
+        <div className="container mx-auto px-4">
+          <Breadcrumbs items={[
+            { label: 'Trang chủ', href: '/' },
+            { label: (pathology.slug.includes('sau-rieng') || pathology.title.includes('Sầu riêng')) ? 'Sầu riêng' : 
+                     (pathology.slug.includes('ca-phe') || pathology.title.includes('Cà phê')) ? 'Cà phê' : 
+                     (pathology.slug.includes('ho-tieu') || pathology.title.includes('Hồ tiêu')) ? 'Hồ tiêu' : 'Giải pháp', href: '/giai-phap' },
+            { label: pathology.title }
+          ]} />
+        </div>
+      </div>
 
       {/* 1. HERO SECTION (PAIN) */}
       <section className="relative bg-gray-900 pt-32 pb-20 overflow-hidden">
@@ -252,6 +266,43 @@ export default async function SolutionDetail({ params }: { params: { slug: strin
             <div className="bg-white rounded-[3rem] shadow-2xl p-8 md:p-16 border border-gray-100">
                <LeadForm initialPathology={pathologyName} initialCrop="Sầu riêng" />
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 6. Related Solutions (Directive 03) */}
+      <section className="bg-gray-50 py-20">
+        <div className="container mx-auto px-4 max-w-5xl">
+          <div className="flex items-center justify-between mb-8">
+            <h3 className="text-2xl font-black text-gray-900 uppercase italic tracking-tight">Các giải pháp kỹ thuật khác</h3>
+            <Link href="/giai-phap" className="text-emerald-700 font-black text-xs uppercase tracking-widest hover:translate-x-1 transition-transform">Tất cả giải pháp ➔</Link>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {pathologies
+              .filter(p => p.slug !== pathology.slug && 
+                ((pathology.slug.includes('sau-rieng') && p.slug.includes('sau-rieng')) ||
+                 (pathology.slug.includes('ca-phe') && p.slug.includes('ca-phe')) ||
+                 (pathology.slug.includes('ho-tieu') && p.slug.includes('ho-tieu'))))
+              .slice(0, 2)
+              .map((p: any) => (
+                <Link key={p.slug} href={`/giai-phap/${p.slug}`} className="bg-white border border-gray-100 p-8 rounded-[2rem] hover:shadow-xl transition-all group">
+                  <h4 className="font-black text-gray-900 text-lg mb-3 leading-tight group-hover:text-emerald-700">{p.title}</h4>
+                  <p className="text-gray-500 text-sm line-clamp-2 font-medium mb-4">{p.painPoint}</p>
+                  <div className="text-[10px] font-black text-emerald-600 uppercase tracking-widest">Xem phác đồ ➔</div>
+                </Link>
+              ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 7. Final Consultation CTA */}
+      <section className="bg-emerald-900 py-20 text-white text-center">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-5xl font-black uppercase italic tracking-tighter mb-6">Bà con cần hỗ trợ ngay?</h2>
+          <p className="text-emerald-100 text-lg mb-10 max-w-2xl mx-auto">Đừng để vườn suy kiệt thêm nữa. Nhắn Zalo ngay để kỹ sư xem ảnh vườn và chẩn đoán miễn phí.</p>
+          <div className="flex flex-col md:flex-row gap-4 justify-center">
+            <a href={`https://zalo.me/0773440966`} className="bg-[#0068FF] px-10 py-5 rounded-2xl font-black uppercase tracking-widest text-sm shadow-xl active:scale-95 transition-all">Nhắn Zalo Kỹ Sư</a>
+            <a href="tel:0773440966" className="bg-white text-emerald-900 px-10 py-5 rounded-2xl font-black uppercase tracking-widest text-sm shadow-xl active:scale-95 transition-all">Gọi Hotline: 0773.440.966</a>
           </div>
         </div>
       </section>
