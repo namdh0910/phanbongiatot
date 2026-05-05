@@ -32,6 +32,17 @@ async function getPathology(slug: string) {
   }
 }
 
+async function getPathologies() {
+  try {
+    const res = await fetch(`${API_BASE_URL}/pathologies`, { next: { revalidate: 3600 } });
+    if (!res.ok) return [];
+    const data = await res.json();
+    return data.pathologies || [];
+  } catch (error) {
+    return [];
+  }
+}
+
 async function getProducts() {
   try {
     const res = await fetch(`${API_BASE_URL}/products`, { next: { revalidate: 3600 } });
@@ -70,6 +81,7 @@ export default async function SolutionDetail({ params }: { params: Promise<{ slu
   const { slug } = await params;
   const pathology = await getPathology(slug);
   const products = await getProducts();
+  const allPathologies = await getPathologies();
 
   if (!pathology) {
     notFound();
@@ -312,8 +324,8 @@ export default async function SolutionDetail({ params }: { params: Promise<{ slu
             <Link href="/giai-phap" className="text-emerald-700 font-black text-xs uppercase tracking-widest hover:translate-x-1 transition-transform">Tất cả giải pháp ➔</Link>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {pathologies
-              .filter(p => p.slug !== pathology.slug && 
+            {allPathologies
+              .filter((p: any) => p.slug !== pathology.slug && 
                 ((pathology.slug.includes('sau-rieng') && p.slug.includes('sau-rieng')) ||
                  (pathology.slug.includes('ca-phe') && p.slug.includes('ca-phe')) ||
                  (pathology.slug.includes('ho-tieu') && p.slug.includes('ho-tieu'))))

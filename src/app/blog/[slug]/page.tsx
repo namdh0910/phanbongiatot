@@ -3,9 +3,10 @@ import Link from "next/link";
 import { Clock, User, Share2, ArrowLeft, Play, Camera, MessageCircle, ChevronRight } from "lucide-react";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import LeadForm from "@/components/shared/LeadForm";
-import products from "@/data/products.json";
 import SchemaMarkup from "@/components/shared/SchemaMarkup";
 import LiteYouTube from "@/components/shared/LiteYouTube";
+import { Metadata } from 'next';
+import { notFound } from "next/navigation";
 
 async function getBlog(slug: string) {
   try {
@@ -19,7 +20,32 @@ async function getBlog(slug: string) {
   }
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+async function getProducts() {
+  try {
+    const res = await fetch(`${API_BASE_URL}/products`, { next: { revalidate: 3600 } });
+    if (!res.ok) return [];
+    const data = await res.json();
+    return data.products || [];
+  } catch (error) {
+    return [];
+  }
+}
+
+async function getRelatedBlogs(category: string, currentSlug: string) {
+  try {
+    const res = await fetch(`${API_BASE_URL}/blogs`);
+    if (!res.ok) return [];
+    const data = await res.json();
+    const allBlogs = Array.isArray(data) ? data : (data.blogs || []);
+    return allBlogs
+      .filter((b: any) => b.slug !== currentSlug && b.category === category)
+      .slice(0, 2);
+  } catch (error) {
+    return [];
+  }
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const blog = await getBlog(slug);
   if (!blog) return { title: "Bài viết kỹ thuật | Phân Bón Giá Tốt" };
@@ -44,20 +70,25 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
   const slug = paramsData?.slug;
   const blog = await getBlog(slug);
 
-  if (!blog) return <div className="text-center py-20 font-black uppercase">Không tìm thấy bài viết</div>;
+  if (!blog) {
+    notFound();
+  }
+
+  const productsData = await getProducts();
+  const relatedBlogs = await getRelatedBlogs(blog.category, blog.slug);
 
   // Auto-Related Products Logic
   const blogTags = (blog.tags || []).map((t: string) => t.toLowerCase());
   const blogCat = (blog.category || "").toLowerCase();
   
-  const relatedProducts = products.filter(p => 
-    p.tags.some(tag => {
+  const relatedProducts = productsData.filter((p: any) => 
+    p.tags.some((tag: string) => {
       const t = tag.toLowerCase();
       return blogTags.some((bt: string) => t.includes(bt) || bt.includes(t)) || blogCat.includes(t) || t.includes(blogCat);
     })
   ).slice(0, 3);
 
-  const displayedProducts = relatedProducts.length > 0 ? relatedProducts : products.slice(0, 3);
+  const displayedProducts = relatedProducts.length > 0 ? relatedProducts : productsData.slice(0, 3);
 
   const articleSchema = {
     "@context": "https://schema.org",
@@ -84,7 +115,7 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
   return (
     <div className="bg-white min-h-screen">
       <SchemaMarkup data={articleSchema} />
-      {/* 1. Progress Bar / Header */}
+      
       <div className="pt-[calc(56px+env(safe-area-inset-top))] pb-4 md:pt-24 md:pb-8 bg-gray-50 border-b border-gray-100">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
@@ -106,7 +137,6 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
                <span className="bg-emerald-600 text-white px-3 py-1 rounded-lg text-[9px] md:text-[10px] font-black uppercase tracking-widest">{blog.category}</span>
             </div>
 
-            {/* Video-First Section - Optimized with LiteYouTube */}
             {blog.videoUrl && (
               <div className="mt-8 mb-4">
                   <LiteYouTube 
@@ -115,10 +145,9 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
                     className="md:rounded-[2.5rem] shadow-2xl ring-1 ring-gray-200"
                   />
                   
-                  {/* Zalo Hook - High conversion CTA directly under video */}
                   <div className="mt-4 md:mt-6">
                      <a 
-                       href={`https://zalo.me/0773440966?text=${encodeURIComponent(`Chào kỹ sư, tôi vừa xem video về cách chữa ${blog.title} và muốn nhận phác đồ cho vườn ở [Tỉnh của tôi] của tôi.`)}`}
+                       href={`https://zalo.me/0773440966?text=${encodeURIComponent(`Chào kỹ sư, tôi vừa xem video về cách chữa ${blog.title} và muốn nhận phác đồ cho vườn của tôi.`)}`}
                        target="_blank"
                        rel="noopener noreferrer"
                        className="w-full bg-[#0068FF] hover:bg-blue-600 text-white py-4 md:py-6 rounded-2xl font-black text-sm md:text-lg uppercase tracking-widest flex items-center justify-center gap-3 shadow-xl shadow-blue-100 transition-all active:scale-95 animate-heartbeat"
@@ -139,7 +168,6 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
 
       <div className="container mx-auto px-4 py-8 md:py-20">
         <div className="flex flex-col lg:flex-row gap-12 max-w-7xl mx-auto">
-          {/* MAIN CONTENT AREA */}
           <div className="lg:flex-1 min-w-0">
             {!blog.videoUrl && (
                <div className="-mx-4 md:mx-0 mb-8 md:mb-16 md:rounded-[2.5rem] overflow-hidden shadow-2xl aspect-[4/3] md:aspect-auto">
@@ -147,7 +175,6 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
                </div>
             )}
 
-            {/* SEO Content */}
             <article 
               className="prose prose-emerald prose-base md:prose-xl max-w-none text-gray-700 leading-relaxed 
               prose-headings:font-black prose-headings:text-gray-900 prose-headings:tracking-tighter
@@ -157,7 +184,6 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
               dangerouslySetInnerHTML={{ __html: blog.content }}
             />
 
-            {/* Hashtags Display (Directive 04) */}
             {blog.hashtags && blog.hashtags.length > 0 && (
               <div className="flex flex-wrap gap-2 mt-12">
                 {blog.hashtags.map((tag: string) => (
@@ -168,7 +194,6 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
               </div>
             )}
 
-            {/* Social Share Bottom */}
             <div className="mt-12 py-8 border-t border-gray-100 flex flex-col md:flex-row items-center justify-between gap-6">
                <div className="flex items-center gap-4">
                   <div className="w-10 h-10 bg-gray-900 text-white rounded-full flex items-center justify-center">
@@ -182,7 +207,6 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
                </div>
             </div>
 
-            {/* Auto Related Products Widget */}
             <div className="mt-20">
                <div className="flex items-center gap-3 mb-8">
                   <div className="w-10 h-10 bg-[#f5a623] text-white rounded-xl flex items-center justify-center text-xl shadow-lg">📦</div>
@@ -209,7 +233,6 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
                </div>
             </div>
 
-            {/* Final Lead Form */}
             <div className="mt-20 p-10 bg-gray-50 rounded-[3rem] border border-gray-100 relative overflow-hidden">
                <div className="absolute top-0 right-0 p-8 opacity-[0.03] select-none text-[150px] rotate-12">👨‍🌾</div>
                <div className="relative z-10">
@@ -221,22 +244,13 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
                </div>
             </div>
 
-            {/* Related Articles Widget (Directive 02) */}
             <div className="mt-20 pt-20 border-t border-gray-100">
                <div className="flex items-center justify-between mb-8">
                   <h3 className="text-2xl font-black text-gray-900 uppercase italic tracking-tight">Kiến thức cùng chủ đề</h3>
                   <Link href="/blog" className="text-emerald-700 font-black text-xs uppercase tracking-widest hover:translate-x-1 transition-transform">Xem thêm ➔</Link>
                </div>
                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {/* Since this is server-side, we fetch all and filter for related */}
-                  {(await (async () => {
-                     const res = await fetch(`${API_BASE_URL}/blogs`);
-                     const data = await res.json();
-                     const allBlogs = Array.isArray(data) ? data : (data.blogs || []);
-                     return allBlogs
-                        .filter((b: any) => b.slug !== blog.slug && (b.category === blog.category || b.tags?.some((t: string) => blog.tags?.includes(t))))
-                        .slice(0, 2);
-                  })()).map((b: any) => (
+                  {relatedBlogs.map((b: any) => (
                      <Link key={b.slug} href={`/blog/${b.slug}`} className="bg-white border border-gray-100 p-4 rounded-3xl flex gap-4 hover:shadow-xl transition-all group">
                         <div className="w-24 h-24 bg-gray-100 rounded-2xl overflow-hidden flex-shrink-0">
                            <img src={b.image} alt="" className="w-full h-full object-cover group-hover:scale-110 transition-transform" />
@@ -251,10 +265,8 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
             </div>
           </div>
 
-          {/* SIDEBAR CTA AREA */}
           <aside className="lg:w-[380px] flex-shrink-0">
             <div className="sticky top-28 space-y-8">
-               {/* Primary Conversion Box */}
                <div className="bg-gray-900 rounded-[2.5rem] p-8 text-white relative overflow-hidden shadow-2xl">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/20 rounded-full blur-3xl"></div>
                   <div className="relative z-10">
@@ -280,7 +292,6 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
                   </div>
                </div>
 
-               {/* Related Pathology Box */}
                <div className="bg-white rounded-[2.5rem] p-8 border border-gray-100 shadow-sm">
                   <h4 className="font-black text-gray-900 uppercase italic tracking-tight mb-6">Phác đồ liên quan</h4>
                   <div className="space-y-6">

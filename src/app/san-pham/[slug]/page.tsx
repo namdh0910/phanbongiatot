@@ -1,3 +1,8 @@
+import React from 'react';
+import { Metadata } from 'next';
+import Link from 'next/link';
+import { notFound } from "next/navigation";
+import { ArrowRight, Beaker, ShieldCheck, Zap, AlertTriangle, Phone, MessageCircle, ShoppingBag } from 'lucide-react';
 import { API_BASE_URL } from '@/utils/api';
 import LeadForm from '@/components/shared/LeadForm';
 
