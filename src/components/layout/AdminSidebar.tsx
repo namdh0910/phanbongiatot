@@ -15,13 +15,32 @@ export default function AdminSidebar() {
     { href: "/admin/products", label: "Sản Phẩm (Catalog)", icon: "📦" },
   ];
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsMobileOpen(false);
+    };
+
+    if (isMobileOpen) {
+      document.body.style.overflow = 'hidden';
+      window.addEventListener('keydown', handleKeyDown);
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isMobileOpen]);
+
+  const isActive = (href: string) => {
+    if (href === '/admin/dashboard') return pathname === '/admin/dashboard';
+    return pathname?.startsWith(href);
+  };
+
   const handleLogout = async () => {
     try {
       await fetch('/api/admin/logout', { method: 'POST' });
       router.push("/admin/login");
     } catch (error) {
       console.error("Logout failed", error);
-      // Fallback
       router.push("/admin/login");
     }
   };
@@ -30,6 +49,7 @@ export default function AdminSidebar() {
     <>
       <button 
         onClick={() => setIsMobileOpen(!isMobileOpen)}
+        aria-label={isMobileOpen ? "Đóng menu" : "Mở menu"}
         className="lg:hidden fixed top-4 right-4 z-[100] w-10 h-10 bg-[#1a5c2a] text-white rounded-lg flex items-center justify-center shadow-lg"
       >
         {isMobileOpen ? "✕" : "☰"}
@@ -57,14 +77,14 @@ export default function AdminSidebar() {
         <nav className="flex-1 overflow-y-auto py-6">
           <div className="space-y-1">
             {links.map((link) => {
-              const isActive = pathname === link.href;
+              const active = isActive(link.href);
               return (
                 <Link 
                   key={link.href} 
                   href={link.href}
                   onClick={() => setIsMobileOpen(false)}
                   className={`flex items-center gap-3 px-6 py-4 text-sm font-bold transition-all ${
-                    isActive 
+                    active 
                       ? 'bg-[#1a5c2a] text-white shadow-inner border-r-4 border-green-400' 
                       : 'hover:bg-[#2c3338] hover:text-white text-gray-400'
                   }`}

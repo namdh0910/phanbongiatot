@@ -34,7 +34,7 @@ export default function MobileBottomNav() {
     <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 z-[100] px-2 pb-safe-area-inset-bottom shadow-[0_-5px_15px_rgba(0,0,0,0.05)]">
       <div className="flex justify-between items-center h-[64px] max-w-md mx-auto">
         {navItems.map((item, i) => {
-          const isActive = pathname === item.href;
+          const isActive = item.href === '/' ? pathname === '/' : pathname?.startsWith(item.href);
           const Content = (
             <div className={`flex flex-col items-center justify-center gap-1 w-full min-h-[48px] min-w-[48px] relative ${isActive ? 'text-[#1b5e20]' : 'text-gray-600'}`}>
               <span className="text-xl">{item.icon}</span>
@@ -44,14 +44,14 @@ export default function MobileBottomNav() {
 
           if (item.isExternal) {
             return (
-              <a key={i} href={item.href} target="_blank" className="flex-1 flex items-center justify-center min-h-[48px]">
+              <a key={i} href={item.href} target="_blank" aria-label={item.label} className="flex-1 flex items-center justify-center min-h-[48px]">
                 {Content}
               </a>
             );
           }
 
           return (
-            <Link key={i} href={item.href} className="flex-1 flex items-center justify-center min-h-[48px]">
+            <Link key={i} href={item.href} aria-label={item.label} className="flex-1 flex items-center justify-center min-h-[48px]">
               {Content}
             </Link>
           );

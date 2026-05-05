@@ -26,12 +26,27 @@ export default function Header() {
     const history = localStorage.getItem("search_history");
     if (history) setSearchHistory(JSON.parse(history));
 
-    if (isMenuOpen) {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsMenuOpen(false);
+        setIsSearchFocused(false);
+      }
+    };
+
+    if (isMenuOpen || isSearchFocused) {
       document.body.style.overflow = 'hidden';
+      window.addEventListener('keydown', handleKeyDown);
     } else {
       document.body.style.overflow = 'unset';
     }
-  }, [isMenuOpen]);
+
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isMenuOpen, isSearchFocused]);
+
+  const isActive = (path: string) => {
+    if (path === '/') return pathname === '/';
+    return pathname?.startsWith(path);
+  };
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -187,8 +202,8 @@ export default function Header() {
                     </div>
                   </div>
                 ))}
-                <Link href="/blog" className="font-black text-sm uppercase tracking-wide text-gray-700 hover:text-emerald-700 transition-colors">Kiến Thức</Link>
-                <Link href="/ve-chung-toi" className="font-black text-sm uppercase tracking-wide text-gray-700 hover:text-emerald-700 transition-colors">Về chúng tôi</Link>
+                <Link href="/blog" className={`font-black text-sm uppercase tracking-wide transition-colors ${isActive('/blog') ? 'text-emerald-700' : 'text-gray-700 hover:text-emerald-700'}`}>Kiến Thức</Link>
+                <Link href="/ve-chung-toi" className={`font-black text-sm uppercase tracking-wide transition-colors ${isActive('/ve-chung-toi') ? 'text-emerald-700' : 'text-gray-700 hover:text-emerald-700'}`}>Về chúng tôi</Link>
               </nav>
             </div>
           </div>
@@ -199,6 +214,7 @@ export default function Header() {
           <div className="flex items-center gap-3 px-4 h-[72px] bg-gradient-to-r from-[#1B5E20] to-[#2E7D32] text-white shadow-lg relative z-[200]">
             <button 
               onClick={() => setIsMenuOpen(true)}
+              aria-label="Mở menu chính"
               className="flex-shrink-0 flex flex-col items-center justify-center w-14 h-14 bg-white/10 rounded-xl active:scale-95 transition-transform"
             >
               <Menu size={28} />
@@ -263,7 +279,11 @@ export default function Header() {
                     <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-[#1B5E20] font-black text-2xl">P</div>
                     <span className="font-black text-sm tracking-widest uppercase italic">Menu</span>
                  </div>
-                 <button onClick={() => setIsMenuOpen(false)} className="w-12 h-12 flex items-center justify-center bg-white/10 rounded-full">
+                 <button 
+                   onClick={() => setIsMenuOpen(false)} 
+                   aria-label="Đóng menu"
+                   className="w-12 h-12 flex items-center justify-center bg-white/10 rounded-full"
+                 >
                     <X size={24} />
                  </button>
               </div>
