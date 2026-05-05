@@ -16,7 +16,7 @@ import {
   ArrowRight,
   HelpCircle,
   Facebook,
-  Youtube
+  Video
 } from 'lucide-react';
 import { API_BASE_URL } from '@/utils/api';
 import { useSettings } from '@/context/SettingsContext';
@@ -410,7 +410,7 @@ export default function LandingPage() {
                   rel="noopener noreferrer"
                   className="w-14 h-14 bg-[#FF0000] rounded-full flex items-center justify-center text-white cursor-pointer hover:scale-110 transition-transform shadow-lg shadow-red-100"
                 >
-                  <Youtube size={24} />
+                  <Video size={24} />
                 </a>
               </div>
             </div>
@@ -463,7 +463,7 @@ export default function LandingPage() {
                   <Facebook size={20} />
                 </a>
                 <a href="https://www.youtube.com/@phanbongiatot" target="_blank" className="w-10 h-10 bg-white/10 rounded-xl hover:bg-[#FF0000] transition-colors flex items-center justify-center">
-                  <Youtube size={20} />
+                  <Video size={20} />
                 </a>
               </div>
             </div>
