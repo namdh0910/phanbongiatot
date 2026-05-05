@@ -15,14 +15,15 @@ export default function StickyCTA() {
     if (pathname?.includes('/giai-phap/') && params?.slug) {
       const p = (pathologies as any[]).find(item => item.slug === params.slug);
       if (p) setPageTitle(p.title);
-    } else if (pathname?.includes('/blog/') && params?.slug) {
-      // In a real app, we'd fetch or use a global state. For now, we try to get from document title or simple fetch
-      fetch(`${API_BASE_URL}/blogs/${params.slug}`)
-        .then(res => res.json())
-        .then(data => {
-          if (data && data.blog) setPageTitle(data.blog.title);
-        })
-        .catch(() => {});
+    } else if (pathname?.includes('/blog/') || pathname?.includes('/san-pham/')) {
+      // Zero-latency optimization: Read directly from document title
+      const timer = setTimeout(() => {
+        if (document.title) {
+          const title = document.title.split('|')[0].trim();
+          setPageTitle(title);
+        }
+      }, 500); // Wait for Next.js to update the document.title
+      return () => clearTimeout(timer);
     }
   }, [pathname, params]);
 
@@ -44,9 +45,9 @@ export default function StickyCTA() {
         href={zaloUrl} 
         target="_blank"
         rel="noopener noreferrer"
-        className="w-[70%] bg-[#0068FF] text-white flex items-center justify-center gap-3 text-[16px] font-black transition-all active:scale-95 animate-pulse"
+        className="w-[70%] bg-[#0068FF] text-white flex items-center justify-center gap-3 text-[16px] font-black transition-all active:scale-95"
       >
-        <span className="text-2xl">💬</span> Nhắn Zalo tư vấn
+        <span className="text-2xl animate-bounce" style={{ animationDuration: '2s' }}>💬</span> Nhắn Zalo tư vấn
       </a>
       <a 
         href={callUrl} 
