@@ -82,7 +82,7 @@ export default function ExitPopup() {
             <button 
               onClick={() => {
                 closePopup();
-                window.location.href = "/gio-hang";
+                window.open(`https://zalo.me/0773440966`, '_blank');
               }}
               className="w-full bg-[#ee4d2d] text-white py-4 rounded-xl font-black text-lg shadow-lg hover:shadow-[#ee4d2d]/30 hover:-translate-y-0.5 transition-all"
             >

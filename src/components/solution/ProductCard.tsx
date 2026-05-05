@@ -23,8 +23,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const handleQuickBuy = (e: React.MouseEvent) => {
     e.stopPropagation();
     trackEvent('QuickBuy_Click', { product_name: product.name });
-    addToCart(product, 1);
-    router.push('/checkout');
+    window.open(`https://zalo.me/${zaloId}`, '_blank');
   };
 
   const handleConsult = (e: React.MouseEvent) => {

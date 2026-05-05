@@ -51,15 +51,7 @@ export default function ComboPage() {
   const primaryColor = settings?.primaryColor || "#1a5c2a";
 
   const handleBuyCombo = (combo: any) => {
-    addToCart({
-      _id: combo._id,
-      name: combo.title,
-      price: combo.price,
-      images: combo.images,
-      slug: combo.slug,
-      category: combo.category
-    }, 1);
-    router.push('/checkout');
+    window.open(`https://zalo.me/${settings?.zalo || '0773440966'}`, '_blank');
   };
 
   return (

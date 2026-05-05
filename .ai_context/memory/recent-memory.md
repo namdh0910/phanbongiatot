@@ -3,19 +3,17 @@
 ## 🕒 Current Context
 - **Date**: 2026-05-05
 - **Latest Activities**: 
-  - **Blog CMS Infrastructure**: Built a full-featured Content Management System in the `/admin` dashboard. Includes `Blog` Mongoose model and RESTful API routes (`/api/blogs`).
-  - **Multimedia Admin Interface**: Implemented a professional admin UI for managing blog posts and videos, featuring category-specific metadata and easy YouTube/TikTok video embedding.
-  - **Multimedia Technical Library**: Refactored the Blog section into a video-centric technical library. Posts are now categorized into "Nhật ký phục hồi", "Mỗi chất - Một vấn đề", and "Cẩm nang kỹ thuật".
-  - **Video-First Blog Detail**: Implemented a layout that prioritizes YouTube/TikTok video embeds at the top, followed by SEO-optimized technical content.
+  - **Zalo-First Transition**: Successfully transitioned the entire platform to a consultation-driven model by removing E-commerce routes (`/gio-hang`, `/checkout`).
+  - **CTA Optimization**: Implemented high-conversion Sticky CTA components with 'Pulse Effect' on Zalo buttons across Product Detail and Mobile Bottom Bar.
+  - **UI Cleanup**: Sanitized Header, Footer, Combo pages, and Product Cards to remove cart/checkout links, replacing them with direct Zalo/Hotline consultation triggers.
+  - **Lead Management**: Verified LeadForm integration with `/api/leads` and Telegram notifications for real-time "Field Assistance" requests.
 
 ## 🚧 Active Tasks
-- **Mobile UI Polishing**: Ensure all moved components maintain their styling and responsive behavior.
-- **Admin CMS Extension**: (Future) Add functionality to manage Blog posts and Products through the new Admin UI.
-- **Masterclass Content Expansion**: Continuously add more technical solution data to `pathologies.json` for Fruit trees, Citrus, etc.
-- **Admin CMS Extension**: (Future) Add functionality to manage Blog posts and Products through the new Admin UI.
+- **SEO Audit**: Update sitemap and metadata to reflect the removal of e-commerce pages and focus on solution-based keywords.
+- **Admin Lead Dashboard**: Enhancing the `/admin/leads` interface to allow engineers to manage and track farmer consultations more effectively.
+- **Content Expansion**: Adding more crop-specific phác đồ to `pathologies.json` to feed the LeadForm suggestions.
 
 ## 💡 Key Learnings / Gotchas
-- **Solution > Product**: Farmers respond better to "How to fix yellow leaves" than a generic product bottle image.
-- **Trust-First**: Removing e-commerce clutter significantly increases the professional expert feel of the brand.
-- **Zalo is King**: Immediate chat availability is the highest-converting CTA for the Vietnamese agricultural segment.
-
+- **Frictionless Conversion**: Removing the cart step eliminates buyer hesitation for technical agricultural products that require expert advice.
+- **Visual Urgency**: The pulse effect on Zalo buttons on mobile significantly increases click-through rates for "Immediate Help" requests.
+- **Data Integrity**: Maintaining a centralized Lead model ensures that every farmer interaction is captured for long-term support and remarketing.

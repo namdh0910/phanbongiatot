@@ -2,7 +2,6 @@
 import { useState, useEffect, useRef } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
-import { useCart } from "@/context/CartContext";
 import { useSettings } from "@/context/SettingsContext";
 import { API_BASE_URL } from "@/utils/api";
 import './HeaderFooter.css';
@@ -15,7 +14,6 @@ export default function Header() {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [searchHistory, setSearchHistory] = useState<string[]>([]);
-  const { cartCount } = useCart();
   const settings = useSettings();
   const searchInputRef = useRef<HTMLInputElement>(null);
 

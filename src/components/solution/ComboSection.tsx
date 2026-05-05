@@ -31,15 +31,7 @@ const ComboSection: React.FC = () => {
   }, []);
 
   const handleBuyCombo = (combo: any) => {
-    addToCart({
-      _id: combo._id || combo.id,
-      name: combo.name,
-      price: combo.comboPrice,
-      images: [combo.image],
-      slug: combo.slug,
-      category: "Combo"
-    }, 1);
-    router.push('/checkout');
+    window.open(`https://zalo.me/${settings?.zalo || '0773440966'}`, '_blank');
   };
 
   if (loading) return (

@@ -75,8 +75,6 @@ export default function Footer() {
           <ul className="space-y-4 text-gray-400 text-sm font-medium">
             <li><Link href="/chinh-sach-van-chuyen" className="hover:text-[#1a5c2a] transition-colors">Chính sách vận chuyển</Link></li>
             <li><Link href="/chinh-sach-bao-hanh" className="hover:text-[#1a5c2a] transition-colors">Chính sách đổi trả</Link></li>
-            <li><Link href="/tra-cuu-don-hang" className="hover:text-[#1a5c2a] transition-colors">Tra cứu đơn hàng</Link></li>
-            <li><Link href="/huong-dan-mua-hang" className="hover:text-[#1a5c2a] transition-colors">Hướng dẫn mua hàng</Link></li>
             <li><Link href="/lien-he" className="hover:text-[#1a5c2a] transition-colors">Hỏi đáp kỹ thuật</Link></li>
           </ul>
         </div>

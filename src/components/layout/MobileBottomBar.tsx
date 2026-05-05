@@ -18,7 +18,7 @@ const MobileBottomBar: React.FC = () => {
         href={zaloUrl} 
         target="_blank" 
         rel="noopener noreferrer" 
-        className="flex-1 bg-[#0068FF] text-white rounded-xl font-black flex items-center justify-center gap-2 text-sm shadow-lg shadow-blue-100 active:scale-95 transition-transform"
+        className="flex-1 bg-[#0068FF] text-white rounded-xl font-black flex items-center justify-center gap-2 text-sm shadow-lg shadow-blue-100 active:scale-95 transition-transform animate-pulse"
       >
         <span className="text-xl">💬</span>
         Chat Zalo
