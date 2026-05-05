@@ -5,6 +5,7 @@ import pathologies from "@/data/pathologies.json";
 import products from "@/data/products.json";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
+import SchemaMarkup from "@/components/shared/SchemaMarkup";
 
 interface Pathology {
   slug: string;
@@ -63,8 +64,54 @@ export default async function SolutionDetail({ params }: { params: { slug: strin
 
   const videoId = slug === 'vang-la-thoi-re' ? 'WQGLo4yJjI0' : '8Idd0GyGA-4';
 
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": `Dấu hiệu nhận biết ${pathology.title} là gì?`,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": pathology.painPoint
+        }
+      },
+      {
+        "@type": "Question",
+        "name": `Sai lầm thường gặp khi xử lý ${pathology.title} là gì?`,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": pathology.wrongAction
+        }
+      },
+      {
+        "@type": "Question",
+        "name": `Giải pháp sinh học cho ${pathology.title} như thế nào?`,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": pathology.biologicalSolution
+        }
+      }
+    ]
+  };
+
+  const steps = pathology.biologicalSolution.split('.').filter(s => s.trim());
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": `Phác đồ phục hồi ${pathology.title}`,
+    "step": steps.map((step, i) => ({
+      "@type": "HowToStep",
+      "position": i + 1,
+      "text": step.trim()
+    })),
+    "totalTime": "P21D"
+  };
+
   return (
     <div className="bg-white min-h-screen">
+      <SchemaMarkup data={faqSchema} />
+      <SchemaMarkup data={howToSchema} />
       {/* Section 1: Hero Banner (Pain) */}
       <section className="bg-[#111] py-20 md:py-32 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10"></div>

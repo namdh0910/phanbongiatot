@@ -4,6 +4,7 @@ import { Clock, User, Share2, ArrowLeft, Play, Camera, MessageCircle, ChevronRig
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import LeadForm from "@/components/shared/LeadForm";
 import products from "@/data/products.json";
+import SchemaMarkup from "@/components/shared/SchemaMarkup";
 
 async function getBlog(slug: string) {
   try {
@@ -66,8 +67,31 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
 
   const displayedProducts = relatedProducts.length > 0 ? relatedProducts : products.slice(0, 3);
 
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": blog.title,
+    "description": blog.excerpt,
+    "image": blog.image,
+    "author": {
+      "@type": "Organization",
+      "name": "Kỹ sư Phân Bón Giá Tốt"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Phân Bón Giá Tốt",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.phanbongiatot.com/logo.png"
+      }
+    },
+    "datePublished": blog.createdAt,
+    "dateModified": blog.updatedAt || blog.createdAt
+  };
+
   return (
     <div className="bg-white min-h-screen">
+      <SchemaMarkup data={articleSchema} />
       {/* 1. Progress Bar / Header */}
       <div className="pt-[calc(64px+env(safe-area-inset-top))] pb-4 md:pt-24 md:pb-8 bg-gray-50 border-b border-gray-100">
         <div className="container mx-auto px-4">

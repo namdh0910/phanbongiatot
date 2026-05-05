@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { CheckCircle2, Phone, MessageCircle, PlayCircle, Star, ShoppingBag, AlertCircle, ChevronRight } from 'lucide-react';
+import SchemaMarkup from '@/components/shared/SchemaMarkup';
 
 export const metadata = {
   title: "Sầu Riêng Vàng Lá Do Tuyến Trùng — Cách Xử Lý Triệt Để | Phân Bón Giá Tốt",
@@ -10,8 +11,60 @@ export default function DurianNematodeSolution() {
   const zaloId = "0773440966";
   const hotline = "0773440966";
 
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Dấu hiệu nhận biết tuyến trùng trên sầu riêng?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Lá già bị vàng, đọt non ra chậm, rễ tơ thối đen và có các nốt sưng u nang."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Bao lâu thì vườn sầu riêng phục hồi sau khi trị tuyến trùng?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Với phác đồ 3 bước chuẩn, vườn sẽ bắt đầu phục hồi và ra rễ trắng sau khoảng 15-21 ngày."
+        }
+      }
+    ]
+  };
+
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "Phác đồ 3 bước trị tuyến trùng sầu riêng",
+    "step": [
+      {
+        "@type": "HowToStep",
+        "position": 1,
+        "name": "Diệt Tuyến Trùng & Nấm",
+        "text": "Pha 500ml Nemano + Phytopin cho 400 lít nước, tưới đẫm vùng rễ."
+      },
+      {
+        "@type": "HowToStep",
+        "position": 2,
+        "name": "Phục Hồi Hệ Rễ Cám",
+        "text": "Pha 1kg Siêu Kích Rễ Phốt-pho cho 600 lít nước."
+      },
+      {
+        "@type": "HowToStep",
+        "position": 3,
+        "name": "Bung Đọt & Xanh Lá",
+        "text": "Phun Amino Plus + Vi Lượng lên bộ lá."
+      }
+    ],
+    "totalTime": "P21D"
+  };
+
   return (
     <div className="bg-white min-h-screen font-sans text-gray-900 pb-20">
+      <SchemaMarkup data={faqSchema} />
+      <SchemaMarkup data={howToSchema} />
       {/* BLOCK 1 - HEADER */}
       <header className="bg-gradient-to-br from-[#2d7a2d] to-[#1e5c1e] text-white pt-8 pb-12 px-4">
         <div className="max-w-4xl mx-auto">
