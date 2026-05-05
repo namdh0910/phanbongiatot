@@ -3,10 +3,10 @@
 ## 🕒 Current Context
 - **Date**: 2026-05-05
 - **Latest Activities**: 
+  - **Multimedia Technical Library**: Refactored the Blog section into a video-centric technical library. Posts are now categorized into "Nhật ký phục hồi", "Mỗi chất - Một vấn đề", and "Cẩm nang kỹ thuật".
+  - **Video-First Blog Detail**: Implemented a layout that prioritizes YouTube/TikTok video embeds at the top, followed by SEO-optimized technical content.
+  - **Conversion-Optimized Blog Sidebar**: Added a sticky sidebar CTA on blog posts encouraging farmers to send garden photos for diagnosis. Integrated `LeadForm` at the end of every post.
   - **Biological Technical Guides**: Replaced the product detail page (`/san-pham/[slug]`) with a "Technical Guide" format. Replaced e-commerce buttons with "Mixing Consultation" funnels.
-  - **Mechanism-Driven Content**: Added biological mechanism descriptions and mixing warnings to products to build authority and trust.
-  - **Internal Solution Linking**: Connected products to relevant pathologies from `pathologies.json`, creating a closed-loop navigation for the user.
-  - **Biological Product Repository**: Refactored `/san-pham/page.tsx` into a high-end "Biological Product Repository". Removed all e-commerce elements (prices, cart) to focus on professional consultation.
 
 ## 🚧 Active Tasks
 - **Mobile UI Polishing**: Ensure all moved components maintain their styling and responsive behavior.
