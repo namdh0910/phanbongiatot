@@ -1,3 +1,4 @@
+"use client";
 import { useState, useEffect } from "react";
 import { getScriptForLead } from "@/utils/scripts";
 import { Copy, Check } from "lucide-react";

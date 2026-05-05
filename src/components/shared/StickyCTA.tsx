@@ -1,3 +1,4 @@
+"use client";
 import { usePathname, useParams } from "next/navigation";
 import { useSettings } from "@/context/SettingsContext";
 import pathologies from "@/data/pathologies.json";
