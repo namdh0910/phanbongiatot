@@ -3,10 +3,10 @@
 ## 🕒 Current Context
 - **Date**: 2026-05-05
 - **Latest Activities**: 
+  - **Blog CMS Infrastructure**: Built a full-featured Content Management System in the `/admin` dashboard. Includes `Blog` Mongoose model and RESTful API routes (`/api/blogs`).
+  - **Multimedia Admin Interface**: Implemented a professional admin UI for managing blog posts and videos, featuring category-specific metadata and easy YouTube/TikTok video embedding.
   - **Multimedia Technical Library**: Refactored the Blog section into a video-centric technical library. Posts are now categorized into "Nhật ký phục hồi", "Mỗi chất - Một vấn đề", and "Cẩm nang kỹ thuật".
   - **Video-First Blog Detail**: Implemented a layout that prioritizes YouTube/TikTok video embeds at the top, followed by SEO-optimized technical content.
-  - **Conversion-Optimized Blog Sidebar**: Added a sticky sidebar CTA on blog posts encouraging farmers to send garden photos for diagnosis. Integrated `LeadForm` at the end of every post.
-  - **Biological Technical Guides**: Replaced the product detail page (`/san-pham/[slug]`) with a "Technical Guide" format. Replaced e-commerce buttons with "Mixing Consultation" funnels.
 
 ## 🚧 Active Tasks
 - **Mobile UI Polishing**: Ensure all moved components maintain their styling and responsive behavior.

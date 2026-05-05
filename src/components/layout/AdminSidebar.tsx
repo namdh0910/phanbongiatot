@@ -11,6 +11,7 @@ export default function AdminSidebar() {
   const links = [
     { href: "/admin/dashboard", label: "Cấu Hình (Settings)", icon: "⚙️" },
     { href: "/admin/leads", label: "Khách Hàng (Leads)", icon: "💬" },
+    { href: "/admin/blogs", label: "Nội Dung (Blog/Video)", icon: "🎥" },
   ];
 
   const handleLogout = () => {
