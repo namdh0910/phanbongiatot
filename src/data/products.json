@@ -1,0 +1,47 @@
+[
+  {
+    "id": "1",
+    "name": "Nemano - Chuyên Gia Diệt Tuyến Trùng",
+    "slug": "nemano-diet-tuyen-trung",
+    "useCase": "Phòng trừ nấm bệnh",
+    "tags": ["Trị Tuyến Trùng", "Kháng Nấm", "Bảo Vệ Rễ"],
+    "description": "Chế phẩm sinh học đột phá giúp tiêu diệt tuyến trùng gây sưng rễ, vàng lá mà không gây hại cho vi sinh có lợi.",
+    "icon": "🛡️"
+  },
+  {
+    "id": "2",
+    "name": "Humic K-Max - Kích Rễ Thần Tốc",
+    "slug": "humic-k-max-kich-re",
+    "useCase": "Phục hồi rễ",
+    "tags": ["Kích Rễ", "Cải Tạo Đất", "Xanh Lá"],
+    "description": "Axit Humic nồng độ cao giúp rễ tơ bung trắng xóa, cây hấp thụ phân bón tối đa, phục hồi nhanh sau thu hoạch.",
+    "icon": "🌱"
+  },
+  {
+    "id": "3",
+    "name": "Trichoderma Bacillus - Đối Kháng Nấm Bệnh",
+    "slug": "trichoderma-bacillus",
+    "useCase": "Phòng trừ nấm bệnh",
+    "tags": ["Kháng Nấm", "Ủ Phân", "Sạch Đất"],
+    "description": "Hệ vi sinh đối kháng cực mạnh, tiêu diệt nấm Phytophthora, Fusarium gây thối rễ, lở cổ rễ.",
+    "icon": "🧪"
+  },
+  {
+    "id": "4",
+    "name": "Fulvic Acid 95% - Giải Độc Đất",
+    "slug": "fulvic-acid-95-giai-doc",
+    "useCase": "Cải tạo đất",
+    "tags": ["Giải Độc", "Hạ Phèn", "Dẫn Phân"],
+    "description": "Dẫn truyền dinh dưỡng cực nhanh, giải độc phèn, mặn và các loại thuốc hóa học tồn dư trong đất.",
+    "icon": "⚡"
+  },
+  {
+    "id": "5",
+    "name": "Trung Vi Lượng Chelate - Xanh Cây Dày Lá",
+    "slug": "trung-vi-luong-chelate",
+    "useCase": "Cung cấp vi lượng",
+    "tags": ["Xanh Lá", "Chống Rụng", "Lớn Trái"],
+    "description": "Cung cấp đầy đủ các khoáng chất thiết yếu dạng Chelate giúp cây hấp thụ 100% qua lá và rễ.",
+    "icon": "✨"
+  }
+]
