@@ -15,6 +15,7 @@ export default function Header() {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [expandedCrops, setExpandedCrops] = useState<string[]>([]);
   const [searchHistory, setSearchHistory] = useState<string[]>([]);
   const settings = useSettings();
   const searchInputRef = useRef<HTMLInputElement>(null);
@@ -273,25 +274,41 @@ export default function Header() {
                  <div className="px-6 mb-8">
                     <h4 className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-4 ml-4">Giải pháp theo cây trồng</h4>
                     <div className="space-y-1">
-                       {crops.map((crop, i) => (
-                         <div key={i} className="group">
-                           <div className="flex items-center gap-3 p-4 text-gray-800 font-bold text-sm">
-                             <span className="text-xl">{crop.icon}</span> {crop.name}
+                       {crops.map((crop, i) => {
+                         const isExpanded = expandedCrops.includes(crop.name);
+                         return (
+                           <div key={i} className="border-b border-gray-50 last:border-0">
+                             <button 
+                               onClick={() => {
+                                 setExpandedCrops(prev => 
+                                   isExpanded ? prev.filter(c => c !== crop.name) : [...prev, crop.name]
+                                 );
+                               }}
+                               className={`flex items-center justify-between w-full p-4 text-gray-800 font-bold text-sm transition-colors ${isExpanded ? 'bg-emerald-50 text-emerald-800' : ''}`}
+                             >
+                               <div className="flex items-center gap-3">
+                                  <span className="text-xl">{crop.icon}</span> {crop.name}
+                               </div>
+                               <ChevronRight size={16} className={`transition-transform duration-300 ${isExpanded ? 'rotate-90 text-emerald-600' : 'text-gray-300'}`} />
+                             </button>
+                             
+                             {isExpanded && (
+                               <div className="grid grid-cols-1 pl-12 pr-4 py-2 gap-1 bg-gray-50/50 animate-in slide-in-from-top-2 duration-300">
+                                  {crop.issues.map((issue, idx) => (
+                                    <Link 
+                                      key={idx} 
+                                      href={issue.href} 
+                                      onClick={() => setIsMenuOpen(false)}
+                                      className="py-3 text-[13px] text-gray-600 hover:text-emerald-600 flex items-center gap-2 border-b border-gray-100 last:border-0 active:text-emerald-700"
+                                    >
+                                      · {issue.label}
+                                    </Link>
+                                  ))}
+                               </div>
+                             )}
                            </div>
-                           <div className="grid grid-cols-1 pl-12 pr-4 gap-1">
-                              {crop.issues.map((issue, idx) => (
-                                <Link 
-                                  key={idx} 
-                                  href={issue.href} 
-                                  onClick={() => setIsMenuOpen(false)}
-                                  className="py-2 text-[13px] text-gray-500 hover:text-emerald-600 flex items-center gap-2"
-                                >
-                                  · {issue.label}
-                                </Link>
-                              ))}
-                           </div>
-                         </div>
-                       ))}
+                         );
+                       })}
                     </div>
                  </div>
 
