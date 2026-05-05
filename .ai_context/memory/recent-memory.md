@@ -17,6 +17,7 @@
   - **SEO Canonical Fix**: Resolved an issue where all pages inherited the homepage's canonical URL. Implemented `metadataBase` in `layout.tsx` and explicit self-referencing `alternates.canonical` across dynamic routes (`/giai-phap/[slug]`, `/blog/[slug]`) and layout (`/blog/layout.tsx`) to ensure Google indexes all pages correctly.
   - **Video Cleanup (Rickroll Removal)**: Replaced all placeholder "Rickroll" videos (`dQw4w9WgXcQ`) with real technical agricultural videos from the official @phanbongiatot YouTube channel. Integrated dynamic video mapping for specific pathologies (e.g., Vàng lá thối rễ) and updated fallback data in Blog/Solutions.
   - **Structured Data (Schema Markup)**: Implemented JSON-LD Schema markup across the site. Added `FAQPage` and `HowTo` schemas for all solution pages to improve Google Rich Results (accordions and steps). Integrated `Article` schema for all blog posts with automated metadata. Created a reusable `SchemaMarkup` component.
+  - **SEO Content Strategy**: Developed 5 comprehensive, storytelling-based SEO blog articles (800-1200 words each) covering key agricultural pain points (Sầu riêng vàng lá, Tuyến trùng, Cà phê mùa khô, Tiêu chết nhanh/chậm, Kích rễ). Each article includes Meta tags and FAQ Schema.
 
 ## 🚧 Active Tasks
 - **UI Testing**: Verified mobile responsiveness and conversion hooks on localhost.
