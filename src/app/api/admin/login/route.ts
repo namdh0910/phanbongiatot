@@ -2,14 +2,15 @@ import { NextResponse } from 'next/server';
 import { SignJWT } from 'jose';
 import { cookies } from 'next/headers';
 
-const JWT_SECRET_STR = process.env.JWT_SECRET;
-if (!JWT_SECRET_STR) {
-  throw new Error('JWT_SECRET environment variable is missing');
-}
-const JWT_SECRET = new TextEncoder().encode(JWT_SECRET_STR);
-
 export async function POST(request: Request) {
   try {
+    const JWT_SECRET_STR = process.env.JWT_SECRET;
+    if (!JWT_SECRET_STR) {
+      console.error('JWT_SECRET environment variable is missing');
+      return NextResponse.json({ success: false, message: 'Lỗi cấu hình hệ thống' }, { status: 500 });
+    }
+    const JWT_SECRET = new TextEncoder().encode(JWT_SECRET_STR);
+
     // Brute-force mitigation: 1.5s artificial delay
     await new Promise(resolve => setTimeout(resolve, 1500));
 

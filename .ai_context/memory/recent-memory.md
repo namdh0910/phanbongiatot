@@ -3,6 +3,7 @@
 ## 🕒 Current Context
 - **Date**: 2026-05-05
 - **Latest Activities (Directive 03, 04, 05 DONE)**:
+  - **Hotfix: Build Failure (JWT_SECRET)**: Resolved a Vercel build crash caused by top-level environment variable checks. Moved all `process.env.JWT_SECRET` evaluations inside handler functions to allow static analysis during build to proceed without requiring environment secrets.
   - **Security Hardening (Auth Patch)**: Implemented critical security fixes identified in the audit. 
     - **API Protection**: Enforced `verifyAdmin` check across all sensitive API routes (Leads GET, Blogs/Products POST/PUT/DELETE, Config POST).
     - **Global Middleware**: Created `src/middleware.ts` to protect all `/admin` routes at the framework level.
