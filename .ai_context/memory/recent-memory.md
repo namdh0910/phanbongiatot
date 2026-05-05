@@ -9,6 +9,7 @@
   - **AI SEO Automation**: Blogs now automatically generate SEO Meta Descriptions and Hashtags upon creation via the API.
   - **Solution Page Widget**: Linked pathologies to specific products using a new "Sản phẩm khuyên dùng" widget in `/giai-phap/[slug]`.
   - **Frontend UI/UX Optimization**: Fixed Mobile Footer overlap (`pb-[100px]`) and optimized `StickyCTA` Zalo hook to use zero-latency `document.title` extraction instead of client-side `fetch`. Replaced aggressive `animate-pulse` with subtle `animate-bounce` on the Zalo icon.
+  - **Admin Security Hardening**: Migrated admin authentication from insecure `localStorage` to HttpOnly cookies (`/api/admin/login` & `/api/admin/verify`) to prevent XSS attacks. Added a 1.5s artificial delay to mitigate brute-force password guessing.
 
 ## 🚧 Active Tasks
 - **UI Testing**: Verified mobile responsiveness and conversion hooks on localhost.

@@ -13,20 +13,13 @@ export default function AdminGuard({ children }: { children: React.ReactNode }) 
 
   useEffect(() => {
     const checkAuth = async () => {
-      const token = typeof window !== 'undefined' ? localStorage.getItem("adminToken") : null;
-      if (!token) {
-        setChecking(false);
-        return;
-      }
-
       try {
-        const res = await fetch('/api/admin/verify', {
-          headers: { 'Authorization': `Bearer ${token}` }
-        });
+        const res = await fetch('/api/admin/verify');
         if (res.ok) {
-          setAuthorized(true);
-        } else {
-          localStorage.removeItem("adminToken");
+          const data = await res.json();
+          if (data.success) {
+            setAuthorized(true);
+          }
         }
       } catch (err) {
         console.error("Auth check failed", err);
@@ -52,7 +45,6 @@ export default function AdminGuard({ children }: { children: React.ReactNode }) 
 
       const data = await res.json();
       if (res.ok && data.success) {
-        localStorage.setItem("adminToken", data.token);
         setAuthorized(true);
       } else {
         setError(data.message || "Mật khẩu không chính xác");
