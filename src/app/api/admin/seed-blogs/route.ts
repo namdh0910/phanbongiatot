@@ -123,7 +123,6 @@ export async function GET() {
         isPublished: true,
         seoDescription: "Hướng dẫn cách kích rễ cây trồng hiệu quả, an toàn bằng Humic, Fulvic giúp tối ưu phân bón.",
         hashtags: ["kich-re", "nong-nghiep-sinh-hoc", "humic-kmax"]
-      }
       },
       {
         title: "Sầu Riêng Vàng Lá Thối Rễ: Kỹ Sư Chỉ Đúng Cách Cứu Vườn Trong 7 Ngày",
