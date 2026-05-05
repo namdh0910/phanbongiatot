@@ -1,253 +1,121 @@
 "use client";
 import { useState, useEffect } from "react";
-import { API_BASE_URL, getAuthHeaders } from "@/utils/api";
-import Link from "next/link";
 
-export default function DashboardPage() {
-  const [stats, setStats] = useState<any>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+export default function AdminDashboard() {
+  const [settings, setSettings] = useState({
+    hotline: "",
+    zalo: "",
+    announcementText: ""
+  });
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
-    fetchStats();
+    fetch('/api/settings')
+      .then(res => res.json())
+      .then(data => {
+        setSettings({
+          hotline: data.hotline || "",
+          zalo: data.zalo || "",
+          announcementText: data.announcementText || ""
+        });
+        setLoading(false);
+      });
   }, []);
 
-  const fetchStats = async () => {
-    setIsLoading(true);
+  const handleSave = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSaving(true);
+    setMessage("");
+
     try {
-      const res = await fetch(`${API_BASE_URL}/analytics/dashboard`, {
-        headers: getAuthHeaders()
+      const res = await fetch('/api/settings', {
+        method: 'POST', // Theo API route đã viết hỗ trợ POST để update
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(settings)
       });
+
       if (res.ok) {
-        setStats(await res.json());
+        setMessage("✅ Đã lưu cấu hình thành công!");
       } else {
-        setError("Không thể tải dữ liệu thực tế. Đang hiển thị dữ liệu mô phỏng.");
-        setStats(getMockStats());
+        setMessage("❌ Lỗi khi lưu cấu hình.");
       }
     } catch (err) {
-      setError("Lỗi kết nối. Đang hiển thị dữ liệu mô phỏng.");
-      setStats(getMockStats());
+      setMessage("❌ Lỗi kết nối hệ thống.");
     } finally {
-      setIsLoading(false);
+      setSaving(false);
     }
   };
 
-  const getMockStats = () => ({
-    today: { newOrders: 12, revenue: 4500000, shipping: 8, returned: 1 },
-    week: { newOrders: 85, revenue: 32000000 },
-    month: { newOrders: 340, revenue: 125000000 },
-    products: { total: 156, lowStock: 5 },
-    revenueChart: [4, 5, 2, 8, 3, 9, 6, 4, 10, 5, 7, 3, 6, 8, 12, 5, 7, 9, 4, 6, 8, 10, 15, 12, 8, 6, 9, 11, 14, 10]
-  });
-
-  if (isLoading) return (
-    <div className="flex flex-col items-center justify-center min-h-[60vh]">
-      <div className="w-10 h-10 border-4 border-green-100 border-t-green-600 rounded-full animate-spin mb-4"></div>
-      <p className="text-gray-500 font-bold animate-pulse uppercase tracking-widest text-xs">Đang khởi tạo Dashboard...</p>
-    </div>
-  );
+  if (loading) return <div className="animate-pulse py-10">Đang tải cấu hình...</div>;
 
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
-      {/* Welcome & Timeframes */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-black text-gray-900 uppercase italic tracking-tight">Tổng Quan Kinh Doanh</h1>
-          <p className="text-sm text-gray-500">Chào mừng trở lại! Dưới đây là hiệu suất cửa hàng của bạn.</p>
-        </div>
-        <div className="flex bg-white p-1 rounded-xl border border-gray-200 shadow-sm self-start">
-          {['Hôm nay', 'Tuần này', 'Tháng này'].map((tab, i) => (
-            <button key={i} className={`px-4 py-1.5 text-[10px] font-black uppercase rounded-lg transition-all ${i === 0 ? 'bg-[#1a5c2a] text-white shadow-md' : 'text-gray-500 hover:bg-gray-50'}`}>
-              {tab}
-            </button>
-          ))}
-        </div>
+      <div className="flex flex-col gap-2">
+        <h1 className="text-3xl font-black text-gray-900 uppercase italic tracking-tight">Cấu hình hệ thống</h1>
+        <p className="text-gray-500 text-sm font-medium">Quản lý Hotline, Zalo và thông điệp hiển thị toàn website.</p>
       </div>
 
-      {/* Main Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <StatCard 
-          title="Lượt Click Zalo" 
-          value={stats.today.newOrders + 24} // Mocking clicks based on orders for now
-          unit="Click" 
-          sub="Hôm nay" 
-          icon="💬" 
-          color="bg-blue-600" 
-          badge="Hot"
-        />
-        <StatCard 
-          title="Yêu cầu gọi lại" 
-          value={Math.floor(stats.today.newOrders / 2) + 5} 
-          unit="Leads" 
-          sub="Chưa xử lý" 
-          icon="📞" 
-          color="bg-green-600" 
-          urgent={true}
-        />
-        <StatCard 
-          title="Sản phẩm Niche" 
-          value={stats.products?.total || 156} 
-          unit="SP" 
-          sub="Đang chạy" 
-          icon="📦" 
-          color="bg-purple-600" 
-        />
-        <StatCard 
-          title="Tỷ lệ chốt (Ước tính)" 
-          value="15" 
-          unit="%" 
-          sub="Theo Click" 
-          icon="📈" 
-          color="bg-orange-500" 
-        />
-      </div>
-
-      {/* Chart & Revenue Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2 bg-white p-8 rounded-[2.5rem] shadow-sm border border-gray-100">
-          <div className="flex justify-between items-center mb-10">
-            <h3 className="font-black text-gray-900 uppercase italic tracking-wider">Doanh thu 30 ngày gần nhất</h3>
-            <div className="flex items-center gap-2 text-[10px] font-bold text-gray-400">
-               <span className="w-2 h-2 rounded-full bg-green-500"></span> Doanh thu thực tế (triệu đồng)
-            </div>
-          </div>
-          <div className="h-48 flex items-end justify-between gap-1">
-            {stats.revenueChart?.map((val: number, i: number) => (
-              <div 
-                key={i} 
-                className="flex-1 bg-green-500 hover:bg-[#1a5c2a] transition-all rounded-t-sm relative group cursor-pointer"
-                style={{ height: `${(val / 15) * 100}%` }}
-              >
-                <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block z-10">
-                  <div className="bg-gray-900 text-white text-[9px] font-bold px-2 py-1 rounded whitespace-nowrap shadow-xl">
-                    Ngày {i+1}: {val}tr
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="flex justify-between mt-4 text-[9px] font-black text-gray-400 uppercase tracking-widest border-t border-gray-50 pt-4">
-            <span>30 ngày trước</span>
-            <span>Hôm nay</span>
-          </div>
+      <div className="bg-white rounded-[2rem] shadow-xl shadow-gray-200/50 border border-gray-100 overflow-hidden max-w-2xl">
+        <div className="bg-[#1a5c2a] p-6 text-white flex items-center justify-between">
+           <span className="font-black uppercase text-sm tracking-widest">Thông tin liên hệ</span>
+           <span className="text-xs opacity-60">Cập nhật thời gian thực</span>
         </div>
 
-        <div className="bg-[#1d2327] p-8 rounded-[2.5rem] text-white shadow-2xl flex flex-col">
-          <h3 className="font-black uppercase italic tracking-widest text-green-400 mb-8">Hiệu suất tháng này</h3>
-          <div className="space-y-8 flex-1">
-            <div className="flex justify-between items-end border-b border-gray-700 pb-4">
-              <div>
-                <p className="text-[10px] font-black text-gray-500 uppercase">Tổng doanh thu tháng</p>
-                <h4 className="text-3xl font-black italic">₫{(stats.month?.revenue || 0).toLocaleString()}</h4>
-              </div>
-              <span className="text-xs text-green-400 font-bold">+12% ↑</span>
+        <form onSubmit={handleSave} className="p-8 space-y-6">
+          {message && (
+            <div className={`p-4 rounded-xl text-xs font-bold border animate-in slide-in-from-top-2 duration-300 ${message.includes('✅') ? 'bg-green-50 text-green-700 border-green-100' : 'bg-red-50 text-red-700 border-red-100'}`}>
+              {message}
             </div>
-            <div className="flex justify-between items-end border-b border-gray-700 pb-4">
-              <div>
-                <p className="text-[10px] font-black text-gray-500 uppercase">Tổng đơn tháng</p>
-                <h4 className="text-3xl font-black italic">{stats.month?.newOrders || 0}</h4>
-              </div>
-              <span className="text-xs text-green-400 font-bold">+5% ↑</span>
-            </div>
-            <div className="flex justify-between items-end">
-              <div>
-                <p className="text-[10px] font-black text-gray-500 uppercase">Giá trị TB đơn</p>
-                <h4 className="text-3xl font-black italic">
-                  ₫{stats.month?.newOrders > 0 
-                    ? Math.round(stats.month.revenue / stats.month.newOrders).toLocaleString() 
-                    : '0'}
-                </h4>
-              </div>
-              <span className="text-xs text-gray-400 font-bold">~</span>
-            </div>
-          </div>
-          <Link href="/admin/analytics" className="mt-8 w-full py-4 bg-green-500 hover:bg-green-600 text-white text-center rounded-2xl font-black text-xs uppercase tracking-widest transition-all">
-            Chi tiết báo cáo ➜
-          </Link>
-        </div>
-      </div>
+          )}
 
-      {/* Notifications & Low Stock */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-sm">
-          <div className="flex items-center justify-between mb-8">
-             <h3 className="font-black text-gray-900 uppercase italic tracking-wider">Thông báo vận hành</h3>
-             <span className="w-2 h-2 bg-red-500 rounded-full animate-ping"></span>
-          </div>
           <div className="space-y-4">
-            {stats.notifications?.unconfirmedLong > 0 && (
-              <NotificationItem 
-                icon="🚨" 
-                text={`Có ${stats.notifications.unconfirmedLong} đơn hàng chưa xác nhận quá 2 giờ`} 
-                time="Ngay bây giờ" 
-                urgent 
+            <div>
+              <label className="block text-[10px] font-black text-gray-400 uppercase mb-2 ml-1 tracking-widest">Số điện thoại Hotline</label>
+              <input 
+                required
+                type="text" 
+                value={settings.hotline}
+                onChange={(e) => setSettings({...settings, hotline: e.target.value})}
+                className="w-full bg-gray-50 border-2 border-gray-100 rounded-2xl px-6 py-4 outline-none focus:bg-white focus:border-[#1a5c2a] transition-all font-bold text-gray-800"
+                placeholder="Ví dụ: 0773.440.966"
               />
-            )}
-            <NotificationItem icon="💬" text="Bạn có 3 yêu cầu hỗ trợ mới từ khách hàng" time="Mô phỏng" />
-            <NotificationItem icon="⭐" text="Có đánh giá 1 sao mới cho sản phẩm Sầu Riêng" time="Mô phỏng" urgent />
-          </div>
-        </div>
+            </div>
 
-        <div className="bg-white p-8 rounded-[2rem] border border-gray-100 shadow-sm overflow-hidden">
-          <div className="flex items-center justify-between mb-8">
-             <h3 className="font-black text-gray-900 uppercase italic tracking-wider">Sản phẩm sắp hết kho</h3>
-             <Link href="/admin/products" className="text-[10px] font-black text-green-600 hover:underline">Xem kho →</Link>
-          </div>
-          <div className="grid grid-cols-2 gap-4">
-            {stats.products?.lowStock?.length > 0 ? (
-              stats.products.lowStock.map((p: any) => (
-                <div key={p._id} className="flex items-center gap-3 p-3 bg-gray-50 rounded-2xl border border-gray-100">
-                   <div className="w-10 h-10 bg-gray-200 rounded-lg flex-shrink-0 overflow-hidden">
-                     {p.images?.[0] && <img src={p.images[0]} className="w-full h-full object-cover" />}
-                   </div>
-                   <div className="flex-1 min-w-0">
-                      <p className="text-[11px] font-bold text-gray-800 truncate">{p.name}</p>
-                      <p className="text-[10px] font-black text-red-500">Còn {p.stock} SP</p>
-                   </div>
-                </div>
-              ))
-            ) : (
-              <div className="col-span-2 py-10 text-center text-gray-400 text-xs font-bold uppercase tracking-widest">
-                Kho hàng đang ở trạng thái an toàn ✅
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
+            <div>
+              <label className="block text-[10px] font-black text-gray-400 uppercase mb-2 ml-1 tracking-widest">Số điện thoại Zalo</label>
+              <input 
+                required
+                type="text" 
+                value={settings.zalo}
+                onChange={(e) => setSettings({...settings, zalo: e.target.value})}
+                className="w-full bg-gray-50 border-2 border-gray-100 rounded-2xl px-6 py-4 outline-none focus:bg-white focus:border-[#1a5c2a] transition-all font-bold text-gray-800"
+                placeholder="Ví dụ: 0773440966"
+              />
+              <p className="text-[10px] text-gray-400 mt-2 italic">* Số này sẽ dùng để tạo link zalo.me/số_điện_thoại</p>
+            </div>
 
-function StatCard({ title, value, unit, sub, icon, color, urgent, badge }: any) {
-  return (
-    <div className={`p-6 rounded-[2rem] bg-white border border-gray-100 shadow-sm hover:shadow-xl hover:translate-y-[-4px] transition-all relative overflow-hidden group`}>
-      <div className={`absolute top-0 right-0 w-24 h-24 ${color} opacity-[0.03] rounded-full translate-x-8 -translate-y-8 group-hover:scale-150 transition-transform`}></div>
-      <div className="flex items-center justify-between mb-4">
-        <span className="text-2xl">{icon}</span>
-        {urgent && <span className="bg-orange-100 text-orange-600 text-[8px] font-black uppercase px-2 py-1 rounded-full animate-pulse">Cần xử lý</span>}
-        {badge && <span className="bg-green-100 text-green-600 text-[8px] font-black uppercase px-2 py-1 rounded-full">{badge}</span>}
-      </div>
-      <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">{title}</p>
-      <div className="flex items-baseline gap-1">
-        <h3 className="text-3xl font-black text-gray-900 tracking-tighter italic">{value}</h3>
-        <span className="text-xs font-bold text-gray-400 uppercase">{unit}</span>
-      </div>
-      <p className="mt-4 text-[9px] font-bold text-gray-400 uppercase tracking-tight flex items-center gap-1">
-        <span className="w-1 h-1 bg-green-500 rounded-full"></span> {sub}
-      </p>
-    </div>
-  );
-}
+            <div>
+              <label className="block text-[10px] font-black text-gray-400 uppercase mb-2 ml-1 tracking-widest">Thông điệp Banner (Thông báo)</label>
+              <textarea 
+                value={settings.announcementText}
+                onChange={(e) => setSettings({...settings, announcementText: e.target.value})}
+                className="w-full bg-gray-50 border-2 border-gray-100 rounded-2xl px-6 py-4 outline-none focus:bg-white focus:border-[#1a5c2a] transition-all font-bold text-gray-800 h-24"
+                placeholder="Ví dụ: Nhận phác đồ phục hồi vàng lá miễn phí ngay hôm nay!"
+              />
+            </div>
+          </div>
 
-function NotificationItem({ icon, text, time, urgent }: any) {
-  return (
-    <div className={`flex items-center gap-4 p-3 rounded-2xl transition-colors ${urgent ? 'bg-red-50 border border-red-100' : 'hover:bg-gray-50'}`}>
-       <span className="text-xl">{icon}</span>
-       <div className="flex-1 min-w-0">
-          <p className={`text-xs font-bold ${urgent ? 'text-red-900' : 'text-gray-800'} line-clamp-1`}>{text}</p>
-          <p className="text-[9px] text-gray-400 font-medium">{time}</p>
-       </div>
-       <span className="text-gray-300 text-xs">➜</span>
+          <button 
+            disabled={saving}
+            type="submit"
+            className="w-full bg-[#1a5c2a] text-white py-5 rounded-2xl font-black text-lg shadow-xl shadow-green-100 hover:bg-[#2d7a3e] transition-all active:scale-95 disabled:opacity-50"
+          >
+            {saving ? "ĐANG LƯU..." : "LƯU CẤU HÌNH NGAY"}
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

@@ -1,172 +1,149 @@
 "use client";
-import { API_BASE_URL, getAuthHeaders } from '@/utils/api';
 import { useState, useEffect } from "react";
-import AdminSidebar from "@/components/layout/AdminSidebar";
-import AdminGuard from "@/components/shared/AdminGuard";
 
 export default function AdminLeads() {
   const [leads, setLeads] = useState<any[]>([]);
-  const [filteredLeads, setFilteredLeads] = useState<any[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [statusFilter, setStatusFilter] = useState("all");
-
-  const getAuthHeaders = () => ({
-    "Content-Type": "application/json",
-    "Authorization": `Bearer ${localStorage.getItem("adminToken")}`
-  });
-
-  const fetchLeads = () => {
-    setIsLoading(true);
-    fetch(`${API_BASE_URL}/leads`, {
-      headers: getAuthHeaders()
-    })
-      .then(r => r.json())
-      .then(d => { 
-        if (Array.isArray(d)) {
-          setLeads(d);
-          setFilteredLeads(d);
-        }
-        setIsLoading(false); 
-      })
-      .catch(() => setIsLoading(false));
-  };
-
-  useEffect(() => { fetchLeads(); }, []);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    let result = leads;
-    if (statusFilter !== "all") {
-      result = result.filter(l => l.status === statusFilter);
-    }
-    if (searchTerm) {
-      result = result.filter(l => 
-        l.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
-        l.phone.includes(searchTerm)
+    fetch('/api/leads')
+      .then(res => res.json())
+      .then(data => {
+        setLeads(Array.isArray(data) ? data : []);
+        setLoading(false);
+      });
+  }, []);
+
+  const getUrgentBadge = (pathology: string) => {
+    const urgentTerms = ['vàng lá', 'tuyến trùng', 'thối rễ', 'cấp bách', 'nặng'];
+    const isUrgent = urgentTerms.some(term => pathology?.toLowerCase().includes(term));
+    
+    if (isUrgent) {
+      return (
+        <span className="bg-red-100 text-red-600 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-tighter animate-pulse border border-red-200">
+          ⚠️ Cần tư vấn ngay
+        </span>
       );
     }
-    setFilteredLeads(result);
-  }, [searchTerm, statusFilter, leads]);
-
-  const updateStatus = async (id: string, status: string) => {
-    const res = await fetch(`${API_BASE_URL}/leads/${id}/status`, { 
-      method: "PUT",
-      headers: getAuthHeaders(),
-      body: JSON.stringify({ status })
-    });
-    if (res.ok) fetchLeads();
+    return (
+      <span className="bg-blue-50 text-blue-600 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-tighter border border-blue-100">
+        Đang chờ
+      </span>
+    );
   };
 
-  const deleteLead = async (id: string) => {
-    if (!confirm("Bạn có muốn xóa đơn hàng này không?")) return;
-    const res = await fetch(`${API_BASE_URL}/leads/${id}`, { 
-      method: "DELETE",
-      headers: getAuthHeaders()
-    });
-    if (res.ok) fetchLeads();
-  };
+  if (loading) return <div className="animate-pulse py-10 text-center font-bold text-gray-400">Đang tải danh sách yêu cầu...</div>;
 
   return (
-    <AdminGuard>
-      <div className="flex bg-[#f0f0f1] min-h-screen">
-        <AdminSidebar />
-        
-        <main className="flex-1 ml-64 p-8">
-           <div className="flex justify-between items-center mb-8 bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-            <h1 className="text-xl font-bold text-gray-800">Quản lý Yêu cầu Tư vấn</h1>
-            <div className="flex gap-3">
-               <input 
-                 type="text" 
-                 placeholder="Tìm tên hoặc SĐT..." 
-                 value={searchTerm}
-                 onChange={(e) => setSearchTerm(e.target.value)}
-                 className="text-xs border border-gray-300 px-3 py-1.5 rounded-md outline-none focus:border-blue-500 w-64"
-               />
-               <button onClick={fetchLeads} className="bg-white border border-gray-300 text-gray-700 px-4 py-1.5 rounded-md text-sm font-bold hover:bg-gray-50">
-                 Làm mới
-               </button>
-            </div>
+    <div className="space-y-8 animate-in fade-in duration-500">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="flex flex-col gap-2">
+          <h1 className="text-3xl font-black text-gray-900 uppercase italic tracking-tight">Yêu cầu từ nhà vườn</h1>
+          <p className="text-gray-500 text-sm font-medium">Danh sách nông dân cần hỗ trợ phác đồ điều trị cây trồng.</p>
+        </div>
+        <div className="bg-white px-6 py-3 rounded-2xl border border-gray-100 shadow-sm flex items-center gap-4">
+          <span className="text-2xl">🌱</span>
+          <div className="flex flex-col">
+            <span className="text-xs font-black text-gray-400 uppercase">Tổng số Lead</span>
+            <span className="text-xl font-black text-[#1a5c2a]">{leads.length}</span>
           </div>
-
-          <div className="mb-6 flex gap-4 text-sm">
-             <button onClick={() => setStatusFilter("all")} className={`pb-1 px-1 font-bold ${statusFilter === 'all' ? 'text-blue-600 border-b-2 border-blue-600' : 'text-gray-500'}`}>Tất cả ({leads.length})</button>
-             <button onClick={() => setStatusFilter("pending")} className={`pb-1 px-1 font-bold ${statusFilter === 'pending' ? 'text-blue-600 border-b-2 border-blue-600' : 'text-gray-500'}`}>Yêu cầu mới ({leads.filter(l => l.status === 'pending').length})</button>
-             <button onClick={() => setStatusFilter("called")} className={`pb-1 px-1 font-bold ${statusFilter === 'called' ? 'text-blue-600 border-b-2 border-blue-600' : 'text-gray-500'}`}>Đã tư vấn</button>
-             <button onClick={() => setStatusFilter("shipped")} className={`pb-1 px-1 font-bold ${statusFilter === 'shipped' ? 'text-blue-600 border-b-2 border-blue-600' : 'text-gray-500'}`}>Đã chốt/Giao hàng</button>
-          </div>
-
-          <div className="bg-white border border-gray-200 rounded-sm overflow-hidden shadow-sm">
-            <table className="w-full text-left text-sm">
-              <thead>
-                <tr className="bg-[#f6f7f7] border-b border-gray-200">
-                  <th className="p-4 font-bold text-gray-700">Khách hàng / Vấn đề</th>
-                  <th className="p-4 font-bold text-gray-700">Sản phẩm quan tâm</th>
-                  <th className="p-4 font-bold text-gray-700">Ghi chú nhanh</th>
-                  <th className="p-4 font-bold text-gray-700 text-right">Trạng thái</th>
-                </tr>
-              </thead>
-              <tbody>
-                {isLoading ? (
-                  <tr><td colSpan={4} className="p-10 text-center text-gray-400">Đang tải dữ liệu khách hàng...</td></tr>
-                ) : filteredLeads.length === 0 ? (
-                  <tr><td colSpan={4} className="p-10 text-center text-gray-400">Không tìm thấy yêu cầu tư vấn nào.</td></tr>
-                ) : filteredLeads.map(lead => (
-                  <tr key={lead._id} className="border-b border-gray-100 hover:bg-[#f6f7f7] group">
-                    <td className="p-4">
-                       <div className="flex items-center gap-2">
-                         <p className="font-black text-[#2271b1] text-base">{lead.name}</p>
-                         <span className="text-[10px] bg-blue-50 text-blue-600 px-1.5 py-0.5 rounded font-bold uppercase">Zalo</span>
-                       </div>
-                       <p className="text-gray-700 font-bold text-sm mt-1">{lead.phone}</p>
-                       <p className="text-[11px] text-gray-400 mt-1 italic">{lead.address || "Chưa cung cấp địa chỉ"}</p>
-                       <div className="flex gap-2 mt-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                          <a href={`tel:${lead.phone}`} className="text-[10px] bg-green-600 text-white px-2 py-0.5 rounded hover:bg-green-700">Gọi điện</a>
-                          <button onClick={() => deleteLead(lead._id)} className="text-[10px] text-red-500 hover:underline">Xóa</button>
-                       </div>
-                    </td>
-                    <td className="p-4">
-                       <ul className="text-[11px] space-y-1">
-                          {lead.items?.map((item: any, i: number) => (
-                            <li key={i} className="bg-gray-50 px-2 py-1 rounded border border-gray-100">
-                              <span className="font-bold">{item.name}</span>
-                              {item.quantity > 1 && <span className="ml-1 text-gray-400">(x{item.quantity})</span>}
-                            </li>
-                          ))}
-                          {!lead.items?.length && <span className="text-gray-400 italic">Cần tư vấn phác đồ</span>}
-                       </ul>
-                    </td>
-                    <td className="p-4">
-                       <textarea 
-                        className="w-full bg-transparent border-none text-[11px] text-gray-500 focus:ring-0 resize-none h-12" 
-                        placeholder="Ghi chú kỹ thuật tại đây..."
-                        defaultValue={lead.notes}
-                       />
-                    </td>
-                    <td className="p-4 text-right">
-                       <select 
-                         value={lead.status} 
-                         onChange={(e) => updateStatus(lead._id, e.target.value)}
-                         className={`text-xs p-1.5 border rounded-sm font-black uppercase tracking-tighter ${
-                           lead.status === 'pending' ? 'bg-red-50 text-red-600 border-red-200' :
-                           lead.status === 'shipped' ? 'bg-green-50 text-green-600 border-green-200' :
-                           lead.status === 'called' ? 'bg-blue-50 text-blue-600 border-blue-200' :
-                           'bg-gray-50 text-gray-600 border-gray-200'
-                         }`}
-                       >
-                         <option value="pending">Chờ tư vấn</option>
-                         <option value="called">Đang tư vấn</option>
-                         <option value="shipped">Đã chốt đơn</option>
-                         <option value="cancelled">Không chốt</option>
-                       </select>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </main>
+        </div>
       </div>
-    </AdminGuard>
+
+      {/* Desktop Table */}
+      <div className="hidden md:block bg-white rounded-[2rem] shadow-xl shadow-gray-200/50 border border-gray-100 overflow-hidden">
+        <table className="w-full text-left border-collapse">
+          <thead>
+            <tr className="bg-[#1a5c2a] text-white">
+              <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest">Thời gian</th>
+              <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest">Nhà vườn</th>
+              <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest">Liên hệ</th>
+              <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest">Cây trồng</th>
+              <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest">Tình trạng bệnh</th>
+              <th className="px-6 py-5 text-[10px] font-black uppercase tracking-widest text-center">Trạng thái</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-gray-50">
+            {leads.map((lead) => (
+              <tr key={lead._id} className="hover:bg-gray-50/50 transition-colors">
+                <td className="px-6 py-5">
+                   <div className="flex flex-col">
+                      <span className="text-sm font-bold text-gray-900">{new Date(lead.createdAt).toLocaleDateString('vi-VN')}</span>
+                      <span className="text-[10px] text-gray-400 font-medium">{new Date(lead.createdAt).toLocaleTimeString('vi-VN')}</span>
+                   </div>
+                </td>
+                <td className="px-6 py-5">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-green-50 text-[#1a5c2a] rounded-xl flex items-center justify-center font-black">
+                      {lead.name?.charAt(0).toUpperCase()}
+                    </div>
+                    <span className="text-sm font-black text-gray-900">{lead.name}</span>
+                  </div>
+                </td>
+                <td className="px-6 py-5">
+                  <a href={`tel:${lead.phone}`} className="text-sm font-black text-blue-600 hover:underline">{lead.phone}</a>
+                </td>
+                <td className="px-6 py-5">
+                  <span className="text-xs font-bold text-gray-600 bg-gray-100 px-3 py-1 rounded-lg">{lead.cropType || 'Chưa rõ'}</span>
+                </td>
+                <td className="px-6 py-5">
+                  <p className="text-sm text-gray-700 font-medium line-clamp-1 max-w-[200px]" title={lead.pathology}>
+                    {lead.pathology || lead.note || 'Cần tư vấn chung'}
+                  </p>
+                </td>
+                <td className="px-6 py-5 text-center">
+                  {getUrgentBadge(lead.pathology)}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Mobile Card View */}
+      <div className="grid grid-cols-1 gap-4 md:hidden">
+        {leads.map((lead) => (
+          <div key={lead._id} className="bg-white p-6 rounded-[2rem] border border-gray-100 shadow-lg space-y-4">
+            <div className="flex justify-between items-start">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 bg-green-50 text-[#1a5c2a] rounded-2xl flex items-center justify-center font-black text-lg">
+                  {lead.name?.charAt(0).toUpperCase()}
+                </div>
+                <div className="flex flex-col">
+                   <span className="text-lg font-black text-gray-900 leading-tight">{lead.name}</span>
+                   <span className="text-[10px] text-gray-400 font-bold uppercase">{new Date(lead.createdAt).toLocaleString('vi-VN')}</span>
+                </div>
+              </div>
+              {getUrgentBadge(lead.pathology)}
+            </div>
+
+            <div className="grid grid-cols-2 gap-4 pt-2">
+               <div className="flex flex-col gap-1">
+                  <span className="text-[9px] font-black text-gray-400 uppercase tracking-widest">Liên hệ</span>
+                  <a href={`tel:${lead.phone}`} className="text-sm font-black text-blue-600 underline">{lead.phone}</a>
+               </div>
+               <div className="flex flex-col gap-1">
+                  <span className="text-[9px] font-black text-gray-400 uppercase tracking-widest">Loại cây</span>
+                  <span className="text-sm font-bold text-gray-800">{lead.cropType || 'Chưa rõ'}</span>
+               </div>
+            </div>
+
+            <div className="bg-gray-50 p-4 rounded-2xl border border-gray-100">
+               <span className="text-[9px] font-black text-gray-400 uppercase tracking-widest block mb-1">Tình trạng bệnh</span>
+               <p className="text-sm text-gray-700 font-medium italic">"{lead.pathology || lead.note || 'Cần tư vấn chung'}"</p>
+            </div>
+            
+            <a 
+              href={`https://zalo.me/${lead.phone.replace(/\D/g, '')}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full bg-[#0068FF] text-white py-4 rounded-xl flex items-center justify-center gap-2 font-black text-sm"
+            >
+               <span>💬</span> NHẮN ZALO TƯ VẤN
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }
-
