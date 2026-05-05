@@ -52,7 +52,7 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
   return (
     <div className="bg-white min-h-screen">
       {/* 1. Progress Bar / Header */}
-      <div className="pt-24 pb-12 bg-gray-50 border-b border-gray-100">
+      <div className="pt-20 pb-8 md:pt-24 md:pb-12 bg-gray-50 border-b border-gray-100">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <Breadcrumbs items={[
@@ -61,35 +61,35 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
               { label: 'Chi tiết' }
             ]} />
             
-            <h1 className="text-3xl md:text-5xl lg:text-6xl font-black text-gray-900 mb-8 mt-6 leading-[1.1] tracking-tight">
+            <h1 className="text-2xl md:text-5xl lg:text-6xl font-black text-gray-900 mb-6 mt-4 leading-[1.1] tracking-tight">
               {blog.title}
             </h1>
 
-            <div className="flex flex-wrap items-center gap-6 text-sm font-bold text-gray-500">
-               <span className="flex items-center gap-2 bg-white px-4 py-2 rounded-xl border border-gray-100 shadow-sm">
-                  <User size={16} className="text-emerald-600" /> Kỹ sư Phân Bón Giá Tốt
+            <div className="flex flex-wrap items-center gap-4 md:gap-6 text-sm font-bold text-gray-500">
+               <span className="flex items-center gap-2 bg-white px-4 py-2 rounded-xl border border-gray-100 shadow-sm text-xs md:text-sm">
+                  <User size={14} className="text-emerald-600" /> Kỹ sư Phân Bón Giá Tốt
                </span>
-               <span className="flex items-center gap-2"><Clock size={16} /> {new Date(blog.createdAt).toLocaleDateString('vi-VN')}</span>
-               <span className="bg-emerald-600 text-white px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest">{blog.category}</span>
+               <span className="flex items-center gap-2 text-xs md:text-sm"><Clock size={14} /> {new Date(blog.createdAt).toLocaleDateString('vi-VN')}</span>
+               <span className="bg-emerald-600 text-white px-3 py-1 rounded-lg text-[9px] md:text-[10px] font-black uppercase tracking-widest">{blog.category}</span>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-12 md:py-20">
+      <div className="container mx-auto px-4 py-8 md:py-20">
         <div className="flex flex-col lg:flex-row gap-12 max-w-7xl mx-auto">
           {/* MAIN CONTENT AREA */}
           <div className="lg:flex-1 min-w-0">
             {/* Video-First Section - Optimized for Mobile Full-Width */}
             {blog.videoUrl && (
-              <div className="-mx-4 md:mx-0 mb-10 md:mb-16">
+              <div className="-mx-4 md:mx-0 mb-8 md:mb-16">
                  <div className="relative aspect-video md:rounded-[2.5rem] overflow-hidden shadow-2xl md:border-4 border-white ring-1 ring-gray-100">
                     <iframe 
                       src={blog.videoUrl}
                       className="absolute inset-0 w-full h-full"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
-                      loading="lazy"
+                      loading="eager"
                     ></iframe>
                  </div>
                  <div className="mt-4 md:mt-6 mx-4 md:mx-0 flex items-center gap-4 p-4 bg-emerald-50 rounded-2xl border border-emerald-100">

@@ -11,27 +11,43 @@ const successStories = [
 ];
 
 export default function FloatingSocialProof() {
+  const [stories, setStories] = useState<any[]>(successStories);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    // Initial fetch from API
+    const fetchLeads = async () => {
+      try {
+        const res = await fetch('/api/leads/recent');
+        const data = await res.json();
+        if (data && data.length > 0) {
+          setStories(data);
+        }
+      } catch (err) {
+        console.error("Failed to fetch leads", err);
+      }
+    };
+
+    fetchLeads();
+    
     const showTimer = setTimeout(() => setIsVisible(true), 5000);
     
     const interval = setInterval(() => {
       setIsVisible(false);
       setTimeout(() => {
-        setCurrentIndex((prev) => (prev + 1) % successStories.length);
+        setCurrentIndex((prev) => (prev + 1) % stories.length);
         setIsVisible(true);
       }, 1000);
-    }, 180000); // 3 minutes per user request
+    }, 120000); // 2 minutes per lead for a faster trust signal
 
     return () => {
       clearTimeout(showTimer);
       clearInterval(interval);
     };
-  }, []);
+  }, [stories.length]);
 
-  const story = successStories[currentIndex];
+  const story = stories[currentIndex];
 
   if (currentIndex === -1) return null;
 

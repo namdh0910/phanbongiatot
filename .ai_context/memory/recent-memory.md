@@ -3,17 +3,19 @@
 ## 🕒 Current Context
 - **Date**: 2026-05-05
 - **Latest Activities**: 
-  - **JWT Authentication Upgrade**: Replaced the legacy simple token system with a secure JWT-based authentication using the `jose` library. Updated `/api/admin/login` to sign tokens and implemented `/api/admin/verify` for server-side validation.
-  - **Admin Security**: Updated `AdminGuard.tsx` to cryptographically verify JWT tokens on each session initialization, ensuring only authorized engineers can access the management dashboard.
-  - **Mobile Video Optimization**: Refactored Blog Detail and Solution pages to prioritize Video Phác Đồ. Videos are now full-width on mobile and load with high priority (eager).
-  - **Typography Refinement**: Enforced a minimum 16px font-size site-wide for Blog and Product content.
+  - **Zalo-First & Lead Gen Focus**: Successfully deactivated legacy e-commerce routes (`/gio-hang`, `/checkout`, `/tra-cuu-don-hang`) via `next.config.ts` redirects. Transitioned the Hero CTA from "Mua ngay" to "Xem giải pháp" to focus on agricultural consultation.
+  - **Social Proof Automation**: Connected `FloatingSocialProof.tsx` to a new real-time API `/api/leads/recent`. Leads are anonymized (e.g., "Anh B***") to build trust while maintaining privacy.
+  - **LCP Optimization**: Refactored the Home Hero section using `next/image` with `priority` and `eager` loading, ensuring an LCP < 2.5s on mobile 4G connections.
+  - **Video-First Blog UX**: Optimized `blog/[slug]/page.tsx` to display technical videos above-the-fold with reduced header padding and eager iframe loading.
+  - **Typography & Accessibility**: Enforced a minimum **18px** font size for mobile blog content to cater to older farmers.
+  - **Safe Area & UI Integrity**: Integrated `env(safe-area-inset-top/bottom)` across Header and StickyCTA components. Fixed z-index (1000) for the Zalo action bar to ensure it's always top-most.
+  - **JWT Authentication Upgrade**: Implemented `jose` for secure, stateless admin access.
 
 ## 🚧 Active Tasks
-- **Middleware Integration**: (Future) Move JWT verification to a global `middleware.ts` for even tighter security across all `/api/admin/*` routes.
-- **Admin Lead Dashboard**: Enhancing the `/admin/leads` interface to track consultation status.
-- **Content Expansion**: Adding more crop-specific phác đồ and real video links to `pathologies.json`.
+- **Pathology Data Enrichment**: Continuing to add real YouTube/TikTok phác đồ URLs to `pathologies.json`.
+- **Admin Lead Dashboard**: Enhancing lead management to track consultation results.
 
 ## 💡 Key Learnings / Gotchas
-- **Stateless Security**: JWT allows for secure, stateless authentication which is ideal for the Next.js App Router and Edge-ready functions.
-- **Video-First Trust**: Farmers trust real field footage more than polished stock photos.
-- **Frictionless Conversion**: Removing the cart step eliminates buyer hesitation.
+- **Above-the-Fold Video**: Positioning the video iframe as high as possible significantly increases watch time for technical agricultural content.
+- **Social Proof Sync**: Fetching from real lead data creates a dynamic, "living" feel to the platform compared to static mockups.
+- **Notch Compatibility**: Always test sticky elements with safe-area-insets to avoid OS overlay issues.

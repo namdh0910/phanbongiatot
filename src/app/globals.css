@@ -217,26 +217,36 @@ body {
 
   /* Maximize text width on mobile product pages */
   .prose {
-    font-size: 16px !important;
+    font-size: 18px !important;
   }
 
   .prose h1 {
-    font-size: 1.0625rem !important; /* 17px on small phones */
+    font-size: 1.125rem !important; /* 18px on small phones */
     line-height: 1.45 !important;
   }
 
   .prose h2 {
-    font-size: 1rem !important; /* 16px */
+    font-size: 1.125rem !important; /* 18px */
     margin-top: 1.5rem !important;
   }
 
   .prose h3 {
-    font-size: 0.9375rem !important; /* 15px */
+    font-size: 1rem !important; /* 16px */
   }
 
   .prose p, .prose li {
-    font-size: 16px !important;
+    font-size: 18px !important;
   }
+}
+
+/* Safe Area Top Utility */
+.pt-safe {
+  padding-top: env(safe-area-inset-top);
+}
+
+.sticky-header-safe {
+  padding-top: env(safe-area-inset-top);
+  background-color: white;
 }
 
 @media (max-width: 767px) {

@@ -44,10 +44,10 @@ const Hero: React.FC = () => {
         {/* Hero CTAs */}
         <div className="hero-actions">
           <Link
-            href="/danh-muc/phan-bon"
+            href="/blog"
             className="hero-btn hero-btn-primary"
           >
-            🛒 Mua ngay
+            🌿 Xem giải pháp
           </Link>
           <a
             href={`https://zalo.me/${process.env.NEXT_PUBLIC_ZALO_PHONE ?? '0773440966'}`}

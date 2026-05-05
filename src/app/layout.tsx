@@ -6,7 +6,6 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import StickyCTA from "@/components/shared/StickyCTA";
 import MobileBottomBar from "@/components/layout/MobileBottomBar";
-import { CartProvider } from "@/context/CartContext";
 import { SettingsProvider } from "@/context/SettingsContext";
 
 const inter = Inter({ subsets: ["latin", "vietnamese"], display: 'swap' });
@@ -124,13 +123,11 @@ export default function RootLayout({
         )}
       </head>
       <body className={`${inter.className} min-h-screen flex flex-col bg-background text-foreground`}>
-        <CartProvider>
-          <SettingsProvider>
-            <LayoutWrapper>
-              {children}
-            </LayoutWrapper>
-          </SettingsProvider>
-        </CartProvider>
+        <SettingsProvider>
+          <LayoutWrapper>
+            {children}
+          </LayoutWrapper>
+        </SettingsProvider>
       </body>
     </html>
   );

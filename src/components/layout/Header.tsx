@@ -104,7 +104,7 @@ export default function Header() {
   const hotline = settings?.hotline || "0773.440.966";
 
   return (
-    <div className="w-full sticky top-0 z-[100] bg-white shadow-sm">
+    <div className="w-full sticky top-0 z-[100] bg-white shadow-sm pt-[env(safe-area-inset-top)]">
       {/* Announcement Bar */}
       {settings?.announcementEnabled && !isSearchFocused && (
         <div className="bg-[#1a5c2a] text-white py-2 px-4 text-center text-[10px] md:text-xs font-bold uppercase tracking-widest">

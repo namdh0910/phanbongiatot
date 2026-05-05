@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { 
   Phone, 
   MessageCircle, 
@@ -223,12 +224,16 @@ export default function LandingPage() {
 
       {/* 2. Hero Section - Targeted Agricultural Solution */}
       <section className="relative min-h-[65vh] md:min-h-[85vh] flex items-center pt-24 pb-12 md:py-32 overflow-hidden">
-        {/* Background Image with 40% Overlay */}
+        {/* Background Image Optimized for LCP */}
         <div className="absolute inset-0 z-0">
-          <img 
+          <Image 
             src="/hero-bg.png" 
             alt="Vườn sầu riêng cà phê xanh tốt" 
-            className="w-full h-full object-cover"
+            fill
+            priority
+            loading="eager"
+            className="object-cover"
+            sizes="100vw"
           />
           <div className="absolute inset-0 bg-black/40 bg-gradient-to-b from-black/60 via-black/40 to-[#0d2a1c]/80" />
         </div>
@@ -552,22 +557,6 @@ export default function LandingPage() {
           </div>
         </div>
       </footer>
-
-      {/* 9. Sticky Mobile Action Bar */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-100 flex p-2 gap-2 h-16">
-        <a 
-          href={zaloUrl} 
-          className="flex-1 bg-[#0068FF] text-white rounded-xl font-black flex items-center justify-center gap-2 text-sm shadow-lg shadow-blue-100 px-2"
-        >
-          <MessageCircle size={18} fill="currentColor" /> Gửi ảnh qua Zalo
-        </a>
-        <a 
-          href={callUrl} 
-          className="flex-1 bg-[#ee4d2d] text-white rounded-xl font-black flex items-center justify-center gap-2 text-sm shadow-lg shadow-red-100 px-2"
-        >
-          <Phone size={18} /> Gọi Kỹ Sư
-        </a>
-      </div>
 
     </div>
   );
