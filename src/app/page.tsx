@@ -222,7 +222,7 @@ export default function LandingPage() {
       )}
 
       {/* 2. Hero Section - Targeted Agricultural Solution */}
-      <section className="relative min-h-[90vh] flex items-center pt-20 overflow-hidden">
+      <section className="relative min-h-[65vh] md:min-h-[85vh] flex items-center pt-24 pb-12 md:py-32 overflow-hidden">
         {/* Background Image with 40% Overlay */}
         <div className="absolute inset-0 z-0">
           <img 
@@ -251,12 +251,12 @@ export default function LandingPage() {
             <div className="flex flex-col items-center gap-6 animate-in slide-in-from-bottom duration-700 delay-300">
               <a 
                 href={zaloUrl} 
-                className="group relative px-8 md:px-12 h-20 bg-[#f5a623] hover:bg-[#fbb940] text-white rounded-2xl font-black text-lg md:text-xl shadow-2xl flex items-center justify-center gap-4 transition-all active:scale-95 animate-heartbeat"
+                className="group relative px-6 md:px-12 py-4 md:h-20 bg-[#f5a623] hover:bg-[#fbb940] text-white rounded-2xl font-black text-base md:text-xl shadow-2xl flex items-center justify-center gap-3 md:gap-4 transition-all active:scale-95 animate-heartbeat"
               >
-                <MessageCircle size={28} fill="currentColor" />
-                Chụp Ảnh Vườn Gửi Kỹ Sư Chẩn Đoán Ngay
+                <MessageCircle className="w-6 h-6 md:w-7 md:h-7" fill="currentColor" />
+                Chụp Ảnh Vườn Gửi Kỹ Sư Ngay
               </a>
-              <p className="text-white/60 text-sm font-bold uppercase tracking-widest">Tư vấn miễn phí qua Zalo 24/7</p>
+              <p className="text-white/60 text-[10px] md:text-sm font-bold uppercase tracking-widest">Tư vấn miễn phí qua Zalo 24/7</p>
             </div>
           </div>
         </div>

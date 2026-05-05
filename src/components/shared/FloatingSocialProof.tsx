@@ -23,7 +23,7 @@ export default function FloatingSocialProof() {
         setCurrentIndex((prev) => (prev + 1) % successStories.length);
         setIsVisible(true);
       }, 1000);
-    }, 12000);
+    }, 180000); // 3 minutes per user request
 
     return () => {
       clearTimeout(showTimer);
