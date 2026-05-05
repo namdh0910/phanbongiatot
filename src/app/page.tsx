@@ -208,7 +208,12 @@ export default function LandingPage() {
                 <MessageCircle className="w-5 h-5 md:w-7 md:h-7" fill="currentColor" />
                 Chụp Ảnh Vườn Gửi Kỹ Sư
               </a>
-              <p className="text-white/60 text-[9px] md:text-sm font-bold uppercase tracking-widest">Tư vấn miễn phí qua Zalo 24/7</p>
+              <div className="flex flex-col items-center gap-2">
+                 <p className="text-white/60 text-[9px] md:text-sm font-bold uppercase tracking-widest">Tư vấn miễn phí qua Zalo 24/7</p>
+                 <Link href="/blog" className="text-emerald-400 text-[10px] md:text-sm font-black uppercase tracking-widest border-b border-emerald-400/30 pb-1 hover:text-white transition-colors">
+                    Hoặc tự tra cứu tại Thư viện kỹ thuật ➔
+                 </Link>
+              </div>
             </div>
           </div>
         </div>
