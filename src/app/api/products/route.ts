@@ -2,10 +2,26 @@ import { NextResponse } from 'next/server';
 import dbConnect from '@/lib/db';
 import Product from '@/lib/models/Product';
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
     await dbConnect();
-    const products = await Product.find({}).sort({ createdAt: -1 });
+    const { searchParams } = new URL(request.url);
+    const category = searchParams.get('category');
+    const query = searchParams.get('q');
+    
+    let filter: any = {};
+    if (category) {
+      filter.category = category;
+    }
+    if (query) {
+      filter.$or = [
+        { name: { $regex: query, $options: 'i' } },
+        { description: { $regex: query, $options: 'i' } },
+        { tags: { $in: [new RegExp(query, 'i')] } }
+      ];
+    }
+
+    const products = await Product.find(filter).sort({ createdAt: -1 });
     return NextResponse.json({ products });
   } catch (error: any) {
     return NextResponse.json({ error: error.message || 'Internal Server Error' }, { status: 500 });

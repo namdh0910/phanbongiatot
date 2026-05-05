@@ -79,7 +79,7 @@ export default function Header() {
         { label: "Vàng lá thối rễ", href: "/giai-phap/vang-la-thoi-re" },
         { label: "Tuyến trùng", href: "/giai-phap/sau-rieng-vang-la-tuyen-trung" },
         { label: "Rụng trái non", href: "/giai-phap/sau-rieng-rung-trai" },
-        { label: "Xử lý ra hoa", href: "/tim-kiem?q=sau+rieng+ra+hoa" },
+        { label: "Xử lý ra hoa", href: "/danh-muc/sau+rieng+ra+hoa" },
       ]
     },
     { 
@@ -87,9 +87,9 @@ export default function Header() {
       icon: "☕",
       slug: "ca-phe",
       issues: [
-        { label: "Vàng lá mùa khô", href: "/tim-kiem?q=ca+phe+vang+la" },
+        { label: "Vàng lá mùa khô", href: "/danh-muc/ca+phe+vang+la" },
         { label: "Rễ yếu còi cọc", href: "/giai-phap/phuc-hoi-ca-phe" },
-        { label: "Rỉ sắt - Nấm hồng", href: "/tim-kiem?q=ca+phe+nam+hong" },
+        { label: "Rỉ sắt - Nấm hồng", href: "/danh-muc/ca+phe+nam+hong" },
       ]
     },
     { 
