@@ -31,6 +31,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   return {
     title: `${pathology.title} | Phân Bón Giá Tốt`,
     description: description,
+    alternates: {
+      canonical: `/giai-phap/${slug}`,
+    },
     openGraph: {
       title: `${pathology.title} | Phân Bón Giá Tốt`,
       description: description,

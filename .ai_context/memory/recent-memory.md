@@ -14,6 +14,7 @@
   - **Layout Unification**: Removed hardcoded duplicate `<header>` and `<footer>` sections from the landing page (`src/app/page.tsx`) to enforce a single source of truth via the global `LayoutWrapper`.
   - **Footer Design Sync**: Restored the preferred dark-blue landing page footer design globally by replacing the generic `Footer.tsx` content with it, while maintaining the `pb-[100px]` mobile overlap fix.
   - **Navigation Strictness (Anti-Ecommerce)**: Removed e-commerce related pages (`/san-pham`, `/combo`, `/chinh-sach-*`) from the navigation and footer to strictly enforce the pure lead-generation and consultation model. Footer links now only point to `/blog`, `/ve-chung-toi`, and direct Zalo consultation.
+  - **SEO Canonical Fix**: Resolved an issue where all pages inherited the homepage's canonical URL. Implemented `metadataBase` in `layout.tsx` and explicit self-referencing `alternates.canonical` across dynamic routes (`/giai-phap/[slug]`, `/blog/[slug]`) and layout (`/blog/layout.tsx`) to ensure Google indexes all pages correctly.
 
 ## 🚧 Active Tasks
 - **UI Testing**: Verified mobile responsiveness and conversion hooks on localhost.

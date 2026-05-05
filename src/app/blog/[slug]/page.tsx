@@ -34,6 +34,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: `${blog.title} | Thư viện kỹ thuật | Phân Bón Giá Tốt`,
     description: blog.excerpt || blog.title,
+    alternates: {
+      canonical: `/blog/${slug}`,
+    },
     openGraph: {
       title: blog.title,
       description: blog.excerpt,
