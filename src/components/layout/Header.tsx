@@ -185,9 +185,9 @@ export default function Header() {
 
         {/* MOBILE HEADER - REFINED PREMIUM DESIGN */}
         <div className="lg:hidden">
-          <div className="flex items-center gap-3 px-4 h-[64px] bg-gradient-to-r from-[#1B5E20] to-[#2E7D32] text-white shadow-lg relative z-20">
+          <div className="flex items-center gap-3 px-4 h-[56px] bg-gradient-to-r from-[#1B5E20] to-[#2E7D32] text-white shadow-lg relative z-20">
             <Link href="/" className="flex-shrink-0 active:scale-95 transition-transform">
-               <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-[#1B5E20] font-black text-2xl shadow-inner">P</div>
+               <div className="w-9 h-9 bg-white rounded-lg flex items-center justify-center text-[#1B5E20] font-black text-xl shadow-inner">P</div>
             </Link>
   
             <div className="flex-1 relative">
@@ -202,14 +202,14 @@ export default function Header() {
   
             <a 
               href={`tel:${hotline.replace(/\./g, '')}`}
-              className="flex-shrink-0 w-10 h-10 bg-[#FF6B35] text-white rounded-xl shadow-lg active:scale-95 transition-transform flex items-center justify-center"
+              className="flex-shrink-0 w-9 h-9 bg-[#FF6B35] text-white rounded-lg shadow-lg active:scale-95 transition-transform flex items-center justify-center"
             >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
             </a>
           </div>
 
           {/* QUICK CATEGORY SCROLLBAR */}
-          <div className="bg-white border-b border-gray-100 py-3 overflow-x-auto scrollbar-hide flex items-center gap-2 px-4 shadow-sm">
+          <div className="bg-white border-b border-gray-100 py-2 overflow-x-auto scrollbar-hide flex items-center gap-2 px-4 shadow-sm">
             {[
               { name: "Tất cả", icon: "🏠", href: "/" },
               { name: "Sầu riêng", icon: "🌳", href: "/tim-kiem?q=sau-rieng" },
@@ -221,7 +221,7 @@ export default function Header() {
               <Link 
                 key={i} 
                 href={cat.href}
-                className="flex-shrink-0 flex items-center gap-1.5 bg-gray-50 border border-gray-100 px-4 py-1.5 rounded-full text-[11px] font-black text-gray-700 active:bg-emerald-600 active:text-white transition-all shadow-sm"
+                className="flex-shrink-0 flex items-center gap-1.5 bg-gray-50 border border-gray-100 px-3 py-1 rounded-full text-[10px] font-black text-gray-700 active:bg-emerald-600 active:text-white transition-all shadow-sm"
               >
                 <span>{cat.icon}</span> {cat.name}
               </Link>

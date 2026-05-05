@@ -93,7 +93,7 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
     <div className="bg-white min-h-screen">
       <SchemaMarkup data={articleSchema} />
       {/* 1. Progress Bar / Header */}
-      <div className="pt-[calc(64px+env(safe-area-inset-top))] pb-4 md:pt-24 md:pb-8 bg-gray-50 border-b border-gray-100">
+      <div className="pt-[calc(56px+env(safe-area-inset-top))] pb-4 md:pt-24 md:pb-8 bg-gray-50 border-b border-gray-100">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <Breadcrumbs items={[
@@ -102,7 +102,7 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
               { label: 'Chi tiết' }
             ]} />
             
-            <h1 className="text-2xl md:text-5xl lg:text-6xl font-black text-gray-900 mb-6 mt-4 leading-[1.1] tracking-tight">
+            <h1 className="text-xl md:text-5xl lg:text-6xl font-black text-gray-900 mb-4 mt-3 leading-tight tracking-tight">
               {blog.title}
             </h1>
 
@@ -154,17 +154,17 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
           {/* MAIN CONTENT AREA */}
           <div className="lg:flex-1 min-w-0">
             {!blog.videoUrl && (
-               <div className="-mx-4 md:mx-0 mb-10 md:mb-16 md:rounded-[2.5rem] overflow-hidden shadow-2xl">
+               <div className="-mx-4 md:mx-0 mb-8 md:mb-16 md:rounded-[2.5rem] overflow-hidden shadow-2xl aspect-[4/3] md:aspect-auto">
                   <img src={blog.image} alt={blog.title} className="w-full h-full object-cover" />
                </div>
             )}
 
             {/* SEO Content */}
             <article 
-              className="prose prose-emerald prose-lg md:prose-xl max-w-none text-gray-700 leading-relaxed 
+              className="prose prose-emerald prose-base md:prose-xl max-w-none text-gray-700 leading-relaxed 
               prose-headings:font-black prose-headings:text-gray-900 prose-headings:tracking-tighter
-              prose-h2:text-3xl prose-h2:mt-16 prose-h2:mb-8 prose-h2:bg-emerald-50 prose-h2:p-6 prose-h2:rounded-2xl prose-h2:border-l-8 prose-h2:border-emerald-600
-              prose-img:rounded-[2.5rem] prose-img:shadow-xl
+              prose-h2:text-xl md:text-3xl prose-h2:mt-10 md:prose-h2:mt-16 prose-h2:mb-4 md:prose-h2:mb-8 prose-h2:bg-emerald-50 prose-h2:p-4 md:prose-h2:p-6 prose-h2:rounded-xl md:prose-h2:rounded-2xl prose-h2:border-l-4 md:prose-h2:border-l-8 prose-h2:border-emerald-600
+              prose-img:rounded-2xl md:prose-img:rounded-[2.5rem] prose-img:shadow-xl
               prose-strong:text-gray-900 prose-strong:font-black"
               dangerouslySetInnerHTML={{ __html: blog.content }}
             />
@@ -181,16 +181,16 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
             )}
 
             {/* Social Share Bottom */}
-            <div className="mt-20 pt-10 border-t border-gray-100 flex flex-col md:flex-row items-center justify-between gap-8">
+            <div className="mt-12 py-8 border-t border-gray-100 flex flex-col md:flex-row items-center justify-between gap-6">
                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-gray-900 text-white rounded-full flex items-center justify-center">
-                     <Share2 size={20} />
+                  <div className="w-10 h-10 bg-gray-900 text-white rounded-full flex items-center justify-center">
+                     <Share2 size={18} />
                   </div>
-                  <h4 className="font-black text-gray-900 uppercase italic">Lan tỏa kỹ thuật cho bà con</h4>
+                  <h4 className="font-black text-gray-900 uppercase italic text-sm">Chia sẻ kỹ thuật</h4>
                </div>
-               <div className="flex gap-3 w-full md:w-auto">
-                  <button className="flex-1 md:flex-none bg-[#1877F2] text-white px-8 py-4 rounded-2xl font-black text-sm uppercase tracking-widest shadow-lg shadow-blue-100">Facebook</button>
-                  <button className="flex-1 md:flex-none bg-[#0068FF] text-white px-8 py-4 rounded-2xl font-black text-sm uppercase tracking-widest shadow-lg shadow-blue-100">Zalo Share</button>
+               <div className="flex gap-2 w-full md:w-auto">
+                  <button className="flex-1 md:flex-none bg-[#1877F2] text-white px-4 py-3 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-lg">Facebook</button>
+                  <button className="flex-1 md:flex-none bg-[#0068FF] text-white px-4 py-3 rounded-xl font-black text-[10px] uppercase tracking-widest shadow-lg">Zalo</button>
                </div>
             </div>
 
