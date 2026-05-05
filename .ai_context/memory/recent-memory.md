@@ -23,7 +23,9 @@
     - **Canonical URL Standardization**: Fixed `/blog` canonical tag to use the absolute `www.phanbongiatot.com` domain to ensure correct Google indexing.
     - **Broken Link & 301 Redirect**: Corrected the "Vàng lá thối rễ" menu link from a 404 path to the active `/giai-phap/vang-la-thoi-re` and implemented a server-side 301 redirect in `next.config.ts`.
     - **Duplicate Footer Removal**: Scrubbed redundant manual `<Footer />` calls (e.g., in `tai-khoan/page.tsx`), enforcing the global `LayoutWrapper` as the single source of truth.
-
+  - **SEO Metadata Optimization (Directive 07)**:
+    - **Homepage & Blog**: Rewritten Title and Meta tags to target keywords "Phân bón Đắk Lắk", "Kỹ sư nông nghiệp Tây Nguyên" with farmer-friendly tone.
+    - **Solution Pages**: Injected optimized SEO strings into `pathologies.json` for "Vàng lá thối rễ", "Tuyến trùng", and "Hồ tiêu chết nhanh" to drive high-conversion search traffic.
 
 ## 🚧 Active Tasks
 - **UI Testing**: Verified mobile responsiveness and conversion hooks on localhost.

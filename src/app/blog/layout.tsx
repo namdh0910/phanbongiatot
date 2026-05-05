@@ -1,8 +1,8 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Thư viện kiến thức nông nghiệp | Phân Bón Giá Tốt",
-  description: "Cẩm nang kỹ thuật trồng trọt sầu riêng, cà phê, hồ tiêu. Xem các video và nhật ký phục hồi thực tế từ kỹ sư Phân Bón Giá Tốt.",
+  title: "Kiến Thức Nhà Nông Tây Nguyên | Kỹ Thuật Trồng Trọt Chuẩn",
+  description: "Tổng hợp kinh nghiệm chăm sóc sầu riêng, cà phê từ kỹ sư nông nghiệp Tây Nguyên. Bí quyết trị vàng lá, tuyến trùng hiệu quả. Xem ngay kiến thức miễn phí!",
   alternates: {
     canonical: 'https://www.phanbongiatot.com/blog',
   },

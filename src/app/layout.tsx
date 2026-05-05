@@ -17,8 +17,8 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Phân Bón Giá Tốt | Giải Pháp Nông Nghiệp Hiệu Quả",
-  description: "Phân bón chính hãng giá tốt cho sầu riêng, cà phê, tiêu. Giao hàng toàn quốc, kiểm tra trước khi nhận. Tư vấn kỹ sư miễn phí: 0773.440.966",
+  title: "Phân Bón Đắk Lắk | Giải Pháp Cứu Vườn Sầu Riêng, Cà Phê",
+  description: "Mua phân bón Đắk Lắk chính hãng. Kỹ sư Tây Nguyên tư vấn phục hồi sầu riêng vàng lá, tuyến trùng miễn phí. Giao hàng toàn quốc, kiểm tra tại vườn.",
   keywords: "phân bón, thuốc trừ sâu, kích rễ, tuyến trùng, vàng lá thối rễ, sầu riêng, cà phê, phan bong gia tot",
   metadataBase: new URL("https://www.phanbongiatot.com"),
   openGraph: {
