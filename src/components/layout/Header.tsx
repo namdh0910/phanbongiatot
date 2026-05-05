@@ -4,6 +4,7 @@ import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import { useSettings } from "@/context/SettingsContext";
 import { API_BASE_URL } from "@/utils/api";
+import { Menu, X, ChevronRight, Phone, MessageCircle, Info, BookOpen } from "lucide-react";
 import './HeaderFooter.css';
 
 export default function Header() {
@@ -13,6 +14,7 @@ export default function Header() {
   const [suggestions, setSuggestions] = useState<{ products: any[], blogs: any[] }>({ products: [], blogs: [] });
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchHistory, setSearchHistory] = useState<string[]>([]);
   const settings = useSettings();
   const searchInputRef = useRef<HTMLInputElement>(null);
@@ -185,21 +187,28 @@ export default function Header() {
 
         {/* MOBILE HEADER - REFINED PREMIUM DESIGN */}
         <div className="lg:hidden">
-          <div className="flex items-center gap-3 px-4 h-[56px] bg-gradient-to-r from-[#1B5E20] to-[#2E7D32] text-white shadow-lg relative z-20">
+          <div className="flex items-center gap-3 px-4 h-[56px] bg-gradient-to-r from-[#1B5E20] to-[#2E7D32] text-white shadow-lg relative z-[200]">
+            <button 
+              onClick={() => setIsMenuOpen(true)}
+              className="flex-shrink-0 w-9 h-9 flex items-center justify-center bg-white/10 rounded-lg active:scale-95 transition-transform"
+            >
+              <Menu size={22} />
+            </button>
+
             <Link href="/" className="flex-shrink-0 active:scale-95 transition-transform">
                <div className="w-9 h-9 bg-white rounded-lg flex items-center justify-center text-[#1B5E20] font-black text-xl shadow-inner">P</div>
             </Link>
-  
+   
             <div className="flex-1 relative">
               <div 
                 onClick={() => setIsSearchFocused(true)}
                 className="w-full bg-white/10 backdrop-blur-md rounded-2xl py-2 px-4 border border-white/20 text-white/90 text-[13px] font-medium flex items-center gap-2"
               >
                 <span className="opacity-60 text-lg">🔍</span>
-                <span className="truncate">Tìm phác đồ sầu riêng, cà phê...</span>
+                <span className="truncate">Tìm phác đồ...</span>
               </div>
             </div>
-  
+   
             <a 
               href={`tel:${hotline.replace(/\./g, '')}`}
               className="flex-shrink-0 w-9 h-9 bg-[#FF6B35] text-white rounded-lg shadow-lg active:scale-95 transition-transform flex items-center justify-center"
@@ -230,6 +239,85 @@ export default function Header() {
           </div>
         </div>
       </header>
+
+      {/* MOBILE MENU DRAWER OVERLAY */}
+      {isMenuOpen && (
+        <div className="fixed inset-0 z-[500] animate-in fade-in duration-300">
+           {/* Backdrop */}
+           <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setIsMenuOpen(false)}></div>
+           
+           {/* Menu Content */}
+           <div className="absolute top-0 left-0 bottom-0 w-[85%] max-w-[320px] bg-white shadow-2xl flex flex-col animate-in slide-in-from-left duration-300">
+              <div className="p-6 bg-gradient-to-r from-[#1B5E20] to-[#2E7D32] text-white flex items-center justify-between">
+                 <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-[#1B5E20] font-black text-2xl">P</div>
+                    <span className="font-black text-sm tracking-widest uppercase italic">Menu</span>
+                 </div>
+                 <button onClick={() => setIsMenuOpen(false)} className="w-10 h-10 flex items-center justify-center bg-white/10 rounded-full">
+                    <X size={20} />
+                 </button>
+              </div>
+
+              <div className="flex-1 overflow-y-auto py-6">
+                 {/* Main Navigation */}
+                 <div className="px-6 space-y-2 mb-8">
+                    <Link href="/" onClick={() => setIsMenuOpen(false)} className="flex items-center justify-between p-4 bg-emerald-50 text-emerald-900 rounded-2xl font-black text-sm uppercase tracking-tight">
+                       🏠 Trang chủ <ChevronRight size={16} className="opacity-30" />
+                    </Link>
+                    <Link href="/blog" onClick={() => setIsMenuOpen(false)} className="flex items-center justify-between p-4 hover:bg-gray-50 text-gray-700 rounded-2xl font-black text-sm uppercase tracking-tight transition-colors">
+                       📖 Kiến thức nông nghiệp <ChevronRight size={16} className="opacity-30" />
+                    </Link>
+                 </div>
+
+                 {/* Crops Section */}
+                 <div className="px-6 mb-8">
+                    <h4 className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-4 ml-4">Giải pháp theo cây trồng</h4>
+                    <div className="space-y-1">
+                       {crops.map((crop, i) => (
+                         <div key={i} className="group">
+                           <div className="flex items-center gap-3 p-4 text-gray-800 font-bold text-sm">
+                             <span className="text-xl">{crop.icon}</span> {crop.name}
+                           </div>
+                           <div className="grid grid-cols-1 pl-12 pr-4 gap-1">
+                              {crop.issues.map((issue, idx) => (
+                                <Link 
+                                  key={idx} 
+                                  href={issue.href} 
+                                  onClick={() => setIsMenuOpen(false)}
+                                  className="py-2 text-[13px] text-gray-500 hover:text-emerald-600 flex items-center gap-2"
+                                >
+                                  · {issue.label}
+                                </Link>
+                              ))}
+                           </div>
+                         </div>
+                       ))}
+                    </div>
+                 </div>
+
+                 {/* Support Section */}
+                 <div className="px-6 pt-6 border-t border-gray-100">
+                    <Link href="/ve-chung-toi" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-3 p-4 text-gray-600 font-bold text-sm uppercase tracking-tight">
+                       <Info size={18} className="text-emerald-600" /> Về chúng tôi
+                    </Link>
+                    <Link href="/lien-he" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-3 p-4 text-gray-600 font-bold text-sm uppercase tracking-tight">
+                       <MessageCircle size={18} className="text-emerald-600" /> Liên hệ
+                    </Link>
+                 </div>
+              </div>
+
+              {/* Bottom Actions */}
+              <div className="p-6 bg-gray-50 space-y-3">
+                 <a href={`tel:${hotline.replace(/\./g, '')}`} className="flex items-center justify-center gap-3 w-full bg-[#ee4d2d] text-white py-4 rounded-2xl font-black text-sm shadow-lg shadow-red-100">
+                    <Phone size={18} /> GỌI KỸ SƯ NGAY
+                 </a>
+                 <a href="https://zalo.me/0773440966" target="_blank" className="flex items-center justify-center gap-3 w-full bg-[#0068ff] text-white py-4 rounded-2xl font-black text-sm shadow-lg shadow-blue-100">
+                    <MessageCircle size={18} /> TƯ VẤN ZALO
+                 </a>
+              </div>
+           </div>
+        </div>
+      )}
 
       {/* MOBILE SEARCH OVERLAY */}
       {isSearchFocused && (

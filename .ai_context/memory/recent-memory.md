@@ -56,6 +56,10 @@
     - **Sidebar Synchronization**: Updated `AdminSidebar.tsx` to include the "Sản Phẩm (Catalog)" section for full operational control.
     - **API Normalization**: Refactored `src/utils/api.ts` to automatically handle relative paths in the browser, ensuring Admin and Frontend always fetch from the same database instance on production.
     - **Data Parsing Resilience**: Updated Admin fetch logic to handle multiple JSON response formats, preventing empty lists when the API structure slightly varies.
+  - **Mobile UX & Navigation Architecture**:
+    - **Implemented Mobile Hamburger Menu**: Added a high-visibility menu icon to the mobile header to solve the "hidden navigation" problem.
+    - **Created Mobile Drawer (CMS-Ready)**: Developed a full-screen slide-out navigation menu for mobile, exposing the entire site hierarchy (Crops, Blog, Products, Support) to improve discoverability for non-tech-savvy users.
+    - **Optimized Z-Index Hierarchy**: Standardized layering (Header: 200, Search: 300, Menu: 500) to prevent UI overlapping and ensure smooth interaction.
 
 
 
