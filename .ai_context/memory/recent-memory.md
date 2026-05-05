@@ -60,6 +60,8 @@
     - **Implemented Mobile Hamburger Menu**: Added a high-visibility menu icon to the mobile header to solve the "hidden navigation" problem.
     - **Created Mobile Drawer (CMS-Ready)**: Developed a full-screen slide-out navigation menu for mobile, exposing the entire site hierarchy (Crops, Blog, Products, Support) to improve discoverability for non-tech-savvy users.
     - **Optimized Z-Index Hierarchy**: Standardized layering (Header: 200, Search: 300, Menu: 500) to prevent UI overlapping and ensure smooth interaction.
+    - **Fixed Bottom Navigation Overlap**: Hidden `StickyCTA` on mobile to make room for `MobileBottomNav`, and repositioned `FloatingSocialProof` to `bottom-[80px]` (above the nav bar) to eliminate content obstruction.
+    - **Context-Aware Bottom Nav**: Integrated dynamic Zalo messaging into the Mobile Bottom Bar, inheriting the "Smart Consultation" logic from the previous Sticky CTA.
 
 
 
