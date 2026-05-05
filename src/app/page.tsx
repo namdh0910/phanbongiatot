@@ -223,10 +223,10 @@ export default function LandingPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 animate-in slide-in-from-left duration-700 delay-300">
               <a href={zaloUrl} className="px-10 h-16 bg-[#f5a623] hover:bg-[#fbb940] text-white rounded-2xl font-black text-lg shadow-lg flex items-center justify-center gap-2 transition-all active:scale-95">
-                Nhận Tư Vấn Miễn Phí
+                Bắt Bệnh Cây Qua Zalo
               </a>
               <a href="#solutions" className="px-10 h-16 border-2 border-white text-white hover:bg-white/10 rounded-2xl font-black text-lg flex items-center justify-center gap-2 transition-all active:scale-95">
-                Xem Giải Pháp Cây Trồng
+                Nhận Phác Đồ Phục Hồi
               </a>
             </div>
           </div>
@@ -439,18 +439,18 @@ export default function LandingPage() {
       </footer>
 
       {/* 9. Sticky Mobile Action Bar */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-100 flex p-3 gap-3">
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-100 flex p-2 gap-2 h-16">
         <a 
           href={zaloUrl} 
-          className="flex-1 bg-[#0068FF] text-white rounded-2xl h-14 font-black flex items-center justify-center gap-2"
+          className="flex-1 bg-[#0068FF] text-white rounded-xl font-black flex items-center justify-center gap-2 text-sm shadow-lg shadow-blue-100 px-2"
         >
-          <MessageCircle size={20} fill="currentColor" /> Chat Zalo
+          <MessageCircle size={18} fill="currentColor" /> Gửi ảnh qua Zalo
         </a>
         <a 
           href={callUrl} 
-          className="flex-1 bg-[#1a5c2a] text-white rounded-2xl h-14 font-black flex items-center justify-center gap-2"
+          className="flex-1 bg-[#ee4d2d] text-white rounded-xl font-black flex items-center justify-center gap-2 text-sm shadow-lg shadow-red-100 px-2"
         >
-          <Phone size={20} /> Gọi Kỹ Sư
+          <Phone size={18} /> Gọi Kỹ Sư
         </a>
       </div>
 

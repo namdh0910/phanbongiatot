@@ -5,9 +5,9 @@
 - **Latest Activities**: 
   - **Expert Landing Page Activation**: Successfully pivoted the homepage (`src/app/page.tsx`) to a modern, solution-based landing page focused on technical consultation.
   - **E-commerce Purge**: Completely removed shopping carts, product prices, and "Buy Now" flows from the frontend to focus on building trust.
+  - **CTA Standardization**: Updated all site-wide buttons (Homepage, Product Cards, Product Details) from e-commerce text ("Mua Ngay") to consulting text ("Chat Zalo Bắt Bệnh Cây", "Nhận Phác Đồ Phục Hồi").
+  - **Sticky Action Bar Enhanced**: Redesigned the mobile sticky bar with a 50/50 split: "Gửi ảnh qua Zalo" (Blue) and "Gọi Kỹ Sư" (Red). Optimized for speed and high-conversion technical diagnosis.
   - **Dynamic Data Integration**: Connected the new landing page to `SettingsContext` and `API_BASE_URL` for real-time contact info (Zalo/Hotline) and technical blog posts.
-  - **Mobile Optimization**: Implemented a sticky bottom action bar (Zalo | Phone) and thumb-friendly 48px+ touch targets for high-conversion mobile usage.
-  - **Content Strategy**: Mapped specific agricultural problems (Durian, Coffee) to expert solutions and direct consultation CTAs.
 
 ## 🚧 Active Tasks
 - Monitor user engagement on the new landing page.

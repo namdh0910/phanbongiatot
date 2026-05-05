@@ -86,31 +86,32 @@ export default function ProductActions({ product }: { product: any }) {
             onClick={handleCallClick}
             className={`flex-1 py-4 px-6 rounded-sm transition-colors font-bold text-lg flex items-center justify-center gap-2 shadow-sm bg-[#ffefe8] border border-[#ee4d2d] text-[#ee4d2d] hover:bg-[#ffeae0]`}
           >
-            <span className="text-2xl">📞</span> Gọi Hotline Đặt Hàng
+            <span className="text-2xl">📞</span> Gọi Kỹ Sư Tư Vấn
           </button>
           <button 
             onClick={handleZaloClick}
             className={`flex-1 py-4 px-6 rounded-sm transition-colors font-bold text-lg flex items-center justify-center gap-2 shadow-md bg-blue-600 text-white hover:bg-blue-700`}
           >
-            <span className="text-2xl">💬</span> Nhận Tư Vấn & Mua Qua Zalo
+            <span className="text-2xl">💬</span> Bắt Bệnh Cây Qua Zalo
           </button>
         </div>
       </div>
 
       {/* Mobile Sticky Action Bar */}
-      <div className="fixed bottom-0 left-0 w-full bg-white flex md:hidden z-[60] h-[60px] shadow-[0_-4px_15px_rgba(0,0,0,0.1)]">
-        <button 
-          onClick={handleCallClick}
-          className="flex-1 bg-white text-[#ee4d2d] flex items-center justify-center font-bold text-sm active:bg-gray-50 border-t border-r border-[#ee4d2d] border-opacity-30 flex-col leading-tight gap-1"
-        >
-          <span className="text-lg leading-none">📞</span>
-          <span>Gọi Mua Ngay</span>
-        </button>
+      <div className="fixed bottom-0 left-0 w-full bg-white flex md:hidden z-[60] h-16 shadow-[0_-4px_15px_rgba(0,0,0,0.1)] p-2 gap-2">
         <button 
           onClick={handleZaloClick}
-          className="flex-[2] flex items-center justify-center font-black text-sm tracking-wide bg-blue-600 text-white active:bg-blue-700 gap-2"
+          className="flex-1 bg-[#0068FF] text-white flex items-center justify-center font-black text-xs rounded-xl gap-2 shadow-lg"
         >
-          <span className="text-xl">💬</span> MUA QUA ZALO
+          <span className="text-lg">💬</span>
+          <span>Gửi ảnh qua Zalo</span>
+        </button>
+        <button 
+          onClick={handleCallClick}
+          className="flex-1 bg-[#ee4d2d] text-white flex items-center justify-center font-black text-xs rounded-xl gap-2 shadow-lg"
+        >
+          <span className="text-lg">📞</span>
+          <span>Gọi Kỹ Sư</span>
         </button>
       </div>
     </>

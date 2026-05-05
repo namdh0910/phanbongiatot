@@ -99,10 +99,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
         <div className="p-actions">
           <button className="p-btn btn-buy" onClick={handleConsult}>
-            💬 ZALO TƯ VẤN NGAY
+            💬 CHAT ZALO BẮT BỆNH CÂY
           </button>
           <button className="p-btn btn-chat" onClick={() => router.push(`/san-pham/${product.slug}`)}>
-            CHI TIẾT GIẢI PHÁP
+            NHẬN PHÁC ĐỒ PHỤC HỒI
           </button>
         </div>
       </div>
