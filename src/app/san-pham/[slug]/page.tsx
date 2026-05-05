@@ -1,7 +1,7 @@
 import React from 'react';
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { notFound } from 'next/navigation";
+import { notFound } from "next/navigation";
 import { ArrowRight, Beaker, ShieldCheck, Zap, AlertTriangle, Phone, MessageCircle } from 'lucide-react';
 import products from '@/data/products.json';
 import pathologies from '@/data/pathologies.json';
