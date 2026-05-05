@@ -12,5 +12,19 @@
     "painPoint": "Lá vàng rụng hàng loạt, nhổ lên rễ đen thối, tuột vỏ rễ.",
     "cause": "Đất ngập úng chai cứng, nấm Phytophthora và Fusarium tấn công.",
     "biologicalSolution": "Hạ phèn, làm xốp đất, đưa vi sinh đối kháng Trichoderma kết hợp nền hữu cơ Humic, Fulvic để tái tạo dàn rễ trắng."
+  },
+  {
+    "slug": "tuyen-trung-rep-sap-re-ca-phe",
+    "title": "Phục Hồi Rễ Cà Phê Bị Tuyến Trùng, Rệp Sáp Tấn Công",
+    "painPoint": "Cây cà phê vàng lá, rụng trái non hàng loạt. Bới rễ thấy rệp sáp trắng bám đầy, rễ tơ thối đen, u sưng.",
+    "wrongAction": "Dội thuốc sâu gốc lân hữu cơ hoặc sục hóa chất cực độc. Việc này làm chết sạch giun đất và vi sinh có lợi, rễ tơ bị cháy và cây mất khả năng phục hồi tự nhiên.",
+    "biologicalSolution": "Sử dụng chế phẩm sinh học Nemano để phòng trừ tuyến trùng an toàn kết hợp nấm xanh nấm trắng (Metarhizium, Beauveria) diệt rệp sáp. Bổ sung Trichoderma trị nấm thối rễ và tưới nền hữu cơ Humic để kích rễ tơ mới, làm tơi xốp đất."
+  },
+  {
+    "slug": "chet-nhanh-chet-cham-ho-tieu",
+    "title": "Phác Đồ Phòng Trị Bệnh Chết Nhanh Chết Chậm Trên Hồ Tiêu",
+    "painPoint": "Tiêu đang xanh tốt bỗng rụng lóng, lá chuyển vàng, héo rũ và chết đồng loạt chỉ trong vài tuần.",
+    "wrongAction": "Thấy cây héo là lập tức dội phân hóa học để kích hoặc xịt thuốc nấm vô cơ tràn lan, trong khi lúc này nấm Phytophthora đã ăn sâu vào gốc, rễ đã thối nên không thể hấp thu.",
+    "biologicalSolution": "Ưu tiên phòng bệnh. Đổ gốc bằng vi sinh đối kháng Trichoderma từ đầu mùa mưa. Khi cây chớm bệnh, ngưng phân hóa học, xử lý nền đất bằng chế phẩm sinh học diệt nấm, sau đó dùng Fulvic và phân hữu cơ hoai mục để nuôi lại bộ rễ."
   }
 ]
