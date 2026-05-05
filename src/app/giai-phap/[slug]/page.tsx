@@ -6,6 +6,7 @@ import products from "@/data/products.json";
 import Link from "next/link";
 import { ChevronRight, CheckCircle2, AlertTriangle, ShieldCheck, Zap, MessageCircle, Star, ShoppingBag } from "lucide-react";
 import SchemaMarkup from "@/components/shared/SchemaMarkup";
+import Breadcrumbs from "@/components/ui/Breadcrumbs";
 
 interface Pathology {
   slug: string;
@@ -88,17 +89,12 @@ export default async function SolutionDetail({ params }: { params: { slug: strin
       <SchemaMarkup data={combinedSchema} />
       
       {/* 0. Breadcrumbs (Directive 03) */}
-      <div className="bg-gray-50 border-b border-gray-100 py-4">
-        <div className="container mx-auto px-4">
-          <Breadcrumbs items={[
-            { label: 'Trang chủ', href: '/' },
-            { label: (pathology.slug.includes('sau-rieng') || pathology.title.includes('Sầu riêng')) ? 'Sầu riêng' : 
-                     (pathology.slug.includes('ca-phe') || pathology.title.includes('Cà phê')) ? 'Cà phê' : 
-                     (pathology.slug.includes('ho-tieu') || pathology.title.includes('Hồ tiêu')) ? 'Hồ tiêu' : 'Giải pháp', href: '/giai-phap' },
-            { label: pathology.title }
-          ]} />
-        </div>
-      </div>
+      <Breadcrumbs items={[
+        { label: (pathology.slug.includes('sau-rieng') || pathology.title.includes('Sầu riêng')) ? 'Sầu riêng' : 
+                 (pathology.slug.includes('ca-phe') || pathology.title.includes('Cà phê')) ? 'Cà phê' : 
+                 (pathology.slug.includes('ho-tieu') || pathology.title.includes('Hồ tiêu')) ? 'Hồ tiêu' : 'Giải pháp', href: '/giai-phap' },
+        { label: pathology.title }
+      ]} />
 
       {/* 1. HERO SECTION (PAIN) */}
       <section className="relative bg-gray-900 pt-32 pb-20 overflow-hidden">
