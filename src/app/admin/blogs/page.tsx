@@ -12,6 +12,7 @@ interface Blog {
   category: 'Nhật ký phục hồi vườn' | 'Mỗi chất - Một vấn đề' | 'Cẩm nang kỹ thuật';
   videoUrl?: string;
   coverImage: string;
+  excerpt: string;
   content: string;
   isPublished: boolean;
   createdAt?: string;
@@ -27,6 +28,7 @@ export default function AdminBlogs() {
     category: "Cẩm nang kỹ thuật",
     videoUrl: "",
     coverImage: "",
+    excerpt: "",
     content: "",
     isPublished: true,
   });
@@ -68,6 +70,7 @@ export default function AdminBlogs() {
       category: "Cẩm nang kỹ thuật",
       videoUrl: "",
       coverImage: "",
+      excerpt: "",
       content: "",
       isPublished: true,
     });
@@ -227,6 +230,17 @@ export default function AdminBlogs() {
                </div>
 
                <div className="space-y-6">
+                  <div>
+                    <label className="block text-[10px] font-black text-gray-400 uppercase mb-2 ml-1 tracking-widest">Mô tả ngắn (SEO Excerpt)</label>
+                    <textarea 
+                      required
+                      value={currentBlog.excerpt}
+                      onChange={(e) => setCurrentBlog({...currentBlog, excerpt: e.target.value})}
+                      className="w-full bg-gray-50 border-2 border-gray-100 rounded-2xl px-6 py-4 outline-none focus:bg-white focus:border-[#1a5c2a] transition-all font-medium text-gray-800 h-[80px] resize-none"
+                      placeholder="Tóm tắt ngắn gọn nội dung bài viết cho SEO..."
+                    />
+                  </div>
+
                   <div>
                     <label className="block text-[10px] font-black text-gray-400 uppercase mb-2 ml-1 tracking-widest">Nội dung chi tiết (Markdown/HTML)</label>
                     <textarea 

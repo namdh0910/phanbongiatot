@@ -72,7 +72,7 @@ export default function BlogIndex() {
           <Link href={`/blog/${featuredPost.slug}`} className="block group">
             <div className="bg-white rounded-[3rem] overflow-hidden shadow-2xl border border-gray-100 flex flex-col lg:flex-row min-h-[500px]">
               <div className="lg:w-3/5 relative overflow-hidden">
-                <img src={featuredPost.image} alt={featuredPost.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                <img src={featuredPost.coverImage} alt={featuredPost.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                 {featuredPost.type === 'video' && (
                   <div className="absolute inset-0 flex items-center justify-center bg-black/20">
                      <div className="w-20 h-20 bg-white/90 rounded-full flex items-center justify-center text-[#1a5c2a] shadow-2xl animate-pulse">
@@ -141,7 +141,7 @@ export default function BlogIndex() {
             {filteredPosts.map((post, i) => (
               <Link key={i} href={`/blog/${post.slug}`} className="group flex flex-col h-full">
                 <div className="relative aspect-[16/10] rounded-[2.5rem] overflow-hidden bg-gray-100 mb-6 shadow-sm group-hover:shadow-xl transition-all">
-                   <img src={post.image} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt={post.title} />
+                   <img src={post.coverImage} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt={post.title} />
                    
                    {/* Badge Type */}
                    <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest text-gray-900 shadow-sm flex items-center gap-1.5">

@@ -6,6 +6,7 @@ export interface IBlog extends Document {
   category: 'Nhật ký phục hồi vườn' | 'Mỗi chất - Một vấn đề' | 'Cẩm nang kỹ thuật';
   videoUrl?: string;
   coverImage: string;
+  excerpt?: string;
   content: string;
   isPublished: boolean;
   seoDescription?: string;
@@ -25,6 +26,7 @@ const BlogSchema: Schema = new Schema({
   },
   videoUrl: { type: String },
   coverImage: { type: String, required: true },
+  excerpt: { type: String },
   content: { type: String, required: true },
   isPublished: { type: Boolean, default: false },
   seoDescription: { type: String },

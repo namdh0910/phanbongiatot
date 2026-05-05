@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import dbConnect from '@/lib/db';
 import Blog from '@/lib/models/Blog';
 import { verifyAdmin } from '@/lib/auth';
@@ -33,6 +34,11 @@ export async function PUT(
     const body = await request.json();
     const blog = await Blog.findByIdAndUpdate(id, body, { new: true });
     if (!blog) return NextResponse.json({ error: 'Not Found' }, { status: 404 });
+    
+    // On-demand revalidation
+    revalidatePath('/blog');
+    revalidatePath(`/blog/${blog.slug}`);
+    
     return NextResponse.json({ blog });
   } catch (error) {
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
@@ -53,6 +59,11 @@ export async function DELETE(
     await dbConnect();
     const blog = await Blog.findByIdAndDelete(id);
     if (!blog) return NextResponse.json({ error: 'Not Found' }, { status: 404 });
+    
+    // On-demand revalidation
+    revalidatePath('/blog');
+    revalidatePath(`/blog/${blog.slug}`);
+    
     return NextResponse.json({ message: 'Deleted successfully' });
   } catch (error) {
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });

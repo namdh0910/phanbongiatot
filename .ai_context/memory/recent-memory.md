@@ -3,6 +3,10 @@
 ## 🕒 Current Context
 - **Date**: 2026-05-05
 - **Latest Activities (Directive 03, 04, 05 DONE)**:
+  - **Blog Sync Hotfix**: Resolved critical synchronicity issues between Admin and Frontend. 
+    - **Key Mapping**: Fixed broken thumbnails by aligning frontend keys (`image` -> `coverImage`) with the database schema.
+    - **SEO Expansion**: Added `excerpt` field to the Blog model and Admin UI to power meta descriptions and article summaries.
+    - **On-Demand Revalidation**: Integrated `revalidatePath` into API routes to ensure frontend updates are reflected immediately after saving in Admin.
   - **Hotfix: Build Failure (JWT_SECRET)**: Resolved a Vercel build crash caused by top-level environment variable checks. Moved all `process.env.JWT_SECRET` evaluations inside handler functions to allow static analysis during build to proceed without requiring environment secrets.
   - **Security Hardening (Auth Patch)**: Implemented critical security fixes identified in the audit. 
     - **API Protection**: Enforced `verifyAdmin` check across all sensitive API routes (Leads GET, Blogs/Products POST/PUT/DELETE, Config POST).

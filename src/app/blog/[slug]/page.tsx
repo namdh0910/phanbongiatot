@@ -60,7 +60,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       title: blog.title,
       description: blog.excerpt,
       type: 'article',
-      images: [blog.image]
+      images: [blog.coverImage]
     },
   };
 }
@@ -95,7 +95,7 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
     "@type": "Article",
     "headline": blog.title,
     "description": blog.excerpt,
-    "image": blog.image,
+    "image": blog.coverImage,
     "author": {
       "@type": "Organization",
       "name": "Kỹ sư Phân Bón Giá Tốt"
@@ -171,7 +171,7 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
           <div className="lg:flex-1 min-w-0">
             {!blog.videoUrl && (
                <div className="-mx-4 md:mx-0 mb-8 md:mb-16 md:rounded-[2.5rem] overflow-hidden shadow-2xl aspect-[4/3] md:aspect-auto">
-                  <img src={blog.image} alt={blog.title} className="w-full h-full object-cover" />
+                  <img src={blog.coverImage} alt={blog.title} className="w-full h-full object-cover" />
                </div>
             )}
 
@@ -253,7 +253,7 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
                   {relatedBlogs.map((b: any) => (
                      <Link key={b.slug} href={`/blog/${b.slug}`} className="bg-white border border-gray-100 p-4 rounded-3xl flex gap-4 hover:shadow-xl transition-all group">
                         <div className="w-24 h-24 bg-gray-100 rounded-2xl overflow-hidden flex-shrink-0">
-                           <img src={b.image} alt="" className="w-full h-full object-cover group-hover:scale-110 transition-transform" />
+                           <img src={b.coverImage} alt="" className="w-full h-full object-cover group-hover:scale-110 transition-transform" />
                         </div>
                         <div className="flex-1 min-w-0 flex flex-col justify-center">
                            <p className="text-[10px] font-black text-emerald-600 uppercase tracking-widest mb-1">{b.category}</p>

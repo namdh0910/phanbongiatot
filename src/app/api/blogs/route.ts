@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import dbConnect from '@/lib/db';
 import Blog from '@/lib/models/Blog';
 import { generateHashtags, generateSEODescription } from '@/utils/seo';
@@ -38,6 +39,11 @@ export async function POST(request: Request) {
     }
 
     const blog = await Blog.create(body);
+    
+    // On-demand revalidation
+    revalidatePath('/blog');
+    revalidatePath(`/blog/${blog.slug}`);
+    
     return NextResponse.json({ blog }, { status: 201 });
   } catch (error: any) {
     if (error.code === 11000) {
