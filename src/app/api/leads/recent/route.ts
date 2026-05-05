@@ -1,10 +1,10 @@
 import { NextResponse } from 'next/server';
-import connectDB from '@/utils/db';
-import Lead from '@/models/Lead';
+import dbConnect from '@/lib/db';
+import Lead from '@/lib/models/Lead';
 
 export async function GET() {
   try {
-    await connectDB();
+    await dbConnect();
     
     // Get latest 10 leads, sorted by creation date
     const leads = await Lead.find({})
