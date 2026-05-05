@@ -7,7 +7,6 @@ import { trackEvent } from "@/utils/analytics";
 import { useCart } from "@/context/CartContext";
 import { useSettings } from "@/context/SettingsContext";
 import Hero from "@/components/Hero";
-import TrustBar from "@/components/TrustBar";
 import FlashSale from "@/components/FlashSale";
 import ComboSection from "@/components/ComboSection";
 import SocialProof from "@/components/SocialProof";
