@@ -58,6 +58,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://connect.facebook.net" />
         <link rel="dns-prefetch" href="https://zalo.me" />
         <link rel="dns-prefetch" href="https://www.youtube.com" />
+        <link rel="preload" as="image" href="https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Logo_Bo_Cong_Thuong.svg/1200px-Logo_Bo_Cong_Thuong.svg.png" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify({

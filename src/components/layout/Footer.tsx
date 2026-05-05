@@ -73,6 +73,16 @@ export default function Footer() {
         
         <div className="flex flex-col md:flex-row justify-between items-center gap-6 text-gray-500 text-sm font-bold">
           <p>© 2026 {settings?.siteName || 'Phân Bón Giá Tốt'}. Tất cả quyền được bảo lưu.</p>
+          <div className="flex items-center gap-4">
+             <img 
+               src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Logo_Bo_Cong_Thuong.svg/1200px-Logo_Bo_Cong_Thuong.svg.png" 
+               alt="Đã thông báo Bộ Công Thương" 
+               className="h-10 w-auto brightness-0 invert opacity-50 hover:opacity-100 transition-opacity"
+               loading="lazy"
+               width={120}
+               height={45}
+             />
+          </div>
         </div>
       </div>
     </footer>
