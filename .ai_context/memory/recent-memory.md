@@ -51,6 +51,11 @@
     - **StickyCTA Refactoring**: Removed dependency on `pathologies.json` and implemented a more robust `document.title` extraction for dynamic Zalo message context.
     - **TypeScript Strictness**: Resolved multiple implicit `any` errors and missing module declarations to comply with strict production build requirements.
     - **Orphaned Seed Route Cleanup**: Purged legacy seed routes that were still referencing deleted JSON files.
+  - **Admin Dashboard & API Restoration**:
+    - **Restored Admin Products**: Re-implemented the `src/app/admin/products/page.tsx` with a high-performance CMS interface for managing the product catalog.
+    - **Sidebar Synchronization**: Updated `AdminSidebar.tsx` to include the "Sản Phẩm (Catalog)" section for full operational control.
+    - **API Normalization**: Refactored `src/utils/api.ts` to automatically handle relative paths in the browser, ensuring Admin and Frontend always fetch from the same database instance on production.
+    - **Data Parsing Resilience**: Updated Admin fetch logic to handle multiple JSON response formats, preventing empty lists when the API structure slightly varies.
 
 
 

@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { Plus, Edit, Trash2, Save, X, Video, FileText, CheckCircle, Eye, Link as LinkIcon } from "lucide-react";
 import { slugify } from "@/utils/slugify";
+import { API_BASE_URL } from "@/utils/api";
 
 interface Blog {
   _id?: string;
@@ -39,11 +40,17 @@ export default function AdminBlogs() {
   const fetchBlogs = async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/blogs');
+      // Using normalized API_BASE_URL to ensure consistency with frontend
+      const res = await fetch(`${API_BASE_URL}/blogs`);
+      if (!res.ok) throw new Error("Failed to fetch");
       const data = await res.json();
-      setBlogs(data.blogs || []);
+      
+      // Resilient parsing: handle { blogs: [] } or just []
+      const blogsList = data.blogs || (Array.isArray(data) ? data : []);
+      setBlogs(blogsList);
     } catch (err) {
       console.error("Fetch error", err);
+      setMessage("❌ Không thể kết nối đến máy chủ dữ liệu.");
     } finally {
       setLoading(false);
     }
