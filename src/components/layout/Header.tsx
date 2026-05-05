@@ -324,7 +324,7 @@ export default function Header() {
                         <p className="text-sm font-bold text-gray-800 line-clamp-1">{p.name}</p>
                         <p className="text-xs text-emerald-700 font-black">{p.price?.toLocaleString()}đ</p>
                       </div>
-                    </Link>
+                    </a>
                   ))}
                 </div>
               </div>

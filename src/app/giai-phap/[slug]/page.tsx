@@ -96,7 +96,7 @@ export default async function SolutionDetail({ params }: { params: Promise<{ slu
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "mainEntity": (pathology.wrongActions || []).map(wa => ({
+    "mainEntity": (pathology.wrongActions || []).map((wa: string) => ({
       "@type": "Question",
       "name": "Sai lầm thường gặp khi xử lý là gì?",
       "acceptedAnswer": { "@type": "Answer", "text": wa }
@@ -107,7 +107,7 @@ export default async function SolutionDetail({ params }: { params: Promise<{ slu
     "@context": "https://schema.org",
     "@type": "HowTo",
     "name": `Phác đồ phục hồi ${pathology.title}`,
-    "step": (pathology.steps || []).map((step, i) => ({
+    "step": (pathology.steps || []).map((step: any, i: number) => ({
       "@type": "HowToStep",
       "position": i + 1,
       "name": step.name,
@@ -189,7 +189,7 @@ export default async function SolutionDetail({ params }: { params: Promise<{ slu
                 Vườn bà con có<br/>những dấu hiệu này?
               </h2>
               <div className="space-y-6">
-                {(pathology.symptoms || pathology.painPoint.split('.')).map((sign, i) => (
+                {(pathology.symptoms || pathology.painPoint.split('.')).map((sign: string, i: number) => (
                   <div key={i} className="flex items-start gap-4">
                     <CheckCircle2 className="text-[#f5a623] flex-shrink-0 mt-1" size={24} />
                     <p className="text-xl font-bold text-gray-700 leading-tight">{sign.trim()}</p>
@@ -234,7 +234,7 @@ export default async function SolutionDetail({ params }: { params: Promise<{ slu
           </div>
           
           <div className="max-w-4xl mx-auto space-y-8">
-            {(pathology.steps || []).map((step, i) => (
+            {(pathology.steps || []).map((step: any, i: number) => (
               <div key={i} className="bg-white rounded-[2.5rem] p-8 md:p-12 shadow-xl border-l-[12px] border-[#1a5c2a] flex flex-col md:flex-row gap-8 items-center">
                 <div className="flex-shrink-0 w-20 h-20 bg-[#1a5c2a] text-white rounded-3xl flex flex-col items-center justify-center font-black">
                    <span className="text-xs uppercase tracking-tighter">{step.time}</span>
@@ -262,7 +262,7 @@ export default async function SolutionDetail({ params }: { params: Promise<{ slu
                 <h2 className="text-2xl md:text-4xl font-black text-gray-900 uppercase italic">Bà con thường sai ở đâu?</h2>
              </div>
              <div className="space-y-6">
-                {(pathology.wrongActions || [pathology.wrongAction]).map((wa, i) => (
+                {(pathology.wrongActions || [pathology.wrongAction]).map((wa: string, i: number) => (
                   <div key={i} className="flex items-start gap-4 p-4 bg-white rounded-2xl shadow-sm border border-red-50">
                     <span className="text-red-600 font-black text-xl">✕</span>
                     <p className="text-lg font-bold text-gray-800 leading-tight">{wa}</p>
@@ -278,7 +278,7 @@ export default async function SolutionDetail({ params }: { params: Promise<{ slu
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-5xl font-black text-center text-gray-900 uppercase italic mb-16">Kết quả từ nhà vườn thực tế</h2>
           <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-            {(pathology.testimonials || []).map((t, i) => (
+            {(pathology.testimonials || []).map((t: any, i: number) => (
               <div key={i} className="bg-white p-8 rounded-[2.5rem] shadow-lg border border-gray-100 relative">
                  <div className="flex items-center gap-4 mb-6">
                     <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center text-3xl">👤</div>

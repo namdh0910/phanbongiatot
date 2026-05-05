@@ -46,6 +46,11 @@
     - **Eliminated Static Overrides**: Removed static folders in `giai-phap` and `san-pham` that conflicted with dynamic `[slug]` routing.
     - **Unified Data Source**: Updated the main Landing Page (`src/app/page.tsx`) to fetch pathologies directly from the API, removing the last remaining dependency on `pathologies.json`.
     - **Broken Link Fix**: Redirected all legacy product links (`/san-pham/*`) to direct Zalo consultation hooks in `Header.tsx` and `SolutionProductCard.tsx` to ensure a 100% conversion funnel.
+  - **Hotfix: Build & Type Resolution**:
+    - **Header Syntax Fix**: Corrected a mismatched JSX closing tag (`<a>` vs `</Link>`) that was blocking the Vercel build.
+    - **StickyCTA Refactoring**: Removed dependency on `pathologies.json` and implemented a more robust `document.title` extraction for dynamic Zalo message context.
+    - **TypeScript Strictness**: Resolved multiple implicit `any` errors and missing module declarations to comply with strict production build requirements.
+    - **Orphaned Seed Route Cleanup**: Purged legacy seed routes that were still referencing deleted JSON files.
 
 
 

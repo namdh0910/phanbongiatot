@@ -1,9 +1,7 @@
 "use client";
 import { usePathname, useParams } from "next/navigation";
 import { useSettings } from "@/context/SettingsContext";
-import pathologies from "@/data/pathologies.json";
 import { useEffect, useState } from "react";
-import { API_BASE_URL } from "@/utils/api";
 
 export default function StickyCTA() {
   const pathname = usePathname();
@@ -12,19 +10,15 @@ export default function StickyCTA() {
   const [pageTitle, setPageTitle] = useState("");
 
   useEffect(() => {
-    if (pathname?.includes('/giai-phap/') && params?.slug) {
-      const p = (pathologies as any[]).find(item => item.slug === params.slug);
-      if (p) setPageTitle(p.title);
-    } else if (pathname?.includes('/blog/') || pathname?.includes('/san-pham/')) {
-      // Zero-latency optimization: Read directly from document title
-      const timer = setTimeout(() => {
-        if (document.title) {
-          const title = document.title.split('|')[0].trim();
-          setPageTitle(title);
-        }
-      }, 500); // Wait for Next.js to update the document.title
-      return () => clearTimeout(timer);
-    }
+    // Dynamic title extraction from document for contextual Zalo messages
+    const timer = setTimeout(() => {
+      if (document.title) {
+        // Extract the main title part before the separator |
+        const title = document.title.split('|')[0].trim();
+        setPageTitle(title);
+      }
+    }, 600); // Wait for Next.js to update metadata
+    return () => clearTimeout(timer);
   }, [pathname, params]);
 
   const hotline = settings?.hotline || "0773.440.966";
