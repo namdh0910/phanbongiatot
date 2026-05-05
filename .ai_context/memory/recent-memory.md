@@ -83,6 +83,15 @@
     - **Optimized Z-Index Hierarchy**: Standardized layering (Header: 200, Search: 300, Menu: 500) to prevent UI overlapping and ensure smooth interaction.
     - **Fixed Bottom Navigation Overlap**: Hidden `StickyCTA` on mobile to make room for `MobileBottomNav`, and repositioned `FloatingSocialProof` to `bottom-[80px]` (above the nav bar) to eliminate content obstruction.
     - **Context-Aware Bottom Nav**: Integrated dynamic Zalo messaging into the Mobile Bottom Bar, inheriting the "Smart Consultation" logic from the previous Sticky CTA.
+  - **Deep Audit & System Hardening (Phases 1-6 DONE)**:
+    - **Mobile UX Hardening**: Fixed the iOS Auto-zoom bug by enforcing `text-base` (16px+) for all form inputs. Standardized 48px+ touch targets across Header, Bottom Nav, and Category grids.
+    - **Navigation Intelligence**: Implemented active route highlighting using `usePathname` and enhanced logic to support nested routes (prefix matching) for better user orientation.
+    - **Accessibility & UX**: Added 'Escape' key support for closing all overlays and enforced 'Body Scroll Lock' to prevent background scrolling when menus are open. Added ARIA labels to all mobile controls.
+    - **Dark Mode Typography**: Refactored the `.prose` class in `globals.css` to use CSS variables, ensuring all technical content (Blog/Solutions) is readable in Dark Mode without hardcoded hex color conflicts.
+    - **Database Integrity**: Hardened Mongoose schemas with `min: 0` constraints for pricing/stock and implemented strict Regex validation for Vietnamese phone numbers.
+    - **Relational Data Migration**: Upgraded Pathology steps to use `ObjectId` references for Products, enabling interactive product cards within recovery protocols.
+    - **Sync & Cache**: Standardized on-demand revalidation (`revalidatePath`) across all Admin CRUD operations. Fixed a race condition in the Settings API via atomic `upsert`.
+    - **Vercel Build Fix**: Resolved a critical deployment failure caused by a missing `useEffect` import in the `AdminSidebar` component.
 
 
 
@@ -90,9 +99,10 @@
 
 
 ## 🚧 Active Tasks
-- **UI Testing**: Verified mobile responsiveness and conversion hooks on localhost.
-- **System Sync**: Finalizing the synchronization of all directives in `COMMUNICATION_BRIDGE.md`.
-- **Performance Audit**: Plan to re-check PageSpeed after directory cleanup and reduced bundle size.
+- **Quick Wins Implementation**: Executing the 10-item roadmap (SEO metadataBase, Image optimization, Admin slug sync).
+- **Mobile UX Refinement**: Finalizing 48px touch target audit for secondary CTA buttons.
+- **Admin CMS Upgrade**: Planning for a Rich Text Editor integration to reduce Markdown friction for non-tech admins.
+- **Performance Re-check**: Monitoring Core Web Vitals (LCP/INP) after recent typography and layout optimizations.
 
 ## 💡 Key Learnings / Gotchas
 - **Contextual Zalo Links**: Using `encodeURIComponent` with dynamic page titles significantly improves the professionalism of the first touchpoint in the sales funnel.
