@@ -58,9 +58,10 @@ export default async function SolutionDetail({ params }: { params: { slug: strin
     notFound();
   }
 
-  // Pre-mapping pathology name for LeadForm select
   const pathologyName = slug.includes('tuyen-trung') ? 'Tuyến trùng' : 
                         slug.includes('vang-la') ? 'Vàng lá thối rễ' : '';
+
+  const videoId = slug === 'vang-la-thoi-re' ? 'WQGLo4yJjI0' : '8Idd0GyGA-4';
 
   return (
     <div className="bg-white min-h-screen">
@@ -92,7 +93,7 @@ export default async function SolutionDetail({ params }: { params: { slug: strin
             <h2 className="text-xl md:text-3xl font-black text-[#1a5c2a] uppercase mb-8 px-4">Video Hướng Dẫn Phục Hồi Thực Tế</h2>
             <div className="aspect-video bg-black md:rounded-[2.5rem] overflow-hidden shadow-2xl relative group border-b-4 md:border-4 border-white ring-1 ring-gray-100">
               <iframe 
-                src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                src={`https://www.youtube.com/embed/${videoId}`} 
                 className="absolute inset-0 w-full h-full"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen

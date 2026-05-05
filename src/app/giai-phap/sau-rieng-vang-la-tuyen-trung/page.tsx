@@ -40,7 +40,7 @@ export default function DurianNematodeSolution() {
           <h2 className="text-xl md:text-3xl font-black text-[#2d7a2d] uppercase mb-8 px-4">Video Phác Đồ Điều Trị Thực Tế</h2>
           <div className="aspect-video bg-black md:rounded-[2rem] overflow-hidden shadow-2xl relative group">
             <iframe 
-              src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+              src="https://www.youtube.com/embed/8Idd0GyGA-4"
               className="absolute inset-0 w-full h-full"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen

@@ -373,7 +373,7 @@ export default function LandingPage() {
               <div className="relative w-full max-w-[350px] aspect-[9/16] bg-black rounded-[2.5rem] overflow-hidden shadow-2xl border-[8px] border-gray-900">
                 <iframe 
                   className="absolute inset-0 w-full h-full"
-                  src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0&controls=1&rel=0" 
+                  src="https://www.youtube.com/embed/17SIPDywIXk?autoplay=0&controls=1&rel=0" 
                   title="Kỹ sư hướng dẫn thực tế"
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

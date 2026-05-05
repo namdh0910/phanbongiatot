@@ -52,7 +52,7 @@ export default function BlogIndex() {
           image: "https://res.cloudinary.com/dztidbkhv/image/upload/v1776989073/phanbongiatot/y6imlcebopgmarsfpp8e.jpg", 
           slug: "tai-sao-chay-re-to", 
           type: 'video', 
-          videoUrl: 'https://youtube.com/embed/dQw4w9WgXcQ',
+          videoUrl: 'https://youtube.com/embed/8Idd0GyGA-4',
           category: 'Mỗi chất - Một vấn đề',
           categorySlug: 'moi-chat-mot-van-de'
         },

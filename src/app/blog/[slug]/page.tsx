@@ -18,7 +18,7 @@ async function getBlog(slug: string) {
       excerpt: "Từ vườn cây vàng lá trơ cành, sau 3 tháng áp dụng phác đồ phục hồi sinh học rễ đã bung trắng xóa.",
       content: "<p>Nội dung chi tiết đang được cập nhật. Kỹ sư đã sử dụng bộ đôi Humic K-Max và Nemano để xử lý tuyến trùng trước khi kích rễ...</p><h2>Bước 1: Xử lý nền đất</h2><p>Đất tại vườn bị chai cứng, pH thấp...</p>",
       image: "https://res.cloudinary.com/dztidbkhv/image/upload/v1776989061/phanbongiatot/oiaa2gdldtypwevu8qs6.jpg",
-      videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      videoUrl: "https://www.youtube.com/embed/8Idd0GyGA-4",
       category: "Nhật ký phục hồi vườn",
       createdAt: new Date().toISOString(),
       tags: ["sau-rieng", "phuc-hoi"]
