@@ -57,14 +57,10 @@ export default function Header() {
   if (pathname?.startsWith('/admin')) return null;
 
   const navLinks = [
-    { href: "/danh-muc/phan-bon", label: "Phân bón" },
-    { href: "/combo", label: "Combo tiết kiệm" },
-    { href: "/danh-muc/phan-bon-la", label: "Phân bón lá" },
-    { href: "/danh-muc/kich-re", label: "Kích rễ" },
-    { href: "/danh-muc/tuyen-trung", label: "Tuyến trùng" },
-    { href: "/blog", label: "Kiến thức" },
-    { href: "/ve-chung-toi", label: "Về chúng tôi" },
-    { href: "/lien-he", label: "Liên hệ" },
+    { href: "/tim-kiem?q=sau+rieng", label: "🌳 Sầu Riêng" },
+    { href: "/tim-kiem?q=ca+phe", label: "☕ Cà Phê" },
+    { href: "/tim-kiem?q=ho+tieu", label: "🌿 Hồ Tiêu" },
+    { href: "https://zalo.me/0773440966", label: "💬 Tư Vấn" },
   ];
 
   const cropSolutions = [
