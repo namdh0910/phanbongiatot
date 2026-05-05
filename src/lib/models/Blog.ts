@@ -28,14 +28,14 @@ const BlogSchema: Schema = new Schema({
 }, { timestamps: true });
 
 // Auto-generate slug from title if not provided or ensure it exists
-BlogSchema.pre('validate', function(this: any, next) {
+// Using async function to avoid 'next' callback type issues
+BlogSchema.pre('validate', async function(this: any) {
   if (this.title && !this.slug) {
     this.slug = this.title.toLowerCase()
       .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
       .replace(/đ/g, "d").replace(/[^a-z0-9 -]/g, "")
       .replace(/\s+/g, "-").replace(/-+/g, "-");
   }
-  next();
 });
 
 export default mongoose.models.Blog || mongoose.model<IBlog>('Blog', BlogSchema);
