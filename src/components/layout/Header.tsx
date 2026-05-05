@@ -323,16 +323,6 @@ export default function Header() {
                     </Link>
                  </div>
               </div>
-
-              {/* Bottom Actions */}
-              <div className="p-6 bg-gray-50 space-y-3">
-                 <a href={`tel:${hotline.replace(/\./g, '')}`} className="flex items-center justify-center gap-3 w-full bg-[#ee4d2d] text-white py-4 rounded-2xl font-black text-sm shadow-lg shadow-red-100">
-                    <Phone size={18} /> GỌI KỸ SƯ NGAY
-                 </a>
-                 <a href="https://zalo.me/0773440966" target="_blank" className="flex items-center justify-center gap-3 w-full bg-[#0068ff] text-white py-4 rounded-2xl font-black text-sm shadow-lg shadow-blue-100">
-                    <MessageCircle size={18} /> TƯ VẤN ZALO
-                 </a>
-              </div>
            </div>
         </div>
       )}

@@ -31,7 +31,6 @@ export default function LayoutWrapper({ children }: { children: React.ReactNode 
         <StickyCTA />
       </div>
       <MobileBottomNav />
-      <FloatingSocialProof />
     </>
   );
 }
