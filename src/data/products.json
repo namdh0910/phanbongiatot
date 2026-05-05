@@ -6,7 +6,13 @@
     "useCase": "Phòng trừ nấm bệnh",
     "tags": ["Trị Tuyến Trùng", "Kháng Nấm", "Bảo Vệ Rễ"],
     "description": "Chế phẩm sinh học đột phá giúp tiêu diệt tuyến trùng gây sưng rễ, vàng lá mà không gây hại cho vi sinh có lợi.",
-    "icon": "🛡️"
+    "icon": "🛡️",
+    "mechanism": [
+      { "title": "Bao vây cô lập", "desc": "Tiết enzyme phân hủy lớp vỏ kitin của trứng và tuyến trùng trưởng thành." },
+      { "title": "Tạo màng sinh học", "desc": "Hình thành lớp bảo vệ quanh rễ tơ, ngăn chặn sự xâm nhập của nấm thối rễ." }
+    ],
+    "relatedPathologies": ["tuyen-trung-suy-re", "tuyen-trung-rep-sap-re-ca-phe"],
+    "warning": "Tuyệt đối không pha chung với thuốc trừ nấm gốc Đồng hoặc Vôi."
   },
   {
     "id": "2",
@@ -15,7 +21,13 @@
     "useCase": "Phục hồi rễ",
     "tags": ["Kích Rễ", "Cải Tạo Đất", "Xanh Lá"],
     "description": "Axit Humic nồng độ cao giúp rễ tơ bung trắng xóa, cây hấp thụ phân bón tối đa, phục hồi nhanh sau thu hoạch.",
-    "icon": "🌱"
+    "icon": "🌱",
+    "mechanism": [
+      { "title": "Kích thích sinh trưởng", "desc": "Tác động trực tiếp vào đỉnh sinh trưởng rễ, giúp rễ tơ bung trắng chỉ sau 7 ngày." },
+      { "title": "Giữ ẩm tơi xốp", "desc": "Cải thiện cấu trúc keo đất, giúp đất giữ nước và oxy cho rễ hô hấp tốt hơn." }
+    ],
+    "relatedPathologies": ["vang-la-thoi-re", "tuyen-trung-suy-re"],
+    "warning": "Sử dụng tốt nhất vào sáng sớm hoặc chiều mát khi đất đang đủ ẩm."
   },
   {
     "id": "3",
@@ -24,7 +36,13 @@
     "useCase": "Phòng trừ nấm bệnh",
     "tags": ["Kháng Nấm", "Ủ Phân", "Sạch Đất"],
     "description": "Hệ vi sinh đối kháng cực mạnh, tiêu diệt nấm Phytophthora, Fusarium gây thối rễ, lở cổ rễ.",
-    "icon": "🧪"
+    "icon": "🧪",
+    "mechanism": [
+      { "title": "Đối kháng trực tiếp", "desc": "Nấm Trichoderma bao vây và ăn thịt các loại nấm gây hại trong đất." },
+      { "title": "Phân hủy hữu cơ", "desc": "Chuyển hóa xác bã thực vật thành mùn dinh dưỡng cho cây hấp thụ." }
+    ],
+    "relatedPathologies": ["vang-la-thoi-re", "chet-nhanh-chet-cham-ho-tieu"],
+    "warning": "Không dùng chung với các loại thuốc trừ bệnh hóa học trong vòng 7 ngày."
   },
   {
     "id": "4",
@@ -33,7 +51,13 @@
     "useCase": "Cải tạo đất",
     "tags": ["Giải Độc", "Hạ Phèn", "Dẫn Phân"],
     "description": "Dẫn truyền dinh dưỡng cực nhanh, giải độc phèn, mặn và các loại thuốc hóa học tồn dư trong đất.",
-    "icon": "⚡"
+    "icon": "⚡",
+    "mechanism": [
+      { "title": "Chống sốc môi trường", "desc": "Giúp cây chịu hạn, chịu mặn và giải độc thuốc bảo vệ thực vật nhanh chóng." },
+      { "title": "Dẫn truyền dinh dưỡng", "desc": "Kích thước phân tử siêu nhỏ giúp dẫn phân bón vào cây hiệu quả gấp 3 lần." }
+    ],
+    "relatedPathologies": ["vang-la-thoi-re", "chet-nhanh-chet-cham-ho-tieu"],
+    "warning": "Nên phối trộn với Humic để đạt hiệu quả phục hồi rễ tối ưu."
   },
   {
     "id": "5",
@@ -42,6 +66,12 @@
     "useCase": "Cung cấp vi lượng",
     "tags": ["Xanh Lá", "Chống Rụng", "Lớn Trái"],
     "description": "Cung cấp đầy đủ các khoáng chất thiết yếu dạng Chelate giúp cây hấp thụ 100% qua lá và rễ.",
-    "icon": "✨"
+    "icon": "✨",
+    "mechanism": [
+      { "title": "Bù đắp thiếu hụt", "desc": "Bổ sung ngay lập tức Mg, Zn, Fe, B... giúp lá xanh dày, ngăn ngừa vàng lá do thiếu chất." },
+      { "title": "Tăng cường quang hợp", "desc": "Kích hoạt hệ thống enzyme giúp cây tổng hợp đường bột và protein tốt hơn." }
+    ],
+    "relatedPathologies": ["vang-la-thoi-re", "tuyen-trung-suy-re"],
+    "warning": "Pha đúng liều lượng hướng dẫn, tránh phun quá liều vào giai đoạn bông đang nở."
   }
 ]

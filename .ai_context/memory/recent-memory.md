@@ -3,10 +3,10 @@
 ## 🕒 Current Context
 - **Date**: 2026-05-05
 - **Latest Activities**: 
+  - **Biological Technical Guides**: Replaced the product detail page (`/san-pham/[slug]`) with a "Technical Guide" format. Replaced e-commerce buttons with "Mixing Consultation" funnels.
+  - **Mechanism-Driven Content**: Added biological mechanism descriptions and mixing warnings to products to build authority and trust.
+  - **Internal Solution Linking**: Connected products to relevant pathologies from `pathologies.json`, creating a closed-loop navigation for the user.
   - **Biological Product Repository**: Refactored `/san-pham/page.tsx` into a high-end "Biological Product Repository". Removed all e-commerce elements (prices, cart) to focus on professional consultation.
-  - **Solution-Centric Product Cards**: Created `SolutionProductCard` with focus on use-cases (Root Recovery, Soil Improvement) and a primary CTA for "Mixing Consultation".
-  - **Smart Category Filtering**: Implemented filtering based on agricultural problems (Problem-Solving filters) instead of price or brand.
-  - **Mobile UX Optimizations**: Shortened Hero Banner height to 65vh on mobile and optimized CTA button size to prevent content occlusion. Increased Floating Social Proof interval to 3 minutes (180,000ms) to reduce user distraction.
 
 ## 🚧 Active Tasks
 - **Mobile UI Polishing**: Ensure all moved components maintain their styling and responsive behavior.
