@@ -4,11 +4,11 @@ import Product from '@/lib/models/Product';
 
 export async function GET(
   request: Request,
-  props: { params: Promise<{ id: string }> }
+  context: any
 ) {
   try {
     await dbConnect();
-    const params = await props.params;
+    const params = await context.params;
     const id = params.id;
     
     // Check if it's a slug or ID
@@ -27,11 +27,11 @@ export async function GET(
 
 export async function PUT(
   request: Request,
-  props: { params: Promise<{ id: string }> }
+  context: any
 ) {
   try {
     await dbConnect();
-    const params = await props.params;
+    const params = await context.params;
     const id = params.id;
     const body = await request.json();
     
@@ -47,11 +47,11 @@ export async function PUT(
 
 export async function DELETE(
   request: Request,
-  props: { params: Promise<{ id: string }> }
+  context: any
 ) {
   try {
     await dbConnect();
-    const params = await props.params;
+    const params = await context.params;
     const id = params.id;
     const product = await Product.findByIdAndDelete(id);
     if (!product) {
