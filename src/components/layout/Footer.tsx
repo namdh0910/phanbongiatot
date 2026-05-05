@@ -56,9 +56,9 @@ export default function Footer() {
             <ul className="space-y-4">
               {[
                 { label: 'Tài liệu kỹ thuật', href: '/blog' },
+                { label: 'Hỏi đáp kỹ thuật', href: '/hoi-dap-ky-thuat' },
                 { label: 'Đặt lịch tư vấn', href: 'https://zalo.me/0773440966' },
                 { label: 'Về chúng tôi', href: '/ve-chung-toi' },
-                { label: 'Kiến thức nhà nông', href: '/blog' },
               ].map((link) => (
                 <li key={link.label}>
                   <Link href={link.href} className="text-gray-400 hover:text-white flex items-center gap-2 group transition-colors">

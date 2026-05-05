@@ -216,7 +216,8 @@ export default function Header() {
               { name: "Cà phê", icon: "☕", href: "/tim-kiem?q=ca-phe" },
               { name: "Hồ tiêu", icon: "🌿", href: "/tim-kiem?q=ho-tieu" },
               { name: "Cây Ăn Trái", icon: "🥭", href: "/tim-kiem?q=cay-an-trai" },
-              { name: "Kiến thức", icon: "📖", href: "/blog" }
+              { name: "Kiến thức", icon: "📖", href: "/blog" },
+              { name: "Hỏi đáp", icon: "❓", href: "/hoi-dap-ky-thuat" }
             ].map((cat, i) => (
               <Link 
                 key={i} 
