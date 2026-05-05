@@ -22,12 +22,12 @@ export const metadata: Metadata = {
   description: "Phân bón chính hãng giá tốt cho sầu riêng, cà phê, tiêu. Giao hàng toàn quốc, kiểm tra trước khi nhận. Tư vấn kỹ sư miễn phí: 0773.440.966",
   keywords: "phân bón, thuốc trừ sâu, kích rễ, tuyến trùng, vàng lá thối rễ, sầu riêng, cà phê, phan bong gia tot",
   alternates: {
-    canonical: "https://phanbongiatot.com",
+    canonical: "https://www.phanbongiatot.com/",
   },
   openGraph: {
     title: "Phân Bón Giá Tốt | Giải Pháp Nông Nghiệp Hiệu Quả",
     description: "Phân bón chính hãng giá tốt cho sầu riêng, cà phê, tiêu. Giao hàng toàn quốc, kiểm tra trước khi nhận.",
-    url: "https://phanbongiatot.com",
+    url: "https://www.phanbongiatot.com/",
     siteName: "Phân Bón Giá Tốt",
     locale: "vi_VN",
     type: "website",
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Phân Bón Giá Tốt | Giải Pháp Nông Nghiệp Hiệu Quả",
     description: "Phân bón chính hãng giá tốt cho sầu riêng, cà phê, tiêu. Giao hàng toàn quốc.",
-    images: ["https://phanbongiatot.com/og-image.png"],
+    images: ["https://www.phanbongiatot.com/og-image.png"],
   },
 };
 
@@ -64,8 +64,8 @@ export default function RootLayout({
             "@context": "https://schema.org",
             "@type": "Organization",
             "name": "Phân Bón Giá Tốt",
-            "url": "https://phanbongiatot.com",
-            "logo": "https://phanbongiatot.com/logo.png",
+            "url": "https://www.phanbongiatot.com/",
+            "logo": "https://www.phanbongiatot.com/logo.png",
             "sameAs": [
               "https://www.facebook.com/phanbongiatot",
               "https://www.youtube.com/@phanbongiatot"
@@ -85,7 +85,7 @@ export default function RootLayout({
             "@context": "https://schema.org",
             "@type": "LocalBusiness",
             "name": "Phân Bón Giá Tốt",
-            "image": "https://phanbongiatot.com/og-image.png",
+            "image": "https://www.phanbongiatot.com/og-image.png",
             "telephone": "0773440966",
             "address": {
               "@type": "PostalAddress",

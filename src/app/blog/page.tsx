@@ -37,9 +37,9 @@ export default function BlogIndex() {
     } catch (error) {
       // Fallback data
       const fallback = [
-        { title: "Cách nhận biết sầu riêng bị vàng lá thối rễ", excerpt: "Vàng lá thối rễ là căn bệnh nguy hiểm số 1 trên cây sầu riêng. Bài viết hướng dẫn chi tiết cách nhận biết từ sớm...", createdAt: new Date().toISOString(), image: "", slug: "cach-nhan-biet-sau-rieng-vang-la-thoi-re", tags: ["sau-rieng", "phong-benh"] },
-        { title: "Tuyến trùng rễ cà phê: Kẻ giết người thầm lặng", excerpt: "Nhiều nhà nông nhầm lẫn tuyến trùng rễ với thiếu phân. Dưới đây là 3 dấu hiệu đặc trưng nhất để nhận diện tuyến trùng trên cây cà phê.", createdAt: new Date().toISOString(), image: "", slug: "tuyen-trung-re-ca-phe", tags: ["ca-phe", "phong-benh"] },
-        { title: "Kỹ thuật bón phân giai đoạn ra hoa đậu trái", excerpt: "Bón phân không đúng cách lúc ra hoa sẽ làm rụng bông, rụng trái non hàng loạt. Bí quyết là sử dụng Canxi Bo và hạn chế đạm...", createdAt: new Date().toISOString(), image: "", slug: "ky-thuat-bon-phan-ra-hoa", tags: ["kich-re"] }
+        { title: "Cách phục hồi sầu riêng sau thu hoạch: Không suy cây, mùa sau trúng lớn", excerpt: "Cơi đọt là 'nhà máy' sản xuất năng lượng cho cây. Hướng dẫn 4 bước phục hồi dàn rễ và kéo cơi đọt mập mạp.", createdAt: new Date().toISOString(), image: "https://res.cloudinary.com/dztidbkhv/image/upload/v1776989061/phanbongiatot/oiaa2gdldtypwevu8qs6.jpg", slug: "phuc-hoi-sau-rieng-sau-thu-hoach", tags: ["sau-rieng", "phong-benh"] },
+        { title: "Tại sao rệp sáp tái phát thần tốc? Phác đồ 3-3-5 diệt tận gốc", excerpt: "Rệp sáp có lớp sáp bảo vệ cực kỳ lì lợm. Bí quyết là phá vỡ lớp giáp sáp và diệt sạch túi trứng ẩn nấp.", createdAt: new Date().toISOString(), image: "https://res.cloudinary.com/dztidbkhv/image/upload/v1776989073/phanbongiatot/y6imlcebopgmarsfpp8e.jpg", slug: "diet-rep-sap-tan-goc-v10", tags: ["sau-rieng", "ca-phe"] },
+        { title: "Cà phê rụng trái non hàng loạt - Giải mã 'tử huyệt' dinh dưỡng", excerpt: "Đừng chỉ đổ lỗi cho thời tiết. Cây cà phê rụng trái thường do thiếu hụt Canxi-Bo và cạnh tranh dinh dưỡng cục bộ.", createdAt: new Date().toISOString(), image: "https://res.cloudinary.com/dztidbkhv/image/upload/v1776989048/phanbongiatot/jpjgjjvfg7pglnnh0a1a.jpg", slug: "ca-phe-rung-trai-non-v10", tags: ["ca-phe"] }
       ];
       setPosts(fallback);
       setFilteredPosts(fallback);
@@ -74,7 +74,7 @@ export default function BlogIndex() {
           <h1 className="text-3xl md:text-5xl font-black text-gray-900 tracking-tight uppercase italic mb-4">
             Kiến Thức Nhà Nông
           </h1>
-          <p className="text-gray-500 font-medium max-w-2xl mx-auto text-sm md:text-base">
+          <p className="text-gray-700 font-medium max-w-2xl mx-auto text-sm md:text-base">
             Chia sẻ kỹ thuật canh tác bền vững, phác đồ điều trị bệnh cây và kinh nghiệm từ các kỹ sư nông nghiệp hàng đầu.
           </p>
         </div>
@@ -90,7 +90,7 @@ export default function BlogIndex() {
               className={`flex-shrink-0 px-6 py-2.5 rounded-full text-xs font-black uppercase tracking-widest transition-all ${
                 activeTab === cat.id 
                 ? 'bg-[#1a5c2a] text-white shadow-lg shadow-green-100' 
-                : 'bg-white text-gray-500 border border-gray-100 hover:border-green-200 hover:text-green-600'
+                : 'bg-white text-gray-700 border border-gray-100 hover:border-green-200 hover:text-green-600'
               }`}
             >
               <span className="mr-2">{cat.icon}</span> {cat.label}
@@ -107,9 +107,9 @@ export default function BlogIndex() {
              ))}
           </div>
         ) : filteredPosts.length === 0 ? (
-          <div className="text-center py-24 bg-white rounded-[3rem] border-2 border-dashed border-gray-100">
+          <div className="text-center py-24 bg-white rounded-[3rem] border-2 border-dashed border-gray-200">
              <div className="text-7xl mb-6 opacity-20">📚</div>
-             <p className="text-gray-400 font-black uppercase tracking-widest text-xs">Chưa có bài viết trong danh mục này</p>
+             <p className="text-gray-600 font-black uppercase tracking-widest text-xs">Danh mục đang được cập nhật thêm bài viết...</p>
           </div>
         ) : (
           <>
@@ -130,15 +130,15 @@ export default function BlogIndex() {
 
                   {/* Info Layout */}
                   <div className="flex flex-col flex-1 p-3 md:p-6 lg:p-8">
-                      <div className="flex items-center gap-2 text-[8px] md:text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2 md:mb-3">
-                         <span className="text-emerald-600">Kiến thức</span>
+                      <div className="flex items-center gap-2 text-[8px] md:text-[10px] font-black text-gray-600 uppercase tracking-widest mb-2 md:mb-3">
+                         <span className="text-emerald-700">Kiến thức</span>
                          <span className="opacity-30">|</span>
                          <span className="hidden md:inline">{new Date(post.createdAt || Date.now()).toLocaleDateString('vi-VN')}</span>
                       </div>
                       <h3 className="text-sm md:text-xl font-black text-gray-900 group-hover:text-[#1a5c2a] transition-colors leading-tight mb-2 md:mb-4 line-clamp-2">
                         {post.title}
                       </h3>
-                      <p className="text-gray-500 text-xs md:text-sm font-medium line-clamp-2 leading-relaxed mb-4 hidden md:block">
+                      <p className="text-gray-700 text-xs md:text-sm font-medium line-clamp-2 leading-relaxed mb-4 hidden md:block">
                         {post.excerpt}
                       </p>
                       <div className="mt-auto flex items-center justify-between">

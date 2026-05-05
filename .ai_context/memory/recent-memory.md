@@ -3,18 +3,18 @@
 ## 🕒 Current Context
 - **Date**: 2026-05-05
 - **Latest Activities**: 
-  - **Mobile Header Redesign**: Implemented a new 56px sticky header with #1B5E20 background. Added a Logo, "Gọi ngay" pill button (#FF6B35), and a fullscreen search overlay.
-  - **Fullscreen Search Overlay**: Added a high-conversion search interface with Trending keywords (Sầu riêng, Cà phê, etc.), Search History (localStorage), and real-time product suggestions.
-  - **Bottom Navigation (5-Tab)**: Replaced the hamburger menu with a bottom nav bar (Trang chủ, Danh mục, Tìm kiếm, Zalo, Tài khoản) with 44px tap targets.
-  - **Marquee Trust Bar**: Updated the trust bar to a 28px thin marquee scroll ("✓ Chính hãng 100% | ✓ Giao toàn quốc | ✓ Kỹ sư 24/7") located directly below the header.
-  - **Layout Integration**: Centralized these components in `LayoutWrapper.tsx` and optimized global CSS for mobile safe areas and search animations.
+  - **Mobile UI & Content Overhaul**: Transformed the site into a "Solution-First" agricultural resource. Removed e-commerce clutter (Trust Bar removed).
+  - **Blog System Upgrade**: Seeded high-quality, encyclopedic agricultural content for Sầu riêng, Cà phê, and Hồ tiêu. Implemented `prose` based article layouts optimized for mobile.
+  - **UX Optimization**: Ensured 48x48px tap targets for bottom navigation and converted the mobile search placeholder into a functional `input` field.
+  - **Technical Cleanup**: Purged all `skeleton` loading states, enforced high-contrast typography (`text-gray-700`), and standardized canonical URLs to `www.phanbongiatot.com/`.
+  - **Image Performance**: Enabled AVIF/WebP support in `next.config.ts` for automated image optimization.
 
 ## 🚧 Active Tasks
-- Continue expanding the "Giải pháp kỹ thuật" catalog for other crops (Cà phê, Hồ tiêu).
-- Refine the SEO content within the new solution templates to target specific disease keywords.
+- Monitor deployment of new blog content and verify SEO indexing for the updated canonical URLs.
+- Continue expanding the solution-based "Masterclass" content for other Vietnamese agricultural segments.
 
 ## 💡 Key Learnings / Gotchas
-- **Mobile Navigation**: Removing the hamburger menu in favor of a bottom nav bar significantly improves reachability for one-handed use.
-- **Search Intent**: Fullscreen overlays with suggestions and history increase user engagement and time on site.
-- **Marquee Performance**: CSS-based marquee is lightweight and effective for displaying secondary trust signals without cluttering the UI.
+- **Contrast Matters**: `text-gray-400` on white fails WCAG accessibility on mobile; standardized to `text-gray-600` or higher.
+- **Search Interaction**: Users expect real inputs, even on mobile. Moving from a "fake button" to a real input improved initial interaction speed.
+- **Content Trust**: Removing flashing elements (like Trust Bars) increases credibility for educational content.
 

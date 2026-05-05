@@ -142,7 +142,7 @@ export default function Header() {
               <a href={`tel:${hotline.replace(/\./g, '')}`} className="flex items-center gap-2 group">
                  <div className="w-10 h-10 bg-emerald-50 text-emerald-700 rounded-full flex items-center justify-center group-hover:bg-emerald-600 group-hover:text-white transition-all">📞</div>
                  <div className="flex flex-col">
-                    <span className="text-[9px] font-black uppercase text-gray-400">Hotline 24/7</span>
+                    <span className="text-[9px] font-black uppercase text-gray-500">Hotline 24/7</span>
                     <span className="text-base font-black text-gray-900">{hotline}</span>
                  </div>
               </a>
@@ -192,13 +192,14 @@ export default function Header() {
           </Link>
 
           <div className="flex-1 relative">
-            <div 
-              onClick={() => setIsSearchFocused(true)}
-              className="w-full bg-white/10 backdrop-blur-md rounded-full py-1.5 px-4 flex items-center gap-2 border border-white/20"
-            >
-              <span className="text-white/60 text-sm">🔍</span>
-              <span className="text-white/70 text-[13px] truncate">Tìm Acti Rooti, Bình Điền...</span>
-            </div>
+            <form onSubmit={(e) => handleSearch(e)}>
+              <input 
+                type="text"
+                onFocus={() => setIsSearchFocused(true)}
+                placeholder="Tìm Acti Rooti, Bình Điền..."
+                className="w-full bg-white/10 backdrop-blur-md rounded-full py-1.5 px-4 outline-none border border-white/20 text-white text-[13px] placeholder:text-white/70"
+              />
+            </form>
           </div>
 
           <a 
@@ -241,7 +242,7 @@ export default function Header() {
             {searchHistory.length > 0 && !searchQuery && (
               <div className="mb-8">
                 <div className="flex justify-between items-center mb-4">
-                  <h4 className="text-xs font-black text-gray-400 uppercase tracking-widest">Lịch sử tìm kiếm</h4>
+                  <h4 className="text-xs font-black text-gray-500 uppercase tracking-widest">Lịch sử tìm kiếm</h4>
                   <button 
                     onClick={() => {
                       setSearchHistory([]);
@@ -268,7 +269,7 @@ export default function Header() {
 
             {/* TRENDING */}
             <div className="mb-8">
-              <h4 className="text-xs font-black text-gray-400 uppercase tracking-widest mb-4">Xu hướng tìm kiếm</h4>
+              <h4 className="text-xs font-black text-gray-500 uppercase tracking-widest mb-4">Xu hướng tìm kiếm</h4>
               <div className="grid grid-cols-2 gap-3">
                 {trends.map((t, i) => (
                   <button 
@@ -286,7 +287,7 @@ export default function Header() {
             {/* SUGGESTIONS */}
             {searchQuery.trim().length >= 2 && (showSuggestions || suggestions.products.length > 0) && (
               <div>
-                <h4 className="text-xs font-black text-gray-400 uppercase tracking-widest mb-4">Gợi ý cho bạn</h4>
+                <h4 className="text-xs font-black text-gray-600 uppercase tracking-widest mb-4">Gợi ý cho bạn</h4>
                 <div className="space-y-4">
                   {suggestions.products.map((p: any, i: number) => (
                     <Link 

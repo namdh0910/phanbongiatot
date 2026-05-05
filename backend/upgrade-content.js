@@ -130,6 +130,36 @@ const articlesV10 = [
         <p style="text-align: center; margin-top: 50px; font-weight: bold; color: #d32f2f;">CỨU SẦU RIÊNG LÀ CỨU CẢ TƯƠNG LAI VƯỜN CÂY!</p>
       </div>
     `
+  },
+  {
+    title: "Hồ tiêu chết nhanh chết chậm - Đừng để vườn tiêu trắng tay! Phác đồ dứt điểm nấm Phytophthora",
+    slug: "ho-tieu-chet-nhanh-chet-cham",
+    excerpt: "Bệnh chết nhanh (thối rễ) và chết chậm (vàng lá) là nỗi ám ảnh của nhà vườn trồng tiêu. Tìm hiểu quy trình 4 bước xử lý triệt để mầm bệnh từ gốc.",
+    image: "https://res.cloudinary.com/dztidbkhv/image/upload/v1776989048/phanbongiatot/jpjgjjvfg7pglnnh0a1a.jpg",
+    tags: ["Hồ tiêu", "Chết nhanh chết chậm", "Bảo vệ thực vật", "V10 Style"],
+    content: `
+      <div style="font-family: 'Inter', sans-serif; line-height: 1.8; color: #333; max-width: 800px; margin: auto;">
+        <div style="background-color: #f9f9f9; border-left: 5px solid #d32f2f; padding: 20px; margin-bottom: 30px;">
+          <p style="font-style: italic; margin: 0; color: #555;">
+            "Hôm qua tiêu vẫn xanh mướt, sau một trận mưa đêm nay đã thấy héo rũ, lá rụng như trút. Tiêu chết nhanh như tên gọi của nó vậy..."
+          </p>
+        </div>
+
+        <h2 style="color: #2e7d32;">1. Phân biệt Chết Nhanh và Chết Chậm</h2>
+        <p><strong>Chết nhanh:</strong> Do nấm Phytophthora gây ra, tấn công vào cổ rễ và thân ngầm. Cây héo rũ rất nhanh nhưng lá vẫn còn xanh trên cành.</p>
+        <p><strong>Chết chậm:</strong> Do tuyến trùng và nấm Fusarium phối hợp tấn công. Cây vàng lá từ từ, rụng lóng, rụng lá rồi chết dần sau vài tháng.</p>
+
+        <h2 style="color: #2e7d32;">2. Quy trình xử lý triệt để chuẩn kỹ sư</h2>
+        <ul>
+          <li><strong>Bước 1: Cách ly vùng bệnh.</strong> Dùng vôi bột rải quanh gốc bệnh và các gốc lân cận để chặn đứng sự lây lan qua nguồn nước.</li>
+          <li><strong>Bước 2: Sát khuẩn tầng rễ.</strong> Tưới <a href="/san-pham/nemano-che-pham-sinh-hoc-xu-ly-tuyen-trung-nam-khuan"><strong>Nemano</strong></a> kết hợp thuốc nấm đặc trị để tiêu diệt bào tử nấm trong đất.</li>
+          <li><strong>Bước 3: Hồi sinh bộ rễ.</strong> Sau 7 ngày, tưới <a href="/san-pham/phan-bon-la-acti-rooti-kich-re-cuc-manh-phuc-hoi-cay-trong"><strong>Acti Rooti</strong></a> để cây ra rễ mới, thay thế những rễ đã hỏng.</li>
+          <li><strong>Bước 4: Nâng cao đề kháng.</strong> Phun <a href="/san-pham/phan-bon-la-acti-flora-thuc-day-phan-hoa-mam-hoa-kich-hoa"><strong>Acti Flora</strong></a> để cây hồi phục dàn lá và tăng cường quang hợp.</li>
+        </ul>
+
+        <p style="text-align: center; margin-top: 50px; font-weight: bold; color: #d32f2f;">PHÒNG BỆNH HƠN CHỮA BỆNH - HÃY CHĂM SÓC ĐẤT TRƯỚC KHI CHĂM SÓC CÂY!</p>
+      </div>
+    `
   }
 ];
 

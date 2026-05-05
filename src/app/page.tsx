@@ -120,7 +120,7 @@ export default function Home() {
                 <div className="w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center text-2xl group-hover:bg-emerald-600 group-hover:text-white transition-all">{item.icon}</div>
                 <div className="flex-1">
                   <h3 className="font-black text-gray-900 text-sm md:text-base group-hover:text-emerald-700 transition-colors">{item.title}</h3>
-                  <p className="text-xs text-gray-400 font-medium">{item.desc}</p>
+                  <p className="text-xs text-gray-600 font-medium">{item.desc}</p>
                 </div>
                 <span className="text-gray-300 text-lg group-hover:translate-x-1 transition-transform">▶</span>
               </Link>
@@ -136,14 +136,14 @@ export default function Home() {
             <span className="animate-pulse">🔥</span> Sản Phẩm Chủ Lực
           </div>
           <h2 className="text-2xl md:text-4xl font-black text-gray-900 uppercase leading-tight m-0">Giải Pháp Tốt Nhất</h2>
-          <p className="text-gray-500">Được hàng ngàn nhà vườn tin dùng</p>
+          <p className="text-gray-700">Được hàng ngàn nhà vườn tin dùng</p>
         </div>
         
         <div className="px-4 md:px-0">
           {loadingProducts ? (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[1,2,3].map(i => (
-                <div key={i} className="bg-white rounded-3xl p-4 shadow-sm border border-gray-100 h-96 skeleton"></div>
+                <div key={i} className="bg-white rounded-3xl p-4 shadow-sm border border-gray-100 h-96"></div>
               ))}
             </div>
           ) : products.length === 0 ? (
@@ -173,7 +173,7 @@ export default function Home() {
         <div className="flex justify-between items-end mb-4 md:mb-6 border-l-4 border-emerald-600 pl-4 mx-4 md:mx-0">
           <div>
             <h2 className="text-xl md:text-3xl font-black text-gray-900 uppercase m-0">Kiến Thức Nhà Nông</h2>
-            <p className="text-gray-500 text-xs md:text-sm mt-1">Hướng dẫn kỹ thuật chăm sóc vườn hiệu quả</p>
+            <p className="text-gray-700 text-xs md:text-sm mt-1">Hướng dẫn kỹ thuật chăm sóc vườn hiệu quả</p>
           </div>
           <Link href="/blog" className="text-emerald-600 font-bold hover:underline items-center gap-2 text-xs flex">
             TẤT CẢ <span className="hidden md:inline">BÀI VIẾT</span> <span>▶</span>
@@ -183,7 +183,7 @@ export default function Home() {
         <div className="px-4 md:px-0">
           {loadingBlogs ? (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="w-full md:w-48 aspect-video skeleton rounded-2xl"></div>
+              <div className="w-full md:w-48 aspect-video rounded-2xl bg-gray-50"></div>
             </div>
           ) : (
             <div className="flex overflow-x-auto pb-4 gap-4 md:grid md:grid-cols-2 lg:grid-cols-3 md:overflow-visible scrollbar-hide animate-in fade-in duration-700">
@@ -198,7 +198,7 @@ export default function Home() {
                   </div>
                   <div className="p-6 md:p-8">
                       <h3 className="font-black text-gray-900 group-hover:text-emerald-600 transition-colors line-clamp-2 mb-4 text-lg md:text-xl leading-tight">{blog.title}</h3>
-                      <p className="text-sm text-gray-500 line-clamp-2 mb-6 leading-relaxed font-medium">{blog.excerpt}</p>
+                      <p className="text-sm text-gray-700 line-clamp-2 mb-6 leading-relaxed font-medium">{blog.excerpt}</p>
                       <div className="flex items-center text-emerald-600 text-xs font-black uppercase tracking-wider group-hover:gap-3 gap-2 transition-all">
                         Đọc tiếp <span>➜</span>
                       </div>

@@ -5,7 +5,6 @@ import Header from './Header';
 import Footer from './Footer';
 import StickyCTA from './StickyCTA';
 import FloatingSocialProof from './FloatingSocialProof';
-import TrustBar from './TrustBar';
 import MobileBottomNav from './MobileBottomNav';
 
 export default function LayoutWrapper({ children }: { children: React.ReactNode }) {
@@ -24,7 +23,6 @@ export default function LayoutWrapper({ children }: { children: React.ReactNode 
   return (
     <>
       <Header />
-      <TrustBar />
       <main className="flex-1">
         {children}
       </main>
@@ -35,5 +33,6 @@ export default function LayoutWrapper({ children }: { children: React.ReactNode 
     </>
   );
 }
+
 
 

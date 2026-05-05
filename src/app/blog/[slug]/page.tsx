@@ -98,12 +98,12 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
           <article className="lg:flex-1 min-w-0">
               <header className="mb-10 pb-10 border-b border-gray-50 text-center">
                 <h1 className="text-3xl md:text-5xl lg:text-6xl font-black text-gray-900 mb-8 leading-[1.15] tracking-tight break-words max-w-4xl mx-auto">{blog.title}</h1>
-                <div className="flex items-center justify-center gap-8 text-gray-500 text-sm font-bold">
-                  <span className="flex items-center gap-2 bg-emerald-50 text-emerald-700 px-4 py-1.5 rounded-full border border-emerald-100">
+                <div className="flex items-center justify-center gap-8 text-gray-700 text-sm font-bold">
+                  <span className="flex items-center gap-2 bg-emerald-50 text-emerald-800 px-4 py-1.5 rounded-full border border-emerald-100">
                     <span className="text-xl">👨‍🔬</span> Kỹ sư Phân Bón Giá Tốt
                   </span>
                   <span className="flex items-center gap-2">
-                    <span className="opacity-50">📅</span> {blog.createdAt ? new Date(blog.createdAt).toLocaleDateString('vi-VN') : 'Mới cập nhật'}
+                    <span className="opacity-70">📅</span> {blog.createdAt ? new Date(blog.createdAt).toLocaleDateString('vi-VN') : 'Mới cập nhật'}
                   </span>
                 </div>
               </header>
@@ -149,7 +149,7 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
                 <div className="flex flex-col md:flex-row justify-between items-center gap-6 bg-white p-8 rounded-3xl shadow-sm border border-gray-50">
                   <div>
                     <h4 className="font-black text-gray-900 mb-1 italic">Chia sẻ kỹ thuật này cho bà con</h4>
-                    <p className="text-gray-400 text-xs font-bold uppercase tracking-widest">Cùng nhau xây dựng nền nông nghiệp bền vững</p>
+                    <p className="text-gray-600 text-xs font-bold uppercase tracking-widest">Cùng nhau xây dựng nền nông nghiệp bền vững</p>
                   </div>
                   <div className="flex gap-4">
                     <a href={`https://www.facebook.com/sharer/sharer.php?u=https://www.phanbongiatot.com/blog/${slug}`} target="_blank" className="w-14 h-14 bg-[#1877F2] text-white rounded-2xl flex items-center justify-center text-2xl shadow-lg shadow-blue-100 hover:-translate-y-1 transition-all active:scale-90 font-bold">f</a>
@@ -208,7 +208,7 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
               <div className="bg-white rounded-3xl p-6 shadow-sm border border-gray-100 text-center">
                  <div className="w-16 h-16 bg-red-50 text-red-600 rounded-full flex items-center justify-center text-3xl mx-auto mb-4">📞</div>
                  <h4 className="font-bold text-gray-900 mb-2">Hotline Kỹ Thuật 24/7</h4>
-                 <p className="text-gray-500 text-sm mb-4">Hỗ trợ chẩn đoán bệnh cây và báo giá nhanh</p>
+                 <p className="text-gray-700 text-sm mb-4">Hỗ trợ chẩn đoán bệnh cây và báo giá nhanh</p>
                  <a href="tel:0773440966" className="block w-full py-4 bg-[#ee4d2d] text-white font-black text-xl rounded-xl shadow-lg hover:shadow-xl transition-all active:scale-95">
                     0773.440.966
                  </a>
