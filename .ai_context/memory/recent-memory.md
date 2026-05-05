@@ -3,6 +3,10 @@
 ## 🕒 Current Context
 - **Date**: 2026-05-05
 - **Latest Activities (Directive 03, 04, 05 DONE)**:
+  - **Core Stability & Recovery Hardening**:
+    - **Hydration Fix**: Resolved SSR-to-Client mismatches in Header and Navigation by encapsulating browser-only APIs (localStorage, window) in `useEffect`.
+    - **Null Safety**: Hardened `.map()` calls in Blog and Product detail pages with existence checks to prevent "White Screen of Death" crashes.
+    - **User Recovery**: Implemented custom `not-found.tsx` and `error.tsx` with agricultural branding and direct Zalo fallback.
   - **Product Sync & Detail Page Recovery**: 
     - **Recovery**: Created `src/app/san-pham/[slug]/page.tsx` to resolve site-wide 404 errors on product links.
     - **Data Alignment**: Standardized `images` field across Model, Admin, and Frontend. Added missing business logic fields (`originalPrice`, `stock`, `soldCount`).
