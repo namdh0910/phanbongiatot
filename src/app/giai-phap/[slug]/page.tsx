@@ -4,7 +4,7 @@ import LeadForm from "@/components/shared/LeadForm";
 import pathologies from "@/data/pathologies.json";
 import products from "@/data/products.json";
 import Link from "next/link";
-import { ChevronRight, CheckCircle2, AlertTriangle, ShieldCheck, Zap, MessageCircle, Star, ShoppingBag } from "lucide-react";
+import { ChevronRight, CheckCircle2, AlertTriangle, ShieldCheck, Zap, MessageCircle, Star, ShoppingBag, Phone } from "lucide-react";
 import SchemaMarkup from "@/components/shared/SchemaMarkup";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 
@@ -119,12 +119,28 @@ export default async function SolutionDetail({ params }: { params: { slug: strin
         <div className="container mx-auto px-4">
            <div className="max-w-4xl mx-auto text-center">
               <h2 className="text-2xl md:text-4xl font-black text-[#1a5c2a] uppercase italic mb-10">Video Hướng Dẫn Thực Tế Tại Vườn</h2>
-              <div className="aspect-video bg-black rounded-[2rem] overflow-hidden shadow-2xl border-8 border-white ring-1 ring-gray-200">
-                <iframe 
-                  src={`https://www.youtube.com/embed/${videoId}`} 
-                  className="w-full h-full"
-                  allowFullScreen
-                ></iframe>
+              <div className="aspect-video bg-gray-900 rounded-[2rem] overflow-hidden shadow-2xl border-8 border-white ring-1 ring-gray-200 relative group">
+                {['WQGLo4yJjI0', 'dQw4w9WgXcQ'].includes(videoId) ? (
+                  <div className="absolute inset-0 flex flex-col items-center justify-center p-8 bg-gradient-to-br from-gray-900 to-[#1a5c2a]">
+                    <div className="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center mb-6 animate-pulse">
+                      <Zap className="text-[#f5a623]" size={40} />
+                    </div>
+                    <h3 className="text-white text-xl md:text-2xl font-black uppercase italic mb-2">Video đang cập nhật</h3>
+                    <p className="text-gray-400 font-bold mb-8 text-sm md:text-base">Kỹ sư đang quay thực tế tại vườn...</p>
+                    <a 
+                      href="tel:0773440966" 
+                      className="bg-[#f5a623] text-white px-8 py-3 rounded-xl font-black text-sm uppercase tracking-widest hover:scale-105 transition-all shadow-xl shadow-orange-900/20 flex items-center gap-2"
+                    >
+                      <Phone size={18} /> Gọi Kỹ Sư Tư Vấn Ngay: 0773.440.966
+                    </a>
+                  </div>
+                ) : (
+                  <iframe 
+                    src={`https://www.youtube.com/embed/${videoId}`} 
+                    className="w-full h-full"
+                    allowFullScreen
+                  ></iframe>
+                )}
               </div>
            </div>
         </div>

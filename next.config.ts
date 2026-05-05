@@ -40,6 +40,11 @@ const nextConfig: NextConfig = {
         source: '/combo',
         destination: '/blog',
         permanent: true,
+      },
+      {
+        source: '/giai-phap/sau-rieng-vang-la-thoi-re',
+        destination: '/giai-phap/vang-la-thoi-re',
+        permanent: true,
       }
     ]
   },

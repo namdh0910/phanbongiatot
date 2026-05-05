@@ -18,6 +18,12 @@
   - **Video Cleanup (Rickroll Removal)**: Replaced all placeholder "Rickroll" videos (`dQw4w9WgXcQ`) with real technical agricultural videos from the official @phanbongiatot YouTube channel. Integrated dynamic video mapping for specific pathologies (e.g., Vàng lá thối rễ) and updated fallback data in Blog/Solutions.
   - **Structured Data (Schema Markup)**: Implemented JSON-LD Schema markup across the site. Added `FAQPage` and `HowTo` schemas for all solution pages to improve Google Rich Results (accordions and steps). Integrated `Article` schema for all blog posts with automated metadata. Created a reusable `SchemaMarkup` component.
   - **SEO Content Strategy**: Developed 5 comprehensive, storytelling-based SEO blog articles (800-1200 words each) covering key agricultural pain points (Sầu riêng vàng lá, Tuyến trùng, Cà phê mùa khô, Tiêu chết nhanh/chậm, Kích rễ). Each article includes Meta tags and FAQ Schema.
+  - **Technical Fixes (Directive 06)**: 
+    - **Video Placeholder UI**: Implemented a professional "Video đang cập nhật" UI with a direct call-to-engineer CTA for pages using placeholder YouTube IDs (`WQGLo4yJjI0`, `dQw4w9WgXcQ`).
+    - **Canonical URL Standardization**: Fixed `/blog` canonical tag to use the absolute `www.phanbongiatot.com` domain to ensure correct Google indexing.
+    - **Broken Link & 301 Redirect**: Corrected the "Vàng lá thối rễ" menu link from a 404 path to the active `/giai-phap/vang-la-thoi-re` and implemented a server-side 301 redirect in `next.config.ts`.
+    - **Duplicate Footer Removal**: Scrubbed redundant manual `<Footer />` calls (e.g., in `tai-khoan/page.tsx`), enforcing the global `LayoutWrapper` as the single source of truth.
+
 
 ## 🚧 Active Tasks
 - **UI Testing**: Verified mobile responsiveness and conversion hooks on localhost.

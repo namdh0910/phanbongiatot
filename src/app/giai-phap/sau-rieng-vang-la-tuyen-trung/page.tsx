@@ -91,14 +91,26 @@ export default function DurianNematodeSolution() {
       <section className="py-12 bg-gray-50 border-y border-gray-100 overflow-hidden">
         <div className="max-w-4xl mx-auto px-0 md:px-4 text-center">
           <h2 className="text-xl md:text-3xl font-black text-[#2d7a2d] uppercase mb-8 px-4">Video Phác Đồ Điều Trị Thực Tế</h2>
-          <div className="aspect-video bg-black md:rounded-[2rem] overflow-hidden shadow-2xl relative group">
-            <iframe 
-              src="https://www.youtube.com/embed/8Idd0GyGA-4"
-              className="absolute inset-0 w-full h-full"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              loading="eager"
-            ></iframe>
+          <div className="aspect-video bg-gray-900 md:rounded-[2rem] overflow-hidden shadow-2xl relative group">
+            {['WQGLo4yJjI0', 'dQw4w9WgXcQ'].includes("8Idd0GyGA-4") ? ( // Keep 8Idd0GyGA-4 for now as it seems real, but logic is ready
+              <div className="absolute inset-0 flex flex-col items-center justify-center p-8 bg-gradient-to-br from-gray-900 to-[#1a5c2a]">
+                <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mb-4">
+                  <AlertCircle className="text-[#f59e0b]" size={32} />
+                </div>
+                <h3 className="text-white text-lg font-black uppercase italic mb-2">Video đang cập nhật</h3>
+                <a href="tel:0773440966" className="bg-[#f59e0b] text-white px-6 py-2 rounded-xl font-black text-xs uppercase tracking-widest flex items-center gap-2">
+                  <Phone size={14} /> Gọi Kỹ Sư: 0773.440.966
+                </a>
+              </div>
+            ) : (
+              <iframe 
+                src="https://www.youtube.com/embed/8Idd0GyGA-4"
+                className="absolute inset-0 w-full h-full"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                loading="eager"
+              ></iframe>
+            )}
           </div>
           <div className="mt-6 p-4 bg-emerald-100/50 mx-4 rounded-2xl border border-emerald-200">
              <p className="text-sm font-bold text-emerald-900 italic">Bà con xem kỹ video để nắm rõ quy trình xử lý phục hồi vườn.</p>

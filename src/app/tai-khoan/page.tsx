@@ -1,7 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
 import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 import { API_BASE_URL } from "@/utils/api";
 import Link from "next/link";
 
@@ -243,7 +242,6 @@ export default function CustomerAccount() {
         )}
       </div>
 
-      <Footer />
     </div>
   );
 }

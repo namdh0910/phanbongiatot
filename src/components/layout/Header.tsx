@@ -73,7 +73,7 @@ export default function Header() {
       icon: "🌳",
       slug: "sau-rieng",
       issues: [
-        { label: "Vàng lá thối rễ", href: "/giai-phap/sau-rieng-vang-la-thoi-re" },
+        { label: "Vàng lá thối rễ", href: "/giai-phap/vang-la-thoi-re" },
         { label: "Tuyến trùng", href: "/giai-phap/sau-rieng-vang-la-tuyen-trung" },
         { label: "Rụng trái non", href: "/giai-phap/sau-rieng-rung-trai" },
         { label: "Xử lý ra hoa", href: "/tim-kiem?q=sau+rieng+ra+hoa" },
