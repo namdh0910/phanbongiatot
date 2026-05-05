@@ -26,6 +26,10 @@
   - **SEO Metadata Optimization (Directive 07)**:
     - **Homepage & Blog**: Rewritten Title and Meta tags to target keywords "Phân bón Đắk Lắk", "Kỹ sư nông nghiệp Tây Nguyên" with farmer-friendly tone.
     - **Solution Pages**: Injected optimized SEO strings into `pathologies.json` for "Vàng lá thối rễ", "Tuyến trùng", and "Hồ tiêu chết nhanh" to drive high-conversion search traffic.
+  - **Agricultural Content Creation (Directive 08)**: 
+    - Authored a 1500+ word technical blog post: "Sầu Riêng Vàng Lá Thối Rễ: Kỹ Sư Chỉ Đúng Cách Cứu Vườn Trong 7 Ngày".
+    - Content features: Storytelling (Anh Hùng - Cư M'gar), practical symptoms, 3-phase biological recovery protocol (Days 1-7), and detailed dosage for farmers.
+    - Optimized for SEO keywords: "sầu riêng vàng lá thối rễ", "kỹ sư nông nghiệp Tây Nguyên".
 
 ## 🚧 Active Tasks
 - **UI Testing**: Verified mobile responsiveness and conversion hooks on localhost.
