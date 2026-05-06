@@ -10,6 +10,8 @@ import './HeaderFooter.css';
 export default function Header() {
   const pathname = usePathname();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const activeCategory = searchParams.get('category');
   const [searchQuery, setSearchQuery] = useState("");
   const [suggestions, setSuggestions] = useState<{ products: any[], blogs: any[] }>({ products: [], blogs: [] });
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -252,7 +254,7 @@ export default function Header() {
                     key={i} 
                     href={cat.href}
                     className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-black transition-all shadow-sm border ${
-                      (cat.href === '/blog' ? pathname === '/blog' : pathname?.includes(cat.href)) 
+                      (cat.name === 'Tất cả' && !activeCategory) || (cat.href.includes(`category=${activeCategory}`))
                       ? 'bg-emerald-600 text-white border-emerald-600' 
                       : 'bg-white text-gray-700 border-gray-100'
                     }`}
@@ -273,7 +275,7 @@ export default function Header() {
                     key={i} 
                     href={cat.href}
                     className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-black transition-all shadow-sm border ${
-                      (cat.href === '/giai-phap' ? pathname === '/giai-phap' : pathname?.includes(cat.href)) 
+                      (cat.name === 'Tất cả' && !activeCategory) || (cat.href.includes(`category=${activeCategory}`))
                       ? 'bg-emerald-600 text-white border-emerald-600' 
                       : 'bg-white text-gray-700 border-gray-100'
                     }`}

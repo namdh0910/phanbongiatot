@@ -52,3 +52,28 @@ export async function PUT(
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
+
+export async function DELETE(
+  request: Request,
+  context: any
+) {
+  try {
+    const isAdmin = await verifyAdmin();
+    if (!isAdmin) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    await dbConnect();
+    const params = await context.params;
+    const id = params.id;
+    await Pathology.findByIdAndDelete(id);
+
+    const { revalidatePath } = require('next/cache');
+    revalidatePath('/giai-phap');
+    revalidatePath('/');
+
+    return NextResponse.json({ message: 'Deleted' });
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+}

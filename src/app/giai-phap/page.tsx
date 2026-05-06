@@ -1,14 +1,14 @@
 import React from 'react';
 import Link from 'next/link';
-import { ChevronRight, ArrowRight, Zap, ShieldCheck, MessageCircle, Phone, Star } from 'lucide-react';
+import Pathology from '@/lib/models/Pathology';
 import dbConnect from '@/lib/db';
-import mongoose from 'mongoose';
+
+export const revalidate = 0;
 
 async function getPathologies() {
   try {
     await dbConnect();
-    if (!mongoose.connection.db) return [];
-    const pathologies = await mongoose.connection.db.collection('pathologies').find({}).toArray();
+    const pathologies = await Pathology.find({}).sort({ createdAt: -1 });
     return JSON.parse(JSON.stringify(pathologies));
   } catch (error) {
     console.error('Error fetching pathologies:', error);
