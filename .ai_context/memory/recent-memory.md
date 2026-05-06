@@ -126,6 +126,9 @@
     - **Mobile Grid Upgrade**: Transitioned the product list from a single-column list to a high-density 2-column grid (`grid-cols-2`) on mobile viewports for better visual appeal and faster scannability.
     - **Server-Side Filtering**: Enabled dynamic filtering by category on the Product page using Next.js `searchParams`, ensuring real-time UI updates when categories are selected.
     - **Admin Terminology Sync**: Updated Admin Product and Lead dashboards to use "giải pháp điều trị" instead of "phác đồ", maintaining internal consistency.
+  - **Build Recovery & Final Cleanup (Hotfix)**:
+    - **Fixed Seed-Blogs Syntax**: Resolved a critical build failure caused by an unclosed template literal and duplicate `content` property in `src/app/api/admin/seed-blogs/route.ts`.
+    - **Final Terminology Sweep**: Removed the very last occurrences of "phác đồ" in the blog seeding data to ensure 100% compliance with the new language standards.
 
 
 

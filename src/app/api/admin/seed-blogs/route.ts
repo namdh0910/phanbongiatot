@@ -22,7 +22,7 @@ export async function GET() {
   <li>Trôi phân và hạ pH: Làm cây không hấp thụ được dinh dưỡng.</li>
 </ul>
 
-<h2>3. Phác đồ 5 bước cứu vườn dứt điểm</h2>
+<h2>3. Giải pháp 5 bước cứu vườn dứt điểm</h2>
 <p><strong>Bước 1:</strong> Khơi rãnh thoát nước ngay lập tức.<br>
 <strong>Bước 2:</strong> Dọn dẹp vệ sinh vùng gốc.<br>
 <strong>Bước 3:</strong> Sát khuẩn rễ và diệt nấm (Dùng Phytopin).<br>
@@ -32,7 +32,7 @@ export async function GET() {
 <h2>4. Những sai lầm bà con hay mắc phải</h2>
 <p>Thấy vàng lá là bón thêm Đạm làm cháy rễ nặng hơn. Sử dụng thuốc hóa học quá nặng diệt luôn hệ vi sinh có lợi.</p>
 
-<p><em>Liên hệ Kỹ sư để nhận phác đồ riêng: 0773.440.966</em></p>
+<p><em>Liên hệ Kỹ sư để nhận giải pháp riêng: 0773.440.966</em></p>
         `,
         isPublished: true,
         seoDescription: "Vườn sầu riêng bị vàng lá mùa mưa? Khám phá 5 bước cứu vườn thực chiến giúp phục hồi rễ nhanh chóng.",
@@ -43,18 +43,17 @@ export async function GET() {
         category: "Cẩm nang kỹ thuật",
         coverImage: "https://res.cloudinary.com/dztidbkhv/image/upload/v1776989048/phanbongiatot/jpjgjjvfg7pglnnh0a1a.jpg",
         content: `
-<h2>1. Tuyến trùng sầu riêng là gì?</h2>
-<p>Tuyến trùng là loài giun tròn siêu nhỏ chui vào rễ hút nhựa và đẻ trứng, tạo vết thương cho nấm bệnh tấn công.</p>
-        seoDescription: "Tuyến trùng sầu riêng là gì? Cách nhận biết và tiêu diệt triệt để bằng giải pháp sinh học an toàn.",
-        tags: ["sầu riêng", "tuyến trùng", "giải pháp sinh học"],
-        content: `
+          <h2>1. Tuyến trùng sầu riêng là gì?</h2>
+          <p>Tuyến trùng là loài giun tròn siêu nhỏ chui vào rễ hút nhựa và đẻ trứng, tạo vết thương cho nấm bệnh tấn công.</p>
           <p>Tuyến trùng rễ là "kẻ giết người thầm lặng". Nếu không xử lý kịp thời, cả vườn sầu riêng sẽ tiêu đời.</p>
-          <h2>1. Nhận biết tuyến trùng</h2>
+          <h2>2. Nhận biết tuyến trùng</h2>
           <p>Đào rễ lên thấy các nốt sần nhỏ như hạt đỗ.</p>
-          <h2>2. Quy trình "Tiêu diệt tận gốc - Phục hồi thần tốc"</h2>
+          <h2>3. Quy trình "Tiêu diệt tận gốc - Phục hồi thần tốc"</h2>
           <p>Dùng Nemano tưới 2 lần cách nhau 7 ngày.</p>
         `,
         isPublished: true,
+        seoDescription: "Tuyến trùng sầu riêng là gì? Cách nhận biết và tiêu diệt triệt để bằng giải pháp sinh học an toàn.",
+        tags: ["sầu riêng", "tuyến trùng", "giải pháp sinh học"],
         hashtags: ["tuyen-trung", "sau-rieng", "phuc-hoi-re"]
       },
       {
