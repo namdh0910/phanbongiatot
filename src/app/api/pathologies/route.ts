@@ -19,6 +19,7 @@ export async function POST(request: Request) {
     const pathology = await Pathology.create(body);
     return NextResponse.json(pathology, { status: 201 });
   } catch (error: any) {
+    console.error("POST Solution Error:", error);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
