@@ -4,6 +4,7 @@
 - **Date**: 2026-05-06
 - **Latest Activities (Directive 10 - UI Cleanup DONE)**:
   - **Build & Deploy**:
+    - **Vercel Sync Fix**: Forced a config-level sync by modifying `next.config.ts` after identifying that latest commits were not appearing on the Vercel dashboard.
     - **Triggered Vercel Re-deploy**: Manually triggered a new Vercel build via an empty commit to ensure the latest typography changes are reflected on the production site.
   - **UI/UX Optimization (Typography)**:
     - **Reduced Solution Title Size**: Decreased the font size of solution card titles on the `/giai-phap` page from 20px (forced by global CSS) to `14px` by switching from `h2` to `h3` and applying explicit Tailwind classes. This improves mobile readability and consistency with the Product catalog.
