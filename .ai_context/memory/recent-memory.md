@@ -10,8 +10,8 @@
     - **Redundancy Removal**: Hidden the horizontal "Quick Category Scrollbar" from the Header when on the homepage, avoiding conflict with the main content.
   - **Product-First Navigation Flow**:
     - **New Product Catalog**: Created `/san-pham/page.tsx` as the central hub for all agricultural supplies, featuring a premium design and sidebar filters.
-    - **Enhanced Product Cards**: Updated homepage product cards to link directly to detail pages. Added explicit "LIÊN HỆ" (Zalo) and "CHI TIẾT" buttons to maintain high conversion while improving information access.
-    - **Route Normalization**: Replaced legacy search-based links in Header/Footer with clean `/san-pham` and `/danh-muc/[slug]` routes.
+    - **Enhanced Product Cards**: Updated homepage product cards to link directly to detail pages. Added explicit "LIÊN HỆ" (Zalo) and "CHI TIẾT" buttons.
+    - **Build Stability**: Resolved Vercel deployment failure by fixing TypeScript type mismatches in the `Breadcrumbs` component, enabling custom styling via `className` and `activeColor` props.
   - **Cross-Architecture Data Sync (Next.js ↔ Express)**:
     - **Upload Infrastructure**: Created `/api/admin/upload` to handle image processing and secure transit to Cloudinary.
     - **UI Enhancement**: Developed `ImageUpload` and `MultiImageUpload` components to allow drag-and-drop/file selection for blog covers and product galleries.
