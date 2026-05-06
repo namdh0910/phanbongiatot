@@ -1,5 +1,6 @@
 const isBrowser = typeof window !== 'undefined';
-const rawUrl = process.env.NEXT_PUBLIC_API_URL || (isBrowser ? '' : 'http://localhost:3000');
+// Force relative path on browser to use the local App Router APIs
+const rawUrl = isBrowser ? '' : (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000');
 export const API_BASE_URL = rawUrl.endsWith('/api') ? rawUrl : `${rawUrl.replace(/\/$/, '')}/api`;
 
 export const getAuthHeaders = (isMultipart = false): any => {
