@@ -11,6 +11,8 @@
     - **Exposed "Hỏi đáp" Link**: Added the "Hỏi đáp kỹ thuật" link directly to the main Desktop navigation and Mobile Drawer menu. Previously, this page was only discoverable via a secondary scrollbar on non-homepage routes.
   - **FAQ UI/UX Optimization**:
     - **Ultra-Compact Layout**: Further reduced typography (question text to 13px), padding, and margins to ensure information density. Narrowed content container to `max-w-3xl` for better focus.
+    - **Anchor Navigation**: Implemented `scroll-mt` anchors (Sầu riêng, Cà phê...) and linked them to the Header sub-navigation for seamless single-page jumping.
+    - **Content Enrichment**: Seeded the FAQ library with real-world technical questions about flowering, pests, and soil health.
     - **Header Synchronization**: Integrated crop-specific horizontal scroll navigation (Sầu riêng, Cà phê...) for the FAQ page to match Solutions and Knowledge pages.
     - **Bottom Nav Pivot**: Replaced the "Gọi điện" button with a direct "Hỏi đáp" link in the `MobileBottomNav` to prioritize expert knowledge access.
   - **UI/UX Decluttering & Header Optimization**:

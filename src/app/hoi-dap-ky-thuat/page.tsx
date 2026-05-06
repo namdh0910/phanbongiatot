@@ -15,6 +15,7 @@ import SchemaMarkup from '@/components/shared/SchemaMarkup';
 
 const faqData = [
   {
+    id: "sau-rieng",
     category: "Sầu riêng",
     icon: "🌳",
     questions: [
@@ -31,26 +32,15 @@ const faqData = [
         linkText: "Xem giải pháp điều trị"
       },
       {
-        q: "Khi nào cần kích rễ cho sầu riêng là tốt nhất?",
-        a: "Bà con nên kích rễ vào 3 giai đoạn: Sau khi trồng mới, sau thu hoạch để phục hồi, và đầu mùa mưa để tăng sức đề kháng. Lưu ý chỉ kích rễ khi nền đất đã đủ ẩm và pH đạt trên 5.5.",
-        link: "/san-pham/humic-k-max",
-        linkText: "Sản phẩm Humic K-Max"
-      },
-      {
-        q: "Cách xử lý sầu riêng bị cháy lá (cháy chót lá)?",
-        a: "Cháy lá thường do rễ yếu hoặc nấm Rhizoctonia. Bà con cần kiểm tra bộ rễ, xử lý nấm bằng vi sinh, sau đó phun Amino Plus lên bộ lá để giúp lá xanh dày trở lại.",
-        link: "/blog/kich-re-cay-trong-dung-cach",
-        linkText: "Bí quyết xanh dày lá"
-      },
-      {
-        q: "Sầu riêng bị nứt thân xì mủ phải làm sao?",
-        a: "Cần cạo bỏ phần vỏ thối, quét thuốc nấm Phytopin trực tiếp vào vết loét và tưới Phytopin quanh vùng rễ để diệt mầm bệnh.",
+        q: "Làm sao để sầu riêng ra bông đồng loạt?",
+        a: "Bà con cần siết nước tạo khô hạn khoảng 10-15 ngày, kết hợp phun phân hóa mầm hoa giàu Lân và Kali. Khi thấy mắt cua sáng đều mới bắt đầu nhấp nước nhẹ trở lại.",
         link: "https://zalo.me/0773440966",
-        linkText: "Nhắn kỹ sư tư vấn"
+        linkText: "Nhắn kỹ sư hỗ trợ"
       }
     ]
   },
   {
+    id: "ca-phe",
     category: "Cà phê",
     icon: "☕",
     questions: [
@@ -65,16 +55,11 @@ const faqData = [
         a: "Sử dụng chế phẩm Nemano kết hợp nấm xanh nấm trắng. Tưới đẫm vào gốc khi đất đủ ẩm để thuốc len lỏi vào tổ rệp.",
         link: "/giai-phap/tuyen-trung-rep-sap-re-ca-phe",
         linkText: "Giải pháp trị rệp sáp"
-      },
-      {
-        q: "Cà phê bị tuyến trùng rễ dùng thuốc gì?",
-        a: "Tuyến trùng gây thối rễ tơ. Bà con hãy dùng Nemano tưới định kỳ 2 lần vào đầu và cuối mùa mưa để phòng trừ.",
-        link: "/san-pham/nemano",
-        linkText: "Mua Nemano chính hãng"
       }
     ]
   },
   {
+    id: "ho-tieu",
     category: "Hồ tiêu",
     icon: "🌿",
     questions: [
@@ -93,12 +78,13 @@ const faqData = [
     ]
   },
   {
+    id: "phan-bon",
     category: "Phân bón & Đất",
     icon: "🧪",
     questions: [
       {
         q: "Phân Humic có tác dụng gì cho đất?",
-        a: "Humic giúp làm xốp đất, giữ nước, giữ phân bón và kích thích rễ tơ phát triển. Giúp cây hấp thụ dinh dưỡng tốt hơn 30-50%.",
+        a: "Humic giúp làm xốp đất, giữ nước, giữ phân bón và kích thích rễ tơ phát phát triển. Giúp cây hấp thụ dinh dưỡng tốt hơn 30-50%.",
         link: "/san-pham/humic-k-max",
         linkText: "Tìm hiểu Humic K-Max"
       },
@@ -200,7 +186,7 @@ export default function FAQPage() {
               if (filteredQuestions.length === 0) return null;
 
               return (
-                <div key={idx} className="bg-white rounded-xl md:rounded-[2.5rem] border border-gray-100 shadow-xl shadow-gray-100/50 overflow-hidden">
+                <div key={idx} id={category.id} className="scroll-mt-32 bg-white rounded-xl md:rounded-[2.5rem] border border-gray-100 shadow-xl shadow-gray-100/50 overflow-hidden">
                   <div className="bg-gray-50 px-4 md:px-8 py-3 md:py-6 border-b border-gray-100 flex items-center gap-3 md:gap-4">
                     <span className="text-lg md:text-3xl">{category.icon}</span>
                     <h2 className="text-[13px] md:text-xl font-black text-gray-900 uppercase tracking-tight italic">

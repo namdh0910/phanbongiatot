@@ -287,10 +287,10 @@ export default function Header() {
               ) : pathname?.startsWith('/hoi-dap-ky-thuat') ? (
                 // FAQ Specific Nav
                 [
-                  { name: "Sầu riêng", icon: "🌳", href: "/hoi-dap-ky-thuat" },
-                  { name: "Cà phê", icon: "☕", href: "/hoi-dap-ky-thuat" },
-                  { name: "Hồ tiêu", icon: "🌿", href: "/hoi-dap-ky-thuat" },
-                  { name: "Phân bón", icon: "🧪", href: "/hoi-dap-ky-thuat" },
+                  { name: "Sầu riêng", icon: "🌳", href: "/hoi-dap-ky-thuat#sau-rieng" },
+                  { name: "Cà phê", icon: "☕", href: "/hoi-dap-ky-thuat#ca-phe" },
+                  { name: "Hồ tiêu", icon: "🌿", href: "/hoi-dap-ky-thuat#ho-tieu" },
+                  { name: "Phân bón", icon: "🧪", href: "/hoi-dap-ky-thuat#phan-bon" },
                   { name: "Trang chủ", icon: "🏠", href: "/" }
                 ].map((cat, i) => (
                   <Link 
