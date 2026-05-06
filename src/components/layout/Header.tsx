@@ -202,6 +202,7 @@ export default function Header() {
                     </div>
                   </div>
                 ))}
+                <Link href="/san-pham" className={`font-black text-sm uppercase tracking-wide transition-colors ${isActive('/san-pham') ? 'text-emerald-700' : 'text-gray-700 hover:text-emerald-700'}`}>Sản Phẩm</Link>
                 <Link href="/blog" className={`font-black text-sm uppercase tracking-wide transition-colors ${isActive('/blog') ? 'text-emerald-700' : 'text-gray-700 hover:text-emerald-700'}`}>Kiến Thức</Link>
                 <Link href="/ve-chung-toi" className={`font-black text-sm uppercase tracking-wide transition-colors ${isActive('/ve-chung-toi') ? 'text-emerald-700' : 'text-gray-700 hover:text-emerald-700'}`}>Về chúng tôi</Link>
               </nav>

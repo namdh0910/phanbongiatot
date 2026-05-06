@@ -30,8 +30,6 @@ export default async function ProductsPage() {
   
   return (
     <div className="bg-white min-h-screen">
-      <Header />
-      
       <main className="pt-24 pb-20">
         <div className="container mx-auto px-4">
           
@@ -189,8 +187,6 @@ export default async function ProductsPage() {
           </div>
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 }

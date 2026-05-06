@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { ChevronRight, Search, Filter, MessageCircle, Phone } from 'lucide-react';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
-import MobileBottomNav from '@/components/layout/MobileBottomNav';
 import dbConnect from '@/lib/db';
 import Product from '@/lib/models/Product';
 import mongoose from 'mongoose';
@@ -191,7 +190,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
         </div>
       </main>
 
-      <Footer />
+      </main>
     </div>
   );
 }
