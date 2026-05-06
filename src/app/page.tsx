@@ -104,6 +104,8 @@ export default function LandingPage() {
   const [scrolled, setScrolled] = useState(false);
   const [blogs, setBlogs] = useState<any[]>([]);
   const [loadingBlogs, setLoadingBlogs] = useState(true);
+  const [products, setProducts] = useState<any[]>([]);
+  const [loadingProducts, setLoadingProducts] = useState(true);
   const [activePathologies, setActivePathologies] = useState<any[]>([]);
   const [scrollProgress, setScrollProgress] = useState(0);
 
@@ -133,8 +135,9 @@ export default function LandingPage() {
     // Initial fetch of data
     Promise.all([
       fetch(`${API_BASE_URL}/blogs`).then(res => res.json()),
-      fetch(`${API_BASE_URL}/pathologies`).then(res => res.json())
-    ]).then(([blogsData, pathologiesData]) => {
+      fetch(`${API_BASE_URL}/pathologies`).then(res => res.json()),
+      fetch(`${API_BASE_URL}/products`).then(res => res.json())
+    ]).then(([blogsData, pathologiesData, productsData]) => {
       // Handle Blogs
       let bResults = Array.isArray(blogsData) ? blogsData : (blogsData?.blogs || []);
       setBlogs(bResults.slice(0, 3));
@@ -143,9 +146,15 @@ export default function LandingPage() {
       // Handle Pathologies
       let pResults = Array.isArray(pathologiesData) ? pathologiesData : (pathologiesData?.pathologies || []);
       setActivePathologies(pResults.slice(0, 4));
+
+      // Handle Products
+      let prResults = Array.isArray(productsData) ? productsData : (productsData?.products || []);
+      setProducts(prResults.slice(0, 4));
+      setLoadingProducts(false);
     }).catch(err => {
       console.error("Data fetch error", err);
       setLoadingBlogs(false);
+      setLoadingProducts(false);
     });
 
     return () => window.removeEventListener('scroll', handleScroll);
@@ -183,18 +192,14 @@ export default function LandingPage() {
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-5xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 bg-[#f5a623] text-white px-4 py-1.5 rounded-full text-[10px] md:text-xs font-black uppercase tracking-widest mb-6 animate-in slide-in-from-top duration-700">
-              <ShieldCheck size={14} /> Chẩn đoán bệnh cây chuẩn 100%
-            </div>
+            {/* Removed badge as requested */}
             
             <h1 className="text-3xl md:text-7xl lg:text-8xl font-black text-white mb-4 leading-tight tracking-tight animate-in slide-in-from-bottom duration-700 delay-100 uppercase">
               {settings.heroTitle || "CỨU VƯỜN SẦU RIÊNG, CÀ PHÊ"} <br className="hidden md:block" />
               <span className="text-[#f5a623]">{settings.heroSubtitle ? "" : "VÀNG LÁ, SUY RỄ"}</span>
             </h1>
             
-            <h2 className="text-lg md:text-3xl text-white/95 mb-8 max-w-3xl mx-auto font-bold leading-relaxed animate-in slide-in-from-bottom duration-700 delay-200">
-              {settings.heroSubtitle || "Phục Hồi Nhanh Dàn Lá, Bung Rễ Trắng Chỉ Sau 7 Ngày."}
-            </h2>
+            {/* Removed subtitle as requested */}
             
             <div className="flex flex-col items-center gap-4 animate-in slide-in-from-bottom duration-700 delay-300">
               <a 
@@ -231,22 +236,45 @@ export default function LandingPage() {
          </div>
       </section>
 
-      {/* 3.5 Trust Badges */}
+      {/* 3.5 Featured Products - Replacing Trust Badges */}
       <section className="bg-white py-12 md:py-20">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-12">
-            {[
-              { icon: <UserCheck className="text-[#1a5c2a]" />, title: 'Kỹ Sư Tận Tâm', sub: 'Tư vấn 1-1' },
-              { icon: <ShieldCheck className="text-[#1a5c2a]" />, title: 'Giải Pháp Chuẩn', sub: 'Đã qua kiểm chứng' },
-              { icon: <MapPin className="text-[#1a5c2a]" />, title: 'Hỗ Trợ Tận Vườn', sub: 'Kỹ thuật tại chỗ' },
-              { icon: <Wallet className="text-[#1a5c2a]" />, title: 'Tiết Kiệm Chi Phí', sub: 'Hiệu quả tối ưu' },
-            ].map((item, idx) => (
-              <div key={idx} className="flex flex-col items-center text-center p-6 bg-emerald-50/50 rounded-3xl border border-emerald-100 hover:border-[#1a5c2a] transition-all">
-                <div className="mb-4 p-3 bg-white rounded-2xl shadow-sm">{item.icon}</div>
-                <div className="font-black text-gray-900 text-sm md:text-lg mb-1">{item.title}</div>
-                <div className="text-xs text-gray-500 font-bold uppercase tracking-wider">{item.sub}</div>
-              </div>
+          <div className="flex flex-col items-center text-center mb-10">
+            <span className="text-[#f5a623] font-black uppercase tracking-widest text-[10px] mb-2">Giải pháp hàng đầu</span>
+            <h2 className="text-2xl md:text-4xl font-black text-gray-900 uppercase">Sản phẩm chủ lực</h2>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+            {loadingProducts ? (
+              [1, 2, 3, 4].map(i => (
+                <div key={i} className="aspect-[3/4] bg-gray-50 rounded-3xl animate-pulse" />
+              ))
+            ) : products.map((product, idx) => (
+              <Link 
+                key={idx} 
+                href={`https://zalo.me/${settings.zalo.replace(/\./g, '')}?text=${encodeURIComponent(`Tôi muốn tư vấn về sản phẩm: ${product.name}`)}`}
+                target="_blank"
+                className="group flex flex-col bg-white rounded-3xl border border-gray-100 overflow-hidden hover:shadow-xl transition-all"
+              >
+                <div className="aspect-square bg-gray-50 relative overflow-hidden">
+                  <img src={product.images?.[0] || '/product-placeholder.png'} alt={product.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                  {product.originalPrice > product.price && (
+                    <div className="absolute top-2 left-2 bg-red-500 text-white text-[8px] font-black px-2 py-0.5 rounded-full uppercase">Giảm giá</div>
+                  )}
+                </div>
+                <div className="p-3 md:p-5 flex flex-col flex-1">
+                  <h3 className="text-[11px] md:text-sm font-black text-gray-900 line-clamp-2 mb-2 leading-tight group-hover:text-[#1a5c2a]">{product.name}</h3>
+                  <div className="mt-auto">
+                    <p className="text-[10px] md:text-xs text-gray-400 line-through font-bold">{product.originalPrice?.toLocaleString()}đ</p>
+                    <p className="text-xs md:text-base text-emerald-700 font-black">{product.price?.toLocaleString()}đ</p>
+                  </div>
+                </div>
+              </Link>
             ))}
+          </div>
+          <div className="mt-10 text-center">
+             <Link href="/tim-kiem?q=" className="inline-flex items-center gap-2 text-[#1a5c2a] font-black uppercase tracking-widest text-xs hover:gap-3 transition-all">
+                Xem tất cả sản phẩm <ArrowRight size={14} />
+             </Link>
           </div>
         </div>
       </section>

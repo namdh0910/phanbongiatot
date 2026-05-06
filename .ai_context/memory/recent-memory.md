@@ -4,9 +4,10 @@
 - **Date**: 2026-05-06
 - **Latest Activities (Directive 10 - UI Cleanup DONE)**:
   - **UI/UX Decluttering & Header Optimization**:
-    - **Header Streamlining**: Reduced mobile header height from 72px to 64px to reclaim vertical screen space.
+    - **Header Streamlining**: Reduced mobile header height further from 64px to 56px and resized inner buttons for a more compact, modern feel.
+    - **Hero Section Refactoring**: Removed redundant trust badges ("Chẩn đoán 100%") and subtitles ("Phục hồi sau 7 ngày") to simplify the value proposition.
+    - **Commercial Focus**: Replaced the 4 static Trust Badge cards with a dynamic "Featured Products" (Sản phẩm chủ lực) grid, integrating real-time product fetching into the homepage.
     - **Redundancy Removal**: Hidden the horizontal "Quick Category Scrollbar" from the Header when on the homepage, avoiding conflict with the main content.
-    - **Homepage Cleanup**: Deleted the "Quick Category Links" icon section on the mobile homepage to reduce visual "stacking" and focus user attention on the primary Solution/Pathology cards.
   - **Core Stability & Recovery Hardening**:
     - **Hydration Fix**: Resolved SSR-to-Client mismatches in Header and Navigation by encapsulating browser-only APIs (localStorage, window) in `useEffect`.
     - **Null Safety**: Hardened `.map()` calls in Blog and Product detail pages with existence checks to prevent "White Screen of Death" crashes.
