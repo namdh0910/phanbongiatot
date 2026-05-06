@@ -80,7 +80,7 @@ export default async function SolutionsPage({ searchParams }: { searchParams: Pr
                 </div>
 
                 <div className="p-3 md:p-8 flex flex-col flex-1">
-                  <h2 className="text-[11px] md:text-2xl font-bold text-gray-800 mb-2 md:mb-4 leading-tight group-hover:text-emerald-700 transition-colors line-clamp-2 lowercase first-letter:uppercase">
+                  <h2 className="text-[10px] md:text-2xl font-bold text-gray-800 mb-2 md:mb-4 leading-tight group-hover:text-emerald-700 transition-colors line-clamp-2 lowercase first-letter:uppercase">
                     {item.title}
                   </h2>
                   
