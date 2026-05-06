@@ -133,7 +133,7 @@
     - **Final Terminology Sweep**: Removed the very last occurrences of "phác đồ" in the blog seeding data to ensure 100% compliance with the new language standards.
    - **Pathology Data Seeding (Directive 20)**:
      - **Symptom-to-Solution Bridge**: Seeded 9 detailed technical solutions (Sầu riêng, Cà phê, Cam bưởi) to populate the "Dấu hiệu nhận biết" section on the homepage.
-     - **Conversion Infrastructure**: Each seeded item includes symptoms, causes, biological solutions, and step-by-step recovery guides to drive consultations.
+     - **Database Sync**: Verified and corrected the Atlas database connection to ensure data is visible in production.
 
 
 
