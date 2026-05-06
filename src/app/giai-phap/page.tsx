@@ -57,26 +57,40 @@ export default async function SolutionsPage({ searchParams }: { searchParams: Pr
               <Link 
                 key={item.slug} 
                 href={`/giai-phap/${item.slug}`}
-                className="group bg-white rounded-2xl md:rounded-[2.5rem] border border-gray-100 p-4 md:p-8 shadow-sm hover:shadow-2xl transition-all"
+                className="group bg-white rounded-2xl md:rounded-[2.5rem] border border-gray-100 shadow-sm hover:shadow-2xl transition-all overflow-hidden flex flex-col"
               >
-                <div className="flex flex-col h-full">
-                  <div className="flex items-center justify-between mb-3 md:mb-6">
-                    <div className="w-10 h-10 md:w-14 md:h-14 bg-emerald-50 text-emerald-700 rounded-xl md:rounded-2xl flex items-center justify-center text-xl md:text-3xl group-hover:bg-emerald-600 group-hover:text-white transition-all">
+                {/* Image or Icon Section */}
+                <div className="relative h-32 md:h-56 bg-emerald-50 overflow-hidden">
+                  {item.image ? (
+                    <img 
+                      src={item.image} 
+                      alt={item.title}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-4xl md:text-6xl group-hover:scale-110 transition-transform">
                       {item.icon || '🩺'}
                     </div>
+                  )}
+                  <div className="absolute top-2 left-2 md:top-4 md:left-4">
+                    <span className="bg-white/90 backdrop-blur-md px-2 py-1 rounded-lg text-[8px] md:text-[10px] font-black uppercase tracking-widest text-emerald-700 shadow-sm border border-emerald-100">
+                      Quy trình chuẩn
+                    </span>
                   </div>
-                  
-                  <h2 className="text-sm md:text-2xl font-black text-gray-900 mb-2 md:mb-4 leading-tight group-hover:text-emerald-700 transition-colors uppercase italic line-clamp-2">
+                </div>
+
+                <div className="p-3 md:p-8 flex flex-col flex-1">
+                  <h2 className="text-xs md:text-2xl font-black text-gray-900 mb-2 md:mb-4 leading-tight group-hover:text-emerald-700 transition-colors uppercase italic">
                     {item.title}
                   </h2>
                   
-                  <p className="hidden md:block text-gray-500 font-medium text-sm line-clamp-3 mb-8 leading-relaxed">
+                  <p className="hidden md:block text-gray-500 font-medium text-sm line-clamp-3 mb-6 leading-relaxed">
                     {item.painPoint}
                   </p>
                   
-                  <div className="mt-auto pt-3 md:pt-6 border-t border-gray-50 flex items-center justify-between">
-                    <span className="text-[8px] md:text-[10px] font-black text-emerald-600 uppercase tracking-widest flex items-center gap-1 group-hover:translate-x-1 md:group-hover:translate-x-2 transition-transform">
-                      Chi tiết <ChevronRight size={10} />
+                  <div className="mt-auto pt-2 md:pt-6 border-t border-gray-50 flex items-center justify-between">
+                    <span className="text-[8px] md:text-[10px] font-black text-emerald-600 uppercase tracking-widest flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                      Xem chi tiết <ChevronRight size={10} />
                     </span>
                   </div>
                 </div>

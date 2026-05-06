@@ -18,6 +18,7 @@ export default function AdminSolutions() {
     biologicalSolution: "",
     videoId: "",
     category: "",
+    image: "",
     symptoms: [""],
     wrongActions: [""],
     stats: { successVouchers: "", recoveryTime: "" },
@@ -64,6 +65,7 @@ export default function AdminSolutions() {
       biologicalSolution: item.biologicalSolution || "",
       videoId: item.videoId || "",
       category: item.category || "",
+      image: item.image || "",
       symptoms: item.symptoms?.length ? item.symptoms : [""],
       wrongActions: item.wrongActions?.length ? item.wrongActions : [""],
       stats: item.stats || { successVouchers: "", recoveryTime: "" },
@@ -123,6 +125,7 @@ export default function AdminSolutions() {
     setFormData({
       title: "", slug: "", icon: "🩺", painPoint: "", cause: "", biologicalSolution: "", videoId: "",
       category: "",
+      image: "",
       symptoms: [""], wrongActions: [""],
       stats: { successVouchers: "", recoveryTime: "" },
       steps: [{ name: "", time: "", description: "", product: "" }],
@@ -209,6 +212,15 @@ export default function AdminSolutions() {
                     onChange={(e) => setFormData({...formData, title: e.target.value})}
                     placeholder="Nhập tiêu đề quy trình..." 
                     className="w-full bg-gray-50 border-2 border-transparent focus:border-emerald-500 focus:bg-white p-5 rounded-2xl text-base font-black uppercase italic transition-all outline-none"
+                  />
+                </div>
+                <div className="md:col-span-4 space-y-2">
+                  <label className="text-[10px] font-black uppercase text-gray-400 ml-1 tracking-widest">Link ảnh đại diện (URL)</label>
+                  <input 
+                    value={formData.image}
+                    onChange={(e) => setFormData({...formData, image: e.target.value})}
+                    placeholder="Dán link ảnh từ Drive, Facebook hoặc Web khác vào đây..." 
+                    className="w-full bg-gray-50 border-2 border-transparent focus:border-emerald-500 focus:bg-white p-5 rounded-2xl text-sm font-bold transition-all outline-none"
                   />
                 </div>
               </div>
