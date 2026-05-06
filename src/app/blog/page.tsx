@@ -1,20 +1,15 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
-import { Play, BookOpen, Clock, ChevronRight, Video } from "lucide-react";
+import { Play, BookOpen, Clock } from "lucide-react";
 import { API_BASE_URL } from '@/utils/api';
+import { useSearchParams } from "next/navigation";
 
-const BLOG_CATEGORIES = [
-  { id: 'all', label: 'Tất cả', icon: '📖' },
-  { id: 'nhat-ky-phuc-hoi', label: 'Nhật ký phục hồi vườn', icon: '🌳', desc: 'Hành trình thực tế cứu vườn từ kỹ sư' },
-  { id: 'moi-chat-mot-van-de', label: 'Mỗi chất - Một vấn đề', icon: '🎥', desc: 'Video giải phẫu kỹ thuật dinh dưỡng' },
-  { id: 'cam-nang-ky-thuat', label: 'Cẩm nang kỹ thuật', icon: '📚', desc: 'Phân tích sâu bệnh lý chuẩn SEO' },
-];
-
-export default function BlogIndex() {
+function BlogContent() {
   const [posts, setPosts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState('all');
+  const searchParams = useSearchParams();
+  const activeTab = searchParams.get('category') || 'all';
 
   useEffect(() => {
     fetchPosts();
@@ -29,7 +24,7 @@ export default function BlogIndex() {
       const postsData = (data.blogs || data).map((p: any) => ({
         ...p,
         type: p.videoUrl ? 'video' : 'article',
-        categorySlug: p.category ? p.category.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/đ/g, "d").replace(/\s+/g, "-") : 'cam-nang-ky-thuat'
+        categorySlug: p.category ? p.category.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[đĐ]/g, "d").replace(/\s+/g, "-") : 'cam-nang-ky-thuat'
       }));
       setPosts(postsData);
     } catch (error) {
@@ -44,134 +39,68 @@ export default function BlogIndex() {
     ? posts 
     : posts.filter(p => p.categorySlug === activeTab);
 
-  const featuredPost = posts[0];
-
   return (
-    <div className="bg-white min-h-screen pb-32">
-      {/* 1. Enhanced Header */}
-      <section className="pt-32 pb-20 bg-gray-900 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-20 pointer-events-none">
+    <div className="bg-white min-h-screen pb-20">
+      {/* 1. Header Section - Compacted for Mobile */}
+      <section className="pt-20 md:pt-32 pb-12 md:pb-20 bg-[#0d2a1c] relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10 pointer-events-none">
           <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2"></div>
         </div>
         <div className="container mx-auto px-4 relative z-10 text-center">
-          <span className="inline-block bg-emerald-600 text-white px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest mb-6">
-             📖 Thư viện kỹ thuật đa phương tiện
+          <span className="inline-block bg-emerald-600/20 text-emerald-400 border border-emerald-500/30 px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest mb-4">
+             📖 THƯ VIỆN KỸ THUẬT NÔNG NGHIỆP
           </span>
-          <h1 className="text-4xl md:text-6xl font-black text-white uppercase italic tracking-tighter mb-6 leading-none">
+          <h1 className="text-3xl md:text-6xl font-black text-white uppercase italic tracking-tighter mb-4 leading-none">
             Kiến Thức <span className="text-emerald-500">Nhà Nông</span>
           </h1>
-          <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto font-medium">
-            Học kỹ thuật qua video thực tế và phác đồ điều trị từ các kỹ sư thực chiến tại vườn.
+          <p className="text-gray-400 text-sm md:text-xl max-w-2xl mx-auto font-medium opacity-80">
+            Học kỹ thuật qua video thực tế và phác đồ điều trị chuyên sâu.
           </p>
         </div>
       </section>
 
-      {/* 2. Featured Post - Big Hero Layout */}
-      {!loading && posts.length > 0 && activeTab === 'all' && (
-        <section className="container mx-auto px-4 -mt-10 mb-20 relative z-20">
-          <Link href={`/blog/${featuredPost.slug}`} className="block group">
-            <div className="bg-white rounded-[3rem] overflow-hidden shadow-2xl border border-gray-100 flex flex-col lg:flex-row min-h-[500px]">
-              <div className="lg:w-3/5 relative overflow-hidden">
-                <img src={featuredPost.coverImage} alt={featuredPost.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                {featuredPost.type === 'video' && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-black/20">
-                     <div className="w-20 h-20 bg-white/90 rounded-full flex items-center justify-center text-[#1a5c2a] shadow-2xl animate-pulse">
-                        <Play fill="currentColor" size={32} />
-                     </div>
-                  </div>
-                )}
-                <div className="absolute top-6 left-6 flex gap-2">
-                   <span className="bg-emerald-600 text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest shadow-lg">Nổi bật</span>
-                   <span className="bg-black/60 backdrop-blur-md text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest flex items-center gap-1">
-                      {featuredPost.type === 'video' ? <Video size={12} /> : <BookOpen size={12} />}
-                      {featuredPost.type === 'video' ? 'Video' : 'Bài viết'}
-                   </span>
-                </div>
-              </div>
-              <div className="lg:w-2/5 p-10 md:p-16 flex flex-col justify-center">
-                <span className="text-emerald-600 font-black uppercase tracking-[0.2em] text-xs mb-4">{featuredPost.category}</span>
-                <h2 className="text-3xl md:text-5xl font-black text-gray-900 leading-[1.1] mb-6 group-hover:text-emerald-700 transition-colors">
-                  {featuredPost.title}
-                </h2>
-                <p className="text-gray-500 text-lg mb-8 font-medium leading-relaxed">
-                  {featuredPost.excerpt}
-                </p>
-                <div className="flex items-center gap-4 text-sm font-bold text-gray-400">
-                   <span className="flex items-center gap-2"><Clock size={16} /> {new Date(featuredPost.createdAt).toLocaleDateString('vi-VN')}</span>
-                   <span className="text-[#1a5c2a] uppercase tracking-widest flex items-center gap-2 group-hover:gap-4 transition-all">Xem ngay <ChevronRight size={18} /></span>
-                </div>
-              </div>
-            </div>
-          </Link>
-        </section>
-      )}
-
-      {/* 3. Category Streams */}
-      <section className="container mx-auto px-4 mb-20">
-        <div className="flex flex-col md:flex-row items-center justify-center gap-4">
-          {BLOG_CATEGORIES.map(cat => (
-            <button
-              key={cat.id}
-              onClick={() => setActiveTab(cat.id)}
-              className={`w-full md:w-auto px-8 py-5 rounded-[2rem] text-left transition-all relative overflow-hidden group
-                ${activeTab === cat.id 
-                  ? 'bg-[#1a5c2a] text-white shadow-xl shadow-emerald-100 scale-105' 
-                  : 'bg-gray-50 text-gray-900 border border-gray-100 hover:bg-gray-100'}`}
-            >
-               <div className="flex items-center gap-4 relative z-10">
-                  <span className="text-3xl">{cat.icon}</span>
-                  <div>
-                     <h3 className="font-black uppercase tracking-tight text-sm">{cat.label}</h3>
-                     <p className={`text-[10px] font-bold ${activeTab === cat.id ? 'text-emerald-200' : 'text-gray-400'}`}>{cat.desc || 'Tất cả bài viết'}</p>
-                  </div>
-               </div>
-            </button>
-          ))}
-        </div>
-      </section>
-
-      {/* 4. Article Grid */}
-      <section className="container mx-auto px-4 max-w-7xl">
+      {/* 2. Article Grid - 2 Columns on Mobile */}
+      <section className="container mx-auto px-2 md:px-4 max-w-7xl -mt-6 md:mt-12 relative z-20">
         {loading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-            {[1,2,3,4,5,6].map(i => <div key={i} className="h-96 bg-gray-100 rounded-[2.5rem] animate-pulse"></div>)}
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-12">
+            {[1,2,3,4,5,6].map(i => <div key={i} className="aspect-[4/5] bg-gray-100 rounded-2xl md:rounded-[2.5rem] animate-pulse"></div>)}
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-12">
             {filteredPosts.map((post, i) => (
-              <Link key={i} href={`/blog/${post.slug}`} className="group flex flex-col h-full">
-                <div className="relative aspect-[16/10] rounded-[2.5rem] overflow-hidden bg-gray-100 mb-6 shadow-sm group-hover:shadow-xl transition-all">
+              <Link key={i} href={`/blog/${post.slug}`} className="group flex flex-col h-full bg-white rounded-2xl md:rounded-[2.5rem] border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl transition-all">
+                <div className="relative aspect-square md:aspect-[16/10] overflow-hidden bg-gray-100">
                    <img src={post.coverImage} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt={post.title} />
                    
                    {/* Badge Type */}
-                   <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest text-gray-900 shadow-sm flex items-center gap-1.5">
-                      {post.type === 'video' ? <Play size={10} fill="currentColor" /> : <BookOpen size={10} />}
-                      {post.type === 'video' ? 'Video thực chiến' : 'Bài kỹ thuật'}
+                   <div className="absolute top-2 left-2 md:top-4 md:left-4 bg-black/60 backdrop-blur-md px-2 py-0.5 md:py-1 rounded-full text-[7px] md:text-[9px] font-black uppercase tracking-widest text-white shadow-sm flex items-center gap-1 md:gap-1.5">
+                      {post.type === 'video' ? <Play size={8} fill="currentColor" /> : <BookOpen size={8} />}
+                      {post.type === 'video' ? 'Video' : 'Bài viết'}
                    </div>
 
                    {post.type === 'video' && (
                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                        <div className="w-14 h-14 bg-white rounded-full flex items-center justify-center text-[#1a5c2a] shadow-2xl">
-                           <Play fill="currentColor" size={24} />
+                        <div className="w-10 h-10 md:w-14 md:h-14 bg-white rounded-full flex items-center justify-center text-[#1a5c2a] shadow-2xl">
+                           <Play fill="currentColor" size={18} />
                         </div>
                      </div>
                    )}
                 </div>
                 
-                <div className="px-2">
-                   <span className="text-emerald-600 font-black text-[9px] uppercase tracking-widest mb-2 block">{post.category}</span>
-                   <h3 className="text-xl md:text-2xl font-black text-gray-900 group-hover:text-emerald-700 transition-colors leading-tight mb-4 line-clamp-2">
+                <div className="p-3 md:p-8 flex flex-col flex-1">
+                   <span className="text-emerald-600 font-black text-[7px] md:text-[10px] uppercase tracking-widest mb-1 md:mb-2 block">{post.category}</span>
+                   <h3 className="text-xs md:text-2xl font-black text-gray-900 group-hover:text-emerald-700 transition-colors leading-tight mb-2 md:mb-4 line-clamp-2 md:line-clamp-3">
                       {post.title}
                    </h3>
-                   <p className="text-gray-500 text-sm font-medium line-clamp-2 leading-relaxed mb-6">
+                   <p className="hidden md:block text-gray-500 text-sm font-medium line-clamp-2 leading-relaxed mb-6">
                       {post.excerpt}
                    </p>
-                   <div className="mt-auto flex items-center justify-between pt-4 border-t border-gray-50">
-                      <span className="text-gray-400 text-[10px] font-bold uppercase tracking-widest flex items-center gap-1.5">
-                         <Clock size={14} /> {new Date(post.createdAt).toLocaleDateString('vi-VN')}
+                   <div className="mt-auto flex items-center justify-between pt-2 md:pt-4 border-t border-gray-50">
+                      <span className="text-gray-400 text-[8px] md:text-[10px] font-bold uppercase tracking-widest flex items-center gap-1 md:gap-1.5">
+                         <Clock size={10} md:size={14} /> {new Date(post.createdAt).toLocaleDateString('vi-VN')}
                       </span>
-                      <span className="text-gray-900 font-black text-[10px] uppercase tracking-[0.2em] group-hover:translate-x-2 transition-transform">
-                         Xem ngay ➔
+                      <span className="text-gray-900 font-black text-[8px] md:text-[10px] uppercase tracking-[0.2em] group-hover:translate-x-1 md:group-hover:translate-x-2 transition-transform">
+                         ➔
                       </span>
                    </div>
                 </div>
@@ -179,7 +108,22 @@ export default function BlogIndex() {
             ))}
           </div>
         )}
+        
+        {filteredPosts.length === 0 && !loading && (
+          <div className="py-20 text-center">
+            <p className="text-gray-400 font-bold uppercase tracking-widest">Không tìm thấy bài viết nào trong danh mục này.</p>
+            <Link href="/blog" className="mt-4 inline-block text-emerald-600 font-black uppercase text-xs border-b-2 border-emerald-600">Xem tất cả bài viết</Link>
+          </div>
+        )}
       </section>
     </div>
+  );
+}
+
+export default function BlogIndex() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-white"></div>}>
+      <BlogContent />
+    </Suspense>
   );
 }

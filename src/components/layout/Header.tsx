@@ -244,26 +244,49 @@ export default function Header() {
             </a>
           </div>
 
-          {/* QUICK CATEGORY SCROLLBAR - Compacted */}
+          {/* QUICK CATEGORY SCROLLBAR - Context Aware */}
           {pathname !== '/' && (
             <div className="bg-white border-b border-gray-100 py-2.5 overflow-x-auto scrollbar-hide flex items-center gap-2 px-3 shadow-sm">
-              {[
-                { name: "Trang chủ", icon: "🏠", href: "/" },
-                { name: "Sản phẩm", icon: "📦", href: "/san-pham" },
-                { name: "Sầu riêng", icon: "🌳", href: "/danh-muc/sau-rieng" },
-                { name: "Cà phê", icon: "☕", href: "/danh-muc/ca-phe" },
-                { name: "Hồ tiêu", icon: "🌿", href: "/danh-muc/ho-tieu" },
-                { name: "Kiến thức", icon: "📖", href: "/blog" },
-                { name: "Hỏi đáp", icon: "❓", href: "/hoi-dap-ky-thuat" }
-              ].map((cat, i) => (
-                <Link 
-                  key={i} 
-                  href={cat.href}
-                  className="flex-shrink-0 flex items-center gap-1.5 bg-white border border-gray-100 px-3 py-1.5 rounded-full text-[11px] font-black text-gray-700 active:bg-emerald-600 active:text-white transition-all shadow-sm"
-                >
-                  <span className="text-sm">{cat.icon}</span> {cat.name}
-                </Link>
-              ))}
+              {pathname?.startsWith('/blog') ? (
+                // Blog Specific Nav
+                [
+                  { name: "Tất cả", icon: "📚", href: "/blog" },
+                  { name: "Nhật ký", icon: "🌳", href: "/blog?category=nhat-ky-phuc-hoi" },
+                  { name: "Cẩm nang", icon: "📖", href: "/blog?category=cam-nang-ky-thuat" },
+                  { name: "Video", icon: "📹", href: "/blog?category=video-ky-thuat" }
+                ].map((cat, i) => (
+                  <Link 
+                    key={i} 
+                    href={cat.href}
+                    className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-black transition-all shadow-sm border ${
+                      (cat.href === '/blog' ? pathname === '/blog' : pathname?.includes(cat.href)) 
+                      ? 'bg-emerald-600 text-white border-emerald-600' 
+                      : 'bg-white text-gray-700 border-gray-100'
+                    }`}
+                  >
+                    <span className="text-sm">{cat.icon}</span> {cat.name}
+                  </Link>
+                ))
+              ) : (
+                // Default Product Nav
+                [
+                  { name: "Trang chủ", icon: "🏠", href: "/" },
+                  { name: "Sản phẩm", icon: "📦", href: "/san-pham" },
+                  { name: "Sầu riêng", icon: "🌳", href: "/danh-muc/sau-rieng" },
+                  { name: "Cà phê", icon: "☕", href: "/danh-muc/ca-phe" },
+                  { name: "Hồ tiêu", icon: "🌿", href: "/danh-muc/ho-tieu" },
+                  { name: "Kiến thức", icon: "📖", href: "/blog" },
+                  { name: "Hỏi đáp", icon: "❓", href: "/hoi-dap-ky-thuat" }
+                ].map((cat, i) => (
+                  <Link 
+                    key={i} 
+                    href={cat.href}
+                    className="flex-shrink-0 flex items-center gap-1.5 bg-white border border-gray-100 px-3 py-1.5 rounded-full text-[11px] font-black text-gray-700 active:bg-emerald-600 active:text-white transition-all shadow-sm"
+                  >
+                    <span className="text-sm">{cat.icon}</span> {cat.name}
+                  </Link>
+                ))
+              )}
             </div>
           )}
         </div>
