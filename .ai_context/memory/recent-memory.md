@@ -131,12 +131,10 @@
   - **Build Recovery & Final Cleanup (Hotfix)**:
     - **Fixed Seed-Blogs Syntax**: Resolved a critical build failure caused by an unclosed template literal and duplicate `content` property in `src/app/api/admin/seed-blogs/route.ts`.
     - **Final Terminology Sweep**: Removed the very last occurrences of "phác đồ" in the blog seeding data to ensure 100% compliance with the new language standards.
-   - **Product Detail UX Refinement (Directive 12)**:
-     - **CTA Optimization**: Updated the product detail page to prioritize "MUA NGAY" and "LIÊN HỆ" buttons as requested. 
-     - **Layout Upgrade**: Re-architected the main CTA section with a prominent full-width Orange "MUA NGAY" button, followed by a secondary grid containing "LIÊN HỆ ZALO" (Blue) and "GỌI KỸ SƯ" (White) to maximize conversion options.
-     - **Sticky Nav Sync**: Updated the Mobile Sticky Bottom Bar to use "Liên hệ" instead of "Zalo" for broader appeal while maintaining direct Zalo consultation hooks.
-     - **Code Cleanup**: Removed redundant and broken JSX blocks in the product detail template to ensure build stability and clean rendering.
-     - **Encoding Fix**: Standardized `src/app/san-pham/[slug]/page.tsx` to UTF-8 to resolve persistent character encoding issues and deployment warnings.
+   - **Product Detail Build Recovery (Hotfix)**:
+     - **JSX Tag Balance**: Resolved a critical build failure caused by a dangling `</div>` and a malformed `<span>` tag. Standardized the file to have a perfect 36/36 div count.
+     - **Turbopack Compatibility**: Updated `dangerouslySetInnerHTML` to use standard closing tags to avoid parsing errors in Next.js 16.
+     - **Structural Alignment**: Re-anchored the `Related Products` section to ensure it remains within the main container flow.
 
 
 

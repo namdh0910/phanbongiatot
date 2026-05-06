@@ -244,7 +244,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                       <div 
                         className="text-gray-700 leading-relaxed font-medium prose prose-emerald prose-base md:prose-lg max-w-none prose-p:mb-4 prose-strong:text-emerald-900 prose-strong:font-black"
                         dangerouslySetInnerHTML={{ __html: product.description.replace(/\n/g, '<br/>') }}
-                      />
+                      ></div>
                    </div>
 
                    {product.features && product.features.length > 0 && (
@@ -263,35 +263,34 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
               </div>
             </div>
           </div>
-        </div>
 
-          {/* Related Products */}
-          {relatedProducts.length > 0 && (
-            <div className="mt-12 md:mt-32 pt-10 md:pt-20 border-t border-gray-100">
-               <div className="flex items-center justify-between mb-12">
-                  <h2 className="text-3xl font-black text-gray-900 uppercase italic tracking-tighter">
-                     Vật tư khuyến nghị cùng bộ
-                  </h2>
-                  <Link href="/san-pham" className="text-emerald-700 font-black text-xs uppercase tracking-widest hover:translate-x-2 transition-transform flex items-center gap-2">
-                    Xem tất cả <ArrowRight size={16} />
-                  </Link>
-               </div>
-
-               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
-                  {(relatedProducts || []).map((p: any) => (
-                    <Link key={p.slug} href={`/san-pham/${p.slug}`} className="group bg-white rounded-3xl border border-gray-100 p-4 hover:shadow-2xl hover:-translate-y-1 transition-all">
-                       <div className="aspect-square rounded-2xl bg-gray-50 mb-4 overflow-hidden p-4">
-                          <img src={p.images?.[0] || '/og-image.png'} alt={p.name} className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500" />
-                       </div>
-                       <h4 className="font-black text-gray-900 text-[10px] md:text-sm mb-2 line-clamp-2 leading-tight group-hover:text-emerald-700 transition-colors uppercase italic">{p.name}</h4>
-                       <div className="text-[#f5a623] font-black text-[10px] md:text-sm">₫{p.price?.toLocaleString("vi-VN")}</div>
-                    </Link>
-                  ))}
-               </div>
+        {/* Related Products */}
+        {relatedProducts.length > 0 && (
+          <div className="mt-12 md:mt-32 pt-10 md:pt-20 border-t border-gray-100">
+            <div className="flex items-center justify-between mb-12">
+              <h2 className="text-3xl font-black text-gray-900 uppercase italic tracking-tighter">
+                Vật tư khuyến nghị cùng bộ
+              </h2>
+              <Link href="/san-pham" className="text-emerald-700 font-black text-xs uppercase tracking-widest hover:translate-x-2 transition-transform flex items-center gap-2">
+                Xem tất cả <ArrowRight size={16} />
+              </Link>
             </div>
-          )}
-        </div>
-      </main>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+              {(relatedProducts || []).map((p: any) => (
+                <Link key={p.slug} href={`/san-pham/${p.slug}`} className="group bg-white rounded-3xl border border-gray-100 p-4 hover:shadow-2xl hover:-translate-y-1 transition-all">
+                  <div className="aspect-square rounded-2xl bg-gray-50 mb-4 overflow-hidden p-4">
+                    <img src={p.images?.[0] || '/og-image.png'} alt={p.name} className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500" />
+                  </div>
+                  <h4 className="font-black text-gray-900 text-[10px] md:text-sm mb-2 line-clamp-2 leading-tight group-hover:text-emerald-700 transition-colors uppercase italic">{p.name}</h4>
+                  <div className="text-[#f5a623] font-black text-[10px] md:text-sm">₫{p.price?.toLocaleString("vi-VN")}</div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </main>
 
       {/* Sticky Bottom CTA for Mobile */}
       <div className="fixed bottom-0 left-0 right-0 z-[100] md:hidden bg-white/80 backdrop-blur-xl border-t border-gray-100 p-4 flex gap-3 shadow-[0_-10px_30px_rgba(0,0,0,0.05)]">
