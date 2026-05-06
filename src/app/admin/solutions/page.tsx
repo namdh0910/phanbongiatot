@@ -215,13 +215,69 @@ export default function AdminSolutions() {
                   />
                 </div>
                 <div className="md:col-span-4 space-y-2">
-                  <label className="text-[10px] font-black uppercase text-gray-400 ml-1 tracking-widest">Link ảnh đại diện (URL)</label>
-                  <input 
-                    value={formData.image}
-                    onChange={(e) => setFormData({...formData, image: e.target.value})}
-                    placeholder="Dán link ảnh từ Drive, Facebook hoặc Web khác vào đây..." 
-                    className="w-full bg-gray-50 border-2 border-transparent focus:border-emerald-500 focus:bg-white p-5 rounded-2xl text-sm font-bold transition-all outline-none"
-                  />
+                  <label className="text-[10px] font-black uppercase text-gray-400 ml-1 tracking-widest">Ảnh đại diện (Nên chọn ảnh vuông hoặc 16:9)</label>
+                  <div className="flex flex-col md:flex-row gap-4 items-start">
+                    {formData.image && (
+                      <div className="relative w-32 h-32 rounded-2xl overflow-hidden border-2 border-emerald-500 shadow-lg shrink-0">
+                         <img src={formData.image} alt="Preview" className="w-full h-full object-cover" />
+                         <button 
+                           type="button" 
+                           onClick={() => setFormData({...formData, image: ""})}
+                           className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 shadow-md"
+                         >
+                           <X size={12} />
+                         </button>
+                      </div>
+                    )}
+                    <div className="flex-1 w-full space-y-3">
+                      <div className="relative group">
+                        <input 
+                          type="file" 
+                          accept="image/*"
+                          onChange={async (e) => {
+                            const file = e.target.files?.[0];
+                            if (!file) return;
+                            
+                            const uploadFormData = new FormData();
+                            uploadFormData.append('file', file);
+                            
+                            try {
+                              const res = await fetch('/api/upload', {
+                                method: 'POST',
+                                body: uploadFormData
+                              });
+                              const data = await res.json();
+                              if (data.url) {
+                                setFormData({...formData, image: data.url});
+                              }
+                            } catch (err) {
+                              console.error("Upload failed", err);
+                              alert("Tải ảnh thất bại, vui lòng thử lại!");
+                            }
+                          }}
+                          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                        />
+                        <div className="bg-gray-50 border-2 border-dashed border-gray-200 group-hover:border-emerald-500 group-hover:bg-emerald-50/30 p-8 rounded-2xl flex flex-col items-center justify-center gap-3 transition-all">
+                           <div className="w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-emerald-600 group-hover:scale-110 transition-transform">
+                             <Plus size={24} />
+                           </div>
+                           <div className="text-center">
+                             <p className="text-xs font-black text-gray-700 uppercase tracking-widest">Bấm để tải ảnh lên</p>
+                             <p className="text-[10px] text-gray-400 font-medium mt-1">Hoặc kéo thả file vào đây</p>
+                           </div>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-[10px] font-bold text-gray-400 uppercase">Hoặc dán link:</span>
+                        <input 
+                          value={formData.image}
+                          onChange={(e) => setFormData({...formData, image: e.target.value})}
+                          placeholder="Dán link ảnh tại đây..." 
+                          className="flex-1 bg-gray-50 border-none p-2 rounded-lg text-[10px] font-bold outline-none focus:bg-white transition-all"
+                        />
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
