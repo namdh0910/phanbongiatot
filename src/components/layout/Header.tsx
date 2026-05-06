@@ -210,38 +210,31 @@ export default function Header() {
           </div>
         </div>
 
-        {/* MOBILE HEADER - COMPACT & PREMIUM DESIGN */}
+        {/* MOBILE HEADER - BRAND FIRST DESIGN */}
         <div className="lg:hidden">
-          <div className="flex items-center gap-2 px-2 h-[44px] bg-gradient-to-r from-[#1B5E20] to-[#2E7D32] text-white shadow-md relative z-[200]">
+          <div className="flex items-center gap-3 px-3 h-[48px] bg-gradient-to-r from-[#1B5E20] to-[#2E7D32] text-white shadow-md relative z-[200]">
             <button 
               onClick={() => setIsMenuOpen(true)}
               aria-label="Mở menu"
-              className="flex-shrink-0 flex flex-col items-center justify-center w-9 h-9 bg-white/10 rounded-lg active:scale-95 transition-transform"
+              className="flex-shrink-0 flex flex-col items-center justify-center w-10 h-10 bg-white/10 rounded-lg active:scale-95 transition-transform"
             >
-              <Menu size={18} />
+              <Menu size={20} />
               <span className="text-[7px] font-black uppercase mt-0.5 tracking-tighter leading-none">Menu</span>
             </button>
-
+ 
             <Link href="/" className="flex-shrink-0 active:scale-95 transition-transform">
-               <div className="w-9 h-9 bg-white rounded-lg flex items-center justify-center text-[#1B5E20] font-black text-xl shadow-inner">P</div>
+               <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-[#1B5E20] font-black text-2xl shadow-inner border border-white/20">P</div>
             </Link>
-   
-            <div className="flex-1 relative min-w-0">
+    
+            <div className="flex-1 max-w-[140px] ml-auto relative">
               <div 
                 onClick={() => setIsSearchFocused(true)}
-                className="w-full bg-white/10 backdrop-blur-md rounded-lg py-1 px-2 border border-white/15 text-white/90 text-[11px] font-medium flex items-center gap-1.5"
+                className="w-full bg-white/10 backdrop-blur-md rounded-lg py-1.5 px-2 border border-white/15 text-white/90 text-[11px] font-medium flex items-center gap-1.5"
               >
                 <span className="opacity-50 text-sm">🔍</span>
                 <span className="truncate opacity-80">Tìm...</span>
               </div>
             </div>
-   
-            <a 
-              href={`tel:${hotline.replace(/\./g, '')}`}
-              className="flex-shrink-0 w-9 h-9 bg-[#FF6B35] text-white rounded-lg shadow-lg active:scale-95 transition-transform flex items-center justify-center"
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-            </a>
           </div>
 
           {/* QUICK CATEGORY SCROLLBAR - Context Aware */}
