@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import { ChevronRight, Zap, ShieldCheck, MessageCircle, Phone, Star } from 'lucide-react';
 import Pathology from '@/lib/models/Pathology';
 import dbConnect from '@/lib/db';
 
