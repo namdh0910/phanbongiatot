@@ -98,30 +98,44 @@ const faqData = [
   }
 ];
 
-const FAQItem = ({ question, answer, link, linkText }: any) => {
-  const [isOpen, setIsOpen] = useState(false);
+const FAQItem = ({ question, answer, link, linkText, index }: any) => {
+  const [isOpen, setIsOpen] = useState(index === 0); // Open the first item by default
   return (
-    <div className="border-b border-gray-100 last:border-0 px-1 md:px-0">
+    <div className="border-b border-gray-100 last:border-0">
       <button 
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full py-3 md:py-6 flex items-start justify-between text-left gap-4 group"
+        className="w-full py-5 flex items-start gap-4 text-left group"
       >
-        <span className={`font-black text-[13px] md:text-lg transition-colors ${isOpen ? 'text-emerald-700' : 'text-gray-800 group-hover:text-emerald-600'}`}>
-          {question}
-        </span>
-        <div className={`mt-0.5 md:mt-1 transition-transform duration-300 ${isOpen ? 'rotate-180 text-emerald-700' : 'text-gray-300'}`}>
+        <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center font-black text-sm transition-colors ${isOpen ? 'bg-emerald-600 text-white' : 'bg-emerald-50 text-emerald-700'}`}>
+          H
+        </div>
+        <div className="flex-1 pr-4">
+          <h3 className={`font-black text-[15px] md:text-lg leading-tight transition-colors ${isOpen ? 'text-emerald-700' : 'text-gray-800 group-hover:text-emerald-600'}`}>
+            {question}
+          </h3>
+        </div>
+        <div className={`mt-1 transition-transform duration-300 ${isOpen ? 'rotate-180 text-emerald-700' : 'text-gray-300'}`}>
           <ChevronDown size={20} />
         </div>
       </button>
-      <div className={`overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-[500px] pb-6' : 'max-h-0'}`}>
-        <p className="text-gray-600 text-[12px] md:text-base leading-relaxed mb-4 font-medium italic">
-          {answer}
-        </p>
-        {link && (
-          <Link href={link} className="inline-flex items-center gap-2 text-emerald-700 font-black text-xs uppercase tracking-widest hover:gap-3 transition-all">
-            {linkText} <ArrowRight size={14} />
-          </Link>
-        )}
+      
+      <div className={`overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-[800px] pb-6' : 'max-h-0'}`}>
+        <div className="flex gap-4 pl-12 pr-4">
+           <div className="flex-1">
+              <div className="bg-gray-50 p-4 rounded-2xl relative">
+                 <div className="absolute -left-2 top-4 w-4 h-4 bg-gray-50 rotate-45"></div>
+                 <p className="text-gray-700 text-sm md:text-base leading-relaxed mb-4 font-medium italic">
+                    <span className="text-emerald-700 font-black not-italic mr-2">TRẢ LỜI:</span>
+                    {answer}
+                 </p>
+                 {link && (
+                    <Link href={link} className="inline-flex items-center gap-2 bg-emerald-600 text-white px-5 py-2 rounded-xl font-black text-[10px] md:text-xs uppercase tracking-widest hover:bg-emerald-700 transition-all shadow-lg shadow-emerald-100">
+                       {linkText} <ArrowRight size={14} />
+                    </Link>
+                 )}
+              </div>
+           </div>
+        </div>
       </div>
     </div>
   );
@@ -187,15 +201,22 @@ export default function FAQPage() {
 
               return (
                 <div key={idx} id={category.id} className="scroll-mt-32 bg-white rounded-xl md:rounded-[2.5rem] border border-gray-100 shadow-xl shadow-gray-100/50 overflow-hidden">
-                  <div className="bg-gray-50 px-4 md:px-8 py-3 md:py-6 border-b border-gray-100 flex items-center gap-3 md:gap-4">
-                    <span className="text-lg md:text-3xl">{category.icon}</span>
-                    <h2 className="text-[13px] md:text-xl font-black text-gray-900 uppercase tracking-tight italic">
-                      Nhóm: {category.category}
+                  <div className="bg-[#f0f9f1] px-5 md:px-8 py-3 md:py-4 border-b border-emerald-100 flex items-center gap-3 md:gap-4">
+                    <span className="text-xl md:text-3xl">{category.icon}</span>
+                    <h2 className="text-base md:text-xl font-black text-[#1b5e20] uppercase tracking-tight italic">
+                      {category.category}
                     </h2>
                   </div>
                   <div className="px-4 md:px-8 divide-y divide-gray-100">
-                    {filteredQuestions.map((q, qIdx) => (
-                      <FAQItem key={qIdx} {...q} />
+                    {filteredQuestions.map((item, qIdx) => (
+                      <FAQItem 
+                        key={qIdx} 
+                        question={item.q} 
+                        answer={item.a} 
+                        link={item.link} 
+                        linkText={item.linkText} 
+                        index={qIdx}
+                      />
                     ))}
                   </div>
                 </div>

@@ -10,7 +10,8 @@
   - **Navigation Accessibility Upgrade**:
     - **Exposed "Hỏi đáp" Link**: Added the "Hỏi đáp kỹ thuật" link directly to the main Desktop navigation and Mobile Drawer menu. Previously, this page was only discoverable via a secondary scrollbar on non-homepage routes.
   - **FAQ UI/UX Optimization**:
-    - **Ultra-Compact Layout**: Further reduced typography (question text to 13px), padding, and margins to ensure information density. Narrowed content container to `max-w-3xl` for better focus.
+    - **Visual List Redesign**: Transitioned from a generic accordion to a structured "Q&A List" featuring high-contrast "H" (Question) and "Đ" (Answer) badges for instant recognition.
+    - **Data Flow Fix**: Resolved a critical bug where content was hidden due to prop naming mismatches. Increased font readability (15px) for older users.
     - **Anchor Navigation**: Implemented `scroll-mt` anchors (Sầu riêng, Cà phê...) and linked them to the Header sub-navigation for seamless single-page jumping.
     - **Content Enrichment**: Seeded the FAQ library with real-world technical questions about flowering, pests, and soil health.
     - **Header Synchronization**: Integrated crop-specific horizontal scroll navigation (Sầu riêng, Cà phê...) for the FAQ page to match Solutions and Knowledge pages.
