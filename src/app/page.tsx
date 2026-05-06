@@ -263,7 +263,7 @@ export default function LandingPage() {
                 </Link>
                 <div className="p-3 md:p-5 flex flex-col flex-1">
                   <Link href={`/san-pham/${product.slug}`} className="block">
-                    <h3 className="text-[11px] md:text-sm font-black text-gray-900 line-clamp-2 mb-2 leading-tight hover:text-[#1a5c2a] transition-colors">{product.name}</h3>
+                    <h3 className="text-[15px] md:text-sm font-black text-gray-900 line-clamp-2 mb-2 leading-tight hover:text-[#1a5c2a] transition-colors">{product.name}</h3>
                   </Link>
                   <div className="mb-4">
                     {product.originalPrice > product.price && (
@@ -336,8 +336,8 @@ export default function LandingPage() {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent md:hidden" />
                   </div>
                   <div className="p-3 md:p-8 flex flex-col flex-1 bg-white">
-                    <h3 className="text-sm md:text-xl font-bold text-gray-800 mb-1 md:mb-3 leading-tight group-hover:text-emerald-700 transition-colors line-clamp-2 md:line-clamp-none lowercase first-letter:uppercase">
-                      {pathology.title}
+                    <h3 className="text-[16px] md:text-xl font-bold text-gray-800 mb-1 md:mb-3 leading-tight group-hover:text-emerald-700 transition-colors line-clamp-2 md:line-clamp-none" style={{ textTransform: 'none' }}>
+                      {pathology.title.charAt(0).toUpperCase() + pathology.title.slice(1).toLowerCase()}
                     </h3>
                     <p className="hidden md:block text-gray-500 text-xs mb-4 line-clamp-2 font-medium italic opacity-80">
                       {pathology.painPoint}
