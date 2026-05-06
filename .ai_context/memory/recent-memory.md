@@ -4,8 +4,9 @@
 - **Date**: 2026-05-06
 - **Latest Activities (Blog Fix & Optimization - DONE)**:
   - **Hotfix: Build Failure**: Đã xóa file `scratch/check-blogs.ts` gây lỗi TypeScript check trên Vercel.
-  - **Critical Fix: Blog 404 Error**: Đã khắc phục lỗi 404 khi truy cập chi tiết bài viết bằng cách chuyển từ `fetch(API)` sang truy vấn Database trực tiếp trong Server Components (`blog/[slug]`, `sitemap`).
-  - **Slug Standardization**: Chuẩn hóa slug `kich-re-cay-trong-dung-cach` để khớp với link điều hướng từ trang chủ.
+  - **Content Writing Skill**: Đã thiết lập file hướng dẫn viết bài chuyên sâu cho kỹ sư nông nghiệp tại `.ai_context/skills/content-writing.md`.
+  - **Knowledge Upgrade**: Đã viết lại toàn bộ 5 bài viết kỹ thuật cốt lõi (Sầu riêng, Cà phê, Tiêu, Kích rễ) với nội dung chuyên sâu (800-1200 từ), cấu trúc chuẩn kỹ sư và hình ảnh minh họa đầy đủ.
+  - **Critical Fix: Blog 404 Error**: Đã khắc phục lỗi 404 khi truy cập chi tiết bài viết.
   - **Official Domain Activation**: Đã kích hoạt thành công tên miền chính thức `phanbongiatot.com`.
   - **Build & Deploy**:
     - **Final Deployment Fix**: Bumped version to `0.1.2` and finalized the migration to `src/proxy.ts` with the correct `proxy` function export. This resolves all build errors and reflects typography changes.
