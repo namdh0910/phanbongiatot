@@ -7,7 +7,7 @@
     - **Vercel Sync Fix**: Forced a config-level sync by modifying `next.config.ts` after identifying that latest commits were not appearing on the Vercel dashboard.
     - **Triggered Vercel Re-deploy**: Manually triggered a new Vercel build via an empty commit to ensure the latest typography changes are reflected on the production site.
   - **UI/UX Optimization (Typography)**:
-    - **Reduced Solution Title Size**: Decreased the font size of solution card titles on the `/giai-phap` page from 20px (forced by global CSS) to `14px` by switching from `h2` to `h3` and applying explicit Tailwind classes. This improves mobile readability and consistency with the Product catalog.
+    - **Balanced Font Sizes**: Fine-tuned typography across the site: Reduced `/giai-phap` titles to `14px` with forced Sentence Case and `textTransform: none` to override global CSS. Increased Homepage product titles to `15px` and pathology titles to `16px` for better readability.
   - **Terminology Standardization (Language Pivot)**:
     - **Removed "Phác đồ" globally**: Replaced all occurrences of the medical-sounding term "phác đồ" with more farmer-friendly terms like "Giải pháp" (Solution) or "Quy trình" (Process) across the entire codebase (Homepage, Blog, Products, Header, etc.).
     - **Updated AI Rules**: Modified `.ai_context/AI_RULES.md` to strictly enforce the use of "giải pháp/quy trình" and ban "phác đồ" in future content generation.
