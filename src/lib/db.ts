@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
 
-const MONGODB_URI = process.env.MONGO_URI || '';
+const MONGODB_URI = process.env.MONGODB_URI || process.env.MONGO_URI || '';
 
 if (!MONGODB_URI && process.env.NODE_ENV === 'production') {
-  console.warn('Warning: MONGO_URI is not defined. Database features will not work.');
+  console.warn('Warning: MONGODB_URI is not defined. Database features will not work.');
 }
 
 /**
