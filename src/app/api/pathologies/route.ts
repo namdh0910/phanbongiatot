@@ -6,10 +6,13 @@ export const dynamic = 'force-dynamic';
 
 export async function GET() {
   try {
+    console.log("API: pathologies GET called");
     await dbConnect();
-    const pathologies = await Pathology.find({}).sort({ createdAt: -1 });
+    const pathologies = await Pathology.find({}).lean();
+    console.log("API: pathologies found:", pathologies.length);
     return NextResponse.json({ pathologies });
   } catch (error: any) {
+    console.error("API Error pathologies:", error);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }

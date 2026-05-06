@@ -134,6 +134,7 @@ export default function LandingPage() {
     window.addEventListener('scroll', handleScroll, { passive: true });
     
     // Initial fetch of data
+    console.log("Fetching from:", API_BASE_URL);
     Promise.all([
       fetch(`${API_BASE_URL}/blogs`).then(res => res.json()),
       fetch(`${API_BASE_URL}/pathologies`).then(res => res.json()),
