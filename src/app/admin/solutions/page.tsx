@@ -17,6 +17,7 @@ export default function AdminSolutions() {
     cause: "",
     biologicalSolution: "",
     videoId: "",
+    category: "",
     symptoms: [""],
     wrongActions: [""],
     stats: { successVouchers: "", recoveryTime: "" },
@@ -62,6 +63,7 @@ export default function AdminSolutions() {
       cause: item.cause || "",
       biologicalSolution: item.biologicalSolution || "",
       videoId: item.videoId || "",
+      category: item.category || "",
       symptoms: item.symptoms?.length ? item.symptoms : [""],
       wrongActions: item.wrongActions?.length ? item.wrongActions : [""],
       stats: item.stats || { successVouchers: "", recoveryTime: "" },
@@ -120,6 +122,7 @@ export default function AdminSolutions() {
     setEditingId(null);
     setFormData({
       title: "", slug: "", icon: "🩺", painPoint: "", cause: "", biologicalSolution: "", videoId: "",
+      category: "",
       symptoms: [""], wrongActions: [""],
       stats: { successVouchers: "", recoveryTime: "" },
       steps: [{ name: "", time: "", description: "", product: "" }],
@@ -212,21 +215,26 @@ export default function AdminSolutions() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                  <div className="space-y-2">
+                    <label className="text-[10px] font-black uppercase text-gray-400 ml-1 tracking-widest">Chuyên mục phân loại</label>
+                    <select 
+                      value={formData.category}
+                      onChange={(e) => setFormData({...formData, category: e.target.value})}
+                      className="w-full bg-gray-50 border-2 border-transparent focus:border-emerald-500 focus:bg-white p-4 rounded-2xl text-sm font-black transition-all outline-none"
+                    >
+                      <option value="">-- Chưa phân loại --</option>
+                      <option value="benh-ly">🦠 Xử lý bệnh lý</option>
+                      <option value="kich-re">🌱 Kích thích ra rễ</option>
+                      <option value="nuoi-trai">🍋 Nuôi trái - Tạo ngọt</option>
+                      <option value="phuc-hoi">♻️ Phục hồi cây suy</option>
+                    </select>
+                 </div>
+                 <div className="space-y-2">
                     <label className="text-[10px] font-black uppercase text-gray-400 ml-1 tracking-widest">YouTube Video ID</label>
                     <input 
                       value={formData.videoId}
                       onChange={(e) => setFormData({...formData, videoId: e.target.value})}
                       placeholder="VD: dQw4w9WgXcQ" 
                       className="w-full bg-gray-50 border-2 border-transparent focus:border-emerald-500 focus:bg-white p-4 rounded-2xl text-sm font-bold transition-all outline-none"
-                    />
-                 </div>
-                 <div className="space-y-2">
-                    <label className="text-[10px] font-black uppercase text-gray-400 ml-1 tracking-widest">Đường dẫn (Slug)</label>
-                    <input 
-                      value={formData.slug}
-                      onChange={(e) => setFormData({...formData, slug: e.target.value})}
-                      placeholder="Tự động tạo nếu để trống" 
-                      className="w-full bg-gray-100 border-none p-4 rounded-2xl text-xs font-mono text-gray-500 outline-none"
                     />
                  </div>
               </div>

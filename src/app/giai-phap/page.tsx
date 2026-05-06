@@ -22,8 +22,13 @@ export const metadata = {
   description: 'Tổng hợp phác đồ điều trị bệnh lý cây trồng: Vàng lá thối rễ, Tuyến trùng, Suy kiệt cây sau thu hoạch.',
 };
 
-export default async function SolutionsPage() {
+export default async function SolutionsPage({ searchParams }: { searchParams: Promise<{ category?: string }> }) {
+  const { category } = await searchParams;
   const pathologies = await getPathologies();
+  
+  const filteredPathologies = category 
+    ? pathologies.filter((p: any) => p.category === category)
+    : pathologies;
 
   return (
     <div className="bg-[#f8fafc] min-h-screen">
@@ -48,7 +53,7 @@ export default async function SolutionsPage() {
 
           {/* 2. Grid of Solutions - 2 Columns on Mobile */}
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-8">
-            {pathologies.map((item: any) => (
+            {filteredPathologies.map((item: any) => (
               <Link 
                 key={item.slug} 
                 href={`/giai-phap/${item.slug}`}

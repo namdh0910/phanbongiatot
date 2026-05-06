@@ -6,6 +6,7 @@ const PathologySchema = new mongoose.Schema({
   painPoint: { type: String },
   cause: { type: String },
   biologicalSolution: { type: String },
+  category: { type: String }, // benh-ly, kich-re, nuoi-trai, phuc-hoi
   symptoms: [{ type: String }],
   steps: [{
     name: String,
