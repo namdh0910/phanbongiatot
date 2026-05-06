@@ -123,6 +123,7 @@
     - **Global "Phác đồ" Removal**: Conducted a final, comprehensive sweep and replaced 20+ remaining occurrences of "phác đồ" with "giải pháp" or "quy trình" across API routes (Leads, Seed-blogs), UI components (LeadForm, ProductCard, Testimonials, FloatingSocialProof), and core pages (Blog, Error, Not-found).
     - **Product Filter Pivot**: Removed the "Loại cây trồng" (Crop Type) filter from `/san-pham` and replaced it with "Nhóm giải pháp" (Solution Group) to align with the solution-centric business model.
     - **UI Streamlining & High-Density Layout**: Removed the oversized Hero section and optimized product cards for high-density display. By reducing padding (p-6 to p-3), font sizes (text-lg to text-[13px]), and simplifying action buttons, 4-6 products are now visible simultaneously on mobile viewports.
+    - **Product Detail UX Overhaul**: Redesigned the product detail page to prioritize price visibility and conversion. Implemented a sticky bottom CTA bar for mobile (Mua ngay/Zalo), added high-contrast action buttons, and significantly improved description styling using better containerization and typography.
     - **Top Navigation Integration**: Implemented a horizontal scroll category menu (Nhóm giải pháp) in the Header's mobile scrollbar for a seamless browsing experience.
     - **Mobile Grid Upgrade**: Transitioned the product list from a single-column list to a high-density 2-column grid (`grid-cols-2`) on mobile viewports for better visual appeal and faster scannability.
     - **Server-Side Filtering**: Enabled dynamic filtering by category on the Product page using Next.js `searchParams`, ensuring real-time UI updates when categories are selected.
@@ -130,6 +131,12 @@
   - **Build Recovery & Final Cleanup (Hotfix)**:
     - **Fixed Seed-Blogs Syntax**: Resolved a critical build failure caused by an unclosed template literal and duplicate `content` property in `src/app/api/admin/seed-blogs/route.ts`.
     - **Final Terminology Sweep**: Removed the very last occurrences of "phác đồ" in the blog seeding data to ensure 100% compliance with the new language standards.
+   - **Product Detail UX Refinement (Directive 12)**:
+     - **CTA Optimization**: Updated the product detail page to prioritize "MUA NGAY" and "LIÊN HỆ" buttons as requested. 
+     - **Layout Upgrade**: Re-architected the main CTA section with a prominent full-width Orange "MUA NGAY" button, followed by a secondary grid containing "LIÊN HỆ ZALO" (Blue) and "GỌI KỸ SƯ" (White) to maximize conversion options.
+     - **Sticky Nav Sync**: Updated the Mobile Sticky Bottom Bar to use "Liên hệ" instead of "Zalo" for broader appeal while maintaining direct Zalo consultation hooks.
+     - **Code Cleanup**: Removed redundant and broken JSX blocks in the product detail template to ensure build stability and clean rendering.
+     - **Encoding Fix**: Standardized `src/app/san-pham/[slug]/page.tsx` to UTF-8 to resolve persistent character encoding issues and deployment warnings.
 
 
 

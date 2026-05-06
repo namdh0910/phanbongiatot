@@ -71,6 +71,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
 
   const relatedProducts = await getRelatedProducts(product.category, product.slug);
   const zaloUrl = `https://zalo.me/0773440966?text=${encodeURIComponent(`Tôi cần tư vấn về sản phẩm ${product.name}`)}`;
+  const buyUrl = `https://zalo.me/0773440966?text=${encodeURIComponent(`Tôi muốn mua sản phẩm ${product.name}, vui lòng báo giá và giao hàng.`)}`;
 
   const productSchema = {
     "@context": "https://schema.org",
@@ -185,63 +186,71 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                       {[1,2,3,4,5].map(s => <Star key={s} size={16} fill="currentColor" />)}
                    </div>
                    <span className="text-gray-400 text-xs font-bold uppercase tracking-widest">
-                      Đã tư vấn {product.soldCount || 150}+ vườn thành công
-                   </span>
-                </div>
-
-                <div className="bg-gray-50 p-8 rounded-[2.5rem] border border-gray-100 relative overflow-hidden">
-                   <div className="absolute top-0 right-0 p-8 opacity-[0.03] select-none text-8xl rotate-12">💰</div>
+                      Đã tư vấn {product.soldCount || 150}+ vư                <div className="bg-[#fcf8f0] p-6 md:p-8 rounded-[2rem] border border-orange-100 relative overflow-hidden">
+                   <div className="absolute top-0 right-0 p-8 opacity-[0.05] select-none text-8xl rotate-12">💰</div>
                    <div className="relative z-10">
-                      <div className="flex items-baseline gap-4 mb-2">
-                         <span className="text-4xl md:text-5xl font-black text-[#f5a623]">
+                      <div className="flex items-center gap-3 mb-1">
+                        <span className="text-4xl md:text-5xl font-black text-[#e67e22]">
                             ₫{product.price?.toLocaleString("vi-VN")}
-                         </span>
-                         {product.originalPrice > product.price && (
-                           <span className="text-xl text-gray-400 line-through font-bold">
+                        </span>
+                        {product.originalPrice > product.price && (
+                          <span className="text-lg text-gray-400 line-through font-bold">
                               ₫{product.originalPrice?.toLocaleString("vi-VN")}
-                           </span>
-                         )}
+                          </span>
+                        )}
                       </div>
-                      <p className="text-emerald-700 text-xs font-black uppercase tracking-widest flex items-center gap-2">
+                      <p className="text-emerald-700 text-[10px] md:text-xs font-black uppercase tracking-widest flex items-center gap-2">
                          <Zap size={14} fill="currentColor" /> Nhận ngay ưu đãi khi mua theo quy trình
                       </p>
                    </div>
                 </div>
 
-                 <div className="space-y-3 pt-6">
-                   <a 
-                     href={zaloUrl}
-                     target="_blank"
-                     className="w-full bg-[#0068FF] hover:bg-blue-600 text-white py-4 md:py-6 rounded-2xl font-black text-base md:text-lg uppercase tracking-[0.1em] flex items-center justify-center gap-3 shadow-xl shadow-blue-100 transition-all active:scale-95 animate-heartbeat"
-                   >
-                      <MessageCircle fill="currentColor" /> Chat Zalo Nhận Giải Pháp
-                   </a>
-                   <a 
-                     href="tel:0773440966"
-                     className="w-full bg-white border-2 border-[#1a5c2a] text-[#1a5c2a] hover:bg-emerald-50 py-4 md:py-6 rounded-2xl font-black text-base md:text-lg uppercase tracking-[0.1em] flex items-center justify-center gap-3 transition-all active:scale-95"
-                   >
-                      <Phone /> Gọi kỹ sư ngay
-                   </a>
+                 <div className="flex flex-col gap-3 pt-6">
+                    <a 
+                      href={buyUrl}
+                      target="_blank"
+                      className="w-full bg-orange-600 hover:bg-orange-700 text-white py-4 rounded-2xl font-black text-sm md:text-lg uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-orange-100 transition-all active:scale-95"
+                    >
+                       <Package size={20} /> MUA NGAY
+                    </a>
+                    
+                    <div className="grid grid-cols-2 gap-3">
+                      <a 
+                        href={zaloUrl}
+                        target="_blank"
+                        className="bg-[#0068FF] hover:bg-blue-600 text-white py-4 rounded-2xl font-black text-sm md:text-base uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-blue-100 transition-all active:scale-95"
+                      >
+                         <MessageCircle size={18} fill="currentColor" /> LIÊN HỆ ZALO
+                      </a>
+                      <a 
+                        href="tel:0773440966"
+                        className="bg-white border-2 border-emerald-800 text-emerald-800 hover:bg-emerald-50 py-4 rounded-2xl font-black text-sm md:text-base uppercase tracking-wider flex items-center justify-center gap-2 transition-all active:scale-95"
+                      >
+                         <Phone size={18} /> GỌI KỸ SƯ
+                      </a>
+                    </div>
                 </div>
 
                 <div className="pt-10 border-t border-gray-100 space-y-8">
-                   <div>
-                      <h3 className="text-xl font-black text-gray-900 uppercase italic tracking-tight mb-4 flex items-center gap-2">
-                         <span className="w-1.5 h-6 bg-[#f5a623] rounded-full" />
+                   <div className="bg-emerald-50/30 p-6 md:p-10 rounded-[2.5rem] border border-emerald-100/50">
+                      <h3 className="text-2xl font-black text-emerald-900 uppercase italic tracking-tight mb-6 flex items-center gap-3">
+                         <span className="w-2 h-8 bg-orange-500 rounded-full" />
                          Công dụng chuyên sâu
                       </h3>
                       <div 
-                        className="text-gray-600 leading-relaxed font-medium prose prose-emerald prose-sm md:prose-base max-w-none"
-                        dangerouslySetInnerHTML={{ __html: product.description }}
+                        className="text-gray-700 leading-relaxed font-medium prose prose-emerald prose-base md:prose-lg max-w-none prose-p:mb-4 prose-strong:text-emerald-900 prose-strong:font-black"
+                        dangerouslySetInnerHTML={{ __html: product.description.replace(/\n/g, '<br/>') }}
                       />
                    </div>
 
                    {product.features && product.features.length > 0 && (
                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {(product.features || []).map((feature: string, i: number) => (
-                           <div key={i} className="flex items-start gap-3 bg-gray-50 p-4 rounded-2xl">
-                              <CheckCircle2 className="text-emerald-600 mt-0.5 flex-shrink-0" size={18} />
-                              <span className="text-sm font-bold text-gray-700">{feature}</span>
+                           <div key={i} className="flex items-center gap-4 bg-white p-5 rounded-2xl border border-gray-100 shadow-sm">
+                              <div className="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                <CheckCircle2 className="text-emerald-700" size={20} />
+                              </div>
+                              <span className="text-sm md:text-base font-bold text-gray-800">{feature}</span>
                            </div>
                         ))}
                      </div>
@@ -278,6 +287,24 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
           )}
         </div>
       </main>
+
+      {/* Sticky Bottom CTA for Mobile */}
+      <div className="fixed bottom-0 left-0 right-0 z-[100] md:hidden bg-white/80 backdrop-blur-xl border-t border-gray-100 p-4 flex gap-3 shadow-[0_-10px_30px_rgba(0,0,0,0.05)]">
+        <a 
+          href={buyUrl}
+          target="_blank"
+          className="flex-[1.5] bg-orange-600 text-white font-black py-4 rounded-xl text-xs uppercase tracking-widest flex items-center justify-center gap-2 shadow-lg shadow-orange-100"
+        >
+          <Zap size={16} fill="currentColor" /> Mua ngay
+        </a>
+        <a 
+          href={zaloUrl}
+          target="_blank"
+          className="flex-1 bg-[#0068FF] text-white font-black py-4 rounded-xl text-[10px] uppercase tracking-widest flex items-center justify-center gap-2 shadow-lg shadow-blue-100"
+        >
+          <MessageCircle size={16} fill="currentColor" /> Liên hệ
+        </a>
+      </div>
     </div>
   );
 }
