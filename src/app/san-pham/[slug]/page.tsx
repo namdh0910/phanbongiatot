@@ -48,8 +48,9 @@ async function getRelatedProducts(category: string, currentSlug: string) {
   }
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const product = await getProduct(params.slug);
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const product = await getProduct(slug);
   if (!product) return { title: 'Sản phẩm | Phân Bón Giá Tốt' };
 
   return {
@@ -63,8 +64,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default async function ProductDetailPage({ params }: { params: { slug: string } }) {
-  const product = await getProduct(params.slug);
+export default async function ProductDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const product = await getProduct(slug);
   if (!product) notFound();
 
   const relatedProducts = await getRelatedProducts(product.category, product.slug);
