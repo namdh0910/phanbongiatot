@@ -131,9 +131,11 @@
   - **Build Recovery & Final Cleanup (Hotfix)**:
     - **Fixed Seed-Blogs Syntax**: Resolved a critical build failure caused by an unclosed template literal and duplicate `content` property in `src/app/api/admin/seed-blogs/route.ts`.
     - **Final Terminology Sweep**: Removed the very last occurrences of "phác đồ" in the blog seeding data to ensure 100% compliance with the new language standards.
-   - **UI Duplication Fix (Directive 18)**:
-     - **Header/Footer Cleanup**: Removed explicit `<Header />` and `<Footer />` calls from the product detail page as they are already provided by the global `LayoutWrapper`.
-     - **Layout Consistency**: Verified that all dynamic routes are correctly wrapped by the system-wide layout to prevent UI component stacking.
+   - **Rich Text Editor & Style Protection (Directive 19)**:
+     - **Admin Upgrade**: Replaced standard textareas with an interactive `RichTextEditor` (Quill-based) for Products and Blogs, supporting inline image insertion.
+     - **Style Sanitization**: Implemented aggressive CSS overrides to strip background colors and hardcoded font sizes from pasted content, ensuring mobile consistency.
+     - **Mobile Readability Guard**: Locked mobile font sizes to 15-16px within the `.prose` container to prevent "giant text" issues from external copy-pasting.
+     - **Responsive Media**: Applied global styling to all inline images to ensure they are responsive, centered, and aesthetically pleasing with shadows and rounded corners.
 
 
 

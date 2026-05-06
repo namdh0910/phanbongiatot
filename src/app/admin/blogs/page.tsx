@@ -5,6 +5,7 @@ import { Plus, Edit, Trash2, Save, X, Video, FileText, CheckCircle, Eye, Link as
 import { slugify } from "@/utils/slugify";
 import { API_BASE_URL } from "@/utils/api";
 import ImageUpload from "@/components/admin/ImageUpload";
+import RichTextEditor from "@/components/admin/RichTextEditor";
 
 interface Blog {
   _id?: string;
@@ -237,16 +238,12 @@ export default function AdminBlogs() {
                     />
                   </div>
 
-                  <div>
-                    <label className="block text-[10px] font-black text-gray-400 uppercase mb-2 ml-1 tracking-widest">Nội dung chi tiết (Markdown/HTML)</label>
-                    <textarea 
-                      required
-                      value={currentBlog.content}
-                      onChange={(e) => setCurrentBlog({...currentBlog, content: e.target.value})}
-                      className="w-full bg-gray-50 border-2 border-gray-100 rounded-2xl px-6 py-4 outline-none focus:bg-white focus:border-[#1a5c2a] transition-all font-medium text-gray-800 h-[340px] resize-none"
-                      placeholder="Nhập nội dung kỹ thuật tại đây..."
-                    />
-                  </div>
+                  <RichTextEditor 
+                    label="Nội dung chi tiết"
+                    value={currentBlog.content}
+                    onChange={(content) => setCurrentBlog({...currentBlog, content})}
+                    placeholder="Nhập nội dung kỹ thuật và chèn hình ảnh minh họa..."
+                  />
 
                   <div className="flex items-center gap-2 bg-emerald-50 p-4 rounded-2xl">
                      <input 

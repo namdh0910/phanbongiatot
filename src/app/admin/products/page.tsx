@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 import { Plus, Edit, Trash2, Save, X, Package, Search, Eye, Link as LinkIcon } from "lucide-react";
 import { slugify } from "@/utils/slugify";
 import { API_BASE_URL } from "@/utils/api";
-import MultiImageUpload from "@/components/admin/MultiImageUpload";
+import MultiImageUpload from '@/components/admin/MultiImageUpload';
+import RichTextEditor from '@/components/admin/RichTextEditor';
 
 interface Product {
   _id?: string;
@@ -270,16 +271,12 @@ export default function AdminProducts() {
                </div>
 
                <div className="space-y-6">
-                  <div>
-                    <label className="block text-[10px] font-black text-gray-400 uppercase mb-2 ml-1 tracking-widest">Mô tả công dụng</label>
-                    <textarea 
-                      required
-                      value={currentProduct.description}
-                      onChange={(e) => setCurrentProduct({...currentProduct, description: e.target.value})}
-                      className="w-full bg-gray-50 border-2 border-gray-100 rounded-2xl px-6 py-4 outline-none focus:bg-white focus:border-[#1a5c2a] transition-all font-medium text-gray-800 h-[120px] resize-none"
-                      placeholder="Nhập công dụng chính của sản phẩm..."
-                    />
-                  </div>
+                  <RichTextEditor 
+                    label="Mô tả công dụng"
+                    value={currentProduct.description}
+                    onChange={(content) => setCurrentProduct({...currentProduct, description: content})}
+                    placeholder="Nhập công dụng chính và chèn hình ảnh minh họa..."
+                  />
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                      <div>
