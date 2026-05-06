@@ -238,22 +238,33 @@ export default function AdminSolutions() {
                             const file = e.target.files?.[0];
                             if (!file) return;
                             
-                            const uploadFormData = new FormData();
-                            uploadFormData.append('file', file);
-                            
-                            try {
-                              const res = await fetch('/api/upload', {
-                                method: 'POST',
-                                body: uploadFormData
-                              });
-                              const data = await res.json();
-                              if (data.url) {
-                                setFormData({...formData, image: data.url});
-                              }
-                            } catch (err) {
-                              console.error("Upload failed", err);
-                              alert("Tải ảnh thất bại, vui lòng thử lại!");
-                            }
+                            // Client-side Resize & Compress to Base64
+                            const reader = new FileReader();
+                            reader.readAsDataURL(file);
+                            reader.onload = (event) => {
+                              const img = new Image();
+                              img.src = event.target?.result as string;
+                              img.onload = () => {
+                                const canvas = document.createElement('canvas');
+                                const MAX_WIDTH = 1200;
+                                let width = img.width;
+                                let height = img.height;
+
+                                if (width > MAX_WIDTH) {
+                                  height *= MAX_WIDTH / width;
+                                  width = MAX_WIDTH;
+                                }
+
+                                canvas.width = width;
+                                canvas.height = height;
+                                const ctx = canvas.getContext('2d');
+                                ctx?.drawImage(img, 0, 0, width, height);
+                                
+                                // Compress as JPEG with 0.7 quality
+                                const dataUrl = canvas.toDataURL('image/jpeg', 0.7);
+                                setFormData({...formData, image: dataUrl});
+                              };
+                            };
                           }}
                           className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                         />
