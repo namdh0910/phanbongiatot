@@ -131,11 +131,11 @@
   - **Build Recovery & Final Cleanup (Hotfix)**:
     - **Fixed Seed-Blogs Syntax**: Resolved a critical build failure caused by an unclosed template literal and duplicate `content` property in `src/app/api/admin/seed-blogs/route.ts`.
     - **Final Terminology Sweep**: Removed the very last occurrences of "phác đồ" in the blog seeding data to ensure 100% compliance with the new language standards.
-   - **Product Detail Layout Optimization (Directive 13)**:
-     - **Above-the-Fold Priority**: Moved Price and CTA buttons significantly higher on mobile by relocating secondary Trust Badges and reducing hero image max-height (350px -> 300px).
-     - **High-Density UX**: Transitioned product description and features to a full-width container below the main fold, improving readability and reducing vertical scroll fatigue in the right column.
-     - **CRO Enhancement**: Redesigned Trust Badges to be more compact and placed them as social proof directly below the transactional buttons.
-     - **Build Stability**: Resolved a missing `</div>` in the button grid that was introduced during the layout refactor.
+   - **Product Detail Space Optimization (Directive 14)**:
+     - **Thumbnail Relocation**: Moved additional image thumbnails from the left column to the right column (below title/rating) to fill horizontal white space and shorten the page.
+     - **Image Density Upgrade**: Reduced main image padding (p-4 -> p-2) to make the product visual more prominent while saving vertical space.
+     - **Compact Mobile UX**: Implemented a horizontal scroll for thumbnails on mobile, significantly pulling the Price and CTAs further up the fold.
+     - **Visual Tightening**: Simplified labels (e.g., "HOT") and reduced internal margins to achieve a high-density, professional e-commerce feel.
 
 
 

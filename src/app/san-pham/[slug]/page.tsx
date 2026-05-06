@@ -121,29 +121,19 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             
             {/* Left: Images */}
             <div className="lg:w-1/2 space-y-4">
-              <div className="aspect-square max-h-[300px] md:max-h-none rounded-[2rem] md:rounded-[3rem] overflow-hidden bg-gray-50 border border-gray-100 shadow-inner group relative mx-auto">
+              {/* Main Image - Reduced padding for better space utilization */}
+              <div className="aspect-square max-h-[320px] md:max-h-none rounded-[2rem] md:rounded-[3rem] overflow-hidden bg-gray-50 border border-gray-100 shadow-inner group relative mx-auto">
                 <img 
                   src={product.images?.[0] || '/og-image.png'} 
                   alt={product.name} 
-                  className="w-full h-full object-contain p-4 md:p-8 group-hover:scale-105 transition-transform duration-700" 
+                  className="w-full h-full object-contain p-2 md:p-6 group-hover:scale-105 transition-transform duration-700" 
                 />
                 {product.isHot && (
-                  <div className="absolute top-8 left-8 bg-red-600 text-white px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest animate-pulse shadow-lg">
-                    Hot Product
+                  <div className="absolute top-6 left-6 bg-red-600 text-white px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest animate-pulse shadow-lg">
+                    HOT
                   </div>
                 )}
               </div>
-              
-              {product.images && product.images.length > 1 && (
-                <div className="grid grid-cols-4 gap-4">
-                  {(product.images || []).map((img: string, i: number) => (
-                    <div key={i} className="aspect-square rounded-2xl overflow-hidden border border-gray-100 bg-gray-50 cursor-pointer hover:border-emerald-500 transition-all">
-                      <img src={img} alt={`${product.name} ${i}`} className="w-full h-full object-cover p-2" />
-                    </div>
-                  ))}
-                </div>
-              )}
-
             </div>
 
             {/* Right: Info & CTA */}
@@ -171,9 +161,20 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                       {[1,2,3,4,5].map(s => <Star key={s} size={16} fill="currentColor" />)}
                    </div>
                    <span className="text-gray-400 text-xs font-bold uppercase tracking-widest">
-                      Đã tư vấn {product.soldCount || 150}+ vườn thành công
+                      Đã tư vấn {product.soldCount || 150}+ vườn
                    </span>
                 </div>
+
+                {/* Thumbnails moved here to optimize space */}
+                {product.images && product.images.length > 1 && (
+                  <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
+                    {(product.images || []).map((img: string, i: number) => (
+                      <div key={i} className="w-16 h-16 md:w-20 md:h-20 flex-shrink-0 rounded-xl overflow-hidden border border-gray-100 bg-gray-50 cursor-pointer hover:border-emerald-500 transition-all">
+                        <img src={img} alt={`${product.name} ${i}`} className="w-full h-full object-cover p-1" />
+                      </div>
+                    ))}
+                  </div>
+                )}
 
                 <div className="bg-[#fcf8f0] p-6 md:p-8 rounded-[2rem] border border-orange-100 relative overflow-hidden">
                    <div className="absolute top-0 right-0 p-8 opacity-[0.05] select-none text-8xl rotate-12">💰</div>
