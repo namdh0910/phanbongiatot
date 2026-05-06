@@ -1,56 +1,113 @@
 import { NextResponse } from 'next/server';
 import dbConnect from '@/lib/db';
 import Pathology from '@/lib/models/Pathology';
+import { verifyAdmin } from '@/lib/auth';
 
 export async function GET() {
   try {
+    const isAdmin = await verifyAdmin();
+    if (!isAdmin) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     await dbConnect();
-    
+
     const solutions = [
-      {
-        title: "Phục hồi cây sầu riêng sau thu hoạch",
-        slug: "phuc-hoi-sau-thu-hoach",
-        icon: "🌳",
-        painPoint: "Cây sầu riêng bị suy kiệt, khô cành, rụng lá sau thời gian dài nuôi trái nặng nề. Bà con lo lắng cây không đủ sức cho vụ tới.",
-        cause: "Đất bị nén chặt, thiếu dinh dưỡng hữu cơ, hệ rễ bị tổn thương sau quá trình khai thác quá mức.",
-        biologicalSolution: "Sử dụng bộ đôi Phục Hồi kết hợp Humic cao cấp để kích thích rễ mới, giải độc đất và tái tạo tán lá xanh dày.",
-        videoId: "6Wn8zZ478_Y"
-      },
       {
         title: "Xử lý tuyến trùng rễ trên cây hồ tiêu",
         slug: "xu-ly-tuyen-trung-ho-tieu",
-        icon: "🦠",
-        painPoint: "Hồ tiêu vàng lá hàng loạt, rễ xuất hiện các nốt sần, cây đứng chững không phát triển dù bón nhiều phân.",
+        icon: "🌶️",
+        painPoint: "Hồ tiêu vàng lá hàng loạt, rễ xuất hiện các nốt sần, cây đứng chựng không phát triển dù bón nhiều phân.",
         cause: "Tuyến trùng tấn công làm hỏng mạch dẫn, tạo vết thương cho nấm Phytophthora xâm nhập gây chết nhanh chết chậm.",
-        biologicalSolution: "Ứng dụng chế phẩm NEMANO để tiêu diệt tuyến trùng bằng cơ chế nấm ký sinh, bảo vệ bộ rễ bền vững.",
-        videoId: "dQw4w9WgXcQ"
+        biologicalSolution: "Ứng dụng chế phẩm sinh học NEMANO để tiêu diệt tuyến trùng bằng cơ chế nấm ký sinh, bảo vệ bộ rễ bền vững.",
+        videoId: "bQif4TJJugg",
+        symptoms: [
+          "Lá vàng xanh xao, mép lá hơi xoăn lại",
+          "Rễ tơ xuất hiện các nốt sần, u bướu to nhỏ",
+          "Cây không đâm chồi mới mặc dù đang mùa mưa",
+          "Bón phân hóa học vào cây không hấp thụ, đất bị chai cứng"
+        ],
+        wrongActions: [
+          "Đổ thuốc trừ sâu hóa học liều cao xuống gốc làm chết vi sinh có lợi",
+          "Bón quá nhiều phân đạm khi cây đang bệnh làm thối rễ nặng hơn",
+          "Xới xáo gốc quá mạnh làm đứt rễ, tạo điều kiện cho nấm xâm nhập"
+        ],
+        stats: {
+          successVouchers: "850+",
+          recoveryTime: "21 - 30 ngày"
+        },
+        steps: [
+          {
+            name: "Tiêu diệt Tuyến trùng & Nấm bệnh",
+            time: "Ngày 1",
+            description: "Pha 500ml NEMANO với 400 lít nước, tưới đẫm vùng gốc (10-15 lít/gốc). Cơ chế nấm ký sinh sẽ tiêu diệt trứng và tuyến trùng trưởng thành.",
+            product: null
+          },
+          {
+            name: "Kích rễ tơ & Cải tạo đất",
+            time: "Ngày 7",
+            description: "Dùng Humic Mỹ kết hợp Fulvic để kích thích rễ tơ mới ra trắng xóa, giúp cây bắt đầu hấp thụ lại dinh dưỡng.",
+            product: null
+          },
+          {
+            name: "Bảo vệ & Phục hồi xanh lá",
+            time: "Ngày 15",
+            description: "Bổ sung Trichoderma và Bacillus để đối kháng nấm bệnh lâu dài, giúp lá xanh dày trở lại.",
+            product: null
+          }
+        ],
+        testimonials: [
+          {
+            name: "Chú Năm Hữu",
+            location: "Chư Sê, Gia Lai",
+            quote: "Vườn tiêu 5 năm tuổi tưởng phải múc bỏ vì tuyến trùng, may mà gặp quy trình này rễ ra lại trắng xóa, lá xanh mướt rồi."
+          },
+          {
+            name: "Anh Hoàng",
+            location: "Đắk Đoa, Đắk Lắk",
+            quote: "Quy trình sinh học nên đất tơi xốp hẳn ra, cây bền hơn hẳn so với đổ thuốc hóa học như trước."
+          }
+        ]
       },
       {
-        title: "Phòng ngừa rụng bông, rụng trái non cà phê",
-        slug: "chong-rung-trai-non-ca-phe",
-        icon: "🍋",
-        painPoint: "Cà phê rụng trái hàng loạt khi gặp mưa đầu mùa hoặc gió lớn, gây thất thu năng suất nghiêm trọng.",
-        cause: "Rối loạn sinh lý, thiếu hụt vi lượng Bo và Canxi, kèm theo áp lực nấm bệnh tấn công cuống trái.",
-        biologicalSolution: "Phun bộ đôi Chống Rụng kết hợp Canxi Bo giúp dai cuống, tăng sức chống chịu và bảo vệ trái non.",
-        videoId: "6Wn8zZ478_Y"
-      },
-      {
-        title: "Kích rễ, xanh lá vườn suy kiệt bằng Humic",
-        slug: "kich-re-phuc-hoi-vuon-suy",
-        icon: "🌱",
-        painPoint: "Vườn cây bị cằn cỗi, lá vàng nhỏ, bón phân hóa học nhiều nhưng không hiệu quả, tốn kém chi phí.",
-        cause: "Đất bị thoái hóa, mất hệ vi sinh vật có lợi, độ pH thấp làm cây không hấp thụ được dinh dưỡng.",
-        biologicalSolution: "Tưới Humic đậm đặc kết hợp nấm Trichoderma để cải thiện cấu trúc đất, kích rễ cực mạnh.",
-        videoId: "dQw4w9WgXcQ"
+        title: "Xử lý Vàng lá thối rễ trên cây Sầu Riêng",
+        slug: "vang-la-thoi-re-sau-rieng",
+        icon: "🌳",
+        painPoint: "Cây sầu riêng vàng lá cả cây hoặc theo từng cành, rễ tơ bị thối đen, vỏ rễ dễ tuột.",
+        cause: "Nấm Phytophthora & Fusarium tấn công rễ trong mùa mưa hoặc khi đất thoát nước kém.",
+        biologicalSolution: "Kết hợp bộ đôi sát khuẩn mạnh và kích rễ cực nhanh để phục hồi mạch dẫn.",
+        videoId: "WQGLo4yJjI0",
+        symptoms: [
+          "Lá vàng đều từ gân lá ra ngoài",
+          "Cành bị khô, rụng lá hàng loạt",
+          "Rễ tơ thối nhũn, có mùi hôi",
+          "Thân cây có dấu hiệu xì mủ nếu bệnh nặng"
+        ],
+        wrongActions: [
+          "Sử dụng phân đạm cao làm vết thối lan nhanh",
+          "Dùng thuốc diệt cỏ làm hỏng hệ vi sinh vật đất",
+          "Tưới quá nhiều nước làm đất thiếu oxy cho rễ"
+        ],
+        stats: {
+          successVouchers: "1200+",
+          recoveryTime: "14 - 21 ngày"
+        },
+        steps: [
+          {
+             name: "Sát khuẩn tầng rễ",
+             time: "Ngày 1",
+             description: "Tưới bộ đôi sát khuẩn để khoanh vùng vết thối, không cho nấm lan rộng.",
+             product: null
+          }
+        ],
+        testimonials: []
       }
     ];
 
-    // Clear existing to avoid duplicates if needed, or just insert
-    // For this task, we insert if not exist or just delete and re-insert
     await Pathology.deleteMany({});
-    const created = await Pathology.insertMany(solutions);
+    await Pathology.insertMany(solutions);
 
-    return NextResponse.json({ message: "Seeded 4 solutions successfully", created });
+    return NextResponse.json({ message: 'Seeded successfully', count: solutions.length });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
