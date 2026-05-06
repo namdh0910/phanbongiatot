@@ -105,57 +105,46 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
                   </div>
                </div>
 
-               <div className="grid grid-cols-2 xl:grid-cols-3 gap-3 md:gap-8">
+                <div className="grid grid-cols-2 xl:grid-cols-3 gap-3 md:gap-6">
                   {filteredProducts.map((product: any) => (
                     <div 
                       key={product.slug} 
-                      className="group flex flex-col bg-white rounded-3xl border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-300"
+                      className="group flex flex-col bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300"
                     >
                       <Link href={`/san-pham/${product.slug}`} className="aspect-square bg-gray-50 relative overflow-hidden block">
                         <img 
                           src={product.images?.[0] || '/og-image.png'} 
                           alt={product.name} 
-                          className="w-full h-full object-contain p-6 group-hover:scale-110 transition-transform duration-500" 
+                          className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-500" 
                         />
                         {product.originalPrice > product.price && (
-                          <div className="absolute top-4 left-4 bg-red-600 text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest shadow-lg">
-                            Khuyến mãi
+                          <div className="absolute top-2 left-2 bg-red-600 text-white text-[8px] font-black px-2 py-0.5 rounded-full uppercase tracking-widest shadow-md">
+                            Giảm giá
                           </div>
                         )}
                       </Link>
                       
-                      <div className="p-6 flex flex-col flex-1">
-                        <div className="mb-2">
-                           <span className="text-[9px] font-black text-emerald-700 uppercase tracking-widest bg-emerald-50 px-2 py-1 rounded-md">
-                              {product.category}
-                           </span>
-                        </div>
-                        <Link href={`/san-pham/${product.slug}`} className="block">
-                          <h3 className="text-lg font-black text-gray-900 line-clamp-2 mb-4 leading-tight group-hover:text-emerald-700 transition-colors uppercase italic">
+                      <div className="p-3 md:p-5 flex flex-col flex-1">
+                        <Link href={`/san-pham/${product.slug}`} className="block mb-2">
+                          <h3 className="text-[13px] md:text-base font-black text-gray-900 line-clamp-2 leading-snug group-hover:text-emerald-700 transition-colors uppercase italic">
                             {product.name}
                           </h3>
                         </Link>
                         
-                        <div className="mt-auto mb-6">
+                        <div className="mb-3">
                           {product.originalPrice > product.price && (
-                            <p className="text-xs text-gray-400 line-through font-bold">₫{product.originalPrice?.toLocaleString("vi-VN")}</p>
+                            <p className="text-[10px] text-gray-400 line-through font-bold">₫{product.originalPrice?.toLocaleString("vi-VN")}</p>
                           )}
-                          <p className="text-xl text-emerald-800 font-black">₫{product.price?.toLocaleString("vi-VN")}</p>
+                          <p className="text-base md:text-lg text-emerald-800 font-black">₫{product.price?.toLocaleString("vi-VN")}</p>
                         </div>
                         
-                        <div className="grid grid-cols-2 gap-3">
-                           <Link 
-                             href={`/san-pham/${product.slug}`}
-                             className="text-[10px] font-black text-gray-400 uppercase tracking-widest py-3 border border-gray-100 rounded-xl flex items-center justify-center hover:bg-gray-50 transition-colors"
-                           >
-                             Chi tiết
-                           </Link>
+                        <div className="grid grid-cols-1 gap-2 mt-auto">
                            <a 
                              href={`https://zalo.me/0773440966?text=Tôi muốn tư vấn về ${product.name}`}
                              target="_blank"
-                             className="text-[10px] font-black text-white bg-emerald-700 uppercase tracking-widest py-3 rounded-xl flex items-center justify-center hover:bg-emerald-800 transition-colors gap-2"
+                             className="text-[9px] font-black text-white bg-emerald-700 uppercase tracking-widest py-2.5 rounded-lg flex items-center justify-center hover:bg-emerald-800 transition-colors gap-1.5"
                            >
-                             <MessageCircle size={14} fill="currentColor" /> Liên hệ
+                             <MessageCircle size={12} fill="currentColor" /> Liên hệ ngay
                            </a>
                         </div>
                       </div>
