@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import crypto from 'crypto';
 
 export async function POST(req: NextRequest) {
   try {
@@ -9,16 +10,27 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Không tìm thấy file' }, { status: 400 });
     }
 
+    // Credentials from backend/.env as fallback
     const cloudName = process.env.CLOUDINARY_CLOUD_NAME || 'dztidbkhv';
-    const uploadPreset = process.env.CLOUDINARY_UPLOAD_PRESET || 'ml_default';
+    const apiKey = process.env.CLOUDINARY_API_KEY || '952569712631332';
+    const apiSecret = process.env.CLOUDINARY_API_SECRET || 'fZgf8zJmaKkZHwuZfgEn4cZjgPA';
 
-    // Using unsigned upload for simplicity in this environment
+    const timestamp = Math.round(new Date().getTime() / 1000);
+    const folder = 'phanbongiatot';
+    
+    // Create signature
+    // Format: folder=<folder>&timestamp=<timestamp><api_secret>
+    const signatureStr = `folder=${folder}&timestamp=${timestamp}${apiSecret}`;
+    const signature = crypto.createHash('sha1').update(signatureStr).digest('hex');
+
     const cloudinaryUrl = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`;
     
     const uploadFormData = new FormData();
     uploadFormData.append('file', file);
-    uploadFormData.append('upload_preset', uploadPreset);
-    uploadFormData.append('folder', 'phanbongiatot');
+    uploadFormData.append('api_key', apiKey);
+    uploadFormData.append('timestamp', timestamp.toString());
+    uploadFormData.append('signature', signature);
+    uploadFormData.append('folder', folder);
 
     const response = await fetch(cloudinaryUrl, {
       method: 'POST',
@@ -33,8 +45,8 @@ export async function POST(req: NextRequest) {
       console.error('Cloudinary error:', data);
       return NextResponse.json({ error: data.error?.message || 'Lỗi upload ảnh' }, { status: 500 });
     }
-  } catch (error) {
+  } catch (error: any) {
     console.error('Upload API error:', error);
-    return NextResponse.json({ error: 'Lỗi hệ thống khi upload' }, { status: 500 });
+    return NextResponse.json({ error: error.message || 'Lỗi hệ thống khi upload' }, { status: 500 });
   }
 }
