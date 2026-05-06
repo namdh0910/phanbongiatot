@@ -23,7 +23,10 @@ async function getCategoryData(slug: string) {
     }).sort({ created_at: -1 }).lean();
 
     // Fetch pathologies directly from DB collection
-    const pathologies = await mongoose.connection.db.collection('pathologies').find({}).toArray();
+    let pathologies: any[] = [];
+    if (mongoose.connection.db) {
+      pathologies = await mongoose.connection.db.collection('pathologies').find({}).toArray();
+    }
     
     const filteredPathologies = pathologies.filter((p: any) => 
       p.title.toLowerCase().includes(keyword.toLowerCase()) || 

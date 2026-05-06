@@ -10,7 +10,7 @@
     - **Redundancy Removal**: Hidden the horizontal "Quick Category Scrollbar" from the Header when on the homepage, avoiding conflict with the main content.
   - **Product-First Navigation Flow**:
     - **New Product Catalog**: Created `/san-pham/page.tsx` as the central hub for all agricultural supplies, featuring a premium design and sidebar filters.
-    - **Build Stability**: Resolved Vercel deployment failure by fixing TypeScript type mismatches in the `Breadcrumbs` component.
+    - **Build Stability**: Resolved Vercel deployment failures by fixing TypeScript type mismatches in the `Breadcrumbs` component and adding null checks for `mongoose.connection.db` in the Category page.
     - **API-to-DB Transition**: Switched from fetching data via `API_BASE_URL` to direct database queries within Server Components for Product Detail, Product List, and Category pages. This eliminates 404 errors caused by inconsistent route mapping in the legacy Express backend and improves overall reliability.
   - **Cross-Architecture Data Sync (Next.js ↔ Express)**:
     - **Upload Infrastructure**: Created `/api/admin/upload` to handle image processing and secure transit to Cloudinary.
