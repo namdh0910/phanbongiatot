@@ -58,6 +58,8 @@ async function getProducts() {
   }
 }
 
+export const revalidate = 0;
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const pathology = await getPathology(slug);
@@ -94,7 +96,7 @@ export default async function SolutionDetail({ params }: { params: Promise<{ slu
   const pathologyName = slug.includes('tuyen-trung') ? 'Tuyến trùng' : 
                         slug.includes('vang-la') ? 'Vàng lá thối rễ' : '';
 
-  const videoId = slug === 'vang-la-thoi-re' ? 'WQGLo4yJjI0' : '8Idd0GyGA-4';
+  const videoId = pathology.videoId || '8Idd0GyGA-4';
 
   // Schema Markup Generation
   const faqSchema = {
