@@ -42,7 +42,7 @@ export default async function SolutionsPage({ searchParams }: { searchParams: Pr
               <div className="inline-flex items-center gap-2 bg-emerald-500/20 backdrop-blur-md px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-widest mb-6 border border-white/10 text-emerald-300">
                 <Zap size={14} className="fill-current" /> Hỗ trợ kỹ thuật 24/7
               </div>
-              <h1 className="text-4xl md:text-6xl font-black uppercase italic leading-[0.9] tracking-tighter mb-6">
+              <h1 className="text-3xl md:text-6xl font-bold uppercase leading-tight tracking-tighter mb-6">
                 Thư viện <span className="text-emerald-400">Giải Pháp</span>
               </h1>
               <p className="text-base md:text-xl text-emerald-100/80 font-medium leading-relaxed italic">
@@ -80,7 +80,7 @@ export default async function SolutionsPage({ searchParams }: { searchParams: Pr
                 </div>
 
                 <div className="p-3 md:p-8 flex flex-col flex-1">
-                  <h2 className="text-xs md:text-2xl font-black text-gray-900 mb-2 md:mb-4 leading-tight group-hover:text-emerald-700 transition-colors uppercase italic">
+                  <h2 className="text-[11px] md:text-2xl font-bold text-gray-800 mb-2 md:mb-4 leading-tight group-hover:text-emerald-700 transition-colors line-clamp-2 lowercase first-letter:uppercase">
                     {item.title}
                   </h2>
                   
