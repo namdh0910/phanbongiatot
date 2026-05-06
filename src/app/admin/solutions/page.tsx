@@ -103,9 +103,13 @@ export default function AdminSolutions() {
       if (res.ok) {
         fetchSolutions();
         closeForm();
+      } else {
+        const errorData = await res.json();
+        alert(`Lỗi: ${errorData.error || 'Không thể lưu quy trình'}`);
       }
     } catch (error) {
       console.error("Failed to save solution", error);
+      alert("Lỗi kết nối máy chủ, vui lòng thử lại!");
     }
   };
 
