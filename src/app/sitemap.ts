@@ -1,5 +1,7 @@
 import { MetadataRoute } from 'next';
-import { API_BASE_URL } from '@/utils/api';
+import dbConnect from '@/lib/db';
+import Product from '@/lib/models/Product';
+import Blog from '@/lib/models/Blog';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://phanbongiatot.com';
@@ -7,11 +9,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Fetch all products
   let products: any[] = [];
   try {
-    const res = await fetch(`${API_BASE_URL}/products?limit=1000`);
-    if (res.ok) {
-      const data = await res.json();
-      products = Array.isArray(data) ? data : data.products || [];
-    }
+    await dbConnect();
+    const productDocs = await Product.find({ status: 'approved' }).lean();
+    products = JSON.parse(JSON.stringify(productDocs));
   } catch (e) {
     console.error('Sitemap fetch products error:', e);
   }
@@ -19,11 +19,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Fetch all blogs
   let blogs: any[] = [];
   try {
-    const res = await fetch(`${API_BASE_URL}/blogs?limit=1000`);
-    if (res.ok) {
-      const data = await res.json();
-      blogs = data.blogs || data;
-    }
+    const blogDocs = await Blog.find({ isPublished: true }).lean();
+    blogs = JSON.parse(JSON.stringify(blogDocs));
   } catch (e) {
     console.error('Sitemap fetch blogs error:', e);
   }

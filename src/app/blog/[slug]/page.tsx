@@ -5,15 +5,16 @@ import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import LeadForm from "@/components/shared/LeadForm";
 import SchemaMarkup from "@/components/shared/SchemaMarkup";
 import LiteYouTube from "@/components/shared/LiteYouTube";
-import { Metadata } from 'next';
 import { notFound } from "next/navigation";
+import dbConnect from '@/lib/db';
+import Blog from '@/lib/models/Blog';
+import Product from '@/lib/models/Product';
 
 async function getBlog(slug: string) {
   try {
-    const res = await fetch(`${API_BASE_URL}/blogs/slug/${slug}`, { next: { revalidate: 3600 } });
-    if (!res.ok) return null;
-    const data = await res.json();
-    return data;
+    await dbConnect();
+    const blog = await Blog.findOne({ slug }).lean();
+    return blog ? JSON.parse(JSON.stringify(blog)) : null;
   } catch (error) {
     console.error('Fetch error:', error);
     return null;
@@ -22,10 +23,9 @@ async function getBlog(slug: string) {
 
 async function getProducts() {
   try {
-    const res = await fetch(`${API_BASE_URL}/products`, { next: { revalidate: 3600 } });
-    if (!res.ok) return [];
-    const data = await res.json();
-    return data.products || [];
+    await dbConnect();
+    const products = await Product.find({ status: 'approved' }).limit(10).lean();
+    return JSON.parse(JSON.stringify(products)) || [];
   } catch (error) {
     return [];
   }
@@ -33,13 +33,13 @@ async function getProducts() {
 
 async function getRelatedBlogs(category: string, currentSlug: string) {
   try {
-    const res = await fetch(`${API_BASE_URL}/blogs`);
-    if (!res.ok) return [];
-    const data = await res.json();
-    const allBlogs = Array.isArray(data) ? data : (data.blogs || []);
-    return allBlogs
-      .filter((b: any) => b.slug !== currentSlug && b.category === category)
-      .slice(0, 2);
+    await dbConnect();
+    const blogs = await Blog.find({ 
+      category: category, 
+      slug: { $ne: currentSlug },
+      isPublished: true 
+    }).limit(2).lean();
+    return JSON.parse(JSON.stringify(blogs)) || [];
   } catch (error) {
     return [];
   }

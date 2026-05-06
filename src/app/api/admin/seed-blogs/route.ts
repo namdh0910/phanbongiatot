@@ -96,6 +96,7 @@ export async function GET() {
       },
       {
         title: "Kích Rễ Đúng Cách: Bí Quyết Để Cây Hấp Thụ Phân Bón Hiệu Quả Gấp 3 Lần",
+        slug: "kich-re-cay-trong-dung-cach",
         category: "Mỗi chất - Một vấn đề",
         coverImage: "https://res.cloudinary.com/dztidbkhv/image/upload/v1776989048/phanbongiatot/jpjgjjvfg7pglnnh0a1a.jpg",
         content: `
