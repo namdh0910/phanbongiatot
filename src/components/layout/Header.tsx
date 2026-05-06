@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useState, useEffect, useRef } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
@@ -206,6 +206,7 @@ export default function Header() {
                 ))}
                 <Link href="/san-pham" className={`font-black text-sm uppercase tracking-wide transition-colors ${isActive('/san-pham') ? 'text-emerald-700' : 'text-gray-700 hover:text-emerald-700'}`}>Sản Phẩm</Link>
                 <Link href="/blog" className={`font-black text-sm uppercase tracking-wide transition-colors ${isActive('/blog') ? 'text-emerald-700' : 'text-gray-700 hover:text-emerald-700'}`}>Kiến Thức</Link>
+                <Link href="/hoi-dap-ky-thuat" className={`font-black text-sm uppercase tracking-wide transition-colors ${isActive('/hoi-dap-ky-thuat') ? 'text-emerald-700' : 'text-gray-700 hover:text-emerald-700'}`}>Hỏi đáp</Link>
                 <Link href="/ve-chung-toi" className={`font-black text-sm uppercase tracking-wide transition-colors ${isActive('/ve-chung-toi') ? 'text-emerald-700' : 'text-gray-700 hover:text-emerald-700'}`}>Về chúng tôi</Link>
               </nav>
             </div>
@@ -337,7 +338,7 @@ export default function Header() {
                        🏠 Trang chủ <ChevronRight size={20} className="opacity-30" />
                     </Link>
                     <Link href="/blog" onClick={() => setIsMenuOpen(false)} className="flex items-center justify-between p-5 hover:bg-gray-50 text-gray-700 rounded-2xl font-black text-base uppercase tracking-tight transition-colors">
-                       📖 Kiến thức nông nghiệp <ChevronRight size={20} className="opacity-30" />
+                       📖 Kiến thức nông nghiệp </Link> <Link href="/hoi-dap-ky-thuat" onClick={() => setIsMenuOpen(false)} className="flex items-center justify-between p-5 hover:bg-gray-50 text-gray-700 rounded-2xl font-black text-base uppercase tracking-tight transition-colors"> ❓ Hỏi đáp kỹ thuật <ChevronRight size={20} className="opacity-30" />
                     </Link>
                  </div>
 
