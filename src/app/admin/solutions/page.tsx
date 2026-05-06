@@ -67,7 +67,7 @@ export default function AdminSolutions() {
       stats: item.stats || { successVouchers: "", recoveryTime: "" },
       steps: item.steps?.length ? item.steps.map((s: any) => ({
         ...s,
-        product: typeof s.product === 'object' ? s.product._id : s.product
+        product: (typeof s.product === 'object' && s.product !== null) ? s.product._id : (s.product || "")
       })) : [{ name: "", time: "", description: "", product: "" }],
       testimonials: item.testimonials?.length ? item.testimonials : [{ name: "", location: "", quote: "" }]
     });
