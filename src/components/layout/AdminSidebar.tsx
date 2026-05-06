@@ -12,6 +12,7 @@ export default function AdminSidebar() {
     { href: "/admin/dashboard", label: "Cấu Hình (Settings)", icon: "⚙️" },
     { href: "/admin/leads", label: "Khách Hàng (Leads)", icon: "💬" },
     { href: "/admin/blogs", label: "Nội Dung (Blog/Video)", icon: "🎥" },
+    { href: "/admin/solutions", label: "Phác Đồ (Solutions)", icon: "🩺" },
     { href: "/admin/products", label: "Sản Phẩm (Catalog)", icon: "📦" },
   ];
 
