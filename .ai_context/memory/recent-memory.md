@@ -2,7 +2,10 @@
 
 ## 🕒 Current Context
 - **Date**: 2026-05-06
-- **Latest Activities (Directive 10 - UI Cleanup DONE)**:
+- **Latest Activities (Domain & Live Sync - DONE)**:
+  - **Official Domain Activation**: Đã kích hoạt thành công tên miền chính thức `phanbongiatot.com`.
+  - **DNS Configuration**: Hoàn tất cấu hình bản ghi `@` (A) trỏ về `76.76.21.21` và thiết lập các bản ghi xác thực `_vercel` TXT cho cả root và `www`.
+  - **System Live Confirmation**: Xác nhận Admin Dashboard và hệ thống tracking Analytics đã hoạt động ổn định trên môi trường production.
   - **Build & Deploy**:
     - **Final Deployment Fix**: Bumped version to `0.1.2` and finalized the migration to `src/proxy.ts` with the correct `proxy` function export. This resolves all build errors and reflects typography changes.
     - **Proxy Export Fix**: Renamed the exported function from `middleware` to `proxy` in `src/proxy.ts` to satisfy Next.js 16 requirements after migrating from `middleware.ts`.
