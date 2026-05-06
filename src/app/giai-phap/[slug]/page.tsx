@@ -112,7 +112,7 @@ export default async function SolutionDetail({ params }: { params: Promise<{ slu
   const howToSchema = {
     "@context": "https://schema.org",
     "@type": "HowTo",
-    "name": `Phác đồ phục hồi ${pathology.title}`,
+    "name": `Quy trình xử lý ${pathology.title}`,
     "step": (pathology.steps || []).map((step: any, i: number) => ({
       "@type": "HowToStep",
       "position": i + 1,
@@ -136,42 +136,60 @@ export default async function SolutionDetail({ params }: { params: Promise<{ slu
         { label: pathology.title }
       ]} />
 
-      {/* 1. HERO SECTION (PAIN) */}
-      <section className="relative bg-gray-900 pt-32 pb-20 overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1590779033100-9f60705a2f3b?auto=format&fit=crop&q=80&w=1200')] bg-cover bg-center opacity-30"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/80 to-transparent"></div>
+      {/* 1. HERO SECTION - REFINED & MODERN */}
+      <section className="relative pt-24 pb-16 overflow-hidden bg-white">
+        <div className="absolute inset-0 bg-gradient-to-br from-emerald-50/50 via-white to-orange-50/30"></div>
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-[url('https://www.transparenttextures.com/patterns/leaf.png')] opacity-5 pointer-events-none"></div>
         
-        <div className="container mx-auto px-4 relative z-10 text-center">
-          <span className="inline-block bg-red-600 text-white px-6 py-2 rounded-full text-sm font-black uppercase tracking-widest mb-8 animate-pulse">
-             CẢNH BÁO NGUY CẤP
-          </span>
-          <h1 className="text-4xl md:text-7xl font-black text-white uppercase italic leading-[0.9] tracking-tighter mb-8 max-w-5xl mx-auto">
-            {pathology.title}
-          </h1>
-          <p className="text-xl md:text-3xl text-gray-300 font-bold max-w-3xl mx-auto italic leading-tight">
-            "{pathology.painPoint}"
-          </p>
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-4xl mx-auto">
+             <div className="flex items-center gap-2 mb-6">
+                <span className="h-[2px] w-8 bg-orange-500"></span>
+                <span className="text-orange-600 text-[10px] font-black uppercase tracking-[0.2em]">Thông tin kỹ thuật chuyên sâu</span>
+             </div>
+             <h1 className="text-3xl md:text-5xl font-black text-gray-900 leading-[1.1] mb-6">
+               {pathology.title}
+             </h1>
+             <div className="bg-gray-900/5 backdrop-blur-sm border-l-4 border-emerald-600 p-6 rounded-r-2xl mb-8">
+                <p className="text-base md:text-lg text-gray-700 font-bold italic leading-relaxed">
+                  "{pathology.painPoint}"
+                </p>
+             </div>
+             <div className="flex flex-wrap gap-3">
+                <div className="bg-emerald-600 text-white px-5 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-emerald-600/20">
+                   Giải pháp sinh học
+                </div>
+                <div className="bg-white border border-gray-200 text-gray-500 px-5 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest">
+                   Tiết kiệm chi phí
+                </div>
+             </div>
+          </div>
         </div>
       </section>
 
       {/* 2. VIDEO SECTION (TRUST) */}
-      <section className="py-12 bg-gray-50 border-b border-gray-100">
+      <section className="py-12 bg-white">
         <div className="container mx-auto px-4">
-           <div className="max-w-4xl mx-auto text-center">
-              <h2 className="text-2xl md:text-4xl font-black text-[#1a5c2a] uppercase italic mb-10">Video Hướng Dẫn Thực Tế Tại Vườn</h2>
-              <div className="aspect-video bg-gray-900 rounded-[2rem] overflow-hidden shadow-2xl border-8 border-white ring-1 ring-gray-200 relative group">
+           <div className="max-w-4xl mx-auto">
+              <div className="flex items-center justify-between mb-8">
+                 <h2 className="text-xl md:text-2xl font-black text-gray-900 uppercase italic">Hướng dẫn thực tế tại vườn</h2>
+                 <div className="hidden md:flex items-center gap-2 text-emerald-600 text-[10px] font-black uppercase tracking-widest">
+                    <Zap size={14} fill="currentColor" /> Đã kiểm chứng hiệu quả
+                 </div>
+              </div>
+              <div className="aspect-video bg-gray-900 rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white ring-1 ring-gray-100 relative group">
                 {['WQGLo4yJjI0', 'dQw4w9WgXcQ'].includes(videoId) ? (
                   <div className="absolute inset-0 flex flex-col items-center justify-center p-8 bg-gradient-to-br from-gray-900 to-[#1a5c2a]">
-                    <div className="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center mb-6 animate-pulse">
-                      <Zap className="text-[#f5a623]" size={40} />
+                    <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mb-6">
+                      <Zap className="text-[#f5a623]" size={30} />
                     </div>
-                    <h3 className="text-white text-xl md:text-2xl font-black uppercase italic mb-2">Video đang cập nhật</h3>
-                    <p className="text-gray-400 font-bold mb-8 text-sm md:text-base">Kỹ sư đang quay thực tế tại vườn...</p>
+                    <h3 className="text-white text-lg font-black uppercase italic mb-1">Video đang cập nhật</h3>
+                    <p className="text-gray-400 font-bold mb-8 text-[11px] uppercase tracking-widest">Kỹ sư đang thực hiện quay tại vườn...</p>
                     <a 
                       href="tel:0773440966" 
-                      className="bg-[#f5a623] text-white px-8 py-3 rounded-xl font-black text-sm uppercase tracking-widest hover:scale-105 transition-all shadow-xl shadow-orange-900/20 flex items-center gap-2"
+                      className="bg-white text-gray-900 px-8 py-3 rounded-xl font-black text-[10px] uppercase tracking-widest hover:scale-105 transition-all shadow-xl flex items-center gap-2"
                     >
-                      <Phone size={18} /> Gọi Kỹ Sư Tư Vấn Ngay: 0773.440.966
+                      <Phone size={14} /> TƯ VẤN NGAY: 0773.440.966
                     </a>
                   </div>
                 ) : (
@@ -187,27 +205,27 @@ export default async function SolutionDetail({ params }: { params: Promise<{ slu
       </section>
 
       {/* 3. SYMPTOMS SECTION (DIAGNOSIS) */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-gray-50/50">
         <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+          <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl md:text-5xl font-black text-gray-900 uppercase italic mb-8 border-l-8 border-[#f5a623] pl-6">
-                Vườn bà con có<br/>những dấu hiệu này?
+              <h2 className="text-2xl md:text-4xl font-black text-gray-900 uppercase italic mb-8">
+                Dấu hiệu nhận biết<br/><span className="text-orange-600">trên vườn bà con</span>
               </h2>
-              <div className="space-y-6">
+              <div className="space-y-4">
                 {(pathology.symptoms || pathology.painPoint.split('.')).map((sign: string, i: number) => (
-                  <div key={i} className="flex items-start gap-4">
-                    <CheckCircle2 className="text-[#f5a623] flex-shrink-0 mt-1" size={24} />
-                    <p className="text-xl font-bold text-gray-700 leading-tight">{sign.trim()}</p>
+                  <div key={i} className="flex items-start gap-4 bg-white p-4 rounded-2xl border border-gray-100 shadow-sm">
+                    <CheckCircle2 className="text-emerald-500 flex-shrink-0 mt-0.5" size={20} />
+                    <p className="text-base font-bold text-gray-700 leading-tight">{sign.trim()}</p>
                   </div>
                 ))}
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
-               <div className="aspect-square rounded-3xl overflow-hidden shadow-xl">
+               <div className="aspect-[3/4] rounded-3xl overflow-hidden shadow-lg border-4 border-white">
                  <img src="https://res.cloudinary.com/dztidbkhv/image/upload/v1776989061/phanbongiatot/oiaa2gdldtypwevu8qs6.jpg" alt="Triệu chứng rễ" className="w-full h-full object-cover" />
                </div>
-               <div className="aspect-square rounded-3xl overflow-hidden shadow-xl mt-8">
+               <div className="aspect-[3/4] rounded-3xl overflow-hidden shadow-lg border-4 border-white mt-12">
                  <img src="https://res.cloudinary.com/dztidbkhv/image/upload/v1776989073/phanbongiatot/y6imlcebopgmarsfpp8e.jpg" alt="Triệu chứng lá" className="w-full h-full object-cover" />
                </div>
             </div>
@@ -216,11 +234,12 @@ export default async function SolutionDetail({ params }: { params: Promise<{ slu
       </section>
 
       {/* 4. CAUSE SECTION (AUTHORITY) */}
-      <section className="py-20 bg-gray-900 text-white">
-        <div className="container mx-auto px-4 text-center">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-5xl font-black uppercase italic mb-8 text-[#f5a623]">Nguyên nhân gốc rễ là gì?</h2>
-            <p className="text-xl md:text-3xl font-medium leading-relaxed text-gray-300 italic">
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto bg-gray-900 rounded-[3rem] p-12 md:p-20 text-center relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/20 blur-3xl"></div>
+            <h2 className="text-2xl md:text-4xl font-black uppercase italic mb-8 text-white">Nguyên nhân <span className="text-emerald-400">gốc rễ</span></h2>
+            <p className="text-lg md:text-2xl font-medium leading-relaxed text-gray-300 italic">
               {pathology.cause || pathology.painPoint}
             </p>
           </div>
@@ -228,13 +247,13 @@ export default async function SolutionDetail({ params }: { params: Promise<{ slu
       </section>
 
       {/* 5. PROTOCOL SECTION (THE CURE) */}
-      <section className="py-20 bg-green-50">
+      <section className="py-20 bg-emerald-50/50">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center mb-16">
-            <h2 className="text-3xl md:text-6xl font-black text-[#1a5c2a] uppercase italic">Phác đồ phục hồi 3 bước</h2>
+            <h2 className="text-3xl md:text-5xl font-black text-gray-900 uppercase italic">Quy trình xử lý chuẩn</h2>
             {pathology.stats && (
-              <p className="mt-4 text-xl font-bold text-emerald-800 uppercase tracking-widest">
-                Đã xử lý thành công cho {pathology.stats.successVouchers} nhà vườn - Phục hồi sau {pathology.stats.recoveryTime}
+              <p className="mt-4 text-[10px] font-black text-emerald-700 uppercase tracking-[0.3em]">
+                Đã thành công trên {pathology.stats.successVouchers} vườn • Hiệu quả sau {pathology.stats.recoveryTime}
               </p>
             )}
           </div>
@@ -325,10 +344,10 @@ export default async function SolutionDetail({ params }: { params: Promise<{ slu
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
                <h2 className="text-3xl md:text-6xl font-black text-gray-900 uppercase italic tracking-tighter">
-                 Nhận phác đồ tư vấn riêng
+                 Nhận hướng dẫn xử lý riêng cho vườn
                </h2>
                <p className="text-emerald-700 text-xl md:text-2xl mt-6 font-bold italic max-w-2xl mx-auto leading-tight">
-                 "Vườn của bà con đang có những triệu chứng như trên phải không? Nhắn Zalo kỹ sư để nhận phác đồ riêng cho vườn mình miễn phí."
+                 "Vườn của bà con đang có những triệu chứng như trên phải không? Nhắn Zalo kỹ sư để nhận quy trình xử lý riêng cho vườn mình miễn phí."
                </p>
             </div>
             <div className="bg-white rounded-[3rem] shadow-2xl p-8 md:p-16 border border-gray-100">
@@ -356,7 +375,7 @@ export default async function SolutionDetail({ params }: { params: Promise<{ slu
                 <Link key={p.slug} href={`/giai-phap/${p.slug}`} className="bg-white border border-gray-100 p-8 rounded-[2rem] hover:shadow-xl transition-all group">
                   <h4 className="font-black text-gray-900 text-lg mb-3 leading-tight group-hover:text-emerald-700">{p.title}</h4>
                   <p className="text-gray-500 text-sm line-clamp-2 font-medium mb-4">{p.painPoint}</p>
-                  <div className="text-[10px] font-black text-emerald-600 uppercase tracking-widest">Xem phác đồ ➔</div>
+                  <div className="text-[10px] font-black text-emerald-600 uppercase tracking-widest">Xem quy trình xử lý ➔</div>
                 </Link>
               ))}
           </div>

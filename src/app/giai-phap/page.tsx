@@ -30,18 +30,18 @@ export default async function SolutionsPage() {
       <main className="pt-4 md:pt-20 pb-20">
         <div className="container mx-auto px-4">
           
-          {/* 1. Compact & Clear Hero */}
-          <div className="bg-[#0d2a1c] rounded-3xl md:rounded-[3rem] p-6 md:p-20 relative overflow-hidden mb-6 md:mb-12">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-            <div className="relative z-10">
-              <span className="inline-block bg-emerald-600/20 text-emerald-400 border border-emerald-500/30 px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest mb-4">
-                 🩺 KỸ SƯ NÔNG NGHIỆP 24/7
-              </span>
-              <h1 className="text-3xl md:text-7xl font-black text-white uppercase tracking-tighter leading-none mb-4 italic">
-                Thư viện <span className="text-[#f5a623]">Phác đồ</span>
+          {/* HERO SECTION - REFINED */}
+          <div className="bg-gradient-to-br from-[#0a2e12] to-[#1a5c2a] rounded-[2.5rem] p-8 md:p-16 text-white mb-8 relative overflow-hidden shadow-2xl">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl"></div>
+            <div className="relative z-10 max-w-2xl">
+              <div className="inline-flex items-center gap-2 bg-emerald-500/20 backdrop-blur-md px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-widest mb-6 border border-white/10 text-emerald-300">
+                <Zap size={14} className="fill-current" /> Hỗ trợ kỹ thuật 24/7
+              </div>
+              <h1 className="text-4xl md:text-6xl font-black uppercase italic leading-[0.9] tracking-tighter mb-6">
+                Thư viện <span className="text-emerald-400">Giải Pháp</span>
               </h1>
-              <p className="text-gray-400 text-sm md:text-xl leading-relaxed max-w-xl opacity-80">
-                Hệ thống quy trình xử lý bệnh lý rễ, phục hồi cây suy kiệt và tối ưu năng suất chuẩn kỹ thuật.
+              <p className="text-base md:text-xl text-emerald-100/80 font-medium leading-relaxed italic">
+                Hệ thống quy trình xử lý bệnh lý rễ, phục hồi cây suy kiệt và tối ưu năng suất chuẩn thực tế tại vườn.
               </p>
             </div>
           </div>

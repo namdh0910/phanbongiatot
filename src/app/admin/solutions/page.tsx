@@ -94,15 +94,15 @@ export default function AdminSolutions() {
       <div className="flex justify-between items-center mb-8">
         <div>
           <h1 className="text-2xl font-black text-gray-900 uppercase italic flex items-center gap-2">
-             <LayoutList className="text-emerald-600" /> Quản Lý Phác Đồ
+             <LayoutList className="text-emerald-600" /> Quản Lý Quy Trình
           </h1>
-          <p className="text-gray-500 text-sm font-medium">Cập nhật nội dung giải pháp kỹ thuật cho bà con.</p>
+          <p className="text-gray-500 text-sm font-medium">Cập nhật nội dung hướng dẫn kỹ thuật cho bà con.</p>
         </div>
         <button 
           onClick={() => setIsAdding(true)}
           className="bg-[#1a5c2a] text-white px-5 py-3 rounded-2xl font-black text-xs flex items-center gap-2 shadow-xl hover:scale-105 active:scale-95 transition-all uppercase tracking-widest"
         >
-          <Plus size={18} /> Thêm phác đồ mới
+          <Plus size={18} /> Thêm quy trình mới
         </button>
       </div>
 
