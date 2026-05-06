@@ -5,6 +5,7 @@ import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import LeadForm from "@/components/shared/LeadForm";
 import SchemaMarkup from "@/components/shared/SchemaMarkup";
 import LiteYouTube from "@/components/shared/LiteYouTube";
+import { Metadata } from 'next';
 import { notFound } from "next/navigation";
 import dbConnect from '@/lib/db';
 import Blog from '@/lib/models/Blog';
