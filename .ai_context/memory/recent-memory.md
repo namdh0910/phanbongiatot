@@ -131,12 +131,9 @@
   - **Build Recovery & Final Cleanup (Hotfix)**:
     - **Fixed Seed-Blogs Syntax**: Resolved a critical build failure caused by an unclosed template literal and duplicate `content` property in `src/app/api/admin/seed-blogs/route.ts`.
     - **Final Terminology Sweep**: Removed the very last occurrences of "phác đồ" in the blog seeding data to ensure 100% compliance with the new language standards.
-   - **Mobile UI/UX Overhaul & Audit (Directive 17)**:
-     - **Information Clustering**: Grouped related elements into 4 logical clusters (Identity, Transaction, Trust, Usage) to reduce cognitive load and white space.
-     - **Conversion-Driven Sticky CTA**: Redesigned the mobile bottom bar to include real-time Price display alongside the primary "MUA NGAY" action.
-     - **Visual Dominance**: Enforced full-width product imagery (px-2 container) and transitioned side thumbnails to a horizontal slider for mobile efficiency.
-     - **Content Readability**: Optimized description rendering with improved typography and bullet-point support, focusing on high-impact agricultural benefits.
-     - **Space Standardization**: Fixed global section/element spacing to a strict 16-24px/8-12px grid to eliminate wasted screen real estate.
+   - **UI Duplication Fix (Directive 18)**:
+     - **Header/Footer Cleanup**: Removed explicit `<Header />` and `<Footer />` calls from the product detail page as they are already provided by the global `LayoutWrapper`.
+     - **Layout Consistency**: Verified that all dynamic routes are correctly wrapped by the system-wide layout to prevent UI component stacking.
 
 
 

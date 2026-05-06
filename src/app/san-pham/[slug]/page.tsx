@@ -14,8 +14,6 @@ import {
   Package,
   Zap
 } from 'lucide-react';
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
 import Breadcrumbs from '@/components/ui/Breadcrumbs';
 import ProductGallery from '@/components/product/ProductGallery';
 import { Metadata } from 'next';
@@ -101,8 +99,6 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
 
   return (
     <div className="bg-white min-h-screen">
-      <Header />
-      
       <main className="pb-20 md:pb-32">
         <div className="container mx-auto px-2 md:px-4">
           <div className="mb-3 md:mb-6 mt-2">
