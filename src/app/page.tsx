@@ -322,16 +322,21 @@ export default function LandingPage() {
                   href={`/giai-phap/${pathology.slug}`} 
                   className="bg-white rounded-2xl md:rounded-[3rem] border border-gray-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 group overflow-hidden flex flex-col h-full"
                 >
-                  <div className="w-full h-24 md:h-48 bg-emerald-50 shrink-0 overflow-hidden relative">
+                  <div className="w-full h-24 md:h-48 bg-emerald-50/50 shrink-0 overflow-hidden relative flex items-center justify-center">
+                    <div className="absolute top-2 left-2 z-20">
+                      <span className="bg-white/90 backdrop-blur-sm text-[#1a5c2a] px-2 py-0.5 rounded-full text-[8px] font-black uppercase tracking-tighter border border-emerald-100 shadow-sm">
+                        Quy trình chuẩn
+                      </span>
+                    </div>
                     {pathology.image ? (
                       <img src={pathology.image} alt={pathology.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                     ) : (
-                      <div className="w-full h-full flex items-center justify-center text-2xl md:text-5xl opacity-50">{pathology.icon || '🩺'}</div>
+                      <div className="text-3xl md:text-5xl transform group-hover:scale-110 transition-transform duration-500">{pathology.icon || '🩺'}</div>
                     )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:hidden" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent md:hidden" />
                   </div>
-                  <div className="p-3 md:p-8 flex flex-col flex-1">
-                    <h3 className="text-[11px] md:text-xl font-black text-gray-900 mb-1 md:mb-3 leading-tight group-hover:text-emerald-700 transition-colors uppercase italic line-clamp-2 md:line-clamp-none">
+                  <div className="p-3 md:p-8 flex flex-col flex-1 bg-white">
+                    <h3 className="text-[13px] md:text-xl font-black text-gray-900 mb-1 md:mb-3 leading-snug group-hover:text-emerald-700 transition-colors uppercase line-clamp-3 md:line-clamp-none">
                       {pathology.title}
                     </h3>
                     <p className="hidden md:block text-gray-500 text-xs mb-4 line-clamp-2 font-medium italic opacity-80">
