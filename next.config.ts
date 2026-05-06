@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+// Force Vercel rebuild - sync config 01
 
 const nextConfig: NextConfig = {
   images: {
