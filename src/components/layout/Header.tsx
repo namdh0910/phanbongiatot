@@ -267,6 +267,27 @@ export default function Header() {
                     <span className="text-sm">{cat.icon}</span> {cat.name}
                   </Link>
                 ))
+              ) : pathname?.startsWith('/giai-phap') ? (
+                // Solutions Specific Nav
+                [
+                  { name: "Tất cả", icon: "🩺", href: "/giai-phap" },
+                  { name: "Xử lý bệnh", icon: "🦠", href: "/giai-phap?category=benh-ly" },
+                  { name: "Kích rễ", icon: "🌱", href: "/giai-phap?category=kich-re" },
+                  { name: "Nuôi trái", icon: "🍋", href: "/giai-phap?category=nuoi-trai" },
+                  { name: "Phục hồi", icon: "♻️", href: "/giai-phap?category=phuc-hoi" }
+                ].map((cat, i) => (
+                  <Link 
+                    key={i} 
+                    href={cat.href}
+                    className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-black transition-all shadow-sm border ${
+                      (cat.href === '/giai-phap' ? pathname === '/giai-phap' : pathname?.includes(cat.href)) 
+                      ? 'bg-emerald-600 text-white border-emerald-600' 
+                      : 'bg-white text-gray-700 border-gray-100'
+                    }`}
+                  >
+                    <span className="text-sm">{cat.icon}</span> {cat.name}
+                  </Link>
+                ))
               ) : (
                 // Default Product Nav
                 [
