@@ -119,21 +119,32 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
 
           <div className="flex flex-col lg:flex-row gap-10 lg:gap-20">
             
-            {/* Left: Images */}
-            <div className="lg:w-1/2 space-y-4">
-              {/* Main Image - Reduced padding for better space utilization */}
-              <div className="aspect-square max-h-[320px] md:max-h-none rounded-[2rem] md:rounded-[3rem] overflow-hidden bg-gray-50 border border-gray-100 shadow-inner group relative mx-auto">
+            {/* Left: Images & Thumbnails Row */}
+            <div className="lg:w-1/2 flex flex-row md:flex-col gap-3 md:gap-4 items-start">
+              {/* Main Image */}
+              <div className="flex-1 aspect-square max-h-[320px] md:max-h-none rounded-[1.5rem] md:rounded-[3rem] overflow-hidden bg-gray-50 border border-gray-100 shadow-inner group relative">
                 <img 
                   src={product.images?.[0] || '/og-image.png'} 
                   alt={product.name} 
                   className="w-full h-full object-contain p-2 md:p-6 group-hover:scale-105 transition-transform duration-700" 
                 />
                 {product.isHot && (
-                  <div className="absolute top-6 left-6 bg-red-600 text-white px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest animate-pulse shadow-lg">
+                  <div className="absolute top-4 left-4 bg-red-600 text-white px-3 py-1 rounded-full text-[8px] font-black uppercase tracking-widest animate-pulse shadow-lg">
                     HOT
                   </div>
                 )}
               </div>
+
+              {/* Thumbnails - Side column on mobile, bottom grid on desktop */}
+              {product.images && product.images.length > 1 && (
+                <div className="w-16 md:w-full flex flex-col md:grid md:grid-cols-4 gap-2 md:gap-4 overflow-y-auto max-h-[320px] md:max-h-none scrollbar-hide">
+                  {(product.images || []).map((img: string, i: number) => (
+                    <div key={i} className="aspect-square rounded-xl md:rounded-2xl overflow-hidden border border-gray-100 bg-gray-50 cursor-pointer hover:border-emerald-500 transition-all flex-shrink-0">
+                      <img src={img} alt={`${product.name} ${i}`} className="w-full h-full object-cover p-1 md:p-2" />
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* Right: Info & CTA */}
@@ -164,17 +175,6 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                       Đã tư vấn {product.soldCount || 150}+ vườn
                    </span>
                 </div>
-
-                {/* Thumbnails moved here to optimize space */}
-                {product.images && product.images.length > 1 && (
-                  <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
-                    {(product.images || []).map((img: string, i: number) => (
-                      <div key={i} className="w-16 h-16 md:w-20 md:h-20 flex-shrink-0 rounded-xl overflow-hidden border border-gray-100 bg-gray-50 cursor-pointer hover:border-emerald-500 transition-all">
-                        <img src={img} alt={`${product.name} ${i}`} className="w-full h-full object-cover p-1" />
-                      </div>
-                    ))}
-                  </div>
-                )}
 
                 <div className="bg-[#fcf8f0] p-6 md:p-8 rounded-[2rem] border border-orange-100 relative overflow-hidden">
                    <div className="absolute top-0 right-0 p-8 opacity-[0.05] select-none text-8xl rotate-12">💰</div>
