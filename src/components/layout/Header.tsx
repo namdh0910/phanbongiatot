@@ -4,7 +4,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { useSettings } from "@/context/SettingsContext";
 import { API_BASE_URL } from "@/utils/api";
-import { Menu, X, ChevronRight, Phone, MessageCircle, Info, BookOpen, Package } from "lucide-react";
+import { Menu, X, ChevronRight, Phone, MessageCircle, Info, BookOpen, Package, Home } from "lucide-react";
 import './HeaderFooter.css';
 
 export default function Header() {
@@ -372,9 +372,9 @@ export default function Header() {
               <div className="flex-1 overflow-y-auto py-6">
                  {/* Simplified Navigation */}
                  <div className="px-6 space-y-2">
-                    <Link href="/san-pham" onClick={() => setIsMenuOpen(false)} className="flex items-center justify-between p-5 hover:bg-gray-50 text-gray-800 rounded-2xl font-black text-base uppercase tracking-tight transition-colors">
+                    <Link href="/" onClick={() => setIsMenuOpen(false)} className="flex items-center justify-between p-5 hover:bg-gray-50 text-gray-800 rounded-2xl font-black text-base uppercase tracking-tight transition-colors">
                        <div className="flex items-center gap-4">
-                          <Package size={24} className="text-emerald-600" /> Sản phẩm
+                          <Home size={24} className="text-emerald-600" /> Trang chủ
                        </div>
                        <ChevronRight size={20} className="opacity-30" />
                     </Link>

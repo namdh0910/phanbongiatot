@@ -21,7 +21,7 @@ export default function MobileBottomNav() {
   if (pathname?.startsWith('/admin')) return null;
 
   const navItems = [
-    { label: "Trang chủ", icon: "🏠", href: "/" },
+    { label: "Sản phẩm", icon: "📦", href: "/san-pham" },
     { label: "Giải pháp", icon: "🩺", href: "/giai-phap" },
     { label: "Kiến thức", icon: "📖", href: "/blog" },
     { 
