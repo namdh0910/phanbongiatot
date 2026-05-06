@@ -25,7 +25,7 @@ export default function StickyCTA() {
   const zalo = settings?.zalo || "0773440966";
   
   const message = pageTitle 
-    ? `Chào kỹ sư, tôi vừa xem video về cách chữa ${pageTitle} và muốn nhận phác đồ cho vườn ở [Tỉnh của tôi] của tôi`
+    ? `Chào kỹ sư, tôi vừa xem video về cách chữa ${pageTitle} và muốn nhận giải pháp cho vườn ở [Tỉnh của tôi] của tôi`
     : `Chào kỹ sư, tôi cần tư vấn kỹ thuật phục hồi vườn cho vườn ở [Tỉnh của tôi] của tôi.`;
   
   const zaloUrl = `https://zalo.me/${zalo.replace(/\./g, '')}?text=${encodeURIComponent(message)}`;

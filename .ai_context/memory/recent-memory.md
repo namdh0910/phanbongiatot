@@ -3,6 +3,10 @@
 ## 🕒 Current Context
 - **Date**: 2026-05-06
 - **Latest Activities (Directive 10 - UI Cleanup DONE)**:
+  - **Terminology Standardization (Language Pivot)**:
+    - **Removed "Phác đồ" globally**: Replaced all occurrences of the medical-sounding term "phác đồ" with more farmer-friendly terms like "Giải pháp" (Solution) or "Quy trình" (Process) across the entire codebase (Homepage, Blog, Products, Header, etc.).
+    - **Updated AI Rules**: Modified `.ai_context/AI_RULES.md` to strictly enforce the use of "giải pháp/quy trình" and ban "phác đồ" in future content generation.
+    - **Contextual Zalo Hooks**: Updated automated Zalo message templates to use the new terminology, ensuring a consistent tone from first click to consultation.
   - **UI/UX Decluttering & Header Optimization**:
     - **Critical Bug Fix: Text Visibility**: Disabled automatic dark mode in `globals.css` to resolve white-on-white text conflicts caused by system-level dark mode settings interacting with hardcoded light UI components (`bg-white`, `bg-gray-50`).
     - **Header Streamlining**: Achieved ultra-compact mobile header (48px height) and resized all internal elements (Menu, Search, Call) to maximize content visibility.

@@ -203,7 +203,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                          )}
                       </div>
                       <p className="text-emerald-700 text-xs font-black uppercase tracking-widest flex items-center gap-2">
-                         <Zap size={14} fill="currentColor" /> Nhận ngay ưu đãi khi mua theo phác đồ
+                         <Zap size={14} fill="currentColor" /> Nhận ngay ưu đãi khi mua theo quy trình
                       </p>
                    </div>
                 </div>
@@ -214,7 +214,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                      target="_blank"
                      className="w-full bg-[#0068FF] hover:bg-blue-600 text-white py-4 md:py-6 rounded-2xl font-black text-base md:text-lg uppercase tracking-[0.1em] flex items-center justify-center gap-3 shadow-xl shadow-blue-100 transition-all active:scale-95 animate-heartbeat"
                    >
-                      <MessageCircle fill="currentColor" /> Chat Zalo Nhận Phác Đồ
+                      <MessageCircle fill="currentColor" /> Chat Zalo Nhận Giải Pháp
                    </a>
                    <a 
                      href="tel:0773440966"

@@ -65,7 +65,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
             <span className="text-[#f5a623]">{categoryName}</span>
           </h1>
           <p className="text-white/80 max-w-2xl text-lg font-medium">
-            Tổng hợp phác đồ điều trị bệnh lý và danh mục vật tư nông nghiệp chính hãng dành riêng cho {categoryName}.
+            Tổng hợp giải pháp phục hồi bệnh lý và danh mục vật tư nông nghiệp chính hãng dành riêng cho {categoryName}.
           </p>
         </div>
       </section>
@@ -81,7 +81,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
               <div className="flex items-center justify-between mb-8">
                  <h2 className="text-2xl md:text-3xl font-black text-gray-900 uppercase tracking-tight flex items-center gap-3">
                     <span className="w-2 h-8 bg-[#f5a623] rounded-full" />
-                    Phác đồ kỹ sư: {categoryName}
+                    Giải pháp kỹ sư: {categoryName}
                  </h2>
               </div>
               
@@ -98,7 +98,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
                          <h3 className="text-xl font-black text-gray-900 group-hover:text-emerald-700 mb-3 leading-tight">{pathology.title}</h3>
                          <p className="text-gray-500 text-sm mb-6 line-clamp-2">{pathology.painPoint}</p>
                          <div className="mt-auto flex items-center gap-2 text-emerald-700 font-bold text-xs uppercase tracking-widest">
-                            Xem phác đồ ngay <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                            Xem giải pháp ngay <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform" />
                          </div>
                       </div>
                     </Link>
@@ -106,7 +106,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
                 </div>
               ) : (
                 <div className="bg-white p-12 rounded-3xl text-center border-2 border-dashed border-gray-100">
-                   <p className="text-gray-400 font-bold italic">Đang cập nhật phác đồ cho {categoryName}...</p>
+                   <p className="text-gray-400 font-bold italic">Đang cập nhật giải pháp cho {categoryName}...</p>
                 </div>
               )}
             </div>

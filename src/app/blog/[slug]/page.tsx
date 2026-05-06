@@ -147,13 +147,13 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
                   
                   <div className="mt-4 md:mt-6">
                      <a 
-                       href={`https://zalo.me/0773440966?text=${encodeURIComponent(`Chào kỹ sư, tôi vừa xem video về cách chữa ${blog.title} và muốn nhận phác đồ cho vườn của tôi.`)}`}
+                       href={`https://zalo.me/0773440966?text=${encodeURIComponent(`Chào kỹ sư, tôi vừa xem video về cách chữa ${blog.title} và muốn nhận giải pháp cho vườn của tôi.`)}`}
                        target="_blank"
                        rel="noopener noreferrer"
                        className="w-full bg-[#0068FF] hover:bg-blue-600 text-white py-4 md:py-6 rounded-2xl font-black text-sm md:text-lg uppercase tracking-widest flex items-center justify-center gap-3 shadow-xl shadow-blue-100 transition-all active:scale-95 animate-heartbeat"
                      >
                         <span className="text-xl md:text-2xl">💬</span> 
-                        Nhận phác đồ như video này
+                        Nhận giải pháp như video này
                      </a>
                      <div className="mt-3 flex items-center justify-center gap-2 text-[10px] md:text-xs text-gray-400 font-bold uppercase tracking-widest">
                         <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
@@ -239,7 +239,7 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
                   <h3 className="text-3xl md:text-5xl font-black text-gray-900 uppercase italic tracking-tighter mb-6">
                      Vườn bà con đang gặp <br /> tình trạng tương tự?
                   </h3>
-                  <p className="text-gray-600 text-lg mb-10 font-medium">Để lại thông tin, Kỹ sư sẽ gọi lại tư vấn phác đồ chuẩn nhất cho vườn nhà mình.</p>
+                  <p className="text-gray-600 text-lg mb-10 font-medium">Để lại thông tin, Kỹ sư sẽ gọi lại tư vấn giải pháp chuẩn nhất cho vườn nhà mình.</p>
                   <LeadForm initialPathology={blog.category} initialCrop="Sầu riêng" />
                </div>
             </div>
@@ -293,7 +293,7 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
                </div>
 
                <div className="bg-white rounded-[2.5rem] p-8 border border-gray-100 shadow-sm">
-                  <h4 className="font-black text-gray-900 uppercase italic tracking-tight mb-6">Phác đồ liên quan</h4>
+                  <h4 className="font-black text-gray-900 uppercase italic tracking-tight mb-6">Giải pháp liên quan</h4>
                   <div className="space-y-6">
                      <Link href="/giai-phap/vang-la-thoi-re" className="flex items-center gap-4 group">
                         <div className="w-14 h-14 bg-red-50 text-red-600 rounded-2xl flex items-center justify-center text-2xl group-hover:bg-red-600 group-hover:text-white transition-all">⚠️</div>

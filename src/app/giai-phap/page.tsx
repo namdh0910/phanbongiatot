@@ -19,7 +19,7 @@ async function getPathologies() {
 
 export const metadata = {
   title: 'Giải Pháp Nông Nghiệp | Phân Bón Giá Tốt',
-  description: 'Tổng hợp phác đồ điều trị bệnh lý cây trồng: Vàng lá thối rễ, Tuyến trùng, Suy kiệt cây sau thu hoạch.',
+  description: 'Tổng hợp giải pháp phục hồi bệnh lý cây trồng: Vàng lá thối rễ, Tuyến trùng, Suy kiệt cây sau thu hoạch.',
 };
 
 export default async function SolutionsPage({ searchParams }: { searchParams: Promise<{ category?: string }> }) {

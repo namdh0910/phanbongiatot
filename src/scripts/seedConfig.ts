@@ -4,7 +4,7 @@ import SiteConfig from '../lib/models/SiteConfig';
 const initialConfigs = [
   // HERO GROUP
   { key: 'hero_title', value: 'Giải Pháp Phục Hồi Cây Trồng Sinh Học', group: 'hero', label: 'Tiêu đề Hero', type: 'text' },
-  { key: 'hero_subtitle', value: 'Hàng ngàn nhà nông đã thành công cứu vườn suy kiệt bằng phác đồ chuẩn kỹ thuật.', group: 'hero', label: 'Mô tả Hero', type: 'textarea' },
+  { key: 'hero_subtitle', value: 'Hàng ngàn nhà nông đã thành công cứu vườn suy kiệt bằng giải pháp chuẩn kỹ thuật.', group: 'hero', label: 'Mô tả Hero', type: 'textarea' },
   { key: 'hero_cta_primary', value: 'Nhận Tư Vấn Miễn Phí', group: 'hero', label: 'Nút CTA chính', type: 'text' },
   
   // CONTACT GROUP
@@ -14,7 +14,7 @@ const initialConfigs = [
   
   // ANNOUNCEMENT GROUP
   { key: 'announcement_enabled', value: 'true', group: 'announcement', label: 'Bật thông báo', type: 'boolean' },
-  { key: 'announcement_message', value: '🔥 Nhận phác đồ phục hồi vàng lá miễn phí', group: 'announcement', label: 'Nội dung thông báo', type: 'text' },
+  { key: 'announcement_message', value: '🔥 Nhận giải pháp phục hồi vàng lá miễn phí', group: 'announcement', label: 'Nội dung thông báo', type: 'text' },
   { key: 'announcement_bg', value: '#f5a623', group: 'announcement', label: 'Màu nền thông báo', type: 'color' },
   
   // SEO GROUP

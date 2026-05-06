@@ -156,7 +156,7 @@ export default function Header() {
                  type="text"
                  value={searchQuery}
                  onChange={(e) => setSearchQuery(e.target.value)}
-                 placeholder="Tìm kiếm phác đồ, sản phẩm..."
+                 placeholder="Tìm kiếm giải pháp, sản phẩm..."
                  className="w-full bg-gray-50 border-2 border-transparent focus:border-[#1a5c2a] rounded-full py-2 pl-5 pr-12 outline-none transition-all text-sm font-medium"
                />
                <button type="submit" className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-[#1a5c2a] text-white rounded-full flex items-center justify-center">

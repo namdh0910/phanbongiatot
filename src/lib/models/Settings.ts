@@ -17,7 +17,7 @@ const settingsSchema = new Schema<ISettings>({
   hotline: { type: String, default: '0773.440.966' },
   zalo: { type: String, default: '0773440966' },
   announcementEnabled: { type: Boolean, default: false },
-  announcementText: { type: String, default: 'Nhận phác đồ phục hồi vàng lá miễn phí' },
+  announcementText: { type: String, default: 'Nhận giải pháp phục hồi vàng lá miễn phí' },
   primaryColor: { type: String, default: '#1a5c2a' }, // Leaf Green
   secondaryColor: { type: String, default: '#f5a623' }, // Earth Brown/Orange
   address: { type: String, default: 'Kho hàng Tây Nguyên' },

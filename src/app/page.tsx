@@ -55,7 +55,7 @@ const DiseaseCard = ({ title, slug, painPoint }: any) => (
         "{painPoint.length > 100 ? painPoint.substring(0, 100) + '...' : painPoint}"
       </p>
       <div className="inline-flex items-center gap-2 text-[#1a5c2a] font-black uppercase tracking-widest text-xs group-hover:gap-3 transition-all">
-        Xem phác đồ cứu cây <ArrowRight size={16} />
+        Xem giải pháp cứu cây <ArrowRight size={16} />
       </div>
     </div>
   </Link>
@@ -309,7 +309,7 @@ export default function LandingPage() {
             </h2>
             <div className="w-20 h-2 bg-[#f5a623] rounded-full" />
             <p className="mt-6 text-gray-500 max-w-xl font-medium">
-              Chọn đúng dấu hiệu vườn đang mắc phải để nhận phác đồ phục hồi sinh học chuyên sâu từ kỹ sư.
+              Chọn đúng dấu hiệu vườn đang mắc phải để nhận giải pháp phục hồi sinh học chuyên sâu từ kỹ sư.
             </p>
           </div>
 
@@ -334,12 +334,12 @@ export default function LandingPage() {
                       {pathology.painPoint}
                     </p>
                     <div className="mt-auto inline-flex items-center gap-2 text-emerald-600 font-black uppercase tracking-widest text-[9px] group-hover:gap-3 transition-all">
-                      Xem phác đồ <ArrowRight size={14} />
+                      Xem giải pháp <ArrowRight size={14} />
                     </div>
                   </div>
                 </Link>
               )) : (
-                <p className="text-gray-400 text-center col-span-full py-10 font-bold uppercase tracking-widest text-xs">Chưa có phác đồ điều trị nào được cập nhật</p>
+                <p className="text-gray-400 text-center col-span-full py-10 font-bold uppercase tracking-widest text-xs">Chưa có giải pháp phục hồi nào được cập nhật</p>
               )
             ) : (
               <div className="col-span-full flex flex-col items-center py-10 gap-4">
@@ -407,7 +407,7 @@ export default function LandingPage() {
               Vườn Yếu? <span className="text-[#f5a623]">Gặp Kỹ Sư Ngay!</span>
             </h2>
             <p className="text-gray-600 text-lg md:text-xl mb-12 max-w-2xl mx-auto font-medium">
-              Gửi tình trạng vườn (ảnh/video) qua Zalo để nhận phác đồ điều trị miễn phí trong vòng 15 phút.
+              Gửi tình trạng vườn (ảnh/video) qua Zalo để nhận giải pháp phục hồi miễn phí trong vòng 15 phút.
             </p>
             
             <div className="flex flex-col md:flex-row items-center justify-center gap-4">
@@ -481,7 +481,7 @@ export default function LandingPage() {
             <div className="space-y-2">
               <FAQItem 
                 question="Quy trình tư vấn kỹ thuật diễn ra như thế nào?"
-                answer="Bước 1: Bạn nhắn tin qua Zalo hoặc gọi Hotline. Bước 2: Bạn gửi hình ảnh/video thực tế tại vườn. Bước 3: Kỹ sư chẩn đoán và đưa ra phác đồ (loại thuốc, liều lượng, thời điểm xịt). Bước 4: Kỹ sư theo dõi hiệu quả sau khi bạn xử lý."
+                answer="Bước 1: Bạn nhắn tin qua Zalo hoặc gọi Hotline. Bước 2: Bạn gửi hình ảnh/video thực tế tại vườn. Bước 3: Kỹ sư chẩn đoán và đưa ra giải pháp (loại thuốc, liều lượng, thời điểm xịt). Bước 4: Kỹ sư theo dõi hiệu quả sau khi bạn xử lý."
               />
               <FAQItem 
                 question="Làm sao để kỹ sư chẩn đoán đúng bệnh cho vườn?"
@@ -489,7 +489,7 @@ export default function LandingPage() {
               />
               <FAQItem 
                 question="Các giải pháp có thực sự an toàn và hiệu quả?"
-                answer="Tất cả phác đồ của Phân Bón Giá Tốt đều ưu tiên hướng sinh học, bảo vệ hệ sinh thái đất và sức khỏe nhà nông. Chúng tôi cam kết hiệu quả thấy rõ bằng mắt thường (ra đọt, xanh lá, phục hồi rễ) sau 7-10 ngày thực hiện đúng phác đồ."
+                answer="Tất cả giải pháp của Phân Bón Giá Tốt đều ưu tiên hướng sinh học, bảo vệ hệ sinh thái đất và sức khỏe nhà nông. Chúng tôi cam kết hiệu quả thấy rõ bằng mắt thường (ra đọt, xanh lá, phục hồi rễ) sau 7-10 ngày thực hiện đúng quy trình."
               />
             </div>
           </div>

@@ -28,7 +28,7 @@ const faqData = [
         q: "Sầu riêng vàng lá thối rễ mùa mưa chữa thế nào?",
         a: "Đây là bệnh do nấm Phytophthora và Fusarium gây ra khi đất bị úng nước. Bước đầu tiên là phải khơi rãnh thoát nước, sau đó dùng bộ đôi sát khuẩn rễ Phytopin và Nemano tưới đẫm vùng rễ. Sau 7 ngày rễ đã sạch nấm, mới tiến hành kích rễ bằng Humic K-Max.",
         link: "/giai-phap/vang-la-thoi-re",
-        linkText: "Xem phác đồ điều trị"
+        linkText: "Xem giải pháp điều trị"
       },
       {
         q: "Khi nào cần kích rễ cho sầu riêng là tốt nhất?",
