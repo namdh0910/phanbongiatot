@@ -223,13 +223,13 @@ export default function Header() {
             </button>
  
             <Link href="/" className="flex-shrink-0 active:scale-95 transition-transform">
-               <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-[#1B5E20] font-black text-2xl shadow-inner border border-white/20">P</div>
+               <div className="px-2 h-10 bg-white rounded-xl flex items-center justify-center text-[#1B5E20] font-black text-lg shadow-inner border border-white/20 whitespace-nowrap">PBGT</div>
             </Link>
     
-            <div className="flex-1 max-w-[140px] ml-auto relative">
+            <div className="flex-1 relative">
               <div 
                 onClick={() => setIsSearchFocused(true)}
-                className="w-full bg-white/10 backdrop-blur-md rounded-lg py-1.5 px-2 border border-white/15 text-white/90 text-[11px] font-medium flex items-center gap-1.5"
+                className="w-full bg-white/10 backdrop-blur-md rounded-lg py-1.5 px-3 border border-white/15 text-white/90 text-[11px] font-medium flex items-center gap-1.5"
               >
                 <span className="opacity-50 text-sm">🔍</span>
                 <span className="truncate opacity-80">Tìm...</span>
