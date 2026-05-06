@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Không tìm thấy file' }, { status: 400 });
     }
 
-    const cloudName = process.env.CLOUDINARY_CLOUD_NAME || 'phanbongiatot';
+    const cloudName = process.env.CLOUDINARY_CLOUD_NAME || 'dztidbkhv';
     const uploadPreset = process.env.CLOUDINARY_UPLOAD_PRESET || 'ml_default';
 
     // Using unsigned upload for simplicity in this environment

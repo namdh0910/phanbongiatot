@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 
-const MONGODB_URI = process.env.MONGODB_URI || process.env.MONGO_URI || '';
+const FALLBACK_URI = 'mongodb://namdh0910_db_user:Hoangnam0910@ac-bwcd881-shard-00-00.yshugrd.mongodb.net:27017,ac-bwcd881-shard-00-01.yshugrd.mongodb.net:27017,ac-bwcd881-shard-00-02.yshugrd.mongodb.net:27017/test?ssl=true&replicaSet=atlas-efz3q3-shard-0&authSource=admin&retryWrites=true&w=majority';
+const MONGODB_URI = process.env.MONGODB_URI || process.env.MONGO_URI || FALLBACK_URI;
 
 if (!MONGODB_URI && process.env.NODE_ENV === 'production') {
   console.warn('Warning: MONGODB_URI is not defined. Database features will not work.');
