@@ -31,7 +31,7 @@ export async function GET() {
     // Fallback to mock data if DB fails
     return NextResponse.json([
       { name: "Anh B***", location: "Gia Lai", action: "vừa được tư vấn trị tuyến trùng", time: "2 phút trước" },
-      { name: "Chú N***", location: "Đồng Nai", action: "đã đặt phác đồ phục hồi", time: "5 phút trước" }
+      { name: "Chú N***", location: "Đồng Nai", action: "đã đặt giải pháp phục hồi", time: "5 phút trước" }
     ]);
   }
 }

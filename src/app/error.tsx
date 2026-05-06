@@ -25,7 +25,7 @@ export default function Error({
       </h1>
       
       <p className="text-gray-500 max-w-md mb-12 font-medium leading-relaxed">
-        Có một lỗi nhỏ xảy ra khi tải dữ liệu phác đồ. Bà con đừng lo, hãy thử tải lại trang hoặc nhắn tin trực tiếp cho kỹ sư để được hỗ trợ ngay.
+        Có một lỗi nhỏ xảy ra khi tải dữ liệu giải pháp. Bà con đừng lo, hãy thử tải lại trang hoặc nhắn tin trực tiếp cho kỹ sư để được hỗ trợ ngay.
       </p>
       
       <div className="flex flex-col md:flex-row gap-4 w-full max-w-md">

@@ -100,7 +100,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             💬 CHAT ZALO BẮT BỆNH CÂY
           </button>
           <button className="p-btn btn-chat" onClick={() => router.push(`/san-pham/${product.slug}`)}>
-            NHẬN PHÁC ĐỒ PHỤC HỒI
+            NHẬN GIẢI PHÁP PHỤC HỒI
           </button>
         </div>
       </div>

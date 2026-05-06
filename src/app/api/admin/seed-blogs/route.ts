@@ -45,42 +45,36 @@ export async function GET() {
         content: `
 <h2>1. Tuyến trùng sầu riêng là gì?</h2>
 <p>Tuyến trùng là loài giun tròn siêu nhỏ chui vào rễ hút nhựa và đẻ trứng, tạo vết thương cho nấm bệnh tấn công.</p>
-
-<h2>2. Cách tự kiểm tra tại vườn chỉ trong 2 phút</h2>
-<p>Bới nhẹ rễ tơ ở rìa tán, nếu thấy rễ sưng u nang như hạt bắp hoặc sần sùi thì chính xác là bị tuyến trùng.</p>
-
-<h2>3. Phác đồ "Tiêu diệt tận gốc - Phục hồi thần tốc"</h2>
-<ol>
-  <li>Tiêu diệt tuyến trùng và trứng bằng Nemano.</li>
-  <li>Sát khuẩn và trị nấm thối rễ sau 5 ngày.</li>
-  <li>Kích rễ mới bằng Humic & Fulvic.</li>
-</ol>
-
-<p><em>📞 Hotline tư vấn: 0773.440.966</em></p>
+        seoDescription: "Tuyến trùng sầu riêng là gì? Cách nhận biết và tiêu diệt triệt để bằng giải pháp sinh học an toàn.",
+        tags: ["sầu riêng", "tuyến trùng", "giải pháp sinh học"],
+        content: `
+          <p>Tuyến trùng rễ là "kẻ giết người thầm lặng". Nếu không xử lý kịp thời, cả vườn sầu riêng sẽ tiêu đời.</p>
+          <h2>1. Nhận biết tuyến trùng</h2>
+          <p>Đào rễ lên thấy các nốt sần nhỏ như hạt đỗ.</p>
+          <h2>2. Quy trình "Tiêu diệt tận gốc - Phục hồi thần tốc"</h2>
+          <p>Dùng Nemano tưới 2 lần cách nhau 7 ngày.</p>
         `,
         isPublished: true,
-        seoDescription: "Tuyến trùng sầu riêng là gì? Cách nhận biết và tiêu diệt triệt để bằng phác đồ sinh học an toàn.",
         hashtags: ["tuyen-trung", "sau-rieng", "phuc-hoi-re"]
       },
       {
-        title: "Cà Phê Vàng Lá Mùa Khô Phải Làm Gì? Phác Đồ 3 Bước Từ Kỹ Sư",
-        category: "Nhật ký phục hồi vườn",
-        coverImage: "https://res.cloudinary.com/dztidbkhv/image/upload/v1776989073/phanbongiatot/y6imlcebopgmarsfpp8e.jpg",
+        title: "Cà Phê Vàng Lá Mùa Khô Phải Làm Gì? Quy trình 3 Bước Từ Kỹ Sư",
+        slug: "ca-phe-vang-la-mua-kho",
+        category: "cam-nang-ky-thuat",
+        coverImage: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&q=80",
+        excerpt: "Cây cà phê bị vàng lá mùa khô? Tìm hiểu nguyên nhân và áp dụng ngay quy trình 3 bước giữ ẩm và kích rễ hiệu quả.",
         content: `
-<h2>1. Nguyên nhân khiến cà phê vàng lá mùa khô</h2>
-<p>Nắng nóng làm cháy rễ tơ tầng mặt, đất thiếu hữu cơ không giữ được ẩm khiến cây sốc nhiệt.</p>
-
-<h2>2. Phác đồ 3 bước cứu vườn</h2>
-<ul>
-  <li><strong>Bước 1:</strong> Giữ ẩm bằng thảm cỏ và tưới nước định kỳ.</li>
-  <li><strong>Bước 2:</strong> Bổ sung Humic K-Max để giữ nước và kích rễ.</li>
-  <li><strong>Bước 3:</strong> Phun Amino Plus chống sốc nhiệt qua lá.</li>
-</ul>
-
-<p><em>💬 Nhắn Zalo ngay để nhận phác đồ: 0773.440.966</em></p>
+          <p>Mùa khô ở Tây Nguyên vô cùng khắc nghiệt. Cà phê cần một chế độ chăm sóc đặc biệt để không bị suy kiệt.</p>
+          <h2>1. Nguyên nhân vàng lá</h2>
+          <p>Thiếu nước và rễ bị nghẹt do đất quá cứng.</p>
+          <h2>2. Quy trình 3 bước cứu vườn</h2>
+          <p><strong>B1:</strong> Tưới đẫm nước vào gốc.</p>
+          <p><strong>B2:</strong> Bón Humic K-Max để giữ ẩm.</p>
+          <p><strong>B3:</strong> Phun phân bón lá sinh học.</p>
+          <p><em>💬 Nhắn Zalo ngay để nhận giải pháp: 0773.440.966</em></p>
         `,
         isPublished: true,
-        seoDescription: "Cây cà phê bị vàng lá mùa khô? Tìm hiểu nguyên nhân và áp dụng ngay phác đồ 3 bước giữ ẩm và kích rễ hiệu quả.",
+        seoDescription: "Cây cà phê bị vàng lá mùa khô? Tìm hiểu nguyên nhân và áp dụng ngay quy trình 3 bước giữ ẩm và kích rễ hiệu quả.",
         hashtags: ["ca-phe", "vang-la-mua-kho", "humic"]
       },
       {
@@ -88,16 +82,14 @@ export async function GET() {
         category: "Cẩm nang kỹ thuật",
         coverImage: "https://res.cloudinary.com/dztidbkhv/image/upload/v1776989061/phanbongiatot/oiaa2gdldtypwevu8qs6.jpg",
         content: `
-<h2>1. Bệnh Chết Nhanh (Phytophthora)</h2>
-<p>Cây héo rũ nhanh, rụng lá hàng loạt trong 1-2 tuần. Cổ rễ thối đen sũng nước.</p>
-
-<h2>2. Bệnh Chết Chậm (Tuyến trùng & Nấm)</h2>
-<p>Lá vàng từ từ, cây còi cọc kéo dài vài tháng. Rễ có nốt sưng u nang.</p>
-
-<h2>3. Phác đồ xử lý thực chiến</h2>
-<p>Chết nhanh: Phải chặn đứng bằng thuốc nấm mạnh và khơi thoát nước. Chết chậm: Phải kiên trì diệt tuyến trùng và nuôi lại rễ tơ.</p>
-
-<p><em>Tư vấn kỹ thuật hồ tiêu: 0773.440.966</em></p>
+          <p>Chào bà con, hôm nay kỹ sư sẽ hướng dẫn cách cứu vườn sầu riêng bị vàng lá thối rễ chỉ trong 7 ngày bằng phương pháp sinh học an toàn.</p>
+          <h2>1. Nguyên nhân gây bệnh</h2>
+          <p>Nấm Phytophthora tấn công khi đất quá ẩm và thiếu oxy.</p>
+          <h2>2. Quy trình xử lý</h2>
+          <p>Dùng bộ đôi Phytopin và Humic K-Max.</p>
+          <h2>3. Giải pháp 5 bước cứu vườn dứt điểm</h2>
+          <p>Bao gồm: Thoát nước, Sát khuẩn, Kích rễ, Dưỡng lá và Bón phân hữu cơ.</p>
+          <p><em>Liên hệ Kỹ sư để nhận giải pháp riêng: 0773.440.966</em></p>
         `,
         isPublished: true,
         seoDescription: "Phân biệt chính xác bệnh chết nhanh và chết chậm trên cây hồ tiêu để xử lý đúng bệnh.",
@@ -129,21 +121,17 @@ export async function GET() {
         category: "Cẩm nang kỹ thuật",
         coverImage: "https://res.cloudinary.com/dztidbkhv/image/upload/v1776989061/phanbongiatot/oiaa2gdldtypwevu8qs6.jpg",
         content: `
-          <h2>Câu chuyện từ vườn anh Hùng ở Cư M'gar</h2>
-          <p>Khi tôi xuống vườn, cảnh tượng thật xót xa. Những cây sầu riêng 5-6 năm tuổi, trái đang lủng lẳng mà bộ lá thì "lờ đờ", vàng vọt. Anh Hùng đã dùng đủ loại thuốc hóa học cực mạnh nhưng cây càng ngày càng yếu...</p>
-          
-          <h2>1. Triệu chứng nhận biết: Đừng để "quá muộn" mới cứu</h2>
-          <p>Lá già bị vàng lờ đờ, gân lá chuyển vàng trước phiến lá. Khi bới rễ tơ thấy thối đen, vỏ rễ tuột ra...</p>
-          
-          <h2>2. Phác đồ xử lý 3 bước: Cứu vườn trong 7 ngày</h2>
-          <p><strong>Ngày 1-3:</strong> Sát khuẩn rễ bằng Phytopin + Nemano (liều 500ml mỗi loại cho 400L nước).<br>
-          <strong>Ngày 4-7:</strong> Kích rễ bằng Humic K-Max (1kg cho 600L nước).<br>
-          <strong>Ngày 15:</strong> Phun dưỡng lá bằng Amino Plus.</p>
-          
-          <p><em>Chụp ảnh vườn gửi Zalo Kỹ sư 0773.440.966 để nhận phác đồ riêng.</em></p>
+          <p>Sầu riêng bị vàng lá thối rễ là cơn ác mộng của nhà nông. Nhưng với kinh nghiệm 10 năm thực chiến, chúng tôi khẳng định có thể cứu vườn nếu xử lý đúng cách.</p>
+          <h2>1. Nhận biết sớm dấu hiệu</h2>
+          <p>Lá vàng nhẹ, rễ tơ bị thối đen, cây chậm phát triển.</p>
+          <h2>2. Giải pháp xử lý 3 bước: Cứu vườn trong 7 ngày</h2>
+          <p><strong>Bước 1:</strong> Sát khuẩn rễ bằng Phytopin.</p>
+          <p><strong>Bước 2:</strong> Tiêu diệt tuyến trùng bằng Nemano.</p>
+          <p><strong>Bước 3:</strong> Kích rễ hữu cơ bằng Humic K-Max.</p>
+          <p><em>Chụp ảnh vườn gửi Zalo Kỹ sư 0773.440.966 để nhận giải pháp riêng.</em></p>
         `,
         isPublished: true,
-        seoDescription: "Kỹ sư 10 năm kinh nghiệm chỉ cách trị sầu riêng vàng lá thối rễ hiệu quả trong 7 ngày bằng phác đồ sinh học.",
+        seoDescription: "Kỹ sư 10 năm kinh nghiệm chỉ cách trị sầu riêng vàng lá thối rễ hiệu quả trong 7 ngày bằng quy trình sinh học.",
         hashtags: ["sau-rieng", "vang-la-thoi-re", "phuc-hoi-vuon"]
       }
     ];

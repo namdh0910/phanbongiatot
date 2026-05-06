@@ -25,8 +25,13 @@ export const metadata = {
   description: 'Tổng hợp vật tư nông nghiệp, phân bón sinh học và giải pháp chăm sóc cây trồng chính hãng.',
 };
 
-export default async function ProductsPage() {
+export default async function ProductsPage({ searchParams }: { searchParams: Promise<{ category?: string }> }) {
+  const { category } = await searchParams;
   const products = await getProducts();
+
+  const filteredProducts = category 
+    ? products.filter((p: any) => p.category === category)
+    : products;
   
   return (
     <div className="bg-white min-h-screen">
@@ -55,34 +60,31 @@ export default async function ProductsPage() {
           <div className="flex flex-col lg:flex-row gap-12">
             
             {/* Sidebar - Filter Placeholder */}
-            <aside className="lg:w-1/4 space-y-8">
+            <aside className="lg:w-1/4 space-y-8 hidden lg:block">
                <div className="bg-gray-50 rounded-3xl p-8 border border-gray-100">
                   <h3 className="text-xl font-black text-gray-900 uppercase italic tracking-tight mb-6 flex items-center gap-2">
-                     <Filter size={20} /> Bộ lọc
+                     <Filter size={20} /> Danh mục
                   </h3>
                   
                   <div className="space-y-6">
                      <div>
-                        <h4 className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-4">Loại cây trồng</h4>
-                        <div className="space-y-3">
-                           {['Sầu riêng', 'Cà phê', 'Hồ tiêu', 'Cây ăn trái'].map(item => (
-                             <label key={item} className="flex items-center gap-3 cursor-pointer group">
-                                <div className="w-5 h-5 rounded-md border-2 border-gray-200 group-hover:border-emerald-600 transition-colors" />
-                                <span className="text-sm font-bold text-gray-600 group-hover:text-gray-900">{item}</span>
-                             </label>
-                           ))}
-                        </div>
-                     </div>
-                     
-                     <div className="pt-6 border-t border-gray-200">
                         <h4 className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-4">Nhóm giải pháp</h4>
                         <div className="space-y-3">
                            {['Phục hồi rễ', 'Trị tuyến trùng', 'Xanh lá - mướt cây', 'Dưỡng bông - đậu trái'].map(item => (
-                             <label key={item} className="flex items-center gap-3 cursor-pointer group">
-                                <div className="w-5 h-5 rounded-md border-2 border-gray-200 group-hover:border-emerald-600 transition-colors" />
-                                <span className="text-sm font-bold text-gray-600 group-hover:text-gray-900">{item}</span>
-                             </label>
+                             <Link 
+                               key={item} 
+                               href={`/san-pham?category=${encodeURIComponent(item)}`}
+                               className="flex items-center gap-3 cursor-pointer group"
+                             >
+                                <div className={`w-5 h-5 rounded-md border-2 transition-colors ${category === item ? 'bg-emerald-600 border-emerald-600' : 'border-gray-200 group-hover:border-emerald-600'}`} />
+                                <span className={`text-sm font-bold transition-colors ${category === item ? 'text-emerald-700' : 'text-gray-600 group-hover:text-gray-900'}`}>{item}</span>
+                             </Link>
                            ))}
+                           {category && (
+                             <Link href="/san-pham" className="text-[10px] font-black text-red-500 uppercase tracking-widest pt-4 block">
+                               ✕ Xóa bộ lọc
+                             </Link>
+                           )}
                         </div>
                      </div>
                   </div>
@@ -91,7 +93,7 @@ export default async function ProductsPage() {
                {/* Contact Widget */}
                <div className="bg-emerald-600 rounded-3xl p-8 text-white relative overflow-hidden">
                   <div className="relative z-10">
-                     <h4 className="font-black text-xl mb-4">Cần phác đồ riêng?</h4>
+                     <h4 className="font-black text-xl mb-4">Cần giải pháp riêng?</h4>
                      <p className="text-sm text-emerald-100 mb-6 font-medium">Chụp ảnh vườn gửi kỹ sư tư vấn miễn phí ngay qua Zalo.</p>
                      <a href="https://zalo.me/0773440966" target="_blank" className="bg-white text-emerald-700 font-black px-6 py-3 rounded-xl text-sm flex items-center justify-center gap-2">
                         <MessageCircle size={18} fill="currentColor" /> Chat Ngay
@@ -102,9 +104,28 @@ export default async function ProductsPage() {
 
             {/* Product Grid */}
             <div className="lg:w-3/4">
+               {/* Horizontal Category Bar for Desktop/Mobile */}
+               <div className="flex items-center gap-2 mb-8 overflow-x-auto scrollbar-hide pb-2">
+                  <Link 
+                    href="/san-pham"
+                    className={`flex-shrink-0 px-6 py-2.5 rounded-full text-[11px] font-black uppercase tracking-widest transition-all ${!category ? 'bg-emerald-600 text-white shadow-lg' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'}`}
+                  >
+                    Tất cả
+                  </Link>
+                  {['Phục hồi rễ', 'Trị tuyến trùng', 'Xanh lá - mướt cây', 'Dưỡng bông - đậu trái'].map(item => (
+                    <Link 
+                      key={item}
+                      href={`/san-pham?category=${encodeURIComponent(item)}`}
+                      className={`flex-shrink-0 px-6 py-2.5 rounded-full text-[11px] font-black uppercase tracking-widest transition-all ${category === item ? 'bg-emerald-600 text-white shadow-lg' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'}`}
+                    >
+                      {item}
+                    </Link>
+                  ))}
+               </div>
+
                <div className="flex items-center justify-between mb-8">
-                  <p className="text-gray-400 text-sm font-bold">
-                     Hiển thị <span className="text-gray-900">{products.length}</span> sản phẩm phù hợp
+                  <p className="text-gray-400 text-xs font-bold">
+                     Hiển thị <span className="text-gray-900">{filteredProducts.length}</span> sản phẩm {category && <span>trong <span className="text-emerald-700">{category}</span></span>}
                   </p>
                   <div className="flex items-center gap-4">
                      <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Sắp xếp:</span>
@@ -116,8 +137,8 @@ export default async function ProductsPage() {
                   </div>
                </div>
 
-               <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8">
-                  {products.map((product: any) => (
+               <div className="grid grid-cols-2 xl:grid-cols-3 gap-3 md:gap-8">
+                  {filteredProducts.map((product: any) => (
                     <div 
                       key={product.slug} 
                       className="group flex flex-col bg-white rounded-3xl border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-300"
@@ -174,7 +195,7 @@ export default async function ProductsPage() {
                   ))}
                </div>
                
-               {products.length === 0 && (
+               {filteredProducts.length === 0 && (
                   <div className="text-center py-32 bg-gray-50 rounded-[3rem] border border-dashed border-gray-200">
                      <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
                         <Search className="text-gray-300" size={32} />

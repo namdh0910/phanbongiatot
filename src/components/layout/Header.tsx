@@ -301,6 +301,27 @@ export default function Header() {
                     <span className="text-sm">{cat.icon}</span> {cat.name}
                   </Link>
                 ))
+              ) : pathname?.startsWith('/san-pham') ? (
+                // Product Specific Nav
+                [
+                  { name: "Tất cả", icon: "📦", href: "/san-pham" },
+                  { name: "Phục hồi rễ", icon: "🌱", href: "/san-pham?category=Phuc+hoi+re" },
+                  { name: "Trị tuyến trùng", icon: "🦠", href: "/san-pham?category=Tri+tuyen+trung" },
+                  { name: "Xanh lá", icon: "🌿", href: "/san-pham?category=Xanh+la+-+muot+cay" },
+                  { name: "Dưỡng bông", icon: "🍎", href: "/san-pham?category=Duong+bong+-+dau+trai" }
+                ].map((cat, i) => (
+                  <Link 
+                    key={i} 
+                    href={cat.href}
+                    className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-black transition-all shadow-sm border ${
+                      (cat.name === 'Tất cả' && !activeCategory) || (activeCategory && cat.href.includes(encodeURIComponent(activeCategory).replace(/%20/g, '+')))
+                      ? 'bg-emerald-600 text-white border-emerald-600' 
+                      : 'bg-white text-gray-700 border-gray-100'
+                    }`}
+                  >
+                    <span className="text-sm">{cat.icon}</span> {cat.name}
+                  </Link>
+                ))
               ) : (
                 // Default Product Nav
                 [

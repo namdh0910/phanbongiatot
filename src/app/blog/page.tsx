@@ -54,7 +54,7 @@ function BlogContent() {
             Kiến Thức <span className="text-emerald-500">Nhà Nông</span>
           </h1>
           <p className="text-gray-400 text-sm md:text-xl max-w-2xl mx-auto font-medium opacity-80">
-            Học kỹ thuật qua video thực tế và phác đồ điều trị chuyên sâu.
+            Học kỹ thuật qua video thực tế và quy trình điều trị chuyên sâu.
           </p>
         </div>
       </section>

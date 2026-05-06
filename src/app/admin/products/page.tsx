@@ -163,7 +163,7 @@ export default function AdminProducts() {
       <div className="flex items-center justify-between">
         <div className="flex flex-col gap-2">
           <h1 className="text-3xl font-black text-gray-900 uppercase italic tracking-tight">Quản lý Sản Phẩm</h1>
-          <p className="text-gray-500 text-sm font-medium">Danh mục vật tư nông nghiệp phục vụ phác đồ điều trị.</p>
+          <p className="text-gray-500 text-sm font-medium">Danh mục vật tư nông nghiệp phục vụ giải pháp điều trị.</p>
         </div>
         {!isEditing && (
           <button 

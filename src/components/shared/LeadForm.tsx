@@ -71,7 +71,7 @@ export default function LeadForm({ product, initialPathology, initialCrop }: Lea
       <div className="flex flex-col items-center text-center mb-8">
          <span className="bg-orange-100 text-orange-600 px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest mb-3 italic">Hỗ trợ bà con trực tiếp</span>
          <h3 className="text-2xl font-black text-gray-900 uppercase italic tracking-tight">Yêu cầu kỹ sư gọi lại</h3>
-         <p className="text-gray-500 text-sm mt-2">Bà con điền thông tin, kỹ sư sẽ gọi lại tư vấn phác đồ chuẩn nhất cho vườn của mình.</p>
+         <p className="text-gray-500 text-sm mt-2">Bà con điền thông tin, kỹ sư sẽ gọi lại tư vấn quy trình chuẩn nhất cho vườn của mình.</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">

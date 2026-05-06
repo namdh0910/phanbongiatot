@@ -17,7 +17,7 @@ const testimonials = [
     location: "Long Khánh, Đồng Nai",
     crop: "Sầu riêng Ri6",
     avatar: "T",
-    content: "Sầu riêng nhà tui năm nay đậu trái đạt lắm. Dùng đúng phác đồ nuôi trái bên mình mà trái nào trái nấy xanh gai, cơm vàng mướt. Mấy anh thương lái vô vườn khen quá trời, giá bán cũng được nhỉnh hơn mọi năm.",
+    content: "Sầu riêng nhà tui năm nay đậu trái đạt lắm. Dùng đúng quy trình nuôi trái bên mình mà trái nào trái nấy xanh gai, cơm vàng mướt. Mấy anh thương lái vô vườn khen quá trời, giá bán cũng được nhỉnh hơn mọi năm.",
     stars: 5
   },
   {

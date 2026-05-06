@@ -59,7 +59,7 @@ export default function AdminLeads() {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="flex flex-col gap-2">
           <h1 className="text-3xl font-black text-gray-900 uppercase italic tracking-tight">Yêu cầu từ nhà vườn</h1>
-          <p className="text-gray-500 text-sm font-medium">Danh sách nông dân cần hỗ trợ phác đồ điều trị cây trồng.</p>
+          <p className="text-gray-500 text-sm font-medium">Danh sách nông dân cần hỗ trợ giải pháp điều trị cây trồng.</p>
         </div>
         <div className="bg-white px-6 py-3 rounded-2xl border border-gray-100 shadow-sm flex items-center gap-4">
           <span className="text-2xl">🌱</span>
