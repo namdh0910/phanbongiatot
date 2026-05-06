@@ -30,7 +30,7 @@ export default function MobileBottomNav() {
       href: `https://zalo.me/${settings?.zalo || '0773440966'}?text=${encodeURIComponent('Tôi cần tư vấn về: ' + (docTitle || 'Giải pháp nông nghiệp'))}`, 
       isExternal: true 
     },
-    { label: "Gọi điện", icon: "📞", href: `tel:${(settings?.phone || '0773440966').replace(/\./g, '')}`, isExternal: true },
+    { label: "Hỏi đáp", icon: "❓", href: "/hoi-dap-ky-thuat" },
   ];
 
   return (

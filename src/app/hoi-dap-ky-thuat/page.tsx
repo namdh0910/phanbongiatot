@@ -115,12 +115,12 @@ const faqData = [
 const FAQItem = ({ question, answer, link, linkText }: any) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className="border-b border-gray-100 last:border-0">
+    <div className="border-b border-gray-100 last:border-0 px-1 md:px-0">
       <button 
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full py-4 md:py-6 flex items-start justify-between text-left gap-4 group"
+        className="w-full py-3 md:py-6 flex items-start justify-between text-left gap-4 group"
       >
-        <span className={`font-black text-sm md:text-lg transition-colors ${isOpen ? 'text-emerald-700' : 'text-gray-800 group-hover:text-emerald-600'}`}>
+        <span className={`font-black text-[13px] md:text-lg transition-colors ${isOpen ? 'text-emerald-700' : 'text-gray-800 group-hover:text-emerald-600'}`}>
           {question}
         </span>
         <div className={`mt-0.5 md:mt-1 transition-transform duration-300 ${isOpen ? 'rotate-180 text-emerald-700' : 'text-gray-300'}`}>
@@ -128,7 +128,7 @@ const FAQItem = ({ question, answer, link, linkText }: any) => {
         </div>
       </button>
       <div className={`overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-[500px] pb-6' : 'max-h-0'}`}>
-        <p className="text-gray-600 text-xs md:text-base leading-relaxed mb-4 font-medium italic">
+        <p className="text-gray-600 text-[12px] md:text-base leading-relaxed mb-4 font-medium italic">
           {answer}
         </p>
         {link && (
@@ -170,7 +170,7 @@ export default function FAQPage() {
           <div className="inline-flex items-center gap-2 bg-emerald-500/20 text-emerald-400 px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-widest mb-6">
             <HelpCircle size={14} /> Thư viện hỏi đáp kỹ thuật
           </div>
-          <h1 className="text-2xl md:text-6xl font-black text-white mb-6 md:mb-8 uppercase tracking-tighter italic leading-[1.1]">
+          <h1 className="text-xl md:text-5xl font-black text-white mb-4 md:mb-8 uppercase tracking-tighter italic leading-[1.1]">
             Bà con hỏi, <br className="md:hidden" /> <span className="text-emerald-500">Kỹ sư trả lời</span>
           </h1>
           
@@ -179,7 +179,7 @@ export default function FAQPage() {
             <input 
               type="text" 
               placeholder="Tìm câu hỏi của bà con..."
-              className="w-full bg-white/10 border border-white/20 rounded-xl md:rounded-2xl px-12 md:px-16 py-3 md:py-5 text-white placeholder:text-gray-500 focus:outline-none focus:border-emerald-500 transition-all text-sm md:text-lg font-bold"
+              className="w-full bg-white/10 border border-white/20 rounded-xl md:rounded-2xl px-12 md:px-16 py-2.5 md:py-5 text-white placeholder:text-gray-500 focus:outline-none focus:border-emerald-500 transition-all text-xs md:text-lg font-bold"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -188,9 +188,9 @@ export default function FAQPage() {
       </section>
 
       {/* FAQ Content - Compact gaps */}
-      <section className="py-10 md:py-20 -mt-10 md:-mt-16 relative z-20">
+      <section className="py-6 md:py-20 -mt-8 md:-mt-16 relative z-20">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto space-y-6 md:space-y-12">
+          <div className="max-w-3xl mx-auto space-y-4 md:space-y-12">
             {faqData.map((category, idx) => {
               const filteredQuestions = category.questions.filter(q => 
                 q.q.toLowerCase().includes(searchTerm.toLowerCase()) || 
@@ -200,14 +200,14 @@ export default function FAQPage() {
               if (filteredQuestions.length === 0) return null;
 
               return (
-                <div key={idx} className="bg-white rounded-2xl md:rounded-[2.5rem] border border-gray-100 shadow-xl shadow-gray-100/50 overflow-hidden">
-                  <div className="bg-gray-50 px-5 md:px-8 py-4 md:py-6 border-b border-gray-100 flex items-center gap-3 md:gap-4">
-                    <span className="text-xl md:text-3xl">{category.icon}</span>
-                    <h2 className="text-sm md:text-xl font-black text-gray-900 uppercase tracking-tight italic">
+                <div key={idx} className="bg-white rounded-xl md:rounded-[2.5rem] border border-gray-100 shadow-xl shadow-gray-100/50 overflow-hidden">
+                  <div className="bg-gray-50 px-4 md:px-8 py-3 md:py-6 border-b border-gray-100 flex items-center gap-3 md:gap-4">
+                    <span className="text-lg md:text-3xl">{category.icon}</span>
+                    <h2 className="text-[13px] md:text-xl font-black text-gray-900 uppercase tracking-tight italic">
                       Nhóm: {category.category}
                     </h2>
                   </div>
-                  <div className="px-5 md:px-8 divide-y divide-gray-100">
+                  <div className="px-4 md:px-8 divide-y divide-gray-100">
                     {filteredQuestions.map((q, qIdx) => (
                       <FAQItem key={qIdx} {...q} />
                     ))}

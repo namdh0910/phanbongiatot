@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { useState, useEffect, useRef } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
@@ -280,6 +280,23 @@ export default function Header() {
                       ? 'bg-emerald-600 text-white border-emerald-600' 
                       : 'bg-white text-gray-700 border-gray-100'
                     }`}
+                  >
+                    <span className="text-sm">{cat.icon}</span> {cat.name}
+                  </Link>
+                ))
+              ) : pathname?.startsWith('/hoi-dap-ky-thuat') ? (
+                // FAQ Specific Nav
+                [
+                  { name: "Sầu riêng", icon: "🌳", href: "/hoi-dap-ky-thuat" },
+                  { name: "Cà phê", icon: "☕", href: "/hoi-dap-ky-thuat" },
+                  { name: "Hồ tiêu", icon: "🌿", href: "/hoi-dap-ky-thuat" },
+                  { name: "Phân bón", icon: "🧪", href: "/hoi-dap-ky-thuat" },
+                  { name: "Trang chủ", icon: "🏠", href: "/" }
+                ].map((cat, i) => (
+                  <Link 
+                    key={i} 
+                    href={cat.href}
+                    className="flex-shrink-0 flex items-center gap-1.5 bg-white border border-gray-100 px-3 py-1.5 rounded-full text-[11px] font-black text-gray-700 transition-all shadow-sm"
                   >
                     <span className="text-sm">{cat.icon}</span> {cat.name}
                   </Link>
