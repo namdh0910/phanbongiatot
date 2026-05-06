@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Suspense } from "react";
 import { Inter } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
@@ -127,7 +128,9 @@ export default function RootLayout({
       </head>
       <body className={`${inter.className} min-h-screen flex flex-col bg-background text-foreground`}>
         <SettingsProvider>
-          <PageTracker />
+          <Suspense fallback={null}>
+            <PageTracker />
+          </Suspense>
           <LayoutWrapper>
             {children}
           </LayoutWrapper>
