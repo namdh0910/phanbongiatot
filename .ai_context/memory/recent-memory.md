@@ -8,10 +8,11 @@
     - **Header Streamlining**: Achieved ultra-compact mobile header (48px height) and resized all internal elements (Menu, Search, Call) to maximize content visibility.
     - **Hero Section Refactoring**: Compressed Hero section height to 35vh and reduced mobile padding-top to 12 units to match the user's visual "red frame" request.
     - **Redundancy Removal**: Hidden the horizontal "Quick Category Scrollbar" from the Header when on the homepage, avoiding conflict with the main content.
+  - **Product-First Navigation Flow**:
+    - **New Product Catalog**: Created `/san-pham/page.tsx` as the central hub for all agricultural supplies, featuring a premium design and sidebar filters.
+    - **Enhanced Product Cards**: Updated homepage product cards to link directly to detail pages. Added explicit "LIÊN HỆ" (Zalo) and "CHI TIẾT" buttons to maintain high conversion while improving information access.
+    - **Route Normalization**: Replaced legacy search-based links in Header/Footer with clean `/san-pham` and `/danh-muc/[slug]` routes.
   - **Cross-Architecture Data Sync (Next.js ↔ Express)**:
-    - **Schema Alignment**: Synchronized `src/lib/models/Product.ts` with the Backend's schema, including `status`, `approval_status`, and custom timestamp fields (`created_at`). Explicitly set collection to `products`.
-    - **API Resiliency**: Updated Admin pages and Homepage to handle both `{ products: [] }` and `{ data: [] }` formats. This resolves the empty list issue caused by API response structure mismatch.
-  - **Database & Upload Recovery (Signed Upload & Hardened Fallbacks)**:
     - **Upload Infrastructure**: Created `/api/admin/upload` to handle image processing and secure transit to Cloudinary.
     - **UI Enhancement**: Developed `ImageUpload` and `MultiImageUpload` components to allow drag-and-drop/file selection for blog covers and product galleries.
     - **User Experience**: Completely removed the need for manual URL pasting, automating the path from local file to database record.

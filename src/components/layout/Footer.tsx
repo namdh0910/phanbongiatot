@@ -55,9 +55,9 @@ export default function Footer() {
             <h4 className="font-black text-xl mb-8">Liên Kết Nhanh</h4>
             <ul className="space-y-4">
               {[
+                { label: 'Danh mục sản phẩm', href: '/san-pham' },
                 { label: 'Tài liệu kỹ thuật', href: '/blog' },
                 { label: 'Hỏi đáp kỹ thuật', href: '/hoi-dap-ky-thuat' },
-                { label: 'Đặt lịch tư vấn', href: 'https://zalo.me/0773440966' },
                 { label: 'Về chúng tôi', href: '/ve-chung-toi' },
               ].map((link) => (
                 <li key={link.label}>

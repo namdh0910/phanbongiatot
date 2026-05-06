@@ -120,7 +120,7 @@ export default function Header() {
       icon: "🌿",
       slug: "ho-tieu",
       issues: [
-        { label: "Chết nhanh - Chết chậm", href: "/tim-kiem?q=ho+tieu+chet+nhanh" },
+        { label: "Chết nhanh - Chết chậm", href: "/giai-phap/phuc-hoi-ho-tieu" },
         { label: "Tuyến trùng rễ", href: "/giai-phap/tuyen-trung-ho-tieu" },
       ]
     }
@@ -196,7 +196,7 @@ export default function Header() {
                             ))}
                          </div>
                        </div>
-                       <Link href={`/tim-kiem?q=${crop.slug}`} className="block text-[11px] font-black text-orange-600 uppercase tracking-widest hover:translate-x-1 transition-transform px-3">
+                       <Link href={`/danh-muc/${crop.slug}`} className="block text-[11px] font-black text-orange-600 uppercase tracking-widest hover:translate-x-1 transition-transform px-3">
                          Sản phẩm cho {crop.name} →
                        </Link>
                     </div>
@@ -247,11 +247,11 @@ export default function Header() {
           {pathname !== '/' && (
             <div className="bg-white border-b border-gray-100 py-3 overflow-x-auto scrollbar-hide flex items-center gap-3 px-4 shadow-sm">
               {[
-                { name: "Tất cả", icon: "🏠", href: "/" },
-                { name: "Sầu riêng", icon: "🌳", href: "/tim-kiem?q=sau-rieng" },
-                { name: "Cà phê", icon: "☕", href: "/tim-kiem?q=ca-phe" },
-                { name: "Hồ tiêu", icon: "🌿", href: "/tim-kiem?q=ho-tieu" },
-                { name: "Cây Ăn Trái", icon: "🥭", href: "/tim-kiem?q=cay-an-trai" },
+                { name: "Trang chủ", icon: "🏠", href: "/" },
+                { name: "Sản phẩm", icon: "📦", href: "/san-pham" },
+                { name: "Sầu riêng", icon: "🌳", href: "/danh-muc/sau-rieng" },
+                { name: "Cà phê", icon: "☕", href: "/danh-muc/ca-phe" },
+                { name: "Hồ tiêu", icon: "🌿", href: "/danh-muc/ho-tieu" },
                 { name: "Kiến thức", icon: "📖", href: "/blog" },
                 { name: "Hỏi đáp", icon: "❓", href: "/hoi-dap-ky-thuat" }
               ].map((cat, i) => (

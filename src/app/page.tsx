@@ -247,30 +247,49 @@ export default function LandingPage() {
                 <div key={i} className="aspect-[3/4] bg-gray-50 rounded-3xl animate-pulse" />
               ))
             ) : products.map((product, idx) => (
-              <Link 
+              <div 
                 key={idx} 
-                href={`https://zalo.me/${settings.zalo.replace(/\./g, '')}?text=${encodeURIComponent(`Tôi muốn tư vấn về sản phẩm: ${product.name}`)}`}
-                target="_blank"
                 className="group flex flex-col bg-white rounded-3xl border border-gray-100 overflow-hidden hover:shadow-xl transition-all"
               >
-                <div className="aspect-square bg-gray-50 relative overflow-hidden">
+                <Link href={`/san-pham/${product.slug}`} className="aspect-square bg-gray-50 relative overflow-hidden block">
                   <img src={product.images?.[0] || '/product-placeholder.png'} alt={product.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                   {product.originalPrice > product.price && (
                     <div className="absolute top-2 left-2 bg-red-500 text-white text-[8px] font-black px-2 py-0.5 rounded-full uppercase">Giảm giá</div>
                   )}
-                </div>
+                </Link>
                 <div className="p-3 md:p-5 flex flex-col flex-1">
-                  <h3 className="text-[11px] md:text-sm font-black text-gray-900 line-clamp-2 mb-2 leading-tight group-hover:text-[#1a5c2a]">{product.name}</h3>
-                  <div className="mt-auto">
-                    <p className="text-[10px] md:text-xs text-gray-400 line-through font-bold">{product.originalPrice?.toLocaleString()}đ</p>
+                  <Link href={`/san-pham/${product.slug}`} className="block">
+                    <h3 className="text-[11px] md:text-sm font-black text-gray-900 line-clamp-2 mb-2 leading-tight hover:text-[#1a5c2a] transition-colors">{product.name}</h3>
+                  </Link>
+                  <div className="mb-4">
+                    {product.originalPrice > product.price && (
+                      <p className="text-[10px] md:text-xs text-gray-400 line-through font-bold">{product.originalPrice?.toLocaleString()}đ</p>
+                    )}
                     <p className="text-xs md:text-base text-emerald-700 font-black">{product.price?.toLocaleString()}đ</p>
                   </div>
+                  
+                  {/* Action Buttons */}
+                  <div className="mt-auto grid grid-cols-2 gap-2">
+                    <Link 
+                      href={`/san-pham/${product.slug}`}
+                      className="text-[9px] md:text-[10px] font-black text-gray-400 uppercase tracking-widest py-2 border border-gray-100 rounded-xl flex items-center justify-center hover:bg-gray-50 transition-colors"
+                    >
+                      Chi tiết
+                    </Link>
+                    <a 
+                      href={`https://zalo.me/${settings.zalo.replace(/\./g, '')}?text=${encodeURIComponent(`Tôi muốn tư vấn về sản phẩm: ${product.name}`)}`}
+                      target="_blank"
+                      className="text-[9px] md:text-[10px] font-black text-white bg-[#1a5c2a] uppercase tracking-widest py-2 rounded-xl flex items-center justify-center hover:bg-[#144620] transition-colors"
+                    >
+                      Liên hệ
+                    </a>
+                  </div>
                 </div>
-              </Link>
+              </div>
             ))}
           </div>
           <div className="mt-10 text-center">
-             <Link href="/tim-kiem?q=" className="inline-flex items-center gap-2 text-[#1a5c2a] font-black uppercase tracking-widest text-xs hover:gap-3 transition-all">
+             <Link href="/san-pham" className="inline-flex items-center gap-2 text-[#1a5c2a] font-black uppercase tracking-widest text-xs hover:gap-3 transition-all">
                 Xem tất cả sản phẩm <ArrowRight size={14} />
              </Link>
           </div>
