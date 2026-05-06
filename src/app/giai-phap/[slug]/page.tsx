@@ -21,11 +21,16 @@ interface Pathology {
   testimonials?: { name: string; location: string; quote: string }[];
 }
 
+import dbConnect from '@/lib/db';
+import mongoose from 'mongoose';
+import Product from '@/lib/models/Product';
+
 async function getPathology(slug: string) {
   try {
-    const res = await fetch(`${API_BASE_URL}/pathologies/${slug}`, { next: { revalidate: 3600 } });
-    if (!res.ok) return null;
-    return await res.json();
+    await dbConnect();
+    if (!mongoose.connection.db) return null;
+    const pathology = await mongoose.connection.db.collection('pathologies').findOne({ slug });
+    return pathology ? JSON.parse(JSON.stringify(pathology)) : null;
   } catch (error) {
     console.error('Fetch error:', error);
     return null;
@@ -34,10 +39,10 @@ async function getPathology(slug: string) {
 
 async function getPathologies() {
   try {
-    const res = await fetch(`${API_BASE_URL}/pathologies`, { next: { revalidate: 3600 } });
-    if (!res.ok) return [];
-    const data = await res.json();
-    return data.pathologies || [];
+    await dbConnect();
+    if (!mongoose.connection.db) return [];
+    const pathologies = await mongoose.connection.db.collection('pathologies').find({}).toArray();
+    return JSON.parse(JSON.stringify(pathologies));
   } catch (error) {
     return [];
   }
@@ -45,10 +50,9 @@ async function getPathologies() {
 
 async function getProducts() {
   try {
-    const res = await fetch(`${API_BASE_URL}/products`, { next: { revalidate: 3600 } });
-    if (!res.ok) return [];
-    const data = await res.json();
-    return data.products || [];
+    await dbConnect();
+    const products = await Product.find({ status: 'approved' }).lean();
+    return JSON.parse(JSON.stringify(products));
   } catch (error) {
     return [];
   }
