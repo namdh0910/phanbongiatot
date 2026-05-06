@@ -122,7 +122,8 @@
   - **Product Page Optimization & Terminology Cleanup (Directive 11)**:
     - **Global "Phác đồ" Removal**: Conducted a final, comprehensive sweep and replaced 20+ remaining occurrences of "phác đồ" with "giải pháp" or "quy trình" across API routes (Leads, Seed-blogs), UI components (LeadForm, ProductCard, Testimonials, FloatingSocialProof), and core pages (Blog, Error, Not-found).
     - **Product Filter Pivot**: Removed the "Loại cây trồng" (Crop Type) filter from `/san-pham` and replaced it with "Nhóm giải pháp" (Solution Group) to align with the solution-centric business model.
-    - **Top Navigation Integration**: Implemented a horizontal scroll category menu (Nhóm giải pháp) above the product grid, synchronized with the Header's mobile scrollbar for a seamless browsing experience.
+    - **UI Streamlining**: Removed the oversized Hero section and the redundant horizontal category bar from the product page, moving breadcrumbs to a more compact position to maximize content visibility above the fold.
+    - **Top Navigation Integration**: Implemented a horizontal scroll category menu (Nhóm giải pháp) in the Header's mobile scrollbar for a seamless browsing experience.
     - **Mobile Grid Upgrade**: Transitioned the product list from a single-column list to a high-density 2-column grid (`grid-cols-2`) on mobile viewports for better visual appeal and faster scannability.
     - **Server-Side Filtering**: Enabled dynamic filtering by category on the Product page using Next.js `searchParams`, ensuring real-time UI updates when categories are selected.
     - **Admin Terminology Sync**: Updated Admin Product and Lead dashboards to use "giải pháp điều trị" instead of "phác đồ", maintaining internal consistency.

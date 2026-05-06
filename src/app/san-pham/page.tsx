@@ -38,24 +38,10 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
       <main className="pt-4 md:pt-20 pb-20">
         <div className="container mx-auto px-4">
           
-          {/* Hero Section for Category */}
-          <div className="bg-[#1a5c2a] rounded-[3rem] p-12 md:p-20 relative overflow-hidden mb-12">
-             <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-             <div className="relative z-10 max-w-2xl">
-                <Breadcrumbs 
-                  items={[{ label: 'Trang chủ', href: '/' }, { label: 'Tất cả sản phẩm' }]} 
-                  className="mb-6 text-white/60"
-                  activeColor="text-[#f5a623]"
-                />
-                <h1 className="text-4xl md:text-6xl font-black text-white uppercase tracking-tighter leading-tight mb-6">
-                   Danh mục <br />
-                   <span className="text-[#f5a623]">Vật tư nông nghiệp</span>
-                </h1>
-                <p className="text-emerald-100/70 font-medium text-lg leading-relaxed">
-                   Tổng hợp các dòng phân bón sinh học, thuốc bảo vệ thực vật và kích rễ chuyên sâu cho Sầu Riêng, Cà Phê, Hồ Tiêu.
-                </p>
-             </div>
-          </div>
+          <Breadcrumbs 
+            items={[{ label: 'Trang chủ', href: '/' }, { label: 'Tất cả sản phẩm' }]} 
+            className="mb-8"
+          />
 
           <div className="flex flex-col lg:flex-row gap-12">
             
@@ -104,24 +90,6 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
 
             {/* Product Grid */}
             <div className="lg:w-3/4">
-               {/* Horizontal Category Bar for Desktop/Mobile */}
-               <div className="flex items-center gap-2 mb-8 overflow-x-auto scrollbar-hide pb-2">
-                  <Link 
-                    href="/san-pham"
-                    className={`flex-shrink-0 px-6 py-2.5 rounded-full text-[11px] font-black uppercase tracking-widest transition-all ${!category ? 'bg-emerald-600 text-white shadow-lg' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'}`}
-                  >
-                    Tất cả
-                  </Link>
-                  {['Phục hồi rễ', 'Trị tuyến trùng', 'Xanh lá - mướt cây', 'Dưỡng bông - đậu trái'].map(item => (
-                    <Link 
-                      key={item}
-                      href={`/san-pham?category=${encodeURIComponent(item)}`}
-                      className={`flex-shrink-0 px-6 py-2.5 rounded-full text-[11px] font-black uppercase tracking-widest transition-all ${category === item ? 'bg-emerald-600 text-white shadow-lg' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'}`}
-                    >
-                      {item}
-                    </Link>
-                  ))}
-               </div>
 
                <div className="flex items-center justify-between mb-8">
                   <p className="text-gray-400 text-xs font-bold">
