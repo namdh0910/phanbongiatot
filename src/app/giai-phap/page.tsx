@@ -26,7 +26,7 @@ export default async function SolutionsPage() {
 
   return (
     <div className="bg-[#f8fafc] min-h-screen">
-      <main className="pt-24 pb-20">
+      <main className="pt-20 pb-20">
         <div className="container mx-auto px-4">
           
           {/* Hero Section */}

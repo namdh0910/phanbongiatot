@@ -104,11 +104,11 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
         dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
       />
 
-      <main className="pt-24 pb-20">
+      <main className="pt-20 pb-20">
         <div className="container mx-auto px-4">
           
           {/* Breadcrumbs */}
-          <div className="mb-8">
+          <div className="mb-6">
             <Breadcrumbs items={[
               { label: 'Sản phẩm', href: '/san-pham' },
               { label: product.category, href: `/danh-muc/${product.category.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[đĐ]/g, 'd').replace(/\s+/g, '-')}` },
@@ -116,15 +116,15 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             ]} />
           </div>
 
-          <div className="flex flex-col lg:flex-row gap-12 lg:gap-20">
+          <div className="flex flex-col lg:flex-row gap-10 lg:gap-20">
             
             {/* Left: Images */}
-            <div className="lg:w-1/2 space-y-6">
-              <div className="aspect-square rounded-[3rem] overflow-hidden bg-gray-50 border border-gray-100 shadow-inner group relative">
+            <div className="lg:w-1/2 space-y-4">
+              <div className="aspect-square max-h-[350px] md:max-h-none rounded-[2rem] md:rounded-[3rem] overflow-hidden bg-gray-50 border border-gray-100 shadow-inner group relative mx-auto">
                 <img 
                   src={product.images?.[0] || '/og-image.png'} 
                   alt={product.name} 
-                  className="w-full h-full object-contain p-8 group-hover:scale-105 transition-transform duration-700" 
+                  className="w-full h-full object-contain p-4 md:p-8 group-hover:scale-105 transition-transform duration-700" 
                 />
                 {product.isHot && (
                   <div className="absolute top-8 left-8 bg-red-600 text-white px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest animate-pulse shadow-lg">

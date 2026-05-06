@@ -30,7 +30,7 @@ export default async function ProductsPage() {
   
   return (
     <div className="bg-white min-h-screen">
-      <main className="pt-24 pb-20">
+      <main className="pt-20 pb-20">
         <div className="container mx-auto px-4">
           
           {/* Hero Section for Category */}
