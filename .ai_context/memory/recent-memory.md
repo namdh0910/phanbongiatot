@@ -4,6 +4,7 @@
 - **Date**: 2026-05-06
 - **Latest Activities (Directive 10 - UI Cleanup DONE)**:
   - **Build & Deploy**:
+    - **Proxy Export Fix**: Renamed the exported function from `middleware` to `proxy` in `src/proxy.ts` to satisfy Next.js 16 requirements after migrating from `middleware.ts`.
     - **Middleware Migration**: Renamed `src/middleware.ts` to `src/proxy.ts` following Next.js 16 recommendations to resolve build warnings that might be blocking Vercel deployments.
     - **Vercel Build Force**: Bumped `package.json` version to `0.1.1` to force Vercel to recognize the project state change and trigger a new deployment after webhook delays.
     - **Vercel Sync Fix**: Forced a config-level sync by modifying `next.config.ts` after identifying that latest commits were not appearing on the Vercel dashboard.
