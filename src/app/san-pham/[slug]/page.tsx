@@ -121,7 +121,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             
             {/* Left: Images */}
             <div className="lg:w-1/2 space-y-4">
-              <div className="aspect-square max-h-[350px] md:max-h-none rounded-[2rem] md:rounded-[3rem] overflow-hidden bg-gray-50 border border-gray-100 shadow-inner group relative mx-auto">
+              <div className="aspect-square max-h-[300px] md:max-h-none rounded-[2rem] md:rounded-[3rem] overflow-hidden bg-gray-50 border border-gray-100 shadow-inner group relative mx-auto">
                 <img 
                   src={product.images?.[0] || '/og-image.png'} 
                   alt={product.name} 
@@ -144,21 +144,6 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                 </div>
               )}
 
-              {/* Trust Badges */}
-              <div className="grid grid-cols-3 gap-4 pt-6">
-                 <div className="flex flex-col items-center text-center p-4 bg-emerald-50/50 rounded-2xl border border-emerald-100">
-                    <ShieldCheck className="text-emerald-700 mb-2" size={20} />
-                    <span className="text-[9px] font-black uppercase tracking-widest text-emerald-900">Chính hãng 100%</span>
-                 </div>
-                 <div className="flex flex-col items-center text-center p-4 bg-emerald-50/50 rounded-2xl border border-emerald-100">
-                    <Truck className="text-emerald-700 mb-2" size={20} />
-                    <span className="text-[9px] font-black uppercase tracking-widest text-emerald-900">Giao toàn quốc</span>
-                 </div>
-                 <div className="flex flex-col items-center text-center p-4 bg-emerald-50/50 rounded-2xl border border-emerald-100">
-                    <RotateCcw className="text-emerald-700 mb-2" size={20} />
-                    <span className="text-[9px] font-black uppercase tracking-widest text-emerald-900">Kiểm tra tại vườn</span>
-                 </div>
-              </div>
             </div>
 
             {/* Right: Info & CTA */}
@@ -235,33 +220,50 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                     </div>
                 </div>
 
-                <div className="pt-10 border-t border-gray-100 space-y-8">
-                   <div className="bg-emerald-50/30 p-6 md:p-10 rounded-[2.5rem] border border-emerald-100/50">
-                      <h3 className="text-2xl font-black text-emerald-900 uppercase italic tracking-tight mb-6 flex items-center gap-3">
-                         <span className="w-2 h-8 bg-orange-500 rounded-full" />
-                         Công dụng chuyên sâu
-                      </h3>
-                      <div 
-                        className="text-gray-700 leading-relaxed font-medium prose prose-emerald prose-base md:prose-lg max-w-none prose-p:mb-4 prose-strong:text-emerald-900 prose-strong:font-black"
-                        dangerouslySetInnerHTML={{ __html: product.description.replace(/\n/g, '<br/>') }}
-                      ></div>
+                {/* Trust Badges - Moved here for better conversion flow */}
+                <div className="grid grid-cols-3 gap-3 pt-6">
+                   <div className="flex flex-col items-center text-center p-3 bg-emerald-50/50 rounded-2xl border border-emerald-100">
+                      <ShieldCheck className="text-emerald-700 mb-2" size={18} />
+                      <span className="text-[8px] md:text-[9px] font-black uppercase tracking-widest text-emerald-900">Chính hãng</span>
                    </div>
-
-                   {product.features && product.features.length > 0 && (
-                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {(product.features || []).map((feature: string, i: number) => (
-                           <div key={i} className="flex items-center gap-4 bg-white p-5 rounded-2xl border border-gray-100 shadow-sm">
-                              <div className="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center flex-shrink-0">
-                                <CheckCircle2 className="text-emerald-700" size={20} />
-                              </div>
-                              <span className="text-sm md:text-base font-bold text-gray-800">{feature}</span>
-                           </div>
-                        ))}
-                     </div>
-                   )}
+                   <div className="flex flex-col items-center text-center p-3 bg-emerald-50/50 rounded-2xl border border-emerald-100">
+                      <Truck className="text-emerald-700 mb-2" size={18} />
+                      <span className="text-[8px] md:text-[9px] font-black uppercase tracking-widest text-emerald-900">Giao toàn quốc</span>
+                   </div>
+                   <div className="flex flex-col items-center text-center p-3 bg-emerald-50/50 rounded-2xl border border-emerald-100">
+                      <RotateCcw className="text-emerald-700 mb-2" size={18} />
+                      <span className="text-[8px] md:text-[9px] font-black uppercase tracking-widest text-emerald-900">Kiểm tra vườn</span>
+                   </div>
                 </div>
               </div>
             </div>
+          </div>
+
+          {/* Detailed Info - Now Full Width for better readability */}
+          <div className="mt-12 pt-10 border-t border-gray-100 space-y-12">
+             <div className="bg-emerald-50/30 p-6 md:p-12 rounded-[2.5rem] md:rounded-[3.5rem] border border-emerald-100/50">
+                <h3 className="text-2xl md:text-3xl font-black text-emerald-900 uppercase italic tracking-tight mb-8 flex items-center gap-3">
+                   <span className="w-2 h-10 bg-orange-500 rounded-full" />
+                   Công dụng chuyên sâu
+                </h3>
+                <div 
+                  className="text-gray-700 leading-relaxed font-medium prose prose-emerald prose-base md:prose-xl max-w-none prose-p:mb-6 prose-strong:text-emerald-900 prose-strong:font-black"
+                  dangerouslySetInnerHTML={{ __html: product.description.replace(/\n/g, '<br/>') }}
+                ></div>
+             </div>
+
+             {product.features && product.features.length > 0 && (
+               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {(product.features || []).map((feature: string, i: number) => (
+                     <div key={i} className="flex items-center gap-6 bg-white p-6 rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                        <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center flex-shrink-0">
+                          <CheckCircle2 className="text-emerald-700" size={24} />
+                        </div>
+                        <span className="text-base md:text-lg font-bold text-gray-800">{feature}</span>
+                     </div>
+                  ))}
+               </div>
+             )}
           </div>
 
         {/* Related Products */}

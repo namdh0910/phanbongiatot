@@ -131,10 +131,11 @@
   - **Build Recovery & Final Cleanup (Hotfix)**:
     - **Fixed Seed-Blogs Syntax**: Resolved a critical build failure caused by an unclosed template literal and duplicate `content` property in `src/app/api/admin/seed-blogs/route.ts`.
     - **Final Terminology Sweep**: Removed the very last occurrences of "phác đồ" in the blog seeding data to ensure 100% compliance with the new language standards.
-   - **Product Detail Build Recovery (Hotfix)**:
-     - **JSX Tag Balance**: Resolved a critical build failure caused by a dangling `</div>` and a malformed `<span>` tag. Standardized the file to have a perfect 36/36 div count.
-     - **Turbopack Compatibility**: Updated `dangerouslySetInnerHTML` to use standard closing tags to avoid parsing errors in Next.js 16.
-     - **Structural Alignment**: Re-anchored the `Related Products` section to ensure it remains within the main container flow.
+   - **Product Detail Layout Optimization (Directive 13)**:
+     - **Above-the-Fold Priority**: Moved Price and CTA buttons significantly higher on mobile by relocating secondary Trust Badges and reducing hero image max-height (350px -> 300px).
+     - **High-Density UX**: Transitioned product description and features to a full-width container below the main fold, improving readability and reducing vertical scroll fatigue in the right column.
+     - **CRO Enhancement**: Redesigned Trust Badges to be more compact and placed them as social proof directly below the transactional buttons.
+     - **Build Stability**: Resolved a missing `</div>` in the button grid that was introduced during the layout refactor.
 
 
 
