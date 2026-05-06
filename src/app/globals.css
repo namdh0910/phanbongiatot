@@ -25,7 +25,8 @@
   background-color: #0d2a1c;
 }
 
-@media (prefers-color-scheme: dark) {
+/* Disabled auto dark mode to prevent white-on-white text issues with hardcoded light backgrounds */
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0f172a;
     --foreground: #f8fafc;
@@ -34,7 +35,7 @@
     --secondary: #fef08a;
     --accent: #4ade80;
   }
-}
+} */
 
 html {
   scroll-behavior: smooth;

@@ -4,9 +4,9 @@
 - **Date**: 2026-05-06
 - **Latest Activities (Directive 10 - UI Cleanup DONE)**:
   - **UI/UX Decluttering & Header Optimization**:
+    - **Critical Bug Fix: Text Visibility**: Disabled automatic dark mode in `globals.css` to resolve white-on-white text conflicts caused by system-level dark mode settings interacting with hardcoded light UI components (`bg-white`, `bg-gray-50`).
     - **Header Streamlining**: Achieved ultra-compact mobile header (48px height) and resized all internal elements (Menu, Search, Call) to maximize content visibility.
     - **Hero Section Refactoring**: Compressed Hero section height to 35vh and reduced mobile padding-top to 12 units to match the user's visual "red frame" request.
-    - **Commercial Focus**: Replaced the 4 static Trust Badge cards with a dynamic "Featured Products" (Sản phẩm chủ lực) grid, integrating real-time product fetching into the homepage.
     - **Redundancy Removal**: Hidden the horizontal "Quick Category Scrollbar" from the Header when on the homepage, avoiding conflict with the main content.
   - **Core Stability & Recovery Hardening**:
     - **Hydration Fix**: Resolved SSR-to-Client mismatches in Header and Navigation by encapsulating browser-only APIs (localStorage, window) in `useEffect`.
