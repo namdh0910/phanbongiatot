@@ -1,7 +1,7 @@
 import mongoose, { Schema, model, models } from 'mongoose';
 
 export interface IAnalytics {
-  type: 'page_view' | 'zalo_click' | 'call_click' | 'lead_submit' | 'ViewPopup';
+  type: 'page_view' | 'zalo_click' | 'call_click' | 'lead_submit' | 'ViewPopup' | 'QuickBuy_Click';
   path: string; // Trang xảy ra sự kiện
   metadata?: any; // Thông tin thêm (ví dụ: tên sản phẩm nếu là click từ trang sp)
   sessionId?: string;
@@ -12,7 +12,7 @@ const analyticsSchema = new Schema<IAnalytics>({
   type: { 
     type: String, 
     required: true,
-    enum: ['page_view', 'zalo_click', 'call_click', 'lead_submit', 'ViewPopup']
+    enum: ['page_view', 'zalo_click', 'call_click', 'lead_submit', 'ViewPopup', 'QuickBuy_Click']
   },
   path: { type: String, required: true },
   metadata: { type: Schema.Types.Mixed },
