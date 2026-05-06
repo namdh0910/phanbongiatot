@@ -215,25 +215,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 2.5 Quick Category Links (Mobile Only) */}
-      <section className="md:hidden py-8 bg-white overflow-hidden">
-        <div className="px-4 flex items-center justify-between gap-4 overflow-x-auto scrollbar-hide">
-          {[
-            { name: "Sầu riêng", icon: "🌳", bg: "bg-emerald-50", text: "text-emerald-700", href: "/danh-muc/sau-rieng" },
-            { name: "Cà phê", icon: "☕", bg: "bg-amber-50", text: "text-amber-700", href: "/danh-muc/ca-phe" },
-            { name: "Hồ tiêu", icon: "🌿", bg: "bg-green-50", text: "text-green-700", href: "/danh-muc/ho-tieu" },
-            { name: "Kích rễ", icon: "⚡", bg: "bg-orange-50", text: "text-orange-700", href: "/danh-muc/kich-re" },
-            { name: "Kiến thức", icon: "📖", bg: "bg-blue-50", text: "text-blue-700", href: "/blog" }
-          ].map((item, i) => (
-            <Link key={i} href={item.href} className="flex flex-col items-center gap-2 flex-shrink-0">
-              <div className={`w-14 h-14 ${item.bg} rounded-2xl flex items-center justify-center text-2xl shadow-sm active:scale-90 transition-transform`}>
-                {item.icon}
-              </div>
-              <span className={`text-[10px] font-black uppercase tracking-widest ${item.text}`}>{item.name}</span>
-            </Link>
-          ))}
-        </div>
-      </section>
+      {/* Removing Quick Category Links to reduce clutter as requested by user */}
 
       {/* 3. Brand Marquee - Building Credibility */}
       <section className="bg-gray-50 py-10 border-y border-gray-100 overflow-hidden">

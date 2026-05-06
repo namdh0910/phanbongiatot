@@ -1,8 +1,12 @@
 # Recent Memory (Last 48h)
 
 ## 🕒 Current Context
-- **Date**: 2026-05-05
-- **Latest Activities (Directive 03, 04, 05 DONE)**:
+- **Date**: 2026-05-06
+- **Latest Activities (Directive 10 - UI Cleanup DONE)**:
+  - **UI/UX Decluttering & Header Optimization**:
+    - **Header Streamlining**: Reduced mobile header height from 72px to 64px to reclaim vertical screen space.
+    - **Redundancy Removal**: Hidden the horizontal "Quick Category Scrollbar" from the Header when on the homepage, avoiding conflict with the main content.
+    - **Homepage Cleanup**: Deleted the "Quick Category Links" icon section on the mobile homepage to reduce visual "stacking" and focus user attention on the primary Solution/Pathology cards.
   - **Core Stability & Recovery Hardening**:
     - **Hydration Fix**: Resolved SSR-to-Client mismatches in Header and Navigation by encapsulating browser-only APIs (localStorage, window) in `useEffect`.
     - **Null Safety**: Hardened `.map()` calls in Blog and Product detail pages with existence checks to prevent "White Screen of Death" crashes.

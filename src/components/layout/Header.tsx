@@ -211,7 +211,7 @@ export default function Header() {
 
         {/* MOBILE HEADER - ELDERLY FRIENDLY DESIGN */}
         <div className="lg:hidden">
-          <div className="flex items-center gap-3 px-4 h-[72px] bg-gradient-to-r from-[#1B5E20] to-[#2E7D32] text-white shadow-lg relative z-[200]">
+          <div className="flex items-center gap-3 px-4 h-[64px] bg-gradient-to-r from-[#1B5E20] to-[#2E7D32] text-white shadow-lg relative z-[200]">
             <button 
               onClick={() => setIsMenuOpen(true)}
               aria-label="Mở menu chính"
@@ -243,26 +243,28 @@ export default function Header() {
             </a>
           </div>
 
-          {/* QUICK CATEGORY SCROLLBAR */}
-          <div className="bg-white border-b border-gray-100 py-3 overflow-x-auto scrollbar-hide flex items-center gap-3 px-4 shadow-sm">
-            {[
-              { name: "Tất cả", icon: "🏠", href: "/" },
-              { name: "Sầu riêng", icon: "🌳", href: "/tim-kiem?q=sau-rieng" },
-              { name: "Cà phê", icon: "☕", href: "/tim-kiem?q=ca-phe" },
-              { name: "Hồ tiêu", icon: "🌿", href: "/tim-kiem?q=ho-tieu" },
-              { name: "Cây Ăn Trái", icon: "🥭", href: "/tim-kiem?q=cay-an-trai" },
-              { name: "Kiến thức", icon: "📖", href: "/blog" },
-              { name: "Hỏi đáp", icon: "❓", href: "/hoi-dap-ky-thuat" }
-            ].map((cat, i) => (
-              <Link 
-                key={i} 
-                href={cat.href}
-                className="flex-shrink-0 flex items-center gap-2 bg-white border border-gray-100 px-4 py-2.5 rounded-full text-[13px] font-black text-gray-800 active:bg-emerald-600 active:text-white transition-all shadow-md"
-              >
-                <span className="text-base">{cat.icon}</span> {cat.name}
-              </Link>
-            ))}
-          </div>
+          {/* QUICK CATEGORY SCROLLBAR - Hide on homepage to avoid redundancy with Hero categories */}
+          {pathname !== '/' && (
+            <div className="bg-white border-b border-gray-100 py-3 overflow-x-auto scrollbar-hide flex items-center gap-3 px-4 shadow-sm">
+              {[
+                { name: "Tất cả", icon: "🏠", href: "/" },
+                { name: "Sầu riêng", icon: "🌳", href: "/tim-kiem?q=sau-rieng" },
+                { name: "Cà phê", icon: "☕", href: "/tim-kiem?q=ca-phe" },
+                { name: "Hồ tiêu", icon: "🌿", href: "/tim-kiem?q=ho-tieu" },
+                { name: "Cây Ăn Trái", icon: "🥭", href: "/tim-kiem?q=cay-an-trai" },
+                { name: "Kiến thức", icon: "📖", href: "/blog" },
+                { name: "Hỏi đáp", icon: "❓", href: "/hoi-dap-ky-thuat" }
+              ].map((cat, i) => (
+                <Link 
+                  key={i} 
+                  href={cat.href}
+                  className="flex-shrink-0 flex items-center gap-2 bg-white border border-gray-100 px-4 py-2.5 rounded-full text-[13px] font-black text-gray-800 active:bg-emerald-600 active:text-white transition-all shadow-md"
+                >
+                  <span className="text-base">{cat.icon}</span> {cat.name}
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
       </header>
 
