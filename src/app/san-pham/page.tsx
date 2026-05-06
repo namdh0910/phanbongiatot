@@ -6,13 +6,16 @@ import { API_BASE_URL } from '@/utils/api';
 import { ChevronRight, ArrowRight, MessageCircle, Filter, Search } from 'lucide-react';
 import Breadcrumbs from '@/components/ui/Breadcrumbs';
 
+import dbConnect from '@/lib/db';
+import Product from '@/lib/models/Product';
+
 async function getProducts() {
   try {
-    const res = await fetch(`${API_BASE_URL}/products`, { next: { revalidate: 3600 } });
-    if (!res.ok) return [];
-    const data = await res.json();
-    return data.data || data.products || (Array.isArray(data) ? data : []);
+    await dbConnect();
+    const products = await Product.find({ status: 'approved' }).sort({ created_at: -1 }).lean();
+    return JSON.parse(JSON.stringify(products));
   } catch (error) {
+    console.error('Error fetching products:', error);
     return [];
   }
 }

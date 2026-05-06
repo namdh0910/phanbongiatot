@@ -20,22 +20,29 @@ import Breadcrumbs from '@/components/ui/Breadcrumbs';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
+import dbConnect from '@/lib/db';
+import Product from '@/lib/models/Product';
+
 async function getProduct(slug: string) {
   try {
-    const res = await fetch(`${API_BASE_URL}/products/${slug}`, { next: { revalidate: 3600 } });
-    if (!res.ok) return null;
-    return await res.json();
+    await dbConnect();
+    const product = await Product.findOne({ slug }).lean();
+    return product ? JSON.parse(JSON.stringify(product)) : null;
   } catch (error) {
+    console.error('Error fetching product:', error);
     return null;
   }
 }
 
 async function getRelatedProducts(category: string, currentSlug: string) {
   try {
-    const res = await fetch(`${API_BASE_URL}/products?category=${category}`);
-    if (!res.ok) return [];
-    const data = await res.json();
-    return (data.products || []).filter((p: any) => p.slug !== currentSlug).slice(0, 4);
+    await dbConnect();
+    const products = await Product.find({ 
+      category: category,
+      slug: { $ne: currentSlug },
+      status: 'approved'
+    }).limit(4).lean();
+    return JSON.parse(JSON.stringify(products));
   } catch (error) {
     return [];
   }

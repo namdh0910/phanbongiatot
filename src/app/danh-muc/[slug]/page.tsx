@@ -4,30 +4,35 @@ import { ChevronRight, Search, Filter, MessageCircle, Phone } from 'lucide-react
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import MobileBottomNav from '@/components/layout/MobileBottomNav';
-import { API_BASE_URL } from '@/utils/api';
+import dbConnect from '@/lib/db';
+import Product from '@/lib/models/Product';
+import mongoose from 'mongoose';
 
 async function getCategoryData(slug: string) {
   try {
-    // Determine search keyword based on slug
+    await dbConnect();
     const keyword = slug.replace(/-/g, ' ');
     
-    const [productsRes, pathologiesRes] = await Promise.all([
-      fetch(`${API_BASE_URL}/api/products?q=${slug}`, { next: { revalidate: 3600 } }),
-      fetch(`${API_BASE_URL}/api/pathologies`, { next: { revalidate: 3600 } })
-    ]);
+    // Fetch products
+    const products = await Product.find({
+      $or: [
+        { category_id: slug },
+        { category: { $regex: keyword, $options: 'i' } }
+      ],
+      status: 'approved'
+    }).sort({ created_at: -1 }).lean();
 
-    const productsData = await productsRes.json();
-    const pathologiesData = await pathologiesRes.json();
-
-    // Filter pathologies that match the crop/slug in their title or content
-    const filteredPathologies = (pathologiesData.pathologies || []).filter((p: any) => 
+    // Fetch pathologies directly from DB collection
+    const pathologies = await mongoose.connection.db.collection('pathologies').find({}).toArray();
+    
+    const filteredPathologies = pathologies.filter((p: any) => 
       p.title.toLowerCase().includes(keyword.toLowerCase()) || 
       p.slug.includes(slug)
     );
 
     return {
-      products: productsData.products || [],
-      pathologies: filteredPathologies,
+      products: JSON.parse(JSON.stringify(products)),
+      pathologies: JSON.parse(JSON.stringify(filteredPathologies)),
       categoryName: keyword.charAt(0).toUpperCase() + keyword.slice(1)
     };
   } catch (err) {
