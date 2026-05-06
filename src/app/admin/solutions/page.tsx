@@ -246,7 +246,7 @@ export default function AdminSolutions() {
                               img.src = event.target?.result as string;
                               img.onload = () => {
                                 const canvas = document.createElement('canvas');
-                                const MAX_WIDTH = 1200;
+                                const MAX_WIDTH = 800; // Giảm xuống 800 để nhẹ hơn
                                 let width = img.width;
                                 let height = img.height;
 
@@ -260,8 +260,8 @@ export default function AdminSolutions() {
                                 const ctx = canvas.getContext('2d');
                                 ctx?.drawImage(img, 0, 0, width, height);
                                 
-                                // Compress as JPEG with 0.7 quality
-                                const dataUrl = canvas.toDataURL('image/jpeg', 0.7);
+                                // Compress as JPEG with 0.6 quality
+                                const dataUrl = canvas.toDataURL('image/jpeg', 0.6);
                                 setFormData({...formData, image: dataUrl});
                               };
                             };
