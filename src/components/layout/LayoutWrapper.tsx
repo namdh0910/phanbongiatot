@@ -22,7 +22,9 @@ export default function LayoutWrapper({ children }: { children: React.ReactNode 
 
   return (
     <>
-      <Header />
+      <React.Suspense fallback={<div className="h-[48px] bg-[#1B5E20]" />}>
+        <Header />
+      </React.Suspense>
       <main className="flex-1">
         {children}
       </main>
