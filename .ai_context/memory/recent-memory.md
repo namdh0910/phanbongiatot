@@ -14,7 +14,10 @@
       - **Dashboard UI**: Trang `/admin/dashboard` hiện là trung tâm báo cáo trực quan với biểu đồ 7 ngày, thống kê chuyển đổi và Top trang xem nhiều.
       - **Settings Migration**: Chuyển phần cấu hình hệ thống cũ sang `/admin/settings` và cập nhật điều hướng sidebar.
       - **Frontend Integration**: Gắn mã tracking vào toàn bộ các nút Zalo/Hotline quan trọng trên web (Sticky CTA, Product Actions, Lead Form).
-    - **Triggered Vercel Re-deploy**: Manually triggered a new Vercel build via an empty commit to ensure the latest typography changes are reflected on the production site.
+    - **Critical Build Fixes**:
+      - **Suspense Boundary**: Bọc `PageTracker` trong `<Suspense>` để sửa lỗi build liên quan đến `useSearchParams()` trên các trang tĩnh (404/not-found).
+      - **Analytics Type Safety**: Bổ sung các sự kiện `ViewPopup` và `QuickBuy_Click` vào enum hệ thống để đảm bảo build TypeScript thành công 100%.
+    - **Triggered Vercel Re-deploy**: Manually triggered a new Vercel build via version bump `0.1.6` to reflect all fixes.
   - **UI/UX Optimization (Typography)**:
     - **Balanced Font Sizes**: Fine-tuned typography across the site: Reduced `/giai-phap` titles to `14px` with forced Sentence Case and `textTransform: none` to override global CSS. Increased Homepage product titles to `15px` and pathology titles to `16px` for better readability.
   - **Terminology Standardization (Language Pivot)**:
@@ -164,3 +167,5 @@
 - **Contextual Zalo Links**: Using `encodeURIComponent` with dynamic page titles significantly improves the professionalism of the first touchpoint in the sales funnel.
 - **Advisory Scripts**: Providing pre-vetted scripts for admins reduces response time and ensures technical accuracy in farmer consultations.
 - **Dynamic Context**: Using `useParams` in global components like `StickyCTA` allows for page-specific behavior without passing props through the entire layout tree.
+- **Next.js Build Safety**: Global components using `useSearchParams` (like `PageTracker`) MUST be wrapped in a `<Suspense>` boundary to prevent build failures during static page generation (e.g., 404 pages).
+- **Strict Analytics Types**: Centralizing analytics events in a TypeScript enum/type ensures that all tracking calls are validated during build, preventing "silent failures" in reporting.
