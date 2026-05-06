@@ -61,7 +61,7 @@ export default function AdminProducts() {
       const res = await fetch(`${API_BASE_URL}/products`);
       if (!res.ok) throw new Error("Failed to fetch");
       const data = await res.json();
-      const productsList = data.products || (Array.isArray(data) ? data : []);
+      const productsList = data.data || data.products || (Array.isArray(data) ? data : []);
       setProducts(productsList);
     } catch (err) {
       console.error("Fetch error", err);

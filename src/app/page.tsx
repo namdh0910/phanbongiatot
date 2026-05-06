@@ -139,16 +139,16 @@ export default function LandingPage() {
       fetch(`${API_BASE_URL}/products`).then(res => res.json())
     ]).then(([blogsData, pathologiesData, productsData]) => {
       // Handle Blogs
-      let bResults = Array.isArray(blogsData) ? blogsData : (blogsData?.blogs || []);
+      let bResults = blogsData.data || blogsData.blogs || (Array.isArray(blogsData) ? blogsData : []);
       setBlogs(bResults.slice(0, 3));
       setLoadingBlogs(false);
       
       // Handle Pathologies
-      let pResults = Array.isArray(pathologiesData) ? pathologiesData : (pathologiesData?.pathologies || []);
+      let pResults = pathologiesData.data || pathologiesData.pathologies || (Array.isArray(pathologiesData) ? pathologiesData : []);
       setActivePathologies(pResults.slice(0, 4));
 
       // Handle Products
-      let prResults = Array.isArray(productsData) ? productsData : (productsData?.products || []);
+      let prResults = productsData.data || productsData.products || (Array.isArray(productsData) ? productsData : []);
       setProducts(prResults.slice(0, 4));
       setLoadingProducts(false);
     }).catch(err => {

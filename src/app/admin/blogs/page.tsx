@@ -49,7 +49,7 @@ export default function AdminBlogs() {
       const data = await res.json();
       
       // Resilient parsing: handle { blogs: [] } or just []
-      const blogsList = data.blogs || (Array.isArray(data) ? data : []);
+      const blogsList = data.data || data.blogs || (Array.isArray(data) ? data : []);
       setBlogs(blogsList);
     } catch (err) {
       console.error("Fetch error", err);

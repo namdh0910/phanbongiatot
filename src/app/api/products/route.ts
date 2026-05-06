@@ -23,8 +23,12 @@ export async function GET(request: Request) {
       ];
     }
 
-    const products = await Product.find(filter).sort({ createdAt: -1 });
-    return NextResponse.json({ products });
+    const products = await Product.find(filter).sort({ created_at: -1 });
+    return NextResponse.json({ 
+      products,
+      data: products, // Backend compatibility
+      count: products.length 
+    });
   } catch (error: any) {
     return NextResponse.json({ error: error.message || 'Internal Server Error' }, { status: 500 });
   }
