@@ -3,6 +3,7 @@
 ## 🕒 Current Context
 - **Date**: 2026-05-06
 - **Latest Activities (Blog Fix & Optimization - DONE)**:
+  - **Hotfix: Build Failure**: Đã xóa file `scratch/check-blogs.ts` gây lỗi TypeScript check trên Vercel.
   - **Critical Fix: Blog 404 Error**: Đã khắc phục lỗi 404 khi truy cập chi tiết bài viết bằng cách chuyển từ `fetch(API)` sang truy vấn Database trực tiếp trong Server Components (`blog/[slug]`, `sitemap`).
   - **Slug Standardization**: Chuẩn hóa slug `kich-re-cay-trong-dung-cach` để khớp với link điều hướng từ trang chủ.
   - **Official Domain Activation**: Đã kích hoạt thành công tên miền chính thức `phanbongiatot.com`.
