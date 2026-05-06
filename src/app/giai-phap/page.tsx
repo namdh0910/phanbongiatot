@@ -96,28 +96,38 @@ export default async function SolutionsPage() {
             </div>
           </div>
 
-          {/* Bottom Trust Section */}
-          <div className="mt-24 grid grid-cols-1 md:grid-cols-3 gap-12 border-t border-gray-100 pt-20">
-             <div className="text-center">
-                <div className="w-16 h-16 bg-emerald-50 text-emerald-700 rounded-full flex items-center justify-center mx-auto mb-6">
-                   <Zap size={30} fill="currentColor" />
+          {/* 3. Trust Banner - Running Horizontal Marquee */}
+          <div className="mt-12 md:mt-24 border-t border-gray-100 pt-10 md:pt-20 overflow-hidden">
+             <div className="relative flex overflow-x-hidden">
+                <div className="animate-marquee whitespace-nowrap flex items-center gap-12 py-4">
+                   {[
+                      { icon: <Zap size={18} fill="currentColor" />, text: "HIỆU QUẢ TỨC THÌ", desc: "Quy trình tối ưu hấp thụ ngay" },
+                      { icon: <ShieldCheck size={18} />, text: "CHÍNH HÃNG 100%", desc: "Vật tư uy tín toàn cầu" },
+                      { icon: <Star size={18} fill="currentColor" />, text: "KỸ SƯ ĐỒNG HÀNH", desc: "Theo sát vườn đến khi phục hồi" }
+                   ].map((trust, i) => (
+                      <div key={i} className="flex items-center gap-3 bg-emerald-50/50 px-6 py-3 rounded-full border border-emerald-100">
+                         <div className="text-emerald-700">{trust.icon}</div>
+                         <div>
+                            <div className="text-[10px] md:text-xs font-black text-gray-900 uppercase italic leading-none mb-1">{trust.text}</div>
+                            <div className="text-[8px] md:text-[10px] text-gray-500 font-bold uppercase tracking-widest leading-none">{trust.desc}</div>
+                         </div>
+                      </div>
+                   ))}
+                   {/* Duplicate for seamless loop */}
+                   {[
+                      { icon: <Zap size={18} fill="currentColor" />, text: "HIỆU QUẢ TỨC THÌ", desc: "Quy trình tối ưu hấp thụ ngay" },
+                      { icon: <ShieldCheck size={18} />, text: "CHÍNH HÃNG 100%", desc: "Vật tư uy tín toàn cầu" },
+                      { icon: <Star size={18} fill="currentColor" />, text: "KỸ SƯ ĐỒNG HÀNH", desc: "Theo sát vườn đến khi phục hồi" }
+                   ].map((trust, i) => (
+                      <div key={`dup-${i}`} className="flex items-center gap-3 bg-emerald-50/50 px-6 py-3 rounded-full border border-emerald-100">
+                         <div className="text-emerald-700">{trust.icon}</div>
+                         <div>
+                            <div className="text-[10px] md:text-xs font-black text-gray-900 uppercase italic leading-none mb-1">{trust.text}</div>
+                            <div className="text-[8px] md:text-[10px] text-gray-500 font-bold uppercase tracking-widest leading-none">{trust.desc}</div>
+                         </div>
+                      </div>
+                   ))}
                 </div>
-                <h4 className="text-lg font-black text-gray-900 uppercase italic mb-3">Hiệu quả tức thì</h4>
-                <p className="text-gray-500 text-sm font-medium">Quy trình tối ưu giúp cây hấp thụ dinh dưỡng ngay lập tức.</p>
-             </div>
-             <div className="text-center">
-                <div className="w-16 h-16 bg-emerald-50 text-emerald-700 rounded-full flex items-center justify-center mx-auto mb-6">
-                   <ShieldCheck size={30} />
-                </div>
-                <h4 className="text-lg font-black text-gray-900 uppercase italic mb-3">Chính hãng 100%</h4>
-                <p className="text-gray-500 text-sm font-medium">Toàn bộ vật tư sử dụng đều từ các tập đoàn nông nghiệp uy tín.</p>
-             </div>
-             <div className="text-center">
-                <div className="w-16 h-16 bg-emerald-50 text-emerald-700 rounded-full flex items-center justify-center mx-auto mb-6">
-                   <Star size={30} fill="currentColor" />
-                </div>
-                <h4 className="text-lg font-black text-gray-900 uppercase italic mb-3">Kỹ sư đồng hành</h4>
-                <p className="text-gray-500 text-sm font-medium">Theo sát vườn từ lúc xử lý đến khi phục hồi hoàn toàn.</p>
              </div>
           </div>
         </div>
