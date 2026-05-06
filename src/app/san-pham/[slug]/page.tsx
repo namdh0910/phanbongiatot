@@ -104,7 +104,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
         dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
       />
 
-      <main className="pt-20 pb-20">
+      <main className="pt-4 md:pt-20 pb-20">
         <div className="container mx-auto px-4">
           
           {/* Breadcrumbs */}
@@ -176,7 +176,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                    )}
                 </div>
 
-                <h1 className="text-3xl md:text-5xl font-black text-gray-900 uppercase tracking-tighter leading-tight">
+                <h1 className="text-2xl md:text-5xl font-black text-gray-900 uppercase tracking-tighter leading-tight">
                   {product.name}
                 </h1>
 
@@ -208,17 +208,17 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                    </div>
                 </div>
 
-                <div className="space-y-4 pt-6">
+                 <div className="space-y-3 pt-6">
                    <a 
                      href={zaloUrl}
                      target="_blank"
-                     className="w-full bg-[#0068FF] hover:bg-blue-600 text-white py-6 rounded-2xl font-black text-lg uppercase tracking-[0.1em] flex items-center justify-center gap-3 shadow-xl shadow-blue-100 transition-all active:scale-95 animate-heartbeat"
+                     className="w-full bg-[#0068FF] hover:bg-blue-600 text-white py-4 md:py-6 rounded-2xl font-black text-base md:text-lg uppercase tracking-[0.1em] flex items-center justify-center gap-3 shadow-xl shadow-blue-100 transition-all active:scale-95 animate-heartbeat"
                    >
                       <MessageCircle fill="currentColor" /> Chat Zalo Nhận Phác Đồ
                    </a>
                    <a 
                      href="tel:0773440966"
-                     className="w-full bg-white border-2 border-[#1a5c2a] text-[#1a5c2a] hover:bg-emerald-50 py-6 rounded-2xl font-black text-lg uppercase tracking-[0.1em] flex items-center justify-center gap-3 transition-all active:scale-95"
+                     className="w-full bg-white border-2 border-[#1a5c2a] text-[#1a5c2a] hover:bg-emerald-50 py-4 md:py-6 rounded-2xl font-black text-base md:text-lg uppercase tracking-[0.1em] flex items-center justify-center gap-3 transition-all active:scale-95"
                    >
                       <Phone /> Gọi kỹ sư ngay
                    </a>
@@ -253,7 +253,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
 
           {/* Related Products */}
           {relatedProducts.length > 0 && (
-            <div className="mt-32 pt-20 border-t border-gray-100">
+            <div className="mt-12 md:mt-32 pt-10 md:pt-20 border-t border-gray-100">
                <div className="flex items-center justify-between mb-12">
                   <h2 className="text-3xl font-black text-gray-900 uppercase italic tracking-tighter">
                      Vật tư khuyến nghị cùng bộ
