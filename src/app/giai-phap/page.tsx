@@ -80,9 +80,9 @@ export default async function SolutionsPage({ searchParams }: { searchParams: Pr
                 </div>
 
                 <div className="p-3 md:p-8 flex flex-col flex-1">
-                  <h2 className="text-[8px] md:text-2xl font-medium text-gray-800 mb-2 md:mb-4 leading-tight group-hover:text-emerald-700 transition-colors line-clamp-2 lowercase first-letter:uppercase">
+                  <h3 className="text-[14px] md:text-2xl font-bold text-gray-800 mb-2 md:mb-4 leading-tight group-hover:text-emerald-700 transition-colors line-clamp-2 lowercase first-letter:uppercase">
                     {item.title}
-                  </h2>
+                  </h3>
                   
                   <p className="hidden md:block text-gray-500 font-medium text-sm line-clamp-3 mb-6 leading-relaxed">
                     {item.painPoint}

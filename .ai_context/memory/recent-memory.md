@@ -3,6 +3,8 @@
 ## 🕒 Current Context
 - **Date**: 2026-05-06
 - **Latest Activities (Directive 10 - UI Cleanup DONE)**:
+  - **UI/UX Optimization (Typography)**:
+    - **Reduced Solution Title Size**: Decreased the font size of solution card titles on the `/giai-phap` page from 20px (forced by global CSS) to `14px` by switching from `h2` to `h3` and applying explicit Tailwind classes. This improves mobile readability and consistency with the Product catalog.
   - **Terminology Standardization (Language Pivot)**:
     - **Removed "Phác đồ" globally**: Replaced all occurrences of the medical-sounding term "phác đồ" with more farmer-friendly terms like "Giải pháp" (Solution) or "Quy trình" (Process) across the entire codebase (Homepage, Blog, Products, Header, etc.).
     - **Updated AI Rules**: Modified `.ai_context/AI_RULES.md` to strictly enforce the use of "giải pháp/quy trình" and ban "phác đồ" in future content generation.
