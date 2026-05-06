@@ -81,7 +81,7 @@ function BlogContent() {
                    {post.type === 'video' && (
                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                         <div className="w-10 h-10 md:w-14 md:h-14 bg-white rounded-full flex items-center justify-center text-[#1a5c2a] shadow-2xl">
-                           <Play fill="currentColor" size={18} />
+                           <Play fill="currentColor" size={20} />
                         </div>
                      </div>
                    )}
@@ -97,7 +97,7 @@ function BlogContent() {
                    </p>
                    <div className="mt-auto flex items-center justify-between pt-2 md:pt-4 border-t border-gray-50">
                       <span className="text-gray-400 text-[8px] md:text-[10px] font-bold uppercase tracking-widest flex items-center gap-1 md:gap-1.5">
-                         <Clock size={10} md:size={14} /> {new Date(post.createdAt).toLocaleDateString('vi-VN')}
+                         <Clock size={12} /> {new Date(post.createdAt).toLocaleDateString('vi-VN')}
                       </span>
                       <span className="text-gray-900 font-black text-[8px] md:text-[10px] uppercase tracking-[0.2em] group-hover:translate-x-1 md:group-hover:translate-x-2 transition-transform">
                          ➔
