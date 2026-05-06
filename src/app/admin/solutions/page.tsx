@@ -90,7 +90,10 @@ export default function AdminSolutions() {
       slug: formData.slug || formData.title.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[đĐ]/g, "d").replace(/\s+/g, "-"),
       symptoms: formData.symptoms.filter(s => s.trim() !== ""),
       wrongActions: formData.wrongActions.filter(w => w.trim() !== ""),
-      steps: formData.steps.filter(s => s.name.trim() !== ""),
+      steps: formData.steps.filter(s => s.name.trim() !== "").map(s => ({
+        ...s,
+        product: s.product === "" ? null : s.product
+      })),
       testimonials: formData.testimonials.filter(t => t.name.trim() !== "")
     };
 
