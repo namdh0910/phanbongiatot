@@ -18,7 +18,7 @@ export async function GET() {
 
           <img src="https://images.unsplash.com/photo-1605000797499-95a51c5269ae?auto=format&fit=crop&q=80" alt="Vàng lá thối rễ sầu riêng" style="width:100%; border-radius: 20px; margin: 20px 0;" />
 
-          <h2>1. Nhận diện dấu hiệu "Cấp cứu" cho vườn</h2>
+          <h2>1. Nhận diện dấu hiệu \"Cấp cứu\" cho vườn</h2>
           <p>Bà con cần đi thăm vườn ngay sau các đợt mưa kéo dài. Các dấu hiệu điển hình bao gồm:</p>
           <ul>
             <li><strong>Lá biến màu:</strong> Lá già bắt đầu ngả vàng nhạt từ gân chính sau đó lan rộng. Lá không còn bóng mượt mà trở nên xỉn màu.</li>
@@ -27,14 +27,14 @@ export async function GET() {
           </ul>
 
           <h2>2. Tại sao mưa lại gây vàng lá?</h2>
-          <p>Có 3 nguyên nhân chính khiến sầu riêng "đổ bệnh" mùa này:</p>
+          <p>Có 3 nguyên nhân chính khiến sầu riêng \"đổ bệnh\" mùa này:</p>
           <ul>
             <li><strong>Ngập úng cục bộ:</strong> Đất thiếu oxy khiến rễ bị ngạt, không thể hấp thụ dinh dưỡng.</li>
             <li><strong>Hạ pH đất:</strong> Nước mưa có tính axit làm pH đất giảm mạnh (dưới 4.5), tạo môi trường cực tốt cho nấm hại.</li>
             <li><strong>Nấm bệnh tấn công:</strong> Vết thương hở trên rễ do ngập úng là cửa ngõ để nấm xâm nhập.</li>
           </ul>
 
-          <img src="https://images.unsplash.com/photo-1599684133327-0470b8089450?auto=format&fit=crop&q=80" alt="Bộ rễ khỏe mạnh" style="width:100%; border-radius: 20px; margin: 20px 0;" />
+          <img src="https://images.unsplash.com/photo-1599684133327-0470b8089450?auto=format&fit=crop&q=80" alt=\"Bộ rễ khỏe mạnh\" style=\"width:100%; border-radius: 20px; margin: 20px 0;\" />
 
           <h2>3. Quy trình 5 bước cứu vườn dứt điểm</h2>
           <p>Để cứu vườn thành công, bà con cần thực hiện đúng trình tự sau:</p>
@@ -65,7 +65,7 @@ export async function GET() {
         coverImage: "https://images.unsplash.com/photo-1589923188900-85dae523342b?auto=format&fit=crop&q=80",
         excerpt: "Tuyến trùng tạo vết thương cho nấm Phytophthora xâm nhập. Nếu không trị tận gốc tuyến trùng, bệnh vàng lá sẽ tái phát liên tục.",
         content: `
-          <p>Nếu vàng lá thối rễ là "triệu chứng" thì <strong>Tuyến trùng</strong> thường là "nguyên nhân" sâu xa. Đây là những sinh vật siêu hiển vi chui vào rễ, tạo ra các khối u sần và mở đường cho nấm bệnh tấn công.</p>
+          <p>Nếu vàng lá thối rễ là \"triệu chứng\" thì <strong>Tuyến trùng</strong> thường là \"nguyên nhân\" sâu xa. Đây là những sinh vật siêu hiển vi chui vào rễ, tạo ra các khối u sần và mở đường cho nấm bệnh tấn công.</p>
 
           <h2>1. Dấu hiệu nhận biết Tuyến trùng</h2>
           <p>Khác với vàng lá do thiếu phân, cây bị tuyến trùng có biểu hiện:</p>
@@ -75,7 +75,7 @@ export async function GET() {
             <li><strong>Héo xanh vào buổi trưa:</strong> Cây héo rũ khi nắng gắt dù đất vẫn đủ ẩm, chiều mát lại hồi phục.</li>
           </ul>
 
-          <img src="https://images.unsplash.com/photo-1591857177580-dc82b9ac4e1e?auto=format&fit=crop&q=80" alt="Rễ bị tuyến trùng sưng tấy" style="width:100%; border-radius: 20px; margin: 20px 0;" />
+          <img src=\"https://images.unsplash.com/photo-1591857177580-dc82b9ac4e1e?auto=format&fit=crop&q=80\" alt=\"Rễ bị tuyến trùng sưng tấy\" style=\"width:100%; border-radius: 20px; margin: 20px 0;\" />
 
           <h2>2. Giải pháp tiêu diệt Tuyến trùng sinh học</h2>
           <p>Thay vì dùng hóa chất độc hại gây chết đất, Phân Bón Giá Tốt khuyên dùng <strong>Nemano</strong> - giải pháp vi sinh an toàn:</p>
@@ -101,16 +101,16 @@ export async function GET() {
         coverImage: "https://images.unsplash.com/photo-1592878904946-b3cd8ae243d0?auto=format&fit=crop&q=80",
         excerpt: "Rễ là cái miệng của cây. Kích rễ đúng thời điểm giúp cây ăn phân khỏe, lớn nhanh và tiết kiệm chi phí cho nhà nông.",
         content: `
-          <p>Bà con thường than phiền: "Sao tôi bón phân đắt tiền mà cây vẫn không lớn?". Câu trả lời nằm ở bộ rễ. Nếu rễ yếu, cây chỉ hấp thụ được 20-30% dinh dưỡng, phần còn lại bị rửa trôi gây lãng phí tiền bạc.</p>
+          <p>Bà con thường than phiền: \"Sao tôi bón phân đắt tiền mà cây vẫn không lớn?\". Câu trả lời nằm ở bộ rễ. Nếu rễ yếu, cây chỉ hấp thụ được 20-30% dinh dưỡng, phần còn lại bị rửa trôi gây lãng phí tiền bạc.</p>
 
-          <img src="https://images.unsplash.com/photo-1589923188900-85dae523342b?auto=format&fit=crop&q=80" alt="Kích rễ hữu cơ" style="width:100%; border-radius: 20px; margin: 20px 0;" />
+          <img src=\"https://images.unsplash.com/photo-1589923188900-85dae523342b?auto=format&fit=crop&q=80\" alt=\"Kích rễ hữu cơ\" style=\"width:100%; border-radius: 20px; margin: 20px 0;\" />
 
           <h2>1. Khi nào cần kích rễ?</h2>
           <ul>
-            <li><strong>Cây mới trồng:</strong> Giúp bộ rễ bén đất nhanh, tránh tình trạng "ngủ đông".</li>
+            <li><strong>Cây mới trồng:</strong> Giúp bộ rễ bén đất nhanh, tránh tình trạng \"ngủ đông\".</li>
             <li><strong>Sau thu hoạch:</strong> Phục hồi bộ rễ đã bị suy kiệt sau thời gian nuôi trái.</li>
             <li><strong>Cây bị vàng lá:</strong> Phục hồi rễ mới sau khi đã diệt sạch nấm bệnh.</li>
-            <li><strong>Trước các đợt bón phân định kỳ:</strong> "Mở miệng" cho cây để hấp thụ phân bón tốt nhất.</li>
+            <li><strong>Trước các đợt bón phân định kỳ:</strong> \"Mở miệng\" cho cây để hấp thụ phân bón tốt nhất.</li>
           </ul>
 
           <h2>2. Bí quyết kích rễ từ Kỹ sư</h2>
@@ -124,7 +124,7 @@ export async function GET() {
           <p>Chúng tôi ưu tiên sử dụng <strong>Humic K-Max</strong> kết hợp với <strong>Fulvic</strong>. </p>
           <ul>
             <li><strong>Humic:</strong> Giúp cải tạo cấu trúc đất, làm đất tơi xốp, giữ nước và phân bón.</li>
-            <li><strong>Fulvic:</strong> Đóng vai trò là "xe vận chuyển", giúp dinh dưỡng đi sâu vào từng tế bào rễ nhanh hơn gấp 3 lần bình thường.</li>
+            <li><strong>Fulvic:</strong> Đóng vai trò là \"xe vận chuyển\", giúp dinh dưỡng đi sâu vào từng tế bào rễ nhanh hơn gấp 3 lần bình thường.</li>
           </ul>
 
           <p><em>💬 Nhắn tin ngay để nhận bảng giá bộ kích rễ chuyên sâu cho từng loại cây trồng: Sầu riêng, Cà phê, Cây ăn trái.</em></p>
@@ -140,7 +140,7 @@ export async function GET() {
         coverImage: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&q=80",
         excerpt: "Mùa khô Tây Nguyên rất khắc nghiệt. Kỹ sư hướng dẫn cách tưới nước và bón phân giúp cà phê không bị vàng lá, rụng trái.",
         content: `
-          <p>Mùa khô là thời điểm thử thách nhất với cây cà phê tại Tây Nguyên. Nếu không có chiến lược chăm sóc đúng, cây sẽ bị "cháy lá", rụng trái non và suy kiệt năng suất cho vụ sau.</p>
+          <p>Mùa khô là thời điểm thử thách nhất với cây cà phê tại Tây Nguyên. Nếu không có chiến lược chăm sóc đúng, cây sẽ bị \"cháy lá\", rụng trái non và suy kiệt năng suất cho vụ sau.</p>
 
           <h2>1. Tại sao cà phê bị vàng lá mùa khô?</h2>
           <ul>
@@ -149,7 +149,7 @@ export async function GET() {
             <li><strong>Mất cân bằng dinh dưỡng:</strong> Cây tập trung nuôi trái nên rút hết dinh dưỡng từ lá.</li>
           </ul>
 
-          <img src="https://images.unsplash.com/photo-1501333193976-189f315a6b0c?auto=format&fit=crop&q=80" alt="Vườn cà phê mùa khô" style="width:100%; border-radius: 20px; margin: 20px 0;" />
+          <img src=\"https://images.unsplash.com/photo-1501333193976-189f315a6b0c?auto=format&fit=crop&q=80\" alt=\"Vườn cà phê mùa khô\" style=\"width:100%; border-radius: 20px; margin: 20px 0;\" />
 
           <h2>2. Giải pháp 3 tác động cho Cà phê</h2>
           <p><strong>Tác động 1: Quản lý nước thông minh.</strong> Không nên tưới quá nhiều một lúc gây lãng phí. Chia nhỏ đợt tưới và tưới đẫm vào vùng rễ tơ.</p>
@@ -172,21 +172,21 @@ export async function GET() {
           <p>Bệnh chết nhanh và chết chậm trên cây tiêu là nỗi ám ảnh kinh hoàng, có thể xóa sổ cả một trang trại chỉ trong thời gian ngắn. Hiểu đúng để trị đúng là chìa khóa thành công.</p>
 
           <h2>1. Phân biệt chính xác 2 loại bệnh</h2>
-          <table style="width:100%; border-collapse: collapse; border: 1px solid #ddd; margin: 20px 0;">
-            <tr style="background-color: #f2f2f2;">
-              <th style="padding: 10px; border: 1px solid #ddd;">Đặc điểm</th>
-              <th style="padding: 10px; border: 1px solid #ddd;">Chết Nhanh (Phytophthora)</th>
-              <th style="padding: 10px; border: 1px solid #ddd;">Chết Chậm (Tuyến trùng/Nấm)</th>
+          <table style=\"width:100%; border-collapse: collapse; border: 1px solid #ddd; margin: 20px 0;\">
+            <tr style=\"background-color: #f2f2f2;\">
+              <th style=\"padding: 10px; border: 1px solid #ddd;\">Đặc điểm</th>
+              <th style=\"padding: 10px; border: 1px solid #ddd;\">Chết Nhanh (Phytophthora)</th>
+              <th style=\"padding: 10px; border: 1px solid #ddd;\">Chết Chậm (Tuyến trùng/Nấm)</th>
             </tr>
             <tr>
-              <td style="padding: 10px; border: 1px solid #ddd;">Thời gian</td>
-              <td style="padding: 10px; border: 1px solid #ddd;">Cây chết trong 7-15 ngày.</td>
-              <td style="padding: 10px; border: 1px solid #ddd;">Cây chết mòn trong 3-6 tháng.</td>
+              <td style=\"padding: 10px; border: 1px solid #ddd;\">Thời gian</td>
+              <td style=\"padding: 10px; border: 1px solid #ddd;\">Cây chết trong 7-15 ngày.</td>
+              <td style=\"padding: 10px; border: 1px solid #ddd;\">Cây chết mòn trong 3-6 tháng.</td>
             </tr>
             <tr>
-              <td style="padding: 10px; border: 1px solid #ddd;">Dấu hiệu lá</td>
-              <td style="padding: 10px; border: 1px solid #ddd;">Lá vàng và rụng hàng loạt khi vẫn còn xanh.</td>
-              <td style="padding: 10px; border: 1px solid #ddd;">Lá vàng dần từ gốc lên ngọn, lá rụng chậm.</td>
+              <td style=\"padding: 10px; border: 1px solid #ddd;\">Dấu hiệu lá</td>
+              <td style=\"padding: 10px; border: 1px solid #ddd;\">Lá vàng và rụng hàng loạt khi vẫn còn xanh.</td>
+              <td style=\"padding: 10px; border: 1px solid #ddd;\">Lá vàng dần từ gốc lên ngọn, lá rụng chậm.</td>
             </tr>
           </table>
 
@@ -202,15 +202,20 @@ export async function GET() {
       }
     ];
 
+    // 1. Xóa sạch toàn bộ bài viết cũ
+    await Blog.deleteMany({});
+
+    // 2. Tạo bài viết mới
+    const seedResults = [];
     for (const blogData of blogs) {
-      await Blog.findOneAndUpdate(
-        { title: blogData.title },
-        blogData,
-        { upsert: true, new: true }
-      );
+      const blog = await Blog.create(blogData);
+      seedResults.push(blog);
     }
 
-    return NextResponse.json({ message: 'Successfully seeded 5 blogs' });
+    return NextResponse.json({ 
+      message: 'Successfully seeded 5 professional blogs',
+      count: seedResults.length 
+    });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
