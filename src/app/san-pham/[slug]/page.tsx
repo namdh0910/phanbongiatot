@@ -101,16 +101,11 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
 
   return (
     <div className="bg-white min-h-screen">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
-      />
-
-      <main className="pt-4 md:pt-20 pb-20">
-        <div className="container mx-auto px-4">
-          
-          {/* Breadcrumbs */}
-          <div className="mb-6">
+      <Header />
+      
+      <main className="pb-20 md:pb-32">
+        <div className="container mx-auto px-2 md:px-4">
+          <div className="mb-3 md:mb-6 mt-2">
             <Breadcrumbs items={[
               { label: 'Sản phẩm', href: '/san-pham' },
               { label: product.category, href: `/danh-muc/${product.category.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[đĐ]/g, 'd').replace(/\s+/g, '-')}` },
@@ -122,108 +117,112 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             
             <ProductGallery images={product.images || []} name={product.name} isHot={product.isHot} />
 
-            {/* Right: Info & CTA */}
-            <div className="lg:w-1/2">
-              <div className="space-y-4 md:space-y-6">
+            {/* Right: Info & CTA Cluster */}
+            <div className="lg:w-1/2 flex flex-col gap-4 md:gap-6">
+              {/* Cluster 2: Name & Rating */}
+              <div className="space-y-2">
                 <div className="flex items-center gap-2">
-                   <span className="bg-emerald-600 text-white px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest">
+                   <span className="bg-emerald-600 text-white px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-widest">
                      {product.category}
                    </span>
                    {product.stock > 0 ? (
-                     <span className="text-emerald-600 text-[10px] font-black uppercase tracking-widest flex items-center gap-1">
-                        <CheckCircle2 size={12} /> Còn hàng
+                     <span className="text-emerald-600 text-[9px] font-black uppercase tracking-widest flex items-center gap-1">
+                        <CheckCircle2 size={10} /> Còn hàng
                      </span>
                    ) : (
-                     <span className="text-red-500 text-[10px] font-black uppercase tracking-widest">Hết hàng</span>
+                     <span className="text-red-500 text-[9px] font-black uppercase tracking-widest">Hết hàng</span>
                    )}
                 </div>
 
-                <h1 className="text-2xl md:text-5xl font-black text-gray-900 uppercase tracking-tighter leading-tight">
+                <h1 className="text-xl md:text-5xl font-black text-gray-900 uppercase tracking-tighter leading-tight">
                   {product.name}
                 </h1>
 
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-3">
                    <div className="flex text-amber-400">
-                      {[1,2,3,4,5].map(s => <Star key={s} size={16} fill="currentColor" />)}
+                      {[1,2,3,4,5].map(s => <Star key={s} size={14} fill="currentColor" />)}
                    </div>
-                   <span className="text-gray-400 text-xs font-bold uppercase tracking-widest">
+                   <span className="text-gray-400 text-[10px] font-bold uppercase tracking-widest">
                       Đã tư vấn {product.soldCount || 150}+ vườn
                    </span>
                 </div>
+              </div>
 
-                <div className="bg-[#fcf8f0] p-6 md:p-8 rounded-[2rem] border border-orange-100 relative overflow-hidden">
-                   <div className="absolute top-0 right-0 p-8 opacity-[0.05] select-none text-8xl rotate-12">💰</div>
-                   <div className="relative z-10">
-                      <div className="flex items-center gap-3 mb-1">
-                        <span className="text-4xl md:text-5xl font-black text-[#e67e22]">
+              {/* Cluster 3: Price + Offer + Immediate CTA */}
+              <div className="space-y-3">
+                <div className="bg-[#fcf8f0] p-4 md:p-8 rounded-2xl md:rounded-[2rem] border border-orange-100 relative overflow-hidden">
+                   <div className="absolute top-0 right-0 p-4 md:p-8 opacity-[0.03] select-none text-6xl md:text-8xl rotate-12">💰</div>
+                   <div className="relative z-10 flex flex-col gap-1">
+                      <div className="flex items-baseline gap-2">
+                        <span className="text-3xl md:text-5xl font-black text-orange-600">
                             ₫{product.price?.toLocaleString("vi-VN")}
                         </span>
                         {product.originalPrice > product.price && (
-                          <span className="text-lg text-gray-400 line-through font-bold">
+                          <span className="text-sm md:text-lg text-gray-400 line-through font-bold">
                               ₫{product.originalPrice?.toLocaleString("vi-VN")}
                           </span>
                         )}
                       </div>
-                      <p className="text-emerald-700 text-[10px] md:text-xs font-black uppercase tracking-widest flex items-center gap-2">
-                         <Zap size={14} fill="currentColor" /> Nhận ngay ưu đãi khi mua theo quy trình
+                      <p className="text-emerald-700 text-[9px] md:text-xs font-black uppercase tracking-widest flex items-center gap-1.5">
+                         <Zap size={12} fill="currentColor" /> Nhận ngay ưu đãi khi mua theo quy trình
                       </p>
                    </div>
                 </div>
 
-                 <div className="flex flex-col gap-3 pt-6">
+                <div className="flex flex-col gap-2">
                     <a 
                       href={buyUrl}
                       target="_blank"
-                      className="w-full bg-orange-600 hover:bg-orange-700 text-white py-4 rounded-2xl font-black text-sm md:text-lg uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-orange-100 transition-all active:scale-95"
+                      className="w-full bg-orange-600 hover:bg-orange-700 text-white py-3.5 rounded-xl font-black text-xs md:text-lg uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-orange-100 transition-all"
                     >
-                       <Package size={20} /> MUA NGAY
+                       <Package size={18} /> MUA NGAY
                     </a>
                     
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-2 gap-2">
                       <a 
                         href={zaloUrl}
                         target="_blank"
-                        className="bg-[#0068FF] hover:bg-blue-600 text-white py-4 rounded-2xl font-black text-sm md:text-base uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-blue-100 transition-all active:scale-95"
+                        className="bg-[#0068FF] hover:bg-blue-600 text-white py-3 rounded-xl font-black text-[10px] md:text-base uppercase tracking-wider flex items-center justify-center gap-2 transition-all"
                       >
-                         <MessageCircle size={18} fill="currentColor" /> LIÊN HỆ ZALO
+                         <MessageCircle size={16} fill="currentColor" /> ZALO KỸ SƯ
                       </a>
                       <a 
                         href="tel:0773440966"
-                        className="bg-white border-2 border-emerald-800 text-emerald-800 hover:bg-emerald-50 py-4 rounded-2xl font-black text-sm md:text-base uppercase tracking-wider flex items-center justify-center gap-2 transition-all active:scale-95"
+                        className="bg-white border-2 border-emerald-800 text-emerald-800 hover:bg-emerald-50 py-3 rounded-xl font-black text-[10px] md:text-base uppercase tracking-wider flex items-center justify-center gap-2 transition-all"
                       >
-                         <Phone size={18} /> GỌI KỸ SƯ
+                         <Phone size={16} /> GỌI NGAY
                       </a>
                     </div>
                 </div>
+              </div>
 
-                {/* Trust Badges - Moved here for better conversion flow */}
-                <div className="grid grid-cols-3 gap-3 pt-6">
-                   <div className="flex flex-col items-center text-center p-3 bg-emerald-50/50 rounded-2xl border border-emerald-100">
-                      <ShieldCheck className="text-emerald-700 mb-2" size={18} />
-                      <span className="text-[8px] md:text-[9px] font-black uppercase tracking-widest text-emerald-900">Chính hãng</span>
-                   </div>
-                   <div className="flex flex-col items-center text-center p-3 bg-emerald-50/50 rounded-2xl border border-emerald-100">
-                      <Truck className="text-emerald-700 mb-2" size={18} />
-                      <span className="text-[8px] md:text-[9px] font-black uppercase tracking-widest text-emerald-900">Giao toàn quốc</span>
-                   </div>
-                   <div className="flex flex-col items-center text-center p-3 bg-emerald-50/50 rounded-2xl border border-emerald-100">
-                      <RotateCcw className="text-emerald-700 mb-2" size={18} />
-                      <span className="text-[8px] md:text-[9px] font-black uppercase tracking-widest text-emerald-900">Kiểm tra vườn</span>
-                   </div>
-                </div>
+              {/* Cluster 4: USPs / Trust Badges */}
+              <div className="grid grid-cols-3 gap-2">
+                 <div className="flex flex-col items-center text-center p-2 bg-emerald-50/50 rounded-xl border border-emerald-50">
+                    <ShieldCheck className="text-emerald-700 mb-1" size={16} />
+                    <span className="text-[7px] md:text-[9px] font-black uppercase tracking-widest text-emerald-900 leading-tight">Chính hãng 100%</span>
+                 </div>
+                 <div className="flex flex-col items-center text-center p-2 bg-emerald-50/50 rounded-xl border border-emerald-50">
+                    <Truck className="text-emerald-700 mb-1" size={16} />
+                    <span className="text-[7px] md:text-[9px] font-black uppercase tracking-widest text-emerald-900 leading-tight">Giao toàn quốc</span>
+                 </div>
+                 <div className="flex flex-col items-center text-center p-2 bg-emerald-50/50 rounded-xl border border-emerald-50">
+                    <RotateCcw className="text-emerald-700 mb-1" size={16} />
+                    <span className="text-[7px] md:text-[9px] font-black uppercase tracking-widest text-emerald-900 leading-tight">Kiểm tra tại vườn</span>
+                 </div>
               </div>
             </div>
           </div>
 
-          {/* Detailed Info - Now Full Width for better readability */}
-          <div className="mt-8 md:mt-12 pt-6 md:pt-10 border-t border-gray-100 space-y-8 md:space-y-12">
-             <div className="bg-emerald-50/30 p-5 md:p-12 rounded-[2rem] md:rounded-[3.5rem] border border-emerald-100/50">
-                <h3 className="text-xl md:text-3xl font-black text-emerald-900 uppercase italic tracking-tight mb-4 md:mb-8 flex items-center gap-3">
-                   <span className="w-2 h-10 bg-orange-500 rounded-full" />
+          {/* Detailed Info - Section Optimized */}
+          <div className="mt-8 md:mt-16 pt-8 md:pt-12 border-t border-gray-100 space-y-8">
+             <div className="bg-emerald-50/20 p-5 md:p-12 rounded-3xl md:rounded-[3.5rem] border border-emerald-100/30">
+                <h3 className="text-lg md:text-3xl font-black text-emerald-900 uppercase italic tracking-tight mb-5 flex items-center gap-2">
+                   <span className="w-1.5 h-6 bg-orange-500 rounded-full" />
                    Công dụng chuyên sâu
                 </h3>
                 <div 
-                  className="text-gray-700 leading-relaxed font-medium prose prose-emerald prose-base md:prose-xl max-w-none prose-p:mb-6 prose-strong:text-emerald-900 prose-strong:font-black"
+                  className="text-gray-700 leading-relaxed font-medium prose prose-emerald prose-sm md:prose-xl max-w-none prose-p:mb-3 prose-strong:text-emerald-900 prose-ul:list-disc prose-ul:pl-5 prose-li:mb-1"
                   dangerouslySetInnerHTML={{ __html: product.description.replace(/\n/g, '<br/>') }}
                 ></div>
              </div>
@@ -270,21 +269,18 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
       </div>
     </main>
 
-      {/* Sticky Bottom CTA for Mobile */}
-      <div className="fixed bottom-0 left-0 right-0 z-[100] md:hidden bg-white/80 backdrop-blur-xl border-t border-gray-100 p-4 flex gap-3 shadow-[0_-10px_30px_rgba(0,0,0,0.05)]">
+      {/* Sticky Bottom CTA for Mobile - Enhanced with Price */}
+      <div className="fixed bottom-0 left-0 right-0 z-[100] md:hidden bg-white/90 backdrop-blur-xl border-t border-gray-100 px-4 py-3 flex items-center justify-between gap-4 shadow-[0_-10px_30px_rgba(0,0,0,0.08)]">
+        <div className="flex flex-col">
+          <span className="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Giá ưu đãi</span>
+          <span className="text-xl font-black text-orange-600 leading-none">₫{product.price?.toLocaleString("vi-VN")}</span>
+        </div>
         <a 
           href={buyUrl}
           target="_blank"
-          className="flex-[1.5] bg-orange-600 text-white font-black py-4 rounded-xl text-xs uppercase tracking-widest flex items-center justify-center gap-2 shadow-lg shadow-orange-100"
+          className="flex-1 bg-orange-600 text-white font-black py-3.5 rounded-xl text-xs uppercase tracking-widest flex items-center justify-center gap-2 shadow-lg shadow-orange-100 active:scale-95 transition-all"
         >
-          <Zap size={16} fill="currentColor" /> Mua ngay
-        </a>
-        <a 
-          href={zaloUrl}
-          target="_blank"
-          className="flex-1 bg-[#0068FF] text-white font-black py-4 rounded-xl text-[10px] uppercase tracking-widest flex items-center justify-center gap-2 shadow-lg shadow-blue-100"
-        >
-          <MessageCircle size={16} fill="currentColor" /> Liên hệ
+          <Zap size={16} fill="currentColor" /> MUA NGAY
         </a>
       </div>
     </div>
