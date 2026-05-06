@@ -226,13 +226,13 @@ export default function Header() {
                <div className="w-9 h-9 bg-white rounded-lg flex items-center justify-center text-[#1B5E20] font-black text-xl shadow-inner">P</div>
             </Link>
    
-            <div className="flex-1 relative">
+            <div className="flex-1 relative min-w-0">
               <div 
                 onClick={() => setIsSearchFocused(true)}
-                className="w-full bg-white/10 backdrop-blur-md rounded-lg py-1 px-3 border border-white/15 text-white/90 text-[12px] font-medium flex items-center gap-2"
+                className="w-full bg-white/10 backdrop-blur-md rounded-lg py-1 px-2 border border-white/15 text-white/90 text-[11px] font-medium flex items-center gap-1.5"
               >
                 <span className="opacity-50 text-sm">🔍</span>
-                <span className="truncate opacity-80">Tìm phác đồ...</span>
+                <span className="truncate opacity-80">Tìm...</span>
               </div>
             </div>
    

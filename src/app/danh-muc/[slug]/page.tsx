@@ -53,7 +53,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
       <section className="bg-gradient-to-br from-[#1B5E20] to-[#2E7D32] pt-24 pb-20 text-white relative overflow-hidden">
         <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
         <div className="container mx-auto px-4 relative z-10">
-          <div className="flex items-center gap-2 text-white/60 text-xs font-bold uppercase tracking-widest mb-4">
+          <div className="flex flex-wrap items-center gap-2 text-white/60 text-[10px] font-bold uppercase tracking-widest mb-4">
              <Link href="/">Trang chủ</Link>
              <ChevronRight size={12} />
              <span className="text-white">Danh mục</span>

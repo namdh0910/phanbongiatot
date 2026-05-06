@@ -36,6 +36,8 @@ export default function Breadcrumbs({
   const defaultHoverColor = light ? 'hover:text-white' : 'hover:text-[#1a5c2a]';
   const defaultTextColor = light ? 'text-white/60' : 'text-gray-400';
 
+  const id = React.useId();
+  
   return (
     <nav aria-label="breadcrumb" className={`${className} ${!className && (light ? 'bg-transparent border-none py-4 px-4' : 'bg-gray-50 border-b border-gray-100 py-4 px-4')}`}>
       <div className={!className ? "container mx-auto" : ""}>
@@ -65,7 +67,7 @@ export default function Breadcrumbs({
         </ol>
       </div>
       <Script
-        id={`breadcrumb-jsonld-${Math.random()}`}
+        id={`breadcrumb-jsonld-${id.replace(/:/g, '')}`}
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
