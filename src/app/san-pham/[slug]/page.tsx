@@ -17,6 +17,7 @@ import {
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import Breadcrumbs from '@/components/ui/Breadcrumbs';
+import ProductGallery from '@/components/product/ProductGallery';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
@@ -117,39 +118,13 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             ]} />
           </div>
 
-          <div className="flex flex-col lg:flex-row gap-10 lg:gap-20">
+          <div className="flex flex-col lg:flex-row gap-6 lg:gap-12">
             
-            {/* Left: Images & Thumbnails Row */}
-            <div className="lg:w-1/2 flex flex-row md:flex-col gap-3 md:gap-4 items-start">
-              {/* Main Image */}
-              <div className="flex-1 aspect-square max-h-[320px] md:max-h-none rounded-[1.5rem] md:rounded-[3rem] overflow-hidden bg-gray-50 border border-gray-100 shadow-inner group relative">
-                <img 
-                  src={product.images?.[0] || '/og-image.png'} 
-                  alt={product.name} 
-                  className="w-full h-full object-contain p-2 md:p-6 group-hover:scale-105 transition-transform duration-700" 
-                />
-                {product.isHot && (
-                  <div className="absolute top-4 left-4 bg-red-600 text-white px-3 py-1 rounded-full text-[8px] font-black uppercase tracking-widest animate-pulse shadow-lg">
-                    HOT
-                  </div>
-                )}
-              </div>
-
-              {/* Thumbnails - Side column on mobile, bottom grid on desktop */}
-              {product.images && product.images.length > 1 && (
-                <div className="w-16 md:w-full flex flex-col md:grid md:grid-cols-4 gap-2 md:gap-4 overflow-y-auto max-h-[320px] md:max-h-none scrollbar-hide">
-                  {(product.images || []).map((img: string, i: number) => (
-                    <div key={i} className="aspect-square rounded-xl md:rounded-2xl overflow-hidden border border-gray-100 bg-gray-50 cursor-pointer hover:border-emerald-500 transition-all flex-shrink-0">
-                      <img src={img} alt={`${product.name} ${i}`} className="w-full h-full object-cover p-1 md:p-2" />
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
+            <ProductGallery images={product.images || []} name={product.name} isHot={product.isHot} />
 
             {/* Right: Info & CTA */}
             <div className="lg:w-1/2">
-              <div className="space-y-6">
+              <div className="space-y-4 md:space-y-6">
                 <div className="flex items-center gap-2">
                    <span className="bg-emerald-600 text-white px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest">
                      {product.category}
@@ -241,9 +216,9 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
           </div>
 
           {/* Detailed Info - Now Full Width for better readability */}
-          <div className="mt-12 pt-10 border-t border-gray-100 space-y-12">
-             <div className="bg-emerald-50/30 p-6 md:p-12 rounded-[2.5rem] md:rounded-[3.5rem] border border-emerald-100/50">
-                <h3 className="text-2xl md:text-3xl font-black text-emerald-900 uppercase italic tracking-tight mb-8 flex items-center gap-3">
+          <div className="mt-8 md:mt-12 pt-6 md:pt-10 border-t border-gray-100 space-y-8 md:space-y-12">
+             <div className="bg-emerald-50/30 p-5 md:p-12 rounded-[2rem] md:rounded-[3.5rem] border border-emerald-100/50">
+                <h3 className="text-xl md:text-3xl font-black text-emerald-900 uppercase italic tracking-tight mb-4 md:mb-8 flex items-center gap-3">
                    <span className="w-2 h-10 bg-orange-500 rounded-full" />
                    Công dụng chuyên sâu
                 </h3>
