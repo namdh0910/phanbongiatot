@@ -186,7 +186,11 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                       {[1,2,3,4,5].map(s => <Star key={s} size={16} fill="currentColor" />)}
                    </div>
                    <span className="text-gray-400 text-xs font-bold uppercase tracking-widest">
-                      Đã tư vấn {product.soldCount || 150}+ vư                <div className="bg-[#fcf8f0] p-6 md:p-8 rounded-[2rem] border border-orange-100 relative overflow-hidden">
+                      Đã tư vấn {product.soldCount || 150}+ vườn thành công
+                   </span>
+                </div>
+
+                <div className="bg-[#fcf8f0] p-6 md:p-8 rounded-[2rem] border border-orange-100 relative overflow-hidden">
                    <div className="absolute top-0 right-0 p-8 opacity-[0.05] select-none text-8xl rotate-12">💰</div>
                    <div className="relative z-10">
                       <div className="flex items-center gap-3 mb-1">
@@ -259,6 +263,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
               </div>
             </div>
           </div>
+        </div>
 
           {/* Related Products */}
           {relatedProducts.length > 0 && (
