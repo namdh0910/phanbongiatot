@@ -171,10 +171,8 @@ export default function LandingPage() {
         <div className="h-full bg-gradient-to-r from-[#f5a623] to-[#ff6b35] transition-all duration-150" style={{ width: `${scrollProgress}%` }} />
       </div>
 
-
-
       {/* 2. Hero Section - Targeted Agricultural Solution */}
-      <section className="relative min-h-[50vh] md:min-h-[85vh] flex items-center pt-20 pb-10 md:py-32 overflow-hidden">
+      <section className="relative min-h-[35vh] md:min-h-[85vh] flex items-center pt-12 pb-8 md:py-32 overflow-hidden">
         {/* Background Image Optimized for LCP */}
         <div className="absolute inset-0 z-0">
           <Image 

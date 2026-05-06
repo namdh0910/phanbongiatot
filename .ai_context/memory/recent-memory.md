@@ -4,8 +4,8 @@
 - **Date**: 2026-05-06
 - **Latest Activities (Directive 10 - UI Cleanup DONE)**:
   - **UI/UX Decluttering & Header Optimization**:
-    - **Header Streamlining**: Reduced mobile header height further from 64px to 56px and resized inner buttons for a more compact, modern feel.
-    - **Hero Section Refactoring**: Removed redundant trust badges ("Chẩn đoán 100%") and subtitles ("Phục hồi sau 7 ngày") to simplify the value proposition.
+    - **Header Streamlining**: Achieved ultra-compact mobile header (48px height) and resized all internal elements (Menu, Search, Call) to maximize content visibility.
+    - **Hero Section Refactoring**: Compressed Hero section height to 35vh and reduced mobile padding-top to 12 units to match the user's visual "red frame" request.
     - **Commercial Focus**: Replaced the 4 static Trust Badge cards with a dynamic "Featured Products" (Sản phẩm chủ lực) grid, integrating real-time product fetching into the homepage.
     - **Redundancy Removal**: Hidden the horizontal "Quick Category Scrollbar" from the Header when on the homepage, avoiding conflict with the main content.
   - **Core Stability & Recovery Hardening**:

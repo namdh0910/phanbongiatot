@@ -211,14 +211,14 @@ export default function Header() {
 
         {/* MOBILE HEADER - ELDERLY FRIENDLY DESIGN */}
         <div className="lg:hidden">
-          <div className="flex items-center gap-2 px-3 h-[56px] bg-gradient-to-r from-[#1B5E20] to-[#2E7D32] text-white shadow-lg relative z-[200]">
+          <div className="flex items-center gap-2 px-3 h-[48px] bg-gradient-to-r from-[#1B5E20] to-[#2E7D32] text-white shadow-lg relative z-[200]">
             <button 
               onClick={() => setIsMenuOpen(true)}
               aria-label="Mở menu chính"
-              className="flex-shrink-0 flex flex-col items-center justify-center w-12 h-12 bg-white/10 rounded-xl active:scale-95 transition-transform"
+              className="flex-shrink-0 flex flex-col items-center justify-center w-10 h-10 bg-white/10 rounded-lg active:scale-95 transition-transform"
             >
-              <Menu size={24} />
-              <span className="text-[9px] font-black uppercase mt-0.5 tracking-tighter">Menu</span>
+              <Menu size={20} />
+              <span className="text-[8px] font-black uppercase mt-0.5 tracking-tighter leading-none">Menu</span>
             </button>
 
             <Link href="/" className="flex-shrink-0 active:scale-95 transition-transform">
@@ -228,9 +228,9 @@ export default function Header() {
             <div className="flex-1 relative">
               <div 
                 onClick={() => setIsSearchFocused(true)}
-                className="w-full bg-white/10 backdrop-blur-md rounded-2xl py-2 px-4 border border-white/20 text-white/90 text-[14px] font-medium flex items-center gap-2"
+                className="w-full bg-white/10 backdrop-blur-md rounded-xl py-1.5 px-3 border border-white/20 text-white/90 text-[13px] font-medium flex items-center gap-2"
               >
-                <span className="opacity-60 text-lg">🔍</span>
+                <span className="opacity-60 text-base">🔍</span>
                 <span className="truncate">Tìm phác đồ...</span>
               </div>
             </div>
