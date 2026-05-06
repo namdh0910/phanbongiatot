@@ -314,28 +314,31 @@ export default function LandingPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 md:gap-10 max-w-5xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-2 gap-3 md:gap-10 max-w-6xl mx-auto">
             {!loadingPathologies ? (
               activePathologies.length > 0 ? activePathologies.map((pathology, idx) => (
                 <Link 
                   key={idx} 
                   href={`/giai-phap/${pathology.slug}`} 
-                  className="bg-white rounded-[2rem] md:rounded-[3rem] border border-gray-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 group overflow-hidden flex flex-col md:flex-row h-full"
+                  className="bg-white rounded-2xl md:rounded-[3rem] border border-gray-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 group overflow-hidden flex flex-col h-full"
                 >
-                  <div className="w-full md:w-40 h-32 md:h-auto bg-emerald-50 shrink-0 overflow-hidden">
+                  <div className="w-full h-24 md:h-48 bg-emerald-50 shrink-0 overflow-hidden relative">
                     {pathology.image ? (
                       <img src={pathology.image} alt={pathology.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                     ) : (
-                      <div className="w-full h-full flex items-center justify-center text-3xl opacity-50">{pathology.icon || '🩺'}</div>
+                      <div className="w-full h-full flex items-center justify-center text-2xl md:text-5xl opacity-50">{pathology.icon || '🩺'}</div>
                     )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:hidden" />
                   </div>
-                  <div className="p-5 md:p-8 flex flex-col flex-1">
-                    <h3 className="text-lg md:text-xl font-black text-gray-900 mb-2 leading-tight group-hover:text-emerald-700 transition-colors uppercase italic">{pathology.title}</h3>
-                    <p className="text-gray-500 text-[10px] md:text-xs mb-4 line-clamp-2 font-medium italic opacity-80">
+                  <div className="p-3 md:p-8 flex flex-col flex-1">
+                    <h3 className="text-[11px] md:text-xl font-black text-gray-900 mb-1 md:mb-3 leading-tight group-hover:text-emerald-700 transition-colors uppercase italic line-clamp-2 md:line-clamp-none">
+                      {pathology.title}
+                    </h3>
+                    <p className="hidden md:block text-gray-500 text-xs mb-4 line-clamp-2 font-medium italic opacity-80">
                       {pathology.painPoint}
                     </p>
-                    <div className="mt-auto inline-flex items-center gap-2 text-emerald-600 font-black uppercase tracking-widest text-[9px] group-hover:gap-3 transition-all">
-                      Xem giải pháp <ArrowRight size={14} />
+                    <div className="mt-auto inline-flex items-center gap-1 md:gap-2 text-emerald-600 font-black uppercase tracking-widest text-[8px] md:text-[10px] group-hover:gap-3 transition-all">
+                      Xem ngay <ArrowRight size={10} className="md:w-4 md:h-4" />
                     </div>
                   </div>
                 </Link>
