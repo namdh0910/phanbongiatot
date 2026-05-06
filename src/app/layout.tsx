@@ -7,6 +7,7 @@ import Footer from "@/components/layout/Footer";
 import StickyCTA from "@/components/shared/StickyCTA";
 import MobileBottomBar from "@/components/layout/MobileBottomBar";
 import { SettingsProvider } from "@/context/SettingsContext";
+import PageTracker from "@/components/shared/PageTracker";
 
 const inter = Inter({ subsets: ["latin", "vietnamese"], display: 'swap' });
 
@@ -126,6 +127,7 @@ export default function RootLayout({
       </head>
       <body className={`${inter.className} min-h-screen flex flex-col bg-background text-foreground`}>
         <SettingsProvider>
+          <PageTracker />
           <LayoutWrapper>
             {children}
           </LayoutWrapper>

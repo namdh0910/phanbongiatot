@@ -9,6 +9,11 @@
     - **Middleware Migration**: Renamed `src/middleware.ts` to `src/proxy.ts` following Next.js 16 recommendations to resolve build warnings that might be blocking Vercel deployments.
     - **Vercel Build Force**: Bumped `package.json` version to `0.1.1` to force Vercel to recognize the project state change and trigger a new deployment after webhook delays.
     - **Vercel Sync Fix**: Forced a config-level sync by modifying `next.config.ts` after identifying that latest commits were not appearing on the Vercel dashboard.
+    - **Admin Dashboard & Analytics (NEW)**:
+      - **Analytics System**: Triển khai tracking lượt xem trang, lượt click Zalo/Hotline và Lead qua model `Analytics` và API `/api/analytics/track`.
+      - **Dashboard UI**: Trang `/admin/dashboard` hiện là trung tâm báo cáo trực quan với biểu đồ 7 ngày, thống kê chuyển đổi và Top trang xem nhiều.
+      - **Settings Migration**: Chuyển phần cấu hình hệ thống cũ sang `/admin/settings` và cập nhật điều hướng sidebar.
+      - **Frontend Integration**: Gắn mã tracking vào toàn bộ các nút Zalo/Hotline quan trọng trên web (Sticky CTA, Product Actions, Lead Form).
     - **Triggered Vercel Re-deploy**: Manually triggered a new Vercel build via an empty commit to ensure the latest typography changes are reflected on the production site.
   - **UI/UX Optimization (Typography)**:
     - **Balanced Font Sizes**: Fine-tuned typography across the site: Reduced `/giai-phap` titles to `14px` with forced Sentence Case and `textTransform: none` to override global CSS. Increased Homepage product titles to `15px` and pathology titles to `16px` for better readability.

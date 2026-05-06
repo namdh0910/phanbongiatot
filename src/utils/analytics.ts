@@ -1,15 +1,14 @@
-"use client";
+export type AnalyticsEventType = 'page_view' | 'zalo_click' | 'call_click' | 'lead_submit';
 
-export const trackEvent = (eventName: string, params?: object) => {
-  if (typeof window !== "undefined") {
-    // Facebook Pixel
-    if ((window as any).fbq) {
-      (window as any).fbq('track', eventName, params);
-    }
-    // Google Analytics
-    if ((window as any).gtag) {
-      (window as any).gtag('event', eventName, params);
-    }
-    console.log(`[Tracking] ${eventName}`, params);
+export const trackEvent = async (type: AnalyticsEventType, metadata?: any) => {
+  try {
+    const path = window.location.pathname;
+    await fetch('/api/analytics/track', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ type, path, metadata }),
+    });
+  } catch (error) {
+    // Không log lỗi ra console người dùng để tránh rác log
   }
 };

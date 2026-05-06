@@ -9,11 +9,12 @@ export default function AdminSidebar() {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   const links = [
-    { href: "/admin/dashboard", label: "Cấu Hình (Settings)", icon: "⚙️" },
+    { href: "/admin/dashboard", label: "Tổng Quan (Stats)", icon: "📊" },
     { href: "/admin/leads", label: "Khách Hàng (Leads)", icon: "💬" },
     { href: "/admin/blogs", label: "Nội Dung (Blog/Video)", icon: "🎥" },
     { href: "/admin/solutions", label: "Quy trình xử lý (Guides)", icon: "🩺" },
     { href: "/admin/products", label: "Sản Phẩm (Catalog)", icon: "📦" },
+    { href: "/admin/settings", label: "Cấu Hình (Settings)", icon: "⚙️" },
   ];
 
   useEffect(() => {

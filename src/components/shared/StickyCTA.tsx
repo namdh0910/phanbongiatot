@@ -2,6 +2,7 @@
 import { usePathname, useParams } from "next/navigation";
 import { useSettings } from "@/context/SettingsContext";
 import { useEffect, useState } from "react";
+import { trackEvent } from "@/utils/analytics";
 
 export default function StickyCTA() {
   const pathname = usePathname();
@@ -39,12 +40,14 @@ export default function StickyCTA() {
         href={zaloUrl} 
         target="_blank"
         rel="noopener noreferrer"
+        onClick={() => trackEvent('zalo_click', { title: pageTitle })}
         className="w-[70%] bg-[#0068FF] text-white flex items-center justify-center gap-3 text-[16px] font-black transition-all active:scale-95"
       >
         <span className="text-2xl animate-bounce" style={{ animationDuration: '2s' }}>💬</span> Nhắn Zalo tư vấn
       </a>
       <a 
         href={callUrl} 
+        onClick={() => trackEvent('call_click', { title: pageTitle })}
         className="w-[30%] bg-[#ee4d2d] text-white flex items-center justify-center gap-2 text-[16px] font-black transition-all active:scale-95 border-l border-white/10"
       >
         <span className="text-2xl">📞</span> Gọi

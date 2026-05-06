@@ -13,13 +13,13 @@ export default function ProductActions({ product }: { product: any }) {
   const hotline = process.env.NEXT_PUBLIC_HOTLINE ?? '0773440966';
   
   const handleZaloClick = () => {
-    trackEvent('Contact', { method: 'Zalo', product: product.name });
+    trackEvent('zalo_click', { product: product.name, qty });
     const text = encodeURIComponent(`Chào chuyên gia, tôi quan tâm sản phẩm ${product.name} (Số lượng: ${qty}). Xin tư vấn thêm.`);
     window.open(`https://zalo.me/${zaloPhone}?text=${text}`, '_blank');
   };
 
   const handleCallClick = () => {
-    trackEvent('Contact', { method: 'Phone', product: product.name });
+    trackEvent('call_click', { product: product.name });
     window.location.href = `tel:${hotline}`;
   };
 

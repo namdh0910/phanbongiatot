@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import { trackEvent } from "@/utils/analytics";
 
 interface LeadFormProps {
   product?: any;
@@ -35,18 +36,25 @@ export default function LeadForm({ product, initialPathology, initialCrop }: Lea
     setIsSubmitting(true);
 
     try {
+      const payload = {
+        ...formData,
+        source: product ? `Product: ${product.name}` : 'Website_Lead_Form',
+        note: formData.note || `Yêu cầu kỹ sư gọi lại từ trang ${product?.name || 'giải pháp'}`
+      };
+
       const res = await fetch(`/api/leads`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...formData,
-          source: product ? `Product: ${product.name}` : 'Website_Lead_Form',
-          note: formData.note || `Yêu cầu kỹ sư gọi lại từ trang ${product?.name || 'giải pháp'}`
-        })
+        body: JSON.stringify(payload)
       });
 
       if (res.ok) {
         setIsSuccess(true);
+        // Ghi nhận sự kiện analytics
+        await trackEvent('lead_submit', { 
+          name: formData.name, 
+          source: payload.source 
+        });
         setFormData({ name: "", phone: "", cropType: "", pathology: "", note: "" });
       }
     } catch (err) {
