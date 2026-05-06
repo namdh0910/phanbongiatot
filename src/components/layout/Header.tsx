@@ -4,7 +4,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { useSettings } from "@/context/SettingsContext";
 import { API_BASE_URL } from "@/utils/api";
-import { Menu, X, ChevronRight, Phone, MessageCircle, Info, BookOpen } from "lucide-react";
+import { Menu, X, ChevronRight, Phone, MessageCircle, Info, BookOpen, Package } from "lucide-react";
 import './HeaderFooter.css';
 
 export default function Header() {
@@ -349,65 +349,27 @@ export default function Header() {
               </div>
 
               <div className="flex-1 overflow-y-auto py-6">
-                 {/* Main Navigation */}
-                 <div className="px-6 space-y-2 mb-8">
-                    <Link href="/" onClick={() => setIsMenuOpen(false)} className="flex items-center justify-between p-5 bg-emerald-50 text-emerald-900 rounded-2xl font-black text-base uppercase tracking-tight">
-                       🏠 Trang chủ <ChevronRight size={20} className="opacity-30" />
+                 {/* Simplified Navigation */}
+                 <div className="px-6 space-y-2">
+                    <Link href="/san-pham" onClick={() => setIsMenuOpen(false)} className="flex items-center justify-between p-5 hover:bg-gray-50 text-gray-800 rounded-2xl font-black text-base uppercase tracking-tight transition-colors">
+                       <div className="flex items-center gap-4">
+                          <Package size={24} className="text-emerald-600" /> Sản phẩm
+                       </div>
+                       <ChevronRight size={20} className="opacity-30" />
                     </Link>
-                    <Link href="/blog" onClick={() => setIsMenuOpen(false)} className="flex items-center justify-between p-5 hover:bg-gray-50 text-gray-700 rounded-2xl font-black text-base uppercase tracking-tight transition-colors">
-                       📖 Kiến thức nông nghiệp </Link> <Link href="/hoi-dap-ky-thuat" onClick={() => setIsMenuOpen(false)} className="flex items-center justify-between p-5 hover:bg-gray-50 text-gray-700 rounded-2xl font-black text-base uppercase tracking-tight transition-colors"> ❓ Hỏi đáp kỹ thuật <ChevronRight size={20} className="opacity-30" />
-                    </Link>
-                 </div>
 
-                 {/* Crops Section */}
-                 <div className="px-6 mb-8">
-                    <h4 className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-4 ml-4">Giải pháp theo cây trồng</h4>
-                    <div className="space-y-1">
-                       {crops.map((crop, i) => {
-                         const isExpanded = expandedCrops.includes(crop.name);
-                         return (
-                           <div key={i} className="border-b border-gray-50 last:border-0">
-                             <button 
-                               onClick={() => {
-                                 setExpandedCrops(prev => 
-                                   isExpanded ? prev.filter(c => c !== crop.name) : [...prev, crop.name]
-                                 );
-                               }}
-                               className={`flex items-center justify-between w-full p-5 text-gray-800 font-black text-base transition-colors ${isExpanded ? 'bg-emerald-50 text-emerald-800' : ''}`}
-                             >
-                               <div className="flex items-center gap-4">
-                                  <span className="text-2xl">{crop.icon}</span> {crop.name}
-                               </div>
-                               <ChevronRight size={20} className={`transition-transform duration-300 ${isExpanded ? 'rotate-90 text-emerald-600' : 'text-gray-300'}`} />
-                             </button>
-                             
-                             {isExpanded && (
-                               <div className="grid grid-cols-1 pl-14 pr-4 py-3 gap-2 bg-gray-50/50 animate-in slide-in-from-top-2 duration-300">
-                                  {crop.issues.map((issue, idx) => (
-                                    <Link 
-                                      key={idx} 
-                                      href={issue.href} 
-                                      onClick={() => setIsMenuOpen(false)}
-                                      className="py-4 text-base font-bold text-gray-700 hover:text-emerald-700 flex items-center gap-2 border-b border-gray-100 last:border-0 active:text-emerald-800"
-                                    >
-                                      · {issue.label}
-                                    </Link>
-                                  ))}
-                               </div>
-                             )}
-                           </div>
-                         );
-                       })}
-                    </div>
-                 </div>
-
-                 {/* Support Section */}
-                 <div className="px-6 pt-6 border-t border-gray-100">
-                    <Link href="/ve-chung-toi" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-4 p-5 text-gray-700 font-black text-base uppercase tracking-tight">
-                       <Info size={24} className="text-emerald-600" /> Về chúng tôi
+                    <Link href="/ve-chung-toi" onClick={() => setIsMenuOpen(false)} className="flex items-center justify-between p-5 hover:bg-gray-50 text-gray-800 rounded-2xl font-black text-base uppercase tracking-tight transition-colors">
+                       <div className="flex items-center gap-4">
+                          <Info size={24} className="text-emerald-600" /> Về chúng tôi
+                       </div>
+                       <ChevronRight size={20} className="opacity-30" />
                     </Link>
-                    <Link href="/lien-he" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-4 p-5 text-gray-700 font-black text-base uppercase tracking-tight">
-                       <MessageCircle size={24} className="text-emerald-600" /> Liên hệ
+
+                    <Link href="/lien-he" onClick={() => setIsMenuOpen(false)} className="flex items-center justify-between p-5 hover:bg-gray-50 text-gray-800 rounded-2xl font-black text-base uppercase tracking-tight transition-colors">
+                       <div className="flex items-center gap-4">
+                          <MessageCircle size={24} className="text-emerald-600" /> Liên hệ
+                       </div>
+                       <ChevronRight size={20} className="opacity-30" />
                     </Link>
                  </div>
               </div>

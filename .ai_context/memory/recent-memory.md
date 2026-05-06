@@ -15,6 +15,7 @@
     - **Anchor Navigation**: Implemented `scroll-mt` anchors (Sầu riêng, Cà phê...) and linked them to the Header sub-navigation for seamless single-page jumping.
     - **Content Enrichment**: Seeded the FAQ library with real-world technical questions about flowering, pests, and soil health.
     - **Header Synchronization**: Integrated crop-specific horizontal scroll navigation (Sầu riêng, Cà phê...) for the FAQ page to match Solutions and Knowledge pages.
+    - **Drawer Minimalism**: Simplified the Mobile Hamburger Menu to only 3 essential links (Sản phẩm, Về chúng tôi, Liên hệ) to reduce choice paralysis.
     - **Bottom Nav Pivot**: Replaced the "Gọi điện" button with a direct "Hỏi đáp" link in the `MobileBottomNav` to prioritize expert knowledge access.
   - **UI/UX Decluttering & Header Optimization**:
     - **Critical Bug Fix: Text Visibility**: Disabled automatic dark mode in `globals.css` to resolve white-on-white text conflicts caused by system-level dark mode settings interacting with hardcoded light UI components (`bg-white`, `bg-gray-50`).
