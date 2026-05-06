@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { ChevronRight, ArrowRight, Zap, ShieldCheck, MessageCircle, Phone } from 'lucide-react';
+import { ChevronRight, ArrowRight, Zap, ShieldCheck, MessageCircle, Phone, Star } from 'lucide-react';
 import dbConnect from '@/lib/db';
 import mongoose from 'mongoose';
 
