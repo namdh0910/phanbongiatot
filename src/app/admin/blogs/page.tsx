@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Plus, Edit, Trash2, Save, X, Video, FileText, CheckCircle, Eye, Link as LinkIcon } from "lucide-react";
 import { slugify } from "@/utils/slugify";
 import { API_BASE_URL } from "@/utils/api";
+import ImageUpload from "@/components/admin/ImageUpload";
 
 interface Blog {
   _id?: string;
@@ -216,17 +217,12 @@ export default function AdminBlogs() {
                     </div>
                   </div>
 
-                  <div>
-                    <label className="block text-[10px] font-black text-gray-400 uppercase mb-2 ml-1 tracking-widest">Ảnh bìa (URL)</label>
-                    <input 
-                      required
-                      type="text" 
-                      value={currentBlog.coverImage}
-                      onChange={(e) => setCurrentBlog({...currentBlog, coverImage: e.target.value})}
-                      className="w-full bg-gray-50 border-2 border-gray-100 rounded-2xl px-6 py-4 outline-none focus:bg-white focus:border-[#1a5c2a] transition-all font-bold text-gray-800 text-sm"
-                      placeholder="URL hình ảnh (Cloudinary/Imgur...)"
-                    />
-                  </div>
+                  <ImageUpload 
+                    label="Ảnh bìa bài viết"
+                    value={currentBlog.coverImage}
+                    onChange={(url) => setCurrentBlog({...currentBlog, coverImage: url})}
+                    placeholder="URL hình ảnh bài viết..."
+                  />
                </div>
 
                <div className="space-y-6">

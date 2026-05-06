@@ -8,6 +8,10 @@
     - **Header Streamlining**: Achieved ultra-compact mobile header (48px height) and resized all internal elements (Menu, Search, Call) to maximize content visibility.
     - **Hero Section Refactoring**: Compressed Hero section height to 35vh and reduced mobile padding-top to 12 units to match the user's visual "red frame" request.
     - **Redundancy Removal**: Hidden the horizontal "Quick Category Scrollbar" from the Header when on the homepage, avoiding conflict with the main content.
+  - **Admin CMS Hardening (Direct Image Upload)**:
+    - **Upload Infrastructure**: Created `/api/admin/upload` to handle image processing and secure transit to Cloudinary.
+    - **UI Enhancement**: Developed `ImageUpload` and `MultiImageUpload` components to allow drag-and-drop/file selection for blog covers and product galleries.
+    - **User Experience**: Completely removed the need for manual URL pasting, automating the path from local file to database record.
   - **Core Stability & Recovery Hardening**:
     - **Hydration Fix**: Resolved SSR-to-Client mismatches in Header and Navigation by encapsulating browser-only APIs (localStorage, window) in `useEffect`.
     - **Null Safety**: Hardened `.map()` calls in Blog and Product detail pages with existence checks to prevent "White Screen of Death" crashes.
