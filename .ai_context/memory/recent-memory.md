@@ -9,6 +9,8 @@
     - **Contextual Zalo Hooks**: Updated automated Zalo message templates to use the new terminology, ensuring a consistent tone from first click to consultation.
   - **Navigation Accessibility Upgrade**:
     - **Exposed "Hỏi đáp" Link**: Added the "Hỏi đáp kỹ thuật" link directly to the main Desktop navigation and Mobile Drawer menu. Previously, this page was only discoverable via a secondary scrollbar on non-homepage routes.
+  - **FAQ UI/UX Optimization**:
+    - **Compact Layout**: Reduced Hero height, typography scale, and card padding for the Q&A page to improve information density, specifically for mobile users.
   - **UI/UX Decluttering & Header Optimization**:
     - **Critical Bug Fix: Text Visibility**: Disabled automatic dark mode in `globals.css` to resolve white-on-white text conflicts caused by system-level dark mode settings interacting with hardcoded light UI components (`bg-white`, `bg-gray-50`).
     - **Header Streamlining**: Achieved ultra-compact mobile header (48px height) and resized all internal elements (Menu, Search, Call) to maximize content visibility.

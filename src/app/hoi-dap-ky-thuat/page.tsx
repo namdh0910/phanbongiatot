@@ -118,17 +118,17 @@ const FAQItem = ({ question, answer, link, linkText }: any) => {
     <div className="border-b border-gray-100 last:border-0">
       <button 
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full py-6 flex items-start justify-between text-left gap-4 group"
+        className="w-full py-4 md:py-6 flex items-start justify-between text-left gap-4 group"
       >
-        <span className={`font-black text-base md:text-lg transition-colors ${isOpen ? 'text-emerald-700' : 'text-gray-800 group-hover:text-emerald-600'}`}>
+        <span className={`font-black text-sm md:text-lg transition-colors ${isOpen ? 'text-emerald-700' : 'text-gray-800 group-hover:text-emerald-600'}`}>
           {question}
         </span>
-        <div className={`mt-1 transition-transform duration-300 ${isOpen ? 'rotate-180 text-emerald-700' : 'text-gray-300'}`}>
-          <ChevronDown size={24} />
+        <div className={`mt-0.5 md:mt-1 transition-transform duration-300 ${isOpen ? 'rotate-180 text-emerald-700' : 'text-gray-300'}`}>
+          <ChevronDown size={20} />
         </div>
       </button>
       <div className={`overflow-hidden transition-all duration-300 ${isOpen ? 'max-h-[500px] pb-6' : 'max-h-0'}`}>
-        <p className="text-gray-600 leading-relaxed mb-4 font-medium italic">
+        <p className="text-gray-600 text-xs md:text-base leading-relaxed mb-4 font-medium italic">
           {answer}
         </p>
         {link && (
@@ -163,23 +163,23 @@ export default function FAQPage() {
       
       <Breadcrumbs items={[{ label: 'Hỏi đáp kỹ thuật', href: '/hoi-dap-ky-thuat' }]} />
 
-      {/* Hero Section */}
-      <section className="bg-gray-900 pt-20 pb-32 relative overflow-hidden">
+      {/* Hero Section - Optimized for compact view */}
+      <section className="bg-gray-900 pt-10 md:pt-20 pb-20 md:pb-32 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-600/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
         <div className="container mx-auto px-4 relative z-10 text-center">
           <div className="inline-flex items-center gap-2 bg-emerald-500/20 text-emerald-400 px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-widest mb-6">
             <HelpCircle size={14} /> Thư viện hỏi đáp kỹ thuật
           </div>
-          <h1 className="text-4xl md:text-6xl font-black text-white mb-8 uppercase tracking-tighter italic">
-            Bà con hỏi, <span className="text-emerald-500">Kỹ sư trả lời</span>
+          <h1 className="text-2xl md:text-6xl font-black text-white mb-6 md:mb-8 uppercase tracking-tighter italic leading-[1.1]">
+            Bà con hỏi, <br className="md:hidden" /> <span className="text-emerald-500">Kỹ sư trả lời</span>
           </h1>
           
           <div className="max-w-2xl mx-auto relative">
             <Search className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
             <input 
               type="text" 
-              placeholder="Tìm câu hỏi của bà con (ví dụ: vàng lá, tuyến trùng...)"
-              className="w-full bg-white/10 border border-white/20 rounded-2xl px-16 py-5 text-white placeholder:text-gray-500 focus:outline-none focus:border-emerald-500 transition-all text-lg font-bold"
+              placeholder="Tìm câu hỏi của bà con..."
+              className="w-full bg-white/10 border border-white/20 rounded-xl md:rounded-2xl px-12 md:px-16 py-3 md:py-5 text-white placeholder:text-gray-500 focus:outline-none focus:border-emerald-500 transition-all text-sm md:text-lg font-bold"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -187,10 +187,10 @@ export default function FAQPage() {
         </div>
       </section>
 
-      {/* FAQ Content */}
-      <section className="py-20 -mt-16 relative z-20">
+      {/* FAQ Content - Compact gaps */}
+      <section className="py-10 md:py-20 -mt-10 md:-mt-16 relative z-20">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto space-y-12">
+          <div className="max-w-4xl mx-auto space-y-6 md:space-y-12">
             {faqData.map((category, idx) => {
               const filteredQuestions = category.questions.filter(q => 
                 q.q.toLowerCase().includes(searchTerm.toLowerCase()) || 
@@ -200,14 +200,14 @@ export default function FAQPage() {
               if (filteredQuestions.length === 0) return null;
 
               return (
-                <div key={idx} className="bg-white rounded-[2.5rem] border border-gray-100 shadow-xl shadow-gray-100/50 overflow-hidden">
-                  <div className="bg-gray-50 px-8 py-6 border-b border-gray-100 flex items-center gap-4">
-                    <span className="text-3xl">{category.icon}</span>
-                    <h2 className="text-xl font-black text-gray-900 uppercase tracking-tight italic">
+                <div key={idx} className="bg-white rounded-2xl md:rounded-[2.5rem] border border-gray-100 shadow-xl shadow-gray-100/50 overflow-hidden">
+                  <div className="bg-gray-50 px-5 md:px-8 py-4 md:py-6 border-b border-gray-100 flex items-center gap-3 md:gap-4">
+                    <span className="text-xl md:text-3xl">{category.icon}</span>
+                    <h2 className="text-sm md:text-xl font-black text-gray-900 uppercase tracking-tight italic">
                       Nhóm: {category.category}
                     </h2>
                   </div>
-                  <div className="px-8 divide-y divide-gray-100">
+                  <div className="px-5 md:px-8 divide-y divide-gray-100">
                     {filteredQuestions.map((q, qIdx) => (
                       <FAQItem key={qIdx} {...q} />
                     ))}
@@ -234,8 +234,8 @@ export default function FAQPage() {
           <div className="max-w-4xl mx-auto bg-emerald-900 rounded-[3rem] p-10 md:p-16 text-center text-white relative overflow-hidden shadow-2xl">
             <div className="absolute top-0 right-0 p-8 opacity-10 select-none text-[200px] rotate-12">?</div>
             <div className="relative z-10">
-              <h2 className="text-3xl md:text-5xl font-black uppercase italic tracking-tighter mb-6">Chưa tìm thấy câu trả lời?</h2>
-              <p className="text-emerald-100 text-lg mb-12 max-w-2xl mx-auto font-medium">Đừng ngần ngại, kỹ sư của chúng tôi luôn sẵn sàng hỗ trợ bà con 24/7 hoàn toàn miễn phí.</p>
+              <h2 className="text-2xl md:text-5xl font-black uppercase italic tracking-tighter mb-4 md:mb-6">Chưa tìm thấy câu trả lời?</h2>
+              <p className="text-emerald-100 text-sm md:text-lg mb-8 md:mb-12 max-w-2xl mx-auto font-medium">Đừng ngần ngại, kỹ sư của chúng tôi luôn sẵn sàng hỗ trợ bà con 24/7 hoàn toàn miễn phí.</p>
               
               <div className="flex flex-col md:flex-row items-center justify-center gap-4">
                 <a href="https://zalo.me/0773440966" className="w-full md:w-auto bg-[#0068FF] hover:bg-blue-600 text-white font-black px-10 py-5 rounded-2xl flex items-center justify-center gap-3 transition-all active:scale-95 shadow-xl">
