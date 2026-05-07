@@ -25,7 +25,10 @@ const BlogSchema: Schema = new Schema({
     default: 'Cẩm nang kỹ thuật'
   },
   videoUrl: { type: String },
-  coverImage: { type: String, required: true },
+  coverImage: { 
+    type: String, 
+    default: '/images/blog/default-cover.jpg' 
+  },
   excerpt: { type: String },
   content: { type: String, required: true },
   isPublished: { type: Boolean, default: false },

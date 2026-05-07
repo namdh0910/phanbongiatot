@@ -26,8 +26,8 @@ export async function POST(request: Request) {
     const body = await request.json();
     
     // Simple validation
-    if (!body.title || !body.coverImage || !body.content) {
-      return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+    if (!body.title || !body.content) {
+      return NextResponse.json({ error: 'Missing required fields (Title or Content)' }, { status: 400 });
     }
 
     // Auto-generate SEO metadata if not provided
