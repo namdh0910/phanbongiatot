@@ -2,12 +2,12 @@
 
 ## 🕒 Current Context
 - **Date**: 2026-05-07
+- **Latest Activities (High-Authority Content Upgrade - DONE)**:
+  - **Persona Implementation**: Đã áp dụng Persona "Kỹ sư Tuấn" (18 năm kinh nghiệm) vào quy trình viết bài, sử dụng ngôn ngữ bình dân, thực chiến và cấu trúc chuẩn kỹ sư.
+  - **Deep-Dive Article Creation**: Viết bài chuyên sâu 3.500 từ: "Sầu Riêng Vàng Lá Thối Rễ: Lộ Trình 7 Ngày Phục Hồi Thực Chiến Từ Kỹ Sư Tuấn" với đầy đủ bảng so sánh, sai lầm phổ biến, quy trình chi tiết và FAQ thực tế.
+  - **Database Sync & Deployment**: Cập nhật file seed `src/app/api/admin/seed-blogs/route.ts` và thực thi API để đồng bộ nội dung chất lượng cao vào database production.
+  - **3-Step Workflow Implementation**: Bắt đầu áp dụng quy trình CODE - MEMORY - SYNC bắt buộc cho mọi yêu cầu.
 - **Latest Activities (Agri-Engineer Agent Design - DONE)**:
-  - **Master Prompt Creation**: Thiết lập `CONTENT_MASTER_PROMPT.md` định nghĩa Persona Kỹ sư Trưởng thực chiến với 15 năm kinh nghiệm, ngôn ngữ thấu cảm và cấu trúc bài viết 9 phần chuyên sâu.
-  - **Agent 8 Upgrade**: Cập nhật `AGENTS.md` nâng cấp `CONTENT_PRODUCER` lên phiên bản PRO, tập trung vào Storytelling và cơ chế phục hồi 7 ngày.
-  - **High-Quality Content Trial**: Viết bài mẫu "Sầu Riêng Vàng Lá Thối Rễ: Lộ trình 7 ngày phục hồi" với phong cách chuyên gia, lồng ghép giải pháp sinh học và CTA cá nhân hóa.
-  - **Database Sync**: Triển khai API seed nội dung chất lượng cao và đồng bộ thành công vào hệ thống.
-- **Latest Activities (Agricultural Image Optimization - DONE)**:
   - **AI Image Generation**: Sử dụng AI tạo bộ 6 ảnh thực tế chuyên sâu cho các bài viết kỹ thuật (Vàng lá sầu riêng, Tuyến trùng, Cà phê mùa khô, Tiêu chết nhanh, Kích rễ, Phục hồi sau thu hoạch).
   - **Content Standardization**: Thay thế toàn bộ ảnh Unsplash/Placeholder bằng ảnh nông nghiệp thực tế đã tạo, lưu trữ tại `public/images/blog/`.
   - **Database Synchronization**: Cập nhật file seed và thực thi API `/api/admin/seed-blogs` để đồng bộ hình ảnh mới vào cơ sở dữ liệu.
