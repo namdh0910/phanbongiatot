@@ -124,15 +124,27 @@ export default function AdminBlogs() {
   };
 
   const handleArticleGenerated = (article: any) => {
-    setCurrentBlog(prev => ({
-      ...prev,
-      title: article.title,
-      slug: article.slug,
-      excerpt: article.metaDescription,
-      content: article.content,
-      coverImage: article.heroImage?.cloudinaryUrl || "",
-    }));
+    console.log(">>> [ADMIN] AI Article Received:", article);
+    
+    if (!article) return;
+
+    setCurrentBlog(prev => {
+      const next = {
+        ...prev,
+        title: article.title || prev.title,
+        slug: article.slug || prev.slug,
+        excerpt: article.metaDescription || article.excerpt || prev.excerpt,
+        content: article.content || prev.content,
+        coverImage: article.heroImage?.cloudinaryUrl || article.coverImage || prev.coverImage || "",
+      };
+      console.log(">>> [ADMIN] New Blog State:", next);
+      return next;
+    });
+    
     setMessage("⚡ Đã nạp nội dung AI thành công! Bà con hãy review và lưu lại.");
+    
+    // Cuộn xuống phần soạn thảo để anh dễ theo dõi
+    window.scrollTo({ top: 400, behavior: 'smooth' });
   };
 
   if (loading) return <div className="animate-pulse py-10 font-black text-gray-400">Đang tải dữ liệu nội dung...</div>;
