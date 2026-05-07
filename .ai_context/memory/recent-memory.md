@@ -2,10 +2,10 @@
 
 ## 🕒 Current Context
 - **Date**: 2026-05-07
+- **Latest Activities (AI Engine Migration to Gemini - DONE)**:
+  - **Gemini 1.5 Pro Integration**: Đã chuyển đổi "bộ não" viết bài từ Claude sang Gemini 1.5 Pro để tận dụng gói miễn phí và khả năng viết tiếng Việt tốt hơn.
+  - **Environment Cleanup**: Sửa lại định dạng file `.env` bị lỗi và chuẩn bị chỗ cho `GEMINI_API_KEY`.
 - **Latest Activities (AI Content Auth Fix - DONE)**:
-  - **Cookie Synchronization**: Đã đổi tên cookie kiểm tra quyền từ `admin_token` sang `adminToken` để khớp với hệ thống đăng nhập hiện tại.
-  - **JWT Library Swap**: Chuyển từ `jsonwebtoken` sang `jose` để đồng bộ cơ chế xác thực toàn dự án, sửa lỗi 401 Unauthorized.
-- **Latest Activities (AI Content Build Fix - DONE)**:
   - **Quick-Insert Feature**: Đã tích hợp thanh công cụ chèn nhanh 6 template (Cảnh báo, Lời khuyên, Checklist, Bảng chẩn đoán, Ảnh thực tế) giúp kỹ sư soạn thảo bài viết chuyên nghiệp nhanh chóng.
   - **Real-time Word Count**: Triển khai hệ thống đếm từ với cơ chế đổi màu (Đỏ/Vàng/Xanh) để kiểm soát độ dài bài viết theo tiêu chuẩn 2.500 - 3.500 từ.
   - **Expert Styling Engine**: Tự động định dạng CSS cho H2, Table, Blockquote và các khối thông báo ngay trong trình soạn thảo, đảm bảo tính thẩm mỹ cao nhất.
