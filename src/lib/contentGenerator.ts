@@ -1,5 +1,6 @@
 import { generateAIContent } from './gemini';
 import { GenerateArticleRequest, ArticleImage } from './types';
+import { cleanExpertContent } from '../utils/tableRepair';
 
 export async function generateArticleContent(req: GenerateArticleRequest) {
   try {
@@ -80,11 +81,7 @@ YÊU CẦU ĐỊNH DẠNG HTML (CẤM DÙNG MARKDOWN TABLE):
       // Clean HTML content from raw newlines that break words. 
       // In HTML, we rely on tags (<p>, <h2>, etc.) for structure, so we can safely strip \n.
       if (parsed.content) {
-        parsed.content = parsed.content
-          .replace(/\r?\n|\r/g, '')
-          .replace(/\{#[\w-]+\}/g, '')
-          .replace(/\s{2,}/g, ' ')
-          .trim();
+        parsed.content = cleanExpertContent(parsed.content);
       }
       return parsed;
     } catch (parseError) {
@@ -100,11 +97,7 @@ YÊU CẦU ĐỊNH DẠNG HTML (CẤM DÙNG MARKDOWN TABLE):
       try {
       const parsed = JSON.parse(fixed);
         if (parsed.content) {
-           parsed.content = parsed.content
-             .replace(/\r?\n|\r/g, '')
-             .replace(/\{#[\w-]+\}/g, '')
-             .replace(/\s{2,}/g, ' ')
-             .trim();
+           parsed.content = cleanExpertContent(parsed.content);
         }
         return parsed;
       } catch (secondError) {

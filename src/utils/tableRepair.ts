@@ -113,20 +113,26 @@ export const repairTablesInHtml = (html: string) => {
 };
 
 /**
- * Clean overall expert content: strip newlines, remove anchors, normalize spaces, repair tables
+ * Clean overall expert content: strip newlines, remove anchors, normalize spaces, remove AI residue, and repair tables.
+ * Safe for both Server (SSR) and Client.
  */
 export const cleanExpertContent = (html: string) => {
   if (!html) return '';
   
-  // 1. Strip raw newlines that break words
+  // 1. Strip raw newlines that break words (Word Stitching)
   let cleaned = html.replace(/\r?\n|\r/g, '');
   
   // 2. Remove {#anchor} tags
   cleaned = cleaned.replace(/\{#[\w-]+\}/g, '');
+
+  // 3. Remove AI assistant URLs (Claude, ChatGPT residue)
+  cleaned = cleaned.replace(/https?:\/\/(www\.)?(claude\.ai|chatgpt\.com|perplexity\.ai|anthropic\.com)\/[^\s"'>]+/gi, '');
   
-  // 3. Normalize spaces
-  cleaned = cleaned.replace(/\s{2,}/g, ' ').trim();
+  // 4. Normalize spaces and entities
+  cleaned = cleaned.replace(/&nbsp;/g, ' ')
+                   .replace(/\s{2,}/g, ' ')
+                   .trim();
   
-  // 4. Run table repair
+  // 5. Run table repair (only executes in browser context)
   return repairTablesInHtml(cleaned);
 };

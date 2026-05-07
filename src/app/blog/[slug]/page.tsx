@@ -10,6 +10,7 @@ import { notFound } from "next/navigation";
 import dbConnect from '@/lib/db';
 import Blog from '@/lib/models/Blog';
 import Product from '@/lib/models/Product';
+import { cleanExpertContent } from '@/utils/tableRepair';
 
 async function getBlog(slug: string) {
   try {
@@ -189,13 +190,7 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
               prose-strong:text-gray-900 prose-strong:font-black w-full"
               style={{ wordBreak: 'normal', overflowWrap: 'break-word', hyphens: 'none' }}
               dangerouslySetInnerHTML={{ 
-                __html: blog.content
-                  .replace(/[\n\r\t]+/g, '') // Word Stitching (Core)
-                  .replace(/&#10;|&#13;|&#x0A;|&#x0D;/gi, '') // HTML entities
-                  .replace(/\{#[\w-]+\}/g, '') // Anchors
-                  .replace(/>\s+</g, '><') 
-                  .replace(/\s{2,}/g, ' ') 
-                  .trim()
+                __html: cleanExpertContent(blog.content)
               }}
             />
             {/* Hậu xử lý triệt để tại Client - PHẢI ĐẶT DƯỚI ARTICLE ĐỂ DOM ĐÃ TỒN TẠI */}
@@ -208,7 +203,8 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
                   }
                 }
                 clean();
-                setTimeout(clean, 100); // Đề phòng hydration chậm
+                setTimeout(clean, 100);
+                setTimeout(clean, 500); // Đề phòng hydration chậm trên máy yếu
                 document.addEventListener('DOMContentLoaded', clean);
                 window.addEventListener('load', clean);
               })();
