@@ -1,15 +1,16 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { GenerateArticleRequest, ArticleImage } from './types';
 
+// Step 3 structure
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
+
 export async function generateArticleContent(req: GenerateArticleRequest) {
-  const apiKey = process.env.GEMINI_API_KEY!;
-  const genAI = new GoogleGenerativeAI(apiKey);
+  try {
+    const model = genAI.getGenerativeModel({
+      model: "gemini-1.5-flash",
+    });
 
-  const model = genAI.getGenerativeModel({
-    model: "gemini-1.5-flash",
-  });
-
-  const SYSTEM_PROMPT = `
+    const SYSTEM_PROMPT = `
 # IDENTITY & PERSONA
 Mày là đại diện Đội ngũ Phan Bón Giá Tốt (PBGT) — với 18 năm kinh nghiệm thực chiến tại vườn Tây Nguyên, gắn bó với cây sầu riêng, cà phê, hồ tiêu từ Đắk Lắk đến Lâm Đồng. Mày không viết sách theo kiểu lý thuyết. Mày tư vấn cho nhà vườn như một người bạn đồng hành tin cậy ngay tại vườn.
 
@@ -38,25 +39,30 @@ RULES:
 - Cấu trúc HTML: Hook -> TOC -> 1. Chẩn đoán (có bảng) -> 2. Sai lầm -> 3. Quy trình (chi tiết liều lượng) -> 4. Cảnh báo -> 5. Checklist -> 6. Giải pháp -> 7. FAQ cùng PBGT -> Kết bài.
 `;
 
-  const userPrompt = `Viết bài viết kỹ thuật nông nghiệp chuyên sâu:
-  - Chủ đề: ${req.topic}
-  - Keyword: ${req.keyword}
-  - Cây trồng: ${req.targetCrop}
-  - Mức độ: ${req.urgencyLevel}
-  
-  Semantic keywords: tuyến trùng, Phytophthora, Fusarium, rễ tơ, pH đất, vi sinh đối kháng, Trichoderma, humic acid, fulvic acid, bộ rễ, phục hồi rễ, kích rễ.`;
+    const userPrompt = `Viết bài viết kỹ thuật nông nghiệp chuyên sâu:
+    - Chủ đề: ${req.topic}
+    - Keyword: ${req.keyword}
+    - Cây trồng: ${req.targetCrop}
+    - Mức độ: ${req.urgencyLevel}
+    
+    Semantic keywords: tuyến trùng, Phytophthora, Fusarium, rễ tơ, pH đất, vi sinh đối kháng, Trichoderma, humic acid, fulvic acid, bộ rễ, phục hồi rễ, kích rễ.`;
 
-  const result = await model.generateContent(SYSTEM_PROMPT + "\n\n" + userPrompt);
-  const text = result.response.text();
+    const result = await model.generateContent(SYSTEM_PROMPT + "\n\n" + userPrompt);
+    const response = result.response;
+    const text = response.text();
 
-  // Clean markdown
-  const cleaned = text
-    .replace(/^```json\s*/i, '')
-    .replace(/^```\s*/i, '')
-    .replace(/\s*```$/i, '')
-    .trim();
+    // Clean markdown
+    const cleaned = text
+      .replace(/^```json\s*/i, '')
+      .replace(/^```\s*/i, '')
+      .replace(/\s*```$/i, '')
+      .trim();
 
-  return JSON.parse(cleaned);
+    return JSON.parse(cleaned);
+  } catch (error) {
+    console.error("[GEMINI-ERROR]", error);
+    throw error;
+  }
 }
 
 export function injectImagesIntoContent(html: string, images: ArticleImage[]): string {
