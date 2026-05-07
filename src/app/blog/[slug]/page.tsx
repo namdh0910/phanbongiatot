@@ -240,14 +240,6 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
                    </p>
                 </div>
 
-                <div className="space-y-6 px-4">
-                  <h3 className="text-lg font-black text-gray-900 uppercase italic tracking-tighter flex items-center gap-2">
-                    <span className="w-1 h-5 bg-emerald-500 rounded-full" />
-                    Mục lục bài viết
-                  </h3>
-                  <TableOfContents content={blog.content} />
-                </div>
-
                 <div className="bg-gray-900 rounded-[3rem] p-8 text-white relative overflow-hidden shadow-2xl">
                    <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/20 rounded-full blur-3xl"></div>
                    <div className="relative z-10">
