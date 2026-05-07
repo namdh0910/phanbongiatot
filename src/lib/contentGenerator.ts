@@ -1,15 +1,15 @@
-// Calls Google Gemini to generate full article HTML with image placeholders
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { GenerateArticleRequest, ArticleImage } from './types';
 
-// Models to try in order of preference
-const MODELS_TO_TRY = [
-  "gemini-1.5-flash",
-  "gemini-1.5-pro",
-  "gemini-2.0-flash-exp"
-];
+export async function generateArticleContent(req: GenerateArticleRequest) {
+  const apiKey = process.env.GEMINI_API_KEY!;
+  const genAI = new GoogleGenerativeAI(apiKey);
 
-const SYSTEM_PROMPT = `
+  const model = genAI.getGenerativeModel({
+    model: "gemini-1.5-flash",
+  });
+
+  const SYSTEM_PROMPT = `
 # IDENTITY & PERSONA
 Mày là đại diện Đội ngũ Phan Bón Giá Tốt (PBGT) — với 18 năm kinh nghiệm thực chiến tại vườn Tây Nguyên, gắn bó với cây sầu riêng, cà phê, hồ tiêu từ Đắk Lắk đến Lâm Đồng. Mày không viết sách theo kiểu lý thuyết. Mày tư vấn cho nhà vườn như một người bạn đồng hành tin cậy ngay tại vườn.
 
@@ -38,12 +38,6 @@ RULES:
 - Cấu trúc HTML: Hook -> TOC -> 1. Chẩn đoán (có bảng) -> 2. Sai lầm -> 3. Quy trình (chi tiết liều lượng) -> 4. Cảnh báo -> 5. Checklist -> 6. Giải pháp -> 7. FAQ cùng PBGT -> Kết bài.
 `;
 
-export async function generateArticleContent(req: GenerateArticleRequest) {
-  const apiKey = process.env.GEMINI_API_KEY || "";
-  if (!apiKey) {
-    throw new Error("Thiếu GEMINI_API_KEY trong cấu hình hệ thống.");
-  }
-
   const userPrompt = `Viết bài viết kỹ thuật nông nghiệp chuyên sâu:
   - Chủ đề: ${req.topic}
   - Keyword: ${req.keyword}
@@ -52,39 +46,17 @@ export async function generateArticleContent(req: GenerateArticleRequest) {
   
   Semantic keywords: tuyến trùng, Phytophthora, Fusarium, rễ tơ, pH đất, vi sinh đối kháng, Trichoderma, humic acid, fulvic acid, bộ rễ, phục hồi rễ, kích rễ.`;
 
-  const genAI = new GoogleGenerativeAI(apiKey);
-  let lastError: any = null;
+  const result = await model.generateContent(SYSTEM_PROMPT + "\n\n" + userPrompt);
+  const text = result.response.text();
 
-  for (const modelName of MODELS_TO_TRY) {
-    try {
-      console.log(`[AI-AGENT] Using model: ${modelName}`);
-      const model = genAI.getGenerativeModel({ model: modelName });
-      
-      const prompt = SYSTEM_PROMPT + "\n\n" + userPrompt;
-      const result = await model.generateContent(prompt);
-      const response = result.response;
-      const text = response.text();
-      
-      if (!text) throw new Error("Google returned empty text.");
-      
-      // Strip markdown fences
-      const cleaned = text
-        .replace(/^```json\s*/i, '')
-        .replace(/^```\s*/i, '')
-        .replace(/\s*```$/i, '')
-        .trim();
+  // Clean markdown
+  const cleaned = text
+    .replace(/^```json\s*/i, '')
+    .replace(/^```\s*/i, '')
+    .replace(/\s*```$/i, '')
+    .trim();
 
-      const parsed = JSON.parse(cleaned);
-      console.log(`[AI-AGENT] Success with model: ${modelName}`);
-      return parsed;
-    } catch (err: any) {
-      console.error(`[AI-AGENT] FULL ERROR with ${modelName}:`, err);
-      lastError = err;
-      continue; // Try next model
-    }
-  }
-
-  throw new Error(`All Gemini models failed. Last error: ${lastError?.message || "Unknown error"}`);
+  return JSON.parse(cleaned);
 }
 
 export function injectImagesIntoContent(html: string, images: ArticleImage[]): string {

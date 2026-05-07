@@ -2,34 +2,26 @@ import { NextRequest, NextResponse } from 'next/server';
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 export async function GET(req: NextRequest) {
-  const apiKey = process.env.GEMINI_API_KEY || "";
-  
-  if (!apiKey) {
-    return NextResponse.json({ 
-      status: "error", 
-      message: "Missing GEMINI_API_KEY in environment variables." 
-    }, { status: 500 });
-  }
-
   try {
+    const apiKey = process.env.GEMINI_API_KEY!;
     const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({ model: "models/gemini-1.5-flash" });
-    
-    // Quick test call
-    const result = await model.generateContent("Say 'AI OK'");
+
+    const model = genAI.getGenerativeModel({
+      model: "gemini-1.5-flash",
+    });
+
+    const result = await model.generateContent("AI status check");
     const text = result.response.text();
 
     return NextResponse.json({
       status: "success",
-      message: "Gemini API is working correctly.",
-      response: text,
-      apiKeyPreview: `${apiKey.substring(0, 8)}...`
+      model: "gemini-1.5-flash",
+      text
     });
-  } catch (err: any) {
+  } catch (error: any) {
     return NextResponse.json({
       status: "error",
-      message: err?.message || "Failed to communicate with Gemini API",
-      technicalDetail: err
+      error: error?.message || "AI Service Down"
     }, { status: 500 });
   }
 }
