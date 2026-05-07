@@ -8,13 +8,15 @@ import { GenerateArticleRequest, GenerateArticleResponse } from '@/lib/types';
 
 // Auth guard — chỉ admin mới được generate
 async function isAuthorized(req: NextRequest): Promise<boolean> {
-  const token = req.cookies.get('admin_token')?.value;
+  const token = req.cookies.get('adminToken')?.value;
   if (!token) return false;
   try {
-    const jwt = await import('jsonwebtoken');
-    jwt.default.verify(token, process.env.JWT_SECRET ?? '');
+    const { jwtVerify } = await import('jose');
+    const secret = new TextEncoder().encode(process.env.JWT_SECRET ?? '');
+    await jwtVerify(token, secret);
     return true;
-  } catch {
+  } catch (error) {
+    console.error('[auth] Auth check failed:', error);
     return false;
   }
 }
