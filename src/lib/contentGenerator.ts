@@ -2,19 +2,19 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { GenerateArticleRequest, ArticleImage } from './types';
 
-// Models to try in order
+// Models to try in order of preference
 const MODELS_TO_TRY = [
+  "gemini-2.0-flash",
   "gemini-1.5-flash",
   "gemini-1.5-pro",
-  "gemini-2.0-flash-exp",
   "gemini-pro"
 ];
 
 function getModel(apiKey: string, modelName: string) {
   const genAI = new GoogleGenerativeAI(apiKey);
-  return genAI.getGenerativeModel({ 
-    model: modelName,
-  });
+  // Using explicit models/ prefix for better SDK compatibility
+  const finalModelName = modelName.startsWith('models/') ? modelName : `models/${modelName}`;
+  return genAI.getGenerativeModel({ model: finalModelName });
 }
 
 const SYSTEM_PROMPT = `
@@ -60,23 +60,37 @@ export async function generateArticleContent(req: GenerateArticleRequest) {
   
   Semantic keywords: tuyến trùng, Phytophthora, Fusarium, rễ tơ, pH đất, vi sinh đối kháng, Trichoderma, humic acid, fulvic acid, bộ rễ, phục hồi rễ, kích rễ.`;
 
-  let lastError = null;
+  let lastError: any = null;
 
   for (const modelName of MODELS_TO_TRY) {
     try {
-      console.log(`[contentGenerator] Attempting with model: ${modelName}`);
+      console.log(`[AI-AGENT] Attempting generation with: ${modelName}`);
       const model = getModel(apiKey, modelName);
       
       const result = await model.generateContent({
-        contents: [{ role: 'user', parts: [{ text: SYSTEM_PROMPT + "\n\n" + userPrompt }] }],
+        contents: [{ 
+          role: 'user', 
+          parts: [{ text: SYSTEM_PROMPT + "\n\n" + userPrompt }] 
+        }],
         generationConfig: {
-          // Use JSON mode if possible, but keep it flexible
-          responseMimeType: modelName.includes('1.5') || modelName.includes('2.0') ? "application/json" : "text/plain",
+          temperature: 0.7,
+          topP: 0.95,
+          topK: 40,
+          maxOutputTokens: 8192,
+          // JSON mode only for 1.5+ models
+          responseMimeType: (modelName.includes('1.5') || modelName.includes('2.0')) ? "application/json" : "text/plain",
         }
       });
 
       const response = await result.response;
+      
+      // Check if response is blocked
+      if (response.promptFeedback?.blockReason) {
+        throw new Error(`Nội dung bị chặn bởi Google: ${response.promptFeedback.blockReason}`);
+      }
+
       const text = response.text();
+      if (!text) throw new Error("Google trả về nội dung rỗng.");
       
       // Strip markdown fences
       const cleaned = text
@@ -86,16 +100,23 @@ export async function generateArticleContent(req: GenerateArticleRequest) {
         .trim();
 
       const parsed = JSON.parse(cleaned);
-      console.log(`[contentGenerator] Success with model: ${modelName}`);
+      console.log(`[AI-AGENT] Success with model: ${modelName}`);
       return parsed;
-    } catch (err) {
-      console.warn(`[contentGenerator] Failed with model ${modelName}:`, err instanceof Error ? err.message : err);
+    } catch (err: any) {
+      console.error(`[AI-AGENT] Error with model ${modelName}:`, err?.message || err);
       lastError = err;
-      continue; // Try next model
+      
+      // Nếu lỗi là 429 (Too many requests) hoặc 404 (Not found) thì mới thử model khác
+      // Nếu lỗi 403 (Invalid Key) thì dừng luôn
+      if (err?.message?.includes('403')) {
+        throw new Error("Lỗi xác thực: API Key của bạn không hợp lệ hoặc không có quyền truy cập Gemini.");
+      }
+      
+      continue; // Thử model tiếp theo
     }
   }
 
-  throw new Error(`Tất cả các model AI đều thất bại. Lỗi cuối cùng: ${lastError instanceof Error ? lastError.message : "Unknown error"}`);
+  throw new Error(`Tất cả AI models đều thất bại. Lỗi cuối cùng: ${lastError?.message || "Unknown error"}`);
 }
 
 export function injectImagesIntoContent(html: string, images: ArticleImage[]): string {
