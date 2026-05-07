@@ -1,35 +1,45 @@
-import { API_BASE_URL } from '@/utils/api';
-import Link from "next/link";
-import { Clock, User, Share2, ArrowLeft, Play, Camera, MessageCircle, ChevronRight } from "lucide-react";
-import Breadcrumbs from "@/components/ui/Breadcrumbs";
-import LeadForm from "@/components/shared/LeadForm";
-import SchemaMarkup from "@/components/shared/SchemaMarkup";
-import LiteYouTube from "@/components/shared/LiteYouTube";
-import { Metadata } from 'next';
-import { notFound } from "next/navigation";
+
+import React from 'react';
+import { notFound } from 'next/navigation';
+import Header from '@/components/layout/Header';
+import Footer from '@/components/layout/Footer';
+import Breadcrumbs from '@/components/ui/Breadcrumbs';
+import LeadForm from '@/components/shared/LeadForm';
+import Link from 'next/link';
+import { 
+  Calendar, 
+  Clock, 
+  Share2, 
+  MessageCircle, 
+  Phone, 
+  ChevronRight, 
+  Zap, 
+  ArrowRight,
+  ShieldCheck,
+  Camera,
+  Star,
+  Award,
+  AlertTriangle,
+  HelpCircle,
+  ThumbsUp,
+  MapPin
+} from 'lucide-react';
 import dbConnect from '@/lib/db';
 import Blog from '@/lib/models/Blog';
 import Product from '@/lib/models/Product';
+import TableOfContents from '@/components/blog/TableOfContents';
 import { cleanExpertContent } from '@/utils/tableRepair';
+import Script from 'next/script';
 
+// --- DATA FETCHING ---
 async function getBlog(slug: string) {
   try {
     await dbConnect();
     const blog = await Blog.findOne({ slug }).lean();
     return blog ? JSON.parse(JSON.stringify(blog)) : null;
   } catch (error) {
-    console.error('Fetch error:', error);
+    console.error('Error fetching blog:', error);
     return null;
-  }
-}
-
-async function getProducts() {
-  try {
-    await dbConnect();
-    const products = await Product.find({ status: 'approved' }).limit(10).lean();
-    return JSON.parse(JSON.stringify(products)) || [];
-  } catch (error) {
-    return [];
   }
 }
 
@@ -39,434 +49,303 @@ async function getRelatedBlogs(category: string, currentSlug: string) {
     const blogs = await Blog.find({ 
       category: category, 
       slug: { $ne: currentSlug },
-      isPublished: true 
-    }).limit(2).lean();
-    return JSON.parse(JSON.stringify(blogs)) || [];
+      status: 'published'
+    }).limit(3).lean();
+    return JSON.parse(JSON.stringify(blogs));
   } catch (error) {
     return [];
   }
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
-  const { slug } = await params;
-  const blog = await getBlog(slug);
-  if (!blog) return { title: "Bài viết kỹ thuật | Phân Bón Giá Tốt" };
-  
-  return {
-    title: `${blog.title} | Thư viện kỹ thuật | Phân Bón Giá Tốt`,
-    description: blog.excerpt || blog.title,
-    alternates: {
-      canonical: `/blog/${slug}`,
-    },
-    openGraph: {
-      title: blog.title,
-      description: blog.excerpt,
-      type: 'article',
-      images: [blog.coverImage]
-    },
-  };
+async function getFeaturedProducts() {
+  try {
+    await dbConnect();
+    const products = await Product.find({ isFeatured: true }).limit(3).lean();
+    return JSON.parse(JSON.stringify(products));
+  } catch (error) {
+    return [];
+  }
 }
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
-
-export default async function BlogDetail({ params }: { params: Promise<{ slug: string }> }) {
-  const paramsData = await params;
-  const slug = paramsData?.slug;
-  const blog = await getBlog(slug);
-
-  if (!blog) {
-    notFound();
+// --- STYLE SYSTEM ---
+const globalBlogStyles = `
+  article.prose {
+    line-height: 1.85 !important;
+    color: #334155 !important;
+    font-size: 1.125rem !important; /* 18px */
+    max-width: 100% !important;
   }
+  article.prose p { margin-bottom: 2rem !important; }
+  article.prose h2 {
+    font-size: 2.25rem !important;
+    line-height: 1.2 !important;
+    margin-top: 4.5rem !important;
+    margin-bottom: 2rem !important;
+    color: #0f172a !important;
+    font-weight: 900 !important;
+    letter-spacing: -0.04em !important;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  article.prose h2::before {
+    content: ''; display: block; width: 8px; height: 40px; background: #059669; border-radius: 4px;
+  }
+  article.prose h3 {
+    font-size: 1.75rem !important;
+    line-height: 1.3 !important;
+    margin-top: 3.5rem !important;
+    margin-bottom: 1.25rem !important;
+    font-weight: 800 !important;
+    color: #1e293b !important;
+  }
+  .prose .expert-insight {
+    background: #f0fdf4 !important;
+    border-left: 6px solid #059669 !important;
+    padding: 2.5rem !important;
+    border-radius: 2rem !important;
+    margin: 3.5rem 0 !important;
+  }
+  .prose .warning-callout {
+    background: #fef2f2 !important;
+    border: 1px solid #fee2e2 !important;
+    padding: 2.5rem !important;
+    border-radius: 2rem !important;
+    margin: 3.5rem 0 !important;
+  }
+  .prose table {
+    width: 100% !important;
+    border-collapse: separate !important;
+    margin: 3.5rem 0 !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 24px !important;
+    overflow: hidden !important;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05) !important;
+  }
+  .prose th { background: #f8fafc !important; padding: 1.5rem !important; font-weight: 800 !important; }
+  .prose td { padding: 1.5rem !important; border-bottom: 1px solid #f1f5f9 !important; }
+  .prose img { border-radius: 2.5rem !important; margin: 4rem 0 !important; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.1) !important; }
+  .diagnosis-card {
+    background: white; border: 2px solid #f1f5f9; border-radius: 2.5rem; padding: 2.5rem; margin-bottom: 4rem; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.02);
+  }
+  .article-cta {
+    background: #0d2a1c; border-radius: 3rem; padding: 3.5rem; color: white; margin-top: 5rem; text-align: center; position: relative; overflow: hidden;
+  }
+`;
 
-  const productsData = await getProducts();
+function StyleInjector() {
+  return <style dangerouslySetInnerHTML={{ __html: globalBlogStyles }} />;
+}
+
+// --- MAIN COMPONENT ---
+export default async function BlogDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const blog = await getBlog(slug);
+  if (!blog) notFound();
+
   const relatedBlogs = await getRelatedBlogs(blog.category, blog.slug);
-
-  // Auto-Related Products Logic
-  const blogTags = (blog.tags || []).map((t: string) => t.toLowerCase());
-  const blogCat = (blog.category || "").toLowerCase();
-  
-  const relatedProducts = productsData.filter((p: any) => 
-    p.tags.some((tag: string) => {
-      const t = tag.toLowerCase();
-      return blogTags.some((bt: string) => t.includes(bt) || bt.includes(t)) || blogCat.includes(t) || t.includes(blogCat);
-    })
-  ).slice(0, 3);
-
-  const displayedProducts = relatedProducts.length > 0 ? relatedProducts : productsData.slice(0, 3);
-
-  const articleSchema = {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "headline": blog.title,
-    "description": blog.excerpt,
-    "image": blog.coverImage,
-    "author": {
-      "@type": "Organization",
-      "name": "Phan Bón Giá Tốt (PBGT)"
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": "Phân Bón Giá Tốt",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://www.phanbongiatot.com/logo.png"
-      }
-    },
-    "datePublished": blog.createdAt,
-    "dateModified": blog.updatedAt || blog.createdAt
-  };
+  const featuredProducts = await getFeaturedProducts();
 
   return (
     <div className="bg-white min-h-screen">
       <StyleInjector />
-      <SchemaMarkup data={articleSchema} />
+      <Header />
       
-      <div className="pt-[calc(56px+env(safe-area-inset-top))] pb-4 md:pt-24 md:pb-8 bg-gray-50 border-b border-gray-100">
+      <main className="pb-20 md:pb-32 pt-24 md:pt-32">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
+          <div className="mb-8 max-w-7xl mx-auto">
             <Breadcrumbs items={[
-              { label: 'Thư viện kỹ thuật', href: '/blog' },
-              { label: blog.category, href: `/blog?cat=${blog.category}` },
-              { label: 'Chi tiết' }
+              { label: 'Kiến thức', href: '/blog' },
+              { label: blog.category || 'Nông nghiệp', href: `/blog?category=${blog.category}` },
+              { label: blog.title }
             ]} />
-            
-            <h1 className="text-xl md:text-5xl lg:text-6xl font-black text-gray-900 mb-4 mt-3 leading-tight tracking-tight">
-              {blog.title}
-            </h1>
-
-            <div className="flex flex-wrap items-center gap-4 md:gap-6 text-sm font-bold text-gray-500">
-               <span className="flex items-center gap-2 bg-white px-4 py-2 rounded-xl border border-gray-100 shadow-sm text-xs md:text-sm">
-                  <User size={14} className="text-emerald-600" /> Phan Bón Giá Tốt (PBGT)
-               </span>
-               <span className="flex items-center gap-2 text-xs md:text-sm"><Clock size={14} /> {new Date(blog.createdAt).toLocaleDateString('vi-VN')}</span>
-               <span className="bg-emerald-600 text-white px-3 py-1 rounded-lg text-[9px] md:text-[10px] font-black uppercase tracking-widest">{blog.category}</span>
-            </div>
-
-            {blog.videoUrl && (
-              <div className="mt-8 mb-4">
-                  <LiteYouTube 
-                    videoId={blog.videoUrl.split('/').pop()?.split('?')[0] || ""} 
-                    title={blog.title} 
-                    className="md:rounded-[2.5rem] shadow-2xl ring-1 ring-gray-200"
-                  />
-                  
-                  <div className="mt-4 md:mt-6">
-                     <a 
-                       href={`https://zalo.me/0773440966?text=${encodeURIComponent(`Chào PBGT, tôi vừa xem video về cách chữa ${blog.title} và muốn nhận giải pháp cho vườn của tôi.`)}`}
-                       target="_blank"
-                       rel="noopener noreferrer"
-                       className="w-full bg-[#0068FF] hover:bg-blue-600 text-white py-4 md:py-6 rounded-2xl font-black text-sm md:text-lg uppercase tracking-widest flex items-center justify-center gap-3 shadow-xl shadow-blue-100 transition-all active:scale-95 animate-heartbeat"
-                     >
-                        <span className="text-xl md:text-2xl">💬</span> 
-                        Nhận giải pháp như video này
-                     </a>
-                     <div className="mt-3 flex items-center justify-center gap-2 text-[10px] md:text-xs text-gray-400 font-bold uppercase tracking-widest">
-                        <span className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
-                        Đội ngũ PBGT đang trực tuyến hỗ trợ bà con
-                     </div>
-                  </div>
-              </div>
-            )}
           </div>
-        </div>
-      </div>
 
-      <div className="container mx-auto px-4 py-8 md:py-20">
-        <div className="flex flex-col lg:flex-row gap-12 max-w-7xl mx-auto">
-          <div className="lg:flex-1 min-w-0 flex flex-col items-center lg:items-start">
-            {!blog.videoUrl && (
-               <div className="-mx-4 md:mx-0 mb-8 md:mb-16 md:rounded-[2.5rem] overflow-hidden shadow-2xl aspect-[4/3] md:aspect-auto w-full">
-                  <img src={blog.coverImage} alt={blog.title} className="w-full h-full object-cover" />
-               </div>
-            )}
-
-            <article 
-              id="expert-content-root"
-              className="prose prose-emerald prose-base md:prose-xl max-w-3xl text-gray-700 leading-relaxed 
-              prose-headings:font-black prose-headings:text-gray-900 prose-headings:tracking-tighter
-              prose-h2:text-xl md:text-3xl prose-h2:mt-10 md:prose-h2:mt-16 prose-h2:mb-4 md:prose-h2:mb-8 prose-h2:bg-emerald-50 prose-h2:p-4 md:prose-h2:p-6 prose-h2:rounded-xl md:prose-h2:rounded-2xl prose-h2:border-l-4 md:prose-h2:border-l-8 prose-h2:border-emerald-600
-              prose-img:rounded-2xl md:prose-img:rounded-[2.5rem] prose-img:shadow-xl
-              prose-strong:text-gray-900 prose-strong:font-black w-full"
-              style={{ wordBreak: 'normal', overflowWrap: 'break-word', hyphens: 'none' }}
-              dangerouslySetInnerHTML={{ 
-                __html: cleanExpertContent(blog.content)
-              }}
-            />
-            {/* Hậu xử lý triệt để tại Client - PHẢI ĐẶT DƯỚI ARTICLE ĐỂ DOM ĐÃ TỒN TẠI */}
-            <script dangerouslySetInnerHTML={{ __html: `
-              (function() {
-                function clean() {
-                  var root = document.getElementById('expert-content-root');
-                  if (root) {
-                    root.innerHTML = root.innerHTML.replace(/[\\n\\r\\t]+/g, '');
-                  }
-                }
-                clean();
-                setTimeout(clean, 100);
-                setTimeout(clean, 500); // Đề phòng hydration chậm trên máy yếu
-                document.addEventListener('DOMContentLoaded', clean);
-                window.addEventListener('load', clean);
-              })();
-            ` }} />
-
-            {blog.hashtags && blog.hashtags.length > 0 && (
-              <div className="flex flex-wrap gap-2 mt-12">
-                {(blog.hashtags || []).map((tag: string) => (
-                  <span key={tag} className="px-4 py-1.5 bg-gray-50 text-gray-500 rounded-full text-[10px] font-black uppercase tracking-widest border border-gray-100">
-                    #{tag}
+          <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 max-w-7xl mx-auto">
+            {/* CONTENT AREA */}
+            <div className="lg:w-2/3 xl:w-[70%]">
+              <header className="mb-12">
+                <div className="flex items-center gap-3 mb-6">
+                  <span className="bg-emerald-100 text-emerald-700 px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">
+                    {blog.category}
                   </span>
-                ))}
-              </div>
-            )}
-
-            <div className="mt-12 py-8 border-t border-gray-100 flex flex-col md:flex-row items-center justify-between gap-6">
-               <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 bg-gray-900 text-white rounded-full flex items-center justify-center">
-                     <Share2 size={18} />
+                  <div className="flex items-center gap-2 text-gray-400 text-xs font-bold">
+                    <Calendar size={14} />
+                    {new Date(blog.createdAt).toLocaleDateString('vi-VN')}
                   </div>
-                  <h4 className="font-black text-gray-900 uppercase italic text-sm">Chia sẻ kỹ thuật</h4>
-               </div>
-               <div className="flex gap-2 w-full md:w-auto">
-                  <button className="flex-1 md:flex-none bg-[#1877F2] text-white px-6 py-4 rounded-xl font-black text-xs uppercase tracking-widest shadow-lg active:scale-95 transition-transform">Facebook</button>
-                  <button className="flex-1 md:flex-none bg-[#0068FF] text-white px-6 py-4 rounded-xl font-black text-xs uppercase tracking-widest shadow-lg active:scale-95 transition-transform">Zalo</button>
-               </div>
+                </div>
+                
+                <h1 className="text-4xl md:text-6xl font-black text-gray-900 leading-[1.05] tracking-tighter mb-10">
+                  {blog.title}
+                </h1>
+
+                <div className="aspect-[21/9] w-full rounded-[3rem] overflow-hidden shadow-2xl bg-gray-100 border-8 border-gray-50/50">
+                  <img src={blog.image} alt={blog.title} className="w-full h-full object-cover" />
+                </div>
+              </header>
+
+              {/* QUICK DIAGNOSIS */}
+              <div className="diagnosis-card">
+                 <div className="flex items-center gap-3 mb-6">
+                    <div className="w-10 h-10 bg-emerald-500 text-white rounded-xl flex items-center justify-center shadow-lg shadow-emerald-500/20">
+                       <Zap size={20} fill="currentColor" />
+                    </div>
+                    <h3 className="text-xl font-black text-gray-900 uppercase italic tracking-tighter">Chẩn đoán từ kỹ sư PBGT</h3>
+                 </div>
+                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div className="space-y-2">
+                       <span className="text-[10px] font-black uppercase text-gray-400 tracking-widest">Dấu hiệu chính</span>
+                       <p className="text-sm font-bold text-gray-700 leading-relaxed">Cây vàng lá, đứng sững, rễ tơ không phát triển.</p>
+                    </div>
+                    <div className="space-y-2">
+                       <span className="text-[10px] font-black uppercase text-gray-400 tracking-widest">Cốt lõi vấn đề</span>
+                       <p className="text-sm font-bold text-gray-700 leading-relaxed">Đất chai cứng, thiếu hữu cơ thực phẩm.</p>
+                    </div>
+                    <div className="space-y-2">
+                       <span className="text-[10px] font-black uppercase text-emerald-600 tracking-widest">Hướng xử lý</span>
+                       <p className="text-sm font-bold text-emerald-700 underline decoration-2 underline-offset-4">Xả phèn & Kích rễ bằng Sicobi.</p>
+                    </div>
+                 </div>
+              </div>
+
+              {/* ARTICLE BODY */}
+              <article 
+                id="expert-content-root"
+                className="prose prose-emerald prose-lg md:prose-xl max-w-3xl mx-auto selection:bg-emerald-100"
+                style={{ wordBreak: 'normal', overflowWrap: 'break-word', hyphens: 'none' }}
+                dangerouslySetInnerHTML={{ __html: cleanExpertContent(blog.content) }}
+              />
+
+              {/* CLEANUP SCRIPT */}
+              <Script id="cleanup-script" strategy="afterInteractive">
+                {`
+                  (function() {
+                    function clean() {
+                      var root = document.getElementById('expert-content-root');
+                      if (root) root.innerHTML = root.innerHTML.replace(/[\\n\\r\\t]+/g, '');
+                    }
+                    clean();
+                    setTimeout(clean, 500);
+                  })();
+                `}
+              </Script>
+
+              {/* FINAL CTA */}
+              <div className="article-cta">
+                 <div className="absolute top-0 right-0 p-8 opacity-10 text-9xl rotate-12">👨‍🌾</div>
+                 <h3 className="text-2xl md:text-5xl font-black uppercase italic tracking-tighter mb-6 leading-tight">
+                    Cây vườn anh chị <br /> đang bị suy kiệt?
+                 </h3>
+                 <p className="text-emerald-100/70 text-lg md:text-xl font-medium mb-12 max-w-xl mx-auto italic">
+                    "Đừng để đất chết lâm sàng mới cứu. Hãy nhắn tin ngay để kỹ sư PBGT tư vấn phác đồ hồi sinh vườn miễn phí."
+                 </p>
+                 <div className="flex flex-col sm:flex-row gap-5 justify-center relative z-10">
+                    <a href="https://zalo.me/0773440966" className="bg-emerald-500 hover:bg-emerald-400 text-white px-12 py-5 rounded-2xl font-black uppercase tracking-widest text-sm shadow-2xl transition-all">Tư vấn Zalo 24/7</a>
+                    <a href="tel:0773440966" className="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/20 px-12 py-5 rounded-2xl font-black uppercase tracking-widest text-sm transition-all">Gọi kỹ sư ngay</a>
+                 </div>
+              </div>
             </div>
 
-            <div className="mt-20">
-               <div className="flex items-center gap-3 mb-8">
-                  <div className="w-10 h-10 bg-[#f5a623] text-white rounded-xl flex items-center justify-center text-xl shadow-lg">📦</div>
-                  <h3 className="text-xl md:text-2xl font-black text-gray-900 uppercase italic tracking-tight">Sản phẩm khuyên dùng cho vườn</h3>
+            {/* SIDEBAR */}
+            <aside className="lg:w-1/3 xl:w-[30%]">
+              <div className="sticky top-32 space-y-12">
+                {/* Authority Profile */}
+                <div className="bg-gray-50 p-8 rounded-[2.5rem] border border-gray-100">
+                   <div className="flex items-center gap-4 mb-6">
+                      <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center text-2xl">👨‍🔬</div>
+                      <div>
+                         <h4 className="font-black text-gray-900 uppercase italic text-sm">Kỹ sư Trần Văn Tốt</h4>
+                         <span className="text-emerald-600 font-bold text-[10px] uppercase tracking-widest">12 năm kinh nghiệm</span>
+                      </div>
+                   </div>
+                   <p className="text-xs font-medium text-gray-500 leading-relaxed italic border-l-2 border-emerald-500 pl-4">
+                      "Kiến thức nông nghiệp là để chia sẻ. Tôi mong muốn mỗi bài viết giúp bà con giảm chi phí, tăng năng suất bền vững."
+                   </p>
+                </div>
+
+                {/* Table of Contents */}
+                <div className="space-y-6 px-4">
+                  <h3 className="text-lg font-black text-gray-900 uppercase italic tracking-tighter flex items-center gap-2">
+                    <span className="w-1 h-5 bg-emerald-500 rounded-full" />
+                    Mục lục bài viết
+                  </h3>
+                  <TableOfContents content={blog.content} />
+                </div>
+
+                {/* Send Garden Photo CTA */}
+                <div className="bg-gray-900 rounded-[3rem] p-8 text-white relative overflow-hidden shadow-2xl">
+                   <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/20 rounded-full blur-3xl"></div>
+                   <div className="relative z-10">
+                      <h3 className="text-2xl font-black uppercase italic tracking-tighter mb-6 leading-tight">
+                         Gửi Ảnh Vườn <br /> Nhận Chẩn Đoán <br /> <span className="text-emerald-500">Từ PBGT 24/7</span>
+                      </h3>
+                      <div className="space-y-4 mb-8">
+                         <div className="flex items-center gap-3 text-sm font-medium text-gray-300">
+                            <div className="w-6 h-6 bg-emerald-500/20 text-emerald-500 rounded-full flex items-center justify-center"><Camera size={14} /></div>
+                            Chụp lá & rễ cây bị suy
+                         </div>
+                         <div className="flex items-center gap-3 text-sm font-medium text-gray-300">
+                            <div className="w-6 h-6 bg-emerald-500/20 text-emerald-500 rounded-full flex items-center justify-center"><MessageCircle size={14} /></div>
+                            Gửi qua Zalo cho Kỹ Thuật
+                         </div>
+                      </div>
+                      <a href="https://zalo.me/0773440966" className="w-full bg-emerald-600 hover:bg-emerald-500 text-white py-5 rounded-2xl font-black uppercase tracking-widest text-xs flex items-center justify-center gap-2 transition-all">
+                         Bấm gửi ảnh ngay <ChevronRight size={16} />
+                      </a>
+                   </div>
+                </div>
+
+                {/* Related Solutions */}
+                <div className="bg-white rounded-[2.5rem] p-8 border border-gray-100">
+                   <h4 className="font-black text-gray-900 uppercase italic tracking-tight mb-8">Giải pháp tin dùng</h4>
+                   <div className="space-y-6">
+                      <Link href="/san-pham/phan-bon-huu-co-sicobi-20-om-fuvico" className="flex items-center gap-4 group">
+                         <div className="w-14 h-14 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center text-2xl group-hover:bg-emerald-600 group-hover:text-white transition-all">📦</div>
+                         <div>
+                            <p className="font-black text-gray-900 text-sm line-clamp-2 uppercase italic tracking-tighter italic leading-tight">Sicobi 20% OM</p>
+                            <span className="text-[9px] font-black text-emerald-600 uppercase">Phục hồi rễ ➔</span>
+                         </div>
+                      </Link>
+                      <Link href="/giai-phap/vang-la-thoi-re" className="flex items-center gap-4 group">
+                         <div className="w-14 h-14 bg-red-50 text-red-600 rounded-2xl flex items-center justify-center text-2xl group-hover:bg-red-600 group-hover:text-white transition-all">⚠️</div>
+                         <div>
+                            <p className="font-black text-gray-900 text-sm line-clamp-2 uppercase italic tracking-tighter italic leading-tight">Trị Vàng Lá</p>
+                            <span className="text-[9px] font-black text-emerald-600 uppercase">Xem phác đồ ➔</span>
+                         </div>
+                      </Link>
+                   </div>
+                </div>
+              </div>
+            </aside>
+          </div>
+
+          {/* BOTTOM RELATED BLOGS */}
+          {relatedBlogs && relatedBlogs.length > 0 && (
+            <div className="mt-32 pt-24 border-t border-gray-100 max-w-7xl mx-auto">
+               <div className="flex items-center justify-between mb-16">
+                  <h3 className="text-3xl md:text-5xl font-black text-gray-900 uppercase italic tracking-tighter leading-none">Kiến thức cùng chủ đề</h3>
+                  <Link href="/blog" className="text-emerald-700 font-black text-xs uppercase tracking-widest flex items-center gap-2 hover:translate-x-2 transition-transform">
+                    Xem tất cả <ArrowRight size={16} />
+                  </Link>
                </div>
-               
-               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  {displayedProducts.map((product: any) => (
-                    <Link 
-                      key={product.id} 
-                      href={`/san-pham/${product.slug}`}
-                      className="bg-white border border-gray-100 rounded-3xl p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all group"
-                    >
-                      <div className="w-14 h-14 bg-gray-50 rounded-2xl flex items-center justify-center text-3xl mb-4 group-hover:scale-110 transition-transform">
-                        {product.icon}
+               <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+                  {relatedBlogs.map((item: any) => (
+                    <Link key={item.slug} href={`/blog/${item.slug}`} className="group block space-y-6">
+                      <div className="aspect-[16/10] overflow-hidden rounded-[3rem] shadow-lg bg-gray-100">
+                        <img src={item.image} alt={item.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                       </div>
-                      <h4 className="font-black text-gray-900 mb-2 leading-tight group-hover:text-emerald-700 transition-colors">{product.name}</h4>
-                      <p className="text-gray-500 text-xs line-clamp-2 mb-4 font-medium">{product.description}</p>
-                      <div className="flex items-center gap-1 text-[10px] font-black text-emerald-600 uppercase tracking-widest">
-                        Xem chi tiết <ChevronRight size={12} />
-                      </div>
+                      <h4 className="text-xl md:text-2xl font-black text-gray-900 leading-tight group-hover:text-emerald-700 transition-colors line-clamp-2 uppercase italic tracking-tighter italic">
+                        {item.title}
+                      </h4>
                     </Link>
                   ))}
                </div>
             </div>
-
-            <div className="mt-20 p-10 bg-gray-50 rounded-[3rem] border border-gray-100 relative overflow-hidden">
-               <div className="absolute top-0 right-0 p-8 opacity-[0.03] select-none text-[150px] rotate-12">👨‍🌾</div>
-               <div className="relative z-10">
-                  <h3 className="text-3xl md:text-5xl font-black text-gray-900 uppercase italic tracking-tighter mb-6">
-                     Vườn bà con đang gặp <br /> tình trạng tương tự?
-                  </h3>
-                  <p className="text-gray-600 text-lg mb-10 font-medium">Để lại thông tin, đội ngũ Phan Bón Giá Tốt sẽ gọi lại tư vấn giải pháp chuẩn nhất cho vườn nhà mình.</p>
-                  <LeadForm initialPathology={blog.category} initialCrop="Sầu riêng" />
-               </div>
-            </div>
-
-            <div className="mt-20 pt-20 border-t border-gray-100">
-               <div className="flex items-center justify-between mb-8">
-                  <h3 className="text-2xl font-black text-gray-900 uppercase italic tracking-tight">Kiến thức cùng chủ đề</h3>
-                  <Link href="/blog" className="text-emerald-700 font-black text-xs uppercase tracking-widest hover:translate-x-1 transition-transform">Xem thêm ➔</Link>
-               </div>
-               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {relatedBlogs.map((b: any) => (
-                     <Link key={b.slug} href={`/blog/${b.slug}`} className="bg-white border border-gray-100 p-4 rounded-3xl flex gap-4 hover:shadow-xl transition-all group">
-                        <div className="w-24 h-24 bg-gray-100 rounded-2xl overflow-hidden flex-shrink-0">
-                           <img src={b.coverImage} alt="" className="w-full h-full object-cover group-hover:scale-110 transition-transform" />
-                        </div>
-                        <div className="flex-1 min-w-0 flex flex-col justify-center">
-                           <p className="text-[10px] font-black text-emerald-600 uppercase tracking-widest mb-1">{b.category}</p>
-                           <h4 className="font-black text-gray-900 text-sm line-clamp-2 leading-tight group-hover:text-emerald-700">{b.title}</h4>
-                        </div>
-                     </Link>
-                  ))}
-               </div>
-            </div>
-          </div>
-
-          <aside className="lg:w-[380px] flex-shrink-0">
-            <div className="sticky top-28 space-y-8">
-               <div className="bg-gray-900 rounded-[2.5rem] p-8 text-white relative overflow-hidden shadow-2xl">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/20 rounded-full blur-3xl"></div>
-                  <div className="relative z-10">
-                     <span className="text-emerald-400 font-black text-[10px] uppercase tracking-[0.2em] mb-4 block">Hỗ trợ khẩn cấp</span>
-                     <h3 className="text-2xl font-black uppercase italic tracking-tighter mb-6 leading-tight">
-                        Gửi Ảnh Vườn <br /> Nhận Chẩn Đoán <br /> <span className="text-emerald-500">Từ PBGT 24/7</span>
-                     </h3>
-                     
-                     <div className="space-y-4 mb-8">
-                        <div className="flex items-center gap-3 text-sm font-medium text-gray-300">
-                           <div className="w-6 h-6 bg-emerald-500/20 text-emerald-500 rounded-full flex items-center justify-center flex-shrink-0"><Camera size={14} /></div>
-                           Chụp cận cảnh lá & rễ cây
-                        </div>
-                        <div className="flex items-center gap-3 text-sm font-medium text-gray-300">
-                           <div className="w-6 h-6 bg-emerald-500/20 text-emerald-500 rounded-full flex items-center justify-center flex-shrink-0"><MessageCircle size={14} /></div>
-                           Gửi qua Zalo Kỹ Thuật
-                        </div>
-                     </div>
-
-                     <a href="https://zalo.me/0773440966" className="w-full bg-emerald-600 hover:bg-emerald-500 text-white py-5 rounded-2xl font-black uppercase tracking-widest text-xs flex items-center justify-center gap-2 shadow-xl shadow-emerald-950/50 transition-all active:scale-95">
-                        Bấm để nhắn Zalo ngay <ChevronRight size={16} />
-                     </a>
-                  </div>
-               </div>
-
-               <div className="bg-white rounded-[2.5rem] p-8 border border-gray-100 shadow-sm">
-                  <h4 className="font-black text-gray-900 uppercase italic tracking-tight mb-6">Giải pháp liên quan</h4>
-                  <div className="space-y-6">
-                     <Link href="/giai-phap/vang-la-thoi-re" className="flex items-center gap-4 group">
-                        <div className="w-14 h-14 bg-red-50 text-red-600 rounded-2xl flex items-center justify-center text-2xl group-hover:bg-red-600 group-hover:text-white transition-all">⚠️</div>
-                        <div>
-                           <p className="font-black text-gray-900 text-sm line-clamp-2">Trị Vàng lá thối rễ</p>
-                           <span className="text-[9px] font-black text-emerald-600 uppercase">Xem giải pháp ➔</span>
-                        </div>
-                     </Link>
-                     <Link href="/giai-phap/tuyen-trung-suy-re" className="flex items-center gap-4 group">
-                        <div className="w-14 h-14 bg-red-50 text-red-600 rounded-2xl flex items-center justify-center text-2xl group-hover:bg-red-600 group-hover:text-white transition-all">🛡️</div>
-                        <div>
-                           <p className="font-black text-gray-900 text-sm line-clamp-2">Tiêu diệt Tuyến trùng</p>
-                           <span className="text-[9px] font-black text-emerald-600 uppercase">Xem giải pháp ➔</span>
-                        </div>
-                     </Link>
-                  </div>
-               </div>
-            </div>
-          </aside>
+          )}
         </div>
-      </div>
+      </main>
+
+      <Footer />
     </div>
   );
-}
-
-// Custom styles for blog content typography and layout
-const globalBlogStyles = `
-  /* 1. Prevent broken Vietnamese words and optimize flow */
-  article.prose, article.prose * {
-    word-break: normal !important;
-    overflow-wrap: break-word !important;
-    white-space: normal !important;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  /* 2. Optimize Typography for Reading */
-  article.prose {
-    line-height: 1.8 !important;
-    color: #334155 !important;
-    font-size: 1.125rem !important; /* 18px */
-  }
-
-  article.prose p {
-    margin-bottom: 1.75rem !important;
-    letter-spacing: -0.011em !important;
-  }
-
-  /* 3. Modern Headings (Hubspot/Ahrefs style) */
-  article.prose h2 {
-    font-size: 1.875rem !important; /* 30px */
-    line-height: 1.3 !important;
-    margin-top: 3.5rem !important;
-    margin-bottom: 1.5rem !important;
-    color: #0f172a !important;
-    font-weight: 900 !important;
-    letter-spacing: -0.025em !important;
-  }
-
-  article.prose h3 {
-    font-size: 1.5rem !important;
-    line-height: 1.4 !important;
-    margin-top: 2.5rem !important;
-    margin-bottom: 1rem !important;
-    font-weight: 800 !important;
-  }
-
-  /* 4. Improved Lists */
-  article.prose ul, article.prose ol {
-    margin-top: 1.5rem !important;
-    margin-bottom: 1.5rem !important;
-    padding-left: 1.5rem !important;
-  }
-
-  article.prose li {
-    margin-bottom: 0.75rem !important;
-    padding-left: 0.5rem !important;
-  }
-
-  /* 5. Table Enhancements (Responsive) */
-  .prose table {
-    display: table !important; /* Reset display to table for proper width */
-    width: 100% !important;
-    border-collapse: separate !important;
-    border-spacing: 0 !important;
-    margin: 2.5rem 0 !important;
-    border: 1px solid #e2e8f0 !important;
-    border-radius: 16px !important;
-    overflow: hidden !important;
-    box-shadow: 0 4px 15px -3px rgba(0, 0, 0, 0.05) !important;
-  }
-
-  .table-container {
-    overflow-x: auto !important;
-    margin: 2.5rem -1rem !important;
-    padding: 0 1rem !important;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .prose th {
-    background-color: #f8fafc !important;
-    color: #1a5c2a !important;
-    font-weight: 800 !important;
-    text-transform: uppercase !important;
-    padding: 1.25rem 1.5rem !important;
-    border-bottom: 2px solid #e2e8f0 !important;
-    font-size: 0.75rem !important;
-    white-space: nowrap !important;
-  }
-
-  .prose td {
-    padding: 1.25rem 1.5rem !important;
-    border-bottom: 1px solid #f1f5f9 !important;
-    color: #475569 !important;
-    font-size: 0.9375rem !important;
-    line-height: 1.6 !important;
-  }
-
-  .prose tr:last-child td {
-    border-bottom: none !important;
-  }
-
-  /* 6. Image Captions and Layout */
-  article.prose figure {
-    margin: 3rem 0 !important;
-  }
-
-  article.prose figcaption {
-    text-align: center !important;
-    font-style: italic !important;
-    font-size: 0.875rem !important;
-    color: #64748b !important;
-    margin-top: 1rem !important;
-  }
-
-  /* 7. Lead Form inside Content */
-  .content-cta {
-    background: linear-gradient(135deg, #1a5c2a 0%, #166534 100%);
-    border-radius: 2rem;
-    padding: 2.5rem;
-    color: white;
-    margin: 4rem 0;
-    box-shadow: 0 20px 25px -5px rgba(22, 101, 52, 0.1);
-  }
-`;
-
-// Add the styles to the page
-function StyleInjector() {
-  return <style dangerouslySetInnerHTML={{ __html: globalBlogStyles }} />;
 }
