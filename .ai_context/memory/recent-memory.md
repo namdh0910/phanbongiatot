@@ -4,9 +4,9 @@
 - **Date**: 2026-05-07
 - **Latest Activities (Critical Build Fix - DONE)**:
   - **GoogleGenerativeAI Constructor Fix**: Đã loại bỏ tham số `apiVersion: 'v1'` không hỗ trợ trong constructor của SDK `@google/generative-ai` v0.24.1. Lỗi này gây ra "Expected 1 arguments, but got 2" khiến Vercel build thất bại.
-  - **Robust Gemini Fallback Utility**: Triển khai `src/lib/gemini.ts` với cơ chế Fallback thông minh. Hệ thống sẽ ưu tiên thử `gemini-2.0-flash`, nếu gặp lỗi 429 (hết hạn mức) hoặc 404, sẽ tự động chuyển sang `gemini-1.5-flash-latest`.
-  - **Forced API v1 Implementation**: Toàn bộ các request AI đều được ép buộc sử dụng `apiVersion: 'v1'` để đảm bảo tính ổn định và tránh lỗi 404 từ endpoint `v1beta`.
-  - **Multi-file synchronization**: Tái cấu trúc thành công `src/app/api/test-gemini/route.ts`, `src/lib/contentGenerator.ts` và `src/app/api/admin/health-ai/route.ts` để sử dụng utility mới.
+  - **Robust Gemini & Groq Fallback**: Triển khai cơ chế Fallback 3 lớp: Ưu tiên `gemini-2.0-flash`, sau đó đến `gemini-1.5-flash-latest`, và cuối cùng là **Llama 3.3 70B (qua Groq API)**. Điều này đảm bảo hệ thống luôn hoạt động ngay cả khi hết hạn mức Gemini.
+  - **Forced API v1 Implementation**: Toàn bộ request Gemini đều được ép buộc sử dụng `apiVersion: 'v1'` để đảm bảo tính ổn định.
+  - **Multi-file synchronization**: Tái cấu trúc thành công các API routes và utilities để hỗ trợ đa model.
   - **Build Verification**: Đã chạy `npm run build` local thành công 100%.
 - **Latest Activities (AI Engine Migration to Gemini - DONE)**:
   - **Gemini 1.5 Pro Integration**: Đã chuyển đổi "bộ não" viết bài từ Claude sang Gemini 1.5 Pro để tận dụng gói miễn phí và khả năng viết tiếng Việt tốt hơn.
