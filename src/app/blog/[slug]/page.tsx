@@ -118,9 +118,26 @@ const globalBlogStyles = `
     width: 100% !important;
     border-collapse: collapse !important;
     table-layout: auto !important;
+    font-size: 0.875rem !important; /* 14px */
+    line-height: 1.5 !important;
   }
-  .table-responsive-wrapper th { background: #f8fafc !important; padding: 1rem !important; font-weight: 800 !important; white-space: nowrap; border: 1px solid #e2e8f0; }
-  .table-responsive-wrapper td { padding: 1rem !important; border: 1px solid #f1f5f9 !important; min-width: 120px; }
+  .table-responsive-wrapper th { 
+    background: #f8fafc !important; 
+    padding: 0.75rem 1rem !important; 
+    font-weight: 800 !important; 
+    white-space: nowrap; 
+    border: 1px solid #e2e8f0;
+    font-size: 0.75rem !important; /* 12px for headers */
+    color: #1e293b !important;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+  }
+  .table-responsive-wrapper td { 
+    padding: 0.75rem 1rem !important; 
+    border: 1px solid #f1f5f9 !important; 
+    min-width: 120px;
+    color: #475569 !important;
+  }
   
   .prose img { border-radius: 2rem !important; margin: 3rem 0 !important; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1) !important; max-width: 100%; height: auto; }
   
