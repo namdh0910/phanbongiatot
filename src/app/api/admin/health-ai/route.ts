@@ -1,22 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { generateAIContent } from "@/lib/gemini";
 
 export async function GET(req: NextRequest) {
   try {
-    const apiKey = process.env.GEMINI_API_KEY!;
-    const genAI = new GoogleGenerativeAI(apiKey);
+    const result = await generateAIContent("AI status check");
 
-    const model = genAI.getGenerativeModel({
-      model: "gemini-1.5-flash",
-    }, { apiVersion: 'v1' });
-
-    const result = await model.generateContent("AI status check");
-    const text = result.response.text();
+    if (!result.success) {
+      return NextResponse.json({
+        status: "error",
+        error: result.error
+      }, { status: 500 });
+    }
 
     return NextResponse.json({
       status: "success",
-      model: "gemini-1.5-flash",
-      text
+      model: result.modelUsed,
+      text: result.text
     });
   } catch (error: any) {
     return NextResponse.json({

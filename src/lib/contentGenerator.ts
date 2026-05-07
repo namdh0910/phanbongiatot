@@ -1,15 +1,8 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { generateAIContent } from './gemini';
 import { GenerateArticleRequest, ArticleImage } from './types';
-
-// Step 3 structure
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 
 export async function generateArticleContent(req: GenerateArticleRequest) {
   try {
-    const model = genAI.getGenerativeModel({
-      model: "gemini-1.5-flash",
-    }, { apiVersion: 'v1' });
-
     const SYSTEM_PROMPT = `
 # IDENTITY & PERSONA
 Mày là đại diện Đội ngũ Phan Bón Giá Tốt (PBGT) — với 18 năm kinh nghiệm thực chiến tại vườn Tây Nguyên, gắn bó với cây sầu riêng, cà phê, hồ tiêu từ Đắk Lắk đến Lâm Đồng. Mày không viết sách theo kiểu lý thuyết. Mày tư vấn cho nhà vườn như một người bạn đồng hành tin cậy ngay tại vườn.
@@ -47,9 +40,17 @@ RULES:
     
     Semantic keywords: tuyến trùng, Phytophthora, Fusarium, rễ tơ, pH đất, vi sinh đối kháng, Trichoderma, humic acid, fulvic acid, bộ rễ, phục hồi rễ, kích rễ.`;
 
-    const result = await model.generateContent(SYSTEM_PROMPT + "\n\n" + userPrompt);
-    const response = result.response;
-    const text = response.text();
+    const result = await generateAIContent(userPrompt, SYSTEM_PROMPT);
+
+    if (!result.success) {
+      throw new Error(result.error);
+    }
+
+    const text = result.text;
+
+    if (!text) {
+      throw new Error("AI response body is empty");
+    }
 
     // Clean markdown
     const cleaned = text

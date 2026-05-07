@@ -4,9 +4,9 @@
 - **Date**: 2026-05-07
 - **Latest Activities (Critical Build Fix - DONE)**:
   - **GoogleGenerativeAI Constructor Fix**: Đã loại bỏ tham số `apiVersion: 'v1'` không hỗ trợ trong constructor của SDK `@google/generative-ai` v0.24.1. Lỗi này gây ra "Expected 1 arguments, but got 2" khiến Vercel build thất bại.
-  - **Forced API v1 Implementation**: Đã chuyển cấu hình `apiVersion: 'v1'` vào tham số thứ hai của phương thức `getGenerativeModel()`. Điều này giải quyết lỗi 404 (Model not found) khi SDK tự động gọi endpoint `v1beta`.
-  - **Gemini 1.5 Flash Stable Config**: Đã đưa hệ thống quay lại model `gemini-1.5-flash` nhưng giữ nguyên cấu hình ép buộc `apiVersion: 'v1'`. Đây là cấu hình ổn định nhất, tránh được lỗi 404 (v1beta) và lỗi 429 Quota Exceeded (thường gặp ở bản 2.0 Free Tier).
-  - **Multi-file synchronization**: Sửa lỗi đồng loạt tại `src/app/api/test-gemini/route.ts`, `src/lib/contentGenerator.ts` và `src/app/api/admin/health-ai/route.ts`.
+  - **Robust Gemini Fallback Utility**: Triển khai `src/lib/gemini.ts` với cơ chế Fallback thông minh. Hệ thống sẽ ưu tiên thử `gemini-2.0-flash`, nếu gặp lỗi 429 (hết hạn mức) hoặc 404, sẽ tự động chuyển sang `gemini-1.5-flash-latest`.
+  - **Forced API v1 Implementation**: Toàn bộ các request AI đều được ép buộc sử dụng `apiVersion: 'v1'` để đảm bảo tính ổn định và tránh lỗi 404 từ endpoint `v1beta`.
+  - **Multi-file synchronization**: Tái cấu trúc thành công `src/app/api/test-gemini/route.ts`, `src/lib/contentGenerator.ts` và `src/app/api/admin/health-ai/route.ts` để sử dụng utility mới.
   - **Build Verification**: Đã chạy `npm run build` local thành công 100%.
 - **Latest Activities (AI Engine Migration to Gemini - DONE)**:
   - **Gemini 1.5 Pro Integration**: Đã chuyển đổi "bộ não" viết bài từ Claude sang Gemini 1.5 Pro để tận dụng gói miễn phí và khả năng viết tiếng Việt tốt hơn.
