@@ -2,7 +2,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import { GenerateArticleRequest, ArticleImage } from './types';
 
 // Step 3 structure
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!, { apiVersion: 'v1' });
 
 export async function generateArticleContent(req: GenerateArticleRequest) {
   try {

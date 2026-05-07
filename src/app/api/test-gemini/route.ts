@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
+// Force v1 API
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!, { apiVersion: 'v1' });
 
 export async function GET(req: NextRequest) {
   try {
@@ -9,11 +10,12 @@ export async function GET(req: NextRequest) {
       model: "gemini-1.5-flash",
     });
 
-    const result = await model.generateContent("Xin chào");
+    const result = await model.generateContent("Xin chào, bạn có khỏe không?");
     const response = result.response.text();
 
     return NextResponse.json({
       success: true,
+      apiVersion: "v1 (forced)",
       response
     });
   } catch (error: any) {
