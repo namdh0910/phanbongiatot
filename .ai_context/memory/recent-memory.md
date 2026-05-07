@@ -2,9 +2,10 @@
 
 ## 🕒 Current Context
 - **Date**: 2026-05-07
+- **Latest Activities (Content Cleanup & Standardization - DONE)**:
+  - **Database Purge**: Đã xóa toàn bộ bài viết cũ/nháp trong database để làm sạch hệ thống.
+  - **Master Blog Seeding**: Đã nạp duy nhất bài viết "Sầu Riêng Vàng Lá Thối Rễ" chuẩn 3.500 từ của Kỹ sư Tuấn làm bài viết mẫu (Source of Truth) cho toàn bộ hệ thống.
 - **Latest Activities (Admin Editor v2.0 Build Fix - DONE)**:
-  - **TypeScript Hotfix**: Đã sửa lỗi "Type error: No overload matches this call" liên quan đến `ref` trong `dynamic` import của ReactQuill bằng cách ép kiểu `as any`. Đảm bảo Vercel build thành công.
-- **Latest Activities (Admin Editor v2.0 Upgrade - DONE)**:
   - **Quick-Insert Feature**: Đã tích hợp thanh công cụ chèn nhanh 6 template (Cảnh báo, Lời khuyên, Checklist, Bảng chẩn đoán, Ảnh thực tế) giúp kỹ sư soạn thảo bài viết chuyên nghiệp nhanh chóng.
   - **Real-time Word Count**: Triển khai hệ thống đếm từ với cơ chế đổi màu (Đỏ/Vàng/Xanh) để kiểm soát độ dài bài viết theo tiêu chuẩn 2.500 - 3.500 từ.
   - **Expert Styling Engine**: Tự động định dạng CSS cho H2, Table, Blockquote và các khối thông báo ngay trong trình soạn thảo, đảm bảo tính thẩm mỹ cao nhất.
