@@ -8,7 +8,7 @@ export async function GET() {
 
     const highQualityBlog = {
       title: "Sầu Riêng Vàng Lá Thối Rễ: Kỹ Sư Chỉ Đúng Cách Cứu Vườn Trong 7 Ngày",
-      slug: "sau-rieng-vang-la-thoi-re-kỹ-su-huong-dan",
+      slug: "sau-rieng-vang-la-thoi-re-ky-su-huong-dan",
       category: "Cẩm nang kỹ thuật",
       coverImage: "/images/blog/sau-rieng-vang-la-mua-mua.png",
       excerpt: "Đừng vội bón thêm phân khi thấy sầu riêng vàng lá. Kỹ sư chỉ ra sai lầm chết người và lộ trình 7 ngày phục hồi rễ tơ trắng xóa.",
