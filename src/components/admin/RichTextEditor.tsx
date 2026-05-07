@@ -15,6 +15,26 @@ interface RichTextEditorProps {
   placeholder?: string;
 }
 
+// Hàm dọn dẹp và làm đẹp HTML cho người dùng dễ sửa
+const prettifyHTML = (html: string) => {
+  return html
+    .replace(/&nbsp;/g, ' ')
+    .replace(/<thead/g, '\n  <thead')
+    .replace(/<tbody/g, '\n  <tbody')
+    .replace(/<tr/g, '\n    <tr')
+    .replace(/<th/g, '\n      <th')
+    .replace(/<td/g, '\n      <td')
+    .replace(/<\/tr>/g, '\n    </tr>')
+    .replace(/<\/thead>/g, '\n  </thead>')
+    .replace(/<\/tbody>/g, '\n  </tbody>')
+    .replace(/<\/table>/g, '\n</table>')
+    .replace(/<h/g, '\n<h')
+    .replace(/<p/g, '\n<p')
+    .replace(/<ul/g, '\n<ul')
+    .replace(/<li/g, '\n  <li')
+    .trim();
+};
+
 export default function RichTextEditor({ value, onChange, label, placeholder }: RichTextEditorProps) {
   const quillRef = useRef<any>(null);
   const [wordCount, setWordCount] = useState(0);
@@ -270,7 +290,7 @@ export default function RichTextEditor({ value, onChange, label, placeholder }: 
         <div className="max-h-[700px] overflow-y-auto custom-editor-scroll">
           {isSourceMode ? (
             <textarea
-              value={value}
+              value={prettifyHTML(value)}
               onChange={(e) => onChange(e.target.value)}
               className="w-full h-[600px] p-10 font-mono text-sm bg-gray-900 text-emerald-400 outline-none resize-none leading-relaxed"
               placeholder="Nhập mã HTML tại đây..."
