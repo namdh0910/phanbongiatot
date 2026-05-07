@@ -1,7 +1,11 @@
 # Recent Memory (Last 48h)
 
 ## 🕒 Current Context
-- **Date**: 2026-05-06
+- **Date**: 2026-05-07
+- **Latest Activities (Agricultural Image Optimization - DONE)**:
+  - **AI Image Generation**: Sử dụng AI tạo bộ 6 ảnh thực tế chuyên sâu cho các bài viết kỹ thuật (Vàng lá sầu riêng, Tuyến trùng, Cà phê mùa khô, Tiêu chết nhanh, Kích rễ, Phục hồi sau thu hoạch).
+  - **Content Standardization**: Thay thế toàn bộ ảnh Unsplash/Placeholder bằng ảnh nông nghiệp thực tế đã tạo, lưu trữ tại `public/images/blog/`.
+  - **Database Synchronization**: Cập nhật file seed và thực thi API `/api/admin/seed-blogs` để đồng bộ hình ảnh mới vào cơ sở dữ liệu.
 - **Latest Activities (Blog Fix & Optimization - DONE)**:
   - **Hotfix: Build Failure**: Đã xóa file `scratch/check-blogs.ts` gây lỗi TypeScript check trên Vercel.
   - **Content Writing Skill**: Đã thiết lập file hướng dẫn viết bài chuyên sâu cho kỹ sư nông nghiệp tại `.ai_context/skills/content-writing.md`.

@@ -11,11 +11,11 @@ export async function GET() {
         title: "Sầu Riêng Vàng Lá Mùa Mưa: Quy trình 5 Bước Cứu Vườn Tận Gốc",
         slug: "sau-rieng-vang-la-mua-mua",
         category: "Cẩm nang kỹ thuật",
-        coverImage: "https://images.unsplash.com/photo-1628352081506-83c43123ed6d?auto=format&fit=crop&q=80",
+        coverImage: "/images/blog/sau-rieng-vang-la-mua-mua.png",
         excerpt: "Mùa mưa là ác mộng của sầu riêng với bệnh vàng lá thối rễ. Kỹ sư chỉ cách cứu vườn dứt điểm bằng 5 bước sinh học an toàn.",
         content: `
           <p>Mùa mưa tại Tây Nguyên và miền Tây mang theo lượng nước lớn, độ ẩm không khí cao, là điều kiện \"vàng\" để nấm <strong>Phytophthora</strong> và <strong>Fusarium</strong> tấn công bộ rễ sầu riêng. Nếu không xử lý kịp thời, cây sẽ suy kiệt và chết chỉ sau vài tuần.</p>
-          <img src=\"https://images.unsplash.com/photo-1628352081506-83c43123ed6d?auto=format&fit=crop&q=80\" alt=\"Vàng lá thối rễ sầu riêng\" style=\"width:100%; border-radius: 20px; margin: 20px 0;\" />
+          <img src=\"/images/blog/sau-rieng-vang-la-mua-mua.png\" alt=\"Vàng lá thối rễ sầu riêng\" style=\"width:100%; border-radius: 20px; margin: 20px 0;\" />
           <h2>1. Nhận diện dấu hiệu \"Cấp cứu\" cho vườn</h2>
           <p>Bà con cần đi thăm vườn ngay sau các đợt mưa kéo dài. Các dấu hiệu điển hình bao gồm:</p>
           <ul>
@@ -31,7 +31,7 @@ export async function GET() {
         title: "Tuyến Trùng Sầu Riêng: Kẻ Giết Người Thầm Lặng Trong Lòng Đất",
         slug: "tuyen-trung-sau-rieng",
         category: "Cẩm nang kỹ thuật",
-        coverImage: "https://images.unsplash.com/photo-1621460245131-03617300302b?auto=format&fit=crop&q=80",
+        coverImage: "/images/blog/tuyen-trung-sau-rieng.png",
         excerpt: "Tuyến trùng tạo vết thương cho nấm Phytophthora xâm nhập. Nếu không trị tận gốc tuyến trùng, bệnh vàng lá sẽ tái phát liên tục.",
         content: `<p>Nếu vàng lá thối rễ là \"triệu chứng\" thì <strong>Tuyến trùng</strong> thường là \"nguyên nhân\" sâu xa.</p>`,
         isPublished: true,
@@ -42,7 +42,7 @@ export async function GET() {
         title: "Kích Rễ Cây Trồng Đúng Cách: Bí Quyết Để Tối Ưu 100% Phân Bón",
         slug: "kich-re-cay-trong-dung-cach",
         category: "Mỗi chất - Một vấn đề",
-        coverImage: "https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&q=80",
+        coverImage: "/images/blog/kich-re-cay-trong.png",
         excerpt: "Rễ là cái miệng của cây. Kích rễ đúng thời điểm giúp cây ăn phân khỏe, lớn nhanh và tiết kiệm chi phí cho nhà nông.",
         content: `<p>Bà con thường than phiền: \"Sao tôi bón phân đắt tiền mà cây vẫn không lớn?\". Câu trả lời nằm ở bộ rễ.</p>`,
         isPublished: true,
@@ -53,7 +53,7 @@ export async function GET() {
         title: "Cà Phê Mùa Khô: Tuyệt Chiêu Giữ Vườn Xanh Mượt Dưới Nắng Gắt",
         slug: "ca-phe-vang-la-mua-kho",
         category: "Cẩm nang kỹ thuật",
-        coverImage: "https://images.unsplash.com/photo-1501333193976-189f315a6b0c?auto=format&fit=crop&q=80",
+        coverImage: "/images/blog/ca-phe-mua-kho.png",
         excerpt: "Mùa khô Tây Nguyên rất khắc nghiệt. Kỹ sư hướng dẫn cách tưới nước và bón phân giúp cà phê không bị vàng lá.",
         content: `<p>Mùa khô là thời điểm thử thách nhất với cây cà phê tại Tây Nguyên.</p>`,
         isPublished: true,
@@ -64,7 +64,7 @@ export async function GET() {
         title: "Tiêu Chết Nhanh & Chết Chậm: Cách Phân Biệt Để Xử Lý Đúng Bệnh",
         slug: "phan-biet-tieu-chet-nhanh-chet-cham",
         category: "Cẩm nang kỹ thuật",
-        coverImage: "https://images.unsplash.com/photo-1596431718870-7634f19894e4?auto=format&fit=crop&q=80",
+        coverImage: "/images/blog/tieu-chet-nhanh-cham.png",
         excerpt: "Đừng nhầm lẫn giữa hai loại bệnh này nếu không muốn mất tiền oan. Kỹ sư hướng dẫn cách nhận diện và giải pháp đặc trị.",
         content: `<p>Bệnh chết nhanh và chết chậm trên cây tiêu có thể xóa sổ cả một trang trại.</p>`,
         isPublished: true,
@@ -75,11 +75,11 @@ export async function GET() {
         title: "Phục Hồi Sầu Riêng Sau Thu Hoạch: Quy trình 'Vàng' giúp cây sung sức, mập đọt",
         slug: "phuc-hoi-sau-rieng-sau-thu-hoach",
         category: "Cẩm nang kỹ thuật",
-        coverImage: "https://images.unsplash.com/photo-1599684133327-0470b8089450?auto=format&fit=crop&q=80",
+        coverImage: "/images/blog/phuc-hoi-sau-rieng-sau-thu-hoach.png",
         excerpt: "Sau một vụ mùa nuôi trái, cây sầu riêng bị kiệt sức nghiêm trọng. Nếu không phục hồi đúng cách, cây sẽ dễ bị xì mủ và năng suất vụ sau giảm mạnh.",
         content: `
           <p>Sau khi thu hoạch, cây sầu riêng thường rơi vào tình trạng \"mất sức\" trầm trọng. Các chất dinh dưỡng trong thân, lá đã bị rút cạn để nuôi trái. Đây là thời điểm nhạy cảm nhất.</p>
-          <img src=\"https://images.unsplash.com/photo-1589923188900-85dae523342b?auto=format&fit=crop&q=80\" alt=\"Phục hồi rễ sầu riêng\" style=\"width:100%; border-radius: 20px; margin: 20px 0;\" />
+          <img src=\"/images/blog/phuc-hoi-sau-rieng-sau-thu-hoach.png\" alt=\"Phục hồi rễ sầu riêng\" style=\"width:100%; border-radius: 20px; margin: 20px 0;\" />
           <h2>1. Quy trình phục hồi 3 giai đoạn chuẩn Kỹ sư</h2>
           <p><strong>GĐ 1: Vệ sinh vườn và sát khuẩn.</strong> Tỉa cành, rửa vườn sạch nấm hồng, rong rêu.</p>
           <p><strong>GĐ 2: Kích rễ và cải tạo đất.</strong> Sử dụng <strong>Humic K-Max</strong> để nâng pH đất và kích rễ tơ phát triển mạnh mẽ.</p>
@@ -100,7 +100,7 @@ export async function GET() {
     }
 
     return NextResponse.json({ 
-      message: 'Successfully seeded 6 professional blogs including NEW Post-Harvest Recovery',
+      message: 'Successfully seeded 6 professional blogs with CUSTOM AI IMAGES',
       count: seedResults.length 
     });
   } catch (error: any) {
