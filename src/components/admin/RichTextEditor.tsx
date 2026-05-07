@@ -70,18 +70,34 @@ export default function RichTextEditor({ value, onChange, label, placeholder }: 
     const markdown = prompt("Dán nội dung Markdown từ Claude/Gemini vào đây:");
     if (markdown) {
       // 1. Dọn dẹp mã neo {#anchor} của Claude
-      const cleanedMarkdown = markdown.replace(/\{#[\w-]+\}/g, '');
+      let cleanedMarkdown = markdown.replace(/\{#[\w-]+\}/g, '');
       
-      // 2. Chuyển đổi Markdown sang HTML
+      // 2. Tiền xử lý bảng (Đảm bảo hàng tiêu đề không bị gộp)
+      // Nếu thấy hàng tiêu đề có vẻ bị dính, ta sẽ chèn thêm dấu gạch đứng
+      const lines = cleanedMarkdown.split('\n');
+      const processedLines = lines.map(line => {
+        if (line.includes('|') && !line.includes('---')) {
+          // Đảm bảo có dấu gạch đứng ở đầu và cuối hàng
+          let l = line.trim();
+          if (!l.startsWith('|')) l = '| ' + l;
+          if (!l.endsWith('|')) l = l + ' |';
+          return l;
+        }
+        return line;
+      });
+      cleanedMarkdown = processedLines.join('\n');
+
+      // 3. Chuyển đổi Markdown sang HTML
       let html = marked.parse(cleanedMarkdown);
       
-      // 3. Xử lý cưỡng bức bảng để không bị lỗi header
-      // Bọc bảng vào div responsive và đảm bảo th/td có style cơ bản
-      html = (html as string).replace(/<table>/g, '<div class="table-responsive"><table style="width:100%; border-collapse:collapse; border: 1px solid #e2e8f0;">');
+      // 4. Hậu xử lý HTML cưỡng bức (Làm đẹp và fix lỗi Quill)
+      html = (html as string).replace(/<table>/g, '<div class="table-responsive"><table style="width:100%; border-collapse:collapse; border: 1px solid #cbd5e0; margin: 20px 0;">');
       html = (html as string).replace(/<\/table>/g, '</table></div>');
-      html = (html as string).replace(/<thead>/g, '<thead style="background-color: #f8fafc;">');
-      html = (html as string).replace(/<th/g, '<th style="border: 1px solid #e2e8f0; padding: 12px; text-align: left; font-weight: bold;"');
-      html = (html as string).replace(/<td/g, '<td style="border: 1px solid #e2e8f0; padding: 12px;"');
+      html = (html as string).replace(/<thead>/g, '<thead style="background-color: #f7fafc; border-bottom: 2px solid #cbd5e0;">');
+      
+      // Fix lỗi gộp ô tiêu đề: Thay thế các thẻ <th> bằng style cứng
+      html = (html as string).replace(/<th/g, '<th style="border: 1px solid #cbd5e0; padding: 15px; text-align: left; font-weight: 800; color: #1a5c2a; min-width: 100px;"');
+      html = (html as string).replace(/<td/g, '<td style="border: 1px solid #cbd5e0; padding: 12px; vertical-align: top;"');
 
       const quill = quillRef.current?.getEditor();
       if (quill) {
