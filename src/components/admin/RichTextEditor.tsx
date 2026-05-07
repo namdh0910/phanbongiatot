@@ -126,9 +126,18 @@ export default function RichTextEditor({ value, onChange, label, placeholder }: 
           
           // Phát hiện lỗi: Nếu header chỉ có 1 ô mà body có nhiều ô
           if (headerCells.length === 1 && bodyCells.length > 1) {
-            const headerText = headerCells[0].textContent || "";
-            // Tách tiêu đề dựa trên xuống dòng hoặc 2 khoảng trắng trở lên
-            const titles = headerText.split(/\n|\s{2,}/).map(t => t.trim()).filter(t => t.length > 0);
+            const cell = headerCells[0];
+            const strongTags = cell.querySelectorAll('strong');
+            let titles: string[] = [];
+
+            if (strongTags.length === bodyCells.length) {
+              // 1. Nếu số thẻ strong khớp với số cột, dùng thẻ strong làm tiêu đề
+              titles = Array.from(strongTags).map(s => s.textContent || "").filter(t => t.trim());
+            } else {
+              // 2. Nếu không, tách theo text như cũ
+              const headerText = cell.textContent || "";
+              titles = headerText.split(/\n|\s{2,}/).map(t => t.trim()).filter(t => t.length > 0);
+            }
             
             // Nếu số lượng tiêu đề tách được khớp với số cột bên dưới
             if (titles.length === bodyCells.length) {
