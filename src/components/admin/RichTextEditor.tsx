@@ -88,22 +88,74 @@ export default function RichTextEditor({ value, onChange, label, placeholder }: 
       cleanedMarkdown = processedLines.join('\n');
 
       // 3. Chuyển đổi Markdown sang HTML
-      let html = marked.parse(cleanedMarkdown);
+      let htmlString = marked.parse(cleanedMarkdown) as string;
       
-      // 4. Hậu xử lý HTML cưỡng bức (Làm đẹp và fix lỗi Quill)
-      html = (html as string).replace(/<table>/g, '<div class="table-responsive"><table style="width:100%; border-collapse:collapse; border: 1px solid #cbd5e0; margin: 20px 0;">');
-      html = (html as string).replace(/<\/table>/g, '</table></div>');
-      html = (html as string).replace(/<thead>/g, '<thead style="background-color: #f7fafc; border-bottom: 2px solid #cbd5e0;">');
-      
-      // Fix lỗi gộp ô tiêu đề: Thay thế các thẻ <th> bằng style cứng
-      html = (html as string).replace(/<th/g, '<th style="border: 1px solid #cbd5e0; padding: 15px; text-align: left; font-weight: 800; color: #1a5c2a; min-width: 100px;"');
-      html = (html as string).replace(/<td/g, '<td style="border: 1px solid #cbd5e0; padding: 12px; vertical-align: top;"');
+      // 4. THUẬT TOÁN SỬA BẢNG THÔNG MINH (Smart Repair)
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(htmlString, 'text/html');
+      const tables = doc.querySelectorAll('table');
+
+      tables.forEach(table => {
+        const thead = table.querySelector('thead');
+        const firstRow = table.querySelector('tbody tr');
+        
+        if (thead && firstRow) {
+          const headerCells = thead.querySelectorAll('th');
+          const bodyCells = firstRow.querySelectorAll('td');
+          
+          // Phát hiện lỗi: Nếu header chỉ có 1 ô mà body có nhiều ô
+          if (headerCells.length === 1 && bodyCells.length > 1) {
+            const headerText = headerCells[0].textContent || "";
+            // Tách tiêu đề dựa trên xuống dòng hoặc 2 khoảng trắng trở lên
+            const titles = headerText.split(/\n|\s{2,}/).map(t => t.trim()).filter(t => t.length > 0);
+            
+            // Nếu số lượng tiêu đề tách được khớp với số cột bên dưới
+            if (titles.length === bodyCells.length) {
+              const newTr = doc.createElement('tr');
+              titles.forEach(title => {
+                const th = doc.createElement('th');
+                th.textContent = title;
+                th.style.border = "1px solid #cbd5e0";
+                th.style.padding = "15px";
+                th.style.backgroundColor = "#f7fafc";
+                th.style.color = "#1a5c2a";
+                th.style.fontWeight = "800";
+                th.style.textAlign = "left";
+                newTr.appendChild(th);
+              });
+              thead.innerHTML = '';
+              thead.appendChild(newTr);
+            }
+          }
+        }
+
+        // Áp dụng style cho tất cả th/td để chắc chắn
+        table.style.width = "100%";
+        table.style.borderCollapse = "collapse";
+        table.style.margin = "20px 0";
+        table.style.border = "1px solid #cbd5e0";
+        
+        table.querySelectorAll('th').forEach(th => {
+          th.style.border = "1px solid #cbd5e0";
+          th.style.padding = "15px";
+          th.style.backgroundColor = "#f7fafc";
+          th.style.color = "#1a5c2a";
+          th.style.fontWeight = "800";
+        });
+        
+        table.querySelectorAll('td').forEach(td => {
+          td.style.border = "1px solid #cbd5e0";
+          td.style.padding = "12px";
+        });
+      });
+
+      const finalHtml = doc.body.innerHTML;
 
       const quill = quillRef.current?.getEditor();
       if (quill) {
         const range = quill.getSelection();
         const insertIndex = range ? range.index : quill.getLength();
-        quill.clipboard.dangerouslyPasteHTML(insertIndex, html as string);
+        quill.clipboard.dangerouslyPasteHTML(insertIndex, finalHtml);
       }
     }
   };
