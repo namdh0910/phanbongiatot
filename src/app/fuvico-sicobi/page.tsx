@@ -102,7 +102,7 @@ export default function FuvicoEliteLanding() {
                 </a>
               </div>
 
-              <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 opacity-60">
+              <div className="mt-10 md:mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 opacity-60">
                  {[
                    { icon: ShieldCheck, text: "Sạch 99.99%" },
                    { icon: Award, text: "Chuẩn Fuvico" },
@@ -110,8 +110,8 @@ export default function FuvicoEliteLanding() {
                    { icon: Leaf, text: "Hữu Cơ 100%" }
                  ].map((item, i) => (
                    <div key={i} className="flex items-center gap-2">
-                      <item.icon className="text-emerald-400" size={18} />
-                      <span className="text-white text-[10px] font-black uppercase tracking-widest">{item.text}</span>
+                      <item.icon className="text-emerald-400" size={16} />
+                      <span className="text-white text-[9px] md:text-[10px] font-black uppercase tracking-widest">{item.text}</span>
                    </div>
                  ))}
               </div>
@@ -151,18 +151,18 @@ export default function FuvicoEliteLanding() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-16">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-16">
              {[
                { emoji: "🏜️", title: "Đất 'chai' như đá", desc: "Đất bí bách, không còn oxy cho rễ thở. Rễ tơ không thể đâm xuyên, cây đứng sững không lớn." },
                { emoji: "🔒", title: "Dinh dưỡng bị 'khóa'", desc: "Lân và Kali đóng cặn trong đất, cây nhìn thấy nhưng không thể hấp thụ. Bón bao nhiêu phí bấy nhiêu." },
                { emoji: "🦠", title: "Nấm bệnh bùng phát", desc: "Vi sinh vật có lợi chết sạch, tạo điều kiện cho Tuyến trùng và Phytophthora tấn công phá nát bộ rễ." }
              ].map((item, i) => (
-               <div key={i} className="relative group p-12 bg-gray-50 rounded-[4rem] border border-gray-100 hover:bg-red-50 hover:border-red-100 transition-all duration-500">
-                  <div className="text-6xl mb-8 group-hover:scale-110 transition-transform inline-block">{item.emoji}</div>
-                  <h4 className="text-2xl font-black text-gray-900 mb-6 group-hover:text-red-700 transition-colors">{item.title}</h4>
-                  <p className="text-gray-600 font-medium leading-relaxed text-lg group-hover:text-red-900/70">{item.desc}</p>
-                  <div className="absolute top-8 right-8 text-red-500/10 group-hover:text-red-500/20 transition-colors">
-                     <AlertTriangle size={48} />
+               <div key={i} className="relative group p-8 md:p-12 bg-gray-50 rounded-[2.5rem] md:rounded-[4rem] border border-gray-100 hover:bg-red-50 hover:border-red-100 transition-all duration-500">
+                  <div className="text-4xl md:text-6xl mb-6 md:mb-8 group-hover:scale-110 transition-transform inline-block">{item.emoji}</div>
+                  <h4 className="text-xl md:text-2xl font-black text-gray-900 mb-4 md:mb-6 group-hover:text-red-700 transition-colors">{item.title}</h4>
+                  <p className="text-gray-600 font-medium leading-relaxed text-base md:text-lg group-hover:text-red-900/70">{item.desc}</p>
+                  <div className="absolute top-6 right-6 md:top-8 md:right-8 text-red-500/10 group-hover:text-red-500/20 transition-colors">
+                     <AlertTriangle size={32} className="md:w-12 md:h-12" />
                   </div>
                </div>
              ))}
@@ -188,17 +188,17 @@ export default function FuvicoEliteLanding() {
                      <p className="border-l-4 border-emerald-500 pl-8 py-2 italic text-emerald-100">"Muốn rễ ăn được, bà con phải 'mở khóa' đất trước khi bón thêm phân bón mới."</p>
                   </div>
                </div>
-               <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-6">
+               <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                   {[
                     { icon: Zap, title: "Phá vỡ liên kết keo", text: "Sicobi cắt đứt các liên kết hóa học đang khóa chặt lân và kali." },
                     { icon: Clock, title: "Hồi sinh vi sinh", text: "Cung cấp thức ăn sạch cho Trichoderma phát triển bùng phát." },
                     { icon: TrendingUp, title: "Tăng pH đất", text: "Cân bằng độ chua, đưa đất về trạng thái lý tưởng cho rễ." },
                     { icon: ShieldCheck, title: "Thải độc đất", text: "Loại bỏ tồn dư hóa học gây độc cho đầu rễ tơ." }
                   ].map((item, i) => (
-                    <div key={i} className="bg-white/5 p-8 rounded-[2.5rem] border border-white/10 backdrop-blur-sm">
-                       <item.icon className="text-emerald-400 mb-6" size={32} />
-                       <h5 className="font-black text-white text-lg mb-3 uppercase italic tracking-tighter">{item.title}</h5>
-                       <p className="text-emerald-100/50 text-sm font-medium">{item.text}</p>
+                    <div key={i} className="bg-white/5 p-6 md:p-8 rounded-3xl md:rounded-[2.5rem] border border-white/10 backdrop-blur-sm">
+                       <item.icon className="text-emerald-400 mb-4 md:mb-6" size={24} className="md:w-8 md:h-8" />
+                       <h5 className="font-black text-white text-base md:text-lg mb-2 md:mb-3 uppercase italic tracking-tighter">{item.title}</h5>
+                       <p className="text-emerald-100/50 text-xs md:text-sm font-medium">{item.text}</p>
                     </div>
                   ))}
                </div>
@@ -260,23 +260,23 @@ export default function FuvicoEliteLanding() {
               <p className="text-gray-500 text-xl font-bold italic">'Đã có hơn 15.000 vườn sầu riêng, cà phê tại Tây Nguyên hồi sinh rễ nhờ Sicobi'</p>
            </div>
            
-           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
               {[
                 { name: "Chú Bảy (Đắk Lắk)", text: "Đất vườn chú hồi xưa cứng như đá, bón NPK trôi hết. Dùng Sicobi lót được 2 bao thấy đất tơi hẳn, bới nhẹ thấy rễ trắng ra quá trời.", crop: "Vườn Sầu Riêng 5 năm" },
                 { name: "Anh Hoàng (Lâm Đồng)", text: "Sicobi này sạch, không hôi thối như mấy loại phân chuồng chưa ủ. Bón vô cây cà phê lá xanh đậm, bền màu lắm.", crop: "Vườn Cà Phê" },
                 { name: "Chị Thảo (Gia Lai)", text: "Mới đầu cũng lo, sau dùng thử thấy rễ ra mạnh quá nên tin luôn. Giờ cứ định kỳ 3 tháng chị bón Sicobi 1 lần cho xốp đất.", crop: "Vườn Hồ Tiêu" }
               ].map((testi, i) => (
-                <div key={i} className="bg-white p-12 rounded-[4rem] shadow-xl shadow-gray-200/50 border border-white relative">
-                   <div className="text-emerald-500 mb-8"><Star size={24} fill="currentColor" /></div>
-                   <p className="text-gray-600 text-lg font-medium leading-relaxed mb-10 italic">"{testi.text}"</p>
-                   <div className="flex items-center gap-5 pt-8 border-t border-gray-100">
-                      <div className="w-14 h-14 bg-emerald-100 rounded-full flex items-center justify-center text-xl">👨‍🌾</div>
+                <div key={i} className="bg-white p-8 md:p-12 rounded-3xl md:rounded-[4rem] shadow-xl shadow-gray-200/50 border border-white relative">
+                   <div className="text-emerald-500 mb-6 md:mb-8"><Star size={20} fill="currentColor" className="md:w-6 md:h-6" /></div>
+                   <p className="text-gray-600 text-base md:text-lg font-medium leading-relaxed mb-8 md:mb-10 italic">"{testi.text}"</p>
+                   <div className="flex items-center gap-4 md:gap-5 pt-6 md:pt-8 border-t border-gray-100">
+                      <div className="w-12 h-12 md:w-14 md:h-14 bg-emerald-100 rounded-full flex items-center justify-center text-lg md:text-xl">👨‍🌾</div>
                       <div>
-                         <h5 className="font-black text-gray-900 uppercase italic text-sm">{testi.name}</h5>
-                         <span className="text-emerald-600 font-bold text-[10px] uppercase tracking-widest">{testi.crop}</span>
+                         <h5 className="font-black text-gray-900 uppercase italic text-xs md:text-sm">{testi.name}</h5>
+                         <span className="text-emerald-600 font-bold text-[9px] md:text-[10px] uppercase tracking-widest">{testi.crop}</span>
                       </div>
                    </div>
-                   <div className="absolute -top-6 -right-6 text-6xl opacity-[0.05] select-none">💬</div>
+                   <div className="absolute top-4 right-4 md:top-8 md:right-8 text-4xl md:text-6xl opacity-[0.05] select-none">💬</div>
                 </div>
               ))}
            </div>
@@ -287,20 +287,22 @@ export default function FuvicoEliteLanding() {
       <section className="py-24 md:py-40 bg-white">
         <div className="container mx-auto px-4">
            <div className="max-w-5xl mx-auto">
-              <div className="bg-[#0d2a1c] rounded-[4rem] p-12 md:p-24 text-white relative overflow-hidden shadow-3xl">
-                 <div className="absolute top-0 right-0 p-16 opacity-[0.03] text-[200px] font-black italic">STEP</div>
+              <div className="bg-[#0d2a1c] rounded-3xl md:rounded-[4rem] p-8 md:p-24 text-white relative overflow-hidden shadow-3xl">
+                 <div className="absolute top-0 right-0 p-8 md:p-16 opacity-[0.03] text-[100px] md:text-[200px] font-black italic">STEP</div>
                  <div className="relative z-10">
-                    <h3 className="text-3xl md:text-6xl font-black uppercase italic tracking-tighter mb-16 text-center">Cách dùng cực kỳ đơn giản</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+                    <h3 className="text-2xl md:text-6xl font-black uppercase italic tracking-tighter mb-10 md:text-center">Cách dùng đơn giản</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
                        {[
                          { step: "01", title: "Bón lót/định kỳ", text: "Rải quanh tán cây 3-5kg/gốc tùy độ tuổi cây." },
                          { step: "02", title: "Tưới nước", text: "Tưới đẫm nước để hữu cơ tan và len lỏi vào đất." },
                          { step: "03", title: "Quan sát", text: "Sau 15-20 ngày bới nhẹ lớp đất mặt xem rễ mới." }
                        ].map((item, i) => (
-                         <div key={i} className="text-center">
-                            <div className="text-emerald-400 font-black text-5xl mb-6 italic opacity-50">#{item.step}</div>
-                            <h5 className="text-xl font-black mb-4 uppercase italic tracking-tighter">{item.title}</h5>
-                            <p className="text-emerald-100/60 font-medium">{item.text}</p>
+                         <div key={i} className="flex md:flex-col items-center gap-6 md:gap-0 md:text-center">
+                            <div className="text-emerald-400 font-black text-3xl md:text-5xl mb-0 md:mb-6 italic opacity-50 flex-shrink-0">#{item.step}</div>
+                            <div>
+                               <h5 className="text-lg md:text-xl font-black mb-1 md:mb-4 uppercase italic tracking-tighter">{item.title}</h5>
+                               <p className="text-emerald-100/60 font-medium text-sm md:text-base">{item.text}</p>
+                            </div>
                          </div>
                        ))}
                     </div>
