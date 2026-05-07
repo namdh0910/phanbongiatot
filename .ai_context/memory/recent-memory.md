@@ -170,14 +170,12 @@
   - **Build Recovery & Final Cleanup (Hotfix)**:
     - **Fixed Seed-Blogs Syntax**: Resolved a critical build failure caused by an unclosed template literal and duplicate `content` property in `src/app/api/admin/seed-blogs/route.ts`.
     - **Final Terminology Sweep**: Removed the very last occurrences of "phác đồ" in the blog seeding data to ensure 100% compliance with the new language standards.
-- **Latest Activities (Triple-Layer Content Cleaning & Robust Word Stitching - DONE)**:
-  - **Triple-Layer Protection**: Triển khai cơ chế làm sạch nội dung tại 3 cấp độ: 
-    1. **Nguồn phát (Server Generator)**: Loại bỏ `\n` và `{#anchor}` ngay khi AI vừa tạo xong.
-    2. **Giao diện (Admin UI)**: Tự động chạy hàm `cleanExpertContent` khi nạp bài viết hoặc dán từ bên ngoài.
-    3. **Kho lưu trữ (API Server-side)**: Quét sạch lỗi một lần nữa tại API POST/PUT trước khi lưu vào Database.
-  - **Word Stitching Final Fix**: Thay đổi cơ chế từ thay thế bằng dấu cách sang xóa bỏ hoàn toàn ký tự xuống dòng (`\n`), giúp nối liền các từ bị ngắt (như "l \n á" thành "lá") mà không làm hỏng bố cục nhờ các thẻ block HTML.
-  - **Manual Table Toolkit**: Tích hợp bộ công cụ chỉnh sửa bảng "như Word" vào thanh công cụ, cho phép người dùng tự do thêm/xóa hàng, thêm/xóa cột thủ công để xử lý các bảng phức tạp.
-  - **Editor UX Hardening**: Bổ sung đường kẻ (borders) và khoảng cách ô (padding) trong chế độ soạn thảo để kỹ sư dễ dàng bấm vào ô và nhập liệu.
+- **Latest Activities (International Typography & Layout Upgrade - DONE)**:
+  - **Global Typography System**: Nâng cấp line-height (1.8), font-size (18px) và tối ưu hóa khoảng cách Headings theo tiêu chuẩn các blog SEO quốc tế (Ahrefs style).
+  - **Readability Optimization**: Giới hạn độ rộng cột nội dung chính (max-w-3xl) để đạt tỷ lệ 65-75 ký tự/dòng - mức lý tưởng cho việc đọc nội dung kỹ thuật dài.
+  - **Layout Protection**: Cấu hình flex-box đảm bảo Sidebar không làm nén nội dung bài viết và ngăn chặn tuyệt đối việc ngắt từ tiếng Việt mid-word bằng CSS chuyên sâu.
+  - **Triple-Layer Protection**: Duy trì cơ chế làm sạch nội dung tại 3 cấp độ (Generator, Admin UI, API Server) để đảm bảo dữ liệu luôn sạch bóng lỗi ngắt dòng.
+  - **Manual Table Toolkit**: Bộ công cụ chỉnh sửa bảng "như Word" giúp kỹ sư tùy biến dữ liệu dễ dàng.
 
 
 

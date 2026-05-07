@@ -173,20 +173,20 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
 
       <div className="container mx-auto px-4 py-8 md:py-20">
         <div className="flex flex-col lg:flex-row gap-12 max-w-7xl mx-auto">
-          <div className="lg:flex-1 min-w-0">
+          <div className="lg:flex-1 min-w-0 flex flex-col items-center lg:items-start">
             {!blog.videoUrl && (
-               <div className="-mx-4 md:mx-0 mb-8 md:mb-16 md:rounded-[2.5rem] overflow-hidden shadow-2xl aspect-[4/3] md:aspect-auto">
+               <div className="-mx-4 md:mx-0 mb-8 md:mb-16 md:rounded-[2.5rem] overflow-hidden shadow-2xl aspect-[4/3] md:aspect-auto w-full">
                   <img src={blog.coverImage} alt={blog.title} className="w-full h-full object-cover" />
                </div>
             )}
 
             <article 
               id="expert-content-root"
-              className="prose prose-emerald prose-base md:prose-xl max-w-none text-gray-700 leading-relaxed 
+              className="prose prose-emerald prose-base md:prose-xl max-w-3xl text-gray-700 leading-relaxed 
               prose-headings:font-black prose-headings:text-gray-900 prose-headings:tracking-tighter
               prose-h2:text-xl md:text-3xl prose-h2:mt-10 md:prose-h2:mt-16 prose-h2:mb-4 md:prose-h2:mb-8 prose-h2:bg-emerald-50 prose-h2:p-4 md:prose-h2:p-6 prose-h2:rounded-xl md:prose-h2:rounded-2xl prose-h2:border-l-4 md:prose-h2:border-l-8 prose-h2:border-emerald-600
               prose-img:rounded-2xl md:prose-img:rounded-[2.5rem] prose-img:shadow-xl
-              prose-strong:text-gray-900 prose-strong:font-black"
+              prose-strong:text-gray-900 prose-strong:font-black w-full"
               style={{ wordBreak: 'normal', overflowWrap: 'break-word', hyphens: 'none' }}
               dangerouslySetInnerHTML={{ 
                 __html: blog.content
@@ -205,11 +205,10 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
                   var root = document.getElementById('expert-content-root');
                   if (root) {
                     root.innerHTML = root.innerHTML.replace(/[\\n\\r\\t]+/g, '');
-                    console.log('>>> [PBGT] Word stitching complete.');
                   }
                 }
-                // Chạy ngay lập tức và chạy lại khi DOM sẵn sàng
                 clean();
+                setTimeout(clean, 100); // Đề phòng hydration chậm
                 document.addEventListener('DOMContentLoaded', clean);
                 window.addEventListener('load', clean);
               })();
@@ -350,49 +349,128 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
   );
 }
 
-// Custom styles for blog content tables and elements
-const tableStyles = `
+// Custom styles for blog content typography and layout
+const globalBlogStyles = `
+  /* 1. Prevent broken Vietnamese words and optimize flow */
+  article.prose, article.prose * {
+    word-break: normal !important;
+    overflow-wrap: break-word !important;
+    white-space: normal !important;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* 2. Optimize Typography for Reading */
+  article.prose {
+    line-height: 1.8 !important;
+    color: #334155 !important;
+    font-size: 1.125rem !important; /* 18px */
+  }
+
+  article.prose p {
+    margin-bottom: 1.75rem !important;
+    letter-spacing: -0.011em !important;
+  }
+
+  /* 3. Modern Headings (Hubspot/Ahrefs style) */
+  article.prose h2 {
+    font-size: 1.875rem !important; /* 30px */
+    line-height: 1.3 !important;
+    margin-top: 3.5rem !important;
+    margin-bottom: 1.5rem !important;
+    color: #0f172a !important;
+    font-weight: 900 !important;
+    letter-spacing: -0.025em !important;
+  }
+
+  article.prose h3 {
+    font-size: 1.5rem !important;
+    line-height: 1.4 !important;
+    margin-top: 2.5rem !important;
+    margin-bottom: 1rem !important;
+    font-weight: 800 !important;
+  }
+
+  /* 4. Improved Lists */
+  article.prose ul, article.prose ol {
+    margin-top: 1.5rem !important;
+    margin-bottom: 1.5rem !important;
+    padding-left: 1.5rem !important;
+  }
+
+  article.prose li {
+    margin-bottom: 0.75rem !important;
+    padding-left: 0.5rem !important;
+  }
+
+  /* 5. Table Enhancements (Responsive) */
   .prose table {
-    display: block !important;
-    overflow-x: auto !important;
+    display: table !important; /* Reset display to table for proper width */
     width: 100% !important;
-    max-width: 100% !important;
     border-collapse: separate !important;
     border-spacing: 0 !important;
-    margin: 2rem 0 !important;
+    margin: 2.5rem 0 !important;
     border: 1px solid #e2e8f0 !important;
     border-radius: 16px !important;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05) !important;
+    overflow: hidden !important;
+    box-shadow: 0 4px 15px -3px rgba(0, 0, 0, 0.05) !important;
+  }
+
+  .table-container {
+    overflow-x: auto !important;
+    margin: 2.5rem -1rem !important;
+    padding: 0 1rem !important;
     -webkit-overflow-scrolling: touch;
   }
+
   .prose th {
     background-color: #f8fafc !important;
     color: #1a5c2a !important;
     font-weight: 800 !important;
     text-transform: uppercase !important;
-    letter-spacing: 0.05em !important;
-    padding: 1rem 1.5rem !important;
+    padding: 1.25rem 1.5rem !important;
     border-bottom: 2px solid #e2e8f0 !important;
     font-size: 0.75rem !important;
     white-space: nowrap !important;
   }
+
   .prose td {
-    padding: 1rem 1.5rem !important;
+    padding: 1.25rem 1.5rem !important;
     border-bottom: 1px solid #f1f5f9 !important;
-    color: #4a5568 !important;
-    font-size: 0.875rem !important;
+    color: #475569 !important;
+    font-size: 0.9375rem !important;
     line-height: 1.6 !important;
-    min-width: 120px !important;
   }
+
   .prose tr:last-child td {
     border-bottom: none !important;
   }
-  .prose tr:nth-child(even) {
-    background-color: #fafbfb !important;
+
+  /* 6. Image Captions and Layout */
+  article.prose figure {
+    margin: 3rem 0 !important;
+  }
+
+  article.prose figcaption {
+    text-align: center !important;
+    font-style: italic !important;
+    font-size: 0.875rem !important;
+    color: #64748b !important;
+    margin-top: 1rem !important;
+  }
+
+  /* 7. Lead Form inside Content */
+  .content-cta {
+    background: linear-gradient(135deg, #1a5c2a 0%, #166534 100%);
+    border-radius: 2rem;
+    padding: 2.5rem;
+    color: white;
+    margin: 4rem 0;
+    box-shadow: 0 20px 25px -5px rgba(22, 101, 52, 0.1);
   }
 `;
 
 // Add the styles to the page
 function StyleInjector() {
-  return <style dangerouslySetInnerHTML={{ __html: tableStyles }} />;
+  return <style dangerouslySetInnerHTML={{ __html: globalBlogStyles }} />;
 }
