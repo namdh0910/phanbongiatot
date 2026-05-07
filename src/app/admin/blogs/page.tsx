@@ -130,7 +130,7 @@ export default function AdminBlogs() {
       slug: article.slug,
       excerpt: article.metaDescription,
       content: article.content,
-      coverImage: article.heroImage.cloudinaryUrl,
+      coverImage: article.heroImage?.cloudinaryUrl || "",
     });
     setMessage("⚡ Đã nạp nội dung AI thành công! Bà con hãy review và lưu lại.");
   };
