@@ -3,8 +3,8 @@
 ## 🕒 Current Context
 - **Date**: 2026-05-07
 - **Latest Activities (Critical Build Fix - DONE)**:
-  - **GoogleGenerativeAI Constructor Fix**: Đã loại bỏ tham số `apiVersion: 'v1'` không hỗ trợ trong constructor của SDK `@google/generative-ai` v0.24.1. Lỗi này gây ra "Expected 1 arguments, but got 2" khiến Vercel build thất bại.
   - **Robust Gemini & Groq Fallback**: Triển khai cơ chế Fallback 3 lớp: Ưu tiên `gemini-2.0-flash`, sau đó đến `gemini-1.5-flash-latest`, và cuối cùng là **Llama 3.3 70B (qua Groq API)**. Điều này đảm bảo hệ thống luôn hoạt động ngay cả khi hết hạn mức Gemini.
+  - **API Key Activation**: Đã tích hợp `GROQ_API_KEY` vào hệ thống, kích hoạt thành công "cầu chì" dự phòng cuối cùng.
   - **Forced API v1 Implementation**: Toàn bộ request Gemini đều được ép buộc sử dụng `apiVersion: 'v1'` để đảm bảo tính ổn định.
   - **Multi-file synchronization**: Tái cấu trúc thành công các API routes và utilities để hỗ trợ đa model.
   - **Build Verification**: Đã chạy `npm run build` local thành công 100%.
