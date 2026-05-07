@@ -70,10 +70,6 @@ export async function POST(req: NextRequest): Promise<NextResponse<GenerateArtic
 
     console.log(`[generate-article] Got ${images.length} images uploaded to Cloudinary.`);
 
-    if (images.length === 0) {
-      throw new Error('Không lấy được ảnh nào từ Pexels');
-    }
-
     // ── 5. Inject images into HTML ──
     const finalContent = injectImagesIntoContent(generated.content, images);
 
