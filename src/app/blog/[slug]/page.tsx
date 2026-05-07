@@ -324,14 +324,17 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
 // Custom styles for blog content tables and elements
 const tableStyles = `
   .prose table {
+    display: block !important;
+    overflow-x: auto !important;
     width: 100% !important;
+    max-width: 100% !important;
     border-collapse: separate !important;
     border-spacing: 0 !important;
     margin: 2rem 0 !important;
     border: 1px solid #e2e8f0 !important;
     border-radius: 16px !important;
-    overflow: hidden !important;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05) !important;
+    -webkit-overflow-scrolling: touch;
   }
   .prose th {
     background-color: #f8fafc !important;
@@ -342,6 +345,7 @@ const tableStyles = `
     padding: 1rem 1.5rem !important;
     border-bottom: 2px solid #e2e8f0 !important;
     font-size: 0.75rem !important;
+    white-space: nowrap !important;
   }
   .prose td {
     padding: 1rem 1.5rem !important;
@@ -349,6 +353,7 @@ const tableStyles = `
     color: #4a5568 !important;
     font-size: 0.875rem !important;
     line-height: 1.6 !important;
+    min-width: 120px !important;
   }
   .prose tr:last-child td {
     border-bottom: none !important;
