@@ -77,8 +77,14 @@ async function getFeaturedProducts() {
 
 // --- STYLE SYSTEM ---
 const globalBlogStyles = `
-  html, body {
+  html {
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+  }
+  
+  body {
     max-width: 100vw !important;
+    overflow-x: hidden !important;
     position: relative;
   }
 
@@ -88,6 +94,7 @@ const globalBlogStyles = `
     font-size: 1.125rem !important;
     max-width: 100% !important;
     width: 100% !important;
+    overflow-x: hidden !important; /* Lock overflow at article level */
   }
   article.prose p { margin-bottom: 2rem !important; }
   article.prose h2 {
@@ -141,6 +148,13 @@ const globalBlogStyles = `
   @media (min-width: 768px) {
     .article-cta { padding: 4rem; }
   }
+
+  .sticky-toc-container {
+    position: sticky;
+    top: 120px;
+    align-self: start;
+    z-index: 40;
+  }
 `;
 
 export default async function BlogDetailPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -165,7 +179,7 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
             ]} />
           </div>
 
-          <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 max-w-7xl mx-auto items-start">
+          <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 max-w-7xl mx-auto">
             {/* CONTENT AREA */}
             <div className="lg:w-2/3 xl:w-[70%]">
               <header className="mb-12">
@@ -218,8 +232,7 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
 
             {/* SIDEBAR */}
             <aside className="lg:w-1/3 xl:w-[30%]">
-              {/* Static Top Part */}
-              <div className="space-y-12 mb-12">
+              <div className="space-y-12">
                 <div className="bg-gray-50 p-8 rounded-[2.5rem] border border-gray-100">
                    <div className="flex items-center gap-4 mb-6">
                       <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center text-2xl">👨‍🔬</div>
@@ -244,17 +257,19 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
                       </a>
                    </div>
                 </div>
-              </div>
 
-              {/* STICKY Table of Contents */}
-              <div className="sticky top-32 space-y-6 px-4 bg-white/80 backdrop-blur-md p-6 rounded-[2.5rem] border border-gray-50 shadow-sm">
-                  <h3 className="text-lg font-black text-gray-900 uppercase italic tracking-tighter flex items-center gap-2">
-                    <span className="w-1 h-5 bg-emerald-500 rounded-full" />
-                    Mục lục động
-                  </h3>
-                  <div className="max-h-[60vh] overflow-y-auto pr-2 custom-scrollbar">
-                    <TableOfContents content={blog.content} />
+                {/* STICKY Table of Contents - Nested inside ASIDE which stretches */}
+                <div className="sticky-toc-container">
+                  <div className="bg-white/80 backdrop-blur-md p-6 rounded-[2.5rem] border border-gray-100 shadow-sm">
+                    <h3 className="text-lg font-black text-gray-900 uppercase italic tracking-tighter flex items-center gap-2 mb-6">
+                      <span className="w-1 h-5 bg-emerald-500 rounded-full" />
+                      Mục lục động
+                    </h3>
+                    <div className="max-h-[50vh] overflow-y-auto pr-2 custom-scrollbar">
+                      <TableOfContents content={blog.content} />
+                    </div>
                   </div>
+                </div>
               </div>
             </aside>
           </div>
