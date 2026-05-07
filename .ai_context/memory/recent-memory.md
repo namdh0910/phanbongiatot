@@ -175,7 +175,11 @@
   - **Readability Optimization**: Giới hạn độ rộng cột nội dung chính (max-w-3xl) để đạt tỷ lệ 65-75 ký tự/dòng - mức lý tưởng cho việc đọc nội dung kỹ thuật dài.
   - **Layout Protection**: Cấu hình flex-box đảm bảo Sidebar không làm nén nội dung bài viết và ngăn chặn tuyệt đối việc ngắt từ tiếng Việt mid-word bằng CSS chuyên sâu.
   - **Triple-Layer Protection**: Duy trì cơ chế làm sạch nội dung tại 3 cấp độ (Generator, Admin UI, API Server) để đảm bảo dữ liệu luôn sạch bóng lỗi ngắt dòng.
-  - **Manual Table Toolkit**: Bộ công cụ chỉnh sửa bảng "như Word" giúp kỹ sư tùy biến dữ liệu dễ dàng.
+  - **Manual Table Toolkit**: Bộ công cụ chỉnh sửa bảng "nhu Word" giúp kỹ sư tùy biến dữ liệu dễ dàng.
+  - **Blog Detail UI Cleanup & Data Sync (FIXED)**:
+    - **Image Mapping Fix**: Sửa lỗi map biến `image` sang `coverImage` trong trang chi tiết bài viết, giúp hiển thị ảnh thực tế thay vì khung placeholder nét đứt.
+    - **Removed Static Diagnosis**: Loại bỏ thẻ "Chẩn đoán từ kỹ sư" bị fix cứng nội dung trong template. Thành phần này giờ đây sẽ được chèn linh hoạt theo từng bài viết để đảm bảo độ chính xác kỹ thuật 100%.
+    - **Related Content Sync**: Đồng bộ hóa ảnh thumbnail trong phần "Kiến thức cùng chủ đề" để hiển thị đúng ảnh từ database.
 
 
 

@@ -178,10 +178,10 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
                   {blog.title}
                 </h1>
 
-                {blog.image ? (
+                {blog.coverImage ? (
                   <div className="aspect-[21/9] w-full rounded-[3rem] overflow-hidden shadow-2xl bg-gray-100 border-8 border-gray-50/50">
                     <img 
-                      src={blog.image} 
+                      src={blog.coverImage} 
                       alt={blog.title} 
                       className="w-full h-full object-cover" 
                       onError={(e) => {
@@ -196,30 +196,6 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
                   </div>
                 )}
               </header>
-
-              {/* QUICK DIAGNOSIS */}
-              <div className="diagnosis-card">
-                 <div className="flex items-center gap-3 mb-6">
-                    <div className="w-10 h-10 bg-emerald-500 text-white rounded-xl flex items-center justify-center shadow-lg shadow-emerald-500/20">
-                       <Zap size={20} fill="currentColor" />
-                    </div>
-                    <h3 className="text-xl font-black text-gray-900 uppercase italic tracking-tighter">Chẩn đoán từ kỹ sư PBGT</h3>
-                 </div>
-                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div className="space-y-2">
-                       <span className="text-[10px] font-black uppercase text-gray-400 tracking-widest">Dấu hiệu chính</span>
-                       <p className="text-sm font-bold text-gray-700 leading-relaxed">Cây vàng lá, đứng sững, rễ tơ không phát triển.</p>
-                    </div>
-                    <div className="space-y-2">
-                       <span className="text-[10px] font-black uppercase text-gray-400 tracking-widest">Cốt lõi vấn đề</span>
-                       <p className="text-sm font-bold text-gray-700 leading-relaxed">Đất chai cứng, thiếu hữu cơ thực phẩm.</p>
-                    </div>
-                    <div className="space-y-2">
-                       <span className="text-[10px] font-black uppercase text-emerald-600 tracking-widest">Hướng xử lý</span>
-                       <p className="text-sm font-bold text-emerald-700 underline decoration-2 underline-offset-4">Xả phèn & Kích rễ bằng Sicobi.</p>
-                    </div>
-                 </div>
-              </div>
 
               {/* ARTICLE BODY */}
               <article 
@@ -345,7 +321,7 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
                   {relatedBlogs.map((item: any) => (
                     <Link key={item.slug} href={`/blog/${item.slug}`} className="group block space-y-6">
                       <div className="aspect-[16/10] overflow-hidden rounded-[3rem] shadow-lg bg-gray-100">
-                        <img src={item.image} alt={item.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                        <img src={item.coverImage} alt={item.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                       </div>
                       <h4 className="text-xl md:text-2xl font-black text-gray-900 leading-tight group-hover:text-emerald-700 transition-colors line-clamp-2 uppercase italic tracking-tighter italic">
                         {item.title}
