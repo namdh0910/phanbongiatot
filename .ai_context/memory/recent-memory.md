@@ -170,11 +170,13 @@
   - **Build Recovery & Final Cleanup (Hotfix)**:
     - **Fixed Seed-Blogs Syntax**: Resolved a critical build failure caused by an unclosed template literal and duplicate `content` property in `src/app/api/admin/seed-blogs/route.ts`.
     - **Final Terminology Sweep**: Removed the very last occurrences of "phác đồ" in the blog seeding data to ensure 100% compliance with the new language standards.
-- **Latest Activities (Smart Table Repair & AI Content Fix - DONE)**:
+- **Latest Activities (Manual Table Toolkit & Editor Pro Upgrade - DONE)**:
+  - **Manual Table Toolkit**: Tích hợp bộ công cụ chỉnh sửa bảng "như Word" vào thanh công cụ, cho phép người dùng tự do thêm/xóa hàng, thêm/xóa cột thủ công để xử lý các bảng phức tạp.
+  - **Quill Table Module Activation**: Kích hoạt module Table chính thức của Quill 2.0, giúp việc tương tác với ô bảng (cells) mượt mà và trực quan hơn.
+  - **Table Template Optimization**: Đơn giản hóa cấu trúc bảng mẫu để tương thích 100% với trình soạn thảo, tránh lỗi vỡ khung khi chỉnh sửa tay.
+  - **Editor UX Hardening**: Bổ sung đường kẻ (borders) và khoảng cách ô (padding) trong chế độ soạn thảo để kỹ sư dễ dàng bấm vào ô và nhập liệu.
   - **Broken Word Fix**: Triển khai cơ chế hậu xử lý (Post-processing) tự động loại bỏ các ký tự xuống dòng (`\n`) nằm trong chuỗi HTML của AI, khắc phục triệt để lỗi ngắt từ (ví dụ: "t \n uyến" thành "tuyến").
   - **Smart Table Repair V3**: Nâng cấp Regex nhận diện chữ hoa tiếng Việt (bao gồm các ký tự có dấu) và bổ sung thuật toán "Balanced Word Split" để chia tiêu đề bảng đều hơn khi không có dấu hiệu phân tách.
-  - **AI Prompt Hardening**: Ép buộc AI trả về JSON trên một dòng duy nhất và cấm ngắt dòng bên trong giá trị chuỗi, sử dụng `<br>` hoặc `<p>` thay cho `\n`.
-  - **Manual Repair UI**: Đảm bảo nút "Sửa bảng 🛠️" luôn áp dụng style tối thiểu (xanh lá chuyên gia) ngay cả khi không thể tách cột hoàn hảo.
 
 
 

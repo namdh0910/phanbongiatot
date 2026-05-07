@@ -57,10 +57,11 @@ export default function RichTextEditor({ value, onChange, label, placeholder }: 
         [{ 'list': 'ordered' }, { 'list': 'bullet' }],
         [{ 'align': [] }],
         ['blockquote', 'code-block'],
-        ['link', 'image'],
+        ['link', 'image', 'table'],
         ['clean']
       ],
     },
+    table: true,
     clipboard: {
       matchVisual: false,
     }
@@ -162,26 +163,24 @@ export default function RichTextEditor({ value, onChange, label, placeholder }: 
                     <li style="margin-bottom: 5px;">[ ] Bước 3: Xác định diện tích bị bệnh...</li>
                   </ul>
                 </div>`,
-    table: `<div class="table-responsive">
-              <table style="width: 100%; border-collapse: collapse; margin: 20px 0; border: 1px solid #e2e8f0;">
+    table: `<table>
                 <thead>
-                  <tr style="background-color: #edf2f7;">
-                    <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">Đặc điểm so sánh</th>
-                    <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">Dấu hiệu nhận biết</th>
+                  <tr>
+                    <th>Đặc điểm so sánh</th>
+                    <th>Dấu hiệu nhận biết</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td style="border: 1px solid #e2e8f0; padding: 10px; font-weight: bold;">Màu sắc lá/rễ</td>
-                    <td style="border: 1px solid #e2e8f0; padding: 10px;">...</td>
+                    <td>Màu sắc lá/rễ</td>
+                    <td>...</td>
                   </tr>
                   <tr>
-                    <td style="border: 1px solid #e2e8f0; padding: 10px; font-weight: bold;">Tốc độ lây lan</td>
-                    <td style="border: 1px solid #e2e8f0; padding: 10px;">...</td>
+                    <td>Tốc độ lây lan</td>
+                    <td>...</td>
                   </tr>
                 </tbody>
-              </table>
-            </div>`,
+              </table>`,
     image: `<div style="border: 2px dashed #cbd5e0; border-radius: 16px; padding: 40px; text-align: center; margin: 20px 0; background: #f8fafc; border-style: dashed;">
                <div style="font-size: 32px; margin-bottom: 10px;">📷</div>
                <div style="color: #4a5568; font-weight: 800; font-size: 14px; text-transform: uppercase;">Ảnh minh họa thực tế tại vườn</div>
@@ -249,8 +248,67 @@ export default function RichTextEditor({ value, onChange, label, placeholder }: 
               }
             }} 
             className="flex items-center gap-1.5 px-3 py-2 bg-amber-900/30 text-amber-400 rounded-xl text-[10px] font-black hover:bg-amber-900/50 transition-all border border-amber-900/30 active:scale-95 uppercase tracking-wider"
+            title="Tự động sửa lỗi gộp tiêu đề"
          >
             <Table size={12} /> Sửa bảng 🛠️
+         </button>
+
+         <div className="w-[1px] h-8 bg-gray-800 mx-1 self-center" />
+
+         <button 
+            type="button" 
+            onClick={() => {
+              const quill = quillRef.current?.getEditor();
+              if (quill) {
+                const table = quill.getModule('table');
+                table.insertRowBelow();
+              }
+            }} 
+            className="flex items-center gap-1.5 px-3 py-2 bg-gray-800 text-gray-300 rounded-xl text-[10px] font-black hover:bg-gray-700 transition-all border border-gray-700 active:scale-95 uppercase tracking-wider"
+         >
+            + Hàng
+         </button>
+
+         <button 
+            type="button" 
+            onClick={() => {
+              const quill = quillRef.current?.getEditor();
+              if (quill) {
+                const table = quill.getModule('table');
+                table.insertColumnRight();
+              }
+            }} 
+            className="flex items-center gap-1.5 px-3 py-2 bg-gray-800 text-gray-300 rounded-xl text-[10px] font-black hover:bg-gray-700 transition-all border border-gray-700 active:scale-95 uppercase tracking-wider"
+         >
+            + Cột
+         </button>
+
+         <button 
+            type="button" 
+            onClick={() => {
+              const quill = quillRef.current?.getEditor();
+              if (quill) {
+                const table = quill.getModule('table');
+                table.deleteRow();
+              }
+            }} 
+            className="flex items-center gap-1.5 px-3 py-2 bg-gray-800 text-red-400 rounded-xl text-[10px] font-black hover:bg-red-900/30 transition-all border border-gray-700 active:scale-95 uppercase tracking-wider"
+         >
+            Xóa Hàng
+         </button>
+
+         <button 
+            type="button" 
+            onClick={() => {
+              const quill = quillRef.current?.getEditor();
+              if (quill) {
+                const table = quill.getModule('table');
+                table.deleteColumn();
+              }
+            }} 
+            className="flex items-center gap-1.5 px-3 py-2 bg-gray-800 text-red-400 rounded-xl text-[10px] font-black hover:bg-red-900/30 transition-all border border-gray-700 active:scale-95 uppercase tracking-wider"
+         >
+            Xóa Cột
          </button>
 
          <div className="flex-1" />
@@ -369,8 +427,14 @@ export default function RichTextEditor({ value, onChange, label, placeholder }: 
         .expert-editor td {
           padding: 15px 20px;
           border-bottom: 1px solid #f1f5f9;
+          border-right: 1px solid #f1f5f9;
           color: #4a5568;
           line-height: 1.6;
+          min-width: 50px;
+        }
+        .expert-editor th {
+          border-right: 1px solid #e2e8f0;
+          padding: 15px 20px;
         }
         .expert-editor tr:last-child td {
           border-bottom: none;
