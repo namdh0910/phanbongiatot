@@ -198,14 +198,20 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
                   .trim()
               }}
             />
-            {/* Hậu xử lý triệt để tại Client để đảm bảo không còn ký tự xuống dòng ẩn */}
+            {/* Hậu xử lý triệt để tại Client - PHẢI ĐẶT DƯỚI ARTICLE ĐỂ DOM ĐÃ TỒN TẠI */}
             <script dangerouslySetInnerHTML={{ __html: `
               (function() {
-                var root = document.getElementById('expert-content-root');
-                if (root) {
-                  // Xóa sạch dấu vết xuống dòng trong toàn bộ cây DOM của bài viết
-                  root.innerHTML = root.innerHTML.replace(/[\\n\\r\\t]+/g, '');
+                function clean() {
+                  var root = document.getElementById('expert-content-root');
+                  if (root) {
+                    root.innerHTML = root.innerHTML.replace(/[\\n\\r\\t]+/g, '');
+                    console.log('>>> [PBGT] Word stitching complete.');
+                  }
                 }
+                // Chạy ngay lập tức và chạy lại khi DOM sẵn sàng
+                clean();
+                document.addEventListener('DOMContentLoaded', clean);
+                window.addEventListener('load', clean);
               })();
             ` }} />
 
