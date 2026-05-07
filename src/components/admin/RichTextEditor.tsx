@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic';
 import 'react-quill-new/dist/quill.snow.css';
 import { AlertTriangle, Lightbulb, Info, CheckSquare, Table, Image as ImageIcon } from 'lucide-react';
 
-const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
+const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false }) as any;
 
 interface RichTextEditorProps {
   value: string;

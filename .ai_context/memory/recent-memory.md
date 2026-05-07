@@ -2,6 +2,8 @@
 
 ## 🕒 Current Context
 - **Date**: 2026-05-07
+- **Latest Activities (Admin Editor v2.0 Build Fix - DONE)**:
+  - **TypeScript Hotfix**: Đã sửa lỗi "Type error: No overload matches this call" liên quan đến `ref` trong `dynamic` import của ReactQuill bằng cách ép kiểu `as any`. Đảm bảo Vercel build thành công.
 - **Latest Activities (Admin Editor v2.0 Upgrade - DONE)**:
   - **Quick-Insert Feature**: Đã tích hợp thanh công cụ chèn nhanh 6 template (Cảnh báo, Lời khuyên, Checklist, Bảng chẩn đoán, Ảnh thực tế) giúp kỹ sư soạn thảo bài viết chuyên nghiệp nhanh chóng.
   - **Real-time Word Count**: Triển khai hệ thống đếm từ với cơ chế đổi màu (Đỏ/Vàng/Xanh) để kiểm soát độ dài bài viết theo tiêu chuẩn 2.500 - 3.500 từ.
