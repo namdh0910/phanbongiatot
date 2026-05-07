@@ -7,7 +7,7 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 export async function generateArticleContent(req: GenerateArticleRequest) {
   try {
     const model = genAI.getGenerativeModel({
-      model: "gemini-2.0-flash",
+      model: "gemini-1.5-flash",
     }, { apiVersion: 'v1' });
 
     const SYSTEM_PROMPT = `
