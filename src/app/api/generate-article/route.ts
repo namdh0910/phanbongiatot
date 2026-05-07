@@ -105,9 +105,11 @@ export async function POST(req: NextRequest): Promise<NextResponse<GenerateArtic
     console.error('[generate-article] Error Detail:', err);
     
     // Phân loại lỗi để báo về frontend thân thiện hơn
-    let friendlyMessage = message;
+    let friendlyMessage = `Lỗi: ${message}`;
     if (message.includes('404') || message.includes('not found')) {
-      friendlyMessage = "Mẫu AI hiện tại không khả dụng (404). Đang kiểm tra cấu hình...";
+      friendlyMessage = `AI Model 404: Không tìm thấy Model trên API v1. (Chi tiết: ${message})`;
+    } else if (message.includes('429') || message.includes('Quota')) {
+      friendlyMessage = `AI Hết hạn mức (429): Vui lòng chờ 1-2 phút hoặc kiểm tra Groq Key. (Chi tiết: ${message})`;
     } else if (message.includes('403') || message.includes('identity')) {
       friendlyMessage = "Lỗi xác thực API Key. Vui lòng kiểm tra GEMINI_API_KEY trên Vercel.";
     } else if (message.includes('Pexels')) {
