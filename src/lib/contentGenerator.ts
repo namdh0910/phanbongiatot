@@ -34,6 +34,12 @@ RULES:
 
 IMPORTANT: Trả về JSON thuần túy. KHÔNG được có ký tự điều khiển (raw newlines/control characters) bên trong các giá trị chuỗi. Dùng \\n để xuống hàng trong HTML.
 Bài viết PHẢI DÀI TRÊN 2500 TỪ, chia thành 7-8 mục lớn chi tiết. Viết cực kỳ sâu về chuyên môn, phân tích từng giai đoạn phục hồi.
+
+YÊU CẦU ĐỊNH DẠNG HTML (CẤM DÙNG MARKDOWN TABLE):
+- Table: Dùng thẻ <table> chuẩn với style: <table style="width: 100%; border-collapse: collapse; margin: 20px 0; border: 1px solid #e2e8f0;">.
+- Callout Warning: <div style="background-color: #fff5f5; border-left: 5px solid #f56565; padding: 15px; margin: 15px 0; border-radius: 4px;"><strong style="color: #c53030;">⚠️ CẢNH BÁO:</strong> ...</div>
+- Callout Tip: <div style="background-color: #f0fff4; border-left: 5px solid #48bb78; padding: 15px; margin: 15px 0; border-radius: 4px;"><strong style="color: #276749;">💡 LỜI KHUYÊN:</strong> ...</div>
+- H2: Dùng thẻ <h2> cho mục lớn.
 `;
 
     const userPrompt = `Viết bài viết kỹ thuật nông nghiệp chuyên sâu:
