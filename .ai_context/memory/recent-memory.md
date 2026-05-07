@@ -26,7 +26,8 @@
   - **Critical Fix: Blog 404 Error**: Đã khắc phục lỗi 404 khi truy cập chi tiết bài viết.
   - **Official Domain Activation**: Đã kích hoạt thành công tên miền chính thức `phanbongiatot.com`.
   - **Build & Deploy**:
-    - **Final Deployment Fix**: Bumped version to `0.1.2` and finalized the migration to `src/proxy.ts` with the correct `proxy` function export. This resolves all build errors and reflects typography changes.
+    - **Final Deployment Fix**: Bumped version to `0.1.4` and inlined global styles in `src/app/blog/[slug]/page.tsx` to resolve persistent 500 errors on Vercel after Next.js 16/React 19 migration.
+    - **Final Deployment Fix (Previous)**: Bumped version to `0.1.2` and finalized the migration to `src/proxy.ts` with the correct `proxy` function export. This resolves all build errors and reflects typography changes.
     - **Proxy Export Fix**: Renamed the exported function from `middleware` to `proxy` in `src/proxy.ts` to satisfy Next.js 16 requirements after migrating from `middleware.ts`.
     - **Middleware Migration**: Renamed `src/middleware.ts` to `src/proxy.ts` following Next.js 16 recommendations to resolve build warnings that might be blocking Vercel deployments.
     - **Vercel Build Force**: Bumped `package.json` version to `0.1.1` to force Vercel to recognize the project state change and trigger a new deployment after webhook delays.

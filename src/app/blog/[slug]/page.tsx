@@ -133,22 +133,21 @@ const globalBlogStyles = `
   }
 `;
 
-function StyleInjector() {
-  return <style dangerouslySetInnerHTML={{ __html: globalBlogStyles }} />;
-}
-
 // --- MAIN COMPONENT ---
 export default async function BlogDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const blog = await getBlog(slug);
-  if (!blog) notFound();
+  
+  if (!blog) {
+    notFound();
+  }
 
-  const relatedBlogs = await getRelatedBlogs(blog.category, blog.slug);
-  const featuredProducts = await getFeaturedProducts();
+  const relatedBlogs = (await getRelatedBlogs(blog.category, blog.slug)) || [];
+  const featuredProducts = (await getFeaturedProducts()) || [];
 
   return (
     <div className="bg-white min-h-screen">
-      <StyleInjector />
+      <style dangerouslySetInnerHTML={{ __html: globalBlogStyles }} />
       
       <main className="pb-20 md:pb-32 pt-24 md:pt-32">
         <div className="container mx-auto px-4">
