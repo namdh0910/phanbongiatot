@@ -7,7 +7,7 @@ export async function GET(req: NextRequest) {
     const genAI = new GoogleGenerativeAI(apiKey);
 
     const model = genAI.getGenerativeModel({
-      model: "gemini-1.5-flash",
+      model: "gemini-2.0-flash",
     }, { apiVersion: 'v1' });
 
     const result = await model.generateContent("AI status check");
@@ -15,7 +15,7 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.json({
       status: "success",
-      model: "gemini-1.5-flash",
+      model: "gemini-2.0-flash",
       text
     });
   } catch (error: any) {
