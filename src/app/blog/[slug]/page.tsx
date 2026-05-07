@@ -149,7 +149,6 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
   return (
     <div className="bg-white min-h-screen">
       <StyleInjector />
-      <Header />
       
       <main className="pb-20 md:pb-32 pt-24 md:pt-32">
         <div className="container mx-auto px-4">
@@ -179,9 +178,23 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
                   {blog.title}
                 </h1>
 
-                <div className="aspect-[21/9] w-full rounded-[3rem] overflow-hidden shadow-2xl bg-gray-100 border-8 border-gray-50/50">
-                  <img src={blog.image} alt={blog.title} className="w-full h-full object-cover" />
-                </div>
+                {blog.image ? (
+                  <div className="aspect-[21/9] w-full rounded-[3rem] overflow-hidden shadow-2xl bg-gray-100 border-8 border-gray-50/50">
+                    <img 
+                      src={blog.image} 
+                      alt={blog.title} 
+                      className="w-full h-full object-cover" 
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.style.display = 'none';
+                      }}
+                    />
+                  </div>
+                ) : (
+                  <div className="aspect-[21/9] w-full rounded-[3rem] bg-emerald-900/5 flex items-center justify-center border-4 border-dashed border-emerald-100">
+                    <span className="text-emerald-300 font-black italic opacity-20">Kỹ Thuật Nông Nghiệp PBGT</span>
+                  </div>
+                )}
               </header>
 
               {/* QUICK DIAGNOSIS */}
@@ -344,8 +357,6 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
           )}
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 }
