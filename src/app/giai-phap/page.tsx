@@ -105,7 +105,7 @@ export default async function SolutionsPage({ searchParams }: { searchParams: Pr
                   Vấn đề lạ? <br className="hidden md:block" /> Gửi ảnh ngay
                 </h3>
                 <p className="text-gray-400 text-[10px] md:text-sm mb-4 md:mb-10 font-medium leading-relaxed opacity-80">
-                  Kỹ sư chẩn đoán miễn phí qua Zalo 24/7.
+                  PBGT hỗ trợ chẩn đoán miễn phí qua Zalo 24/7.
                 </p>
                 <div className="flex flex-col gap-2">
                   <a href="https://zalo.me/0773440966" target="_blank" className="flex items-center justify-center gap-2 w-full bg-[#0068ff] text-white py-2.5 md:py-4 rounded-xl md:rounded-2xl font-black text-[10px] md:text-sm active:scale-95 transition-transform">
@@ -123,7 +123,7 @@ export default async function SolutionsPage({ searchParams }: { searchParams: Pr
                    {[
                       { icon: <Zap size={18} fill="currentColor" />, text: "HIỆU QUẢ TỨC THÌ", desc: "Quy trình tối ưu hấp thụ ngay" },
                       { icon: <ShieldCheck size={18} />, text: "CHÍNH HÃNG 100%", desc: "Vật tư uy tín toàn cầu" },
-                      { icon: <Star size={18} fill="currentColor" />, text: "KỸ SƯ ĐỒNG HÀNH", desc: "Theo sát vườn đến khi phục hồi" }
+                      { icon: <Star size={18} fill="currentColor" />, text: "PBGT ĐỒNG HÀNH", desc: "Theo sát vườn đến khi phục hồi" }
                    ].map((trust, i) => (
                       <div key={i} className="flex items-center gap-3 bg-emerald-50/50 px-6 py-3 rounded-full border border-emerald-100">
                          <div className="text-emerald-700">{trust.icon}</div>
@@ -137,7 +137,7 @@ export default async function SolutionsPage({ searchParams }: { searchParams: Pr
                    {[
                       { icon: <Zap size={18} fill="currentColor" />, text: "HIỆU QUẢ TỨC THÌ", desc: "Quy trình tối ưu hấp thụ ngay" },
                       { icon: <ShieldCheck size={18} />, text: "CHÍNH HÃNG 100%", desc: "Vật tư uy tín toàn cầu" },
-                      { icon: <Star size={18} fill="currentColor" />, text: "KỸ SƯ ĐỒNG HÀNH", desc: "Theo sát vườn đến khi phục hồi" }
+                      { icon: <Star size={18} fill="currentColor" />, text: "PBGT ĐỒNG HÀNH", desc: "Theo sát vườn đến khi phục hồi" }
                    ].map((trust, i) => (
                       <div key={`dup-${i}`} className="flex items-center gap-3 bg-emerald-50/50 px-6 py-3 rounded-full border border-emerald-100">
                          <div className="text-emerald-700">{trust.icon}</div>

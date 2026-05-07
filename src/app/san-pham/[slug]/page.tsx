@@ -180,7 +180,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                         target="_blank"
                         className="bg-[#0068FF] hover:bg-blue-600 text-white py-3 rounded-xl font-black text-[10px] md:text-base uppercase tracking-wider flex items-center justify-center gap-2 transition-all"
                       >
-                         <MessageCircle size={16} fill="currentColor" /> ZALO KỸ SƯ
+                         <MessageCircle size={16} fill="currentColor" /> ZALO PBGT
                       </a>
                       <a 
                         href="tel:0773440966"

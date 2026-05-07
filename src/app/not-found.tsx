@@ -16,7 +16,7 @@ export default function NotFound() {
       </h1>
       
       <p className="text-gray-500 max-w-md mb-12 font-medium leading-relaxed">
-        Có vẻ như đường dẫn này không tồn tại hoặc đã được kỹ sư chuyển sang giải pháp mới hiệu quả hơn. Bà con hãy quay lại trang chủ nhé!
+        Có vẻ như đường dẫn này không tồn tại hoặc đã được đội ngũ PBGT chuyển sang giải pháp mới hiệu quả hơn. Bà con hãy quay lại trang chủ nhé!
       </p>
       
       <div className="flex flex-col md:flex-row gap-4 w-full max-w-md">
@@ -30,7 +30,7 @@ export default function NotFound() {
           href="https://zalo.me/0773440966" 
           className="flex-1 bg-[#0068FF] text-white py-4 rounded-2xl font-black uppercase tracking-widest text-sm flex items-center justify-center gap-2 shadow-xl shadow-blue-100 hover:scale-105 transition-all"
         >
-          <MessageCircle size={18} /> Hỏi Kỹ Sư
+          <MessageCircle size={18} /> Hỏi PBGT
         </a>
       </div>
       

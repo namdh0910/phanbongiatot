@@ -35,7 +35,7 @@ const faqData = [
         q: "Làm sao để sầu riêng ra bông đồng loạt?",
         a: "Bà con cần siết nước tạo khô hạn khoảng 10-15 ngày, kết hợp phun phân hóa mầm hoa giàu Lân và Kali. Khi thấy mắt cua sáng đều mới bắt đầu nhấp nước nhẹ trở lại.",
         link: "https://zalo.me/0773440966",
-        linkText: "Nhắn kỹ sư hỗ trợ"
+        linkText: "Nhắn PBGT hỗ trợ"
       }
     ]
   },
@@ -171,7 +171,7 @@ export default function FAQPage() {
             <HelpCircle size={14} /> Thư viện hỏi đáp kỹ thuật
           </div>
           <h1 className="text-xl md:text-5xl font-black text-white mb-4 md:mb-8 uppercase tracking-tighter italic leading-[1.1]">
-            Bà con hỏi, <br className="md:hidden" /> <span className="text-emerald-500">Kỹ sư trả lời</span>
+            Bà con hỏi, <br className="md:hidden" /> <span className="text-emerald-500">PBGT phản hồi</span>
           </h1>
           
           <div className="max-w-2xl mx-auto relative">
@@ -228,7 +228,7 @@ export default function FAQPage() {
               <div className="text-center py-20 bg-gray-50 rounded-[3rem] border border-dashed border-gray-200">
                 <div className="text-5xl mb-4">🔍</div>
                 <h3 className="text-xl font-black text-gray-900 uppercase mb-2">Không tìm thấy câu hỏi phù hợp</h3>
-                <p className="text-gray-500">Bà con có thể nhấn nút Zalo bên dưới để hỏi kỹ sư trực tiếp.</p>
+                <p className="text-gray-500">Bà con có thể nhấn nút Zalo bên dưới để được chúng tôi tư vấn trực tiếp.</p>
               </div>
             )}
           </div>
@@ -242,11 +242,11 @@ export default function FAQPage() {
             <div className="absolute top-0 right-0 p-8 opacity-10 select-none text-[200px] rotate-12">?</div>
             <div className="relative z-10">
               <h2 className="text-2xl md:text-5xl font-black uppercase italic tracking-tighter mb-4 md:mb-6">Chưa tìm thấy câu trả lời?</h2>
-              <p className="text-emerald-100 text-sm md:text-lg mb-8 md:mb-12 max-w-2xl mx-auto font-medium">Đừng ngần ngại, kỹ sư của chúng tôi luôn sẵn sàng hỗ trợ bà con 24/7 hoàn toàn miễn phí.</p>
+              <p className="text-emerald-100 text-sm md:text-lg mb-8 md:mb-12 max-w-2xl mx-auto font-medium">Đừng ngần ngại, đội ngũ Phan Bón Giá Tốt luôn sẵn sàng hỗ trợ bà con 24/7 hoàn toàn miễn phí.</p>
               
               <div className="flex flex-col md:flex-row items-center justify-center gap-4">
                 <a href="https://zalo.me/0773440966" className="w-full md:w-auto bg-[#0068FF] hover:bg-blue-600 text-white font-black px-10 py-5 rounded-2xl flex items-center justify-center gap-3 transition-all active:scale-95 shadow-xl">
-                  <MessageCircle fill="currentColor" /> Chat Zalo Kỹ Sư
+                  <MessageCircle fill="currentColor" /> Chat Zalo PBGT
                 </a>
                 <a href="tel:0773440966" className="w-full md:w-auto bg-white text-emerald-900 font-black px-10 py-5 rounded-2xl flex items-center justify-center gap-3 transition-all active:scale-95 shadow-xl">
                   <Phone /> Gọi: 0773.440.966

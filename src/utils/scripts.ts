@@ -3,7 +3,7 @@ export const ADVISORY_SCRIPTS = [
     category: 'Vàng lá thối rễ',
     symptoms: ['vàng lá', 'thối rễ', 'suy rễ'],
     script: (name: string, location: string) => 
-      `Chào anh/chị ${name}, em là kỹ sư từ Phân Bón Giá Tốt. \n\n` +
+      `Chào anh/chị ${name}, em là đội ngũ tư vấn từ Phân Bón Giá Tốt. \n\n` +
       `Về tình trạng vườn ở ${location || 'vùng mình'} đang bị vàng lá thối rễ, anh/chị cần xử lý gấp như sau:\n` +
       `1. Kiểm tra pH đất (đưa về 5.5-6.5).\n` +
       `2. Xử lý nấm Phytophthora/Fusarium bằng Nemano.\n` +
@@ -14,7 +14,7 @@ export const ADVISORY_SCRIPTS = [
     category: 'Tuyến trùng',
     symptoms: ['tuyến trùng', 'sưng rễ', 'u rễ'],
     script: (name: string, location: string) => 
-      `Chào anh/chị ${name}, kỹ sư Phân Bón Giá Tốt xin tư vấn cho vườn ở ${location || 'vùng mình'}:\n\n` +
+      `Chào anh/chị ${name}, đội ngũ Phân Bón Giá Tốt xin tư vấn cho vườn ở ${location || 'vùng mình'}:\n\n` +
       `Tình trạng sưng rễ/u rễ là do Tuyến trùng tấn công. Anh/chị dùng ngay bộ đôi tiêu diệt Tuyến trùng và nấm cộng sinh. Tuyệt đối không bón phân hóa học lúc này sẽ làm bệnh nặng hơn. \n\n` +
       `Anh/chị cần em gửi hình mẫu thuốc không ạ?`
   },

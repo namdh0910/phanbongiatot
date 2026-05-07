@@ -39,7 +39,7 @@ export default function LeadForm({ product, initialPathology, initialCrop }: Lea
       const payload = {
         ...formData,
         source: product ? `Product: ${product.name}` : 'Website_Lead_Form',
-        note: formData.note || `Yêu cầu kỹ sư gọi lại từ trang ${product?.name || 'giải pháp'}`
+        note: formData.note || `Yêu cầu tư vấn từ trang ${product?.name || 'giải pháp'}`
       };
 
       const res = await fetch(`/api/leads`, {
@@ -69,7 +69,7 @@ export default function LeadForm({ product, initialPathology, initialCrop }: Lea
       <div className="bg-green-50 border border-green-200 p-8 rounded-3xl text-center animate-in zoom-in duration-300">
         <div className="text-4xl mb-4">✅</div>
         <h3 className="text-green-800 font-black uppercase text-lg mb-2">Đã gửi yêu cầu thành công!</h3>
-        <p className="text-green-700 text-sm font-medium">Kỹ sư của chúng tôi sẽ gọi lại cho bà con trong ít phút nữa.</p>
+        <p className="text-green-700 text-sm font-medium">Đội ngũ Phan Bón Giá Tốt sẽ gọi lại cho bà con trong ít phút nữa.</p>
       </div>
     );
   }
@@ -78,8 +78,8 @@ export default function LeadForm({ product, initialPathology, initialCrop }: Lea
     <div className="bg-white p-6 md:p-10 rounded-[2.5rem] border border-gray-100 shadow-xl shadow-gray-200/50">
       <div className="flex flex-col items-center text-center mb-8">
          <span className="bg-orange-100 text-orange-600 px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest mb-3 italic">Hỗ trợ bà con trực tiếp</span>
-         <h3 className="text-2xl font-black text-gray-900 uppercase italic tracking-tight">Yêu cầu kỹ sư gọi lại</h3>
-         <p className="text-gray-500 text-sm mt-2">Bà con điền thông tin, kỹ sư sẽ gọi lại tư vấn quy trình chuẩn nhất cho vườn của mình.</p>
+         <h3 className="text-2xl font-black text-gray-900 uppercase italic tracking-tight">Yêu cầu tư vấn ngay</h3>
+         <p className="text-gray-500 text-sm mt-2">Bà con điền thông tin, đội ngũ PBGT sẽ gọi lại tư vấn quy trình chuẩn nhất cho vườn của mình.</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
@@ -141,7 +141,7 @@ export default function LeadForm({ product, initialPathology, initialCrop }: Lea
         </div>
 
         <div className="space-y-2">
-          <label className="text-[11px] font-black uppercase text-gray-400 ml-4 tracking-widest">Ghi chú thêm cho kỹ sư</label>
+          <label className="text-[11px] font-black uppercase text-gray-400 ml-4 tracking-widest">Ghi chú thêm cho chúng tôi</label>
           <textarea 
             placeholder="Ví dụ: Vườn sầu riêng 3 năm tuổi, diện tích 2ha..." 
             value={formData.note}

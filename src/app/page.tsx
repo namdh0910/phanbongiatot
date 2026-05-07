@@ -209,7 +209,7 @@ export default function LandingPage() {
                 className="group relative px-8 md:px-12 py-3 md:h-20 bg-[#f5a623] hover:bg-[#fbb940] text-white rounded-xl md:rounded-2xl font-black text-sm md:text-xl shadow-2xl flex items-center justify-center gap-3 transition-all active:scale-95 animate-heartbeat"
               >
                 <MessageCircle className="w-5 h-5 md:w-7 md:h-7" fill="currentColor" />
-                Chụp Ảnh Vườn Gửi Kỹ Sư
+                Chụp Ảnh Vườn Gửi PBGT
               </a>
               <div className="flex flex-col items-center gap-2">
                  <p className="text-white/60 text-[9px] md:text-sm font-bold uppercase tracking-widest">Tư vấn miễn phí qua Zalo 24/7</p>
@@ -310,7 +310,7 @@ export default function LandingPage() {
             </h2>
             <div className="w-20 h-2 bg-[#f5a623] rounded-full" />
             <p className="mt-6 text-gray-500 max-w-xl font-medium">
-              Chọn đúng dấu hiệu vườn đang mắc phải để nhận giải pháp phục hồi sinh học chuyên sâu từ kỹ sư.
+              Chọn đúng dấu hiệu vườn đang mắc phải để nhận giải pháp phục hồi sinh học chuyên sâu từ đội ngũ PBGT.
             </p>
           </div>
 
@@ -368,7 +368,7 @@ export default function LandingPage() {
               <h2 className="text-3xl md:text-5xl font-black text-gray-900 uppercase tracking-tighter mb-4">
                 Kiến Thức <span className="text-[#f5a623]">Nhà Nông</span>
               </h2>
-              <p className="text-gray-500 font-medium">Cập nhật kỹ thuật mới nhất từ các kỹ sư giàu kinh nghiệm thực chiến tại vườn.</p>
+              <p className="text-gray-500 font-medium">Cập nhật kỹ thuật mới nhất từ đội ngũ giàu kinh nghiệm thực chiến tại vườn.</p>
             </div>
             <Link href="/blog" className="hidden md:flex items-center gap-2 text-[#1a5c2a] font-black uppercase tracking-widest text-sm hover:translate-x-2 transition-transform">
               Xem tất cả tài liệu <ChevronRight size={18} />
@@ -413,7 +413,7 @@ export default function LandingPage() {
               <BookOpen size={20} /> Tư vấn kỹ thuật miễn phí
             </div>
             <h2 className="text-3xl md:text-5xl font-black text-gray-900 mb-6 leading-tight">
-              Vườn Yếu? <span className="text-[#f5a623]">Gặp Kỹ Sư Ngay!</span>
+              Vườn Yếu? <span className="text-[#f5a623]">Gặp PBGT Ngay!</span>
             </h2>
             <p className="text-gray-600 text-lg md:text-xl mb-12 max-w-2xl mx-auto font-medium">
               Gửi tình trạng vườn (ảnh/video) qua Zalo để nhận giải pháp phục hồi miễn phí trong vòng 15 phút.
@@ -437,7 +437,7 @@ export default function LandingPage() {
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-5xl font-black text-gray-900 uppercase tracking-tighter mb-4">
-                Kỹ sư hướng dẫn <span className="text-[#f5a623]">thực tế tại vườn</span>
+                Hướng dẫn kỹ thuật <span className="text-[#f5a623]">thực tế tại vườn</span>
               </h2>
               <div className="w-20 h-2 bg-[#1a5c2a] rounded-full mx-auto" />
             </div>
@@ -447,7 +447,7 @@ export default function LandingPage() {
               <div className="w-full max-w-[350px]">
                 <LiteYouTube 
                   videoId="17SIPDywIXk" 
-                  title="Kỹ sư hướng dẫn thực tế" 
+                  title="Hướng dẫn kỹ thuật thực tế" 
                   className="rounded-[2.5rem] border-[8px] border-gray-900 shadow-2xl"
                 />
               </div>
@@ -490,11 +490,11 @@ export default function LandingPage() {
             <div className="space-y-2">
               <FAQItem 
                 question="Quy trình tư vấn kỹ thuật diễn ra như thế nào?"
-                answer="Bước 1: Bạn nhắn tin qua Zalo hoặc gọi Hotline. Bước 2: Bạn gửi hình ảnh/video thực tế tại vườn. Bước 3: Kỹ sư chẩn đoán và đưa ra giải pháp (loại thuốc, liều lượng, thời điểm xịt). Bước 4: Kỹ sư theo dõi hiệu quả sau khi bạn xử lý."
+                answer="Bước 1: Bạn nhắn tin qua Zalo hoặc gọi Hotline. Bước 2: Bạn gửi hình ảnh/video thực tế tại vườn. Bước 3: Đội ngũ PBGT hỗ trợ chẩn đoán và đưa ra giải pháp (loại thuốc, liều lượng, thời điểm xịt). Bước 4: Chúng tôi theo dõi hiệu quả sau khi bạn xử lý."
               />
               <FAQItem 
-                question="Làm sao để kỹ sư chẩn đoán đúng bệnh cho vườn?"
-                answer="Hình ảnh rõ nét về lá, thân, và đặc biệt là bộ rễ tơ là quan trọng nhất. Bạn nên quay video ngắn toàn cảnh vườn và cận cảnh cây bị bệnh gửi qua Zalo để kỹ sư nắm bắt chính xác tình hình."
+                question="Làm sao để PBGT hỗ trợ đúng bệnh cho vườn?"
+                answer="Hình ảnh rõ nét về lá, thân, và đặc biệt là bộ rễ tơ là quan trọng nhất. Bạn nên quay video ngắn toàn cảnh vườn và cận cảnh cây bị bệnh gửi qua Zalo để chúng tôi nắm bắt chính xác tình hình."
               />
               <FAQItem 
                 question="Các giải pháp có thực sự an toàn và hiệu quả?"

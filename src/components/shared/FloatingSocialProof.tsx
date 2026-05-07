@@ -7,7 +7,7 @@ const successStories = [
   { name: "Chú Năm", location: "Đồng Nai", action: "đã đặt bộ phục hồi sầu riêng", time: "5 phút trước" },
   { name: "Cô Tám", location: "Đắk Lắk", action: "vừa hỏi về quy trình kích rễ", time: "8 phút trước" },
   { name: "Bác Sáu", location: "Tiền Giang", action: "đã nhận hàng Nemano thành công", time: "12 phút trước" },
-  { name: "Chị Hoa", location: "Bình Phước", action: "vừa gửi ảnh vườn nhờ kỹ sư xem hộ", time: "15 phút trước" }
+  { name: "Chị Hoa", location: "Bình Phước", action: "vừa gửi ảnh vườn nhờ PBGT hỗ trợ", time: "15 phút trước" }
 ];
 
 export default function FloatingSocialProof() {

@@ -8,14 +8,14 @@ export async function GET() {
 
     const blogs = [
       {
-        title: "Sầu Riêng Vàng Lá Thối Rễ: Lộ Trình 7 Ngày Phục Hồi Thực Chiến Từ Kỹ Sư Tuấn",
+        title: "Sầu Riêng Vàng Lá Thối Rễ: Lộ Trình 7 Ngày Phục Hồi Thực Chiến Từ Phan Bón Giá Tốt",
         slug: "sau-rieng-vang-la-thoi-re-phuc-hoi-7-ngay",
         category: "Cẩm nang kỹ thuật",
         coverImage: "/images/blog/sau-rieng-vang-la-mua-mua.png",
-        excerpt: "18 năm kinh nghiệm đi vườn, Kỹ sư Tuấn chỉ rõ quy trình 7 ngày cứu vườn sầu riêng vàng lá thối rễ dứt điểm, không tái phát. Đừng chặt bỏ khi chưa đọc bài này.",
+        excerpt: "Với nhiều năm kinh nghiệm đi vườn, đội ngũ Phan Bón Giá Tốt chỉ rõ quy trình 7 ngày cứu vườn sầu riêng vàng lá thối rễ dứt điểm, không tái phát. Đừng chặt bỏ khi chưa đọc bài này.",
         content: `
           <div class="agri-expert-article">
-            <p>Tôi nhớ như in đêm đó, tầm giữa tháng 8 năm ngoái, anh Hùng ở xã Ea Knuếc (Krông Pắc, Đắk Lắk) gọi cho tôi. Giọng anh run run: \"Tuấn ơi, 200 gốc sầu riêng 5 năm tuổi nhà anh nó rụng lá như trút nước, rễ đen thui hết rồi. Chắc anh chặt bỏ thôi, chứ cứu gì nổi nữa.\"</p>
+            <p>Chúng tôi nhớ mãi trường hợp anh Hùng ở xã Ea Knuếc (Krông Pắc, Đắk Lắk) gọi cho Phan Bón Giá Tốt. Giọng anh run run: \"PBGT ơi, 200 gốc sầu riêng 5 năm tuổi nhà anh nó rụng lá như trút nước, rễ đen thui hết rồi. Chắc anh chặt bỏ thôi, chứ cứu gì nổi nữa.\"</p>
             <p>Tôi nói thật với bà con, nghe câu đó tôi xót lắm. 5 năm trời đổ mồ hôi, bao nhiêu vốn liếng dồn vào đó, giờ nhìn cây chết đứng thì ai mà không nản. Nhưng tôi bảo anh: \"Anh bình tĩnh, sáng mai tôi vào. Đừng chặt, còn xanh đọt là còn cứu được.\"</p>
             <p>Sáng hôm sau tôi vào tới vườn, nhìn cảnh tượng trước mắt mới thấy khủng khiếp. Đất thì nén chặt như bê tông, nước đọng thành vũng sau trận mưa đêm. Bới thử một gốc lên, rễ tơ thối nhũn, ngửi thấy mùi chua nồng của nấm thối rễ. Đây chính là cái \"hố tử thần\" mà nhiều nhà vườn sầu riêng ở Tây Nguyên đang gặp phải.</p>
             <p>Điều mà bà con sợ nhất không phải là cây rụng lá, mà là nhìn thấy tiền tỷ trôi theo dòng nước mưa mà không biết bắt đầu từ đâu. Hôm nay, tôi ngồi đây viết lại toàn bộ kinh nghiệm 18 năm đi vườn của mình để bà con có một cái nhìn đúng nhất, thực tế nhất về căn bệnh này. Không lý thuyết suông, không từ ngữ chuyên môn khó hiểu. Cứ làm đúng như tôi chỉ, tôi tin vườn bà con sẽ hồi sinh.</p>
@@ -25,10 +25,10 @@ export async function GET() {
               <li><a href="#chan-doan">Chẩn đoán đúng bệnh - Cứu cây đúng lúc</a></li>
               <li><a href="#sai-lam">Những sai lầm \"đốt tiền\" của nhà vườn</a></li>
               <li><a href="#quy-trinh">Quy trình 7 ngày phục hồi thần tốc</a></li>
-              <li><a href="#canh-bao">Cảnh báo khẩn cấp: Khi nào cần gọi kỹ sư ngay</a></li>
+              <li><a href="#canh-bao">Cảnh báo khẩn cấp: Khi nào cần gọi PBGT ngay</a></li>
               <li><a href="#checklist">Checklist chuẩn bị trước khi ra vườn</a></li>
               <li><a href="#san-pham">Giải pháp dinh dưỡng tôi tin dùng</a></li>
-              <li><a href="#faq">Hỏi đáp thực chiến cùng Kỹ sư Tuấn</a></li>
+              <li><a href="#faq">Hỏi đáp thực chiến cùng Phan Bón Giá Tốt</a></li>
             </ul>
 
             <h2 id="chan-doan">1. CHẨN ĐOÁN: ĐỪNG ĐỂ \"NHẦM THUỐC\" MÀ HẠI CÂY</h2>
@@ -86,7 +86,7 @@ export async function GET() {
 
             <div style=\"background-color: #fff3cd; border-left: 5px solid #ffc107; padding: 15px; margin: 20px 0;\">
               <h2 id=\"canh-bao\">⚠️ CẢNH BÁO KHẨN CẤP</h2>
-              <p><strong>Gọi ngay cho Kỹ sư Tuấn nếu thấy:</strong></p>
+              <p><strong>Gọi ngay cho Phan Bón Giá Tốt nếu thấy:</strong></p>
               <ul>
                 <li>Cây rụng lá xanh trắng đất sau một đêm.</li>
                 <li>Vỏ thân gần gốc bị xì mủ, chảy nước nâu đen.</li>
@@ -108,17 +108,17 @@ export async function GET() {
             <p><strong>Humic K-Max (Vảy rồng):</strong> Tan 100%, nâng pH thần tốc. Nó giúp biến đất chai cứng thành đất tơi xốp cho rễ tơ có chỗ thở.</p>
             <p><strong>Amino Plus:</strong> Cung cấp dinh dưỡng trực tiếp qua lá và rễ giúp đọt non ra mập, xanh dày nhanh chóng.</p>
 
-            <h2 id="faq">6. HỎI ĐÁP CÙNG KỸ SƯ TUẤN</h2>
+            <h2 id="faq">6. HỎI ĐÁP CÙNG PHAN BÓN GIÁ TỐT</h2>
             <p><strong>Q: Tại sao tôi bón Humic mà lá vẫn không xanh lại ngay?</strong><br/>
-            <strong>Tuấn trả lời:</strong> Cây chứ không phải bóng đèn. Khi rễ mới nhú (sau 5-7 ngày) mới hút được dinh dưỡng. Bà con chờ 15-20 ngày đọt non mở lá mới thấy xanh. Dục tốc là bất đạt!</p>
+            <strong>PBGT phản hồi:</strong> Cây chứ không phải bóng đèn. Khi rễ mới nhú (sau 5-7 ngày) mới hút được dinh dưỡng. Bà con chờ 15-20 ngày đọt non mở lá mới thấy xanh. Dục tốc là bất đạt!</p>
 
             <h2>Lời kết</h2>
             <p>Đừng để đến lúc cây khô đọt mới gọi tôi. Nếu vườn bà con bắt đầu vàng lá, hãy bấm vào nút Zalo bên dưới, chụp ảnh rễ gửi qua tôi tư vấn miễn phí cho.</p>
           </div>
         `,
         isPublished: true,
-        seoDescription: "Quy trình 7 ngày cứu sầu riêng vàng lá thối rễ thực chiến từ Kỹ sư Tuấn (18 năm kinh nghiệm). Giải pháp phục hồi rễ sinh học bền vững.",
-        hashtags: ["sau-rieng", "vang-la-thoi-re", "phuc-hoi-vuon", "ky-su-tuan"]
+        seoDescription: "Quy trình 7 ngày cứu sầu riêng vàng lá thối rễ thực chiến từ Phan Bón Giá Tốt (PBGT). Giải pháp phục hồi rễ sinh học bền vững.",
+        hashtags: ["sau-rieng", "vang-la-thoi-re", "phuc-hoi-vuon", "phanbongiatot"]
       }
     ];
 

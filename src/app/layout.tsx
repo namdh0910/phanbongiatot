@@ -20,7 +20,7 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: "Phân Bón Đắk Lắk | Giải Pháp Cứu Vườn Sầu Riêng, Cà Phê",
-  description: "Mua phân bón Đắk Lắk chính hãng. Kỹ sư Tây Nguyên tư vấn phục hồi sầu riêng vàng lá, tuyến trùng miễn phí. Giao hàng toàn quốc, kiểm tra tại vườn.",
+  description: "Mua phân bón Đắk Lắk chính hãng. Phan Bón Giá Tốt tư vấn phục hồi sầu riêng vàng lá, tuyến trùng miễn phí. Giao hàng toàn quốc, kiểm tra tại vườn.",
   keywords: "phân bón, thuốc trừ sâu, kích rễ, tuyến trùng, vàng lá thối rễ, sầu riêng, cà phê, phan bong gia tot",
   metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || "https://www.phanbongiatot.com"),
   openGraph: {

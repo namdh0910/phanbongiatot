@@ -17,7 +17,7 @@ const VendorLanding: React.FC = () => {
     { title: "Hoa hồng hấp dẫn", desc: "Mức chiết khấu lên đến 25%, cao nhất thị trường phân bón sinh học.", icon: "💎" },
     { title: "Hỗ trợ Marketing", desc: "Sản phẩm được quảng bá trên hệ thống Facebook/YouTube 500k follow.", icon: "🚀" },
     { title: "Dashboard thông minh", desc: "Quản lý đơn hàng, doanh thu, tồn kho theo thời gian thực.", icon: "📊" },
-    { title: "Kỹ sư đồng hành", desc: "Đội ngũ kỹ sư hỗ trợ tư vấn kỹ thuật trực tiếp cho khách của bạn.", icon: "👨‍🔬" }
+    { title: "Đội ngũ đồng hành", desc: "Đội ngũ Phan Bón Giá Tốt hỗ trợ tư vấn kỹ thuật trực tiếp cho khách của bạn.", icon: "👨‍🔬" }
   ];
 
   return (
@@ -156,7 +156,7 @@ const VendorLanding: React.FC = () => {
                 </div>
               </div>
               <p className="text-gray-300 italic text-lg leading-relaxed mb-8">
-                "Hệ thống giúp tôi tìm được phân bón chuẩn, giá gốc mà lại có kỹ sư tư vấn tận vườn. Tôi đã giới thiệu cho cả hợp tác xã cùng dùng."
+                "Hệ thống giúp tôi tìm được phân bón chuẩn, giá gốc mà lại được đội ngũ chuyên gia tư vấn tận vườn. Tôi đã giới thiệu cho cả hợp tác xã cùng dùng."
               </p>
               <div className="flex text-orange-400">⭐⭐⭐⭐⭐</div>
             </div>

@@ -69,7 +69,7 @@ export default function ExitPopup() {
 
         <div className="p-8 text-center space-y-6">
           <p className="text-gray-600 font-medium">
-            Bà con đừng rời đi vội! Kỹ sư gửi tặng mã giảm giá đặc biệt để vườn mình xanh tốt hơn:
+            Bà con đừng rời đi vội! Đội ngũ Phan Bón Giá Tốt gửi tặng mã giảm giá đặc biệt để vườn mình xanh tốt hơn:
           </p>
 
           <div className="bg-yellow-50 border-2 border-dashed border-yellow-400 p-4 rounded-xl relative">
@@ -92,7 +92,7 @@ export default function ExitPopup() {
               href="tel:0773440966"
               className="w-full border-2 border-emerald-600 text-emerald-600 py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-emerald-50 transition-colors"
             >
-              📞 GỌI KỸ SƯ TƯ VẤN
+              📞 GỌI TƯ VẤN NGAY
             </a>
           </div>
 

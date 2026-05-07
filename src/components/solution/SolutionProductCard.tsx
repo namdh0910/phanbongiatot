@@ -49,7 +49,7 @@ const SolutionProductCard = ({ product }: { product: Product }) => {
 
         {/* Pricing/Contact placeholder */}
         <div className="flex items-center justify-between mb-8 pb-6 border-b border-gray-50">
-           <span className="text-xs font-bold text-gray-400 uppercase tracking-tighter italic">Giá: Liên hệ kỹ sư</span>
+           <span className="text-xs font-bold text-gray-400 uppercase tracking-tighter italic">Giá: Liên hệ PBGT</span>
            <div className="flex items-center gap-1">
               {[1,2,3,4,5].map(s => <span key={s} className="text-[10px] text-amber-400">★</span>)}
            </div>
@@ -57,7 +57,7 @@ const SolutionProductCard = ({ product }: { product: Product }) => {
 
         {/* CTA Button */}
         <a 
-          href={`https://zalo.me/0773440966?text=${encodeURIComponent(`Chào kỹ sư, tôi muốn tư vấn về sản phẩm: ${product.name}`)}`}
+          href={`https://zalo.me/0773440966?text=${encodeURIComponent(`Chào PBGT, tôi muốn tư vấn về sản phẩm: ${product.name}`)}`}
           target="_blank"
           className="w-full bg-gray-900 text-white py-4 rounded-2xl font-black text-xs uppercase tracking-widest flex items-center justify-center gap-2 group-hover:bg-[#1a5c2a] shadow-lg shadow-gray-200 transition-all"
         >

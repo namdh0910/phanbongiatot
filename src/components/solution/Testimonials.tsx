@@ -9,7 +9,7 @@ const testimonials = [
     location: "Cư M'gar, Đắk Lắk",
     crop: "Cà phê & Hồ tiêu",
     avatar: "H",
-    content: "Hồi đầu năm vườn tiêu nhà tui bị vàng lá dữ quá, tưởng bỏ rồi. May có mấy chú kỹ sư bên Phân Bón Giá Tốt tư vấn dùng bộ Nemano với kích rễ. Nay rễ ra trắng xóa, lá xanh đậm trở lại rồi, mừng húm luôn bà con ơi!",
+    content: "Hồi đầu năm vườn tiêu nhà tui bị vàng lá dữ quá, tưởng bỏ rồi. May có đội ngũ tư vấn bên Phân Bón Giá Tốt hướng dẫn dùng bộ Nemano với kích rễ. Nay rễ ra trắng xóa, lá xanh đậm trở lại rồi, mừng húm luôn bà con ơi!",
     stars: 5
   },
   {

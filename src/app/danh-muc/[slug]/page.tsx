@@ -81,7 +81,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
               <div className="flex items-center justify-between mb-8">
                  <h2 className="text-2xl md:text-3xl font-black text-gray-900 uppercase tracking-tight flex items-center gap-3">
                     <span className="w-2 h-8 bg-[#f5a623] rounded-full" />
-                    Giải pháp kỹ sư: {categoryName}
+                    Giải pháp chuyên sâu: {categoryName}
                  </h2>
               </div>
               
@@ -163,14 +163,14 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
                    <div className="absolute top-0 left-0 w-full h-2 bg-[#f5a623]" />
                    <h4 className="text-xl font-black text-gray-900 mb-4">Hỗ trợ kỹ thuật</h4>
                    <p className="text-gray-500 text-sm mb-8 leading-relaxed font-medium">
-                      Gửi ngay hình ảnh vườn {categoryName} của bà con để kỹ sư chẩn đoán bệnh chính xác và miễn phí.
+                      Gửi ngay hình ảnh vườn {categoryName} của bà con để đội ngũ PBGT hỗ trợ tư vấn chính xác và miễn phí.
                    </p>
                    <div className="space-y-3">
                       <a href="https://zalo.me/0773440966" target="_blank" className="flex items-center justify-center gap-3 w-full bg-[#0068ff] text-white py-4 rounded-2xl font-black text-sm shadow-lg shadow-blue-100 active:scale-95 transition-transform">
                          <MessageCircle size={18} /> Chat Zalo Ngay
                       </a>
                       <a href="tel:0773440966" className="flex items-center justify-center gap-3 w-full bg-emerald-700 text-white py-4 rounded-2xl font-black text-sm shadow-lg shadow-emerald-100 active:scale-95 transition-transform">
-                         <Phone size={18} /> Gọi Kỹ Sư
+                         <Phone size={18} /> Gọi Tư Vấn
                       </a>
                    </div>
                 </div>

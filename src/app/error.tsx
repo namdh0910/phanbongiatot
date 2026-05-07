@@ -25,7 +25,7 @@ export default function Error({
       </h1>
       
       <p className="text-gray-500 max-w-md mb-12 font-medium leading-relaxed">
-        Có một lỗi nhỏ xảy ra khi tải dữ liệu giải pháp. Bà con đừng lo, hãy thử tải lại trang hoặc nhắn tin trực tiếp cho kỹ sư để được hỗ trợ ngay.
+        Có một lỗi nhỏ xảy ra khi tải dữ liệu. Bà con đừng lo, hãy thử tải lại trang hoặc nhắn tin trực tiếp cho chúng tôi để được hỗ trợ ngay.
       </p>
       
       <div className="flex flex-col md:flex-row gap-4 w-full max-w-md">
@@ -39,7 +39,7 @@ export default function Error({
           href="https://zalo.me/0773440966" 
           className="flex-1 bg-[#0068FF] text-white py-4 rounded-2xl font-black uppercase tracking-widest text-sm flex items-center justify-center gap-2 shadow-xl shadow-blue-100 hover:scale-105 transition-all"
         >
-          <MessageCircle size={18} /> Chat Zalo Kỹ Sư
+          <MessageCircle size={18} /> Chat Zalo PBGT
         </a>
       </div>
 

@@ -33,7 +33,7 @@ export default function ContactPage() {
       <div className="bg-dark text-white py-20">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl md:text-5xl font-extrabold mb-4">Liên Hệ Tư Vấn</h1>
-          <p className="text-gray-300 text-lg">Để lại thông tin, kỹ sư của chúng tôi sẽ gọi lại trong 30 phút!</p>
+          <p className="text-gray-300 text-lg">Để lại thông tin, đội ngũ Phan Bón Giá Tốt sẽ gọi lại trong 30 phút!</p>
         </div>
       </div>
 
@@ -74,13 +74,13 @@ export default function ContactPage() {
               <div className="text-center py-12">
                 <div className="text-7xl mb-6">🎉</div>
                 <h3 className="text-2xl font-bold text-dark mb-3">Gửi Thành Công!</h3>
-                <p className="text-gray-600 text-lg">Kỹ sư sẽ liên hệ lại trong vòng <strong>30 phút</strong> nhé!</p>
+                <p className="text-gray-600 text-lg">Chúng tôi sẽ liên hệ lại trong vòng <strong>30 phút</strong> nhé!</p>
                 <button onClick={() => { setSubmitted(false); setForm({ name: "", phone: "", note: "" }); }} className="mt-8 px-6 py-3 bg-primary text-white rounded-xl font-bold">Gửi thêm câu hỏi</button>
               </div>
             ) : (
               <>
                 <h2 className="text-2xl font-bold text-dark mb-2">Để Lại Thông Tin</h2>
-                <p className="text-gray-500 mb-8">Kỹ sư sẽ gọi lại miễn phí trong 30 phút.</p>
+                <p className="text-gray-500 mb-8">Đội ngũ PBGT sẽ gọi lại miễn phí trong 30 phút.</p>
                 <form onSubmit={handleSubmit} className="space-y-5">
                   <div>
                     <label className="block text-sm font-bold text-gray-700 mb-2">Họ và Tên *</label>

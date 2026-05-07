@@ -479,7 +479,7 @@ export default function Header() {
                   {suggestions.products.map((p: any, i: number) => (
                     <a 
                       key={i} 
-                      href={`https://zalo.me/0773440966?text=${encodeURIComponent(`Chào kỹ sư, tôi muốn tư vấn về sản phẩm: ${p.name}`)}`}
+                      href={`https://zalo.me/0773440966?text=${encodeURIComponent(`Chào PBGT, tôi muốn tư vấn về sản phẩm: ${p.name}`)}`}
                       target="_blank"
                       onClick={() => setIsSearchFocused(false)}
                       className="flex items-center gap-3"

@@ -8,13 +8,13 @@ export async function GET() {
 
     const blogs = [
       {
-        title: "Sầu Riêng Vàng Lá Thối Rễ: Kỹ Sư Chỉ Đúng Cách Cứu Vườn Trong 7 Ngày",
-        slug: "sau-rieng-vang-la-thoi-re-ky-su-huong-dan",
+        title: "Sầu Riêng Vàng Lá Thối Rễ: Cách Cứu Vườn Trong 7 Ngày Từ Phan Bón Giá Tốt",
+        slug: "sau-rieng-vang-la-thoi-re-huong-dan-tu-pbgt",
         category: "Cẩm nang kỹ thuật",
         coverImage: "/images/blog/sau-rieng-vang-la-mua-mua.png",
-        excerpt: "Đừng vội bón thêm phân khi thấy sầu riêng vàng lá. Kỹ sư chỉ ra sai lầm chết người và lộ trình 7 ngày phục hồi rễ tơ trắng xóa.",
+        excerpt: "Đừng vội bón thêm phân khi thấy sầu riêng vàng lá. Đội ngũ PBGT chỉ ra sai lầm chết người và lộ trình 7 ngày phục hồi rễ tơ trắng xóa.",
         content: `
-          <p>Mùa mưa năm nay khắc nghiệt, tôi đi thăm vườn anh Hùng ở Cư M'gar (Đắk Lắk), nhìn dàn sầu riêng 5 năm tuổi đang độ sung sức mà nay lá rụng lác đác, cơi đọt đứng chững lại, lòng không khỏi xót xa. Anh bảo: <em>"Kỹ sư ơi, tôi đổ bao nhiêu tiền phân thuốc rồi mà nó cứ lụi dần, đêm nằm mất ngủ ông ạ!"</em></p>
+          <p>Mùa mưa năm nay khắc nghiệt, chúng tôi đi thăm vườn anh Hùng ở Cư M'gar (Đắk Lắk), nhìn dàn sầu riêng 5 năm tuổi đang độ sung sức mà nay lá rụng lác đác, cơi đọt đứng chững lại, lòng không khỏi xót xa. Anh bảo: <em>"PBGT ơi, tôi đổ bao nhiêu tiền phân thuốc rồi mà nó cứ lụi dần, đêm nằm mất ngủ anh ạ!"</em></p>
           <p>Câu chuyện của anh Hùng không phải cá biệt. Bà con mình thường mắc một sai lầm chết người: **Thấy vàng là bón, thấy héo là phun.** Nhưng bà con đâu biết, lúc này "cái miệng" (bộ rễ) của cây đang bị tổn thương, bón thêm phân hóa học chẳng khác nào bắt người đang đau bụng phải ăn tiệc cưới.</p>
           <img src=\"/images/blog/sau-rieng-vang-la-mua-mua.png\" alt=\"Sầu riêng vàng lá thối rễ thực tế tại vườn\" style=\"width:100%; border-radius: 15px; margin: 20px 0;\" />
           <h2>1. Tại sao sầu riêng lại \"đòi chết\" vào mùa mưa?</h2>
@@ -35,12 +35,12 @@ export async function GET() {
           <h3>Bước 3: Tăng cường quân đội vi sinh (Ngày 7)</h3>
           <p>Lục này, rễ mới đã nhú ra như giá đỗ. Bà con bổ sung hệ vi sinh đối kháng **Acti Flora**. Những \"chiến binh\" vi sinh này sẽ bao phủ lấy bộ rễ, ngăn không cho nấm hại quay trở lại.</p>
           <div style=\"background: #f0fdf4; border-left: 5px solid #16a34a; padding: 20px; margin: 20px 0; border-radius: 0 10px 10px 0;\">
-            <strong>💡 Lời khuyên của Kỹ sư:</strong> Bà con hãy quan sát cỏ trong vườn. Nếu cỏ xanh tốt, chứng tỏ đất có sức sống. Đừng bao giờ lạm dụng thuốc cỏ làm trơ trụi mặt đất!
+            <strong>💡 Lời khuyên từ PBGT:</strong> Bà con hãy quan sát cỏ trong vườn. Nếu cỏ xanh tốt, chứng tỏ đất có sức sống. Đừng bao giờ lạm dụng thuốc cỏ làm trơ trụi mặt đất!
           </div>
-          <p style=\"text-align: center; font-weight: bold; font-size: 1.2rem;\">👉 Hotline/Zalo kỹ sư: 0773.440.966</p>
+          <p style=\"text-align: center; font-weight: bold; font-size: 1.2rem;\">👉 Hotline/Zalo PBGT: 0773.440.966</p>
         `,
         isPublished: true,
-        seoDescription: "Sầu riêng vàng lá thối rễ? Kỹ sư nông nghiệp hướng dẫn lộ trình 7 ngày phục hồi rễ sinh học, an toàn, hiệu quả bền vững.",
+        seoDescription: "Sầu riêng vàng lá thối rễ? Đội ngũ Phan Bón Giá Tốt hướng dẫn lộ trình 7 ngày phục hồi rễ sinh học, an toàn, hiệu quả bền vững.",
         hashtags: ["sau-rieng", "vang-la-thoi-re", "phuc-hoi-cay-trong"]
       },
       {
@@ -48,9 +48,9 @@ export async function GET() {
         slug: "tuyen-trung-sau-rieng-cach-xu-ly-tan-goc",
         category: "Cẩm nang kỹ thuật",
         coverImage: "/images/blog/tuyen-trung-sau-rieng.png",
-        excerpt: "Nhiều nhà vườn cứ thấy vàng lá là phun nấm nhưng không biết Tuyến trùng mới là nguyên nhân gốc. Kỹ sư chia sẻ cách nhận diện và xử lý tận gốc.",
+        excerpt: "Nhiều nhà vườn cứ thấy vàng lá là phun nấm nhưng không biết Tuyến trùng mới là nguyên nhân gốc. Chúng tôi chia sẻ cách nhận diện và xử lý tận gốc.",
         content: `
-          <p>Sau hơn 15 năm đi vườn từ Đắk Lắk xuống tới miền Tây, tôi nhận ra một điều đau lòng: Rất nhiều nhà vườn đang tự tay \"giết\" cây sầu riêng của mình chỉ vì không hiểu về Tuyến trùng. Nhiều anh em gọi điện cho tôi than: <em>\"Kỹ sư ơi, tôi phun đủ loại thuốc nấm rồi, lá vẫn cứ vàng, đọt không chịu đi, cây lụi dần là sao?\"</em>.</p>
+          <p>Sau nhiều năm đi vườn từ Đắk Lắk xuống tới miền Tây, Phan Bón Giá Tốt nhận ra một điều đau lòng: Rất nhiều nhà vườn đang tự tay \"giết\" cây sầu riêng của mình chỉ vì không hiểu về Tuyến trùng. Nhiều anh em gọi điện cho chúng tôi than: <em>\"PBGT ơi, tôi phun đủ loại thuốc nấm rồi, lá vẫn cứ vàng, đọt không chịu đi, cây lụi dần là sao?\"</em>.</p>
           <p>Thực tế lúc này, bộ rễ của cây đã bị Tuyến trùng tấn công nát bét, tạo đường cho nấm vào, mà bà con chỉ lo \"đánh\" nấm ở trên lá thì làm sao cây khỏe lại được?</p>
           <img src=\"/images/blog/tuyen-trung-sau-rieng.png\" alt=\"Rễ sầu riêng bị tuyến trùng tấn công\" style=\"width:100%; border-radius: 15px; margin: 20px 0;\" />
           <h2>1. Những sai lầm \"đốt tiền\" mà bà con thường mắc phải</h2>
@@ -69,12 +69,12 @@ export async function GET() {
             <li><strong>Bước 4: Tái tạo hệ vi sinh.</strong> Đưa chiến binh **Acti Flora** vào để bao phủ và bảo vệ bộ rễ mới.</li>
           </ol>
           <div style=\"background: #fffbeb; border-left: 5px solid #d97706; padding: 20px; margin: 20px 0;\">
-            <strong>⚠️ Lưu ý từ Kỹ sư:</strong> Tuyến trùng lây lan qua nguồn nước. Nếu vườn có cây bị, bà con nên kiểm tra và xử lý cả những cây xung quanh để tránh bùng phát diện rộng.
+            <strong>⚠️ Lưu ý từ PBGT:</strong> Tuyến trùng lây lan qua nguồn nước. Nếu vườn có cây bị, bà con nên kiểm tra và xử lý cả những cây xung quanh để tránh bùng phát diện rộng.
           </div>
-          <p style=\"text-align: center; font-weight: bold; font-size: 1.2rem;\">👉 Liên hệ Kỹ sư tư vấn miễn phí: 0773.440.966</p>
+          <p style=\"text-align: center; font-weight: bold; font-size: 1.2rem;\">👉 Liên hệ PBGT tư vấn miễn phí: 0773.440.966</p>
         `,
         isPublished: true,
-        seoDescription: "Tuyến trùng sầu riêng là gì? Kỹ sư hướng dẫn cách nhận diện và quy trình xử lý sinh học tận gốc, giúp cây bung cơi, xanh lá.",
+        seoDescription: "Tuyến trùng sầu riêng là gì? Phan Bón Giá Tốt hướng dẫn cách nhận diện và quy trình xử lý sinh học tận gốc, giúp cây bung cơi, xanh lá.",
         hashtags: ["tuyen-trung-sau-rieng", "benh-sau-rieng", "phuc-hoi-vuon"]
       }
     ];

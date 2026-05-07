@@ -57,7 +57,7 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               { icon: "🔬", title: "Khoa học & Thực tiễn", desc: "Mọi sản phẩm đều trải qua kiểm nghiệm thực địa tại các vườn sầu riêng, cà phê trước khi đưa ra thị trường." },
-              { icon: "🤝", title: "Tận tâm & Đồng hành", desc: "Đội ngũ kỹ sư nông nghiệp luôn sẵn sàng tư vấn miễn phí, đồng hành cùng bà con từ khi gieo trồng đến khi thu hoạch." },
+              { icon: "🤝", title: "Tận tâm & Đồng hành", desc: "Đội ngũ Phan Bón Giá Tốt luôn sẵn sàng tư vấn miễn phí, đồng hành cùng bà con từ khi gieo trồng đến khi thu hoạch." },
               { icon: "💰", title: "Giá Tốt & Minh Bạch", desc: "Cam kết mức giá cạnh tranh nhất thị trường, không trung gian, không phụ phí ẩn — bà con nhận hàng rồi mới thanh toán." },
             ].map((v, i) => (
               <div key={i} className="text-center p-6 rounded-2xl bg-gray-50 border border-gray-100">
@@ -68,11 +68,11 @@ export default function AboutPage() {
             ))}
           </div>
         </div>
-
+ 
         {/* CTA */}
         <div className="bg-gradient-to-r from-emerald-600 to-emerald-800 rounded-3xl p-10 text-white text-center shadow-2xl">
           <h2 className="text-3xl font-black mb-4 uppercase italic tracking-tighter">Bắt Đầu Hành Trình Cùng Chúng Tôi</h2>
-          <p className="text-emerald-100 mb-8 text-lg font-medium">Liên hệ ngay để được tư vấn miễn phí từ các kỹ sư nông nghiệp giàu kinh nghiệm.</p>
+          <p className="text-emerald-100 mb-8 text-lg font-medium">Liên hệ ngay để được tư vấn miễn phí từ đội ngũ tư vấn giàu kinh nghiệm thực chiến.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a href={`tel:${settings.hotline}`} className="px-8 py-4 bg-white text-emerald-700 rounded-xl font-black text-lg hover:bg-gray-100 transition-colors shadow-lg uppercase tracking-widest">
               📞 Gọi Ngay: {settings.phone || settings.hotline}

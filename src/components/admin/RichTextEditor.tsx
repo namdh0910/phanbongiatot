@@ -70,7 +70,7 @@ export default function RichTextEditor({ value, onChange, label, placeholder }: 
                 <strong style="color: #c53030;">⚠️ CẢNH BÁO KHẨN CẤP:</strong> [Nhập dấu hiệu nguy hiểm hoặc hành động cần ngưng ngay tại đây...]
               </div>`,
     tip: `<div style="background-color: #f0fff4; border-left: 5px solid #48bb78; padding: 15px; margin: 15px 0; border-radius: 4px;">
-            <strong style="color: #276749;">💡 LỜI KHUYÊN KỸ SƯ:</strong> [Nhập kinh nghiệm thực tế hoặc mẹo nhỏ giúp bà con tiết kiệm chi phí...]
+            <strong style="color: #276749;">💡 LỜI KHUYÊN TỪ PHAN BÓN GIÁ TỐT:</strong> [Nhập kinh nghiệm thực tế hoặc mẹo nhỏ giúp bà con tiết kiệm chi phí...]
           </div>`,
     info: `<div style="background-color: #ebf8ff; border-left: 5px solid #4299e1; padding: 15px; margin: 15px 0; border-radius: 4px;">
              <strong style="color: #2b6cb0;">ℹ️ LƯU Ý QUAN TRỌNG:</strong> [Nhập các điều kiện cần thiết như thời tiết, liều lượng chuẩn...]
@@ -114,7 +114,7 @@ export default function RichTextEditor({ value, onChange, label, placeholder }: 
     if (wordCount === 0) return { color: 'text-gray-400', label: 'Chưa bắt đầu' };
     if (wordCount < 1000) return { color: 'text-red-500', label: 'Nội dung quá ngắn' };
     if (wordCount < 2000) return { color: 'text-yellow-500', label: 'Cần viết thêm' };
-    return { color: 'text-green-600', label: 'Đạt chuẩn Kỹ sư' };
+    return { color: 'text-green-600', label: 'Đạt chuẩn PBGT' };
   };
 
   const status = getWordCountStatus();
@@ -134,7 +134,7 @@ export default function RichTextEditor({ value, onChange, label, placeholder }: 
             <AlertTriangle size={12} /> Cảnh báo ⚠️
          </button>
          <button type="button" onClick={() => insertTemplate(templates.tip)} className="flex items-center gap-1.5 px-3 py-2 bg-emerald-900/30 text-emerald-400 rounded-xl text-[10px] font-black hover:bg-emerald-900/50 transition-all border border-emerald-900/30 active:scale-95 uppercase tracking-wider">
-            <Lightbulb size={12} /> Lời khuyên KS 💡
+            <Lightbulb size={12} /> Lời khuyên PBGT 💡
          </button>
          <button type="button" onClick={() => insertTemplate(templates.info)} className="flex items-center gap-1.5 px-3 py-2 bg-blue-900/30 text-blue-400 rounded-xl text-[10px] font-black hover:bg-blue-900/50 transition-all border border-blue-900/30 active:scale-95 uppercase tracking-wider">
             <Info size={12} /> Lưu ý ℹ️

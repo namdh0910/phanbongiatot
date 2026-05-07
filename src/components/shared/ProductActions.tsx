@@ -86,7 +86,7 @@ export default function ProductActions({ product }: { product: any }) {
             onClick={handleCallClick}
             className={`flex-1 py-4 px-6 rounded-sm transition-colors font-bold text-lg flex items-center justify-center gap-2 shadow-sm bg-[#ffefe8] border border-[#ee4d2d] text-[#ee4d2d] hover:bg-[#ffeae0]`}
           >
-            <span className="text-2xl">📞</span> Gọi Kỹ Sư Tư Vấn
+            <span className="text-2xl">📞</span> Gọi Tư Vấn Ngay
           </button>
           <button 
             onClick={handleZaloClick}
@@ -111,7 +111,7 @@ export default function ProductActions({ product }: { product: any }) {
           className="flex-1 bg-[#ee4d2d] text-white flex items-center justify-center font-black text-xs rounded-xl gap-2 shadow-lg"
         >
           <span className="text-lg">📞</span>
-          <span>Gọi Kỹ Sư</span>
+          <span>Gọi Tư Vấn</span>
         </button>
       </div>
     </>

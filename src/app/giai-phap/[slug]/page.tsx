@@ -184,7 +184,7 @@ export default async function SolutionDetail({ params }: { params: Promise<{ slu
                       <Zap className="text-[#f5a623]" size={30} />
                     </div>
                     <h3 className="text-white text-lg font-black uppercase italic mb-1">Video đang cập nhật</h3>
-                    <p className="text-gray-400 font-bold mb-8 text-[11px] uppercase tracking-widest">Kỹ sư đang thực hiện quay tại vườn...</p>
+                    <p className="text-gray-400 font-bold mb-8 text-[11px] uppercase tracking-widest">Đội ngũ PBGT đang thực hiện quay tại vườn...</p>
                     <a 
                       href="tel:0773440966" 
                       className="bg-white text-gray-900 px-8 py-3 rounded-xl font-black text-[10px] uppercase tracking-widest hover:scale-105 transition-all shadow-xl flex items-center gap-2"
@@ -347,7 +347,7 @@ export default async function SolutionDetail({ params }: { params: Promise<{ slu
                  Nhận hướng dẫn xử lý riêng cho vườn
                </h2>
                <p className="text-emerald-700 text-xl md:text-2xl mt-6 font-bold italic max-w-2xl mx-auto leading-tight">
-                 "Vườn của bà con đang có những triệu chứng như trên phải không? Nhắn Zalo kỹ sư để nhận quy trình xử lý riêng cho vườn mình miễn phí."
+                 "Vườn của bà con đang có những triệu chứng như trên phải không? Nhắn Zalo PBGT để nhận quy trình xử lý riêng cho vườn mình miễn phí."
                </p>
             </div>
             <div className="bg-white rounded-[3rem] shadow-2xl p-8 md:p-16 border border-gray-100">
@@ -386,9 +386,9 @@ export default async function SolutionDetail({ params }: { params: Promise<{ slu
       <section className="bg-emerald-900 py-20 text-white text-center">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-5xl font-black uppercase italic tracking-tighter mb-6">Bà con cần hỗ trợ ngay?</h2>
-          <p className="text-emerald-100 text-lg mb-10 max-w-2xl mx-auto">Đừng để vườn suy kiệt thêm nữa. Nhắn Zalo ngay để kỹ sư xem ảnh vườn và chẩn đoán miễn phí.</p>
+          <p className="text-emerald-100 text-lg mb-10 max-w-2xl mx-auto">Đừng để vườn suy kiệt thêm nữa. Nhắn Zalo ngay để chúng tôi xem ảnh vườn và hỗ trợ miễn phí.</p>
           <div className="flex flex-col md:flex-row gap-4 justify-center">
-            <a href={`https://zalo.me/0773440966`} className="bg-[#0068FF] px-10 py-5 rounded-2xl font-black uppercase tracking-widest text-sm shadow-xl active:scale-95 transition-all">Nhắn Zalo Kỹ Sư</a>
+            <a href={`https://zalo.me/0773440966`} className="bg-[#0068FF] px-10 py-5 rounded-2xl font-black uppercase tracking-widest text-sm shadow-xl active:scale-95 transition-all">Nhắn Zalo PBGT</a>
             <a href="tel:0773440966" className="bg-white text-emerald-900 px-10 py-5 rounded-2xl font-black uppercase tracking-widest text-sm shadow-xl active:scale-95 transition-all">Gọi Hotline: 0773.440.966</a>
           </div>
         </div>
