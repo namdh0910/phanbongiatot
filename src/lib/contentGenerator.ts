@@ -53,7 +53,14 @@ export async function generateArticleContent(req: GenerateArticleRequest) {
   const response = await result.response;
   const text = response.text();
   
-  return JSON.parse(text);
+  // Strip markdown fences if Gemini accidentally includes them
+  const cleaned = text
+    .replace(/^```json\s*/i, '')
+    .replace(/^```\s*/i, '')
+    .replace(/\s*```$/i, '')
+    .trim();
+
+  return JSON.parse(cleaned);
 }
 
 export function injectImagesIntoContent(html: string, images: ArticleImage[]): string {
