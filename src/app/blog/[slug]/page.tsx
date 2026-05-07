@@ -66,6 +66,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
+export const dynamic = 'force-dynamic';
+
 export default async function BlogDetail({ params }: { params: Promise<{ slug: string }> }) {
   const paramsData = await params;
   const slug = paramsData?.slug;
@@ -183,7 +185,15 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
               prose-h2:text-xl md:text-3xl prose-h2:mt-10 md:prose-h2:mt-16 prose-h2:mb-4 md:prose-h2:mb-8 prose-h2:bg-emerald-50 prose-h2:p-4 md:prose-h2:p-6 prose-h2:rounded-xl md:prose-h2:rounded-2xl prose-h2:border-l-4 md:prose-h2:border-l-8 prose-h2:border-emerald-600
               prose-img:rounded-2xl md:prose-img:rounded-[2.5rem] prose-img:shadow-xl
               prose-strong:text-gray-900 prose-strong:font-black"
-              dangerouslySetInnerHTML={{ __html: blog.content }}
+              style={{ wordBreak: 'normal', overflowWrap: 'break-word', hyphens: 'none' }}
+              dangerouslySetInnerHTML={{ 
+                __html: blog.content
+                  .replace(/[\n\r\t]+/g, '') // Word Stitching: Strip all control chars to join broken words
+                  .replace(/\{#[\w-]+\}/g, '') 
+                  .replace(/>\s+</g, '><') // Remove whitespace between tags
+                  .replace(/\s{2,}/g, ' ') 
+                  .trim()
+              }}
             />
 
             {blog.hashtags && blog.hashtags.length > 0 && (
