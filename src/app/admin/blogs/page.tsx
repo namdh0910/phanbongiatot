@@ -124,14 +124,14 @@ export default function AdminBlogs() {
   };
 
   const handleArticleGenerated = (article: any) => {
-    setCurrentBlog({
-      ...currentBlog,
+    setCurrentBlog(prev => ({
+      ...prev,
       title: article.title,
       slug: article.slug,
       excerpt: article.metaDescription,
       content: article.content,
       coverImage: article.heroImage?.cloudinaryUrl || "",
-    });
+    }));
     setMessage("⚡ Đã nạp nội dung AI thành công! Bà con hãy review và lưu lại.");
   };
 
@@ -188,7 +188,7 @@ export default function AdminBlogs() {
                       onChange={(e) => {
                         const newTitle = e.target.value;
                         const newSlug = !currentBlog._id ? slugify(newTitle) : currentBlog.slug;
-                        setCurrentBlog({...currentBlog, title: newTitle, slug: newSlug});
+                        setCurrentBlog(prev => ({...prev, title: newTitle, slug: newSlug}));
                       }}
                       className="w-full bg-gray-50 border-2 border-gray-100 rounded-2xl px-6 py-4 outline-none focus:bg-white focus:border-[#1a5c2a] transition-all font-bold text-gray-800"
                       placeholder="VD: Cách phục hồi sầu riêng bị vàng lá thối rễ..."
@@ -203,7 +203,7 @@ export default function AdminBlogs() {
                          required
                          type="text" 
                          value={currentBlog.slug}
-                         onChange={(e) => setCurrentBlog({...currentBlog, slug: slugify(e.target.value)})}
+                         onChange={(e) => setCurrentBlog(prev => ({...prev, slug: slugify(e.target.value)}))}
                          className="w-full bg-gray-50 border-2 border-gray-100 rounded-2xl pl-12 pr-6 py-4 outline-none focus:bg-white focus:border-[#1a5c2a] transition-all font-bold text-gray-700 text-sm"
                          placeholder="auto-tao-tu-tieu-de"
                        />
@@ -214,7 +214,7 @@ export default function AdminBlogs() {
                     <label className="block text-[10px] font-black text-gray-400 uppercase mb-2 ml-1 tracking-widest">Chuyên mục</label>
                     <select 
                       value={currentBlog.category}
-                      onChange={(e: any) => setCurrentBlog({...currentBlog, category: e.target.value})}
+                      onChange={(e: any) => setCurrentBlog(prev => ({...prev, category: e.target.value}))}
                       className="w-full bg-gray-50 border-2 border-gray-100 rounded-2xl px-6 py-4 outline-none focus:bg-white focus:border-[#1a5c2a] transition-all font-bold text-gray-800"
                     >
                       <option value="Nhật ký phục hồi vườn">Nhật ký phục hồi vườn</option>
@@ -230,7 +230,7 @@ export default function AdminBlogs() {
                        <input 
                          type="text" 
                          value={currentBlog.videoUrl}
-                         onChange={(e) => setCurrentBlog({...currentBlog, videoUrl: e.target.value})}
+                         onChange={(e) => setCurrentBlog(prev => ({...prev, videoUrl: e.target.value}))}
                          className="w-full bg-gray-50 border-2 border-gray-100 rounded-2xl pl-12 pr-6 py-4 outline-none focus:bg-white focus:border-[#1a5c2a] transition-all font-bold text-gray-800"
                          placeholder="Dán link YouTube/TikTok vào đây..."
                        />
@@ -240,7 +240,7 @@ export default function AdminBlogs() {
                   <ImageUpload 
                     label="Ảnh bìa bài viết"
                     value={currentBlog.coverImage}
-                    onChange={(url) => setCurrentBlog({...currentBlog, coverImage: url})}
+                    onChange={(url) => setCurrentBlog(prev => ({...prev, coverImage: url}))}
                     placeholder="URL hình ảnh bài viết..."
                   />
                </div>
@@ -251,18 +251,18 @@ export default function AdminBlogs() {
                     <textarea 
                       required
                       value={currentBlog.excerpt}
-                      onChange={(e) => setCurrentBlog({...currentBlog, excerpt: e.target.value})}
+                      onChange={(e) => setCurrentBlog(prev => ({...prev, excerpt: e.target.value}))}
                       className="w-full bg-gray-50 border-2 border-gray-100 rounded-2xl px-6 py-4 outline-none focus:bg-white focus:border-[#1a5c2a] transition-all font-medium text-gray-800 h-[80px] resize-none"
                       placeholder="Tóm tắt ngắn gọn nội dung bài viết cho SEO..."
                     />
                   </div>
 
-                  <RichTextEditor 
-                    label="Nội dung chi tiết"
-                    value={currentBlog.content}
-                    onChange={(content) => setCurrentBlog({...currentBlog, content})}
-                    placeholder="Nhập nội dung kỹ thuật và chèn hình ảnh minh họa..."
-                  />
+                    <RichTextEditor 
+                      label="Nội dung chi tiết"
+                      value={currentBlog.content}
+                      onChange={(content) => setCurrentBlog(prev => ({...prev, content}))}
+                      placeholder="Nhập nội dung kỹ thuật và chèn hình ảnh minh họa..."
+                    />
 
                   <div className="flex items-center gap-2 bg-emerald-50 p-4 rounded-2xl">
                      <input 

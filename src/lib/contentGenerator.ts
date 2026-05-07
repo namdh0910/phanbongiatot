@@ -28,7 +28,8 @@ Mỗi bài PHẢI đạt 2.500–3.500 từ thực sự hữu ích. Không đư�
 }
 
 RULES:
-- "content" dùng thẻ {{IMAGE_0}}, {{IMAGE_1}}, {{IMAGE_2}} để đánh dấu vị trí chèn ảnh.
+- "content" dùng thẻ {{IMAGE_0}}, {{IMAGE_1}}, {{IMAGE_2}} để đánh dấu vị trí chèn ảnh. Cần chèn ít nhất 3-4 ảnh vào các vị trí hợp lý.
+- "heroImageQuery" và "inlineImageQueries" phải là Tiếng Anh, miêu tả các góc chụp KHÁC NHAU (ví dụ: quả, lá, gốc cây, cảnh nông dân, hoặc sơ đồ) để tránh hình ảnh bị lặp lại.
 - Cấu trúc HTML: Hook -> TOC -> 1. Chẩn đoán (có bảng) -> 2. Sai lầm -> 3. Quy trình (chi tiết liều lượng) -> 4. Cảnh báo -> 5. Checklist -> 6. Giải pháp -> 7. FAQ cùng PBGT -> Kết bài.
 
 IMPORTANT: Trả về JSON thuần túy. KHÔNG được có ký tự điều khiển (raw newlines/control characters) bên trong các giá trị chuỗi. Dùng \\n để xuống hàng trong HTML.
