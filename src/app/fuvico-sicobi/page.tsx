@@ -153,8 +153,8 @@ export default function FuvicoEliteLanding() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-16">
              {[
-               { emoji: "🏜️", title: "Đất "chai" như đá", desc: "Đất bí bách, không còn oxy cho rễ thở. Rễ tơ không thể đâm xuyên, cây đứng sững không lớn." },
-               { emoji: "🔒", title: "Dinh dưỡng bị "khóa"", desc: "Lân và Kali đóng cặn trong đất, cây nhìn thấy nhưng không thể hấp thụ. Bón bao nhiêu phí bấy nhiêu." },
+               { emoji: "🏜️", title: "Đất 'chai' như đá", desc: "Đất bí bách, không còn oxy cho rễ thở. Rễ tơ không thể đâm xuyên, cây đứng sững không lớn." },
+               { emoji: "🔒", title: "Dinh dưỡng bị 'khóa'", desc: "Lân và Kali đóng cặn trong đất, cây nhìn thấy nhưng không thể hấp thụ. Bón bao nhiêu phí bấy nhiêu." },
                { emoji: "🦠", title: "Nấm bệnh bùng phát", desc: "Vi sinh vật có lợi chết sạch, tạo điều kiện cho Tuyến trùng và Phytophthora tấn công phá nát bộ rễ." }
              ].map((item, i) => (
                <div key={i} className="relative group p-12 bg-gray-50 rounded-[4rem] border border-gray-100 hover:bg-red-50 hover:border-red-100 transition-all duration-500">
@@ -181,7 +181,7 @@ export default function FuvicoEliteLanding() {
                   </div>
                   <h2 className="text-4xl md:text-6xl font-black uppercase italic tracking-tighter mb-10 leading-[0.95]">
                      Sự thật là:<br/>
-                     <span className="text-emerald-400">Cây không "đói" phân,<br/> Cây chỉ đang bị "nghẹn"</span>
+                     <span className="text-emerald-400">Cây không 'đói' phân,<br/> Cây chỉ đang bị 'nghẹn'</span>
                   </h2>
                   <div className="space-y-8 text-emerald-100/70 text-lg md:text-xl font-medium leading-relaxed">
                      <p>Khi đất bị nén chặt, các hạt keo đất gắn kết quá mức khiến dinh dưỡng bị giữ chặt (hóa keo). Rễ cây dù có khỏe đến đâu cũng không thể tách được dinh dưỡng ra để ăn.</p>
@@ -257,7 +257,7 @@ export default function FuvicoEliteLanding() {
               <div className="flex justify-center gap-1 text-amber-400 mb-6">
                  {[1,2,3,4,5].map(i => <Star key={i} size={32} fill="currentColor" />)}
               </div>
-              <p className="text-gray-500 text-xl font-bold italic">"Đã có hơn 15.000 vườn sầu riêng, cà phê tại Tây Nguyên hồi sinh rễ nhờ Sicobi"</p>
+              <p className="text-gray-500 text-xl font-bold italic">'Đã có hơn 15.000 vườn sầu riêng, cà phê tại Tây Nguyên hồi sinh rễ nhờ Sicobi'</p>
            </div>
            
            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
@@ -324,8 +324,8 @@ export default function FuvicoEliteLanding() {
                     <div className="flex gap-6 items-start">
                        <div className="w-10 h-10 bg-emerald-100 text-emerald-700 rounded-2xl flex items-center justify-center flex-shrink-0 font-black">Q</div>
                        <div>
-                          <h5 className="font-black text-gray-900 mb-4 text-xl leading-tight">"{faq.q}"</h5>
-                          <p className="text-gray-600 font-medium leading-relaxed text-lg italic">"Dạ, {faq.a}"</p>
+                          <h5 className="font-black text-gray-900 mb-4 text-xl leading-tight">{faq.q}</h5>
+                          <p className="text-gray-600 font-medium leading-relaxed text-lg italic">{faq.a}</p>
                        </div>
                     </div>
                  </div>
