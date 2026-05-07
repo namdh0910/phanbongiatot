@@ -115,6 +115,7 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
 
   return (
     <div className="bg-white min-h-screen">
+      <StyleInjector />
       <SchemaMarkup data={articleSchema} />
       
       <div className="pt-[calc(56px+env(safe-area-inset-top))] pb-4 md:pt-24 md:pb-8 bg-gray-50 border-b border-gray-100">
@@ -318,4 +319,46 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
       </div>
     </div>
   );
+}
+
+// Custom styles for blog content tables and elements
+const tableStyles = `
+  .prose table {
+    width: 100% !important;
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+    margin: 2rem 0 !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 16px !important;
+    overflow: hidden !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05) !important;
+  }
+  .prose th {
+    background-color: #f8fafc !important;
+    color: #1a5c2a !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    padding: 1rem 1.5rem !important;
+    border-bottom: 2px solid #e2e8f0 !important;
+    font-size: 0.75rem !important;
+  }
+  .prose td {
+    padding: 1rem 1.5rem !important;
+    border-bottom: 1px solid #f1f5f9 !important;
+    color: #4a5568 !important;
+    font-size: 0.875rem !important;
+    line-height: 1.6 !important;
+  }
+  .prose tr:last-child td {
+    border-bottom: none !important;
+  }
+  .prose tr:nth-child(even) {
+    background-color: #fafbfb !important;
+  }
+`;
+
+// Add the styles to the page
+function StyleInjector() {
+  return <style dangerouslySetInnerHTML={{ __html: tableStyles }} />;
 }

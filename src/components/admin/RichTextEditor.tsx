@@ -221,20 +221,38 @@ export default function RichTextEditor({ value, onChange, label, placeholder }: 
         }
         .expert-editor .table-responsive {
           overflow-x: auto;
-          margin: 20px 0;
+          margin: 30px 0;
+          background: #fff;
+          border-radius: 16px;
+          border: 1px solid #e2e8f0;
+          box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
         }
         .expert-editor table {
-          border-radius: 12px;
-          overflow: hidden;
+          width: 100% !important;
+          border-collapse: collapse;
+          font-size: 14px;
         }
-        .expert-editor .ql-toolbar.ql-snow {
-          border: none;
+        .expert-editor th {
           background: #f8fafc;
-          padding: 12px 20px;
-          border-bottom: 1px solid #f1f5f9;
+          color: #1a5c2a;
+          font-weight: 800;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          padding: 15px 20px;
+          border-bottom: 2px solid #e2e8f0;
+          text-align: left;
         }
-        .expert-editor .ql-container.ql-snow {
-          border: none;
+        .expert-editor td {
+          padding: 15px 20px;
+          border-bottom: 1px solid #f1f5f9;
+          color: #4a5568;
+          line-height: 1.6;
+        }
+        .expert-editor tr:last-child td {
+          border-bottom: none;
+        }
+        .expert-editor tr:nth-child(even) {
+          background-color: #fafbfb;
         }
       `}</style>
     </div>
