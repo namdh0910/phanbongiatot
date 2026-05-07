@@ -6,6 +6,7 @@ import { slugify } from "@/utils/slugify";
 import { API_BASE_URL } from "@/utils/api";
 import ImageUpload from "@/components/admin/ImageUpload";
 import RichTextEditor from "@/components/admin/RichTextEditor";
+import GenerateArticlePanel from "@/components/admin/GenerateArticlePanel";
 
 interface Blog {
   _id?: string;
@@ -122,6 +123,18 @@ export default function AdminBlogs() {
     }
   };
 
+  const handleArticleGenerated = (article: any) => {
+    setCurrentBlog({
+      ...currentBlog,
+      title: article.title,
+      slug: article.slug,
+      excerpt: article.metaDescription,
+      content: article.content,
+      coverImage: article.heroImage.cloudinaryUrl,
+    });
+    setMessage("⚡ Đã nạp nội dung AI thành công! Bà con hãy review và lưu lại.");
+  };
+
   if (loading) return <div className="animate-pulse py-10 font-black text-gray-400">Đang tải dữ liệu nội dung...</div>;
 
   return (
@@ -152,7 +165,13 @@ export default function AdminBlogs() {
              <button onClick={() => setIsEditing(false)} className="text-gray-400 hover:text-white transition-colors"><X /></button>
           </div>
 
-          <form onSubmit={handleSubmit} className="p-8 space-y-8">
+          <div className="p-8 pb-0">
+             {!currentBlog._id && (
+               <GenerateArticlePanel onArticleGenerated={handleArticleGenerated} />
+             )}
+          </div>
+
+          <form onSubmit={handleSubmit} className="p-8 pt-4 space-y-8">
             {message && (
               <div className={`p-4 rounded-xl text-xs font-bold border ${message.includes('✅') ? 'bg-green-50 text-green-700 border-green-100' : 'bg-red-50 text-red-700 border-red-100'}`}>
                 {message}
