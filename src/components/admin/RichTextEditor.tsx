@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useMemo } from 'react';
+import React, { useMemo, useRef, useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import 'react-quill-new/dist/quill.snow.css';
+import { AlertTriangle, Lightbulb, Info, CheckSquare, Table, Image as ImageIcon } from 'lucide-react';
 
 const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
 
@@ -14,14 +15,29 @@ interface RichTextEditorProps {
 }
 
 export default function RichTextEditor({ value, onChange, label, placeholder }: RichTextEditorProps) {
+  const quillRef = useRef<any>(null);
+  const [wordCount, setWordCount] = useState(0);
+
+  // Tính số từ thực tế (loại bỏ thẻ HTML)
+  useEffect(() => {
+    const text = value.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+    const count = text ? text.split(/\s+/).length : 0;
+    setWordCount(count);
+  }, [value]);
+
   const modules = useMemo(() => ({
-    toolbar: [
-      [{ 'header': [1, 2, 3, false] }],
-      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-      [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-      ['link', 'image'],
-      ['clean']
-    ],
+    toolbar: {
+      container: [
+        [{ 'header': [1, 2, 3, false] }],
+        ['bold', 'italic', 'underline', 'strike'],
+        [{ 'color': [] }, { 'background': [] }],
+        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+        [{ 'align': [] }],
+        ['blockquote', 'code-block'],
+        ['link', 'image'],
+        ['clean']
+      ],
+    },
     clipboard: {
       matchVisual: false,
     }
@@ -29,32 +45,198 @@ export default function RichTextEditor({ value, onChange, label, placeholder }: 
 
   const formats = [
     'header',
-    'bold', 'italic', 'underline', 'strike', 'blockquote',
+    'bold', 'italic', 'underline', 'strike',
+    'color', 'background',
     'list', 'bullet',
+    'align',
+    'blockquote', 'code-block',
     'link', 'image'
   ];
 
+  // Hàm chèn template vào vị trí con trỏ
+  const insertTemplate = (html: string) => {
+    if (!quillRef.current) return;
+    const editor = quillRef.current.getEditor();
+    const range = editor.getSelection();
+    if (range) {
+      editor.clipboard.dangerouslyPasteHTML(range.index, html);
+    } else {
+      editor.clipboard.dangerouslyPasteHTML(editor.getLength(), html);
+    }
+  };
+
+  const templates = {
+    warning: `<div style="background-color: #fff5f5; border-left: 5px solid #f56565; padding: 15px; margin: 15px 0; border-radius: 4px;">
+                <strong style="color: #c53030;">⚠️ CẢNH BÁO KHẨN CẤP:</strong> [Nhập dấu hiệu nguy hiểm hoặc hành động cần ngưng ngay tại đây...]
+              </div>`,
+    tip: `<div style="background-color: #f0fff4; border-left: 5px solid #48bb78; padding: 15px; margin: 15px 0; border-radius: 4px;">
+            <strong style="color: #276749;">💡 LỜI KHUYÊN KỸ SƯ:</strong> [Nhập kinh nghiệm thực tế hoặc mẹo nhỏ giúp bà con tiết kiệm chi phí...]
+          </div>`,
+    info: `<div style="background-color: #ebf8ff; border-left: 5px solid #4299e1; padding: 15px; margin: 15px 0; border-radius: 4px;">
+             <strong style="color: #2b6cb0;">ℹ️ LƯU Ý QUAN TRỌNG:</strong> [Nhập các điều kiện cần thiết như thời tiết, liều lượng chuẩn...]
+           </div>`,
+    checklist: `<div style="background-color: #f7fafc; border: 1px dashed #cbd5e0; padding: 15px; margin: 15px 0; border-radius: 8px;">
+                  <strong style="display: block; margin-bottom: 10px;">✅ CHECKLIST KIỂM TRA TRƯỚC KHI LÀM:</strong>
+                  <ul style="list-style-type: none; padding-left: 0;">
+                    <li style="margin-bottom: 5px;">[ ] Bước 1: Kiểm tra pH đất...</li>
+                    <li style="margin-bottom: 5px;">[ ] Bước 2: Quan sát bộ rễ...</li>
+                    <li style="margin-bottom: 5px;">[ ] Bước 3: Xác định diện tích bị bệnh...</li>
+                  </ul>
+                </div>`,
+    table: `<div class="table-responsive">
+              <table style="width: 100%; border-collapse: collapse; margin: 20px 0; border: 1px solid #e2e8f0;">
+                <thead>
+                  <tr style="background-color: #edf2f7;">
+                    <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">Đặc điểm so sánh</th>
+                    <th style="border: 1px solid #e2e8f0; padding: 10px; text-align: left;">Dấu hiệu nhận biết</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px; font-weight: bold;">Màu sắc lá/rễ</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">...</td>
+                  </tr>
+                  <tr>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px; font-weight: bold;">Tốc độ lây lan</td>
+                    <td style="border: 1px solid #e2e8f0; padding: 10px;">...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>`,
+    image: `<div style="border: 2px dashed #cbd5e0; border-radius: 16px; padding: 40px; text-align: center; margin: 20px 0; background: #f8fafc; border-style: dashed;">
+               <div style="font-size: 32px; margin-bottom: 10px;">📷</div>
+               <div style="color: #4a5568; font-weight: 800; font-size: 14px; text-transform: uppercase;">Ảnh minh họa thực tế tại vườn</div>
+               <div style="color: #a0aec0; font-size: 11px; margin-top: 5px;">(Anh hãy xóa khung này và chèn ảnh chụp thật rễ/lá bệnh vào đây)</div>
+            </div>`
+  };
+
+  const getWordCountStatus = () => {
+    if (wordCount === 0) return { color: 'text-gray-400', label: 'Chưa bắt đầu' };
+    if (wordCount < 1000) return { color: 'text-red-500', label: 'Nội dung quá ngắn' };
+    if (wordCount < 2000) return { color: 'text-yellow-500', label: 'Cần viết thêm' };
+    return { color: 'text-green-600', label: 'Đạt chuẩn Kỹ sư' };
+  };
+
+  const status = getWordCountStatus();
+
   return (
-    <div className="space-y-2">
+    <div className="space-y-4">
       {label && (
-        <label className="block text-[10px] font-black text-gray-400 uppercase ml-1 tracking-widest">
-          {label}
+        <label className="block text-[10px] font-black text-gray-400 uppercase ml-1 tracking-widest flex items-center justify-between">
+          <span>{label}</span>
+          <span className="text-gray-300">Editor Pro v2.0</span>
         </label>
       )}
-      <div className="bg-gray-50 border-2 border-gray-100 rounded-2xl overflow-hidden focus-within:border-[#1a5c2a] transition-all">
+
+      {/* Quick-insert Toolbar */}
+      <div className="flex flex-wrap gap-2 p-2.5 bg-gray-900 rounded-2xl shadow-inner shadow-black/20">
+         <button type="button" onClick={() => insertTemplate(templates.warning)} className="flex items-center gap-1.5 px-3 py-2 bg-red-900/30 text-red-400 rounded-xl text-[10px] font-black hover:bg-red-900/50 transition-all border border-red-900/30 active:scale-95 uppercase tracking-wider">
+            <AlertTriangle size={12} /> Cảnh báo ⚠️
+         </button>
+         <button type="button" onClick={() => insertTemplate(templates.tip)} className="flex items-center gap-1.5 px-3 py-2 bg-emerald-900/30 text-emerald-400 rounded-xl text-[10px] font-black hover:bg-emerald-900/50 transition-all border border-emerald-900/30 active:scale-95 uppercase tracking-wider">
+            <Lightbulb size={12} /> Lời khuyên KS 💡
+         </button>
+         <button type="button" onClick={() => insertTemplate(templates.info)} className="flex items-center gap-1.5 px-3 py-2 bg-blue-900/30 text-blue-400 rounded-xl text-[10px] font-black hover:bg-blue-900/50 transition-all border border-blue-900/30 active:scale-95 uppercase tracking-wider">
+            <Info size={12} /> Lưu ý ℹ️
+         </button>
+         <div className="w-[1px] h-8 bg-gray-800 mx-1 self-center" />
+         <button type="button" onClick={() => insertTemplate(templates.checklist)} className="flex items-center gap-1.5 px-3 py-2 bg-gray-800 text-gray-300 rounded-xl text-[10px] font-black hover:bg-gray-700 transition-all border border-gray-700 active:scale-95 uppercase tracking-wider">
+            <CheckSquare size={12} /> Checklist ✅
+         </button>
+         <button type="button" onClick={() => insertTemplate(templates.table)} className="flex items-center gap-1.5 px-3 py-2 bg-gray-800 text-gray-300 rounded-xl text-[10px] font-black hover:bg-gray-700 transition-all border border-gray-700 active:scale-95 uppercase tracking-wider">
+            <Table size={12} /> Chẩn đoán 📊
+         </button>
+         <button type="button" onClick={() => insertTemplate(templates.image)} className="flex items-center gap-1.5 px-3 py-2 bg-gray-800 text-gray-300 rounded-xl text-[10px] font-black hover:bg-gray-700 transition-all border border-gray-700 active:scale-95 uppercase tracking-wider">
+            <ImageIcon size={12} /> Ảnh minh họa 📷
+         </button>
+      </div>
+
+      <div className="bg-white border-2 border-gray-100 rounded-[2rem] overflow-hidden focus-within:border-[#1a5c2a] transition-all shadow-lg shadow-gray-100">
         <ReactQuill
+          ref={quillRef}
           theme="snow"
           value={value}
           onChange={onChange}
           modules={modules}
           formats={formats}
           placeholder={placeholder}
-          className="bg-white min-h-[250px] font-medium text-gray-800"
+          className="bg-white min-h-[450px] font-medium text-gray-800 expert-editor"
         />
       </div>
-      <p className="text-[9px] text-gray-400 italic px-2">
-        * Mẹo: Nhấp vào biểu tượng hình ảnh để chèn minh họa vào nội dung.
-      </p>
+
+      {/* Word Count Bar */}
+      <div className="flex items-center justify-between px-5 py-3 bg-white border border-gray-100 rounded-2xl shadow-sm">
+         <div className="flex items-center gap-3">
+            <div className={`flex items-center gap-2 px-3 py-1 rounded-full bg-gray-50 border border-gray-100 ${status.color}`}>
+               <span className="text-[11px] font-black uppercase tracking-widest leading-none">
+                  Số từ: {wordCount.toLocaleString()}
+               </span>
+               <div className={`w-2 h-2 rounded-full animate-pulse ${status.color.replace('text', 'bg')}`} />
+            </div>
+            <span className={`text-[10px] font-bold uppercase tracking-widest ${status.color}`}>
+               {status.label}
+            </span>
+         </div>
+         <p className="text-[9px] text-gray-400 font-medium italic">
+            * Lưu ý: Bài viết trên 2.500 từ luôn được ưu tiên hiển thị và tin tưởng hơn.
+         </p>
+      </div>
+
+      <style jsx global>{`
+        .expert-editor .ql-container {
+          font-family: 'Inter', sans-serif;
+          font-size: 16px;
+          line-height: 1.8;
+        }
+        .expert-editor .ql-editor {
+          padding: 30px 40px;
+        }
+        .expert-editor h2 {
+          border-left: 6px solid #1a5c2a;
+          padding-left: 20px;
+          margin: 40px 0 20px 0 !important;
+          color: #1a202c;
+          font-weight: 900 !important;
+          text-transform: uppercase;
+          letter-spacing: -0.02em;
+          line-height: 1.3;
+        }
+        .expert-editor h3 {
+          color: #2d3748;
+          font-weight: 800 !important;
+          margin: 30px 0 15px 0 !important;
+          font-size: 1.25rem;
+        }
+        .expert-editor blockquote {
+          border-left: 4px solid #cbd5e0;
+          background: #f7fafc;
+          padding: 20px 30px;
+          font-style: italic;
+          color: #4a5568;
+          border-radius: 0 12px 12px 0;
+          margin: 20px 0;
+        }
+        .expert-editor p {
+          margin-bottom: 1.5rem;
+        }
+        .expert-editor .table-responsive {
+          overflow-x: auto;
+          margin: 20px 0;
+        }
+        .expert-editor table {
+          border-radius: 12px;
+          overflow: hidden;
+        }
+        .expert-editor .ql-toolbar.ql-snow {
+          border: none;
+          background: #f8fafc;
+          padding: 12px 20px;
+          border-bottom: 1px solid #f1f5f9;
+        }
+        .expert-editor .ql-container.ql-snow {
+          border: none;
+        }
+      `}</style>
     </div>
   );
 }
