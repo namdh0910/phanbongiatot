@@ -4,18 +4,10 @@ import { GenerateArticleRequest, ArticleImage } from './types';
 
 // Models to try in order of preference
 const MODELS_TO_TRY = [
-  "gemini-2.0-flash",
   "gemini-1.5-flash",
   "gemini-1.5-pro",
-  "gemini-pro"
+  "gemini-2.0-flash-exp"
 ];
-
-function getModel(apiKey: string, modelName: string) {
-  const genAI = new GoogleGenerativeAI(apiKey);
-  // Using explicit models/ prefix for better SDK compatibility
-  const finalModelName = modelName.startsWith('models/') ? modelName : `models/${modelName}`;
-  return genAI.getGenerativeModel({ model: finalModelName });
-}
 
 const SYSTEM_PROMPT = `
 # IDENTITY & PERSONA
@@ -60,37 +52,20 @@ export async function generateArticleContent(req: GenerateArticleRequest) {
   
   Semantic keywords: tuyến trùng, Phytophthora, Fusarium, rễ tơ, pH đất, vi sinh đối kháng, Trichoderma, humic acid, fulvic acid, bộ rễ, phục hồi rễ, kích rễ.`;
 
+  const genAI = new GoogleGenerativeAI(apiKey);
   let lastError: any = null;
 
   for (const modelName of MODELS_TO_TRY) {
     try {
-      console.log(`[AI-AGENT] Attempting generation with: ${modelName}`);
-      const model = getModel(apiKey, modelName);
+      console.log(`[AI-AGENT] Using model: ${modelName}`);
+      const model = genAI.getGenerativeModel({ model: modelName });
       
-      const result = await model.generateContent({
-        contents: [{ 
-          role: 'user', 
-          parts: [{ text: SYSTEM_PROMPT + "\n\n" + userPrompt }] 
-        }],
-        generationConfig: {
-          temperature: 0.7,
-          topP: 0.95,
-          topK: 40,
-          maxOutputTokens: 8192,
-          // JSON mode only for 1.5+ models
-          responseMimeType: (modelName.includes('1.5') || modelName.includes('2.0')) ? "application/json" : "text/plain",
-        }
-      });
-
-      const response = await result.response;
-      
-      // Check if response is blocked
-      if (response.promptFeedback?.blockReason) {
-        throw new Error(`Nội dung bị chặn bởi Google: ${response.promptFeedback.blockReason}`);
-      }
-
+      const prompt = SYSTEM_PROMPT + "\n\n" + userPrompt;
+      const result = await model.generateContent(prompt);
+      const response = result.response;
       const text = response.text();
-      if (!text) throw new Error("Google trả về nội dung rỗng.");
+      
+      if (!text) throw new Error("Google returned empty text.");
       
       // Strip markdown fences
       const cleaned = text
@@ -103,20 +78,13 @@ export async function generateArticleContent(req: GenerateArticleRequest) {
       console.log(`[AI-AGENT] Success with model: ${modelName}`);
       return parsed;
     } catch (err: any) {
-      console.error(`[AI-AGENT] Error with model ${modelName}:`, err?.message || err);
+      console.error(`[AI-AGENT] FULL ERROR with ${modelName}:`, err);
       lastError = err;
-      
-      // Nếu lỗi là 429 (Too many requests) hoặc 404 (Not found) thì mới thử model khác
-      // Nếu lỗi 403 (Invalid Key) thì dừng luôn
-      if (err?.message?.includes('403')) {
-        throw new Error("Lỗi xác thực: API Key của bạn không hợp lệ hoặc không có quyền truy cập Gemini.");
-      }
-      
-      continue; // Thử model tiếp theo
+      continue; // Try next model
     }
   }
 
-  throw new Error(`Tất cả AI models đều thất bại. Lỗi cuối cùng: ${lastError?.message || "Unknown error"}`);
+  throw new Error(`All Gemini models failed. Last error: ${lastError?.message || "Unknown error"}`);
 }
 
 export function injectImagesIntoContent(html: string, images: ArticleImage[]): string {
