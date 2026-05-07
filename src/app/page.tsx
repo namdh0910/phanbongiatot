@@ -6,36 +6,34 @@ import Image from 'next/image';
 import { 
   Phone, 
   MessageCircle, 
+  Menu, 
+  X, 
   ChevronRight, 
   ShieldCheck, 
   UserCheck, 
   MapPin, 
+  Wallet,
   BookOpen,
   ArrowRight,
   HelpCircle,
-  AlertTriangle,
-  Award,
-  Zap,
-  ThumbsUp,
-  Star
+  AlertTriangle
 } from 'lucide-react';
 import { API_BASE_URL } from '@/utils/api';
 import { useSettings } from '@/context/SettingsContext';
 import LiteYouTube from '@/components/shared/LiteYouTube';
 
-// --- PREMIUM UI COMPONENTS ---
-
+// Reusable Components for the Landing Page
 const Button = ({ children, variant = 'primary', className = '', ...props }: any) => {
   const variants = {
-    primary: 'bg-[#f5a623] hover:bg-[#fbb940] text-white shadow-[0_10px_30px_-10px_rgba(245,166,35,0.5)]',
-    secondary: 'bg-emerald-900/10 border-2 border-emerald-900/20 text-emerald-900 hover:bg-emerald-900/20',
+    primary: 'bg-[#f5a623] hover:bg-[#fbb940] text-white shadow-lg shadow-orange-200',
+    secondary: 'bg-white border-2 border-white text-white hover:bg-white/10',
     outline: 'border-2 border-[#1a5c2a] text-[#1a5c2a] hover:bg-emerald-50',
     ghost: 'text-gray-600 hover:text-[#1a5c2a]'
   };
   
   return (
     <button 
-      className={`px-8 py-4 rounded-2xl font-black text-sm md:text-lg transition-all active:scale-95 flex items-center justify-center gap-2 uppercase tracking-widest ${variants[variant as keyof typeof variants]} ${className}`}
+      className={`px-6 py-4 rounded-2xl font-black text-lg transition-all active:scale-95 flex items-center justify-center gap-2 ${variants[variant as keyof typeof variants]} ${className}`}
       {...props}
     >
       {children}
@@ -43,42 +41,38 @@ const Button = ({ children, variant = 'primary', className = '', ...props }: any
   );
 };
 
-const DiseaseCard = ({ title, slug, painPoint, image }: any) => (
-  <Link href={`/giai-phap/${slug}`} className="bg-white rounded-[2rem] border border-gray-100 shadow-sm hover:shadow-[0_20px_50px_-12px_rgba(0,0,0,0.1)] hover:-translate-y-2 transition-all duration-500 group overflow-hidden flex flex-col h-full">
-    <div className="h-28 md:h-40 relative overflow-hidden shrink-0">
-       <img src={image || '/placeholder-pathology.jpg'} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-       <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-       <div className="absolute bottom-3 left-4">
-          <span className="bg-red-500 text-white text-[8px] md:text-[10px] font-black px-2 py-0.5 rounded-full uppercase tracking-widest">Khẩn cấp</span>
-       </div>
+const DiseaseCard = ({ title, slug, painPoint }: any) => (
+  <Link href={`/giai-phap/${slug}`} className="bg-white rounded-3xl p-8 border border-gray-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 group relative overflow-hidden">
+    <div className="absolute top-0 right-0 p-6 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity">
+       <AlertTriangle size={120} />
     </div>
-    <div className="p-4 md:p-6 flex flex-col flex-1">
-      <h3 className="text-base md:text-xl font-black text-gray-900 mb-2 leading-tight group-hover:text-emerald-700 transition-colors uppercase italic tracking-tighter">{title}</h3>
-      <p className="text-gray-400 text-[10px] md:text-xs mb-4 line-clamp-2 font-medium italic leading-relaxed">
-        "{painPoint}"
+    <div className="relative z-10">
+      <div className="w-12 h-12 bg-red-50 text-red-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-red-600 group-hover:text-white transition-colors">
+        <AlertTriangle size={24} />
+      </div>
+      <h3 className="text-xl md:text-2xl font-black text-gray-900 mb-4 leading-tight group-hover:text-[#1a5c2a] transition-colors">{title}</h3>
+      <p className="text-gray-500 text-sm mb-8 line-clamp-3 font-medium leading-relaxed italic">
+        "{painPoint.length > 100 ? painPoint.substring(0, 100) + '...' : painPoint}"
       </p>
-      <div className="mt-auto inline-flex items-center gap-2 text-emerald-600 font-black uppercase tracking-widest text-[9px] group-hover:gap-3 transition-all">
-        Phác đồ xử lý <ArrowRight size={14} />
+      <div className="inline-flex items-center gap-2 text-[#1a5c2a] font-black uppercase tracking-widest text-xs group-hover:gap-3 transition-all">
+        Xem giải pháp cứu cây <ArrowRight size={16} />
       </div>
     </div>
   </Link>
 );
 
 const KnowledgeCard = ({ title, excerpt, image, category, slug }: any) => (
-  <Link href={`/blog/${slug}`} className="flex-shrink-0 w-[80vw] md:w-full bg-white rounded-[2.5rem] border border-gray-50 overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 group">
-    <div className="aspect-[4/3] relative overflow-hidden">
-      <img src={image} alt={title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60" />
-      <span className="absolute top-6 left-6 bg-emerald-600 text-white px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest shadow-lg">
+  <Link href={`/blog/${slug}`} className="flex-shrink-0 w-[85vw] md:w-full bg-white rounded-3xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl transition-all group">
+    <div className="aspect-video relative overflow-hidden">
+      <img src={image} alt={title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+      <span className="absolute top-4 left-4 bg-[#1a5c2a] text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">
         {category}
       </span>
     </div>
-    <div className="p-8">
-      <h3 className="font-black text-gray-900 text-xl mb-4 line-clamp-2 leading-tight group-hover:text-emerald-700 transition-colors uppercase italic tracking-tighter">{title}</h3>
-      <p className="text-gray-400 text-sm mb-6 line-clamp-2 font-medium leading-relaxed">{excerpt}</p>
-      <div className="flex items-center gap-2 text-emerald-600 font-black uppercase tracking-[0.2em] text-[10px]">
-         Đọc chi tiết <ArrowRight size={14} />
-      </div>
+    <div className="p-6">
+      <h3 className="font-black text-gray-900 text-lg mb-3 line-clamp-2 leading-tight group-hover:text-[#1a5c2a] transition-colors">{title}</h3>
+      <p className="text-gray-500 text-xs mb-4 line-clamp-2 font-medium">{excerpt}</p>
+      <div className="w-8 h-1 bg-[#f5a623] rounded-full group-hover:w-16 transition-all" />
     </div>
   </Link>
 );
@@ -86,18 +80,18 @@ const KnowledgeCard = ({ title, excerpt, image, category, slug }: any) => (
 const FAQItem = ({ question, answer }: any) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className="bg-gray-50/50 rounded-2xl mb-4 overflow-hidden border border-gray-100 transition-all hover:bg-white hover:shadow-md">
+    <div className="border-b border-gray-100 py-4">
       <button 
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full p-6 flex items-center justify-between text-left gap-4"
+        className="w-full flex items-center justify-between text-left gap-4"
       >
-        <span className="font-black text-gray-800 text-sm md:text-lg uppercase italic tracking-tighter">{question}</span>
-        <div className={`w-8 h-8 rounded-full bg-white shadow-sm flex items-center justify-center transition-transform ${isOpen ? 'rotate-180 bg-emerald-600 text-white' : 'text-gray-400'}`}>
-          <ChevronRight size={18} />
+        <span className="font-black text-gray-800 text-base md:text-lg">{question}</span>
+        <div className={`transition-transform ${isOpen ? 'rotate-180' : ''}`}>
+          <ChevronRight className="text-gray-400" />
         </div>
       </button>
       {isOpen && (
-        <div className="px-6 pb-6 text-gray-600 text-sm md:text-base leading-relaxed font-medium border-t border-gray-100 pt-4">
+        <div className="mt-4 text-gray-600 text-sm md:text-base leading-relaxed font-medium animate-in fade-in slide-in-from-top-2">
           {answer}
         </div>
       )}
@@ -105,9 +99,9 @@ const FAQItem = ({ question, answer }: any) => {
   );
 };
 
-// --- MAIN PAGE ---
-
 export default function LandingPage() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const [blogs, setBlogs] = useState<any[]>([]);
   const [loadingBlogs, setLoadingBlogs] = useState(true);
   const [products, setProducts] = useState<any[]>([]);
@@ -126,6 +120,10 @@ export default function LandingPage() {
 
   useEffect(() => {
     const handleScroll = () => {
+      // 1. Scrolled state for header/elements
+      setScrolled(window.scrollY > 20);
+      
+      // 2. Progress bar calculation
       const currentScroll = window.scrollY;
       const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
       if (scrollHeight > 0) {
@@ -135,19 +133,24 @@ export default function LandingPage() {
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     
+    // Initial fetch of data
+    console.log("Fetching from:", API_BASE_URL);
     Promise.all([
       fetch(`${API_BASE_URL}/blogs`).then(res => res.json()),
       fetch(`${API_BASE_URL}/pathologies`).then(res => res.json()),
       fetch(`${API_BASE_URL}/products`).then(res => res.json())
     ]).then(([blogsData, pathologiesData, productsData]) => {
+      // Handle Blogs
       let bResults = blogsData.data || blogsData.blogs || (Array.isArray(blogsData) ? blogsData : []);
       setBlogs(bResults.slice(0, 3));
       setLoadingBlogs(false);
       
+      // Handle Pathologies
       let pResults = pathologiesData.data || pathologiesData.pathologies || (Array.isArray(pathologiesData) ? pathologiesData : []);
       setActivePathologies(pResults.slice(0, 4));
       setLoadingPathologies(false);
 
+      // Handle Products
       let prResults = productsData.data || productsData.products || (Array.isArray(productsData) ? productsData : []);
       setProducts(prResults.slice(0, 4));
       setLoadingProducts(false);
@@ -168,371 +171,340 @@ export default function LandingPage() {
     <div className="min-h-screen bg-white font-sans text-gray-900 selection:bg-emerald-100 selection:text-[#1a5c2a] overflow-x-hidden">
       
       {/* Scroll Progress Bar */}
-      <div className="fixed top-0 left-0 w-full h-1.5 z-[110] pointer-events-none">
-        <div className="h-full bg-gradient-to-r from-[#f5a623] via-[#ff6b35] to-red-600 transition-all duration-150" style={{ width: `${scrollProgress}%` }} />
+      <div className="fixed top-0 left-0 w-full h-1 z-[110] pointer-events-none">
+        <div className="h-full bg-gradient-to-r from-[#f5a623] to-[#ff6b35] transition-all duration-150" style={{ width: `${scrollProgress}%` }} />
       </div>
 
-      {/* 1. Hero Section - Direct Response Optimized */}
-      <section className="relative min-h-[50vh] md:min-h-[95vh] flex items-center pt-24 pb-12 md:py-40 overflow-hidden">
-        <div className="absolute inset-0 z-0 scale-105">
+      {/* 2. Hero Section - Targeted Agricultural Solution */}
+      <section className="relative min-h-[35vh] md:min-h-[85vh] flex items-center pt-12 pb-8 md:py-32 overflow-hidden">
+        {/* Background Image Optimized for LCP */}
+        <div className="absolute inset-0 z-0">
           <Image 
             src="/hero-bg.png" 
             alt="Vườn sầu riêng cà phê xanh tốt" 
             fill
             priority
+            loading="eager"
             className="object-cover"
             sizes="100vw"
             {...({ fetchPriority: "high" } as any)}
           />
-          <div className="absolute inset-0 bg-black/50 bg-gradient-to-b from-black/80 via-black/40 to-[#0d2a1c]/95" />
+          <div className="absolute inset-0 bg-black/40 bg-gradient-to-b from-black/60 via-black/40 to-[#0d2a1c]/80" />
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-6xl mx-auto text-center">
-            {/* Trust Proof Badge */}
-            <div className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-xl border border-white/20 px-6 py-2.5 rounded-full mb-10 animate-in fade-in slide-in-from-top duration-1000 shadow-2xl">
-               <div className="flex -space-x-3">
-                  {[1,2,3].map(i => (
-                    <div key={i} className="w-8 h-8 rounded-full border-2 border-emerald-900 bg-gray-400 overflow-hidden shadow-lg">
-                       <img src={`https://i.pravatar.cc/100?img=${i+20}`} className="w-full h-full object-cover" />
-                    </div>
-                  ))}
-               </div>
-               <span className="text-white text-[10px] md:text-sm font-black uppercase tracking-[0.2em] flex items-center gap-2">
-                  <Star size={14} className="text-[#f5a623]" fill="currentColor" />
-                  Đã giúp 50.000+ vườn hồi sinh
-               </span>
-            </div>
+          <div className="max-w-5xl mx-auto text-center">
+            {/* Removed badge as requested */}
             
-            <h1 className="text-5xl md:text-8xl lg:text-[10rem] font-black text-white mb-8 leading-[0.9] tracking-tighter animate-in slide-in-from-bottom duration-1000 delay-200 uppercase italic">
-              {settings.heroTitle || "CỨU VƯỜN, GIỮ"} <br className="hidden md:block" />
-              <span className="text-[#f5a623]">{settings.heroSubtitle ? "" : "VỤ MÙA TRÚNG LỚN"}</span>
+            <h1 className="text-3xl md:text-7xl lg:text-8xl font-black text-white mb-4 leading-tight tracking-tight animate-in slide-in-from-bottom duration-700 delay-100 uppercase">
+              {settings.heroTitle || "CỨU VƯỜN SẦU RIÊNG, CÀ PHÊ"} <br className="hidden md:block" />
+              <span className="text-[#f5a623]">{settings.heroSubtitle ? "" : "VÀNG LÁ, SUY RỄ"}</span>
             </h1>
             
-            <p className="text-white/80 text-sm md:text-2xl font-medium mb-16 max-w-3xl mx-auto leading-relaxed animate-in fade-in duration-1000 delay-500 italic">
-               Chẩn đoán bệnh cây chuẩn xác - Giải pháp phục hồi sinh học hàng đầu Tây Nguyên.
-            </p>
+            {/* Removed subtitle as requested */}
             
-            <div className="flex flex-col md:flex-row items-center justify-center gap-6 animate-in slide-in-from-bottom duration-1000 delay-700">
+            <div className="flex flex-col items-center gap-4 animate-in slide-in-from-bottom duration-700 delay-300">
               <a 
                 href={zaloUrl} 
-                className="group relative px-12 md:px-16 py-6 bg-[#f5a623] hover:bg-[#fbb940] text-white rounded-2xl font-black text-sm md:text-2xl shadow-[0_20px_60px_-10px_rgba(245,166,35,0.6)] flex items-center justify-center gap-4 transition-all active:scale-95 animate-heartbeat"
+                className="group relative px-8 md:px-12 py-3 md:h-20 bg-[#f5a623] hover:bg-[#fbb940] text-white rounded-xl md:rounded-2xl font-black text-sm md:text-xl shadow-2xl flex items-center justify-center gap-3 transition-all active:scale-95 animate-heartbeat"
               >
-                <MessageCircle className="w-6 h-6 md:w-8 md:h-8" fill="currentColor" />
+                <MessageCircle className="w-5 h-5 md:w-7 md:h-7" fill="currentColor" />
                 Chụp Ảnh Vườn Gửi PBGT
               </a>
               <div className="flex flex-col items-center gap-2">
-                 <div className="flex items-center gap-3 bg-white/5 border border-white/10 px-6 py-3 rounded-2xl backdrop-blur-sm">
-                    <ShieldCheck className="text-emerald-400" size={24} />
-                    <p className="text-white text-[10px] md:text-sm font-black uppercase tracking-widest">Tư vấn miễn phí 24/7</p>
-                 </div>
-                 <p className="text-white/40 text-[9px] uppercase tracking-widest font-bold">Kỹ sư đồng hành suốt vụ mùa</p>
+                 <p className="text-white/60 text-[9px] md:text-sm font-bold uppercase tracking-widest">Tư vấn miễn phí qua Zalo 24/7</p>
+                 <Link href="/blog" className="text-emerald-400 text-[10px] md:text-sm font-black uppercase tracking-widest border-b border-emerald-400/30 pb-1 hover:text-white transition-colors">
+                    Hoặc tự tra cứu tại Thư viện kỹ thuật ➔
+                 </Link>
               </div>
             </div>
           </div>
         </div>
-
-        {/* Scroll Hint */}
-        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 opacity-40">
-           <span className="text-white text-[9px] uppercase font-black tracking-[0.3em] vertical-text">Scroll</span>
-           <div className="w-[1px] h-20 bg-gradient-to-b from-white to-transparent" />
-        </div>
       </section>
 
-      {/* 2. Authority & Trust Section */}
-      <section className="bg-white py-16 md:py-24 border-y border-gray-100">
-         <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-20 max-w-6xl mx-auto">
-               <div className="flex items-center gap-6 group">
-                  <div className="w-16 h-16 bg-emerald-50 rounded-3xl flex items-center justify-center text-emerald-600 shadow-sm group-hover:bg-emerald-600 group-hover:text-white transition-all duration-500">
-                     <Zap size={32} />
-                  </div>
-                  <div>
-                     <h4 className="font-black text-gray-900 uppercase italic tracking-tighter text-lg">Phục hồi thần tốc</h4>
-                     <p className="text-sm text-gray-400 font-bold uppercase tracking-widest">Rễ tơ ra sau 7-10 ngày</p>
-                  </div>
-               </div>
-               <div className="flex items-center gap-6 group">
-                  <div className="w-16 h-16 bg-blue-50 rounded-3xl flex items-center justify-center text-blue-600 shadow-sm group-hover:bg-blue-600 group-hover:text-white transition-all duration-500">
-                     <Award size={32} />
-                  </div>
-                  <div>
-                     <h4 className="font-black text-gray-900 uppercase italic tracking-tighter text-lg">Kỹ sư thực chiến</h4>
-                     <p className="text-sm text-gray-400 font-bold uppercase tracking-widest">Tư vấn tại vườn Đắk Lắk</p>
-                  </div>
-               </div>
-               <div className="flex items-center gap-6 group">
-                  <div className="w-16 h-16 bg-orange-50 rounded-3xl flex items-center justify-center text-orange-600 shadow-sm group-hover:bg-orange-600 group-hover:text-white transition-all duration-500">
-                     <ThumbsUp size={32} />
-                  </div>
-                  <div>
-                     <h4 className="font-black text-gray-900 uppercase italic tracking-tighter text-lg">Hiệu quả bền vững</h4>
-                     <p className="text-sm text-gray-400 font-bold uppercase tracking-widest">Sản phẩm sinh học chính hãng</p>
-                  </div>
-               </div>
-            </div>
+      {/* Removing Quick Category Links to reduce clutter as requested by user */}
+
+      {/* 3. Brand Marquee - Building Credibility */}
+      <section className="bg-gray-50 py-10 border-y border-gray-100 overflow-hidden">
+         <div className="container mx-auto px-4 mb-6">
+            <p className="text-center text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">Đối tác kỹ thuật & Giải pháp chính hãng</p>
+         </div>
+         <div className="flex gap-12 whitespace-nowrap animate-marquee px-4">
+            {["Bình Điền", "Yara", "DAP", "Phú Mỹ", "Hợp Trí", "Nemano", "Bình Điền", "Yara", "DAP", "Phú Mỹ", "Bình Điền", "Yara", "DAP", "Phú Mỹ", "Hợp Trí", "Nemano", "Bình Điền", "Yara", "DAP", "Phú Mỹ"].map((brand, i) => (
+              <span key={i} className="text-xl md:text-2xl font-black text-gray-300 hover:text-gray-400 transition-colors cursor-default uppercase tracking-tighter italic">
+                {brand}
+              </span>
+            ))}
          </div>
       </section>
 
-      {/* 3. Featured Products - Premium Presentation */}
-      <section className="bg-white py-20 md:py-32">
+      {/* 3.5 Featured Products - Replacing Trust Badges */}
+      <section className="bg-white py-12 md:py-20">
         <div className="container mx-auto px-4">
-          <div className="flex flex-col items-center text-center mb-16 md:mb-24">
-            <span className="text-[#f5a623] font-black uppercase tracking-[0.3em] text-[11px] mb-4">Premium Solutions</span>
-            <h2 className="text-4xl md:text-7xl font-black text-gray-900 uppercase tracking-tighter leading-none mb-6">Sản phẩm <span className="text-emerald-700 italic">chủ lực</span></h2>
-            <div className="w-24 h-2 bg-[#f5a623] rounded-full" />
+          <div className="flex flex-col items-center text-center mb-10">
+            <span className="text-[#f5a623] font-black uppercase tracking-widest text-[10px] mb-2">Giải pháp hàng đầu</span>
+            <h2 className="text-2xl md:text-4xl font-black text-gray-900 uppercase">Sản phẩm chủ lực</h2>
           </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-12">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
             {loadingProducts ? (
               [1, 2, 3, 4].map(i => (
-                <div key={i} className="aspect-[3/4] bg-gray-50 rounded-[2.5rem] animate-pulse" />
+                <div key={i} className="aspect-[3/4] bg-gray-50 rounded-3xl animate-pulse" />
               ))
             ) : products.map((product, idx) => (
               <div 
                 key={idx} 
-                className="group flex flex-col bg-white rounded-[2.5rem] border border-gray-100 overflow-hidden hover:shadow-[0_40px_80px_-15px_rgba(0,0,0,0.12)] transition-all duration-700"
+                className="group flex flex-col bg-white rounded-3xl border border-gray-100 overflow-hidden hover:shadow-xl transition-all"
               >
                 <Link href={`/san-pham/${product.slug}`} className="aspect-square bg-gray-50 relative overflow-hidden block">
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  <img src={product.images?.[0] || '/product-placeholder.png'} alt={product.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" />
-                  
-                  {/* Premium Glow Effect */}
-                  <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-[#f5a623]/20 rounded-full blur-[60px] opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-                  
+                  <img src={product.images?.[0] || '/product-placeholder.png'} alt={product.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                   {product.originalPrice > product.price && (
-                    <div className="absolute top-6 left-6 bg-red-600 text-white text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-[0.15em] z-20 shadow-xl">Sale</div>
+                    <div className="absolute top-2 left-2 bg-red-500 text-white text-[8px] font-black px-2 py-0.5 rounded-full uppercase">Giảm giá</div>
                   )}
                 </Link>
-                <div className="p-6 md:p-8 flex flex-col flex-1">
-                  <Link href={`/san-pham/${product.slug}`} className="block mb-4">
-                    <h3 className="text-base md:text-xl font-black text-gray-900 line-clamp-2 leading-[1.2] group-hover:text-emerald-700 transition-colors uppercase italic tracking-tighter">{product.name}</h3>
+                <div className="p-3 md:p-5 flex flex-col flex-1">
+                  <Link href={`/san-pham/${product.slug}`} className="block">
+                    <h3 className="text-[15px] md:text-sm font-black text-gray-900 line-clamp-2 mb-2 leading-tight hover:text-[#1a5c2a] transition-colors">{product.name}</h3>
                   </Link>
-                  <div className="mb-8 flex items-end gap-3">
-                    <p className="text-2xl md:text-3xl text-emerald-800 font-black tracking-tighter leading-none">{product.price?.toLocaleString()}đ</p>
+                  <div className="mb-4">
                     {product.originalPrice > product.price && (
-                      <p className="text-[11px] text-gray-400 line-through font-bold opacity-60 mb-1">{product.originalPrice?.toLocaleString()}đ</p>
+                      <p className="text-[10px] md:text-xs text-gray-400 line-through font-bold">{product.originalPrice?.toLocaleString()}đ</p>
                     )}
+                    <p className="text-xs md:text-base text-emerald-700 font-black">{product.price?.toLocaleString()}đ</p>
                   </div>
                   
-                  <div className="mt-auto flex items-center justify-between gap-4 pt-6 border-t border-gray-50">
+                  {/* Action Buttons */}
+                  <div className="mt-auto grid grid-cols-2 gap-2">
                     <Link 
                       href={`/san-pham/${product.slug}`}
-                      className="text-[10px] font-black text-gray-400 uppercase tracking-widest hover:text-gray-900 transition-colors"
+                      className="text-[9px] md:text-[10px] font-black text-gray-400 uppercase tracking-widest py-2 border border-gray-100 rounded-xl flex items-center justify-center hover:bg-gray-50 transition-colors"
                     >
                       Chi tiết
                     </Link>
                     <a 
                       href={`https://zalo.me/${settings.zalo.replace(/\./g, '')}?text=${encodeURIComponent(`Tôi muốn tư vấn về sản phẩm: ${product.name}`)}`}
                       target="_blank"
-                      className="bg-emerald-900 text-white px-6 py-4 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] hover:bg-emerald-800 shadow-xl shadow-emerald-100 transition-all active:scale-95"
+                      className="text-[9px] md:text-[10px] font-black text-white bg-[#1a5c2a] uppercase tracking-widest py-2 rounded-xl flex items-center justify-center hover:bg-[#144620] transition-colors"
                     >
-                      Tư vấn ngay
+                      Liên hệ
                     </a>
                   </div>
                 </div>
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* 4. Diagnostic Solutions Section */}
-      <section id="solutions" className="bg-gray-50 py-20 md:py-40">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center mb-20 md:mb-32">
-            <span className="bg-[#f5a623]/10 text-[#f5a623] px-6 py-1.5 rounded-full font-black uppercase tracking-[0.3em] text-[10px] mb-8 inline-block shadow-sm">Diagnostic System</span>
-            <h2 className="text-5xl md:text-[6rem] font-black text-gray-900 uppercase tracking-tighter mb-10 leading-[0.85]">
-              Chẩn đoán <span className="text-red-600 italic">đúng bệnh</span> <br /> Phục hồi <span className="text-emerald-700 italic">đúng cách</span>
-            </h2>
-            <p className="text-gray-500 text-sm md:text-2xl font-medium max-w-2xl mx-auto leading-relaxed italic">
-              "Đừng bón phân khi chưa hiểu bệnh. Hãy dựa vào biểu hiện lá và rễ để có phác đồ phục hồi khoa học nhất."
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-10 max-w-7xl mx-auto">
-            {!loadingPathologies ? (
-              activePathologies.length > 0 ? activePathologies.map((pathology, idx) => (
-                <DiseaseCard 
-                  key={idx}
-                  title={pathology.title}
-                  slug={pathology.slug}
-                  painPoint={pathology.painPoint}
-                  image={pathology.image}
-                />
-              )) : (
-                <p className="text-gray-400 text-center col-span-full">Đang cập nhật phác đồ...</p>
-              )
-            ) : (
-              [1,2,3,4].map(i => (
-                <div key={i} className="aspect-[3/4] bg-gray-200 rounded-[2.5rem] animate-pulse" />
-              ))
-            )}
-          </div>
-
-          {/* Expert Insight Block - Authority Accelerator */}
-          <div className="mt-32 md:mt-48 max-w-6xl mx-auto bg-emerald-900 rounded-[3rem] md:rounded-[5rem] p-10 md:p-24 text-white relative overflow-hidden shadow-[0_50px_100px_-20px_rgba(6,78,59,0.4)]">
-             <div className="absolute top-0 right-0 p-16 opacity-[0.03] text-[20rem] rotate-12 select-none pointer-events-none">👨‍🔬</div>
-             <div className="relative z-10 flex flex-col lg:flex-row items-center gap-16 md:gap-24">
-                <div className="relative shrink-0">
-                  <div className="w-40 h-40 md:w-64 md:h-64 rounded-[3rem] border-8 border-white/10 overflow-hidden shadow-2xl relative z-10 transform -rotate-3">
-                     <img src="https://i.pravatar.cc/400?img=68" className="w-full h-full object-cover" />
-                  </div>
-                  <div className="absolute -bottom-6 -left-6 bg-[#f5a623] text-emerald-950 px-6 py-2 rounded-2xl font-black uppercase tracking-widest text-xs z-20 shadow-xl rotate-3">
-                     Kỹ sư PBGT
-                  </div>
-                </div>
-                <div>
-                   <div className="inline-flex items-center gap-3 bg-white/10 px-4 py-1.5 rounded-full mb-8">
-                      <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
-                      <span className="text-emerald-400 font-black uppercase tracking-[0.2em] text-[10px]">Expert Insight</span>
-                   </div>
-                   <h3 className="text-3xl md:text-6xl font-black italic uppercase tracking-tighter mb-8 leading-tight">
-                      "80% trường hợp vàng lá là do hỏng rễ. <span className="text-emerald-400">Đừng bón thêm phân</span> lúc này!"
-                   </h3>
-                   <div className="space-y-6 text-emerald-100/70 text-sm md:text-xl font-medium leading-relaxed italic border-l-4 border-emerald-500/30 pl-8">
-                      <p>"Khi rễ tơ bị thối, cây không thể hấp thụ dinh dưỡng. Bón thêm phân lúc này chỉ làm đất thêm chua, rễ càng thối nhanh và cây sẽ chết lâm sàng trong vài tuần."</p>
-                      <p>"Giải pháp duy nhất là: Diệt nấm rễ - Kích rễ tơ - Sau đó mới bổ sung dinh dưỡng nhẹ nhàng để cây hồi sức."</p>
-                   </div>
-                </div>
-             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 5. Video Guide & Knowledge Hub */}
-      <section className="bg-white py-24 md:py-40">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col lg:flex-row gap-20 items-center mb-24 md:mb-32">
-             <div className="lg:w-1/2">
-                <span className="text-[#f5a623] font-black uppercase tracking-[0.3em] text-[11px] mb-6 block">Practical Wisdom</span>
-                <h2 className="text-4xl md:text-7xl font-black text-gray-900 uppercase tracking-tighter leading-[0.95] mb-8">
-                  Kỹ thuật <span className="text-emerald-700 italic">Thực Chiến</span> <br /> Tại Vườn
-                </h2>
-                <p className="text-gray-500 text-lg md:text-xl font-medium mb-10 leading-relaxed italic">
-                   Không chỉ là bán phân bón, chúng tôi đồng hành cùng bà con bằng những kiến thức thực tế nhất, giúp giảm chi phí và tăng năng suất bền vững.
-                </p>
-                <div className="flex flex-wrap gap-4">
-                   <div className="bg-gray-50 px-6 py-4 rounded-2xl flex items-center gap-3 border border-gray-100">
-                      <Zap className="text-emerald-600" size={20} />
-                      <span className="font-black text-gray-800 uppercase text-xs">Mẹo phục hồi rễ</span>
-                   </div>
-                   <div className="bg-gray-50 px-6 py-4 rounded-2xl flex items-center gap-3 border border-gray-100">
-                      <Zap className="text-emerald-600" size={20} />
-                      <span className="font-black text-gray-800 uppercase text-xs">Phác đồ vàng lá</span>
-                   </div>
-                   <div className="bg-gray-50 px-6 py-4 rounded-2xl flex items-center gap-3 border border-gray-100">
-                      <Zap className="text-emerald-600" size={20} />
-                      <span className="font-black text-gray-800 uppercase text-xs">Cách bón phân hiệu quả</span>
-                   </div>
-                </div>
-             </div>
-             <div className="lg:w-1/2 w-full">
-                <div className="relative group">
-                  <div className="absolute -inset-4 bg-emerald-100 rounded-[3rem] blur-2xl opacity-30 group-hover:opacity-50 transition-opacity duration-700" />
-                  <div className="relative aspect-video rounded-[2.5rem] md:rounded-[4rem] overflow-hidden border-8 border-white shadow-2xl">
-                     <LiteYouTube 
-                        videoId="17SIPDywIXk" 
-                        title="Hướng dẫn kỹ thuật thực tế" 
-                     />
-                  </div>
-                </div>
-             </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
-            {loadingBlogs ? (
-              [1, 2, 3].map(i => (
-                <div key={i} className="aspect-[4/5] bg-gray-50 rounded-[2.5rem] animate-pulse" />
-              ))
-            ) : blogs.map((blog, idx) => (
-              <KnowledgeCard 
-                key={idx} 
-                title={blog.title}
-                excerpt={blog.excerpt}
-                image={blog.image || 'https://images.unsplash.com/photo-1592878904946-b3cd8ae243d0?q=80&w=800&auto=format&fit=crop'}
-                category={blog.category || 'Kỹ thuật'}
-                slug={blog.slug}
-              />
-            ))}
-          </div>
-          
-          <div className="mt-16 text-center">
-             <Link href="/blog" className="inline-flex items-center gap-3 bg-emerald-900 text-white px-10 py-5 rounded-2xl font-black uppercase tracking-[0.2em] text-xs hover:bg-emerald-800 transition-all shadow-xl active:scale-95">
-                Vào thư viện kỹ thuật <ArrowRight size={18} />
+          <div className="mt-10 text-center">
+             <Link href="/san-pham" className="inline-flex items-center gap-2 text-[#1a5c2a] font-black uppercase tracking-widest text-xs hover:gap-3 transition-all">
+                Xem tất cả sản phẩm <ArrowRight size={14} />
              </Link>
           </div>
         </div>
       </section>
 
-      {/* 6. High-Conversion CTA Section */}
-      <section id="cta" className="bg-[#0d2a1c] py-24 md:py-48 relative overflow-hidden">
-        {/* Background Decorations */}
-        <div className="absolute top-0 right-0 w-[40rem] h-[40rem] bg-emerald-500/10 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2" />
-        <div className="absolute bottom-0 left-0 w-[30rem] h-[30rem] bg-[#f5a623]/5 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2" />
-        
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-5xl mx-auto bg-white rounded-[3rem] md:rounded-[6rem] p-10 md:p-32 text-center shadow-[0_50px_100px_-30px_rgba(0,0,0,0.5)] overflow-hidden relative border border-white/20">
-            <div className="absolute top-0 left-0 w-full h-3 bg-gradient-to-r from-[#f5a623] via-yellow-400 to-[#f5a623]" />
-            
-            <span className="inline-flex items-center gap-3 text-emerald-700 font-black uppercase tracking-[0.3em] text-[10px] md:text-xs mb-10 bg-emerald-50 px-6 py-2 rounded-full">
-               <BookOpen size={18} /> Tư vấn kỹ thuật miễn phí 24/7
-            </span>
-            
-            <h2 className="text-4xl md:text-8xl font-black text-gray-900 mb-10 leading-[0.9] uppercase tracking-tighter italic">
-              Vườn Anh Chị <br /> <span className="text-[#f5a623]">Đang Bị Suy Kiệt?</span>
+      {/* 4. Core Solutions - Now dynamically rendering Pathologies */}
+      <section id="solutions" className="bg-gray-50 py-16 md:py-24">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col items-center text-center mb-12 md:mb-16">
+            <span className="text-[#f5a623] font-black uppercase tracking-widest text-xs mb-3">Dấu hiệu nhận biết</span>
+            <h2 className="text-3xl md:text-5xl font-black text-gray-900 uppercase tracking-tighter mb-4">
+              Vườn Bà Con Đang <span className="text-red-600">Gặp Vấn Đề Gì?</span>
             </h2>
+            <div className="w-20 h-2 bg-[#f5a623] rounded-full" />
+            <p className="mt-6 text-gray-500 max-w-xl font-medium">
+              Chọn đúng dấu hiệu vườn đang mắc phải để nhận giải pháp phục hồi sinh học chuyên sâu từ đội ngũ PBGT.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-2 gap-3 md:gap-10 max-w-6xl mx-auto">
+            {!loadingPathologies ? (
+              activePathologies.length > 0 ? activePathologies.map((pathology, idx) => (
+                <Link 
+                  key={idx} 
+                  href={`/giai-phap/${pathology.slug}`} 
+                  className="bg-white rounded-2xl md:rounded-[3rem] border border-gray-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 group overflow-hidden flex flex-col h-full"
+                >
+                  <div className="w-full h-24 md:h-48 bg-emerald-50/50 shrink-0 overflow-hidden relative flex items-center justify-center">
+                    <div className="absolute top-2 left-2 z-20">
+                      <span className="bg-white/90 backdrop-blur-sm text-[#1a5c2a] px-2 py-0.5 rounded-full text-[8px] font-black uppercase tracking-tighter border border-emerald-100 shadow-sm">
+                        Quy trình chuẩn
+                      </span>
+                    </div>
+                    {pathology.image ? (
+                      <img src={pathology.image} alt={pathology.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                    ) : (
+                      <div className="text-3xl md:text-5xl transform group-hover:scale-110 transition-transform duration-500">{pathology.icon || '🩺'}</div>
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent md:hidden" />
+                  </div>
+                  <div className="p-3 md:p-8 flex flex-col flex-1 bg-white">
+                    <h3 className="text-[16px] md:text-xl font-bold text-gray-800 mb-1 md:mb-3 leading-tight group-hover:text-emerald-700 transition-colors line-clamp-2 md:line-clamp-none" style={{ textTransform: 'none' }}>
+                      {pathology.title.charAt(0).toUpperCase() + pathology.title.slice(1).toLowerCase()}
+                    </h3>
+                    <p className="hidden md:block text-gray-500 text-xs mb-4 line-clamp-2 font-medium italic opacity-80">
+                      {pathology.painPoint}
+                    </p>
+                    <div className="mt-auto inline-flex items-center gap-1 md:gap-2 text-emerald-600 font-black uppercase tracking-widest text-[8px] md:text-[10px] group-hover:gap-3 transition-all">
+                      Xem ngay <ArrowRight size={10} className="md:w-4 md:h-4" />
+                    </div>
+                  </div>
+                </Link>
+              )) : (
+                <p className="text-gray-400 text-center col-span-full py-10 font-bold uppercase tracking-widest text-xs">Chưa có giải pháp phục hồi nào được cập nhật</p>
+              )
+            ) : (
+              <div className="col-span-full flex flex-col items-center py-10 gap-4">
+                <div className="w-10 h-10 border-4 border-emerald-500/20 border-t-emerald-500 rounded-full animate-spin"></div>
+                <p className="text-gray-400 font-black uppercase tracking-[0.2em] text-[10px]">Đang tải dữ liệu kỹ thuật...</p>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Knowledge Hub */}
+      <section className="bg-white py-16 md:py-24 overflow-hidden">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+            <div className="max-w-xl">
+              <h2 className="text-3xl md:text-5xl font-black text-gray-900 uppercase tracking-tighter mb-4">
+                Kiến Thức <span className="text-[#f5a623]">Nhà Nông</span>
+              </h2>
+              <p className="text-gray-500 font-medium">Cập nhật kỹ thuật mới nhất từ đội ngũ giàu kinh nghiệm thực chiến tại vườn.</p>
+            </div>
+            <Link href="/blog" className="hidden md:flex items-center gap-2 text-[#1a5c2a] font-black uppercase tracking-widest text-sm hover:translate-x-2 transition-transform">
+              Xem tất cả tài liệu <ChevronRight size={18} />
+            </Link>
+          </div>
+
+          <div className="flex overflow-x-auto gap-6 pb-8 scrollbar-hide md:grid md:grid-cols-3 md:overflow-visible">
+            {loadingBlogs ? (
+              [1, 2, 3].map(i => (
+                <div key={i} className="flex-shrink-0 w-[85vw] md:w-full h-80 bg-gray-100 rounded-3xl animate-pulse" />
+              ))
+            ) : blogs.length > 0 ? (
+              blogs.map((blog, idx) => (
+                <KnowledgeCard 
+                  key={idx} 
+                  title={blog.title}
+                  excerpt={blog.excerpt}
+                  image={blog.image || 'https://images.unsplash.com/photo-1592878904946-b3cd8ae243d0?q=80&w=800&auto=format&fit=crop'}
+                  category={blog.category || 'Kỹ thuật'}
+                  slug={blog.slug}
+                />
+              ))
+            ) : (
+              <p className="text-gray-400">Đang cập nhật kiến thức bài viết...</p>
+            )}
+          </div>
+
+          <Link href="/blog" className="md:hidden flex items-center justify-center gap-2 text-[#1a5c2a] font-black uppercase tracking-widest text-sm mt-6">
+            Xem tất cả tài liệu <ChevronRight size={18} />
+          </Link>
+        </div>
+      </section>
+
+      {/* 6. Call to Action */}
+      <section id="cta" className="bg-[#1a5c2a] py-16 md:py-24 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-4xl mx-auto bg-white rounded-[2rem] md:rounded-[4rem] p-8 md:p-20 text-center shadow-2xl overflow-hidden relative">
+            <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-[#f5a623] via-yellow-300 to-[#f5a623]" />
             
-            <p className="text-gray-500 text-base md:text-2xl mb-16 max-w-2xl mx-auto font-medium leading-relaxed italic">
-               "Đừng để đất chết lâm sàng mới cứu. Gửi ảnh vườn ngay để kỹ sư PBGT chẩn đoán và đưa ra phác đồ hồi sinh miễn phí trong 15 phút."
+            <div className="inline-flex items-center gap-2 text-[#1a5c2a] font-black uppercase tracking-widest mb-6">
+              <BookOpen size={20} /> Tư vấn kỹ thuật miễn phí
+            </div>
+            <h2 className="text-3xl md:text-5xl font-black text-gray-900 mb-6 leading-tight">
+              Vườn Yếu? <span className="text-[#f5a623]">Gặp PBGT Ngay!</span>
+            </h2>
+            <p className="text-gray-600 text-lg md:text-xl mb-12 max-w-2xl mx-auto font-medium">
+              Gửi tình trạng vườn (ảnh/video) qua Zalo để nhận giải pháp phục hồi miễn phí trong vòng 15 phút.
             </p>
             
-            <div className="flex flex-col md:flex-row items-center justify-center gap-6">
-              <a href={zaloUrl} className="w-full md:w-auto bg-[#f5a623] hover:bg-[#fbb940] text-white font-black px-12 py-6 rounded-3xl flex items-center justify-center gap-4 transition-all active:scale-95 shadow-[0_20px_50px_-10px_rgba(245,166,35,0.4)] text-base md:text-xl uppercase tracking-widest">
-                <MessageCircle fill="currentColor" size={28} /> Chat Zalo Ngay
+            <div className="flex flex-col md:flex-row items-center justify-center gap-4">
+              <a href={zaloUrl} className="w-full md:w-auto bg-[#f5a623] hover:bg-[#fbb940] text-white font-black px-10 py-5 rounded-2xl flex items-center justify-center gap-3 transition-all active:scale-95 shadow-xl shadow-orange-100">
+                <MessageCircle fill="currentColor" /> Chat Zalo Ngay
               </a>
-              <a href={callUrl} className="w-full md:w-auto bg-white border-4 border-emerald-900/10 text-emerald-900 hover:bg-gray-50 font-black px-12 py-6 rounded-3xl flex items-center justify-center gap-4 transition-all active:scale-95 text-base md:text-xl uppercase tracking-widest">
-                <Phone size={28} /> Hotline: {settings.phone}
+              <a href={callUrl} className="w-full md:w-auto bg-white border-2 border-emerald-600 text-emerald-700 hover:bg-emerald-50 font-black px-10 py-5 rounded-2xl flex items-center justify-center gap-3 transition-all active:scale-95">
+                <Phone /> Gọi: {settings.phone}
               </a>
-            </div>
-
-            <div className="mt-16 flex items-center justify-center gap-8 opacity-40">
-               <ShieldCheck size={40} className="text-gray-400" />
-               <MapPin size={40} className="text-gray-400" />
-               <UserCheck size={40} className="text-gray-400" />
             </div>
           </div>
         </div>
       </section>
 
-      {/* 7. Final Trust Section (FAQ) */}
-      <section className="bg-white py-24 md:py-40">
+      {/* 6.5. Practical Video Guide Section */}
+      <section className="bg-gray-50 py-16 md:py-24">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <div className="flex items-center gap-6 mb-16">
-              <div className="w-16 h-16 bg-[#f5a623]/10 rounded-3xl flex items-center justify-center text-[#f5a623] shadow-inner">
-                 <HelpCircle size={32} />
-              </div>
-              <h2 className="text-3xl md:text-6xl font-black text-gray-900 uppercase italic tracking-tighter">Hỏi đáp <span className="text-[#f5a623]">nhà nông</span></h2>
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-5xl font-black text-gray-900 uppercase tracking-tighter mb-4">
+                Hướng dẫn kỹ thuật <span className="text-[#f5a623]">thực tế tại vườn</span>
+              </h2>
+              <div className="w-20 h-2 bg-[#1a5c2a] rounded-full mx-auto" />
             </div>
             
-            <div className="space-y-4">
+            {/* 9:16 Vertical Video Container */}
+            <div className="flex justify-center">
+              <div className="w-full max-w-[350px]">
+                <LiteYouTube 
+                  videoId="17SIPDywIXk" 
+                  title="Hướng dẫn kỹ thuật thực tế" 
+                  className="rounded-[2.5rem] border-[8px] border-gray-900 shadow-2xl"
+                />
+              </div>
+            </div>
+            
+            <div className="mt-12 text-center">
+              <p className="text-gray-500 font-bold uppercase tracking-widest text-sm mb-6">Theo dõi các video kỹ thuật mới nhất</p>
+              <div className="flex justify-center gap-6">
+                <a 
+                  href="https://www.facebook.com/phanbongiatot1" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-14 h-14 bg-[#1877F2] rounded-full flex items-center justify-center text-white cursor-pointer hover:scale-110 transition-transform shadow-lg shadow-blue-100"
+                >
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                </a>
+                <a 
+                  href="https://www.youtube.com/@phanbongiatot" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-14 h-14 bg-[#FF0000] rounded-full flex items-center justify-center text-white cursor-pointer hover:scale-110 transition-transform shadow-lg shadow-red-100"
+                >
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 7. FAQ Section */}
+      <section className="bg-white py-16 md:py-24">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <div className="flex items-center gap-4 mb-10">
+              <div className="p-3 bg-orange-100 rounded-2xl text-[#f5a623]"><HelpCircle /></div>
+              <h2 className="text-2xl md:text-4xl font-black text-gray-900 uppercase">Giải đáp thắc mắc</h2>
+            </div>
+            
+            <div className="space-y-2">
               <FAQItem 
-                question="Tại sao PBGT không tư vấn mua phân hóa học ngay?"
-                answer="Bởi vì PBGT tin vào sự bền vững. Khi cây đang yếu, bộ rễ đang bị nấm tấn công, việc tống thêm phân hóa học chỉ làm rễ thối nhanh hơn. Chúng tôi ưu tiên chẩn đoán bệnh, xử lý rễ sạch nấm và kích rễ tơ trước, sau đó mới đến bước bón phân để cây hấp thụ hiệu quả nhất."
+                question="Quy trình tư vấn kỹ thuật diễn ra như thế nào?"
+                answer="Bước 1: Bạn nhắn tin qua Zalo hoặc gọi Hotline. Bước 2: Bạn gửi hình ảnh/video thực tế tại vườn. Bước 3: Đội ngũ PBGT hỗ trợ chẩn đoán và đưa ra giải pháp (loại thuốc, liều lượng, thời điểm xịt). Bước 4: Chúng tôi theo dõi hiệu quả sau khi bạn xử lý."
               />
               <FAQItem 
-                question="Làm sao để tôi biết giải pháp của PBGT có hiệu quả?"
-                answer="Bà con có thể kiểm chứng bằng mắt thường sau 7-14 ngày thực hiện đúng phác đồ. Rễ tơ sẽ bắt đầu ra (trắng kem, mập mạp), đọt bắt đầu nhú và lá xanh trở lại. Nếu không thấy thay đổi, kỹ sư của chúng tôi sẽ hỗ trợ điều chỉnh phác đồ hoàn toàn miễn phí."
+                question="Làm sao để PBGT hỗ trợ đúng bệnh cho vườn?"
+                answer="Hình ảnh rõ nét về lá, thân, và đặc biệt là bộ rễ tơ là quan trọng nhất. Bạn nên quay video ngắn toàn cảnh vườn và cận cảnh cây bị bệnh gửi qua Zalo để chúng tôi nắm bắt chính xác tình hình."
               />
               <FAQItem 
-                question="PBGT có hỗ trợ kỹ thuật tận vườn không?"
-                answer="Có, với khu vực Đắk Lắk và các vùng lân cận Tây Nguyên, đội ngũ kỹ sư của chúng tôi sẵn sàng xuống tận vườn để khảo sát thực tế và lấy mẫu đất chẩn đoán trong các trường hợp bệnh nặng hoặc vườn diện tích lớn."
+                question="Các giải pháp có thực sự an toàn và hiệu quả?"
+                answer="Tất cả giải pháp của Phân Bón Giá Tốt đều ưu tiên hướng sinh học, bảo vệ hệ sinh thái đất và sức khỏe nhà nông. Chúng tôi cam kết hiệu quả thấy rõ bằng mắt thường (ra đọt, xanh lá, phục hồi rễ) sau 7-10 ngày thực hiện đúng quy trình."
               />
             </div>
           </div>
         </div>
       </section>
+
 
     </div>
   );
