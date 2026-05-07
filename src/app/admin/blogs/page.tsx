@@ -7,7 +7,7 @@ import { API_BASE_URL } from "@/utils/api";
 import ImageUpload from "@/components/admin/ImageUpload";
 import RichTextEditor from "@/components/admin/RichTextEditor";
 import GenerateArticlePanel from "@/components/admin/GenerateArticlePanel";
-import { repairTablesInHtml } from "@/utils/tableRepair";
+import { cleanExpertContent } from "@/utils/tableRepair";
 
 interface Blog {
   _id?: string;
@@ -135,7 +135,7 @@ export default function AdminBlogs() {
         title: article.title || prev.title,
         slug: article.slug || prev.slug,
         excerpt: article.metaDescription || article.excerpt || prev.excerpt,
-        content: repairTablesInHtml(article.content || prev.content),
+        content: cleanExpertContent(article.content || prev.content),
         coverImage: article.heroImage?.cloudinaryUrl || article.coverImage || prev.coverImage || "",
       };
       console.log(">>> [ADMIN] New Blog State (Repaired):", next);

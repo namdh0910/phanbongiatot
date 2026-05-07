@@ -111,3 +111,22 @@ export const repairTablesInHtml = (html: string) => {
 
   return doc.body.innerHTML;
 };
+
+/**
+ * Clean overall expert content: strip newlines, remove anchors, normalize spaces, repair tables
+ */
+export const cleanExpertContent = (html: string) => {
+  if (!html) return '';
+  
+  // 1. Strip raw newlines that break words
+  let cleaned = html.replace(/\r?\n|\r/g, '');
+  
+  // 2. Remove {#anchor} tags
+  cleaned = cleaned.replace(/\{#[\w-]+\}/g, '');
+  
+  // 3. Normalize spaces
+  cleaned = cleaned.replace(/\s{2,}/g, ' ').trim();
+  
+  // 4. Run table repair
+  return repairTablesInHtml(cleaned);
+};

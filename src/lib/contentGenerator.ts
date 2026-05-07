@@ -80,7 +80,11 @@ YÊU CẦU ĐỊNH DẠNG HTML (CẤM DÙNG MARKDOWN TABLE):
       // Clean HTML content from raw newlines that break words. 
       // In HTML, we rely on tags (<p>, <h2>, etc.) for structure, so we can safely strip \n.
       if (parsed.content) {
-        parsed.content = parsed.content.replace(/\r?\n|\r/g, '').replace(/\s{2,}/g, ' ').trim();
+        parsed.content = parsed.content
+          .replace(/\r?\n|\r/g, '')
+          .replace(/\{#[\w-]+\}/g, '')
+          .replace(/\s{2,}/g, ' ')
+          .trim();
       }
       return parsed;
     } catch (parseError) {
@@ -94,9 +98,13 @@ YÊU CẦU ĐỊNH DẠNG HTML (CẤM DÙNG MARKDOWN TABLE):
       });
 
       try {
-        const parsed = JSON.parse(fixed);
+      const parsed = JSON.parse(fixed);
         if (parsed.content) {
-           parsed.content = parsed.content.replace(/\r?\n|\r/g, '').replace(/\s{2,}/g, ' ').trim();
+           parsed.content = parsed.content
+             .replace(/\r?\n|\r/g, '')
+             .replace(/\{#[\w-]+\}/g, '')
+             .replace(/\s{2,}/g, ' ')
+             .trim();
         }
         return parsed;
       } catch (secondError) {

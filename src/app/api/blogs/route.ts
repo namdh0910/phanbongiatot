@@ -30,6 +30,13 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Missing required fields (Title or Content)' }, { status: 400 });
     }
 
+    // Server-side content cleaning (Word Stitching & Anchor removal)
+    body.content = body.content
+      .replace(/\r?\n|\r/g, '') // Strip all newlines
+      .replace(/\{#[\w-]+\}/g, '') // Remove {#anchor}
+      .replace(/\s{2,}/g, ' ') // Normalize spaces
+      .trim();
+
     // Auto-generate SEO metadata if not provided
     if (!body.hashtags || body.hashtags.length === 0) {
       body.hashtags = generateHashtags(body.title, body.content);

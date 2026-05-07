@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic';
 import 'react-quill-new/dist/quill.snow.css';
 import { AlertTriangle, Lightbulb, Info, CheckSquare, Table, Image as ImageIcon, FileCode } from 'lucide-react';
 import { marked } from 'marked';
-import { repairTablesInHtml } from '@/utils/tableRepair';
+import { cleanExpertContent, repairTablesInHtml } from '@/utils/tableRepair';
 
 const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false }) as any;
 
@@ -133,8 +133,8 @@ export default function RichTextEditor({ value, onChange, label, placeholder }: 
       // 3. Chuyển đổi Markdown sang HTML
       let htmlString = marked.parse(cleanedMarkdown) as string;
       
-      // 4. SỬA BẢNG THÔNG MINH V2
-      const finalHtml = repairTablesInHtml(htmlString);
+      // 4. DỌN DẸP TỔNG THỂ (Xóa \n, {#anchor}, sửa bảng)
+      const finalHtml = cleanExpertContent(htmlString);
 
       const quill = quillRef.current?.getEditor();
       if (quill) {
@@ -243,12 +243,12 @@ export default function RichTextEditor({ value, onChange, label, placeholder }: 
               const quill = quillRef.current?.getEditor();
               if (quill) {
                 const currentHtml = quill.root.innerHTML;
-                const repairedHtml = repairTablesInHtml(currentHtml);
+                const repairedHtml = cleanExpertContent(currentHtml);
                 quill.root.innerHTML = repairedHtml;
               }
             }} 
             className="flex items-center gap-1.5 px-3 py-2 bg-amber-900/30 text-amber-400 rounded-xl text-[10px] font-black hover:bg-amber-900/50 transition-all border border-amber-900/30 active:scale-95 uppercase tracking-wider"
-            title="Tự động sửa lỗi gộp tiêu đề"
+            title="Dọn dẹp tổng thể và sửa bảng"
          >
             <Table size={12} /> Sửa bảng 🛠️
          </button>

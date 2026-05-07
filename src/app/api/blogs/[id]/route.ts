@@ -32,6 +32,16 @@ export async function PUT(
     const { id } = await params;
     await dbConnect();
     const body = await request.json();
+
+    // Server-side content cleaning (Word Stitching & Anchor removal)
+    if (body.content) {
+      body.content = body.content
+        .replace(/\r?\n|\r/g, '') // Strip all newlines
+        .replace(/\{#[\w-]+\}/g, '') // Remove {#anchor}
+        .replace(/\s{2,}/g, ' ') // Normalize spaces
+        .trim();
+    }
+
     const blog = await Blog.findByIdAndUpdate(id, body, { new: true });
     if (!blog) return NextResponse.json({ error: 'Not Found' }, { status: 404 });
     

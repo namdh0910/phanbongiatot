@@ -170,12 +170,14 @@
   - **Build Recovery & Final Cleanup (Hotfix)**:
     - **Fixed Seed-Blogs Syntax**: Resolved a critical build failure caused by an unclosed template literal and duplicate `content` property in `src/app/api/admin/seed-blogs/route.ts`.
     - **Final Terminology Sweep**: Removed the very last occurrences of "phác đồ" in the blog seeding data to ensure 100% compliance with the new language standards.
-- **Latest Activities (Word Stitching & Prompt Hardening - DONE)**:
-  - **Word Stitching Logic**: Thay đổi cơ chế làm sạch HTML, chuyển từ việc thay `\n` bằng dấu cách sang việc loại bỏ hoàn toàn ký tự xuống dòng (`\n`). Điều này giúp nối liền các từ bị AI ngắt dòng thủ công (ví dụ: "l \n á" thành "lá") mà không làm ảnh hưởng đến cấu trúc HTML nhờ sử dụng các thẻ `<p>`, `<h2>`.
-  - **Continuous Writing Enforcement**: Cập nhật System Prompt yêu cầu AI viết các đoạn văn liên tục, cấm tuyệt đối việc chèn `<br>` hoặc `\n` thủ công vào giữa từ hoặc giữa câu.
+- **Latest Activities (Triple-Layer Content Cleaning & Robust Word Stitching - DONE)**:
+  - **Triple-Layer Protection**: Triển khai cơ chế làm sạch nội dung tại 3 cấp độ: 
+    1. **Nguồn phát (Server Generator)**: Loại bỏ `\n` và `{#anchor}` ngay khi AI vừa tạo xong.
+    2. **Giao diện (Admin UI)**: Tự động chạy hàm `cleanExpertContent` khi nạp bài viết hoặc dán từ bên ngoài.
+    3. **Kho lưu trữ (API Server-side)**: Quét sạch lỗi một lần nữa tại API POST/PUT trước khi lưu vào Database.
+  - **Word Stitching Final Fix**: Thay đổi cơ chế từ thay thế bằng dấu cách sang xóa bỏ hoàn toàn ký tự xuống dòng (`\n`), giúp nối liền các từ bị ngắt (như "l \n á" thành "lá") mà không làm hỏng bố cục nhờ các thẻ block HTML.
   - **Manual Table Toolkit**: Tích hợp bộ công cụ chỉnh sửa bảng "như Word" vào thanh công cụ, cho phép người dùng tự do thêm/xóa hàng, thêm/xóa cột thủ công để xử lý các bảng phức tạp.
-  - **Quill Table Module Activation**: Kích hoạt module Table chính thức của Quill 2.0, giúp việc tương tác với ô bảng (cells) mượt mà và trực quan hơn.
-  - **Smart Table Repair V3**: Nâng cấp Regex nhận diện chữ hoa tiếng Việt (bao gồm các ký tự có dấu) và bổ sung thuật toán "Balanced Word Split" để chia tiêu đề bảng đều hơn khi không có dấu hiệu phân tách.
+  - **Editor UX Hardening**: Bổ sung đường kẻ (borders) và khoảng cách ô (padding) trong chế độ soạn thảo để kỹ sư dễ dàng bấm vào ô và nhập liệu.
 
 
 
