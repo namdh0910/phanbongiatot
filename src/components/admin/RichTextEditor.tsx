@@ -69,7 +69,20 @@ export default function RichTextEditor({ value, onChange, label, placeholder }: 
   const handleImportMarkdown = () => {
     const markdown = prompt("Dán nội dung Markdown từ Claude/Gemini vào đây:");
     if (markdown) {
-      const html = marked.parse(markdown);
+      // 1. Dọn dẹp mã neo {#anchor} của Claude
+      const cleanedMarkdown = markdown.replace(/\{#[\w-]+\}/g, '');
+      
+      // 2. Chuyển đổi Markdown sang HTML
+      let html = marked.parse(cleanedMarkdown);
+      
+      // 3. Xử lý cưỡng bức bảng để không bị lỗi header
+      // Bọc bảng vào div responsive và đảm bảo th/td có style cơ bản
+      html = (html as string).replace(/<table>/g, '<div class="table-responsive"><table style="width:100%; border-collapse:collapse; border: 1px solid #e2e8f0;">');
+      html = (html as string).replace(/<\/table>/g, '</table></div>');
+      html = (html as string).replace(/<thead>/g, '<thead style="background-color: #f8fafc;">');
+      html = (html as string).replace(/<th/g, '<th style="border: 1px solid #e2e8f0; padding: 12px; text-align: left; font-weight: bold;"');
+      html = (html as string).replace(/<td/g, '<td style="border: 1px solid #e2e8f0; padding: 12px;"');
+
       const quill = quillRef.current?.getEditor();
       if (quill) {
         const range = quill.getSelection();
