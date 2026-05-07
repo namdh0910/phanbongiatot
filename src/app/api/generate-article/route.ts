@@ -101,8 +101,23 @@ export async function POST(req: NextRequest): Promise<NextResponse<GenerateArtic
     });
 
   } catch (err) {
-    const message = err instanceof Error ? err.message : 'Unknown error';
-    console.error('[generate-article] Error:', message);
-    return NextResponse.json({ success: false, error: message }, { status: 500 });
+    const message = err instanceof Error ? err.message : 'Đã có lỗi xảy ra trong quá trình xử lý.';
+    console.error('[generate-article] Error Detail:', err);
+    
+    // Phân loại lỗi để báo về frontend thân thiện hơn
+    let friendlyMessage = message;
+    if (message.includes('404') || message.includes('not found')) {
+      friendlyMessage = "Mẫu AI hiện tại không khả dụng (404). Đang kiểm tra cấu hình...";
+    } else if (message.includes('403') || message.includes('identity')) {
+      friendlyMessage = "Lỗi xác thực API Key. Vui lòng kiểm tra GEMINI_API_KEY trên Vercel.";
+    } else if (message.includes('Pexels')) {
+      friendlyMessage = "Lỗi khi lấy ảnh minh họa. Vui lòng thử lại sau.";
+    }
+
+    return NextResponse.json({ 
+      success: false, 
+      error: friendlyMessage,
+      technicalDetail: message 
+    }, { status: 500 });
   }
 }

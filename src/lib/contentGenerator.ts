@@ -2,11 +2,20 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { GenerateArticleRequest, ArticleImage } from './types';
 
-// Initialize Gemini
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
-const model = genAI.getGenerativeModel({ 
-  model: "gemini-1.5-flash",
-});
+// Models to try in order
+const MODELS_TO_TRY = [
+  "gemini-1.5-flash",
+  "gemini-1.5-pro",
+  "gemini-2.0-flash-exp",
+  "gemini-pro"
+];
+
+function getModel(apiKey: string, modelName: string) {
+  const genAI = new GoogleGenerativeAI(apiKey);
+  return genAI.getGenerativeModel({ 
+    model: modelName,
+  });
+}
 
 const SYSTEM_PROMPT = `
 # IDENTITY & PERSONA
@@ -38,6 +47,11 @@ RULES:
 `;
 
 export async function generateArticleContent(req: GenerateArticleRequest) {
+  const apiKey = process.env.GEMINI_API_KEY || "";
+  if (!apiKey) {
+    throw new Error("Thiếu GEMINI_API_KEY trong cấu hình hệ thống.");
+  }
+
   const userPrompt = `Viết bài viết kỹ thuật nông nghiệp chuyên sâu:
   - Chủ đề: ${req.topic}
   - Keyword: ${req.keyword}
@@ -46,18 +60,42 @@ export async function generateArticleContent(req: GenerateArticleRequest) {
   
   Semantic keywords: tuyến trùng, Phytophthora, Fusarium, rễ tơ, pH đất, vi sinh đối kháng, Trichoderma, humic acid, fulvic acid, bộ rễ, phục hồi rễ, kích rễ.`;
 
-  const result = await model.generateContent([SYSTEM_PROMPT, userPrompt]);
-  const response = await result.response;
-  const text = response.text();
-  
-  // Strip markdown fences if Gemini accidentally includes them
-  const cleaned = text
-    .replace(/^```json\s*/i, '')
-    .replace(/^```\s*/i, '')
-    .replace(/\s*```$/i, '')
-    .trim();
+  let lastError = null;
 
-  return JSON.parse(cleaned);
+  for (const modelName of MODELS_TO_TRY) {
+    try {
+      console.log(`[contentGenerator] Attempting with model: ${modelName}`);
+      const model = getModel(apiKey, modelName);
+      
+      const result = await model.generateContent({
+        contents: [{ role: 'user', parts: [{ text: SYSTEM_PROMPT + "\n\n" + userPrompt }] }],
+        generationConfig: {
+          // Use JSON mode if possible, but keep it flexible
+          responseMimeType: modelName.includes('1.5') || modelName.includes('2.0') ? "application/json" : "text/plain",
+        }
+      });
+
+      const response = await result.response;
+      const text = response.text();
+      
+      // Strip markdown fences
+      const cleaned = text
+        .replace(/^```json\s*/i, '')
+        .replace(/^```\s*/i, '')
+        .replace(/\s*```$/i, '')
+        .trim();
+
+      const parsed = JSON.parse(cleaned);
+      console.log(`[contentGenerator] Success with model: ${modelName}`);
+      return parsed;
+    } catch (err) {
+      console.warn(`[contentGenerator] Failed with model ${modelName}:`, err instanceof Error ? err.message : err);
+      lastError = err;
+      continue; // Try next model
+    }
+  }
+
+  throw new Error(`Tất cả các model AI đều thất bại. Lỗi cuối cùng: ${lastError instanceof Error ? lastError.message : "Unknown error"}`);
 }
 
 export function injectImagesIntoContent(html: string, images: ArticleImage[]): string {
