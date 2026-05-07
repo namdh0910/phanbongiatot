@@ -386,7 +386,7 @@ export default function LandingPage() {
                   key={idx} 
                   title={blog.title}
                   excerpt={blog.excerpt}
-                  image={blog.image || 'https://images.unsplash.com/photo-1592878904946-b3cd8ae243d0?q=80&w=800&auto=format&fit=crop'}
+                  image={blog.coverImage || blog.image || 'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?q=80&w=800&auto=format&fit=crop'}
                   category={blog.category || 'Kỹ thuật'}
                   slug={blog.slug}
                 />
