@@ -49,9 +49,9 @@ async function getRelatedBlogs(category: string, currentSlug: string) {
     const blogs = await Blog.find({ 
       category: category, 
       slug: { $ne: currentSlug },
-      status: 'published'
+      isPublished: true
     }).limit(3).lean();
-    return JSON.parse(JSON.stringify(blogs));
+    return JSON.parse(JSON.stringify(blogs)) || [];
   } catch (error) {
     return [];
   }
@@ -155,8 +155,8 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
           <div className="mb-8 max-w-7xl mx-auto">
             <Breadcrumbs items={[
               { label: 'Kiến thức', href: '/blog' },
-              { label: blog.category || 'Nông nghiệp', href: `/blog?category=${blog.category}` },
-              { label: blog.title }
+              { label: blog?.category || 'Nông nghiệp', href: `/blog?category=${encodeURIComponent(blog?.category || '')}` },
+              { label: blog?.title || 'Bài viết' }
             ]} />
           </div>
 
@@ -170,7 +170,7 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
                   </span>
                   <div className="flex items-center gap-2 text-gray-400 text-xs font-bold">
                     <Calendar size={14} />
-                    {new Date(blog.createdAt).toLocaleDateString('vi-VN')}
+                    {blog?.createdAt ? new Date(blog.createdAt).toLocaleDateString('vi-VN') : 'Mới cập nhật'}
                   </div>
                 </div>
                 
@@ -321,7 +321,11 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
                   {relatedBlogs.map((item: any) => (
                     <Link key={item.slug} href={`/blog/${item.slug}`} className="group block space-y-6">
                       <div className="aspect-[16/10] overflow-hidden rounded-[3rem] shadow-lg bg-gray-100">
-                        <img src={item.coverImage} alt={item.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                        <img 
+                          src={item.coverImage || item.image || '/images/blog/default-cover.jpg'} 
+                          alt={item.title} 
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                        />
                       </div>
                       <h4 className="text-xl md:text-2xl font-black text-gray-900 leading-tight group-hover:text-emerald-700 transition-colors line-clamp-2 uppercase italic tracking-tighter italic">
                         {item.title}
