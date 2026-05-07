@@ -18,6 +18,7 @@ interface RichTextEditorProps {
 export default function RichTextEditor({ value, onChange, label, placeholder }: RichTextEditorProps) {
   const quillRef = useRef<any>(null);
   const [wordCount, setWordCount] = useState(0);
+  const [isSourceMode, setIsSourceMode] = useState(false);
 
   // Tính số từ thực tế (loại bỏ thẻ HTML)
   useEffect(() => {
@@ -253,20 +254,39 @@ export default function RichTextEditor({ value, onChange, label, placeholder }: 
          <button type="button" onClick={() => insertTemplate(templates.image)} className="flex items-center gap-1.5 px-3 py-2 bg-gray-800 text-gray-300 rounded-xl text-[10px] font-black hover:bg-gray-700 transition-all border border-gray-700 active:scale-95 uppercase tracking-wider">
             <ImageIcon size={12} /> Ảnh minh họa 📷
          </button>
+
+         <div className="flex-1" />
+
+         <button 
+            type="button" 
+            onClick={() => setIsSourceMode(!isSourceMode)} 
+            className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-[10px] font-black transition-all border active:scale-95 uppercase tracking-wider ${isSourceMode ? 'bg-orange-600 text-white border-orange-500' : 'bg-gray-800 text-gray-300 border-gray-700 hover:bg-gray-700'}`}
+         >
+            <FileCode size={12} /> {isSourceMode ? 'XEM KẾT QUẢ' : 'XEM MÃ NGUỒN </>'}
+         </button>
       </div>
 
       <div className="bg-white border-2 border-gray-100 rounded-[2rem] overflow-hidden focus-within:border-[#1a5c2a] transition-all shadow-lg shadow-gray-100">
         <div className="max-h-[700px] overflow-y-auto custom-editor-scroll">
-          <ReactQuill
-            ref={quillRef}
-            theme="snow"
-            value={value}
-            onChange={onChange}
-            modules={modules}
-            formats={formats}
-            placeholder={placeholder}
-            className="bg-white font-medium text-gray-800 expert-editor"
-          />
+          {isSourceMode ? (
+            <textarea
+              value={value}
+              onChange={(e) => onChange(e.target.value)}
+              className="w-full h-[600px] p-10 font-mono text-sm bg-gray-900 text-emerald-400 outline-none resize-none leading-relaxed"
+              placeholder="Nhập mã HTML tại đây..."
+            />
+          ) : (
+            <ReactQuill
+              ref={quillRef}
+              theme="snow"
+              value={value}
+              onChange={onChange}
+              modules={modules}
+              formats={formats}
+              placeholder={placeholder}
+              className="bg-white font-medium text-gray-800 expert-editor"
+            />
+          )}
         </div>
       </div>
 
