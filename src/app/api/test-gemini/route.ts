@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 // Force v1 API
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!, { apiVersion: 'v1' });
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 
 export async function GET(req: NextRequest) {
   try {

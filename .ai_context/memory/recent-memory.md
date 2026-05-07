@@ -2,6 +2,10 @@
 
 ## 🕒 Current Context
 - **Date**: 2026-05-07
+- **Latest Activities (Critical Build Fix - DONE)**:
+  - **GoogleGenerativeAI Constructor Fix**: Đã loại bỏ tham số `apiVersion: 'v1'` không hỗ trợ trong constructor của SDK `@google/generative-ai` v0.24.1. Lỗi này gây ra "Expected 1 arguments, but got 2" khiến Vercel build thất bại.
+  - **Multi-file synchronization**: Sửa lỗi đồng loạt tại `src/app/api/test-gemini/route.ts` và `src/lib/contentGenerator.ts`.
+  - **Build Verification**: Đã chạy `npm run build` local thành công 100%.
 - **Latest Activities (AI Engine Migration to Gemini - DONE)**:
   - **Gemini 1.5 Pro Integration**: Đã chuyển đổi "bộ não" viết bài từ Claude sang Gemini 1.5 Pro để tận dụng gói miễn phí và khả năng viết tiếng Việt tốt hơn.
   - **Environment Cleanup**: Sửa lại định dạng file `.env` bị lỗi và chuẩn bị chỗ cho `GEMINI_API_KEY`.
