@@ -79,7 +79,6 @@ async function getFeaturedProducts() {
 const globalBlogStyles = `
   html, body {
     max-width: 100vw !important;
-    overflow-x: hidden !important;
     position: relative;
   }
 
@@ -89,7 +88,6 @@ const globalBlogStyles = `
     font-size: 1.125rem !important;
     max-width: 100% !important;
     width: 100% !important;
-    overflow-x: hidden !important;
   }
   article.prose p { margin-bottom: 2rem !important; }
   article.prose h2 {
@@ -154,11 +152,11 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
   const featuredProducts = await getFeaturedProducts();
 
   return (
-    <div className="bg-white min-h-screen overflow-x-hidden">
+    <div className="bg-white min-h-screen">
       <style dangerouslySetInnerHTML={{ __html: globalBlogStyles }} />
       
       <main className="pb-20 md:pb-32 pt-24 md:pt-32">
-        <div className="container mx-auto px-4 overflow-x-hidden">
+        <div className="container mx-auto px-4">
           <div className="mb-8 max-w-7xl mx-auto">
             <Breadcrumbs items={[
               { label: 'Kiến thức', href: '/blog' },
@@ -167,9 +165,9 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
             ]} />
           </div>
 
-          <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 max-w-7xl mx-auto">
+          <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 max-w-7xl mx-auto items-start">
             {/* CONTENT AREA */}
-            <div className="lg:w-2/3 xl:w-[70%] overflow-x-hidden">
+            <div className="lg:w-2/3 xl:w-[70%]">
               <header className="mb-12">
                 <div className="flex items-center gap-3 mb-6">
                   <span className="bg-emerald-100 text-emerald-700 px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">
@@ -249,7 +247,7 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
               </div>
 
               {/* STICKY Table of Contents */}
-              <div className="sticky top-32 space-y-6 px-4 bg-white/80 backdrop-blur-md p-6 rounded-[2.5rem] border border-gray-50">
+              <div className="sticky top-32 space-y-6 px-4 bg-white/80 backdrop-blur-md p-6 rounded-[2.5rem] border border-gray-50 shadow-sm">
                   <h3 className="text-lg font-black text-gray-900 uppercase italic tracking-tighter flex items-center gap-2">
                     <span className="w-1 h-5 bg-emerald-500 rounded-full" />
                     Mục lục động
