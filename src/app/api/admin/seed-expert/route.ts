@@ -100,21 +100,17 @@ export async function GET() {
       <p>Ngập úng và thối rễ là thách thức lớn, nhưng nếu phát hiện sớm và xử lý đúng kỹ thuật, bà con hoàn toàn có thể cứu vườn sầu riêng của mình. Hãy kiên trì và theo dõi sát sao từng biểu hiện của cây.</p>
     `;
 
-    // Check if exists
+    // Check if exists - Allow overwrite to fix formatting
     const slug = "xu-ly-sau-rieng-thoi-re-sau-ngap-ung";
-    const existing = await Blog.findOne({ slug });
+    await Blog.deleteOne({ slug });
     
-    if (existing) {
-      return NextResponse.json({ message: "⚠️ Bài viết đã tồn tại trên hệ thống." });
-    }
-
     await Blog.create({
       title: "Xử Lý Sầu Riêng Thối Rễ Sau Ngập Úng: Hướng Dẫn Chi Tiết Từ A–Z",
       slug,
       category: "Cẩm nang kỹ thuật",
       excerpt: "Sầu riêng thối rễ sau ngập úng là thảm họa của nhà vườn. Bài viết hướng dẫn chi tiết cách nhận biết, xử lý khẩn cấp và phục hồi vườn sầu riêng hiệu quả, giúp cây thoát chết và cho trái trở lại.",
       content: contentHtml,
-      isPublished: false, // Draft
+      isPublished: false,
       hashtags: ["sau-rieng", "thoi-re", "ngap-ung", "phan-bon-gia-tot", "ky-thuat-nong-nghiep"],
       seoDescription: "Hướng dẫn chi tiết cách xử lý và phục hồi sầu riêng bị thối rễ sau ngập úng. Quy trình kỹ thuật chuyên sâu từ đội ngũ Phan Bón Giá Tốt."
     });

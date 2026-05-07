@@ -50,7 +50,7 @@ export default function RichTextEditor({ value, onChange, label, placeholder }: 
     'list', 'bullet',
     'align',
     'blockquote', 'code-block',
-    'link', 'image'
+    'link', 'image', 'table'
   ];
 
   // Hàm chèn template vào vị trí con trỏ
