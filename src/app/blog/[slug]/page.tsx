@@ -67,6 +67,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 }
 
 export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 export default async function BlogDetail({ params }: { params: Promise<{ slug: string }> }) {
   const paramsData = await params;
@@ -180,6 +181,7 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
             )}
 
             <article 
+              id="expert-content-root"
               className="prose prose-emerald prose-base md:prose-xl max-w-none text-gray-700 leading-relaxed 
               prose-headings:font-black prose-headings:text-gray-900 prose-headings:tracking-tighter
               prose-h2:text-xl md:text-3xl prose-h2:mt-10 md:prose-h2:mt-16 prose-h2:mb-4 md:prose-h2:mb-8 prose-h2:bg-emerald-50 prose-h2:p-4 md:prose-h2:p-6 prose-h2:rounded-xl md:prose-h2:rounded-2xl prose-h2:border-l-4 md:prose-h2:border-l-8 prose-h2:border-emerald-600
@@ -188,13 +190,24 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
               style={{ wordBreak: 'normal', overflowWrap: 'break-word', hyphens: 'none' }}
               dangerouslySetInnerHTML={{ 
                 __html: blog.content
-                  .replace(/[\n\r\t]+/g, '') // Word Stitching: Strip all control chars to join broken words
-                  .replace(/\{#[\w-]+\}/g, '') 
-                  .replace(/>\s+</g, '><') // Remove whitespace between tags
+                  .replace(/[\n\r\t]+/g, '') // Word Stitching (Core)
+                  .replace(/&#10;|&#13;|&#x0A;|&#x0D;/gi, '') // HTML entities
+                  .replace(/\{#[\w-]+\}/g, '') // Anchors
+                  .replace(/>\s+</g, '><') 
                   .replace(/\s{2,}/g, ' ') 
                   .trim()
               }}
             />
+            {/* Hậu xử lý triệt để tại Client để đảm bảo không còn ký tự xuống dòng ẩn */}
+            <script dangerouslySetInnerHTML={{ __html: `
+              (function() {
+                var root = document.getElementById('expert-content-root');
+                if (root) {
+                  // Xóa sạch dấu vết xuống dòng trong toàn bộ cây DOM của bài viết
+                  root.innerHTML = root.innerHTML.replace(/[\\n\\r\\t]+/g, '');
+                }
+              })();
+            ` }} />
 
             {blog.hashtags && blog.hashtags.length > 0 && (
               <div className="flex flex-wrap gap-2 mt-12">
