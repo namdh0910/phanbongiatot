@@ -37,7 +37,16 @@ async function getBlogSafe(slug: string) {
     await dbConnect();
     const blog = await Blog.findOne({ slug }).lean();
     if (!blog) return null;
-    return JSON.parse(JSON.stringify(blog));
+    
+    // Wrap tables in a responsive div to force scroll and prevent layout break
+    let content = String(blog.content || '');
+    content = content.replace(/<table/g, '<div class="table-responsive-wrapper" style="width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 2rem 0; border-radius: 12px; border: 1px solid #e2e8f0;"><table');
+    content = content.replace(/<\/table>/g, '</table></div>');
+
+    return {
+      ...JSON.parse(JSON.stringify(blog)),
+      content: content
+    };
   } catch (error) {
     return null;
   }
@@ -69,13 +78,20 @@ async function getFeaturedProducts() {
 
 // --- STYLE SYSTEM ---
 const globalBlogStyles = `
+  /* Global Overflow Protection */
+  html, body {
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+    position: relative;
+  }
+
   article.prose {
     line-height: 1.85 !important;
     color: #334155 !important;
     font-size: 1.125rem !important;
     max-width: 100% !important;
     width: 100% !important;
-    overflow-x: hidden !important; /* Prevent main article from overflowing */
+    overflow-x: hidden !important;
   }
   article.prose p { margin-bottom: 2rem !important; }
   article.prose h2 {
@@ -96,25 +112,18 @@ const globalBlogStyles = `
   article.prose h2::before {
     content: ''; display: block; width: 6px; height: 32px; background: #059669; border-radius: 3px;
   }
-  /* Aggressive Responsive Table Fix */
-  .prose table {
-    display: block !important;
+
+  /* Table Specific Styles */
+  .table-responsive-wrapper table {
     width: 100% !important;
-    max-width: 100% !important;
-    overflow-x: auto !important;
-    overflow-y: hidden !important;
-    -webkit-overflow-scrolling: touch !important;
     border-collapse: collapse !important;
-    margin: 2.5rem 0 !important;
-    border: 1px solid #e2e8f0 !important;
-    border-radius: 12px !important;
     table-layout: auto !important;
   }
-  .prose thead { width: 100% !important; }
-  .prose tbody { width: 100% !important; }
-  .prose th { background: #f8fafc !important; padding: 1rem !important; font-weight: 800 !important; white-space: nowrap; }
-  .prose td { padding: 1rem !important; border-bottom: 1px solid #f1f5f9 !important; min-width: 120px; }
+  .table-responsive-wrapper th { background: #f8fafc !important; padding: 1rem !important; font-weight: 800 !important; white-space: nowrap; border: 1px solid #e2e8f0; }
+  .table-responsive-wrapper td { padding: 1rem !important; border: 1px solid #f1f5f9 !important; min-width: 120px; }
+  
   .prose img { border-radius: 2rem !important; margin: 3rem 0 !important; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1) !important; max-width: 100%; height: auto; }
+  
   .article-cta {
     background: #0d2a1c; border-radius: 2.5rem; padding: 2.5rem; color: white; margin-top: 4rem; text-align: center; position: relative; overflow: hidden;
   }
@@ -132,11 +141,11 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
   const featuredProducts = await getFeaturedProducts();
 
   return (
-    <div className="bg-white min-h-screen">
+    <div className="bg-white min-h-screen overflow-x-hidden">
       <style dangerouslySetInnerHTML={{ __html: globalBlogStyles }} />
       
       <main className="pb-20 md:pb-32 pt-24 md:pt-32">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 overflow-x-hidden">
           <div className="mb-8 max-w-7xl mx-auto">
             <Breadcrumbs items={[
               { label: 'Kiến thức', href: '/blog' },
@@ -147,7 +156,7 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
 
           <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 max-w-7xl mx-auto">
             {/* CONTENT AREA */}
-            <div className="lg:w-2/3 xl:w-[70%]">
+            <div className="lg:w-2/3 xl:w-[70%] overflow-x-hidden">
               <header className="mb-12">
                 <div className="flex items-center gap-3 mb-6">
                   <span className="bg-emerald-100 text-emerald-700 px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">
@@ -201,7 +210,6 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
             {/* SIDEBAR */}
             <aside className="lg:w-1/3 xl:w-[30%]">
               <div className="sticky top-32 space-y-12">
-                {/* Authority Profile */}
                 <div className="bg-gray-50 p-8 rounded-[2.5rem] border border-gray-100">
                    <div className="flex items-center gap-4 mb-6">
                       <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center text-2xl">👨‍🔬</div>
@@ -215,7 +223,6 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
                    </p>
                 </div>
 
-                {/* Table of Contents */}
                 <div className="space-y-6 px-4">
                   <h3 className="text-lg font-black text-gray-900 uppercase italic tracking-tighter flex items-center gap-2">
                     <span className="w-1 h-5 bg-emerald-500 rounded-full" />
@@ -224,7 +231,6 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
                   <TableOfContents content={blog.content} />
                 </div>
 
-                {/* Send Garden Photo CTA */}
                 <div className="bg-gray-900 rounded-[3rem] p-8 text-white relative overflow-hidden shadow-2xl">
                    <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/20 rounded-full blur-3xl"></div>
                    <div className="relative z-10">
