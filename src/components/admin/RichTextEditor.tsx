@@ -176,7 +176,6 @@ export default function RichTextEditor({ value, onChange, label, placeholder }: 
               });
               thead.innerHTML = '';
               thead.appendChild(newTr);
-            }
           }
         }
 
