@@ -8,7 +8,7 @@ export async function GET(req: NextRequest) {
   try {
     const model = genAI.getGenerativeModel({
       model: "gemini-1.5-flash",
-    });
+    }, { apiVersion: 'v1' });
 
     const result = await model.generateContent("Xin chào, bạn có khỏe không?");
     const response = result.response.text();

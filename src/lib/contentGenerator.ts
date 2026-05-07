@@ -8,7 +8,7 @@ export async function generateArticleContent(req: GenerateArticleRequest) {
   try {
     const model = genAI.getGenerativeModel({
       model: "gemini-1.5-flash",
-    });
+    }, { apiVersion: 'v1' });
 
     const SYSTEM_PROMPT = `
 # IDENTITY & PERSONA

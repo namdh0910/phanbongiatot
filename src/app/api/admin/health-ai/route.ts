@@ -8,7 +8,7 @@ export async function GET(req: NextRequest) {
 
     const model = genAI.getGenerativeModel({
       model: "gemini-1.5-flash",
-    });
+    }, { apiVersion: 'v1' });
 
     const result = await model.generateContent("AI status check");
     const text = result.response.text();
