@@ -105,13 +105,16 @@ export async function fetchAndUploadImages(
   topic: string,
   count: number = 4,
 ): Promise<ArticleImage[]> {
-  const searchTerms = getSearchTerms(topic);
-  const primaryQuery = searchTerms[0];
+  // Ưu tiên dùng chính "topic" (query từ AI) để search vì nó cụ thể hơn
+  const searchTerms = [topic, ...getSearchTerms(topic)];
 
   // Fetch from Pexels
   let photos: PexelsPhoto[] = [];
   for (const term of searchTerms) {
     try {
+      // Bỏ qua các term quá ngắn hoặc không có nghĩa
+      if (!term || term.length < 3) continue;
+
       photos = await fetchPexelsPhotos(term, count);
       if (photos.length >= count) break;
     } catch {

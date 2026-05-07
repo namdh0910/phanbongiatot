@@ -33,6 +33,7 @@ RULES:
 - Cấu trúc HTML: Hook -> TOC -> 1. Chẩn đoán (có bảng) -> 2. Sai lầm -> 3. Quy trình (chi tiết liều lượng) -> 4. Cảnh báo -> 5. Checklist -> 6. Giải pháp -> 7. FAQ cùng PBGT -> Kết bài.
 
 IMPORTANT: Trả về JSON thuần túy. KHÔNG được có ký tự điều khiển (raw newlines/control characters) bên trong các giá trị chuỗi. Dùng \\n để xuống hàng trong HTML.
+Bài viết PHẢI DÀI TRÊN 2500 TỪ, chia thành 7-8 mục lớn chi tiết. Viết cực kỳ sâu về chuyên môn, phân tích từng giai đoạn phục hồi.
 `;
 
     const userPrompt = `Viết bài viết kỹ thuật nông nghiệp chuyên sâu:

@@ -52,23 +52,45 @@ export async function POST(req: NextRequest): Promise<NextResponse<GenerateArtic
 
     // ── 4. Fetch ảnh: hero + inline ──
     console.log('[generate-article] Step 2: Fetching images from Pexels...');
+    
+    // Deduplicate queries to avoid wasting API calls on same terms
+    const uniqueQueries = Array.from(new Set([generated.heroImageQuery, ...generated.inlineImageQueries]));
     const allQueries = [generated.heroImageQuery, ...generated.inlineImageQueries];
 
-    // Fetch images for each query (1 image per query)
-    const imageResults = await Promise.allSettled(
-      allQueries.map(query => fetchAndUploadImages(query, 1)),
+    // Fetch images for each UNIQUE query
+    const imageMap = new Map<string, any[]>();
+    await Promise.all(
+      uniqueQueries.map(async (q) => {
+        try {
+          const results = await fetchAndUploadImages(q, 3); // Lấy hẳn 3 ảnh mỗi query để có sự lựa chọn
+          imageMap.set(q, results);
+        } catch (e) {
+          console.error(`[image-fetch-error] Query "${q}" failed:`, e);
+        }
+      })
     );
 
-    const images = imageResults
-      .filter((r): r is PromiseFulfilledResult<Awaited<ReturnType<typeof fetchAndUploadImages>>> =>
-        r.status === 'fulfilled' && r.value.length > 0,
-      )
-      .map((r, i) => ({
-        ...r.value[0],
-        position: (i === 0 ? 'hero' : 'inline') as 'hero' | 'inline',
-      }));
+    // Pick unique images for each placeholder
+    const usedUrls = new Set<string>();
+    const images: any[] = [];
 
-    console.log(`[generate-article] Got ${images.length} images uploaded to Cloudinary.`);
+    for (let i = 0; i < allQueries.length; i++) {
+      const q = allQueries[i];
+      const available = imageMap.get(q) || [];
+      
+      // Tìm ảnh đầu tiên trong danh sách available mà chưa được dùng
+      const pick = available.find(img => !usedUrls.has(img.cloudinaryUrl)) || available[0];
+      
+      if (pick) {
+        usedUrls.add(pick.cloudinaryUrl);
+        images.push({
+          ...pick,
+          position: (i === 0 ? 'hero' : 'inline') as 'hero' | 'inline',
+        });
+      }
+    }
+
+    console.log(`[generate-article] Got ${images.length} unique images uploaded/selected.`);
 
     // ── 5. Inject images into HTML ──
     const finalContent = injectImagesIntoContent(generated.content, images);
