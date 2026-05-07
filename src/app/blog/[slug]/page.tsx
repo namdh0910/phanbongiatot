@@ -78,13 +78,13 @@ async function getFeaturedProducts() {
 // --- STYLE SYSTEM ---
 const globalBlogStyles = `
   html {
-    overflow-x: hidden;
+    overflow-x: clip; /* Modern way to hide overflow without breaking sticky */
     scroll-behavior: smooth;
   }
   
   body {
     max-width: 100vw !important;
-    overflow-x: hidden !important;
+    overflow-x: clip !important;
     position: relative;
   }
 
@@ -94,7 +94,7 @@ const globalBlogStyles = `
     font-size: 1.125rem !important;
     max-width: 100% !important;
     width: 100% !important;
-    overflow-x: hidden !important; /* Lock overflow at article level */
+    overflow-x: clip !important;
   }
   article.prose p { margin-bottom: 2rem !important; }
   article.prose h2 {
@@ -149,11 +149,12 @@ const globalBlogStyles = `
     .article-cta { padding: 4rem; }
   }
 
-  .sticky-toc-container {
-    position: sticky;
-    top: 120px;
-    align-self: start;
-    z-index: 40;
+  /* Sticky Element MUST be a direct child of a stretching container */
+  .sticky-toc-box {
+    position: sticky !important;
+    top: 120px !important;
+    z-index: 50 !important;
+    transition: all 0.3s ease;
   }
 `;
 
@@ -230,44 +231,44 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
               </div>
             </div>
 
-            {/* SIDEBAR */}
-            <aside className="lg:w-1/3 xl:w-[30%]">
-              <div className="space-y-12">
-                <div className="bg-gray-50 p-8 rounded-[2.5rem] border border-gray-100">
-                   <div className="flex items-center gap-4 mb-6">
-                      <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center text-2xl">👨‍🔬</div>
-                      <div>
-                         <h4 className="font-black text-gray-900 uppercase italic text-sm">Kỹ sư PBGT</h4>
-                         <span className="text-emerald-600 font-bold text-[10px] uppercase tracking-widest">12 năm kinh nghiệm</span>
-                      </div>
-                   </div>
-                   <p className="text-xs font-medium text-gray-500 leading-relaxed italic border-l-2 border-emerald-500 pl-4">
-                      "Kiến thức nông nghiệp là để chia sẻ. Tôi mong muốn mỗi bài viết giúp bà con giảm chi phí, tăng năng suất bền vững."
-                   </p>
-                </div>
-
-                <div className="bg-gray-900 rounded-[3rem] p-8 text-white relative overflow-hidden shadow-2xl">
-                   <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/20 rounded-full blur-3xl"></div>
-                   <div className="relative z-10">
-                      <h3 className="text-2xl font-black uppercase italic tracking-tighter mb-6 leading-tight">
-                         Gửi Ảnh Vườn <br /> Nhận Chẩn Đoán <br /> <span className="text-emerald-500">Từ PBGT 24/7</span>
-                      </h3>
-                      <a href="https://zalo.me/0773440966" className="w-full bg-emerald-600 hover:bg-emerald-500 text-white py-5 rounded-2xl font-black uppercase tracking-widest text-xs flex items-center justify-center gap-2 transition-all">
-                         Bấm gửi ảnh ngay <ChevronRight size={16} />
-                      </a>
-                   </div>
-                </div>
-
-                {/* STICKY Table of Contents - Nested inside ASIDE which stretches */}
-                <div className="sticky-toc-container">
-                  <div className="bg-white/80 backdrop-blur-md p-6 rounded-[2.5rem] border border-gray-100 shadow-sm">
-                    <h3 className="text-lg font-black text-gray-900 uppercase italic tracking-tighter flex items-center gap-2 mb-6">
-                      <span className="w-1 h-5 bg-emerald-500 rounded-full" />
-                      Mục lục động
-                    </h3>
-                    <div className="max-h-[50vh] overflow-y-auto pr-2 custom-scrollbar">
-                      <TableOfContents content={blog.content} />
+            {/* SIDEBAR - This stretches to content height */}
+            <aside className="lg:w-1/3 xl:w-[30%] flex flex-col gap-12">
+              {/* Static Top Part 1 */}
+              <div className="bg-gray-50 p-8 rounded-[2.5rem] border border-gray-100">
+                 <div className="flex items-center gap-4 mb-6">
+                    <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center text-2xl">👨‍🔬</div>
+                    <div>
+                       <h4 className="font-black text-gray-900 uppercase italic text-sm">Kỹ sư PBGT</h4>
+                       <span className="text-emerald-600 font-bold text-[10px] uppercase tracking-widest">12 năm kinh nghiệm</span>
                     </div>
+                 </div>
+                 <p className="text-xs font-medium text-gray-500 leading-relaxed italic border-l-2 border-emerald-500 pl-4">
+                    "Kiến thức nông nghiệp là để chia sẻ. Tôi mong muốn mỗi bài viết giúp bà con giảm chi phí, tăng năng suất bền vững."
+                 </p>
+              </div>
+
+              {/* Static Top Part 2 */}
+              <div className="bg-gray-900 rounded-[3rem] p-8 text-white relative overflow-hidden shadow-2xl">
+                 <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/20 rounded-full blur-3xl"></div>
+                 <div className="relative z-10">
+                    <h3 className="text-2xl font-black uppercase italic tracking-tighter mb-6 leading-tight">
+                       Gửi Ảnh Vườn <br /> Nhận Chẩn Đoán <br /> <span className="text-emerald-500">Từ PBGT 24/7</span>
+                    </h3>
+                    <a href="https://zalo.me/0773440966" className="w-full bg-emerald-600 hover:bg-emerald-500 text-white py-5 rounded-2xl font-black uppercase tracking-widest text-xs flex items-center justify-center gap-2 transition-all">
+                       Bấm gửi ảnh ngay <ChevronRight size={16} />
+                    </a>
+                 </div>
+              </div>
+
+              {/* STICKY Table of Contents - Now a direct child of the stretched ASIDE */}
+              <div className="sticky-toc-box">
+                <div className="bg-white/80 backdrop-blur-md p-6 rounded-[2.5rem] border border-gray-100 shadow-sm">
+                  <h3 className="text-lg font-black text-gray-900 uppercase italic tracking-tighter flex items-center gap-2 mb-6">
+                    <span className="w-1 h-5 bg-emerald-500 rounded-full" />
+                    Mục lục động
+                  </h3>
+                  <div className="max-h-[50vh] overflow-y-auto pr-2 custom-scrollbar">
+                    <TableOfContents content={blog.content} />
                   </div>
                 </div>
               </div>
