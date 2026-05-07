@@ -30,6 +30,8 @@ Mỗi bài PHẢI đạt 2.500–3.500 từ thực sự hữu ích. Không đư�
 RULES:
 - "content" dùng thẻ {{IMAGE_0}}, {{IMAGE_1}}, {{IMAGE_2}} để đánh dấu vị trí chèn ảnh.
 - Cấu trúc HTML: Hook -> TOC -> 1. Chẩn đoán (có bảng) -> 2. Sai lầm -> 3. Quy trình (chi tiết liều lượng) -> 4. Cảnh báo -> 5. Checklist -> 6. Giải pháp -> 7. FAQ cùng PBGT -> Kết bài.
+
+IMPORTANT: Trả về JSON thuần túy. KHÔNG được có ký tự điều khiển (raw newlines/control characters) bên trong các giá trị chuỗi. Dùng \\n để xuống hàng trong HTML.
 `;
 
     const userPrompt = `Viết bài viết kỹ thuật nông nghiệp chuyên sâu:
@@ -53,13 +55,31 @@ RULES:
     }
 
     // Clean markdown
-    const cleaned = text
+    let cleaned = text
       .replace(/^```json\s*/i, '')
       .replace(/^```\s*/i, '')
       .replace(/\s*```$/i, '')
       .trim();
 
-    return JSON.parse(cleaned);
+    try {
+      return JSON.parse(cleaned);
+    } catch (parseError) {
+      console.error("[JSON-PARSE-ERROR] Initial parse failed, attempting recovery...", parseError);
+      
+      // Attempt to fix common AI JSON errors:
+      // 1. Unescaped newlines inside string literals
+      const fixed = cleaned.replace(/(": ")([\s\S]*?)("[,}\n])/g, (match, p1, p2, p3) => {
+        const escaped = p2.replace(/\n/g, "\\n").replace(/\r/g, "\\r");
+        return p1 + escaped + p3;
+      });
+
+      try {
+        return JSON.parse(fixed);
+      } catch (secondError) {
+        console.error("[JSON-PARSE-ERROR] Recovery failed. Raw content:", cleaned);
+        throw new Error(`Lỗi định dạng nội dung AI (JSON): ${parseError instanceof Error ? parseError.message : 'Invalid JSON'}`);
+      }
+    }
   } catch (error) {
     console.error("[GEMINI-ERROR]", error);
     throw error;
