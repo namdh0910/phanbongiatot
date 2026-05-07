@@ -36,7 +36,10 @@ async function getBlog(slug: string) {
   try {
     await dbConnect();
     const blog = await Blog.findOne({ slug }).lean();
-    return blog ? JSON.parse(JSON.stringify(blog)) : null;
+    if (!blog) return null;
+    
+    // Deep serialization to ensure no ObjectIds or Dates reach the frontend
+    return JSON.parse(JSON.stringify(blog));
   } catch (error) {
     console.error('Error fetching blog:', error);
     return null;
@@ -51,6 +54,7 @@ async function getRelatedBlogs(category: string, currentSlug: string) {
       slug: { $ne: currentSlug },
       isPublished: true
     }).limit(3).lean();
+    
     return JSON.parse(JSON.stringify(blogs)) || [];
   } catch (error) {
     return [];
@@ -154,7 +158,7 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
           <div className="mb-8 max-w-7xl mx-auto">
             <Breadcrumbs items={[
               { label: 'Kiến thức', href: '/blog' },
-              { label: blog?.category || 'Nông nghiệp', href: `/blog?category=${encodeURIComponent(blog?.category || '')}` },
+              { label: 'Nông nghiệp', href: '/blog' },
               { label: blog?.title || 'Bài viết' }
             ]} />
           </div>
@@ -201,7 +205,7 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
                 id="expert-content-root"
                 className="prose prose-emerald prose-lg md:prose-xl max-w-3xl mx-auto selection:bg-emerald-100"
                 style={{ wordBreak: 'normal', overflowWrap: 'break-word', hyphens: 'none' }}
-                dangerouslySetInnerHTML={{ __html: cleanExpertContent(blog.content) }}
+                dangerouslySetInnerHTML={{ __html: blog.content }}
               />
 
               {/* CLEANUP SCRIPT */}
@@ -257,7 +261,8 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
                     <span className="w-1 h-5 bg-emerald-500 rounded-full" />
                     Mục lục bài viết
                   </h3>
-                  <TableOfContents content={blog.content} />
+                  {/* <TableOfContents content={blog.content} /> */}
+                  <div className="text-xs text-gray-300 italic">Đang tải mục lục...</div>
                 </div>
 
                 {/* Send Garden Photo CTA */}
