@@ -94,12 +94,18 @@ export default function RichTextEditor({ value, onChange, label, placeholder }: 
       let cleanedMarkdown = markdown.replace(/\{#[\w-]+\}/g, '');
       
       // 2. Tiền xử lý bảng (Đảm bảo hàng tiêu đề không bị gộp)
-      // Nếu thấy hàng tiêu đề có vẻ bị dính, ta sẽ chèn thêm dấu gạch đứng
       const lines = cleanedMarkdown.split('\n');
       const processedLines = lines.map(line => {
-        if (line.includes('|') && !line.includes('---')) {
-          // Đảm bảo có dấu gạch đứng ở đầu và cuối hàng
-          let l = line.trim();
+        let l = line.trim();
+        // Nếu dòng có chứa phím Tab (thường là copy từ UI bảng) -> Chuyển thành Markdown Table
+        if (l.includes('\t')) {
+          return '| ' + l.split('\t').join(' | ') + ' |';
+        }
+        // Nếu dòng có nhiều dấu cách liên tiếp (2 trở lên) -> Cũng coi là phân tách cột
+        if (/\s{2,}/.test(l) && !l.startsWith('|')) {
+          return '| ' + l.split(/\s{2,}/).join(' | ') + ' |';
+        }
+        if (l.includes('|') && !l.includes('---')) {
           if (!l.startsWith('|')) l = '| ' + l;
           if (!l.endsWith('|')) l = l + ' |';
           return l;
@@ -124,23 +130,38 @@ export default function RichTextEditor({ value, onChange, label, placeholder }: 
           const headerCells = thead.querySelectorAll('th');
           const bodyCells = firstRow.querySelectorAll('td');
           
-          // Phát hiện lỗi: Nếu header chỉ có 1 ô mà body có nhiều ô
           if (headerCells.length === 1 && bodyCells.length > 1) {
             const cell = headerCells[0];
             const strongTags = cell.querySelectorAll('strong');
             let titles: string[] = [];
 
             if (strongTags.length === bodyCells.length) {
-              // 1. Nếu số thẻ strong khớp với số cột, dùng thẻ strong làm tiêu đề
               titles = Array.from(strongTags).map(s => s.textContent || "").filter(t => t.trim());
             } else {
-              // 2. Nếu không, tách theo text như cũ
               const headerText = cell.textContent || "";
-              titles = headerText.split(/\n|\s{2,}/).map(t => t.trim()).filter(t => t.length > 0);
+              // Nếu không có ký tự xuống dòng, thử tách theo khoảng trắng đơn
+              // nhưng chỉ khi số từ khớp với số cột
+              const words = headerText.split(/\s+/).filter(w => w.length > 0);
+              if (words.length === bodyCells.length) {
+                titles = words;
+              } else {
+                titles = headerText.split(/\n|\s{2,}/).map(t => t.trim()).filter(t => t.length > 0);
+              }
             }
             
-            // Nếu số lượng tiêu đề tách được khớp với số cột bên dưới
-            if (titles.length === bodyCells.length) {
+            // Nếu vẫn chưa tách được đủ số cột, thử tách "mù" theo số lượng cột
+            if (titles.length !== bodyCells.length && bodyCells.length > 1) {
+                const headerText = cell.textContent || "";
+                const words = headerText.split(/\s+/).filter(w => w.length > 0);
+                if (words.length > bodyCells.length) {
+                   // Gộp các từ lại để đủ số cột
+                   const wordsPerCol = Math.ceil(words.length / bodyCells.length);
+                   titles = [];
+                   for (let i = 0; i < bodyCells.length; i++) {
+                      titles.push(words.slice(i * wordsPerCol, (i + 1) * wordsPerCol).join(' '));
+                   }
+                }
+            }
               const newTr = doc.createElement('tr');
               titles.forEach(title => {
                 const th = doc.createElement('th');
