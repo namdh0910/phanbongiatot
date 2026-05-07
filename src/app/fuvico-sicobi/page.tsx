@@ -196,7 +196,7 @@ export default function FuvicoEliteLanding() {
                     { icon: ShieldCheck, title: "Thải độc đất", text: "Loại bỏ tồn dư hóa học gây độc cho đầu rễ tơ." }
                   ].map((item, i) => (
                     <div key={i} className="bg-white/5 p-6 md:p-8 rounded-3xl md:rounded-[2.5rem] border border-white/10 backdrop-blur-sm">
-                       <item.icon className="text-emerald-400 mb-4 md:mb-6" size={24} className="md:w-8 md:h-8" />
+                       <item.icon className="text-emerald-400 mb-4 md:mb-6 md:w-8 md:h-8" size={24} />
                        <h5 className="font-black text-white text-base md:text-lg mb-2 md:mb-3 uppercase italic tracking-tighter">{item.title}</h5>
                        <p className="text-emerald-100/50 text-xs md:text-sm font-medium">{item.text}</p>
                     </div>
