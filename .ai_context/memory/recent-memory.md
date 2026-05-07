@@ -171,12 +171,10 @@
     - **Fixed Seed-Blogs Syntax**: Resolved a critical build failure caused by an unclosed template literal and duplicate `content` property in `src/app/api/admin/seed-blogs/route.ts`.
     - **Final Terminology Sweep**: Removed the very last occurrences of "phác đồ" in the blog seeding data to ensure 100% compliance with the new language standards.
 - **Latest Activities (Smart Table Repair & AI Content Fix - DONE)**:
-  - **Smart Table Repair V2**: Triển khai thuật toán sửa bảng 4 lớp (Strong tags, Special separators, Capitalized phrases, Blind split) giúp tự động tách các tiêu đề bảng bị gộp từ Claude/Gemini.
-  - **Manual Repair Button**: Thêm nút "Sửa bảng 🛠️" vào thanh công cụ RichTextEditor, cho phép kỹ sư chủ động sửa lỗi định dạng bảng ngay trong quá trình soạn thảo.
-  - **AI Prompt Hardening**: Cập nhật System Prompt cho AI để ép buộc tạo bảng HTML chuẩn (thead/tbody) và tuân thủ nghiêm ngặt quy tắc không dùng từ "phác đồ".
-  - **Auto-Sync Logic**: Tích hợp cơ chế tự động sửa bảng ngay khi nạp nội dung từ AI vào trang quản trị (`AdminBlogs/page.tsx`).
-  - **Utility Centralization**: Chuyển đổi toàn bộ logic sửa bảng sang `src/utils/tableRepair.ts` để tái sử dụng toàn dự án.
-  - **Markdown Pre-processing**: Bổ sung bộ lọc tiền xử lý Markdown để nhận diện và chuẩn hóa các bảng thiếu dấu phân cách `|`.
+  - **Broken Word Fix**: Triển khai cơ chế hậu xử lý (Post-processing) tự động loại bỏ các ký tự xuống dòng (`\n`) nằm trong chuỗi HTML của AI, khắc phục triệt để lỗi ngắt từ (ví dụ: "t \n uyến" thành "tuyến").
+  - **Smart Table Repair V3**: Nâng cấp Regex nhận diện chữ hoa tiếng Việt (bao gồm các ký tự có dấu) và bổ sung thuật toán "Balanced Word Split" để chia tiêu đề bảng đều hơn khi không có dấu hiệu phân tách.
+  - **AI Prompt Hardening**: Ép buộc AI trả về JSON trên một dòng duy nhất và cấm ngắt dòng bên trong giá trị chuỗi, sử dụng `<br>` hoặc `<p>` thay cho `\n`.
+  - **Manual Repair UI**: Đảm bảo nút "Sửa bảng 🛠️" luôn áp dụng style tối thiểu (xanh lá chuyên gia) ngay cả khi không thể tách cột hoàn hảo.
 
 
 

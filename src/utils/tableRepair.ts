@@ -50,26 +50,30 @@ export const repairTablesInHtml = (html: string) => {
           }
         }
 
-        // Priority 3: Capitalized phrases
+        // Priority 3: Capitalized phrases (Improved for Vietnamese)
         if (titles.length !== colCount) {
            const headerText = cell.textContent || "";
-           const matches = headerText.match(/[A-ZÀ-Ỹ][^A-ZÀ-Ỹ]*/g);
+           // Match groups starting with Uppercase (including Vietnamese accented caps)
+           const matches = headerText.match(/[A-ZÂÊÔƠƯÀẢÃÁẠÈẺẼÉẸÌỈĨÍỊÒỎÕÓỌÙỦŨÚỤỲỶỸÝỴĐ][^A-ZÂÊÔƠƯÀẢÃÁẠÈẺẼÉẸÌỈĨÍỊÒỎÕÓỌÙỦŨÚỤỲỶỸÝỴĐ]*/g);
            if (matches && matches.length === colCount) {
               titles = matches.map(m => m.trim());
            }
         }
 
-        // Priority 4: Blind split
+        // Priority 4: Balanced Word Split (New fallback)
         if (titles.length !== colCount) {
             const headerText = cell.textContent || "";
             const words = headerText.split(/\s+/).filter(w => w.length > 0);
             if (words.length >= colCount) {
+               // Try to distribute words as evenly as possible
                const wordsPerCol = Math.floor(words.length / colCount);
+               const extraWords = words.length % colCount;
                titles = [];
+               let currentWordIndex = 0;
                for (let i = 0; i < colCount; i++) {
-                  const start = i * wordsPerCol;
-                  const end = (i === colCount - 1) ? words.length : (i + 1) * wordsPerCol;
-                  titles.push(words.slice(start, end).join(' '));
+                  const count = wordsPerCol + (i < extraWords ? 1 : 0);
+                  titles.push(words.slice(currentWordIndex, currentWordIndex + count).join(' '));
+                  currentWordIndex += count;
                }
             }
         }
@@ -84,6 +88,9 @@ export const repairTablesInHtml = (html: string) => {
           });
           thead.innerHTML = '';
           thead.appendChild(newTr);
+        } else {
+          // If still failed, at least style the single cell
+          applyHeaderStyles(cell as HTMLElement);
         }
       } else if (headerCells.length > 0) {
         headerCells.forEach(th => applyHeaderStyles(th as HTMLElement));

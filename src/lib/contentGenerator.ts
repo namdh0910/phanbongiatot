@@ -32,7 +32,9 @@ RULES:
 - "heroImageQuery" và "inlineImageQueries" phải là Tiếng Anh, miêu tả các góc chụp KHÁC NHAU (ví dụ: quả, lá, gốc cây, cảnh nông dân, hoặc sơ đồ) để tránh hình ảnh bị lặp lại.
 - Cấu trúc HTML: Hook -> TOC -> 1. Chẩn đoán (có bảng) -> 2. Sai lầm -> 3. Quy trình (chi tiết liều lượng) -> 4. Cảnh báo -> 5. Checklist -> 6. Giải pháp -> 7. FAQ cùng PBGT -> Kết bài.
 
-IMPORTANT: Trả về JSON thuần túy. KHÔNG được có ký tự điều khiển (raw newlines/control characters) bên trong các giá trị chuỗi. Dùng \\n để xuống hàng trong HTML.
+IMPORTANT: Trả về JSON thuần túy trên MỘT DÒNG DUY NHẤT nếu có thể, hoặc ít nhất KHÔNG được có ký tự xuống dòng (\n) bên trong các giá trị chuỗi (title, slug, content...).
+CẤM TUYỆT ĐỐI việc ngắt dòng giữa chừng trong một từ (ví dụ: "tuy\nên" là sai). 
+Mọi dấu xuống hàng trong bài viết PHẢI dùng thẻ <br> hoặc <p>, không được dùng ký tự \n thực tế.
 Bài viết PHẢI DÀI TRÊN 2500 TỪ, chia thành 7-8 mục lớn chi tiết. Viết cực kỳ sâu về chuyên môn, phân tích từng giai đoạn phục hồi.
 
 YÊU CẦU ĐỊNH DẠNG HTML (CẤM DÙNG MARKDOWN TABLE):
@@ -74,19 +76,28 @@ YÊU CẦU ĐỊNH DẠNG HTML (CẤM DÙNG MARKDOWN TABLE):
       .trim();
 
     try {
-      return JSON.parse(cleaned);
+      const parsed = JSON.parse(cleaned);
+      // Clean HTML content from raw newlines that break words
+      if (parsed.content) {
+        parsed.content = parsed.content.replace(/\r?\n|\r/g, ' ').replace(/\s{2,}/g, ' ').trim();
+      }
+      return parsed;
     } catch (parseError) {
       console.error("[JSON-PARSE-ERROR] Initial parse failed, attempting recovery...", parseError);
       
       // Attempt to fix common AI JSON errors:
       // 1. Unescaped newlines inside string literals
       const fixed = cleaned.replace(/(": ")([\s\S]*?)("[,}\n])/g, (match, p1, p2, p3) => {
-        const escaped = p2.replace(/\n/g, "\\n").replace(/\r/g, "\\r");
+        const escaped = p2.replace(/\n/g, " ").replace(/\r/g, " "); // Replace with space to fix broken words
         return p1 + escaped + p3;
       });
 
       try {
-        return JSON.parse(fixed);
+        const parsed = JSON.parse(fixed);
+        if (parsed.content) {
+           parsed.content = parsed.content.replace(/\r?\n|\r/g, ' ').replace(/\s{2,}/g, ' ').trim();
+        }
+        return parsed;
       } catch (secondError) {
         console.error("[JSON-PARSE-ERROR] Recovery failed. Raw content:", cleaned);
         throw new Error(`Lỗi định dạng nội dung AI (JSON): ${parseError instanceof Error ? parseError.message : 'Invalid JSON'}`);
