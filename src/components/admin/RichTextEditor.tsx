@@ -3,7 +3,8 @@
 import React, { useMemo, useRef, useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import 'react-quill-new/dist/quill.snow.css';
-import { AlertTriangle, Lightbulb, Info, CheckSquare, Table, Image as ImageIcon } from 'lucide-react';
+import { AlertTriangle, Lightbulb, Info, CheckSquare, Table, Image as ImageIcon, FileCode } from 'lucide-react';
+import { marked } from 'marked';
 
 const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false }) as any;
 
@@ -62,6 +63,19 @@ export default function RichTextEditor({ value, onChange, label, placeholder }: 
       editor.clipboard.dangerouslyPasteHTML(range.index, html);
     } else {
       editor.clipboard.dangerouslyPasteHTML(editor.getLength(), html);
+    }
+  };
+
+  const handleImportMarkdown = () => {
+    const markdown = prompt("Dán nội dung Markdown từ Claude/Gemini vào đây:");
+    if (markdown) {
+      const html = marked.parse(markdown);
+      const quill = quillRef.current?.getEditor();
+      if (quill) {
+        const range = quill.getSelection();
+        const insertIndex = range ? range.index : quill.getLength();
+        quill.clipboard.dangerouslyPasteHTML(insertIndex, html as string);
+      }
     }
   };
 
@@ -130,6 +144,15 @@ export default function RichTextEditor({ value, onChange, label, placeholder }: 
 
       {/* Quick-insert Toolbar */}
       <div className="flex flex-wrap gap-2 p-2.5 bg-gray-900 rounded-2xl shadow-inner shadow-black/20">
+         <button 
+            type="button" 
+            onClick={handleImportMarkdown} 
+            className="flex items-center gap-1.5 px-4 py-2 bg-emerald-600 text-white rounded-xl text-[10px] font-black hover:bg-emerald-500 transition-all border border-emerald-500 active:scale-95 uppercase tracking-wider"
+         >
+            <FileCode size={12} /> DÁN TỪ CLAUDE 🚀
+         </button>
+         <div className="w-[1px] h-8 bg-gray-800 mx-1 self-center" />
+         
          <button type="button" onClick={() => insertTemplate(templates.warning)} className="flex items-center gap-1.5 px-3 py-2 bg-red-900/30 text-red-400 rounded-xl text-[10px] font-black hover:bg-red-900/50 transition-all border border-red-900/30 active:scale-95 uppercase tracking-wider">
             <AlertTriangle size={12} /> Cảnh báo ⚠️
          </button>
