@@ -1,96 +1,261 @@
 
 import React from 'react';
 import { notFound } from 'next/navigation';
+import Header from '@/components/layout/Header';
+import Footer from '@/components/layout/Footer';
+import Breadcrumbs from '@/components/ui/Breadcrumbs';
+import LeadForm from '@/components/shared/LeadForm';
+import Link from 'next/link';
+import { 
+  Calendar, 
+  Clock, 
+  Share2, 
+  MessageCircle, 
+  Phone, 
+  ChevronRight, 
+  Zap, 
+  ArrowRight,
+  ShieldCheck,
+  Camera,
+  Star,
+  Award,
+  AlertTriangle,
+  HelpCircle,
+  ThumbsUp,
+  MapPin
+} from 'lucide-react';
 import dbConnect from '@/lib/db';
 import Blog from '@/lib/models/Blog';
-import Breadcrumbs from '@/components/ui/Breadcrumbs';
-import { Calendar, Camera, MessageCircle, ChevronRight, ArrowRight } from 'lucide-react';
-import Link from 'next/link';
+import Product from '@/lib/models/Product';
+import TableOfContents from '@/components/blog/TableOfContents';
+import { cleanExpertContent } from '@/utils/tableRepair';
+import Script from 'next/script';
 
+// --- DATA FETCHING ---
 async function getBlogSafe(slug: string) {
   try {
     await dbConnect();
     const blog = await Blog.findOne({ slug }).lean();
     if (!blog) return null;
-    
-    // Manual mapping to avoid any hidden Mongoose/Circular issues
-    return {
-      title: String(blog.title || ''),
-      content: String(blog.content || ''),
-      category: String(blog.category || 'Nông nghiệp'),
-      coverImage: String(blog.coverImage || blog.image || ''),
-      createdAt: blog.createdAt ? new Date(blog.createdAt).toISOString() : null,
-      slug: String(blog.slug || '')
-    };
+    return JSON.parse(JSON.stringify(blog));
   } catch (error) {
     return null;
   }
 }
 
+async function getRelatedBlogs(category: string, currentSlug: string) {
+  try {
+    await dbConnect();
+    const blogs = await Blog.find({ 
+      category: category, 
+      slug: { $ne: currentSlug },
+      isPublished: true
+    }).limit(3).lean();
+    return JSON.parse(JSON.stringify(blogs)) || [];
+  } catch (error) {
+    return [];
+  }
+}
+
+async function getFeaturedProducts() {
+  try {
+    await dbConnect();
+    const products = await Product.find({ isFeatured: true }).limit(3).lean();
+    return JSON.parse(JSON.stringify(products)) || [];
+  } catch (error) {
+    return [];
+  }
+}
+
+// --- STYLE SYSTEM ---
+const globalBlogStyles = `
+  article.prose {
+    line-height: 1.85 !important;
+    color: #334155 !important;
+    font-size: 1.125rem !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+  }
+  article.prose p { margin-bottom: 2rem !important; }
+  article.prose h2 {
+    font-size: 1.875rem !important;
+    line-height: 1.2 !important;
+    margin-top: 3.5rem !important;
+    margin-bottom: 1.5rem !important;
+    color: #0f172a !important;
+    font-weight: 900 !important;
+    letter-spacing: -0.04em !important;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  @media (min-width: 768px) {
+    article.prose h2 { font-size: 2.5rem !important; }
+  }
+  article.prose h2::before {
+    content: ''; display: block; width: 6px; height: 32px; background: #059669; border-radius: 3px;
+  }
+  /* Responsive Table Fix */
+  .prose table {
+    display: block !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    border-collapse: separate !important;
+    margin: 2.5rem 0 !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 20px !important;
+  }
+  .prose th { background: #f8fafc !important; padding: 1rem !important; font-weight: 800 !important; white-space: nowrap; }
+  .prose td { padding: 1rem !important; border-bottom: 1px solid #f1f5f9 !important; min-width: 120px; }
+  .prose img { border-radius: 2rem !important; margin: 3rem 0 !important; box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1) !important; max-width: 100%; height: auto; }
+  .article-cta {
+    background: #0d2a1c; border-radius: 2.5rem; padding: 2.5rem; color: white; margin-top: 4rem; text-align: center; position: relative; overflow: hidden;
+  }
+  @media (min-width: 768px) {
+    .article-cta { padding: 4rem; }
+  }
+`;
+
 export default async function BlogDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const blog = await getBlogSafe(slug);
-  
-  if (!blog) {
-    notFound();
-  }
+  if (!blog) notFound();
+
+  const relatedBlogs = await getRelatedBlogs(blog.category, blog.slug);
+  const featuredProducts = await getFeaturedProducts();
 
   return (
-    <div className="bg-white min-h-screen pt-24 md:pt-32 pb-20">
-      <div className="container mx-auto px-4">
-        <div className="mb-8 max-w-7xl mx-auto">
-          <Breadcrumbs items={[
-            { label: 'Kiến thức', href: '/blog' },
-            { label: blog.category, href: '/blog' },
-            { label: blog.title }
-          ]} />
-        </div>
+    <div className="bg-white min-h-screen">
+      <style dangerouslySetInnerHTML={{ __html: globalBlogStyles }} />
+      
+      <main className="pb-20 md:pb-32 pt-24 md:pt-32">
+        <div className="container mx-auto px-4">
+          <div className="mb-8 max-w-7xl mx-auto">
+            <Breadcrumbs items={[
+              { label: 'Kiến thức', href: '/blog' },
+              { label: blog.category || 'Nông nghiệp', href: `/blog?category=${encodeURIComponent(blog.category || '')}` },
+              { label: blog.title }
+            ]} />
+          </div>
 
-        <div className="max-w-3xl mx-auto">
-          <header className="mb-12">
-            <div className="flex items-center gap-3 mb-6">
-              <span className="bg-emerald-100 text-emerald-700 px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">
-                {blog.category}
-              </span>
-              <div className="flex items-center gap-2 text-gray-400 text-xs font-bold">
-                <Calendar size={14} />
-                {blog.createdAt ? new Date(blog.createdAt).toLocaleDateString('vi-VN') : 'Mới cập nhật'}
+          <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 max-w-7xl mx-auto">
+            {/* CONTENT AREA */}
+            <div className="lg:w-2/3 xl:w-[70%]">
+              <header className="mb-12">
+                <div className="flex items-center gap-3 mb-6">
+                  <span className="bg-emerald-100 text-emerald-700 px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">
+                    {blog.category}
+                  </span>
+                  <div className="flex items-center gap-2 text-gray-400 text-xs font-bold">
+                    <Calendar size={14} />
+                    {blog.createdAt ? new Date(blog.createdAt).toLocaleDateString('vi-VN') : 'Mới cập nhật'}
+                  </div>
+                </div>
+                
+                <h1 className="text-3xl md:text-6xl font-black text-gray-900 leading-tight md:leading-[1.05] tracking-tighter mb-10">
+                  {blog.title}
+                </h1>
+
+                {(blog.coverImage || blog.image) && (
+                  <div className="aspect-[21/9] w-full rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-2xl bg-gray-100 border-4 md:border-8 border-gray-50/50">
+                    <img 
+                      src={blog.coverImage || blog.image} 
+                      alt={blog.title} 
+                      className="w-full h-full object-cover" 
+                    />
+                  </div>
+                )}
+              </header>
+
+              {/* ARTICLE BODY */}
+              <article 
+                id="expert-content-root"
+                className="prose prose-emerald prose-lg md:prose-xl max-w-3xl mx-auto selection:bg-emerald-100"
+                style={{ wordBreak: 'normal', overflowWrap: 'break-word' }}
+                dangerouslySetInnerHTML={{ __html: cleanExpertContent(blog.content) }}
+              />
+
+              {/* FINAL CTA */}
+              <div className="article-cta">
+                 <div className="absolute top-0 right-0 p-8 opacity-10 text-7xl md:text-9xl rotate-12">👨‍🌾</div>
+                 <h3 className="text-2xl md:text-5xl font-black uppercase italic tracking-tighter mb-6 leading-tight">
+                    Cây vườn anh chị <br /> đang bị suy kiệt?
+                 </h3>
+                 <p className="text-emerald-100/70 text-sm md:text-xl font-medium mb-12 max-w-xl mx-auto italic">
+                    "Đừng để đất chết lâm sàng mới cứu. Hãy nhắn tin ngay để kỹ sư PBGT tư vấn giải pháp hồi sinh vườn miễn phí."
+                 </p>
+                 <div className="flex flex-col sm:flex-row gap-5 justify-center relative z-10">
+                    <a href="https://zalo.me/0773440966" className="bg-emerald-500 hover:bg-emerald-400 text-white px-8 md:px-12 py-5 rounded-2xl font-black uppercase tracking-widest text-xs md:text-sm shadow-2xl transition-all">Tư vấn Zalo 24/7</a>
+                    <a href="tel:0773440966" className="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/20 px-8 md:px-12 py-5 rounded-2xl font-black uppercase tracking-widest text-xs md:text-sm transition-all">Gọi kỹ sư ngay</a>
+                 </div>
               </div>
             </div>
-            
-            <h1 className="text-4xl md:text-6xl font-black text-gray-900 leading-[1.05] tracking-tighter mb-10">
-              {blog.title}
-            </h1>
 
-            {blog.coverImage && (
-              <div className="aspect-[21/9] w-full rounded-[3rem] overflow-hidden shadow-2xl bg-gray-100 border-8 border-gray-50/50">
-                <img 
-                  src={blog.coverImage} 
-                  alt={blog.title} 
-                  className="w-full h-full object-cover" 
-                />
+            {/* SIDEBAR */}
+            <aside className="lg:w-1/3 xl:w-[30%]">
+              <div className="sticky top-32 space-y-12">
+                {/* Authority Profile */}
+                <div className="bg-gray-50 p-8 rounded-[2.5rem] border border-gray-100">
+                   <div className="flex items-center gap-4 mb-6">
+                      <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center text-2xl">👨‍🔬</div>
+                      <div>
+                         <h4 className="font-black text-gray-900 uppercase italic text-sm">Kỹ sư PBGT</h4>
+                         <span className="text-emerald-600 font-bold text-[10px] uppercase tracking-widest">12 năm kinh nghiệm</span>
+                      </div>
+                   </div>
+                   <p className="text-xs font-medium text-gray-500 leading-relaxed italic border-l-2 border-emerald-500 pl-4">
+                      "Kiến thức nông nghiệp là để chia sẻ. Tôi mong muốn mỗi bài viết giúp bà con giảm chi phí, tăng năng suất bền vững."
+                   </p>
+                </div>
+
+                {/* Table of Contents */}
+                <div className="space-y-6 px-4">
+                  <h3 className="text-lg font-black text-gray-900 uppercase italic tracking-tighter flex items-center gap-2">
+                    <span className="w-1 h-5 bg-emerald-500 rounded-full" />
+                    Mục lục bài viết
+                  </h3>
+                  <TableOfContents content={blog.content} />
+                </div>
+
+                {/* Send Garden Photo CTA */}
+                <div className="bg-gray-900 rounded-[3rem] p-8 text-white relative overflow-hidden shadow-2xl">
+                   <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/20 rounded-full blur-3xl"></div>
+                   <div className="relative z-10">
+                      <h3 className="text-2xl font-black uppercase italic tracking-tighter mb-6 leading-tight">
+                         Gửi Ảnh Vườn <br /> Nhận Chẩn Đoán <br /> <span className="text-emerald-500">Từ PBGT 24/7</span>
+                      </h3>
+                      <a href="https://zalo.me/0773440966" className="w-full bg-emerald-600 hover:bg-emerald-500 text-white py-5 rounded-2xl font-black uppercase tracking-widest text-xs flex items-center justify-center gap-2 transition-all">
+                         Bấm gửi ảnh ngay <ChevronRight size={16} />
+                      </a>
+                   </div>
+                </div>
               </div>
-            )}
-          </header>
-
-          <article 
-            className="prose prose-emerald prose-lg md:prose-xl max-w-none selection:bg-emerald-100"
-            style={{ 
-              wordBreak: 'normal', 
-              overflowWrap: 'break-word', 
-              lineHeight: '1.8',
-              color: '#334155'
-            }}
-            dangerouslySetInnerHTML={{ __html: blog.content }}
-          />
-
-          <div className="mt-20 p-12 bg-emerald-900 rounded-[3rem] text-white text-center">
-             <h3 className="text-3xl font-black italic uppercase mb-6">Cần kỹ sư tư vấn ngay?</h3>
-             <p className="text-emerald-100/70 mb-8 font-medium">Bà con đừng ngần ngại, hãy nhắn tin Zalo để được giải đáp miễn phí 24/7.</p>
-             <a href="https://zalo.me/0773440966" className="inline-block bg-emerald-500 hover:bg-emerald-400 px-12 py-5 rounded-2xl font-black uppercase tracking-widest text-sm transition-all shadow-xl">Nhắn Zalo Ngay</a>
+            </aside>
           </div>
+
+          {/* BOTTOM RELATED BLOGS */}
+          {relatedBlogs && relatedBlogs.length > 0 && (
+            <div className="mt-32 pt-24 border-t border-gray-100 max-w-7xl mx-auto">
+               <div className="flex items-center justify-between mb-16">
+                  <h3 className="text-2xl md:text-5xl font-black text-gray-900 uppercase italic tracking-tighter leading-none">Kiến thức cùng chủ đề</h3>
+               </div>
+               <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+                  {relatedBlogs.map((item: any) => (
+                    <Link key={item.slug} href={`/blog/${item.slug}`} className="group block space-y-6">
+                      <div className="aspect-[16/10] overflow-hidden rounded-[2rem] md:rounded-[3rem] shadow-lg bg-gray-100">
+                        <img src={item.coverImage || item.image || '/images/blog/default-cover.jpg'} alt={item.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                      </div>
+                      <h4 className="text-lg md:text-2xl font-black text-gray-900 leading-tight group-hover:text-emerald-700 transition-colors line-clamp-2 uppercase italic tracking-tighter">
+                        {item.title}
+                      </h4>
+                    </Link>
+                  ))}
+               </div>
+            </div>
+          )}
         </div>
-      </div>
+      </main>
     </div>
   );
 }
