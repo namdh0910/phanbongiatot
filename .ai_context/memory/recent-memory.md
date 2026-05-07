@@ -2,6 +2,11 @@
 
 ## 🕒 Current Context
 - **Date**: 2026-05-07
+- **Latest Activities (Agri-Engineer Agent Design - DONE)**:
+  - **Master Prompt Creation**: Thiết lập `CONTENT_MASTER_PROMPT.md` định nghĩa Persona Kỹ sư Trưởng thực chiến với 15 năm kinh nghiệm, ngôn ngữ thấu cảm và cấu trúc bài viết 9 phần chuyên sâu.
+  - **Agent 8 Upgrade**: Cập nhật `AGENTS.md` nâng cấp `CONTENT_PRODUCER` lên phiên bản PRO, tập trung vào Storytelling và cơ chế phục hồi 7 ngày.
+  - **High-Quality Content Trial**: Viết bài mẫu "Sầu Riêng Vàng Lá Thối Rễ: Lộ trình 7 ngày phục hồi" với phong cách chuyên gia, lồng ghép giải pháp sinh học và CTA cá nhân hóa.
+  - **Database Sync**: Triển khai API seed nội dung chất lượng cao và đồng bộ thành công vào hệ thống.
 - **Latest Activities (Agricultural Image Optimization - DONE)**:
   - **AI Image Generation**: Sử dụng AI tạo bộ 6 ảnh thực tế chuyên sâu cho các bài viết kỹ thuật (Vàng lá sầu riêng, Tuyến trùng, Cà phê mùa khô, Tiêu chết nhanh, Kích rễ, Phục hồi sau thu hoạch).
   - **Content Standardization**: Thay thế toàn bộ ảnh Unsplash/Placeholder bằng ảnh nông nghiệp thực tế đã tạo, lưu trữ tại `public/images/blog/`.

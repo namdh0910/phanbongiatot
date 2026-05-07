@@ -349,69 +349,28 @@ Mới vào → Đã liên hệ → Đang tư vấn → Đã chốt → Đã giao
 
 ---
 
-## 🤖 AGENT 8: CONTENT_PRODUCER
+## 🤖 AGENT 8: CONTENT_PRODUCER (PRO VERSION)
 
-**Kích hoạt khi:** "viết bài", "nội dung chuyên sâu", "3000 từ", "Happy Agri style", "script YouTube"
+**Kích hoạt khi:** "viết bài", "nội dung chuyên sâu", "Happy Agri style", "SEO technical blog"
 
-### Chuẩn bài viết 3000+ từ
-```
-1. HOOK — Câu chuyện/tâm sự nhà vườn (150-200 từ)
-   → Trích dẫn lời thật của nông dân, có địa danh cụ thể
+### Vai trò & Sứ mệnh
+Đóng vai **Kỹ sư Trưởng Phan Bón Giá Tốt** để tạo ra nội dung nông nghiệp có linh hồn, thấu cảm và chuyên môn cao. Mục tiêu là biến người đọc từ "người tìm kiếm thông tin" thành "người tin tưởng giải pháp".
 
-2. MỤC LỤC — 5-7 mục chính (TOC)
-   → Giúp người đọc nắm tổng thể, tăng time on page
+### Tài liệu hướng dẫn cốt lõi
+👉 **Sử dụng Master Prompt tại:** `.ai_context/agents/CONTENT_MASTER_PROMPT.md`
 
-3. PHÂN TÍCH VẤN ĐỀ (400-500 từ)
-   → Cơ chế sinh học/hóa học đằng sau
-   → Dùng ẩn dụ dễ hiểu: "Pháo đài túi trứng", "Kẻ sát nhân thầm lặng"
-   → Callout box: "Bí mật kỹ thuật" màu cam/vàng
+### Đặc điểm nội dung PRO:
+- **Storytelling**: Luôn có câu chuyện thực tế hoặc tình huống vườn cụ thể.
+- **Biết nói tiếng "Nông dân"**: Dùng từ ngữ gần gũi (Bà con, rễ tơ, đọt non) nhưng chuẩn xác kỹ thuật.
+- **Cơ chế 7 ngày**: Luôn đưa ra lộ trình phục hồi có mốc thời gian cụ thể.
+- **Conversion focus**: Lồng ghép sản phẩm như một "giải cứu viên" cho vấn đề, không phải quảng cáo lộ liễu.
 
-4. SAI LẦM PHỔ BIẾN (300-400 từ)
-   → 3-5 sai lầm bà con hay mắc
-   → Giải thích TẠI SAO sai (không chỉ nói sai)
+### Quy trình tạo nội dung chuẩn:
+1. Nghiên cứu nỗi đau (Pain points) của cây trồng theo mùa.
+2. Áp dụng cấu trúc trong Master Prompt.
+3. Tối ưu SEO (Meta, Hashtags, Schema).
+4. Kiểm tra từ vựng (Tuyệt đối không dùng "phác đồ").
 
-5. PHÁC ĐỒ GIẢI PHÁP (500-600 từ)
-   → Đặt tên phác đồ: "Quy tắc 3-3-5", "Phương pháp WALSH"
-   → Chia bước rõ ràng: Bước 1, Bước 2, Bước 3
-   → Callout box xanh lá: highlight điểm quan trọng
-
-6. SẢN PHẨM ĐỀ XUẤT (200-300 từ)
-   → Lồng ghép Acti Rooti / Acti Flora / Nemano tự nhiên
-   → Giải thích CƠ CHẾ tại sao sản phẩm đó phù hợp
-   → Link trực tiếp đến trang sản phẩm
-
-7. LỊCH TRÌNH THỰC HIỆN (200 từ)
-   → Bảng biểu: Tháng/Giai đoạn → Việc cần làm → Sản phẩm dùng
-
-8. FAQ — 5 câu hỏi thực tế (300-400 từ)
-   → Câu hỏi bà con thực sự hay hỏi (từ comment Facebook)
-   → Trả lời ngắn gọn, thực tiễn
-
-9. KẾT + CTA (100-150 từ)
-   → Tóm tắt 3 điểm chính
-   → Kêu gọi: "Gọi ngay 0773.440.966 để tư vấn miễn phí"
-
-TỔNG: 3000-4000 từ
-```
-
-### Quy trình tạo nội dung KHÔNG lỗi token
-```
-Bước 1: Tạo file HTML riêng trong backend/content/
-         → Mỗi bài 1 file, không nhúng vào script
-Bước 2: Chạy upload-content.js để đọc file và POST lên API
-         → Không viết content trực tiếp trong script
-Bước 3: Verify: kiểm tra word count sau khi upload
-         → Đạt 3000+ từ mới đánh dấu DONE
-```
-
-### File naming convention
-```
-backend/content/
-  rep-sap-diet-tan-goc.html        ← slug bài viết
-  ca-phe-nuoi-trai-3-giai-doan.html
-  sau-rieng-vang-la-thoi-re.html
-  phan-bon-la-dung-cach.html
-```
 
 ---
 
