@@ -38,7 +38,6 @@ async function getBlogSafe(slug: string) {
     const blog = await Blog.findOne({ slug }).lean();
     if (!blog) return null;
     
-    // Wrap tables in a responsive div to force scroll and prevent layout break
     let content = String(blog.content || '');
     content = content.replace(/<table/g, '<div class="table-responsive-wrapper" style="width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 2rem 0; border-radius: 12px; border: 1px solid #e2e8f0;"><table');
     content = content.replace(/<\/table>/g, '</table></div>');
@@ -78,7 +77,6 @@ async function getFeaturedProducts() {
 
 // --- STYLE SYSTEM ---
 const globalBlogStyles = `
-  /* Global Overflow Protection */
   html, body {
     max-width: 100vw !important;
     overflow-x: hidden !important;
@@ -113,12 +111,11 @@ const globalBlogStyles = `
     content: ''; display: block; width: 6px; height: 32px; background: #059669; border-radius: 3px;
   }
 
-  /* Table Specific Styles */
   .table-responsive-wrapper table {
     width: 100% !important;
     border-collapse: collapse !important;
     table-layout: auto !important;
-    font-size: 0.875rem !important; /* 14px */
+    font-size: 0.875rem !important;
     line-height: 1.5 !important;
   }
   .table-responsive-wrapper th { 
@@ -127,10 +124,9 @@ const globalBlogStyles = `
     font-weight: 800 !important; 
     white-space: nowrap; 
     border: 1px solid #e2e8f0;
-    font-size: 0.75rem !important; /* 12px for headers */
+    font-size: 0.75rem !important;
     color: #1e293b !important;
     text-transform: uppercase;
-    letter-spacing: 0.025em;
   }
   .table-responsive-wrapper td { 
     padding: 0.75rem 1rem !important; 
@@ -200,7 +196,6 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
                 )}
               </header>
 
-              {/* ARTICLE BODY */}
               <article 
                 id="expert-content-root"
                 className="prose prose-emerald prose-lg md:prose-xl max-w-3xl mx-auto selection:bg-emerald-100"
@@ -208,7 +203,6 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
                 dangerouslySetInnerHTML={{ __html: cleanExpertContent(blog.content) }}
               />
 
-              {/* FINAL CTA */}
               <div className="article-cta">
                  <div className="absolute top-0 right-0 p-8 opacity-10 text-7xl md:text-9xl rotate-12">👨‍🌾</div>
                  <h3 className="text-2xl md:text-5xl font-black uppercase italic tracking-tighter mb-6 leading-tight">
@@ -226,7 +220,8 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
 
             {/* SIDEBAR */}
             <aside className="lg:w-1/3 xl:w-[30%]">
-              <div className="sticky top-32 space-y-12">
+              {/* Static Top Part */}
+              <div className="space-y-12 mb-12">
                 <div className="bg-gray-50 p-8 rounded-[2.5rem] border border-gray-100">
                    <div className="flex items-center gap-4 mb-6">
                       <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center text-2xl">👨‍🔬</div>
@@ -251,6 +246,17 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
                       </a>
                    </div>
                 </div>
+              </div>
+
+              {/* STICKY Table of Contents */}
+              <div className="sticky top-32 space-y-6 px-4 bg-white/80 backdrop-blur-md p-6 rounded-[2.5rem] border border-gray-50">
+                  <h3 className="text-lg font-black text-gray-900 uppercase italic tracking-tighter flex items-center gap-2">
+                    <span className="w-1 h-5 bg-emerald-500 rounded-full" />
+                    Mục lục động
+                  </h3>
+                  <div className="max-h-[60vh] overflow-y-auto pr-2 custom-scrollbar">
+                    <TableOfContents content={blog.content} />
+                  </div>
               </div>
             </aside>
           </div>
