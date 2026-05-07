@@ -170,9 +170,13 @@
   - **Build Recovery & Final Cleanup (Hotfix)**:
     - **Fixed Seed-Blogs Syntax**: Resolved a critical build failure caused by an unclosed template literal and duplicate `content` property in `src/app/api/admin/seed-blogs/route.ts`.
     - **Final Terminology Sweep**: Removed the very last occurrences of "phác đồ" in the blog seeding data to ensure 100% compliance with the new language standards.
-   - **Pathology Data Seeding (Directive 20)**:
-     - **Symptom-to-Solution Bridge**: Seeded 9 detailed technical solutions (Sầu riêng, Cà phê, Cam bưởi) to populate the "Dấu hiệu nhận biết" section on the homepage.
-     - **Database Sync**: Verified and corrected the Atlas database connection to ensure data is visible in production.
+- **Latest Activities (Smart Table Repair & AI Content Fix - DONE)**:
+  - **Smart Table Repair V2**: Triển khai thuật toán sửa bảng 4 lớp (Strong tags, Special separators, Capitalized phrases, Blind split) giúp tự động tách các tiêu đề bảng bị gộp từ Claude/Gemini.
+  - **Manual Repair Button**: Thêm nút "Sửa bảng 🛠️" vào thanh công cụ RichTextEditor, cho phép kỹ sư chủ động sửa lỗi định dạng bảng ngay trong quá trình soạn thảo.
+  - **AI Prompt Hardening**: Cập nhật System Prompt cho AI để ép buộc tạo bảng HTML chuẩn (thead/tbody) và tuân thủ nghiêm ngặt quy tắc không dùng từ "phác đồ".
+  - **Auto-Sync Logic**: Tích hợp cơ chế tự động sửa bảng ngay khi nạp nội dung từ AI vào trang quản trị (`AdminBlogs/page.tsx`).
+  - **Utility Centralization**: Chuyển đổi toàn bộ logic sửa bảng sang `src/utils/tableRepair.ts` để tái sử dụng toàn dự án.
+  - **Markdown Pre-processing**: Bổ sung bộ lọc tiền xử lý Markdown để nhận diện và chuẩn hóa các bảng thiếu dấu phân cách `|`.
 
 
 

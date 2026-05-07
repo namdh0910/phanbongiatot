@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 import 'react-quill-new/dist/quill.snow.css';
 import { AlertTriangle, Lightbulb, Info, CheckSquare, Table, Image as ImageIcon, FileCode } from 'lucide-react';
 import { marked } from 'marked';
+import { repairTablesInHtml } from '@/utils/tableRepair';
 
 const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false }) as any;
 
@@ -90,116 +91,49 @@ export default function RichTextEditor({ value, onChange, label, placeholder }: 
   const handleImportMarkdown = () => {
     const markdown = prompt("Dán nội dung Markdown từ Claude/Gemini vào đây:");
     if (markdown) {
-      // 1. Dọn dẹp mã neo {#anchor} của Claude
+      // 1. Dọn dẹp mã neo {#anchor} của Claude và các ký tự thừa
       let cleanedMarkdown = markdown.replace(/\{#[\w-]+\}/g, '');
       
-      // 2. Tiền xử lý bảng (Đảm bảo hàng tiêu đề không bị gộp)
+      // 2. TIỀN XỬ LÝ BẢNG MẠNH MẼ (Markdown Level)
       const lines = cleanedMarkdown.split('\n');
-      const processedLines = lines.map(line => {
-        let l = line.trim();
-        // Nếu dòng có chứa phím Tab (thường là copy từ UI bảng) -> Chuyển thành Markdown Table
+      const processedLines = [];
+      let lastRowColCount = 0;
+
+      for (let i = 0; i < lines.length; i++) {
+        let l = lines[i].trim();
+        
+        // Phát hiện hàng gạch ngang phân tách bảng |---|---|
+        if (l.match(/^\|?\s*:?-+:?\s*(\|?\s*:?-+:?\s*)*\|?$/)) {
+           processedLines.push(l);
+           continue;
+        }
+
+        // Chuyển đổi Tab hoặc nhiều dấu cách thành phân tách cột
         if (l.includes('\t')) {
-          return '| ' + l.split('\t').join(' | ') + ' |';
+          l = '| ' + l.split('\t').filter(x => x.trim()).join(' | ') + ' |';
+        } else if (/\s{3,}/.test(l) && !l.startsWith('|')) {
+          l = '| ' + l.split(/\s{3,}/).filter(x => x.trim()).join(' | ') + ' |';
         }
-        // Nếu dòng có nhiều dấu cách liên tiếp (2 trở lên) -> Cũng coi là phân tách cột
-        if (/\s{2,}/.test(l) && !l.startsWith('|')) {
-          return '| ' + l.split(/\s{2,}/).join(' | ') + ' |';
+
+        // Chuẩn hóa dòng có | nhưng thiếu ở đầu/cuối
+        if (l.includes('|') && !l.startsWith('|')) l = '| ' + l;
+        if (l.includes('|') && !l.endsWith('|')) l = l + ' |';
+
+        // Đếm số cột để hỗ trợ hàng tiếp theo
+        if (l.startsWith('|')) {
+          const colCount = l.split('|').filter(part => part.trim().length > 0).length;
+          lastRowColCount = colCount;
         }
-        if (l.includes('|') && !l.includes('---')) {
-          if (!l.startsWith('|')) l = '| ' + l;
-          if (!l.endsWith('|')) l = l + ' |';
-          return l;
-        }
-        return line;
-      });
+
+        processedLines.push(l);
+      }
       cleanedMarkdown = processedLines.join('\n');
 
       // 3. Chuyển đổi Markdown sang HTML
       let htmlString = marked.parse(cleanedMarkdown) as string;
       
-      // 4. THUẬT TOÁN SỬA BẢNG THÔNG MINH (Smart Repair)
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(htmlString, 'text/html');
-      const tables = doc.querySelectorAll('table');
-
-      tables.forEach(table => {
-        const thead = table.querySelector('thead');
-        const firstRow = table.querySelector('tbody tr');
-        
-        if (thead && firstRow) {
-          const headerCells = thead.querySelectorAll('th');
-          const bodyCells = firstRow.querySelectorAll('td');
-          
-          if (headerCells.length === 1 && bodyCells.length > 1) {
-            const cell = headerCells[0];
-            const strongTags = cell.querySelectorAll('strong');
-            let titles: string[] = [];
-
-            if (strongTags.length === bodyCells.length) {
-              titles = Array.from(strongTags).map(s => s.textContent || "").filter(t => t.trim());
-            } else {
-              const headerText = cell.textContent || "";
-              // Nếu không có ký tự xuống dòng, thử tách theo khoảng trắng đơn
-              // nhưng chỉ khi số từ khớp với số cột
-              const words = headerText.split(/\s+/).filter(w => w.length > 0);
-              if (words.length === bodyCells.length) {
-                titles = words;
-              } else {
-                titles = headerText.split(/\n|\s{2,}/).map(t => t.trim()).filter(t => t.length > 0);
-              }
-            }
-            
-            // Nếu vẫn chưa tách được đủ số cột, thử tách "mù" theo số lượng cột
-            if (titles.length !== bodyCells.length && bodyCells.length > 1) {
-                const headerText = cell.textContent || "";
-                const words = headerText.split(/\s+/).filter(w => w.length > 0);
-                if (words.length > bodyCells.length) {
-                   // Gộp các từ lại để đủ số cột
-                   const wordsPerCol = Math.ceil(words.length / bodyCells.length);
-                   titles = [];
-                   for (let i = 0; i < bodyCells.length; i++) {
-                      titles.push(words.slice(i * wordsPerCol, (i + 1) * wordsPerCol).join(' '));
-                   }
-                }
-            }
-              const newTr = doc.createElement('tr');
-              titles.forEach(title => {
-                const th = doc.createElement('th');
-                th.textContent = title;
-                th.style.border = "1px solid #cbd5e0";
-                th.style.padding = "15px";
-                th.style.backgroundColor = "#f7fafc";
-                th.style.color = "#1a5c2a";
-                th.style.fontWeight = "800";
-                th.style.textAlign = "left";
-                newTr.appendChild(th);
-              });
-              thead.innerHTML = '';
-              thead.appendChild(newTr);
-          }
-        }
-
-        // Áp dụng style cho tất cả th/td để chắc chắn
-        table.style.width = "100%";
-        table.style.borderCollapse = "collapse";
-        table.style.margin = "20px 0";
-        table.style.border = "1px solid #cbd5e0";
-        
-        table.querySelectorAll('th').forEach(th => {
-          th.style.border = "1px solid #cbd5e0";
-          th.style.padding = "15px";
-          th.style.backgroundColor = "#f7fafc";
-          th.style.color = "#1a5c2a";
-          th.style.fontWeight = "800";
-        });
-        
-        table.querySelectorAll('td').forEach(td => {
-          td.style.border = "1px solid #cbd5e0";
-          td.style.padding = "12px";
-        });
-      });
-
-      const finalHtml = doc.body.innerHTML;
+      // 4. SỬA BẢNG THÔNG MINH V2
+      const finalHtml = repairTablesInHtml(htmlString);
 
       const quill = quillRef.current?.getEditor();
       if (quill) {
@@ -302,6 +236,21 @@ export default function RichTextEditor({ value, onChange, label, placeholder }: 
          </button>
          <button type="button" onClick={() => insertTemplate(templates.image)} className="flex items-center gap-1.5 px-3 py-2 bg-gray-800 text-gray-300 rounded-xl text-[10px] font-black hover:bg-gray-700 transition-all border border-gray-700 active:scale-95 uppercase tracking-wider">
             <ImageIcon size={12} /> Ảnh minh họa 📷
+         </button>
+
+         <button 
+            type="button" 
+            onClick={() => {
+              const quill = quillRef.current?.getEditor();
+              if (quill) {
+                const currentHtml = quill.root.innerHTML;
+                const repairedHtml = repairTablesInHtml(currentHtml);
+                quill.root.innerHTML = repairedHtml;
+              }
+            }} 
+            className="flex items-center gap-1.5 px-3 py-2 bg-amber-900/30 text-amber-400 rounded-xl text-[10px] font-black hover:bg-amber-900/50 transition-all border border-amber-900/30 active:scale-95 uppercase tracking-wider"
+         >
+            <Table size={12} /> Sửa bảng 🛠️
          </button>
 
          <div className="flex-1" />
