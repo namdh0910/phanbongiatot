@@ -204,16 +204,18 @@ export default function RichTextEditor({ value, onChange, label, placeholder }: 
       </div>
 
       <div className="bg-white border-2 border-gray-100 rounded-[2rem] overflow-hidden focus-within:border-[#1a5c2a] transition-all shadow-lg shadow-gray-100">
-        <ReactQuill
-          ref={quillRef}
-          theme="snow"
-          value={value}
-          onChange={onChange}
-          modules={modules}
-          formats={formats}
-          placeholder={placeholder}
-          className="bg-white min-h-[450px] font-medium text-gray-800 expert-editor"
-        />
+        <div className="max-h-[700px] overflow-y-auto custom-editor-scroll">
+          <ReactQuill
+            ref={quillRef}
+            theme="snow"
+            value={value}
+            onChange={onChange}
+            modules={modules}
+            formats={formats}
+            placeholder={placeholder}
+            className="bg-white font-medium text-gray-800 expert-editor"
+          />
+        </div>
       </div>
 
       {/* Word Count Bar */}
@@ -305,6 +307,28 @@ export default function RichTextEditor({ value, onChange, label, placeholder }: 
         }
         .expert-editor tr:nth-child(even) {
           background-color: #fafbfb;
+        }
+        .custom-editor-scroll::-webkit-scrollbar {
+          width: 8px;
+        }
+        .custom-editor-scroll::-webkit-scrollbar-track {
+          background: #f1f1f1;
+        }
+        .custom-editor-scroll::-webkit-scrollbar-thumb {
+          background: #cbd5e0;
+          border-radius: 4px;
+        }
+        .custom-editor-scroll::-webkit-scrollbar-thumb:hover {
+          background: #a0aec0;
+        }
+        .expert-editor .ql-toolbar {
+          position: sticky;
+          top: 0;
+          z-index: 100;
+          background: white;
+          border-top: none;
+          border-left: none;
+          border-right: none;
         }
       `}</style>
     </div>
