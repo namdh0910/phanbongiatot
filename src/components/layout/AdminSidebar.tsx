@@ -11,6 +11,7 @@ export default function AdminSidebar() {
   const links = [
     { href: "/admin/dashboard", label: "Tổng Quan (Stats)", icon: "📊" },
     { href: "/admin/leads", label: "Khách Hàng (Leads)", icon: "💬" },
+    { href: "/admin/landings", label: "Landing Pages (Mới)", icon: "🚀" },
     { href: "/admin/blogs", label: "Nội Dung (Blog/Video)", icon: "🎥" },
     { href: "/admin/solutions", label: "Quy trình xử lý (Guides)", icon: "🩺" },
     { href: "/admin/products", label: "Sản Phẩm (Catalog)", icon: "📦" },
