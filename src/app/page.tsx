@@ -270,6 +270,7 @@ export default function LandingPage() {
                       <p className="text-[10px] md:text-xs text-gray-400 line-through font-bold">{product.originalPrice?.toLocaleString()}đ</p>
                     )}
                     <p className="text-xs md:text-base text-emerald-700 font-black mb-2 md:mb-4">{product.price?.toLocaleString()}đ</p>
+                  </div>
                   
                   {/* Action Buttons */}
                   <div className="mt-auto grid grid-cols-2 gap-2">
