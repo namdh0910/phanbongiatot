@@ -30,9 +30,8 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Missing required fields (Title or Content)' }, { status: 400 });
     }
 
-    // Server-side content cleaning (Word Stitching & Anchor removal)
+    // Server-side content cleaning (Anchor removal & space normalization)
     body.content = body.content
-      .replace(/\r?\n|\r/g, '') // Strip all newlines
       .replace(/\{#[\w-]+\}/g, '') // Remove {#anchor}
       .replace(/\s{2,}/g, ' ') // Normalize spaces
       .trim();
@@ -53,6 +52,7 @@ export async function POST(request: Request) {
     
     return NextResponse.json({ blog }, { status: 201 });
   } catch (error: any) {
+    console.error('Blog save error:', error);
     if (error.code === 11000) {
       return NextResponse.json({ error: 'Slug/Title already exists' }, { status: 400 });
     }

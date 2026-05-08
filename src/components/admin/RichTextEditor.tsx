@@ -190,8 +190,9 @@ export default function RichTextEditor({ value, onChange, label, placeholder }: 
 
   const getWordCountStatus = () => {
     if (wordCount === 0) return { color: 'text-gray-400', label: 'Chưa bắt đầu' };
-    if (wordCount < 1000) return { color: 'text-red-500', label: 'Nội dung quá ngắn' };
-    if (wordCount < 2000) return { color: 'text-yellow-500', label: 'Cần viết thêm' };
+    if (wordCount < 300) return { color: 'text-red-500', label: 'Nội dung quá ngắn' };
+    if (wordCount < 800) return { color: 'text-amber-500', label: 'Tốt (Cơ bản)' };
+    if (wordCount < 1500) return { color: 'text-blue-500', label: 'Chuyên sâu' };
     return { color: 'text-green-600', label: 'Đạt chuẩn PBGT' };
   };
 

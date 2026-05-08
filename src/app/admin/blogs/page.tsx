@@ -185,11 +185,11 @@ export default function AdminBlogs() {
           </div>
 
           <form onSubmit={handleSubmit} className="p-8 pt-4 space-y-8">
-            {message && (
-              <div className={`p-4 rounded-xl text-xs font-bold border ${message.includes('✅') ? 'bg-green-50 text-green-700 border-green-100' : 'bg-red-50 text-red-700 border-red-100'}`}>
-                {message}
-              </div>
-            )}
+             {message && (
+               <div className={`p-5 rounded-2xl text-sm font-bold border shadow-sm animate-in fade-in slide-in-from-top-2 duration-300 ${message.includes('✅') ? 'bg-green-50 text-green-700 border-green-100' : 'bg-red-50 text-red-700 border-red-100'}`}>
+                 {message}
+               </div>
+             )}
 
             <div className="space-y-8">
                {/* Phần 1: Thông tin cơ bản - Chia 2 cột */}
