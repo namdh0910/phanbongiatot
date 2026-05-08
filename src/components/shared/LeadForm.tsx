@@ -75,7 +75,7 @@ export default function LeadForm({ product, initialPathology, initialCrop }: Lea
   }
 
   return (
-    <div className="bg-white p-6 md:p-10 rounded-[2.5rem] border border-gray-100 shadow-xl shadow-gray-200/50">
+    <div className="bg-white p-3 md:p-10 rounded-[2.5rem] border border-gray-50 shadow-xl shadow-gray-200/40">
       <div className="flex flex-col items-center text-center mb-8">
          <span className="bg-orange-100 text-orange-600 px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest mb-3 italic">Hỗ trợ bà con trực tiếp</span>
          <h3 className="text-2xl font-black text-gray-900 uppercase italic tracking-tight">Yêu cầu tư vấn ngay</h3>

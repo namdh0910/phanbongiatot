@@ -264,10 +264,10 @@ export default function NemanoPerformanceLanding() {
                 </div>
              </div>
 
-             <div className="flex-1 p-8 md:p-20 bg-white">
-                <div className="mb-10 md:mb-16">
+             <div className="flex-1 p-5 md:p-20 bg-white">
+                <div className="mb-8 md:mb-16 text-center lg:text-left">
                    <h4 className="text-2xl md:text-4xl font-black text-gray-900 uppercase italic tracking-tighter mb-4">Nhận tư vấn ngay:</h4>
-                   <p className="text-gray-500 font-medium text-sm md:text-lg italic">Bà con vui lòng để lại số điện thoại chính xác để kỹ sư liên hệ hỗ trợ phác đồ tốt nhất.</p>
+                   <p className="text-gray-500 font-medium text-xs md:text-lg italic">Bà con vui lòng để lại số điện thoại chính xác để kỹ sư liên hệ hỗ trợ phác đồ tốt nhất.</p>
                 </div>
                 <LeadForm initialPathology="Đặc trị tuyến trùng sưng rễ" initialCrop="Sầu riêng" />
                 <div className="mt-12 flex items-center justify-center gap-3 text-[9px] md:text-xs text-gray-400 font-black uppercase tracking-widest">

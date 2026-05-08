@@ -92,9 +92,9 @@ export default function SicobiPerformanceLanding() {
 
             <div className="flex-1 relative group">
                <img 
-                src="https://res.cloudinary.com/dztidbkhv/image/upload/v1740375836/phanbongiatot/sicobi-50kg.png" 
+                src="/images/products/photo_6332526088357088944_y.jpg" 
                 alt="Sicobi 50kg" 
-                className="w-full max-w-[280px] md:max-w-md mx-auto drop-shadow-[0_50px_100px_rgba(0,0,0,0.4)] group-hover:scale-105 transition-transform duration-700"
+                className="w-full max-w-[280px] md:max-w-md mx-auto rounded-[2rem] shadow-2xl group-hover:scale-105 transition-transform duration-700"
                />
                <div className="absolute inset-0 bg-emerald-500/20 blur-[100px] rounded-full -z-10 animate-pulse"></div>
             </div>
@@ -260,10 +260,10 @@ export default function SicobiPerformanceLanding() {
                 </div>
              </div>
 
-             <div className="flex-1 p-8 md:p-20 bg-white">
-                <div className="mb-10 md:mb-16">
+             <div className="flex-1 p-4 md:p-20 bg-white">
+                <div className="mb-6 md:mb-16 text-center lg:text-left">
                    <h4 className="text-2xl md:text-4xl font-black text-gray-900 uppercase italic tracking-tighter mb-4">Đăng ký phác đồ:</h4>
-                   <p className="text-gray-500 font-medium text-sm md:text-lg italic">Bà con vui lòng nhập đúng số điện thoại để kỹ thuật viên liên hệ hỗ trợ kịp thời.</p>
+                   <p className="text-gray-500 font-medium text-xs md:text-lg italic px-4 md:px-0">Bà con vui lòng nhập đúng số điện thoại để kỹ thuật viên liên hệ hỗ trợ kịp thời.</p>
                 </div>
                 <LeadForm initialPathology="Phục hồi đất chai cứng & kích rễ" initialCrop="Sầu riêng" />
                 <div className="mt-12 flex items-center justify-center gap-3 text-[9px] md:text-xs text-gray-400 font-black uppercase tracking-widest">

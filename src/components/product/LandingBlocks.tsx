@@ -176,16 +176,16 @@ export const RecoveryTimeline = ({ steps, title, sub }: { steps: { day: string, 
         <p className="text-emerald-100/60 font-medium text-sm md:text-xl">{sub || "Cam kết hiệu quả nhìn thấy bằng mắt thường theo từng giai đoạn kỹ thuật."}</p>
       </div>
       
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-16">
+      <div className="flex flex-col md:flex-row gap-16 md:gap-16">
         {steps.map((step, i) => (
-          <div key={i} className="relative">
+          <div key={i} className="relative flex-1">
             {i < steps.length - 1 && <div className="hidden md:block absolute top-10 left-full w-full border-t-2 border-dashed border-emerald-800 z-0"></div>}
             <div className="relative z-10 flex flex-col items-center md:items-start text-center md:text-left">
-              <div className="w-12 h-12 md:w-20 md:h-20 bg-emerald-500 text-white rounded-2xl md:rounded-[1.5rem] flex items-center justify-center text-xl md:text-3xl font-black mb-4 md:mb-6 shadow-xl shadow-emerald-900/50">
+              <div className="w-16 h-16 md:w-20 md:h-20 bg-emerald-500 text-white rounded-[1.5rem] flex items-center justify-center text-2xl md:text-3xl font-black mb-6 shadow-xl shadow-emerald-900/50">
                 {step.day}
               </div>
-              <h4 className="text-base md:text-2xl font-black mb-2 md:mb-4 uppercase italic tracking-tight text-emerald-400">{step.icon}</h4>
-              <p className="text-emerald-100/80 font-medium text-xs md:text-lg leading-relaxed">{step.effect}</p>
+              <h4 className="text-xl md:text-2xl font-black mb-3 md:mb-4 uppercase italic tracking-tight text-emerald-400 leading-tight">{step.icon}</h4>
+              <p className="text-emerald-100/80 font-medium text-sm md:text-lg leading-relaxed px-4 md:px-0">{step.effect}</p>
             </div>
           </div>
         ))}
