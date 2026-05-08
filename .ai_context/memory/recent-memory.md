@@ -7,6 +7,7 @@
   - **Nemano Landing Hotfixes**:
     - Khôi phục ảnh thật (Real Assets Restoration): Thay thế toàn bộ ảnh AI bằng ảnh sản phẩm thật và ảnh cơ chế sinh học lấy trực tiếp từ hệ thống dữ liệu Cloudinary.
     - Nâng cấp Chẩn đoán (Diagnostic Upgrade): Cập nhật `DiagnosticSection` để hiển thị hình ảnh thực tế của rễ sưng cục và vàng lá, giúp bà con dễ dàng nhận diện bệnh lý.
+    - Chuẩn hóa thuật ngữ (Terminology Correction): Chuyển toàn bộ các từ ngữ mang tính tiêu diệt/đặc trị sang **Phòng ngừa/Kiểm soát/Ức chế** để phản ánh đúng tính chất sản phẩm bảo vệ rễ.
     - Sửa lỗi đè chữ (Text Overlap): Điều chỉnh `leading` và `tracking` trong phần "Công nghệ Đột phá" để đảm bảo hiển thị rõ ràng trên thiết bị di động.
   - **Fuvico-Sicobi Landing Hotfixes**:
     - Tích hợp bộ ảnh thực tế: Thay thế toàn bộ ảnh bao bì cũ bằng bộ ảnh chụp thật (mặt trước, mặt sau) của sản phẩm Fuvico Sicobi.

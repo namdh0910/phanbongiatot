@@ -31,9 +31,9 @@ export default function NemanoPerformanceLanding() {
   const landingSchema = {
     "@context": "https://schema.org",
     "@type": "Product",
-    "name": "Nemano - Khắc tinh tuyến trùng sưng rễ",
+    "name": "Nemano - Giải pháp phòng ngừa tuyến trùng sưng rễ",
     "image": "/images/products/nemano-7010.webp",
-    "description": "Đặc trị tuyến trùng, tiêu diệt trứng và phục hồi bộ rễ tơ trắng xóa.",
+    "description": "Kiểm soát tuyến trùng, ngăn chặn trứng nở và bảo vệ bộ rễ tơ trắng xóa.",
     "brand": { "@type": "Brand", "name": "PBGT" },
     "offers": {
       "@type": "Offer",
@@ -51,7 +51,7 @@ export default function NemanoPerformanceLanding() {
       {/* 1. ELITE STICKY CTA (MOBILE) */}
       <div className="fixed bottom-0 left-0 right-0 z-[100] md:hidden bg-white/95 backdrop-blur-xl border-t border-gray-100 p-4 flex gap-3 shadow-[0_-10px_40px_rgba(0,0,0,0.1)]">
         <a href="#order-form" className="flex-[1.5] bg-red-600 text-white flex flex-col items-center justify-center py-3 rounded-2xl font-black uppercase shadow-lg active:scale-95 transition-all">
-          <span className="text-[10px] opacity-80 italic">Diệt tận gốc tuyến trùng</span>
+          <span className="text-[10px] opacity-80 italic">Ngăn chặn tuyến trùng bùng phát</span>
           <span className="text-xs">ĐĂNG KÝ TƯ VẤN NGAY</span>
         </a>
         <a href="tel:0339505050" className="flex-1 bg-[#1a5c2a] text-white flex items-center justify-center py-3 rounded-2xl font-black uppercase shadow-lg active:scale-95 transition-all">
@@ -74,13 +74,13 @@ export default function NemanoPerformanceLanding() {
               
               <h1 className="text-[32px] md:text-8xl font-black text-white leading-tight mb-6 md:mb-10 tracking-tighter">
                 NEMANO - <br /> 
-                <span className="text-red-500 italic">"ÁN TỬ" CHO</span> <br />
+                <span className="text-emerald-500 italic">"BẢO VỆ" KHỎI</span> <br />
                 <span className="text-[#f5a623]">TUYẾN TRÙNG</span>
               </h1>
               
               <p className="text-emerald-100/80 text-base md:text-2xl mb-8 md:mb-12 leading-relaxed font-medium italic">
                 "Rễ sưng cục, thối đen, bón phân cây không ăn? <br className="hidden md:block"/>
-                Đó là giặc ngầm Tuyến trùng. Nemano tiêu diệt triệt để trứng và ấu trùng, hồi sinh rễ mới trắng xóa."
+                Hãy chủ động phòng vệ trước Tuyến trùng. Nemano ức chế triệt để trứng và ấu trùng, bảo vệ rễ mới trắng xóa."
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
@@ -118,7 +118,7 @@ export default function NemanoPerformanceLanding() {
             },
             { 
               symptom: "Cây đứng sững, không ra đọt non", 
-              root_cause: "Hệ thống 'miệng' của cây đã bị phá hủy hoàn toàn. Cần diệt tuyến trùng để phục hồi rễ mới.",
+              root_cause: "Hệ thống 'miệng' của cây đã bị phá hủy hoàn toàn. Cần kiểm soát tuyến trùng để phục hồi rễ mới.",
               image: "/images/blog/kich-re-cay-trong.png"
             }
           ]} />
@@ -133,10 +133,10 @@ export default function NemanoPerformanceLanding() {
       <section className="py-12 md:py-32 bg-gray-50">
         <div className="container mx-auto px-4 max-w-6xl">
            <RecoveryTimeline 
-             title="Quy trình 3 tác động tiêu diệt tuyến trùng"
-             sub="Không chỉ diệt, Nemano còn nuôi dưỡng và bảo vệ bộ rễ tơ mới."
+             title="Quy trình 3 tác động kiểm soát tuyến trùng"
+             sub="Không chỉ ngăn chặn, Nemano còn nuôi dưỡng và bảo vệ bộ rễ tơ mới."
              steps={[
-               { day: "Ngày 1-2", icon: "⚔️ Tiêu diệt", effect: "Tấn công trực tiếp vào trứng và ấu trùng tuyến trùng trong đất, ngăn chặn sự lây lan." },
+               { day: "Ngày 1-2", icon: "🛡️ Ngăn chặn", effect: "Bao vây và ức chế trực tiếp trứng và ấu trùng tuyến trùng trong đất, ngăn chặn sự lây lan." },
                { day: "Ngày 3-7", icon: "🩹 Phục hồi", effect: "Làm lành vết thương rễ, cung cấp vi lượng sinh học kích thích rễ tơ nhú trắng." },
                { day: "Ngày 10-15", icon: "🛡️ Bảo vệ", effect: "Thiết lập hệ vi sinh vật có lợi, tạo lá chắn ngăn chặn nấm bệnh tái xâm nhập." }
              ]} 
@@ -150,13 +150,13 @@ export default function NemanoPerformanceLanding() {
            <div className="flex flex-col lg:flex-row items-center gap-16 md:gap-24">
               <div className="flex-1 space-y-8 md:space-y-12">
                  <h2 className="text-[28px] md:text-6xl font-black uppercase italic tracking-tight leading-tight">
-                   Công nghệ <span className="text-red-600">ĐỘT PHÁ</span> <br/>
-                   Diệt tận trứng
+                   Công nghệ <span className="text-emerald-600">ĐỘT PHÁ</span> <br/>
+                   Ức chế trứng
                  </h2>
                  <div className="space-y-6">
                     {[
                       { title: "Phá vỡ lớp vỏ trứng", text: "Enzyme đặc hiệu làm tan lớp màng bảo vệ trứng tuyến trùng, ngăn chặn lứa mới bùng phát." },
-                      { title: "Tiêu diệt ấu trùng 48h", text: "Nồng độ vi sinh cao tấn công hệ thần kinh tuyến trùng ngay khi tiếp xúc." },
+                      { title: "Kiểm soát ấu trùng 48h", text: "Nồng độ vi sinh cao ức chế hệ thần kinh tuyến trùng ngay khi tiếp xúc." },
                       { title: "Hệ đệm phục hồi rễ", text: "Bổ sung hormone sinh trưởng tự nhiên giúp đầu rễ nhú trắng xóa, bám đất mạnh." }
                     ].map((item, i) => (
                       <div key={i} className="flex gap-6 group">
@@ -198,8 +198,8 @@ export default function NemanoPerformanceLanding() {
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
                {[
-                 { name: "Anh Tâm (Krông Pắc)", crop: "Vườn Sầu Riêng", text: "Vườn sầu riêng 3 năm tuổi bị vàng lá, bới rễ thấy sưng như hạt đậu. Dùng Nemano được 2 lần rễ ra trắng, cơi đọt vươn mạnh lắm." },
-                 { name: "Chú Năm (Lâm Đồng)", crop: "Vườn Cà Phê", text: "Nemano trị tuyến trùng hay thiệt. Trước đây bón phân hóa học mãi không hết sưng rễ, dùng cái này đất xốp mà rễ khỏe hẳn." },
+                 { name: "Anh Tâm (Krông Pắc)", crop: "Vườn Sầu Riêng", text: "Vườn sầu riêng 3 năm tuổi bị vàng lá, bới rễ thấy sưng như hạt đậu. Dùng Nemano phòng ngừa định kỳ rễ ra trắng, cơi đọt vươn mạnh lắm." },
+                 { name: "Chú Năm (Lâm Đồng)", crop: "Vườn Cà Phê", text: "Nemano kiểm soát tuyến trùng hay thiệt. Trước đây bón phân hóa học mãi không hết sưng rễ, dùng cái này đất xốp mà rễ khỏe hẳn." },
                  { name: "Chị Huệ (Đắk Nông)", crop: "Vườn Hồ Tiêu", text: "Tiêu bị chết chậm, lá cứ rụng dần. Nhờ kỹ sư PBGT tư vấn Nemano mà cứu được vườn tiêu, năm nay trái đậu sai trĩu." }
                ].map((item, i) => (
                  <div key={i} className="bg-white p-8 md:p-12 rounded-[3rem] border border-white shadow-xl shadow-gray-200/40 relative group">
@@ -224,7 +224,7 @@ export default function NemanoPerformanceLanding() {
       <section className="py-12 md:py-32 bg-white">
          <div className="container mx-auto px-4 max-w-5xl">
             <PerformanceCTA 
-               title="Tiêu diệt Tuyến trùng - Bảo vệ vườn sầu"
+               title="Kiểm soát Tuyến trùng - Bảo vệ vườn sầu"
                sub="Đừng để tuyến trùng âm thầm phá hủy tài sản của bà con. Nhận ngay tư vấn giải pháp chuyên sâu từ đội ngũ kỹ sư giàu kinh nghiệm."
                btnText="ĐĂNG KÝ TƯ VẤN NGAY"
                href="#order-form"
@@ -239,7 +239,7 @@ export default function NemanoPerformanceLanding() {
           <div className="max-w-6xl mx-auto bg-white rounded-[3rem] md:rounded-[4.5rem] shadow-2xl overflow-hidden flex flex-col lg:flex-row">
 
              <div className="flex-1 p-5 md:p-20 bg-white">
-                <LeadForm initialPathology="Đặc trị tuyến trùng sưng rễ" initialCrop="Sầu riêng" />
+                <LeadForm initialPathology="Phòng ngừa tuyến trùng sưng rễ" initialCrop="Sầu riêng" />
                 <div className="mt-12 flex items-center justify-center gap-3 text-[9px] md:text-xs text-gray-400 font-black uppercase tracking-widest">
                    <ShieldCheck size={16} /> Tuyệt đối bảo mật thông tin nhà vườn
                 </div>
@@ -255,7 +255,7 @@ export default function NemanoPerformanceLanding() {
                <Flame className="text-red-600" size={20} />
                <span className="text-gray-900 font-black uppercase tracking-[0.3em] text-xs">Phan Bón Giá Tốt</span>
             </div>
-            <p className="text-gray-400 text-[9px] font-bold uppercase tracking-widest">© 2026 NEMANO BY PHAN BÓN GIÁ TỐT - KHẮC TINH TUYẾN TRÙNG</p>
+            <p className="text-gray-400 text-[9px] font-bold uppercase tracking-widest">© 2026 NEMANO BY PHAN BÓN GIÁ TỐT - PHÒNG NGỪA TUYẾN TRÙNG</p>
          </div>
       </footer>
     </div>
