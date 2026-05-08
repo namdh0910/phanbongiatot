@@ -12,10 +12,18 @@ import {
   CheckCircle2,
   ArrowRight,
   Package,
-  Zap
+  Zap,
+  Info
 } from 'lucide-react';
 import Breadcrumbs from '@/components/ui/Breadcrumbs';
 import ProductGallery from '@/components/product/ProductGallery';
+import { 
+  ProductSymptoms, 
+  ProductUsage, 
+  ProductFAQ, 
+  ExpertAdvice, 
+  ProductTrustBadges 
+} from '@/components/product/LandingBlocks';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
@@ -210,31 +218,59 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             </div>
           </div>
 
-          {/* Detailed Info - Section Optimized */}
-          <div className="mt-6 md:mt-16 pt-6 md:pt-12 border-t border-gray-100 space-y-6 md:space-y-8">
-             <div className="bg-emerald-50/20 p-4 md:p-12 rounded-2xl md:rounded-[3.5rem] border border-emerald-100/30">
-                <h3 className="text-base md:text-3xl font-black text-emerald-900 uppercase italic tracking-tight mb-3 md:mb-5 flex items-center gap-2">
-                   <span className="w-1 md:w-1.5 h-4 md:h-6 bg-orange-500 rounded-full" />
-                   Công dụng chuyên sâu
-                </h3>
-                <div 
-                  className="text-gray-700 leading-relaxed font-medium prose prose-emerald prose-xs md:prose-xl max-w-none prose-p:mb-2 prose-strong:text-emerald-900 prose-ul:list-disc prose-ul:pl-4 prose-li:mb-1"
-                  dangerouslySetInnerHTML={{ __html: product.description.replace(/\n/g, '<br/>') }}
-                ></div>
-             </div>
+          {/* 3. CORE LANDING BLOCKS (NEW) */}
+          <div className="mt-12 md:mt-24 space-y-8 md:space-y-16">
+            
+            {/* Symptoms / Pain Points */}
+            <ProductSymptoms symptoms={product.symptoms && product.symptoms.length > 0 ? product.symptoms : [
+              "Cây suy kiệt, không ra đọt mới",
+              "Lá vàng, rụng lá hàng loạt",
+              "Bộ rễ thối đen, không có rễ tơ",
+              "Đất chai cứng, bạc màu, khó hấp thụ phân"
+            ]} />
 
-              {product.features && product.features.length > 0 && (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-6">
-                   {(product.features || []).map((feature: string, i: number) => (
-                      <div key={i} className="flex items-center gap-3 md:gap-6 bg-white p-3 md:p-6 rounded-xl md:rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                         <div className="w-8 h-8 md:w-12 md:h-12 bg-emerald-100 rounded-full flex items-center justify-center flex-shrink-0">
-                           <CheckCircle2 className="text-emerald-700 w-4 h-4 md:w-6 md:h-6" />
-                         </div>
-                         <span className="text-sm md:text-lg font-bold text-gray-800">{feature}</span>
-                      </div>
-                   ))}
-                </div>
-              )}
+            {/* Expert Advice */}
+            <ExpertAdvice advice={product.expert_advice || "Đối với vườn đang bị suy nặng, bà con nên ưu tiên phục hồi bộ rễ trước khi bón phân hóa học. Sản phẩm này sẽ giúp mở khóa đất và kích thích rễ tơ bung trắng xóa."} />
+
+            {/* Detailed Description / Công dụng */}
+            <div className="bg-white rounded-3xl p-6 md:p-12 border border-gray-100 shadow-sm">
+              <h3 className="text-xl md:text-3xl font-black text-emerald-900 uppercase italic tracking-tight mb-6 flex items-center gap-3">
+                <span className="w-1 md:w-2 h-6 md:h-8 bg-orange-500 rounded-full" />
+                Công Dụng Chuyên Sâu
+              </h3>
+              <div 
+                className="text-gray-700 leading-relaxed font-medium prose prose-emerald prose-sm md:prose-xl max-w-none prose-p:mb-4 prose-strong:text-emerald-900 prose-ul:list-disc prose-ul:pl-6 prose-li:mb-2"
+                dangerouslySetInnerHTML={{ __html: product.description.replace(/\n/g, '<br/>') }}
+              ></div>
+            </div>
+
+            {/* Features Grid */}
+            {product.features && product.features.length > 0 && (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                 {product.features.map((feature: string, i: number) => (
+                    <div key={i} className="flex items-center gap-4 bg-emerald-50/30 p-4 md:p-6 rounded-2xl border border-emerald-100/50 group hover:bg-emerald-100 transition-colors">
+                       <div className="w-10 h-10 bg-emerald-500 text-white rounded-full flex items-center justify-center flex-shrink-0">
+                         <CheckCircle2 size={20} />
+                       </div>
+                       <span className="text-base md:text-lg font-black text-emerald-900 uppercase italic tracking-tighter">{feature}</span>
+                    </div>
+                 ))}
+              </div>
+            )}
+
+            {/* Usage Process */}
+            <ProductUsage instructions={product.usage_instructions || "1. Pha 1kg cho 400-600 lít nước.\n2. Tưới đẫm quanh tán cây hoặc xịt trực tiếp lên lá.\n3. Định kỳ 15-20 ngày dùng 1 lần để đạt hiệu quả cao nhất."} />
+
+            {/* Trust Badges */}
+            <ProductTrustBadges />
+
+            {/* Technical FAQ */}
+            <ProductFAQ faqs={product.faqs && product.faqs.length > 0 ? product.faqs : [
+              { question: "Sản phẩm có dùng được cho cây con không?", answer: "Dạ được anh nhé! Sản phẩm rất mát rễ, giúp cây con phát triển bộ khung tán vững chắc ngay từ giai đoạn kiến thiết." },
+              { question: "Dùng bao lâu thì thấy hiệu quả?", answer: "Thông thường sau 7-10 ngày bà con sẽ thấy rễ tơ bắt đầu nhú trắng và đọt non vươn mạnh." },
+              { question: "Có trộn chung được với thuốc bệnh không?", answer: "Có thể trộn chung với hầu hết các loại thuốc BVTV thông thường để tiết kiệm công phun xịt." }
+            ]} />
+
           </div>
 
         {/* Related Products */}

@@ -74,6 +74,15 @@ export default function LandingPagesList() {
               <ExternalLink size={18} />
             </Link>
           </div>
+          <div className="p-4 bg-[#0d2a1c] rounded-2xl border border-emerald-900/50 flex items-center justify-between group hover:border-orange-400 transition-all">
+            <div>
+              <h3 className="font-black text-white leading-none mb-1 uppercase tracking-tight italic">Elite Landing: NEMANO (Diệt Tuyến Trùng)</h3>
+              <p className="text-[10px] text-orange-400 font-bold uppercase tracking-widest">URL: /nemano</p>
+            </div>
+            <Link href="/nemano" target="_blank" className="w-10 h-10 bg-white/10 rounded-xl shadow-sm flex items-center justify-center text-orange-400 group-hover:bg-orange-400 group-hover:text-white transition-all">
+              <ExternalLink size={18} />
+            </Link>
+          </div>
         </div>
       </section>
 

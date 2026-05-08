@@ -30,6 +30,15 @@ const ProductSchema = new mongoose.Schema({
   },
   seller: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   seller_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  // Mini Landing Page Fields
+  symptoms: [{ type: String }],
+  features: [{ type: String }],
+  usage_instructions: { type: String },
+  faqs: [{
+    question: { type: String },
+    answer: { type: String }
+  }],
+  expert_advice: { type: String },
 }, {
   timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' },
   collection: 'products' // Explicitly set collection name
