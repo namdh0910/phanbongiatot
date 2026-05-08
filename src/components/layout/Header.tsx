@@ -187,8 +187,8 @@ export default function Header() {
                     <button className="flex items-center gap-1.5 font-black text-sm uppercase tracking-wide text-gray-700 hover:text-emerald-700 transition-colors py-2">
                       <span className="text-lg">{crop.icon}</span> {crop.name} <span className="text-[10px] opacity-30 group-hover:rotate-180 transition-transform">▼</span>
                     </button>
-                    <div className="absolute top-full left-0 w-64 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-[150]">
-                       <div className="bg-white shadow-2xl rounded-2xl p-4 border border-gray-100">
+                    <div className="absolute top-full left-0 w-64 pt-2 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all z-[150]">
+                       <div className="bg-white shadow-2xl rounded-[1.5rem] p-4 border border-gray-100">
                        <div className="mb-3 pb-2 border-b border-gray-50">
                          <h4 className="text-[10px] font-black text-emerald-700 uppercase tracking-widest mb-3">Vấn đề phổ biến</h4>
                          <div className="space-y-1">
