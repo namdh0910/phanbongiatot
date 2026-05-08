@@ -181,10 +181,13 @@ export const RecoveryTimeline = ({ steps, title, sub }: { steps: { day: string, 
           <div key={i} className="relative flex-1">
             {i < steps.length - 1 && <div className="hidden md:block absolute top-10 left-full w-full border-t-2 border-dashed border-emerald-800 z-0"></div>}
             <div className="relative z-10 flex flex-col items-center md:items-start text-center md:text-left">
-              <div className="w-16 h-16 md:w-20 md:h-20 bg-emerald-500 text-white rounded-[1.5rem] flex items-center justify-center text-2xl md:text-3xl font-black mb-6 shadow-xl shadow-emerald-900/50">
-                {step.day}
+              <div className="w-16 h-16 md:w-20 md:h-20 bg-emerald-500 text-white rounded-3xl flex flex-col items-center justify-center shadow-xl shadow-emerald-900/50 mb-8 md:mb-10">
+                <span className="text-[10px] md:text-xs font-black uppercase tracking-widest opacity-80 leading-none mb-1">Ngày</span>
+                <span className="text-xl md:text-3xl font-black leading-none">{step.day.replace('Ngày ', '')}</span>
               </div>
-              <h4 className="text-xl md:text-2xl font-black mb-3 md:mb-4 uppercase italic tracking-tight text-emerald-400 leading-tight">{step.icon}</h4>
+              <h4 className="text-xl md:text-2xl font-black mb-3 md:mb-4 uppercase italic tracking-tight text-emerald-400 leading-tight flex items-center gap-2">
+                 {step.icon}
+              </h4>
               <p className="text-emerald-100/80 font-medium text-sm md:text-lg leading-relaxed px-4 md:px-0">{step.effect}</p>
             </div>
           </div>
