@@ -232,11 +232,11 @@ export default function SicobiPerformanceLanding() {
           <div className="max-w-6xl mx-auto bg-white rounded-[3rem] md:rounded-[4.5rem] shadow-2xl overflow-hidden flex flex-col lg:flex-row">
              <div className="lg:w-[45%] bg-[#0d2a1c] p-8 md:p-20 text-white flex flex-col justify-center border-b lg:border-b-0 lg:border-r border-emerald-900">
                 <span className="text-emerald-400 font-black text-[10px] uppercase tracking-[0.4em] mb-6 block">Chương trình hỗ trợ kỹ thuật</span>
-                <h3 className="text-3xl md:text-6xl font-black uppercase italic tracking-tighter leading-tight mb-8 md:mb-12">
-                   Gửi thông tin <br /> 
-                   <span className="text-[#f5a623]">Kỹ sư hỗ trợ</span> <br/>
-                   Tận vườn
-                </h3>
+                 <h3 className="text-3xl md:text-6xl font-black uppercase italic tracking-tighter leading-tight mb-8 md:mb-12">
+                    Yêu Cầu <br /> 
+                    <span className="text-[#f5a623]">Tư Vấn</span> <br/>
+                    Kỹ Thuật
+                 </h3>
                 
                 <div className="space-y-6 md:space-y-8">
                    {[

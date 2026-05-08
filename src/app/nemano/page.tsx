@@ -50,12 +50,12 @@ export default function NemanoPerformanceLanding() {
       
       {/* 1. ELITE STICKY CTA (MOBILE) */}
       <div className="fixed bottom-0 left-0 right-0 z-[100] md:hidden bg-white/95 backdrop-blur-xl border-t border-gray-100 p-4 flex gap-3 shadow-[0_-10px_40px_rgba(0,0,0,0.1)]">
-        <a href="#order-form" className="flex-[1.5] bg-[#f5a623] text-white flex flex-col items-center justify-center py-3 rounded-2xl font-black uppercase shadow-lg active:scale-95 transition-all">
-          <span className="text-[10px] opacity-80 italic">Cấp cứu vườn suy</span>
+        <a href="#order-form" className="flex-[1.5] bg-red-600 text-white flex flex-col items-center justify-center py-3 rounded-2xl font-black uppercase shadow-lg active:scale-95 transition-all">
+          <span className="text-[10px] opacity-80 italic">Diệt tận gốc tuyến trùng</span>
           <span className="text-xs">ĐĂNG KÝ TƯ VẤN NGAY</span>
         </a>
-        <a href="https://zalo.me/0773440966" className="flex-1 bg-[#0068FF] text-white flex items-center justify-center py-3 rounded-2xl font-black uppercase shadow-lg active:scale-95 transition-all">
-          <MessageCircle size={18} className="mr-2" /> ZALO
+        <a href="tel:0773440966" className="flex-1 bg-[#1a5c2a] text-white flex items-center justify-center py-3 rounded-2xl font-black uppercase shadow-lg active:scale-95 transition-all">
+           GỌI NGAY
         </a>
       </div>
 
