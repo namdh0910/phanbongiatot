@@ -157,15 +157,32 @@ export default function RichTextEditor({ value, onChange, onExtractMetadata, lab
       }
 
       // 2. Dọn dẹp mã neo {#anchor} và XÓA các dòng metadata khỏi content chính
-      // Sử dụng regex không phụ thuộc vào đầu dòng tuyệt đối để xóa sạch hơn
-      let cleanedMarkdown = markdown
-        .replace(/\{#[\w-]+\}/g, '')
-        .replace(/^\s*(?:Tiêu đề|Title|Title:|Từ khóa chính|Từ khóa phụ|Meta description|Mô tả ngắn|Excerpt|Slug|Đường dẫn).+$/gmi, '')
-        .trim();
+      let cleanedMarkdown = markdown.replace(/\{#[\w-]+\}/g, '');
       
-      // Nếu dòng đầu tiên trùng khớp với tiêu đề đã trích xuất, xóa nó luôn
-      if (metadata.title && cleanedMarkdown.startsWith(metadata.title)) {
-        cleanedMarkdown = cleanedMarkdown.replace(metadata.title, '').trim();
+      // Mảng các từ khóa cần xóa bỏ khỏi nội dung chính
+      const junkKeywords = ['Tiêu đề', 'Title', 'Từ khóa chính', 'Từ khóa phụ', 'Meta description', 'Mô tả ngắn', 'Excerpt', 'Slug', 'Đường dẫn'];
+      
+      // Xóa từng dòng/câu chứa từ khóa rác (xử lý cả trường hợp dính chùm)
+      junkKeywords.forEach(jk => {
+        // Regex xóa từ đầu từ khóa rác cho đến hết dòng hoặc đến khi gặp từ khóa rác tiếp theo
+        const regex = new RegExp(`^\\s*${jk}.*(\\n|$)`, 'gmi');
+        cleanedMarkdown = cleanedMarkdown.replace(regex, '');
+      });
+
+      // Nếu vẫn còn sót (trường hợp dính chùm trên cùng 1 dòng), xóa mạnh hơn
+      cleanedMarkdown = cleanedMarkdown
+        .replace(/^\s*(?:Tiêu đề|Title|#).+$/gmi, '')
+        .replace(/(?:Từ khóa chính|Từ khóa phụ|Meta description|Mô tả ngắn|Excerpt|Slug|Đường dẫn):.+/gi, '')
+        .trim();
+
+      // Đảm bảo xóa cả dòng tiêu đề đầu tiên nếu nó trùng với title đã bóc tách
+      if (metadata.title) {
+        // Xóa dòng đầu tiên nếu nó chứa tiêu đề
+        const lines = cleanedMarkdown.split('\n');
+        if (lines.length > 0 && (lines[0].includes(metadata.title) || metadata.title.includes(lines[0]))) {
+          lines.shift();
+          cleanedMarkdown = lines.join('\n').trim();
+        }
       }
       // 3. TIỀN XỬ LÝ BẢNG MẠNH MẼ (Markdown Level)
       const lines = cleanedMarkdown.split('\n');
