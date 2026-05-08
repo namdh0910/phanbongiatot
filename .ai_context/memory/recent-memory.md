@@ -17,8 +17,9 @@
     - **Session Flow**: Điều chỉnh `mb-24` xuống `mb-12` cho các khối tiêu đề section trên mobile, giúp nội dung cô đọng và liền mạch hơn.
   - **Admin Landing Page Manager**: Tạo trang `/admin/landings` để liệt kê và truy cập nhanh toàn bộ các Landing Page cốt lõi, Giải pháp và Sản phẩm.
   - **Global Product Template Upgrade**: Nâng cấp toàn bộ trang chi tiết sản phẩm thành giao diện "Mini Landing Page". Tích hợp các khối Reusable: Triệu chứng (Symptoms), Lời khuyên chuyên gia (Expert Advice), Quy trình sử dụng (Usage), và FAQ.
-  - **Nemano Elite Landing Page**: Xây dựng trang Landing Page độc bản cho Nemano (`/nemano`) với cấu trúc chuyển đổi cao, tập trung vào nỗi đau Tuyến trùng và minh chứng hiệu quả thực tế.
-  - **Hotfix (Build Failure)**: Thêm chỉ thị `"use client"` vào `LandingBlocks.tsx` để khắc phục lỗi build trên Vercel do sử dụng `useState` trong Server Component.
+  - **Nemano Elite Landing Page**: Xây dựng trang Landing Page độc bản cho Nemano (`/nemano`) với cấu trúc chuyển đổi cao.
+  - **Performance Marketing Overhaul**: Tái cấu trúc toàn diện 2 trang Landing chiến lược (Sicobi & Nemano) theo chuẩn CRO cao cấp. Chuyển đổi từ giao diện "Designer" sang "Performance Marketing" với các lớp tâm lý: Chẩn đoán (Diagnostic), Uy tín chuyên gia (Authority), và Lộ trình phục hồi (Recovery Timeline).
+  - **Hotfix (Build Failure)**: Thêm chỉ thị `"use client"` vào `LandingBlocks.tsx`.
 - **Latest Activities (Critical Build Fix - DONE)**:
   - **Robust Gemini & Groq Fallback**: Triển khai cơ chế Fallback 3 lớp: Ưu tiên `gemini-2.0-flash`, sau đó đến `gemini-1.5-flash-latest`, và cuối cùng là **Llama 3.3 70B (qua Groq API)**. Điều này đảm bảo hệ thống luôn hoạt động ngay cả khi hết hạn mức Gemini.
   - **API Key Activation**: Đã tích hợp `GROQ_API_KEY` vào hệ thống, kích hoạt thành công "cầu chì" dự phòng cuối cùng.
