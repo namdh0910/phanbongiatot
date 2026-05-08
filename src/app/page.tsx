@@ -42,37 +42,37 @@ const Button = ({ children, variant = 'primary', className = '', ...props }: any
 };
 
 const DiseaseCard = ({ title, slug, painPoint }: any) => (
-  <Link href={`/giai-phap/${slug}`} className="bg-white rounded-3xl p-8 border border-gray-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 group relative overflow-hidden">
-    <div className="absolute top-0 right-0 p-6 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity">
-       <AlertTriangle size={120} />
+  <Link href={`/giai-phap/${slug}`} className="bg-white rounded-2xl p-3 md:p-8 border border-gray-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 group relative overflow-hidden flex flex-col h-full">
+    <div className="absolute top-0 right-0 p-3 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity">
+       <AlertTriangle size={60} />
     </div>
     <div className="relative z-10">
-      <div className="w-12 h-12 bg-red-50 text-red-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-red-600 group-hover:text-white transition-colors">
-        <AlertTriangle size={24} />
+      <div className="w-8 h-8 md:w-12 md:h-12 bg-red-50 text-red-600 rounded-xl flex items-center justify-center mb-2 md:mb-6 group-hover:bg-red-600 group-hover:text-white transition-colors">
+        <AlertTriangle size={18} />
       </div>
-      <h3 className="text-xl md:text-2xl font-black text-gray-900 mb-4 leading-tight group-hover:text-[#1a5c2a] transition-colors">{title}</h3>
-      <p className="text-gray-500 text-sm mb-8 line-clamp-3 font-medium leading-relaxed italic">
-        "{painPoint.length > 100 ? painPoint.substring(0, 100) + '...' : painPoint}"
+      <h3 className="text-sm md:text-2xl font-black text-gray-900 mb-1 md:mb-4 leading-tight group-hover:text-[#1a5c2a] transition-colors">{title}</h3>
+      <p className="text-[10px] md:text-sm text-gray-500 mb-3 md:mb-8 line-clamp-2 md:line-clamp-3 font-medium leading-relaxed italic">
+        "{painPoint.length > 80 ? painPoint.substring(0, 80) + '...' : painPoint}"
       </p>
-      <div className="inline-flex items-center gap-2 text-[#1a5c2a] font-black uppercase tracking-widest text-xs group-hover:gap-3 transition-all">
-        Xem giải pháp cứu cây <ArrowRight size={16} />
+      <div className="mt-auto inline-flex items-center gap-1 md:gap-2 text-[#1a5c2a] font-black uppercase tracking-widest text-[8px] md:text-xs group-hover:gap-3 transition-all">
+        Xem ngay <ArrowRight size={10} className="md:w-4 md:h-4" />
       </div>
     </div>
   </Link>
 );
 
 const KnowledgeCard = ({ title, excerpt, image, category, slug }: any) => (
-  <Link href={`/blog/${slug}`} className="flex-shrink-0 w-[85vw] md:w-full bg-white rounded-3xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl transition-all group">
-    <div className="aspect-video relative overflow-hidden">
+  <Link href={`/blog/${slug}`} className="flex-shrink-0 w-[70vw] md:w-full bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl transition-all group">
+    <div className="aspect-[16/10] relative overflow-hidden">
       <img src={image} alt={title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-      <span className="absolute top-4 left-4 bg-[#1a5c2a] text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">
+      <span className="absolute top-2 left-2 bg-[#1a5c2a] text-white px-2 py-0.5 rounded-full text-[8px] font-black uppercase tracking-widest">
         {category}
       </span>
     </div>
-    <div className="p-6">
-      <h3 className="font-black text-gray-900 text-lg mb-3 line-clamp-2 leading-tight group-hover:text-[#1a5c2a] transition-colors">{title}</h3>
-      <p className="text-gray-500 text-xs mb-4 line-clamp-2 font-medium">{excerpt}</p>
-      <div className="w-8 h-1 bg-[#f5a623] rounded-full group-hover:w-16 transition-all" />
+    <div className="p-3 md:p-6">
+      <h3 className="font-black text-gray-900 text-[13px] md:text-lg mb-1 md:mb-3 line-clamp-2 leading-tight group-hover:text-[#1a5c2a] transition-colors">{title}</h3>
+      <p className="text-gray-500 text-[10px] md:text-xs mb-2 md:mb-4 line-clamp-2 font-medium">{excerpt}</p>
+      <div className="w-6 h-0.5 bg-[#f5a623] rounded-full group-hover:w-12 transition-all" />
     </div>
   </Link>
 );
@@ -80,18 +80,18 @@ const KnowledgeCard = ({ title, excerpt, image, category, slug }: any) => (
 const FAQItem = ({ question, answer }: any) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className="border-b border-gray-100 py-4">
+    <div className="border-b border-gray-100 py-3 md:py-4">
       <button 
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center justify-between text-left gap-4"
+        className="w-full flex items-center justify-between text-left gap-3 md:gap-4"
       >
-        <span className="font-black text-gray-800 text-base md:text-lg">{question}</span>
+        <span className="font-black text-gray-800 text-sm md:text-lg">{question}</span>
         <div className={`transition-transform ${isOpen ? 'rotate-180' : ''}`}>
-          <ChevronRight className="text-gray-400" />
+          <ChevronRight className="text-gray-400 w-4 h-4 md:w-6 md:h-6" />
         </div>
       </button>
       {isOpen && (
-        <div className="mt-4 text-gray-600 text-sm md:text-base leading-relaxed font-medium animate-in fade-in slide-in-from-top-2">
+        <div className="mt-2 text-gray-600 text-xs md:text-base leading-relaxed font-medium animate-in fade-in slide-in-from-top-2">
           {answer}
         </div>
       )}
@@ -176,7 +176,7 @@ export default function LandingPage() {
       </div>
 
       {/* 2. Hero Section - Targeted Agricultural Solution */}
-      <section className="relative min-h-[35vh] md:min-h-[85vh] flex items-center pt-12 pb-8 md:py-32 overflow-hidden">
+      <section className="relative min-h-[30vh] md:min-h-[85vh] flex items-center pt-8 pb-6 md:py-32 overflow-hidden">
         {/* Background Image Optimized for LCP */}
         <div className="absolute inset-0 z-0">
           <Image 
@@ -196,7 +196,7 @@ export default function LandingPage() {
           <div className="max-w-5xl mx-auto text-center">
             {/* Removed badge as requested */}
             
-            <h1 className="text-3xl md:text-7xl lg:text-8xl font-black text-white mb-4 leading-tight tracking-tight animate-in slide-in-from-bottom duration-700 delay-100 uppercase">
+            <h1 className="text-2xl md:text-7xl lg:text-8xl font-black text-white mb-3 md:mb-4 leading-tight tracking-tight animate-in slide-in-from-bottom duration-700 delay-100 uppercase">
               {settings.heroTitle || "CỨU VƯỜN SẦU RIÊNG, CÀ PHÊ"} <br className="hidden md:block" />
               <span className="text-[#f5a623]">{settings.heroSubtitle ? "" : "VÀNG LÁ, SUY RỄ"}</span>
             </h1>
@@ -206,9 +206,9 @@ export default function LandingPage() {
             <div className="flex flex-col items-center gap-4 animate-in slide-in-from-bottom duration-700 delay-300">
               <a 
                 href={zaloUrl} 
-                className="group relative px-8 md:px-12 py-3 md:h-20 bg-[#f5a623] hover:bg-[#fbb940] text-white rounded-xl md:rounded-2xl font-black text-sm md:text-xl shadow-2xl flex items-center justify-center gap-3 transition-all active:scale-95 animate-heartbeat"
+                className="group relative px-6 md:px-12 py-2.5 md:h-20 bg-[#f5a623] hover:bg-[#fbb940] text-white rounded-lg md:rounded-2xl font-black text-xs md:text-xl shadow-2xl flex items-center justify-center gap-2 transition-all active:scale-95 animate-heartbeat"
               >
-                <MessageCircle className="w-5 h-5 md:w-7 md:h-7" fill="currentColor" />
+                <MessageCircle className="w-4 h-4 md:w-7 md:h-7" fill="currentColor" />
                 Chụp Ảnh Vườn Gửi PBGT
               </a>
               <div className="flex flex-col items-center gap-2">
@@ -225,13 +225,13 @@ export default function LandingPage() {
       {/* Removing Quick Category Links to reduce clutter as requested by user */}
 
       {/* 3. Brand Marquee - Building Credibility */}
-      <section className="bg-gray-50 py-10 border-y border-gray-100 overflow-hidden">
-         <div className="container mx-auto px-4 mb-6">
-            <p className="text-center text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">Đối tác kỹ thuật & Giải pháp chính hãng</p>
+      <section className="bg-gray-50 py-4 md:py-10 border-y border-gray-100 overflow-hidden">
+         <div className="container mx-auto px-4 mb-2 md:mb-6">
+            <p className="text-center text-[8px] md:text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">Đối tác kỹ thuật & Giải pháp chính hãng</p>
          </div>
-         <div className="flex gap-12 whitespace-nowrap animate-marquee px-4">
-            {["Bình Điền", "Yara", "DAP", "Phú Mỹ", "Hợp Trí", "Nemano", "Bình Điền", "Yara", "DAP", "Phú Mỹ", "Bình Điền", "Yara", "DAP", "Phú Mỹ", "Hợp Trí", "Nemano", "Bình Điền", "Yara", "DAP", "Phú Mỹ"].map((brand, i) => (
-              <span key={i} className="text-xl md:text-2xl font-black text-gray-300 hover:text-gray-400 transition-colors cursor-default uppercase tracking-tighter italic">
+         <div className="flex gap-8 md:gap-12 whitespace-nowrap animate-marquee px-4">
+            {["Bình Điền", "Yara", "DAP", "Phú Mỹ", "Hợp Trí", "Nemano", "Bình Điền", "Yara", "DAP", "Phú Mỹ"].map((brand, i) => (
+              <span key={i} className="text-sm md:text-2xl font-black text-gray-300 hover:text-gray-400 transition-colors cursor-default uppercase tracking-tighter italic">
                 {brand}
               </span>
             ))}
@@ -239,13 +239,13 @@ export default function LandingPage() {
       </section>
 
       {/* 3.5 Featured Products - Replacing Trust Badges */}
-      <section className="bg-white py-12 md:py-20">
+      <section className="bg-white py-6 md:py-20">
         <div className="container mx-auto px-4">
-          <div className="flex flex-col items-center text-center mb-10">
-            <span className="text-[#f5a623] font-black uppercase tracking-widest text-[10px] mb-2">Giải pháp hàng đầu</span>
-            <h2 className="text-2xl md:text-4xl font-black text-gray-900 uppercase">Sản phẩm chủ lực</h2>
+          <div className="flex flex-col items-center text-center mb-6 md:mb-10">
+            <span className="text-[#f5a623] font-black uppercase tracking-widest text-[9px] mb-1">Giải pháp hàng đầu</span>
+            <h2 className="text-xl md:text-4xl font-black text-gray-900 uppercase">Sản phẩm chủ lực</h2>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-8">
             {loadingProducts ? (
               [1, 2, 3, 4].map(i => (
                 <div key={i} className="aspect-[3/4] bg-gray-50 rounded-3xl animate-pulse" />
@@ -269,8 +269,7 @@ export default function LandingPage() {
                     {product.originalPrice > product.price && (
                       <p className="text-[10px] md:text-xs text-gray-400 line-through font-bold">{product.originalPrice?.toLocaleString()}đ</p>
                     )}
-                    <p className="text-xs md:text-base text-emerald-700 font-black">{product.price?.toLocaleString()}đ</p>
-                  </div>
+                    <p className="text-xs md:text-base text-emerald-700 font-black mb-2 md:mb-4">{product.price?.toLocaleString()}đ</p>
                   
                   {/* Action Buttons */}
                   <div className="mt-auto grid grid-cols-2 gap-2">
@@ -292,24 +291,24 @@ export default function LandingPage() {
               </div>
             ))}
           </div>
-          <div className="mt-10 text-center">
-             <Link href="/san-pham" className="inline-flex items-center gap-2 text-[#1a5c2a] font-black uppercase tracking-widest text-xs hover:gap-3 transition-all">
-                Xem tất cả sản phẩm <ArrowRight size={14} />
+          <div className="mt-6 md:mt-10 text-center">
+             <Link href="/san-pham" className="inline-flex items-center gap-2 text-[#1a5c2a] font-black uppercase tracking-widest text-[10px] md:text-xs hover:gap-3 transition-all">
+                Xem tất cả sản phẩm <ArrowRight size={12} className="md:w-3.5 md:h-3.5" />
              </Link>
           </div>
         </div>
       </section>
 
       {/* 4. Core Solutions - Now dynamically rendering Pathologies */}
-      <section id="solutions" className="bg-gray-50 py-16 md:py-24">
+      <section id="solutions" className="bg-gray-50 py-8 md:py-24">
         <div className="container mx-auto px-4">
-          <div className="flex flex-col items-center text-center mb-12 md:mb-16">
-            <span className="text-[#f5a623] font-black uppercase tracking-widest text-xs mb-3">Dấu hiệu nhận biết</span>
-            <h2 className="text-3xl md:text-5xl font-black text-gray-900 uppercase tracking-tighter mb-4">
+          <div className="flex flex-col items-center text-center mb-6 md:mb-16">
+            <span className="text-[#f5a623] font-black uppercase tracking-widest text-[10px] mb-2">Dấu hiệu nhận biết</span>
+            <h2 className="text-xl md:text-5xl font-black text-gray-900 uppercase tracking-tighter mb-2">
               Vườn Bà Con Đang <span className="text-red-600">Gặp Vấn Đề Gì?</span>
             </h2>
-            <div className="w-20 h-2 bg-[#f5a623] rounded-full" />
-            <p className="mt-6 text-gray-500 max-w-xl font-medium">
+            <div className="w-12 h-1 bg-[#f5a623] rounded-full" />
+            <p className="mt-4 text-gray-500 max-w-xl font-medium text-[11px] md:text-base">
               Chọn đúng dấu hiệu vườn đang mắc phải để nhận giải pháp phục hồi sinh học chuyên sâu từ đội ngũ PBGT.
             </p>
           </div>
@@ -361,14 +360,14 @@ export default function LandingPage() {
       </section>
 
       {/* 5. Knowledge Hub */}
-      <section className="bg-white py-16 md:py-24 overflow-hidden">
+      <section className="bg-white py-8 md:py-24 overflow-hidden">
         <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-6 md:mb-12 gap-4 md:gap-6">
             <div className="max-w-xl">
-              <h2 className="text-3xl md:text-5xl font-black text-gray-900 uppercase tracking-tighter mb-4">
+              <h2 className="text-xl md:text-5xl font-black text-gray-900 uppercase tracking-tighter mb-2">
                 Kiến Thức <span className="text-[#f5a623]">Nhà Nông</span>
               </h2>
-              <p className="text-gray-500 font-medium">Cập nhật kỹ thuật mới nhất từ đội ngũ giàu kinh nghiệm thực chiến tại vườn.</p>
+              <p className="text-gray-500 font-medium text-[11px] md:text-base">Cập nhật kỹ thuật mới nhất từ đội ngũ giàu kinh nghiệm thực chiến tại vườn.</p>
             </div>
             <Link href="/blog" className="hidden md:flex items-center gap-2 text-[#1a5c2a] font-black uppercase tracking-widest text-sm hover:translate-x-2 transition-transform">
               Xem tất cả tài liệu <ChevronRight size={18} />
@@ -396,35 +395,35 @@ export default function LandingPage() {
             )}
           </div>
 
-          <Link href="/blog" className="md:hidden flex items-center justify-center gap-2 text-[#1a5c2a] font-black uppercase tracking-widest text-sm mt-6">
-            Xem tất cả tài liệu <ChevronRight size={18} />
+          <Link href="/blog" className="md:hidden flex items-center justify-center gap-2 text-[#1a5c2a] font-black uppercase tracking-widest text-[10px] mt-4">
+            Xem tất cả tài liệu <ChevronRight size={14} />
           </Link>
         </div>
       </section>
 
       {/* 6. Call to Action */}
-      <section id="cta" className="bg-[#1a5c2a] py-16 md:py-24 relative overflow-hidden">
+      <section id="cta" className="bg-[#1a5c2a] py-8 md:py-24 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
         <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto bg-white rounded-[2rem] md:rounded-[4rem] p-8 md:p-20 text-center shadow-2xl overflow-hidden relative">
-            <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-[#f5a623] via-yellow-300 to-[#f5a623]" />
+          <div className="max-w-4xl mx-auto bg-white rounded-2xl md:rounded-[4rem] p-6 md:p-20 text-center shadow-2xl overflow-hidden relative">
+            <div className="absolute top-0 left-0 w-full h-1 md:h-2 bg-gradient-to-r from-[#f5a623] via-yellow-300 to-[#f5a623]" />
             
-            <div className="inline-flex items-center gap-2 text-[#1a5c2a] font-black uppercase tracking-widest mb-6">
-              <BookOpen size={20} /> Tư vấn kỹ thuật miễn phí
+            <div className="inline-flex items-center gap-2 text-[#1a5c2a] font-black uppercase tracking-widest text-[10px] md:text-sm mb-4 md:mb-6">
+              <BookOpen size={16} className="md:w-5 md:h-5" /> Tư vấn kỹ thuật miễn phí
             </div>
-            <h2 className="text-3xl md:text-5xl font-black text-gray-900 mb-6 leading-tight">
+            <h2 className="text-xl md:text-5xl font-black text-gray-900 mb-4 md:mb-6 leading-tight">
               Vườn Yếu? <span className="text-[#f5a623]">Gặp PBGT Ngay!</span>
             </h2>
-            <p className="text-gray-600 text-lg md:text-xl mb-12 max-w-2xl mx-auto font-medium">
+            <p className="text-gray-600 text-sm md:text-xl mb-6 md:mb-12 max-w-2xl mx-auto font-medium">
               Gửi tình trạng vườn (ảnh/video) qua Zalo để nhận giải pháp phục hồi miễn phí trong vòng 15 phút.
             </p>
             
-            <div className="flex flex-col md:flex-row items-center justify-center gap-4">
-              <a href={zaloUrl} className="w-full md:w-auto bg-[#f5a623] hover:bg-[#fbb940] text-white font-black px-10 py-5 rounded-2xl flex items-center justify-center gap-3 transition-all active:scale-95 shadow-xl shadow-orange-100">
-                <MessageCircle fill="currentColor" /> Chat Zalo Ngay
+            <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-4">
+              <a href={zaloUrl} className="w-full md:w-auto bg-[#f5a623] hover:bg-[#fbb940] text-white font-black px-6 py-3.5 md:px-10 md:py-5 rounded-xl text-xs md:text-base flex items-center justify-center gap-2 md:gap-3 transition-all active:scale-95 shadow-xl shadow-orange-100">
+                <MessageCircle fill="currentColor" className="w-4 h-4 md:w-5 md:h-5" /> Chat Zalo Ngay
               </a>
-              <a href={callUrl} className="w-full md:w-auto bg-white border-2 border-emerald-600 text-emerald-700 hover:bg-emerald-50 font-black px-10 py-5 rounded-2xl flex items-center justify-center gap-3 transition-all active:scale-95">
-                <Phone /> Gọi: {settings.phone}
+              <a href={callUrl} className="w-full md:w-auto bg-white border-2 border-emerald-600 text-emerald-700 hover:bg-emerald-50 font-black px-6 py-3.5 md:px-10 md:py-5 rounded-xl text-xs md:text-base flex items-center justify-center gap-2 md:gap-3 transition-all active:scale-95">
+                <Phone className="w-4 h-4 md:w-5 md:h-5" /> Gọi: {settings.phone}
               </a>
             </div>
           </div>
@@ -432,14 +431,14 @@ export default function LandingPage() {
       </section>
 
       {/* 6.5. Practical Video Guide Section */}
-      <section className="bg-gray-50 py-16 md:py-24">
+      <section className="bg-gray-50 py-8 md:py-24">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-5xl font-black text-gray-900 uppercase tracking-tighter mb-4">
+            <div className="text-center mb-6 md:mb-12">
+              <h2 className="text-xl md:text-5xl font-black text-gray-900 uppercase tracking-tighter mb-2 md:mb-4">
                 Hướng dẫn kỹ thuật <span className="text-[#f5a623]">thực tế tại vườn</span>
               </h2>
-              <div className="w-20 h-2 bg-[#1a5c2a] rounded-full mx-auto" />
+              <div className="w-12 md:w-20 h-1 md:h-2 bg-[#1a5c2a] rounded-full mx-auto" />
             </div>
             
             {/* 9:16 Vertical Video Container */}
@@ -453,24 +452,24 @@ export default function LandingPage() {
               </div>
             </div>
             
-            <div className="mt-12 text-center">
-              <p className="text-gray-500 font-bold uppercase tracking-widest text-sm mb-6">Theo dõi các video kỹ thuật mới nhất</p>
-              <div className="flex justify-center gap-6">
+            <div className="mt-8 md:mt-12 text-center">
+              <p className="text-gray-500 font-bold uppercase tracking-widest text-[9px] md:text-sm mb-4 md:mb-6">Theo dõi các video kỹ thuật mới nhất</p>
+              <div className="flex justify-center gap-4 md:gap-6">
                 <a 
                   href="https://www.facebook.com/phanbongiatot1" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="w-14 h-14 bg-[#1877F2] rounded-full flex items-center justify-center text-white cursor-pointer hover:scale-110 transition-transform shadow-lg shadow-blue-100"
+                  className="w-10 h-10 md:w-14 md:h-14 bg-[#1877F2] rounded-full flex items-center justify-center text-white cursor-pointer hover:scale-110 transition-transform shadow-lg shadow-blue-100"
                 >
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                  <svg width="20" height="20" className="md:w-6 md:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
                 </a>
                 <a 
                   href="https://www.youtube.com/@phanbongiatot" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="w-14 h-14 bg-[#FF0000] rounded-full flex items-center justify-center text-white cursor-pointer hover:scale-110 transition-transform shadow-lg shadow-red-100"
+                  className="w-10 h-10 md:w-14 md:h-14 bg-[#FF0000] rounded-full flex items-center justify-center text-white cursor-pointer hover:scale-110 transition-transform shadow-lg shadow-red-100"
                 >
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
+                  <svg width="20" height="20" className="md:w-6 md:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
                 </a>
               </div>
             </div>
@@ -479,12 +478,12 @@ export default function LandingPage() {
       </section>
 
       {/* 7. FAQ Section */}
-      <section className="bg-white py-16 md:py-24">
+      <section className="bg-white py-8 md:py-24 pb-20 md:pb-32">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <div className="flex items-center gap-4 mb-10">
-              <div className="p-3 bg-orange-100 rounded-2xl text-[#f5a623]"><HelpCircle /></div>
-              <h2 className="text-2xl md:text-4xl font-black text-gray-900 uppercase">Giải đáp thắc mắc</h2>
+            <div className="flex items-center gap-3 mb-6 md:mb-10">
+              <div className="p-2 md:p-3 bg-orange-100 rounded-xl md:rounded-2xl text-[#f5a623]"><HelpCircle size={20} className="md:w-6 md:h-6" /></div>
+              <h2 className="text-xl md:text-4xl font-black text-gray-900 uppercase">Giải đáp thắc mắc</h2>
             </div>
             
             <div className="space-y-2">

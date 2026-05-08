@@ -101,7 +101,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
     <div className="bg-white min-h-screen">
       <main className="pb-20 md:pb-32">
         <div className="container mx-auto px-2 md:px-4">
-          <div className="mb-3 md:mb-6 mt-2">
+          <div className="mb-2 md:mb-6 mt-1 md:mt-2">
             <Breadcrumbs items={[
               { label: 'Sản phẩm', href: '/san-pham' },
               { label: product.category, href: `/danh-muc/${product.category.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[đĐ]/g, 'd').replace(/\s+/g, '-')}` },
@@ -114,7 +114,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             <ProductGallery images={product.images || []} name={product.name} isHot={product.isHot} />
 
             {/* Right: Info & CTA Cluster */}
-            <div className="lg:w-1/2 flex flex-col gap-4 md:gap-6">
+            <div className="lg:w-1/2 flex flex-col gap-3 md:gap-6">
               {/* Cluster 2: Name & Rating */}
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
@@ -130,7 +130,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                    )}
                 </div>
 
-                <h1 className="text-xl md:text-5xl font-black text-gray-900 uppercase tracking-tighter leading-tight">
+                <h1 className="text-lg md:text-5xl font-black text-gray-900 uppercase tracking-tighter leading-tight">
                   {product.name}
                 </h1>
 
@@ -138,32 +138,32 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                    <div className="flex text-amber-400">
                       {[1,2,3,4,5].map(s => <Star key={s} size={14} fill="currentColor" />)}
                    </div>
-                   <span className="text-gray-400 text-[10px] font-bold uppercase tracking-widest">
+                    <span className="text-gray-400 text-[8px] md:text-[10px] font-bold uppercase tracking-widest">
                       Đã tư vấn {product.soldCount || 150}+ vườn
-                   </span>
+                    </span>
                 </div>
               </div>
 
               {/* Cluster 3: Price + Offer + Immediate CTA */}
               <div className="space-y-3">
-                <div className="bg-[#fcf8f0] p-4 md:p-8 rounded-2xl md:rounded-[2rem] border border-orange-100 relative overflow-hidden">
+                 <div className="bg-[#fcf8f0] p-3 md:p-8 rounded-xl md:rounded-[2rem] border border-orange-100 relative overflow-hidden">
                    <div className="absolute top-0 right-0 p-4 md:p-8 opacity-[0.03] select-none text-6xl md:text-8xl rotate-12">💰</div>
-                   <div className="relative z-10 flex flex-col gap-1">
+                   <div className="relative z-10 flex flex-col gap-0.5 md:gap-1">
                       <div className="flex items-baseline gap-2">
-                        <span className="text-3xl md:text-5xl font-black text-orange-600">
+                        <span className="text-2xl md:text-5xl font-black text-orange-600">
                             ₫{product.price?.toLocaleString("vi-VN")}
                         </span>
                         {product.originalPrice > product.price && (
-                          <span className="text-sm md:text-lg text-gray-400 line-through font-bold">
+                          <span className="text-xs md:text-lg text-gray-400 line-through font-bold">
                               ₫{product.originalPrice?.toLocaleString("vi-VN")}
                           </span>
                         )}
                       </div>
-                      <p className="text-emerald-700 text-[9px] md:text-xs font-black uppercase tracking-widest flex items-center gap-1.5">
-                         <Zap size={12} fill="currentColor" /> Nhận ngay ưu đãi khi mua theo quy trình
+                      <p className="text-emerald-700 text-[8px] md:text-xs font-black uppercase tracking-widest flex items-center gap-1.5">
+                         <Zap size={10} className="md:w-3 md:h-3" fill="currentColor" /> Nhận ngay ưu đãi khi mua theo quy trình
                       </p>
                    </div>
-                </div>
+                 </div>
 
                 <div className="flex flex-col gap-2">
                     <a 
@@ -211,30 +211,30 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
           </div>
 
           {/* Detailed Info - Section Optimized */}
-          <div className="mt-8 md:mt-16 pt-8 md:pt-12 border-t border-gray-100 space-y-8">
-             <div className="bg-emerald-50/20 p-5 md:p-12 rounded-3xl md:rounded-[3.5rem] border border-emerald-100/30">
-                <h3 className="text-lg md:text-3xl font-black text-emerald-900 uppercase italic tracking-tight mb-5 flex items-center gap-2">
-                   <span className="w-1.5 h-6 bg-orange-500 rounded-full" />
+          <div className="mt-6 md:mt-16 pt-6 md:pt-12 border-t border-gray-100 space-y-6 md:space-y-8">
+             <div className="bg-emerald-50/20 p-4 md:p-12 rounded-2xl md:rounded-[3.5rem] border border-emerald-100/30">
+                <h3 className="text-base md:text-3xl font-black text-emerald-900 uppercase italic tracking-tight mb-3 md:mb-5 flex items-center gap-2">
+                   <span className="w-1 md:w-1.5 h-4 md:h-6 bg-orange-500 rounded-full" />
                    Công dụng chuyên sâu
                 </h3>
                 <div 
-                  className="text-gray-700 leading-relaxed font-medium prose prose-emerald prose-sm md:prose-xl max-w-none prose-p:mb-3 prose-strong:text-emerald-900 prose-ul:list-disc prose-ul:pl-5 prose-li:mb-1"
+                  className="text-gray-700 leading-relaxed font-medium prose prose-emerald prose-xs md:prose-xl max-w-none prose-p:mb-2 prose-strong:text-emerald-900 prose-ul:list-disc prose-ul:pl-4 prose-li:mb-1"
                   dangerouslySetInnerHTML={{ __html: product.description.replace(/\n/g, '<br/>') }}
                 ></div>
              </div>
 
-             {product.features && product.features.length > 0 && (
-               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {(product.features || []).map((feature: string, i: number) => (
-                     <div key={i} className="flex items-center gap-6 bg-white p-6 rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                        <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center flex-shrink-0">
-                          <CheckCircle2 className="text-emerald-700" size={24} />
-                        </div>
-                        <span className="text-base md:text-lg font-bold text-gray-800">{feature}</span>
-                     </div>
-                  ))}
-               </div>
-             )}
+              {product.features && product.features.length > 0 && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-6">
+                   {(product.features || []).map((feature: string, i: number) => (
+                      <div key={i} className="flex items-center gap-3 md:gap-6 bg-white p-3 md:p-6 rounded-xl md:rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                         <div className="w-8 h-8 md:w-12 md:h-12 bg-emerald-100 rounded-full flex items-center justify-center flex-shrink-0">
+                           <CheckCircle2 className="text-emerald-700 w-4 h-4 md:w-6 md:h-6" />
+                         </div>
+                         <span className="text-sm md:text-lg font-bold text-gray-800">{feature}</span>
+                      </div>
+                   ))}
+                </div>
+              )}
           </div>
 
         {/* Related Products */}

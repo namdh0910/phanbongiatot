@@ -40,7 +40,7 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
           
           <Breadcrumbs 
             items={[{ label: 'Trang chủ', href: '/' }, { label: 'Tất cả sản phẩm' }]} 
-            className="mb-8"
+            className="mb-4 md:mb-8"
           />
 
           <div className="flex flex-col lg:flex-row gap-12">
@@ -91,9 +91,9 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
             {/* Product Grid */}
             <div className="lg:w-3/4">
 
-               <div className="flex items-center justify-between mb-8">
-                  <p className="text-gray-400 text-xs font-bold">
-                     Hiển thị <span className="text-gray-900">{filteredProducts.length}</span> sản phẩm {category && <span>trong <span className="text-emerald-700">{category}</span></span>}
+               <div className="flex items-center justify-between mb-4 md:mb-8">
+                  <p className="text-gray-400 text-[10px] md:text-xs font-bold">
+                     Hiển thị <span className="text-gray-900">{filteredProducts.length}</span> sản phẩm {category && <span className="hidden md:inline">trong <span className="text-emerald-700">{category}</span></span>}
                   </p>
                   <div className="flex items-center gap-4">
                      <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Sắp xếp:</span>
@@ -138,13 +138,13 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
                           <p className="text-base md:text-lg text-emerald-800 font-black">₫{product.price?.toLocaleString("vi-VN")}</p>
                         </div>
                         
-                        <div className="grid grid-cols-1 gap-2 mt-auto">
+                        <div className="grid grid-cols-1 gap-1.5 mt-auto">
                            <a 
                              href={`https://zalo.me/0773440966?text=Tôi muốn tư vấn về ${product.name}`}
                              target="_blank"
-                             className="text-[9px] font-black text-white bg-emerald-700 uppercase tracking-widest py-2.5 rounded-lg flex items-center justify-center hover:bg-emerald-800 transition-colors gap-1.5"
+                             className="text-[8px] md:text-[9px] font-black text-white bg-emerald-700 uppercase tracking-widest py-2 md:py-2.5 rounded-lg flex items-center justify-center hover:bg-emerald-800 transition-colors gap-1.5"
                            >
-                             <MessageCircle size={12} fill="currentColor" /> Liên hệ ngay
+                             <MessageCircle size={10} className="md:w-3 md:h-3" fill="currentColor" /> Liên hệ ngay
                            </a>
                         </div>
                       </div>
