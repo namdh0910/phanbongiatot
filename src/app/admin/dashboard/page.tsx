@@ -148,40 +148,84 @@ export default function AnalyticsDashboard() {
           </div>
         </div>
 
-        {/* Top Pages */}
+        {/* Conversion Detail Section */}
         <div className="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-gray-100 border border-gray-50">
-           <h3 className="font-black uppercase italic tracking-tight text-gray-900 mb-8 flex items-center gap-2">
-             <MousePointer2 className="text-emerald-600" /> Top trang xem nhiều
-           </h3>
-           
-           <div className="space-y-4">
-              {stats?.topPages && stats.topPages.length > 0 ? (
-                stats.topPages.map((page, idx) => (
-                  <div key={idx} className="flex items-center justify-between p-4 bg-gray-50 rounded-2xl border border-gray-100 hover:bg-white transition-all">
-                    <div className="flex flex-col gap-1 overflow-hidden">
-                       <span className="text-xs font-black text-gray-800 truncate uppercase italic">{page._id}</span>
-                       <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Pathname</span>
-                    </div>
-                    <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-xl shadow-sm border border-gray-100">
-                       <span className="text-sm font-black text-[#1a5c2a] italic">{page.count}</span>
-                       <ArrowUpRight size={14} className="text-emerald-500" />
-                    </div>
-                  </div>
-                ))
-              ) : (
-                <div className="py-20 text-center opacity-20">
-                   <p className="font-black uppercase text-xs tracking-widest">Đang cập nhật...</p>
-                </div>
-              )}
+           <div className="flex items-center justify-between mb-8">
+              <h3 className="font-black uppercase italic tracking-tight text-gray-900 flex items-center gap-2 text-xl">
+                <MousePointer2 className="text-emerald-600" /> Chi tiết chuyển đổi theo trang
+              </h3>
+              <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest bg-gray-50 px-4 py-2 rounded-xl border border-gray-100">Dữ liệu thực tế</span>
            </div>
            
-           <div className="mt-10 p-6 bg-emerald-50 rounded-3xl border border-emerald-100">
-              <h4 className="text-[11px] font-black text-emerald-800 uppercase tracking-widest mb-2 flex items-center gap-2">
-                <TrendingUp size={14} /> Mẹo tối ưu CRO
-              </h4>
-              <p className="text-xs text-emerald-700 font-medium leading-relaxed">
-                Tăng kích thước nút Zalo trên các trang có lượt xem cao để cải thiện tỷ lệ chuyển đổi.
-              </p>
+           <div className="overflow-x-auto">
+              <table className="w-full text-left">
+                 <thead>
+                    <tr className="border-b border-gray-100">
+                       <th className="pb-6 text-[10px] font-black text-gray-400 uppercase tracking-widest">Đường dẫn (Path)</th>
+                       <th className="pb-6 text-[10px] font-black text-gray-400 uppercase tracking-widest text-center">Lượt xem</th>
+                       <th className="pb-6 text-[10px] font-black text-gray-400 uppercase tracking-widest text-center">Zalo</th>
+                       <th className="pb-6 text-[10px] font-black text-gray-400 uppercase tracking-widest text-center">Gọi điện</th>
+                       <th className="pb-6 text-[10px] font-black text-gray-400 uppercase tracking-widest text-center">Thông tin</th>
+                       <th className="pb-6 text-[10px] font-black text-gray-400 uppercase tracking-widest text-center">Tỉ lệ (%)</th>
+                    </tr>
+                 </thead>
+                 <tbody className="divide-y divide-gray-50">
+                    {stats?.topPages && stats.topPages.length > 0 ? (
+                      stats.topPages.map((page, idx) => {
+                        const conversionRate = page.views > 0 ? ((page.leads / page.views) * 100).toFixed(1) : 0;
+                        return (
+                          <tr key={idx} className="group hover:bg-gray-50 transition-all">
+                            <td className="py-6 pr-4">
+                               <div className="flex flex-col">
+                                  <span className="text-sm font-black text-gray-800 uppercase italic truncate max-w-[300px]">{page._id || '/'}</span>
+                                  <a href={page._id} target="_blank" className="text-[9px] font-bold text-emerald-600 uppercase tracking-tighter hover:underline">Xem trang thực tế</a>
+                               </div>
+                            </td>
+                            <td className="py-6 text-center">
+                               <span className="text-sm font-black text-blue-600 italic">{page.views.toLocaleString()}</span>
+                            </td>
+                            <td className="py-6 text-center">
+                               <span className="text-sm font-black text-[#0068FF] italic">{page.zalo.toLocaleString()}</span>
+                            </td>
+                            <td className="py-6 text-center">
+                               <span className="text-sm font-black text-red-600 italic">{page.call.toLocaleString()}</span>
+                            </td>
+                            <td className="py-6 text-center">
+                               <div className="inline-flex items-center gap-2 bg-emerald-50 px-4 py-1.5 rounded-full border border-emerald-100">
+                                  <span className="text-sm font-black text-emerald-700 italic">{page.leads.toLocaleString()}</span>
+                               </div>
+                            </td>
+                            <td className="py-6 text-center">
+                               <span className={`text-xs font-black italic ${Number(conversionRate) > 5 ? 'text-orange-500' : 'text-gray-400'}`}>
+                                 {conversionRate}%
+                               </span>
+                            </td>
+                          </tr>
+                        )
+                      })
+                    ) : (
+                      <tr>
+                        <td colSpan={6} className="py-20 text-center opacity-20">
+                           <p className="font-black uppercase text-xs tracking-widest">Đang chờ dữ liệu từ chiến dịch mới...</p>
+                        </td>
+                      </tr>
+                    )}
+                 </tbody>
+              </table>
+           </div>
+           
+           <div className="mt-10 p-8 bg-[#0d2a1c] rounded-[2rem] border border-emerald-900 shadow-lg relative overflow-hidden">
+              <div className="absolute top-0 right-0 p-8 opacity-10">
+                 <TrendingUp size={80} className="text-white" />
+              </div>
+              <div className="relative z-10">
+                <h4 className="text-[12px] font-black text-emerald-400 uppercase tracking-[0.3em] mb-4 flex items-center gap-2">
+                  <TrendingUp size={16} /> Chiến lược vận hành
+                </h4>
+                <p className="text-sm text-emerald-50/70 font-medium leading-relaxed max-w-2xl italic">
+                  Hệ thống đã được làm sạch dữ liệu ảo. Từ bây giờ, mọi lượt truy cập và chuyển đổi từ Facebook Ads sẽ được ghi nhận chính xác theo từng Landing Page để anh có thể tối ưu ngân sách hiệu quả nhất.
+                </p>
+              </div>
            </div>
         </div>
       </div>

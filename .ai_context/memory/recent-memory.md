@@ -4,15 +4,17 @@
 - **Date**: 2026-05-08
 - **Latest Activities (Admin UX & Space Optimization - DONE)**:
   - **Global Admin Widening**: Loại bỏ giới hạn `max-w-7xl` trong `AdminLayout`, mở rộng toàn bộ không gian làm việc ra `max-w-full` để tận dụng màn hình lớn của kỹ sư vận hành.
+  - **Analytics & Dashboard Upgrade**:
+    - Làm sạch dữ liệu (Data Reset): Đã xóa toàn bộ dữ liệu thống kê và lead ảo cũ để chuẩn bị cho chiến dịch quảng cáo thực tế.
+    - Hệ thống Tracking chuyên sâu: Nâng cấp Dashboard hiển thị bảng chi tiết chuyển đổi cho từng đường dẫn (Path). Giờ đây có thể theo dõi chính xác Lượt xem, Click Zalo, Gọi điện và Số Lead mang lại từ riêng từng trang (như `/nemano` hay `/fuvico-sicobi`).
+    - Tính toán Tỉ lệ chuyển đổi (CRO): Tự động tính toán % chuyển đổi để admin dễ dàng tối ưu ngân sách.
   - **Nemano Landing Hotfixes**:
     - Khôi phục ảnh thật (Real Assets Restoration): Thay thế toàn bộ ảnh AI bằng ảnh sản phẩm thật và ảnh cơ chế sinh học lấy trực tiếp từ hệ thống dữ liệu Cloudinary.
     - Nâng cấp Chẩn đoán (Diagnostic Upgrade): Cập nhật `DiagnosticSection` để hiển thị hình ảnh thực tế của rễ sưng cục và vàng lá, giúp bà con dễ dàng nhận diện bệnh lý.
     - Chuẩn hóa thuật ngữ (Terminology Correction): Chuyển toàn bộ các từ ngữ mang tính tiêu diệt/đặc trị sang **Phòng ngừa/Kiểm soát/Ức chế** để phản ánh đúng tính chất sản phẩm bảo vệ rễ.
-    - Sửa lỗi đè chữ (Text Overlap): Điều chỉnh `leading` và `tracking` trong phần "Công nghệ Đột phá" để đảm bảo hiển thị rõ ràng trên thiết bị di động.
   - **Fuvico-Sicobi Landing Hotfixes**:
     - Tích hợp bộ ảnh thực tế: Thay thế toàn bộ ảnh bao bì cũ bằng bộ ảnh chụp thật (mặt trước, mặt sau) của sản phẩm Fuvico Sicobi.
     - Bổ sung phần "Chất lượng hạt": Thêm section mới hiển thị cận cảnh hạt phân đen bóng (20% OM) để chứng minh chất lượng thực tế.
-    - Nâng cấp Chẩn đoán: Đồng bộ phần "Dấu hiệu đất chết lâm sàng" với hình ảnh minh họa thực tế.
   - **LeadForm Refinement**: 
     - Thay đổi trường nhập liệu: Loại bỏ "Loại cây trồng" và "Tình trạng vườn" trong Form tư vấn, thay thế bằng trường "Địa chỉ vườn" để thu thập dữ liệu chính xác hơn cho kỹ sư.
   - **Landing Page Manager Refinement**: 
