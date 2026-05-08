@@ -31,7 +31,7 @@ export default function SicobiPerformanceLanding() {
     "@context": "https://schema.org",
     "@type": "Product",
     "name": "Fuvico Sicobi 20% OM - Giải pháp phục hồi đất chai cứng",
-    "image": "/images/products/photo_6332526088357088944_y.jpg",
+    "image": "/images/products/fuvico-bag-front.jpg",
     "description": "Mở khóa đất chai cứng, phục hồi rễ tơ thần tốc và tăng cường hấp thụ phân bón.",
     "brand": { "@type": "Brand", "name": "PBGT" },
     "offers": {
@@ -92,8 +92,8 @@ export default function SicobiPerformanceLanding() {
 
             <div className="flex-1 relative group">
                <img 
-                src="/images/products/photo_6332526088357088944_y.jpg" 
-                alt="Sicobi 50kg" 
+                src="/images/products/fuvico-bag-front.jpg" 
+                alt="Fuvico Sicobi" 
                 className="w-full max-w-[280px] md:max-w-md mx-auto rounded-[2rem] shadow-2xl group-hover:scale-105 transition-transform duration-700"
                />
                <div className="absolute inset-0 bg-emerald-500/20 blur-[100px] rounded-full -z-10 animate-pulse"></div>
@@ -140,49 +140,87 @@ export default function SicobiPerformanceLanding() {
         </div>
       </section>
 
-      {/* 5. SCIENTIFIC AUTHORITY SECTION */}
-      <section className="py-12 md:py-32 bg-white overflow-hidden">
-        <div className="container mx-auto px-4 max-w-6xl">
-           <div className="flex flex-col lg:flex-row items-center gap-16 md:gap-24">
-              <div className="flex-1 space-y-8 md:space-y-12">
-                 <h2 className="text-3xl md:text-6xl font-black uppercase italic tracking-tighter leading-[0.95]">
-                   Cơ chế <span className="text-emerald-600">MỞ KHÓA</span> <br/>
-                   Độc quyền từ Fuvico
-                 </h2>
-                 <div className="space-y-6">
-                    {[
-                      { title: "Hoạt hóa Keo Đất", text: "Phá vỡ liên kết nén chặt của đất hóa học, tạo khe hở cho nước và oxy len lỏi." },
-                      { title: "Cân bằng pH nội vùng", text: "Đưa pH về mức lý tưởng 5.5 - 6.5 để rễ cây hoạt động mạnh nhất." },
-                      { title: "Nhân sinh khối Vi sinh", text: "Cung cấp nguồn hữu cơ 20% OM cực nhanh để hệ vi sinh vật bản địa bùng phát." }
-                    ].map((item, i) => (
-                      <div key={i} className="flex gap-6 group">
-                         <div className="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:bg-emerald-600 group-hover:text-white transition-all">
-                            <CheckCircle2 size={24} />
-                         </div>
-                         <div>
-                            <h4 className="text-xl font-black text-gray-900 mb-2 uppercase italic tracking-tight">{item.title}</h4>
-                            <p className="text-gray-500 font-medium leading-relaxed">{item.text}</p>
-                         </div>
-                      </div>
-                    ))}
-                 </div>
-              </div>
-              <div className="flex-1 relative">
-                 <div className="aspect-square bg-emerald-900 rounded-[4rem] flex items-center justify-center p-12 overflow-hidden shadow-2xl">
-                    <img 
-                      src="/images/blog/sicobi-soil-science.png" 
-                      className="w-full h-full object-cover rounded-3xl opacity-60" 
-                      alt="Cấu trúc đất"
-                    />
-                    <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-8">
-                       <Award size={64} className="text-[#f5a623] mb-6 animate-pulse" />
-                       <p className="text-white font-black text-2xl uppercase italic tracking-widest leading-tight">Chứng chỉ <br/> Sinh Học An Toàn</p>
-                    </div>
-                 </div>
-              </div>
-           </div>
-        </div>
-      </section>
+       {/* 5.5 PHYSICAL QUALITY - NEW SECTION */}
+       <section className="py-12 md:py-32 bg-emerald-50/30">
+         <div className="container mx-auto px-4 max-w-6xl">
+            <div className="flex flex-col lg:flex-row-reverse items-center gap-16 md:gap-24">
+               <div className="flex-1 space-y-8">
+                  <span className="text-emerald-600 font-black uppercase tracking-widest text-xs">Cận cảnh sản phẩm</span>
+                  <h2 className="text-3xl md:text-6xl font-black uppercase italic tracking-tighter leading-tight">
+                    Chất lượng hạt <br/> <span className="text-emerald-600">CHUẨN ĐẦU NGUỒN</span>
+                  </h2>
+                  <p className="text-gray-600 text-base md:text-xl font-medium leading-relaxed italic">
+                    "Hạt phân đen bóng, đồng nhất, tan nhanh và hoàn toàn trong đất. Cung cấp 20% hữu cơ OM tinh khiết, giúp đất tơi xốp ngay sau khi tưới."
+                  </p>
+                  <ul className="space-y-4">
+                     {[
+                       "Nguyên liệu hữu cơ 100% tái chế cao cấp",
+                       "Công nghệ ép hạt lạnh bảo tồn vi sinh",
+                       "Không chứa tạp chất, không gây chai đất"
+                     ].map((point, i) => (
+                       <li key={i} className="flex items-center gap-3 font-black text-gray-800 uppercase italic text-sm">
+                          <CheckCircle2 className="text-emerald-500" size={20} /> {point}
+                       </li>
+                     ))}
+                  </ul>
+               </div>
+               <div className="flex-1">
+                  <div className="relative group">
+                     <img 
+                       src="/images/products/fuvico-granules.jpg" 
+                       className="w-full rounded-[3rem] shadow-2xl border-4 border-white group-hover:scale-[1.02] transition-transform duration-500" 
+                       alt="Hạt phân Fuvico Sicobi"
+                     />
+                     <div className="absolute -bottom-6 -right-6 bg-white p-6 rounded-2xl shadow-xl hidden md:block border border-gray-100">
+                        <p className="text-emerald-600 font-black text-2xl">20% OM</p>
+                        <p className="text-gray-400 font-bold text-[10px] uppercase tracking-widest">Hữu cơ tinh khiết</p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+       </section>
+
+       {/* 5. SCIENTIFIC AUTHORITY SECTION */}
+       <section className="py-12 md:py-32 bg-white overflow-hidden">
+         <div className="container mx-auto px-4 max-w-6xl">
+            <div className="flex flex-col lg:flex-row items-center gap-16 md:gap-24">
+               <div className="flex-1 space-y-8 md:space-y-12">
+                  <h2 className="text-3xl md:text-6xl font-black uppercase italic tracking-tighter leading-[0.95]">
+                    Cơ chế <span className="text-emerald-600">MỞ KHÓA</span> <br/>
+                    Độc quyền từ Fuvico
+                  </h2>
+                  <div className="space-y-6">
+                     {[
+                       { title: "Hoạt hóa Keo Đất", text: "Phá vỡ liên kết nén chặt của đất hóa học, tạo khe hở cho nước và oxy len lỏi." },
+                       { title: "Cân bằng pH nội vùng", text: "Đưa pH về mức lý tưởng 5.5 - 6.5 để rễ cây hoạt động mạnh nhất." },
+                       { title: "Nhân sinh khối Vi sinh", text: "Cung cấp nguồn hữu cơ 20% OM cực nhanh để hệ vi sinh vật bản địa bùng phát." }
+                     ].map((item, i) => (
+                       <div key={i} className="flex gap-6 group">
+                          <div className="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:bg-emerald-600 group-hover:text-white transition-all">
+                             <CheckCircle2 size={24} />
+                          </div>
+                          <div>
+                             <h4 className="text-xl font-black text-gray-900 mb-2 uppercase italic tracking-tight">{item.title}</h4>
+                             <p className="text-gray-500 font-medium leading-relaxed">{item.text}</p>
+                          </div>
+                       </div>
+                     ))}
+                  </div>
+               </div>
+               <div className="flex-1 relative">
+                  <div className="aspect-[3/4] bg-white rounded-[3rem] flex items-center justify-center p-4 overflow-hidden shadow-2xl border border-gray-100 group">
+                     <img 
+                       src="/images/products/fuvico-bag-back.jpg" 
+                       className="w-full h-full object-contain rounded-2xl group-hover:scale-105 transition-transform duration-700" 
+                       alt="Hướng dẫn sử dụng Fuvico"
+                     />
+                     <div className="absolute inset-0 bg-gradient-to-t from-emerald-900/40 to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                  </div>
+               </div>
+            </div>
+         </div>
+       </section>
 
       {/* 6. TRUST STACKING - REAL VOICES */}
       <section className="py-12 md:py-32 bg-gray-50">
