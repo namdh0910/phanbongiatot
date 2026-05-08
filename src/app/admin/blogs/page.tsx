@@ -115,7 +115,10 @@ export default function AdminBlogs() {
         setTimeout(() => setIsEditing(false), 1500);
       } else {
         const error = await res.json();
-        setMessage(`❌ Lỗi: ${error.error}`);
+        // Hiển thị chi tiết lỗi từ Server để anh dễ xử lý
+        const errorMsg = error.error || error.message || "Lỗi không xác định";
+        setMessage(`❌ KHÔNG THỂ LƯU: ${errorMsg}`);
+        console.error(">>> [SAVE ERROR]", error);
       }
     } catch (err) {
       setMessage("❌ Lỗi kết nối hệ thống.");

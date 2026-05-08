@@ -119,10 +119,8 @@ export const repairTablesInHtml = (html: string) => {
 export const cleanExpertContent = (html: string) => {
   if (!html) return '';
   
-  // 1. Strip raw newlines that break words (Word Stitching)
-  let cleaned = html.replace(/\r?\n|\r/g, '');
-  
-  // 2. Remove {#anchor} tags
+  // 1. Remove {#anchor} tags
+  let cleaned = html.replace(/\{#[\w-]+\}/g, '');
   cleaned = cleaned.replace(/\{#[\w-]+\}/g, '');
 
   // 3. Remove AI assistant URLs (Claude, ChatGPT residue)

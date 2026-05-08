@@ -41,10 +41,20 @@ export default function RichTextEditor({ value, onChange, label, placeholder }: 
   const [wordCount, setWordCount] = useState(0);
   const [isSourceMode, setIsSourceMode] = useState(false);
 
-  // Tính số từ thực tế (loại bỏ thẻ HTML)
+  // Tính số từ thực tế (loại bỏ thẻ HTML và các thực thể)
   useEffect(() => {
-    const text = value.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
-    const count = text ? text.split(/\s+/).length : 0;
+    if (!value) {
+      setWordCount(0);
+      return;
+    }
+    const text = value
+      .replace(/<[^>]*>/g, ' ') // Xóa thẻ HTML
+      .replace(/&nbsp;/g, ' ')  // Xóa khoảng trắng đặc biệt
+      .replace(/\s+/g, ' ')    // Chuẩn hóa khoảng trắng
+      .trim();
+    
+    // Đếm số từ theo dấu cách (hỗ trợ tiếng Việt tốt hơn)
+    const count = text ? text.split(' ').filter(word => word.length > 0).length : 0;
     setWordCount(count);
   }, [value]);
 
