@@ -85,7 +85,7 @@ export default function SicobiPerformanceLanding() {
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <a href="#order-form" className="bg-[#f5a623] hover:bg-[#fbb940] text-white px-8 md:px-16 py-5 md:py-8 rounded-2xl md:rounded-[3rem] font-black uppercase tracking-widest text-xs md:text-xl shadow-2xl transition-all hover:-translate-y-1 flex items-center justify-center gap-3">
-                  NHẬN PHÁC ĐỒ PHỤC HỒI <ArrowRight size={24} />
+                  ĐĂNG KÝ TƯ VẤN NGAY <ArrowRight size={24} />
                 </a>
               </div>
             </div>
@@ -218,8 +218,8 @@ export default function SicobiPerformanceLanding() {
          <div className="container mx-auto px-4 max-w-5xl">
             <PerformanceCTA 
                title="Đừng để vườn suy kiệt thêm 1 ngày nào nữa!"
-               sub="Để lại thông tin, đội ngũ Kỹ sư PBGT sẽ gọi điện tư vấn phác đồ 'Mở Đất - Kích Rễ' chuẩn xác nhất cho tình trạng vườn của bà con."
-               btnText="NHẬN PHÁC ĐỒ PHỤC HỒI NGAY"
+               sub="Để lại thông tin, đội ngũ Kỹ sư PBGT sẽ gọi điện tư vấn giải pháp 'Mở Đất - Kích Rễ' chuẩn xác nhất cho tình trạng vườn của bà con."
+               btnText="ĐĂNG KÝ TƯ VẤN NGAY"
                href="#order-form"
             />
          </div>
@@ -262,7 +262,7 @@ export default function SicobiPerformanceLanding() {
 
              <div className="flex-1 p-4 md:p-20 bg-white">
                 <div className="mb-6 md:mb-16 text-center lg:text-left">
-                   <h4 className="text-2xl md:text-4xl font-black text-gray-900 uppercase italic tracking-tighter mb-4">Đăng ký phác đồ:</h4>
+                   <h4 className="text-2xl md:text-4xl font-black text-gray-900 uppercase italic tracking-tighter mb-4">YÊU CẦU TƯ VẤN NGAY:</h4>
                    <p className="text-gray-500 font-medium text-xs md:text-lg italic px-4 md:px-0">Bà con vui lòng nhập đúng số điện thoại để kỹ thuật viên liên hệ hỗ trợ kịp thời.</p>
                 </div>
                 <LeadForm initialPathology="Phục hồi đất chai cứng & kích rễ" initialCrop="Sầu riêng" />

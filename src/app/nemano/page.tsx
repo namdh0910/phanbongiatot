@@ -50,12 +50,12 @@ export default function NemanoPerformanceLanding() {
       
       {/* 1. ELITE STICKY CTA (MOBILE) */}
       <div className="fixed bottom-0 left-0 right-0 z-[100] md:hidden bg-white/95 backdrop-blur-xl border-t border-gray-100 p-4 flex gap-3 shadow-[0_-10px_40px_rgba(0,0,0,0.1)]">
-        <a href="#order-form" className="flex-[1.5] bg-red-600 text-white flex flex-col items-center justify-center py-3 rounded-2xl font-black uppercase shadow-lg active:scale-95 transition-all">
-          <span className="text-[10px] opacity-80 italic">Diệt tận gốc tuyến trùng</span>
-          <span className="text-xs">NHẬN PHÁC ĐỒ XỬ LÝ</span>
+        <a href="#order-form" className="flex-[1.5] bg-[#f5a623] text-white flex flex-col items-center justify-center py-3 rounded-2xl font-black uppercase shadow-lg active:scale-95 transition-all">
+          <span className="text-[10px] opacity-80 italic">Cấp cứu vườn suy</span>
+          <span className="text-xs">ĐĂNG KÝ TƯ VẤN NGAY</span>
         </a>
-        <a href="tel:0773440966" className="flex-1 bg-[#1a5c2a] text-white flex items-center justify-center py-3 rounded-2xl font-black uppercase shadow-lg active:scale-95 transition-all">
-           GỌI NGAY
+        <a href="https://zalo.me/0773440966" className="flex-1 bg-[#0068FF] text-white flex items-center justify-center py-3 rounded-2xl font-black uppercase shadow-lg active:scale-95 transition-all">
+          <MessageCircle size={18} className="mr-2" /> ZALO
         </a>
       </div>
 
@@ -85,7 +85,7 @@ export default function NemanoPerformanceLanding() {
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <a href="#order-form" className="bg-red-600 hover:bg-red-700 text-white px-8 md:px-16 py-5 md:py-8 rounded-2xl md:rounded-[3rem] font-black uppercase tracking-widest text-xs md:text-xl shadow-2xl transition-all hover:-translate-y-1 flex items-center justify-center gap-3">
-                  XỬ LÝ TUYẾN TRÙNG NGAY <ArrowRight size={24} />
+                  ĐĂNG KÝ TƯ VẤN NGAY <ArrowRight size={24} />
                 </a>
               </div>
             </div>
@@ -222,8 +222,8 @@ export default function NemanoPerformanceLanding() {
          <div className="container mx-auto px-4 max-w-5xl">
             <PerformanceCTA 
                title="Tiêu diệt Tuyến trùng - Bảo vệ vườn sầu"
-               sub="Đừng để tuyến trùng âm thầm phá hủy tài sản của bà con. Nhận ngay phác đồ xử lý chuyên sâu từ đội ngũ kỹ sư giàu kinh nghiệm."
-               btnText="NHẬN HƯỚNG DẪN XỬ LÝ NGAY"
+               sub="Đừng để tuyến trùng âm thầm phá hủy tài sản của bà con. Nhận ngay tư vấn giải pháp chuyên sâu từ đội ngũ kỹ sư giàu kinh nghiệm."
+               btnText="ĐĂNG KÝ TƯ VẤN NGAY"
                href="#order-form"
             />
          </div>
@@ -236,11 +236,11 @@ export default function NemanoPerformanceLanding() {
           <div className="max-w-6xl mx-auto bg-white rounded-[3rem] md:rounded-[4.5rem] shadow-2xl overflow-hidden flex flex-col lg:flex-row">
              <div className="lg:w-[45%] bg-[#0d2a1c] p-8 md:p-20 text-white flex flex-col justify-center border-b lg:border-b-0 lg:border-r border-emerald-900">
                 <span className="text-red-500 font-black text-[10px] uppercase tracking-[0.4em] mb-6 block">Hỗ trợ kỹ thuật 24/7</span>
-                <h3 className="text-3xl md:text-6xl font-black uppercase italic tracking-tighter leading-[0.95] mb-8 md:mb-12">
-                   Đăng ký <br /> 
-                   <span className="text-red-500">Tư Vấn</span> <br/>
-                   Xử Lý Vườn
-                </h3>
+                 <h3 className="text-3xl md:text-6xl font-black uppercase italic tracking-tighter leading-[0.95] mb-8 md:mb-12">
+                    Yêu Cầu <br /> 
+                    <span className="text-red-500">Tư Vấn</span> <br/>
+                    Kỹ Thuật
+                 </h3>
                 
                 <div className="space-y-6 md:space-y-8">
                    {[
@@ -266,8 +266,8 @@ export default function NemanoPerformanceLanding() {
 
              <div className="flex-1 p-5 md:p-20 bg-white">
                 <div className="mb-8 md:mb-16 text-center lg:text-left">
-                   <h4 className="text-2xl md:text-4xl font-black text-gray-900 uppercase italic tracking-tighter mb-4">Nhận tư vấn ngay:</h4>
-                   <p className="text-gray-500 font-medium text-xs md:text-lg italic">Bà con vui lòng để lại số điện thoại chính xác để kỹ sư liên hệ hỗ trợ phác đồ tốt nhất.</p>
+                   <h4 className="text-2xl md:text-4xl font-black text-gray-900 uppercase italic tracking-tighter mb-4">YÊU CẦU TƯ VẤN NGAY:</h4>
+                   <p className="text-gray-500 font-medium text-xs md:text-lg italic">Bà con vui lòng để lại số điện thoại chính xác để kỹ sư liên hệ hỗ trợ tốt nhất.</p>
                 </div>
                 <LeadForm initialPathology="Đặc trị tuyến trùng sưng rễ" initialCrop="Sầu riêng" />
                 <div className="mt-12 flex items-center justify-center gap-3 text-[9px] md:text-xs text-gray-400 font-black uppercase tracking-widest">
