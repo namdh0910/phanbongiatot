@@ -17,6 +17,7 @@ async function sendTelegramNotification(lead: any) {
   const message = `🚨 CÓ CA BỆNH CỨU CÂY!
 - Nông dân: ${lead.name}
 - SĐT: \`${lead.phone}\`
+- Địa chỉ: ${lead.address || lead.city || 'Chưa rõ'}
 - Cây trồng: ${lead.cropType || 'Chưa rõ'}
 - Triệu chứng: ${lead.symptoms || lead.pathology || 'Cần tư vấn'}
 - Mức độ: ${lead.urgency?.toUpperCase() || 'TRUNG BÌNH'}`;

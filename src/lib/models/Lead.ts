@@ -4,6 +4,7 @@ export interface ILead {
   name: string;
   phone: string;
   city?: string;
+  address?: string;
   cropType: string;
   symptoms?: string;
   pathology?: string; // Tình trạng bệnh (backward compatibility)
@@ -23,6 +24,7 @@ const leadSchema = new Schema<ILead>({
     match: [/^(0[3|5|7|8|9])+([0-9]{8})$/, 'Số điện thoại không hợp lệ']
   },
   city: { type: String },
+  address: { type: String },
   cropType: { type: String }, // Sầu riêng, Cà phê...
   symptoms: { type: String }, // Triệu chứng
   pathology: { type: String }, // Vàng lá, Thối rễ...

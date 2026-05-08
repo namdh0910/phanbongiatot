@@ -12,6 +12,7 @@ export default function LeadForm({ product, initialPathology, initialCrop }: Lea
   const [formData, setFormData] = useState({ 
     name: "", 
     phone: "", 
+    address: "",
     cropType: initialCrop || "", 
     pathology: initialPathology || "",
     note: ""
@@ -55,7 +56,7 @@ export default function LeadForm({ product, initialPathology, initialCrop }: Lea
           name: formData.name, 
           source: payload.source 
         });
-        setFormData({ name: "", phone: "", cropType: "", pathology: "", note: "" });
+        setFormData({ name: "", phone: "", address: "", cropType: "", pathology: "", note: "" });
       }
     } catch (err) {
       console.error(err);
@@ -108,36 +109,15 @@ export default function LeadForm({ product, initialPathology, initialCrop }: Lea
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="space-y-2">
-            <label className="text-[11px] font-black uppercase text-gray-400 ml-4 tracking-widest">Loại cây trồng</label>
-            <select 
-              value={formData.cropType}
-              onChange={(e) => setFormData({...formData, cropType: e.target.value})}
-              className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-4 outline-none focus:border-[#1a5c2a] transition-all font-bold text-gray-800 appearance-none text-base"
-            >
-              <option value="">Chọn loại cây...</option>
-              <option value="Sầu riêng">Sầu riêng</option>
-              <option value="Cà phê">Cà phê</option>
-              <option value="Hồ tiêu">Hồ tiêu</option>
-              <option value="Cây ăn trái khác">Cây ăn trái khác</option>
-            </select>
-          </div>
-          <div className="space-y-2">
-            <label className="text-[11px] font-black uppercase text-gray-400 ml-4 tracking-widest">Tình trạng vườn</label>
-            <select 
-              value={formData.pathology}
-              onChange={(e) => setFormData({...formData, pathology: e.target.value})}
-              className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-4 outline-none focus:border-[#1a5c2a] transition-all font-bold text-gray-800 appearance-none text-base"
-            >
-              <option value="">Chọn tình trạng...</option>
-              <option value="Vàng lá thối rễ">Vàng lá thối rễ</option>
-              <option value="Tuyến trùng">Tuyến trùng</option>
-              <option value="Rụng trái/Bông">Rụng trái/Bông</option>
-              <option value="Cây còi cọc/Suy">Cây còi cọc/Suy</option>
-              <option value="Khác">Khác...</option>
-            </select>
-          </div>
+        <div className="space-y-2">
+          <label className="text-[11px] font-black uppercase text-gray-400 ml-4 tracking-widest">Địa chỉ vườn (Thôn, Xã, Huyện, Tỉnh)</label>
+          <input 
+            type="text" 
+            placeholder="Ví dụ: Thôn 2, Xã Ea Knuếc, Krông Pắc, Đắk Lắk..." 
+            value={formData.address}
+            onChange={(e) => setFormData({...formData, address: e.target.value})}
+            className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-4 outline-none focus:border-[#1a5c2a] transition-all font-bold text-gray-800 text-base"
+          />
         </div>
 
         <div className="space-y-2">

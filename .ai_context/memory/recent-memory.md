@@ -4,6 +4,9 @@
 - **Date**: 2026-05-08
 - **Latest Activities (Admin UX & Space Optimization - DONE)**:
   - **Global Admin Widening**: Loại bỏ giới hạn `max-w-7xl` trong `AdminLayout`, mở rộng toàn bộ không gian làm việc ra `max-w-full` để tận dụng màn hình lớn của kỹ sư vận hành.
+  - **LeadForm Refinement**:
+    - Thay đổi trường nhập liệu: Loại bỏ "Loại cây trồng" và "Tình trạng vườn" trong Form tư vấn, thay thế bằng trường "Địa chỉ vườn" để thu thập dữ liệu chính xác hơn cho kỹ sư.
+    - Nâng cấp hệ thống: Cập nhật Lead Model và Telegram Notification để hỗ trợ trường `address` mới.
   - **Nemano Landing Hotfixes**:
     - Sửa lỗi ảnh hỏng (Broken Images): Tạo mới và thay thế các ảnh Cloudinary bị hỏng bằng ảnh cục bộ chất lượng cao cho sản phẩm Nemano và minh họa cơ chế sinh học.
     - Sửa lỗi đè chữ (Text Overlap): Điều chỉnh `leading` và `tracking` trong phần "Công nghệ Đột phá" để đảm bảo hiển thị rõ ràng trên thiết bị di động.
