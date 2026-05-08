@@ -231,10 +231,6 @@ export default function SicobiPerformanceLanding() {
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-6xl mx-auto bg-white rounded-[3rem] md:rounded-[4.5rem] shadow-2xl overflow-hidden flex flex-col lg:flex-row">
              <div className="flex-1 p-4 md:p-20 bg-white">
-                <div className="mb-6 md:mb-16 text-center lg:text-left">
-                   <h4 className="text-2xl md:text-4xl font-black text-gray-900 uppercase italic tracking-tighter mb-4">YÊU CẦU TƯ VẤN NGAY:</h4>
-                   <p className="text-gray-500 font-medium text-xs md:text-lg italic px-4 md:px-0">Bà con vui lòng nhập đúng số điện thoại để kỹ thuật viên liên hệ hỗ trợ kịp thời.</p>
-                </div>
                 <LeadForm initialPathology="Phục hồi đất chai cứng & kích rễ" initialCrop="Sầu riêng" />
                 <div className="mt-12 flex items-center justify-center gap-3 text-[9px] md:text-xs text-gray-400 font-black uppercase tracking-widest">
                    <ShieldCheck size={16} /> Thông tin được bảo mật bởi Phân Bón Giá Tốt
