@@ -12,6 +12,7 @@ const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false }) as a
 interface RichTextEditorProps {
   value: string;
   onChange: (content: string) => void;
+  onExtractMetadata?: (metadata: { title?: string; slug?: string; excerpt?: string }) => void;
   label?: string;
   placeholder?: string;
 }
@@ -36,7 +37,7 @@ const prettifyHTML = (html: string) => {
     .trim();
 };
 
-export default function RichTextEditor({ value, onChange, label, placeholder }: RichTextEditorProps) {
+export default function RichTextEditor({ value, onChange, onExtractMetadata, label, placeholder }: RichTextEditorProps) {
   const quillRef = useRef<any>(null);
   const [wordCount, setWordCount] = useState(0);
   const [isSourceMode, setIsSourceMode] = useState(false);
@@ -136,14 +137,32 @@ export default function RichTextEditor({ value, onChange, label, placeholder }: 
   const handleImportMarkdown = () => {
     const markdown = prompt("Dán nội dung Markdown từ Claude/Gemini vào đây:");
     if (markdown) {
-      // Kiểm tra dung lượng thô trước khi xử lý
-      if (markdown.length > 2 * 1024 * 1024) {
-        alert("⚠️ Cảnh báo: Nội dung quá lớn (trên 2MB). Nếu có ảnh, bà con hãy xóa bớt ảnh dán trực tiếp và dùng nút 'Tải ảnh' để bài viết nhẹ hơn.");
-      }
-      // 1. Dọn dẹp mã neo {#anchor} của Claude và các ký tự thừa
-      let cleanedMarkdown = markdown.replace(/\{#[\w-]+\}/g, '');
+      // 1. EXTRACTION: Trích xuất metadata (Tiêu đề, SEO description...)
+      const metadata: { title?: string; slug?: string; excerpt?: string } = {};
       
-      // 2. TIỀN XỬ LÝ BẢNG MẠNH MẼ (Markdown Level)
+      // Match Title
+      const titleMatch = markdown.match(/^(?:Tiêu đề|Title|#)\s*:?\s*(.+)$/m);
+      if (titleMatch) metadata.title = titleMatch[1].trim();
+
+      // Match Meta Description
+      const metaMatch = markdown.match(/^(?:Meta description|Mô tả ngắn|Excerpt)\s*:?\s*(.+)$/m);
+      if (metaMatch) metadata.excerpt = metaMatch[1].trim();
+
+      // Match Slug if exists
+      const slugMatch = markdown.match(/^(?:Slug|Đường dẫn)\s*:?\s*([a-z0-9-]+)$/m);
+      if (slugMatch) metadata.slug = slugMatch[1].trim();
+
+      if (onExtractMetadata && (metadata.title || metadata.excerpt || metadata.slug)) {
+        onExtractMetadata(metadata);
+      }
+
+      // 2. Dọn dẹp mã neo {#anchor} của Claude và xóa các dòng metadata khỏi content chính
+      let cleanedMarkdown = markdown
+        .replace(/\{#[\w-]+\}/g, '')
+        .replace(/^(?:Tiêu đề|Title|Title:|Từ khóa chính|Từ khóa phụ|Meta description|Mô tả ngắn|Excerpt|Slug|Đường dẫn).+$/gm, '')
+        .trim();
+      
+      // 3. TIỀN XỬ LÝ BẢNG MẠNH MẼ (Markdown Level)
       const lines = cleanedMarkdown.split('\n');
       const processedLines = [];
       let lastRowColCount = 0;
@@ -178,13 +197,14 @@ export default function RichTextEditor({ value, onChange, label, placeholder }: 
       }
       cleanedMarkdown = processedLines.join('\n');
 
-      // 3. Chuyển đổi Markdown sang HTML
+      // 4. Chuyển đổi Markdown sang HTML
       let htmlString = marked.parse(cleanedMarkdown) as string;
       
-      // 4. DỌN DẸP TỔNG THỂ (Xóa \n, {#anchor}, sửa bảng)
+      // 5. DỌN DẸP TỔNG THỂ (Xóa \n, {#anchor}, sửa bảng)
       let finalHtml = cleanExpertContent(htmlString);
 
-      // 5. TỰ ĐỘNG CHÈN LIÊN KẾT SẢN PHẨM THÔNG MINH (Autolink Products)
+      // 6. TỰ ĐỘNG CHÈN LIÊN KẾT SẢN PHẨM THÔNG MINH (Autolink Products)
+      // Tăng mật độ: Link mỗi từ khóa khác nhau trong cùng một nhóm
       const productKeywords = [
         { 
           keywords: ['tuyến trùng', 'nốt sưng', 'sưng rễ', 'u sưng'], 
@@ -201,14 +221,11 @@ export default function RichTextEditor({ value, onChange, label, placeholder }: 
       ];
 
       productKeywords.forEach(p => {
-        let linked = false;
         p.keywords.forEach(kw => {
-          if (linked) return;
-          // Chỉ link từ khóa đầu tiên tìm thấy và đảm bảo nó không nằm trong thẻ HTML
+          // Link lần xuất hiện đầu tiên của MỖI từ khóa trong nhóm
           const regex = new RegExp(`(${kw})(?![^<]*>|[^<>]*<\/a>)`, 'i');
           if (regex.test(finalHtml)) {
             finalHtml = finalHtml.replace(regex, `<a href="${p.url}" target="_blank" style="color: ${p.color}; font-weight: 800; text-decoration: underline; text-underline-offset: 4px;">$1 (Giải pháp ${p.productName})</a>`);
-            linked = true;
           }
         });
       });

@@ -282,6 +282,14 @@ export default function AdminBlogs() {
                     label="Nội dung chi tiết (Soạn thảo chuyên gia)"
                     value={currentBlog.content}
                     onChange={(content) => setCurrentBlog(prev => ({...prev, content}))}
+                    onExtractMetadata={(meta) => {
+                      setCurrentBlog(prev => ({
+                        ...prev,
+                        title: meta.title || prev.title,
+                        slug: meta.slug || (meta.title ? slugify(meta.title) : prev.slug),
+                        excerpt: meta.excerpt || prev.excerpt
+                      }));
+                    }}
                     placeholder="Nhập nội dung kỹ thuật và chèn hình ảnh minh họa..."
                   />
                   
