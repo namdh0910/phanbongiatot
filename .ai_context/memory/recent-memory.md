@@ -4,11 +4,11 @@
 - **Date**: 2026-05-08
 - **Latest Activities (Admin UX & Space Optimization - DONE)**:
   - **Global Admin Widening**: Loại bỏ giới hạn `max-w-7xl` trong `AdminLayout`, mở rộng toàn bộ không gian làm việc ra `max-w-full` để tận dụng màn hình lớn của kỹ sư vận hành.
-  - **Landing Page Manager Upgrade**: 
-    - Nâng cấp Grid từ 3 cột lên 4 cột trên màn hình XL.
-    - Thêm cột **"Hiệu suất nhanh (Quick Stats)"** cung cấp gợi ý tối ưu CRO và lối tắt đến Dashboard.
-    - Tăng chiều cao danh sách hiển thị (`max-h-[600px]` -> `max-h-[800px]`) giúp quan sát được nhiều Giải pháp/Sản phẩm hơn mà không cần cuộn.
-    - Mở rộng thanh tìm kiếm và tối ưu hóa diện tích Header.
+  - **Landing Page Manager Refinement**: 
+    - Loại bỏ cột báo cáo nhanh (Quick Stats) theo yêu cầu để giữ giao diện tập trung.
+    - Lọc lại danh sách **"Trang Cốt Lõi"** chỉ hiển thị các sản phẩm chủ lực (Trang chủ, Sicobi, Nemano), loại bỏ các trang phụ như "Về chúng tôi", "Liên hệ".
+    - Duy trì Grid 3 cột truyền thống nhưng vẫn tận dụng toàn bộ chiều rộng màn hình (`max-w-full`).
+    - Giữ nguyên nâng cấp chiều cao danh sách hiển thị (`max-h-[800px]`).
   - **Global Spacing Reduction**: Cắt giảm 50-60% khoảng cách trắng (padding/margin) trên mobile tại tất cả các trang Landing Page (Home, Giải pháp, Sản phẩm). Thay thế các khoảng trống lãng phí `py-20/16` bằng `py-8/6`.
   - **Typography Compression**: Thu nhỏ kích thước tiêu đề (`text-3xl` -> `text-xl/2xl`) và mô tả trên mobile để hiển thị được nhiều nội dung hơn trên cùng một diện tích màn hình.
   - **Component Tightening**:
