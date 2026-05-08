@@ -170,14 +170,16 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
     <div className="bg-white min-h-screen">
       <style dangerouslySetInnerHTML={{ __html: globalBlogStyles }} />
       
-      <main className="pb-20 md:pb-32 pt-24 md:pt-32">
+      <main className="pb-20 md:pb-32 pt-20 md:pt-28">
         <div className="container mx-auto px-4">
-          <div className="mb-8 max-w-7xl mx-auto">
-            <Breadcrumbs items={[
-              { label: 'Kiến thức', href: '/blog' },
-              { label: blog.category || 'Nông nghiệp', href: `/blog?category=${encodeURIComponent(blog.category || '')}` },
-              { label: blog.title }
-            ]} />
+          <div className="mb-4 max-w-7xl mx-auto">
+            <Breadcrumbs 
+              className="bg-transparent border-none py-0 px-0 mb-4"
+              items={[
+                { label: 'Kiến thức', href: '/blog' },
+                { label: blog.category || 'Nông nghiệp', href: `/blog?category=${encodeURIComponent(blog.category || '')}` }
+              ]} 
+            />
           </div>
 
           <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 max-w-7xl mx-auto">
