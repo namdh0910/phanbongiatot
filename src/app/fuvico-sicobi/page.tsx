@@ -230,36 +230,6 @@ export default function SicobiPerformanceLanding() {
         <div className="absolute inset-0 opacity-5 bg-[url('https://www.transparenttextures.com/patterns/leaf.png')]"></div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-6xl mx-auto bg-white rounded-[3rem] md:rounded-[4.5rem] shadow-2xl overflow-hidden flex flex-col lg:flex-row">
-             <div className="lg:w-[45%] bg-[#0d2a1c] p-8 md:p-20 text-white flex flex-col justify-center border-b lg:border-b-0 lg:border-r border-emerald-900">
-                <span className="text-emerald-400 font-black text-[10px] uppercase tracking-[0.4em] mb-6 block">Chương trình hỗ trợ kỹ thuật</span>
-                 <h3 className="text-3xl md:text-6xl font-black uppercase italic tracking-tighter leading-tight mb-8 md:mb-12">
-                    Yêu Cầu <br /> 
-                    <span className="text-[#f5a623]">Tư Vấn</span> <br/>
-                    Kỹ Thuật
-                 </h3>
-                
-                <div className="space-y-6 md:space-y-8">
-                   {[
-                     "Phân tích tình trạng đất chai cứng miễn phí",
-                     "Phác đồ kích rễ tơ sau 7 ngày",
-                     "Hướng dẫn bón phân tiết kiệm 30% chi phí"
-                   ].map((text, i) => (
-                     <div key={i} className="flex items-center gap-4 font-bold text-sm md:text-xl leading-tight">
-                        <div className="w-6 h-6 md:w-8 md:h-8 bg-emerald-500 rounded-full flex items-center justify-center flex-shrink-0 text-white">✓</div>
-                        {text}
-                     </div>
-                   ))}
-                </div>
-                
-                <div className="mt-12 md:mt-20 flex items-center gap-6 p-6 bg-white/5 rounded-3xl border border-white/10">
-                   <div className="text-4xl">🚚</div>
-                   <div>
-                      <p className="text-emerald-400 text-[10px] font-black uppercase tracking-widest mb-1">Hỗ trợ vận chuyển:</p>
-                      <p className="text-white font-black text-sm md:text-lg uppercase italic tracking-tighter">Giao hàng tận vườn - Kiểm tra mới thanh toán</p>
-                   </div>
-                </div>
-             </div>
-
              <div className="flex-1 p-4 md:p-20 bg-white">
                 <div className="mb-6 md:mb-16 text-center lg:text-left">
                    <h4 className="text-2xl md:text-4xl font-black text-gray-900 uppercase italic tracking-tighter mb-4">YÊU CẦU TƯ VẤN NGAY:</h4>
