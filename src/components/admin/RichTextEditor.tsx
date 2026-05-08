@@ -156,7 +156,7 @@ export default function RichTextEditor({ value, onChange, onExtractMetadata, lab
         onExtractMetadata(metadata);
       }
 
-      // 2. Dọn dẹp mã neo {#anchor} của Claude và xóa các dòng metadata khỏi content chính
+      // 2. Dọn dẹp mã neo {#anchor} và XÓA các dòng metadata khỏi content chính TRƯỚC KHI xử lý tiếp
       let cleanedMarkdown = markdown
         .replace(/\{#[\w-]+\}/g, '')
         .replace(/^(?:Tiêu đề|Title|Title:|Từ khóa chính|Từ khóa phụ|Meta description|Mô tả ngắn|Excerpt|Slug|Đường dẫn).+$/gm, '')
@@ -165,34 +165,19 @@ export default function RichTextEditor({ value, onChange, onExtractMetadata, lab
       // 3. TIỀN XỬ LÝ BẢNG MẠNH MẼ (Markdown Level)
       const lines = cleanedMarkdown.split('\n');
       const processedLines = [];
-      let lastRowColCount = 0;
-
       for (let i = 0; i < lines.length; i++) {
         let l = lines[i].trim();
-        
-        // Phát hiện hàng gạch ngang phân tách bảng |---|---|
         if (l.match(/^\|?\s*:?-+:?\s*(\|?\s*:?-+:?\s*)*\|?$/)) {
            processedLines.push(l);
            continue;
         }
-
-        // Chuyển đổi Tab hoặc nhiều dấu cách thành phân tách cột
         if (l.includes('\t')) {
           l = '| ' + l.split('\t').filter(x => x.trim()).join(' | ') + ' |';
         } else if (/\s{3,}/.test(l) && !l.startsWith('|')) {
           l = '| ' + l.split(/\s{3,}/).filter(x => x.trim()).join(' | ') + ' |';
         }
-
-        // Chuẩn hóa dòng có | nhưng thiếu ở đầu/cuối
         if (l.includes('|') && !l.startsWith('|')) l = '| ' + l;
         if (l.includes('|') && !l.endsWith('|')) l = l + ' |';
-
-        // Đếm số cột để hỗ trợ hàng tiếp theo
-        if (l.startsWith('|')) {
-          const colCount = l.split('|').filter(part => part.trim().length > 0).length;
-          lastRowColCount = colCount;
-        }
-
         processedLines.push(l);
       }
       cleanedMarkdown = processedLines.join('\n');
@@ -203,8 +188,7 @@ export default function RichTextEditor({ value, onChange, onExtractMetadata, lab
       // 5. DỌN DẸP TỔNG THỂ (Xóa \n, {#anchor}, sửa bảng)
       let finalHtml = cleanExpertContent(htmlString);
 
-      // 6. TỰ ĐỘNG CHÈN LIÊN KẾT SẢN PHẨM THÔNG MINH (Autolink Products)
-      // Tăng mật độ: Link mỗi từ khóa khác nhau trong cùng một nhóm
+      // 6. TỰ ĐỘNG CHÈN LIÊN KẾT SẢN PHẨM THÔNG MINH (Chỉ chèn vào nội dung đã sạch)
       const productKeywords = [
         { 
           keywords: ['tuyến trùng', 'nốt sưng', 'sưng rễ', 'u sưng'], 
@@ -222,7 +206,6 @@ export default function RichTextEditor({ value, onChange, onExtractMetadata, lab
 
       productKeywords.forEach(p => {
         p.keywords.forEach(kw => {
-          // Link lần xuất hiện đầu tiên của MỖI từ khóa trong nhóm
           const regex = new RegExp(`(${kw})(?![^<]*>|[^<>]*<\/a>)`, 'i');
           if (regex.test(finalHtml)) {
             finalHtml = finalHtml.replace(regex, `<a href="${p.url}" target="_blank" style="color: ${p.color}; font-weight: 800; text-decoration: underline; text-underline-offset: 4px;">$1 (Giải pháp ${p.productName})</a>`);
