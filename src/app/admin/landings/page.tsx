@@ -15,8 +15,12 @@ export default function LandingPagesList() {
       fetch(`${API_BASE_URL}/products`).then(res => res.json()),
       fetch(`${API_BASE_URL}/pathologies`).then(res => res.json())
     ]).then(([productsData, solutionsData]) => {
-      setProducts(productsData.data || productsData || []);
-      setSolutions(solutionsData.data || solutionsData || []);
+      // Correctly extract arrays from API responses
+      const productsArr = productsData.products || productsData.data || (Array.isArray(productsData) ? productsData : []);
+      const solutionsArr = solutionsData.pathologies || solutionsData.data || (Array.isArray(solutionsData) ? solutionsData : []);
+      
+      setProducts(productsArr);
+      setSolutions(solutionsArr);
       setLoading(false);
     }).catch(err => {
       console.error(err);
