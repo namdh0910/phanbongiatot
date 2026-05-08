@@ -103,8 +103,8 @@ export default function SicobiPerformanceLanding() {
       </section>
 
       {/* 3. DIAGNOSTIC EXPERIENCE - THE MOST IMPORTANT UPGRADE */}
-      <section className="py-6 md:py-32 bg-white relative">
-        <div className="container mx-auto px-1 md:px-4 max-w-6xl">
+      <section className="py-2 md:py-32 bg-white relative">
+        <div className="w-full max-w-6xl mx-auto">
           <DiagnosticSection items={[
             { 
               symptom: "Đất chai cứng, nén chặt như đá", 

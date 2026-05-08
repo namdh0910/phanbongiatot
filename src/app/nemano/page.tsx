@@ -103,8 +103,8 @@ export default function NemanoPerformanceLanding() {
       </section>
 
       {/* 3. DIAGNOSTIC EXPERIENCE */}
-      <section className="py-6 md:py-32 bg-white relative">
-        <div className="container mx-auto px-1 md:px-4 max-w-6xl">
+      <section className="py-2 md:py-32 bg-white relative">
+        <div className="w-full max-w-6xl mx-auto">
           <DiagnosticSection items={[
             { 
               symptom: "Rễ sưng cục, thối đầu rễ tơ", 

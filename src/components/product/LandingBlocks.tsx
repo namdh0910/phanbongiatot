@@ -133,29 +133,29 @@ export const ProductTrustBadges = () => (
 
 // 6. Diagnostic Symptom Checker (PREMIUM)
 export const DiagnosticSection = ({ items, title, sub }: { items: any[], title?: string, sub?: string }) => (
-    <section className="py-8 md:py-24 bg-white">
-      <div className="container mx-auto px-2 md:px-4">
-        <div className="text-center mb-8 md:mb-20 px-2">
+    <section className="py-6 md:py-24 bg-white w-full">
+      <div className="w-full px-4 md:px-8">
+        <div className="text-center mb-6 md:mb-20">
           <span className="text-orange-600 font-black uppercase tracking-[0.2em] text-[10px] md:text-xs mb-2 block italic">{sub || "Hệ thống chẩn đoán nhanh"}</span>
-          <h2 className="text-[28px] md:text-6xl font-black text-gray-900 uppercase italic tracking-tighter leading-[1.15]">
+          <h2 className="text-[28px] md:text-6xl font-black text-gray-900 uppercase italic tracking-tighter leading-[1.15] max-w-4xl mx-auto">
             {title || <>DẤU HIỆU ĐẤT ĐANG <br/> <span className="text-red-600">"CHẾT LÂM SÀNG"</span></>}
           </h2>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-8 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-8 w-full max-w-7xl mx-auto">
           {items.map((item, i) => (
-            <div key={i} className="bg-gray-50 p-4 md:p-10 rounded-[2rem] border border-gray-100 flex flex-col gap-3 md:gap-6 hover:shadow-xl transition-all">
-              <div className="flex items-start gap-3">
-                <div className="w-8 h-8 md:w-12 md:h-12 bg-white rounded-xl flex items-center justify-center text-red-500 shadow-sm flex-shrink-0 border border-red-50 font-black text-xs md:text-lg">
+            <div key={i} className="bg-gray-50 p-5 md:p-10 rounded-[2rem] border border-gray-100 flex flex-col gap-3 md:gap-6 hover:shadow-xl transition-all w-full">
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 md:w-12 md:h-12 bg-white rounded-xl flex items-center justify-center text-red-500 shadow-sm flex-shrink-0 border border-red-50 font-black text-sm md:text-lg">
                   !
                 </div>
-                <div>
-                  <h3 className="text-base md:text-2xl font-black text-gray-900 leading-tight mb-1.5 md:mb-2 uppercase italic tracking-tight">
+                <div className="flex-1">
+                  <h3 className="text-lg md:text-2xl font-black text-gray-900 leading-tight mb-1.5 md:mb-2 uppercase italic tracking-tight">
                     {item.title || item.symptom}
                   </h3>
                   <div className="flex gap-2">
                     <span className="text-emerald-600 font-black text-[10px] md:text-sm uppercase italic flex-shrink-0">→ Lý do:</span>
-                    <p className="text-gray-500 text-[11px] md:text-lg leading-relaxed italic">
+                    <p className="text-gray-500 text-xs md:text-lg leading-relaxed italic">
                       {item.reason || item.root_cause}
                     </p>
                   </div>
