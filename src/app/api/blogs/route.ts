@@ -8,7 +8,8 @@ import { verifyAdmin } from '@/lib/auth';
 export async function GET() {
   try {
     await dbConnect();
-    const blogs = await Blog.find({ isPublished: true }).sort({ createdAt: -1 });
+    // Admin should see all blogs (published and drafts)
+    const blogs = await Blog.find({}).sort({ createdAt: -1 });
     return NextResponse.json({ blogs });
   } catch (error) {
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
