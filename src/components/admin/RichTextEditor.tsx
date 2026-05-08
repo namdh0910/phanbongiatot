@@ -140,28 +140,33 @@ export default function RichTextEditor({ value, onChange, onExtractMetadata, lab
       // 1. EXTRACTION: Trích xuất metadata (Tiêu đề, SEO description...)
       const metadata: { title?: string; slug?: string; excerpt?: string } = {};
       
-      // Match Title
-      const titleMatch = markdown.match(/^(?:Tiêu đề|Title|#)\s*:?\s*(.+)$/m);
+      // Match Title: Tìm dòng có "Tiêu đề", "Title", hoặc dòng đầu tiên có dấu # hoặc dòng đầu tiên có nhiều chữ
+      const titleMatch = markdown.match(/^\s*(?:Tiêu đề|Title|#)\s*:?\s*(.+)$/mi) || markdown.match(/^(.+)$/m);
       if (titleMatch) metadata.title = titleMatch[1].trim();
 
-      // Match Meta Description
-      const metaMatch = markdown.match(/^(?:Meta description|Mô tả ngắn|Excerpt)\s*:?\s*(.+)$/m);
+      // Match Meta Description: Tìm "Meta description", "Mô tả ngắn"
+      const metaMatch = markdown.match(/(?:Meta description|Mô tả ngắn|Excerpt)\s*:?\s*(.+)/i);
       if (metaMatch) metadata.excerpt = metaMatch[1].trim();
 
-      // Match Slug if exists
-      const slugMatch = markdown.match(/^(?:Slug|Đường dẫn)\s*:?\s*([a-z0-9-]+)$/m);
+      // Match Slug
+      const slugMatch = markdown.match(/^\s*(?:Slug|Đường dẫn)\s*:?\s*([a-z0-9-]+)$/mi);
       if (slugMatch) metadata.slug = slugMatch[1].trim();
 
       if (onExtractMetadata && (metadata.title || metadata.excerpt || metadata.slug)) {
         onExtractMetadata(metadata);
       }
 
-      // 2. Dọn dẹp mã neo {#anchor} và XÓA các dòng metadata khỏi content chính TRƯỚC KHI xử lý tiếp
+      // 2. Dọn dẹp mã neo {#anchor} và XÓA các dòng metadata khỏi content chính
+      // Sử dụng regex không phụ thuộc vào đầu dòng tuyệt đối để xóa sạch hơn
       let cleanedMarkdown = markdown
         .replace(/\{#[\w-]+\}/g, '')
-        .replace(/^(?:Tiêu đề|Title|Title:|Từ khóa chính|Từ khóa phụ|Meta description|Mô tả ngắn|Excerpt|Slug|Đường dẫn).+$/gm, '')
+        .replace(/^\s*(?:Tiêu đề|Title|Title:|Từ khóa chính|Từ khóa phụ|Meta description|Mô tả ngắn|Excerpt|Slug|Đường dẫn).+$/gmi, '')
         .trim();
       
+      // Nếu dòng đầu tiên trùng khớp với tiêu đề đã trích xuất, xóa nó luôn
+      if (metadata.title && cleanedMarkdown.startsWith(metadata.title)) {
+        cleanedMarkdown = cleanedMarkdown.replace(metadata.title, '').trim();
+      }
       // 3. TIỀN XỬ LÝ BẢNG MẠNH MẼ (Markdown Level)
       const lines = cleanedMarkdown.split('\n');
       const processedLines = [];
