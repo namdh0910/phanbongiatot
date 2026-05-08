@@ -4,12 +4,12 @@
 - **Date**: 2026-05-08
 - **Latest Activities (Admin UX & Space Optimization - DONE)**:
   - **Global Admin Widening**: Loại bỏ giới hạn `max-w-7xl` trong `AdminLayout`, mở rộng toàn bộ không gian làm việc ra `max-w-full` để tận dụng màn hình lớn của kỹ sư vận hành.
-  - **LeadForm Refinement**:
-    - Thay đổi trường nhập liệu: Loại bỏ "Loại cây trồng" và "Tình trạng vườn" trong Form tư vấn, thay thế bằng trường "Địa chỉ vườn" để thu thập dữ liệu chính xác hơn cho kỹ sư.
-    - Nâng cấp hệ thống: Cập nhật Lead Model và Telegram Notification để hỗ trợ trường `address` mới.
   - **Nemano Landing Hotfixes**:
-    - Sửa lỗi ảnh hỏng (Broken Images): Tạo mới và thay thế các ảnh Cloudinary bị hỏng bằng ảnh cục bộ chất lượng cao cho sản phẩm Nemano và minh họa cơ chế sinh học.
+    - Khôi phục ảnh thật (Real Assets Restoration): Thay thế toàn bộ ảnh AI bằng ảnh sản phẩm thật và ảnh cơ chế sinh học lấy trực tiếp từ hệ thống dữ liệu Cloudinary.
+    - Nâng cấp Chẩn đoán (Diagnostic Upgrade): Cập nhật `DiagnosticSection` để hiển thị hình ảnh thực tế của rễ sưng cục và vàng lá, giúp bà con dễ dàng nhận diện bệnh lý.
     - Sửa lỗi đè chữ (Text Overlap): Điều chỉnh `leading` và `tracking` trong phần "Công nghệ Đột phá" để đảm bảo hiển thị rõ ràng trên thiết bị di động.
+  - **LeadForm Refinement**: 
+    - Thay đổi trường nhập liệu: Loại bỏ "Loại cây trồng" và "Tình trạng vườn" trong Form tư vấn, thay thế bằng trường "Địa chỉ vườn" để thu thập dữ liệu chính xác hơn cho kỹ sư.
   - **Landing Page Manager Refinement**: 
     - Tăng quy mô giao diện (UI Scaling): Tăng kích thước font chữ (text-xs -> text-sm/text-[14px]), hình ảnh sản phẩm (w-8 -> w-12) và khoảng cách (padding) để cải thiện độ rõ nét và dễ nhìn trên màn hình lớn.
     - Loại bỏ cột báo cáo nhanh (Quick Stats) theo yêu cầu để giữ giao diện tập trung.

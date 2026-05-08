@@ -146,8 +146,12 @@ export const DiagnosticSection = ({ items, title, sub }: { items: any[], title?:
           {items.map((item, i) => (
             <div key={i} className="bg-gray-50 p-5 md:p-10 rounded-[2rem] border border-gray-100 flex flex-col gap-3 md:gap-6 hover:shadow-xl transition-all w-full">
               <div className="flex items-start gap-4">
-                <div className="w-10 h-10 md:w-12 md:h-12 bg-white rounded-xl flex items-center justify-center text-red-500 shadow-sm flex-shrink-0 border border-red-50 font-black text-sm md:text-lg">
-                  !
+                <div className="w-16 h-16 md:w-24 md:h-24 bg-white rounded-full flex items-center justify-center text-red-500 shadow-sm flex-shrink-0 border border-red-50 overflow-hidden">
+                  {item.image ? (
+                    <img src={item.image} alt={item.title || item.symptom} className="w-full h-full object-cover" />
+                  ) : (
+                    <span className="font-black text-lg md:text-2xl">!</span>
+                  )}
                 </div>
                 <div className="flex-1">
                   <h3 className="text-lg md:text-2xl font-black text-gray-900 leading-tight mb-1.5 md:mb-2 uppercase italic tracking-tight">

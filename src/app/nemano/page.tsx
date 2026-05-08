@@ -32,7 +32,7 @@ export default function NemanoPerformanceLanding() {
     "@context": "https://schema.org",
     "@type": "Product",
     "name": "Nemano - Khắc tinh tuyến trùng sưng rễ",
-    "image": "/images/products/nemano-7010.png",
+    "image": "/images/products/nemano-7010.webp",
     "description": "Đặc trị tuyến trùng, tiêu diệt trứng và phục hồi bộ rễ tơ trắng xóa.",
     "brand": { "@type": "Brand", "name": "PBGT" },
     "offers": {
@@ -92,7 +92,7 @@ export default function NemanoPerformanceLanding() {
 
             <div className="flex-1 relative group">
                <img 
-                src="/images/products/nemano-7010.png" 
+                src="/images/products/nemano-7010.webp" 
                 alt="Nemano" 
                 className="w-full max-w-[280px] md:max-w-md mx-auto drop-shadow-[0_50px_100px_rgba(0,0,0,0.6)] group-hover:scale-105 transition-transform duration-700"
                />
@@ -108,15 +108,18 @@ export default function NemanoPerformanceLanding() {
           <DiagnosticSection items={[
             { 
               symptom: "Rễ sưng cục, thối đầu rễ tơ", 
-              root_cause: "Tuyến trùng tấn công làm rễ nổi u cục, không thể hút nước và dinh dưỡng, cây vàng lá còi cọc." 
+              root_cause: "Tuyến trùng tấn công làm rễ nổi u cục, không thể hút nước và dinh dưỡng, cây vàng lá còi cọc.",
+              image: "/images/blog/tuyen-trung-sau-rieng.png"
             },
             { 
               symptom: "Lá vàng toàn bộ, bón phân không hiệu quả", 
-              root_cause: "Vết thương do tuyến trùng tạo điều kiện cho nấm Phytophthora xâm nhập gây thối rễ chết nhanh." 
+              root_cause: "Vết thương do tuyến trùng tạo điều kiện cho nấm Phytophthora xâm nhập gây thối rễ chết nhanh.",
+              image: "/images/blog/sau-rieng-vang-la-mua-mua.png"
             },
             { 
               symptom: "Cây đứng sững, không ra đọt non", 
-              root_cause: "Hệ thống 'miệng' của cây đã bị phá hủy hoàn toàn. Cần diệt tuyến trùng để phục hồi rễ mới." 
+              root_cause: "Hệ thống 'miệng' của cây đã bị phá hủy hoàn toàn. Cần diệt tuyến trùng để phục hồi rễ mới.",
+              image: "/images/blog/kich-re-cay-trong.png"
             }
           ]} />
           
@@ -171,7 +174,7 @@ export default function NemanoPerformanceLanding() {
               <div className="flex-1 relative">
                  <div className="aspect-square bg-[#0d2a1c] rounded-[4rem] flex items-center justify-center p-12 overflow-hidden shadow-2xl">
                     <img 
-                      src="/images/blog/nemano-micro-action.png" 
+                      src="/images/blog/nemano-micro-action.webp" 
                       className="w-full h-full object-cover rounded-3xl opacity-60" 
                       alt="Cơ chế Nemano"
                     />
