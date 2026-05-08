@@ -58,6 +58,37 @@ export default function RichTextEditor({ value, onChange, label, placeholder }: 
     setWordCount(count);
   }, [value]);
 
+  const imageHandler = () => {
+    const input = document.createElement('input');
+    input.setAttribute('type', 'file');
+    input.setAttribute('accept', 'image/*');
+    input.click();
+
+    input.onchange = async () => {
+      const file = input.files?.[0];
+      if (!file) return;
+
+      const formData = new FormData();
+      formData.append('file', file);
+
+      try {
+        const res = await fetch('/api/admin/upload', {
+          method: 'POST',
+          body: formData,
+        });
+        const data = await res.json();
+        if (data.url) {
+          const quill = quillRef.current.getEditor();
+          const range = quill.getSelection();
+          quill.insertEmbed(range ? range.index : quill.getLength(), 'image', data.url);
+        }
+      } catch (error) {
+        console.error('Error uploading image:', error);
+        alert('Lỗi khi tải ảnh lên. Bà con hãy thử lại!');
+      }
+    };
+  };
+
   const modules = useMemo(() => ({
     toolbar: {
       container: [
@@ -70,6 +101,9 @@ export default function RichTextEditor({ value, onChange, label, placeholder }: 
         ['link', 'image', 'table'],
         ['clean']
       ],
+      handlers: {
+        image: imageHandler,
+      }
     },
     table: true,
     clipboard: {
@@ -102,6 +136,10 @@ export default function RichTextEditor({ value, onChange, label, placeholder }: 
   const handleImportMarkdown = () => {
     const markdown = prompt("Dán nội dung Markdown từ Claude/Gemini vào đây:");
     if (markdown) {
+      // Kiểm tra dung lượng thô trước khi xử lý
+      if (markdown.length > 2 * 1024 * 1024) {
+        alert("⚠️ Cảnh báo: Nội dung quá lớn (trên 2MB). Nếu có ảnh, bà con hãy xóa bớt ảnh dán trực tiếp và dùng nút 'Tải ảnh' để bài viết nhẹ hơn.");
+      }
       // 1. Dọn dẹp mã neo {#anchor} của Claude và các ký tự thừa
       let cleanedMarkdown = markdown.replace(/\{#[\w-]+\}/g, '');
       
@@ -248,7 +286,7 @@ export default function RichTextEditor({ value, onChange, label, placeholder }: 
             <ImageIcon size={12} /> Ảnh minh họa 📷
          </button>
 
-         <button 
+          <button 
             type="button" 
             onClick={() => {
               const quill = quillRef.current?.getEditor();
@@ -262,6 +300,29 @@ export default function RichTextEditor({ value, onChange, label, placeholder }: 
             title="Dọn dẹp tổng thể và sửa bảng"
          >
             <Table size={12} /> Sửa bảng 🛠️
+         </button>
+
+         <button 
+            type="button" 
+            onClick={() => {
+              const quill = quillRef.current?.getEditor();
+              if (quill) {
+                const currentHtml = quill.root.innerHTML;
+                const base64Count = (currentHtml.match(/src="data:image\/[^;]+;base64,/g) || []).length;
+                if (base64Count > 0) {
+                  if (confirm(`Phát hiện ${base64Count} ảnh dán trực tiếp (rất nặng). Bà con có muốn hệ thống tự động loại bỏ để lưu bài nhẹ hơn không? (Sau đó bà con hãy dùng nút 'Tải ảnh' để chèn lại cho đẹp)`)) {
+                    const cleanedHtml = currentHtml.replace(/<img[^>]+src="data:image\/[^;]+;base64,[^">]+"[^>]*>/g, '<p style="color:red; font-weight:bold;">[ẢNH QUÁ NẶNG ĐÃ BỊ XÓA - BÀ CON HÃY TẢI LÊN LẠI TẠI ĐÂY]</p>');
+                    quill.root.innerHTML = cleanedHtml;
+                  }
+                } else {
+                  alert("✅ Tuyệt vời! Không phát hiện ảnh nặng (Base64). Bài viết của bà con rất sạch.");
+                }
+              }
+            }} 
+            className="flex items-center gap-1.5 px-3 py-2 bg-red-900/30 text-red-400 rounded-xl text-[10px] font-black hover:bg-red-900/50 transition-all border border-red-900/30 active:scale-95 uppercase tracking-wider"
+            title="Kiểm tra và dọn dẹp ảnh nặng"
+         >
+            <ImageIcon size={12} /> Dọn ảnh nặng 🧹
          </button>
 
          <div className="w-[1px] h-8 bg-gray-800 mx-1 self-center" />

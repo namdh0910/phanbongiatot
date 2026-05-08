@@ -4,6 +4,10 @@ import dbConnect from '@/lib/db';
 import Blog from '@/lib/models/Blog';
 import { generateHashtags, generateSEODescription } from '@/utils/seo';
 import { verifyAdmin } from '@/lib/auth';
+ 
+// Nâng giới hạn dung lượng cho bài viết dài (3000+ từ) và có ảnh
+export const dynamic = 'force-dynamic';
+export const fetchCache = 'force-no-store';
 
 export async function GET() {
   try {
