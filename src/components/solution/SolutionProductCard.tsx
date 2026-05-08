@@ -57,7 +57,7 @@ const SolutionProductCard = ({ product }: { product: Product }) => {
 
         {/* CTA Button */}
         <a 
-          href={`https://zalo.me/0773440966?text=${encodeURIComponent(`Chào PBGT, tôi muốn tư vấn về sản phẩm: ${product.name}`)}`}
+          href={`https://zalo.me/0339505050?text=${encodeURIComponent(`Chào PBGT, tôi muốn tư vấn về sản phẩm: ${product.name}`)}`}
           target="_blank"
           className="w-full bg-gray-900 text-white py-4 rounded-2xl font-black text-xs uppercase tracking-widest flex items-center justify-center gap-2 group-hover:bg-[#1a5c2a] shadow-lg shadow-gray-200 transition-all"
         >

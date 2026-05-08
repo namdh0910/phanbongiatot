@@ -10,7 +10,7 @@ const farmerTestimonials = [
     avatar: "👨‍🌾"
   },
   {
-    name: "Cô Tám Đắk Lắk",
+    name: "Cô Tám Kon Tum",
     crop: "☕ 3 héc ta Cà phê Robusta",
     content: "Đã bón phân Bình Điền nhiều năm nhưng mua ở đây yên tâm nhất, giao tới tận nơi cho kiểm tra hàng mới trả tiền, rất tiện cho bà con.",
     avatar: "👩‍🌾"

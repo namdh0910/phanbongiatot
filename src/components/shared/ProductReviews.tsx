@@ -3,7 +3,7 @@ import { API_BASE_URL, getAuthHeaders } from '@/utils/api';
 import { useState, useEffect, useRef } from "react";
 
 const PROVINCES = [
-  "Lâm Đồng", "Đắk Lắk", "Gia Lai", "Đắk Nông", "Kon Tum", "Bình Phước", "Đồng Nai", "Long An", "Tiền Giang", "Bến Tre", "Vĩnh Long", "Trà Vinh", "Hậu Giang", "Sóc Trăng", "An Giang", "Kiên Giang", "Cần Thơ"
+  "Lâm Đồng", "Kon Tum", "Gia Lai", "Đắk Nông", "Kon Tum", "Bình Phước", "Đồng Nai", "Long An", "Tiền Giang", "Bến Tre", "Vĩnh Long", "Trà Vinh", "Hậu Giang", "Sóc Trăng", "An Giang", "Kiên Giang", "Cần Thơ"
 ];
 
 export default function ProductReviews({ productId }: { productId: string }) {

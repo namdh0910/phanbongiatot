@@ -50,7 +50,7 @@ const Hero: React.FC = () => {
             🌿 Xem giải pháp
           </Link>
           <a
-            href={`https://zalo.me/${process.env.NEXT_PUBLIC_ZALO_PHONE ?? '0773440966'}`}
+            href={`https://zalo.me/${process.env.NEXT_PUBLIC_ZALO_PHONE ?? '0339505050'}`}
             target="_blank"
             rel="noopener noreferrer"
             className="hero-btn hero-btn-secondary"

@@ -44,8 +44,8 @@ export default function ContactPage() {
               <h2 className="text-2xl font-bold text-dark mb-6">Thông Tin Liên Hệ</h2>
               <div className="space-y-5">
                 {[
-                  { icon: "📞", label: "Hotline (24/7)", val: <a href={`tel:${settings.hotline || '0773440966'}`} className="text-primary font-extrabold text-xl hover:underline">{settings.phone || settings.hotline || '0773.440.966'}</a> },
-                  { icon: "💬", label: "Zalo", val: <a href={`https://zalo.me/${settings.zalo || '0773440966'}`} target="_blank" className="text-green-600 font-bold hover:underline">Nhắn tin Zalo ngay</a> },
+                  { icon: "📞", label: "Hotline (24/7)", val: <a href={`tel:${settings.hotline || '0339505050'}`} className="text-primary font-extrabold text-xl hover:underline">{settings.phone || settings.hotline || '0339.505.050'}</a> },
+                  { icon: "💬", label: "Zalo", val: <a href={`https://zalo.me/${settings.zalo || '0339505050'}`} target="_blank" className="text-green-600 font-bold hover:underline">Nhắn tin Zalo ngay</a> },
                   { icon: "📍", label: "Địa chỉ", val: <p className="text-gray-600">{settings.address}</p> },
                   { icon: "🕐", label: "Giờ làm việc", val: <p className="text-gray-600">{settings.businessHours} (Tất cả các ngày)</p> },
                 ].map((item, i) => (
@@ -88,7 +88,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <label className="block text-sm font-bold text-gray-700 mb-2">Số điện thoại *</label>
-                    <input required type="tel" value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/30 focus:border-primary outline-none text-lg" placeholder="0773 440 966" />
+                    <input required type="tel" value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary/30 focus:border-primary outline-none text-lg" placeholder="0339.505.050" />
                   </div>
                   <div>
                     <label className="block text-sm font-bold text-gray-700 mb-2">Vườn bị vấn đề gì? (tùy chọn)</label>

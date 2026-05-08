@@ -129,7 +129,7 @@ export default function Header() {
   ];
 
   const trends = ["Sầu riêng", "Cà phê", "Kích rễ", "Tuyến trùng", "Phân bón lá"];
-  const hotline = settings?.hotline || "0773.440.966";
+  const hotline = settings?.hotline || "0339.505.050";
 
   return (
     <div className="w-full sticky top-0 z-[100] bg-white shadow-sm pt-[env(safe-area-inset-top)]">
@@ -172,7 +172,7 @@ export default function Header() {
                     <span className="text-base font-black text-gray-900">{hotline}</span>
                  </div>
               </a>
-              <a href="https://zalo.me/0773440966" target="_blank" className="bg-[#0068ff] text-white px-6 py-2.5 rounded-xl font-black text-sm flex items-center gap-2 shadow-lg active:scale-95 transition-all">
+              <a href="https://zalo.me/0339505050" target="_blank" className="bg-[#0068ff] text-white px-6 py-2.5 rounded-xl font-black text-sm flex items-center gap-2 shadow-lg active:scale-95 transition-all">
                 💬 TƯ VẤN ZALO
               </a>
             </div>
@@ -478,7 +478,7 @@ export default function Header() {
                   {suggestions.products.map((p: any, i: number) => (
                     <a 
                       key={i} 
-                      href={`https://zalo.me/0773440966?text=${encodeURIComponent(`Chào PBGT, tôi muốn tư vấn về sản phẩm: ${p.name}`)}`}
+                      href={`https://zalo.me/0339505050?text=${encodeURIComponent(`Chào PBGT, tôi muốn tư vấn về sản phẩm: ${p.name}`)}`}
                       target="_blank"
                       onClick={() => setIsSearchFocused(false)}
                       className="flex items-center gap-3"

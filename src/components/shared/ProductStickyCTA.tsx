@@ -40,7 +40,7 @@ export default function ProductStickyCTA({ product }: ProductStickyCTAProps) {
       </div>
       <div className="flex items-center gap-2">
         <a 
-          href={`https://zalo.me/${(product.zalo || '0773440966').replace(/\./g, '')}`}
+          href={`https://zalo.me/${(product.zalo || '0339505050').replace(/\./g, '')}`}
           target="_blank"
           onClick={() => trackEvent('zalo_click', { product: product.name, location: 'sticky' })}
           className="bg-[#0068ff] text-white px-4 py-2.5 rounded-xl font-black text-[10px] uppercase tracking-wider shadow-lg shadow-blue-100 active:scale-95 transition-all animate-pulse flex items-center gap-1.5"
@@ -48,7 +48,7 @@ export default function ProductStickyCTA({ product }: ProductStickyCTAProps) {
           💬 ZALO
         </a>
         <a 
-          href={`tel:${(product.hotline || '0773.440.966').replace(/\./g, '')}`}
+          href={`tel:${(product.hotline || '0339.505.050').replace(/\./g, '')}`}
           onClick={() => trackEvent('call_click', { product: product.name, location: 'sticky' })}
           className="bg-[#ee4d2d] text-white w-10 h-10 rounded-xl shadow-lg shadow-red-100 active:scale-95 transition-all flex items-center justify-center"
         >

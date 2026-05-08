@@ -77,8 +77,8 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
   if (!product) notFound();
 
   const relatedProducts = await getRelatedProducts(product.category, product.slug);
-  const zaloUrl = `https://zalo.me/0773440966?text=${encodeURIComponent(`Tôi cần tư vấn về sản phẩm ${product.name}`)}`;
-  const buyUrl = `https://zalo.me/0773440966?text=${encodeURIComponent(`Tôi muốn mua sản phẩm ${product.name}, vui lòng báo giá và giao hàng.`)}`;
+  const zaloUrl = `https://zalo.me/0339505050?text=${encodeURIComponent(`Tôi cần tư vấn về sản phẩm ${product.name}`)}`;
+  const buyUrl = `https://zalo.me/0339505050?text=${encodeURIComponent(`Tôi muốn mua sản phẩm ${product.name}, vui lòng báo giá và giao hàng.`)}`;
 
   const productSchema = {
     "@context": "https://schema.org",
@@ -191,7 +191,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                          <MessageCircle size={16} fill="currentColor" /> ZALO PBGT
                       </a>
                       <a 
-                        href="tel:0773440966"
+                        href="tel:0339505050"
                         className="bg-white border-2 border-emerald-800 text-emerald-800 hover:bg-emerald-50 py-3 rounded-xl font-black text-[10px] md:text-base uppercase tracking-wider flex items-center justify-center gap-2 transition-all"
                       >
                          <Phone size={16} /> GỌI NGAY

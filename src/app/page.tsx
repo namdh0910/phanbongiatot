@@ -111,11 +111,11 @@ export default function LandingPage() {
   const [scrollProgress, setScrollProgress] = useState(0);
 
   const settings = useSettings() || {
-    hotline: '0773.440.966',
-    zalo: '0773440966',
-    phone: '0773.440.966',
+    hotline: '0339.505.050',
+    zalo: '0339505050',
+    phone: '0339.505.050',
     siteName: 'Phân Bón Giá Tốt',
-    address: 'Khu vực hỗ trợ: Đắk Lắk, Đắk Nông, Gia Lai, Lâm Đồng'
+    address: 'Khu vực hỗ trợ: Kon Tum, Đắk Nông, Gia Lai, Lâm Đồng'
   };
 
   useEffect(() => {

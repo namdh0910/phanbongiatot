@@ -77,7 +77,7 @@ export default function AboutPage() {
             <a href={`tel:${settings.hotline}`} className="px-8 py-4 bg-white text-emerald-700 rounded-xl font-black text-lg hover:bg-gray-100 transition-colors shadow-lg uppercase tracking-widest">
               📞 Gọi Ngay: {settings.phone || settings.hotline}
             </a>
-            <Link href="https://zalo.me/0773440966" className="px-8 py-4 bg-white/20 backdrop-blur-sm text-white rounded-xl font-black text-lg hover:bg-white/30 transition-colors border border-white/30 uppercase tracking-widest">
+            <Link href="https://zalo.me/0339505050" className="px-8 py-4 bg-white/20 backdrop-blur-sm text-white rounded-xl font-black text-lg hover:bg-white/30 transition-colors border border-white/30 uppercase tracking-widest">
               Nhắn Zalo
             </Link>
           </div>

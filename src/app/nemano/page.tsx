@@ -54,7 +54,7 @@ export default function NemanoPerformanceLanding() {
           <span className="text-[10px] opacity-80 italic">Diệt tận gốc tuyến trùng</span>
           <span className="text-xs">ĐĂNG KÝ TƯ VẤN NGAY</span>
         </a>
-        <a href="tel:0773440966" className="flex-1 bg-[#1a5c2a] text-white flex items-center justify-center py-3 rounded-2xl font-black uppercase shadow-lg active:scale-95 transition-all">
+        <a href="tel:0339505050" className="flex-1 bg-[#1a5c2a] text-white flex items-center justify-center py-3 rounded-2xl font-black uppercase shadow-lg active:scale-95 transition-all">
            GỌI NGAY
         </a>
       </div>

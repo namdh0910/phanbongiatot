@@ -19,13 +19,13 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Phân Bón Đắk Lắk | Giải Pháp Cứu Vườn Sầu Riêng, Cà Phê",
-  description: "Mua phân bón Đắk Lắk chính hãng. Phan Bón Giá Tốt tư vấn phục hồi sầu riêng vàng lá, tuyến trùng miễn phí. Giao hàng toàn quốc, kiểm tra tại vườn.",
-  keywords: "phân bón, thuốc trừ sâu, kích rễ, tuyến trùng, vàng lá thối rễ, sầu riêng, cà phê, phan bong gia tot",
+  title: "Phân Bón Kon Tum | Mua Phân Bón Kon Tum Chính Hãng",
+  description: "Mua phân bón Kon Tum chính hãng tại Phường Đăk Cấm, TP. Kon Tum. Phan Bón Giá Tốt chuyên tư vấn phục hồi sầu riêng, cà phê, hồ tiêu. Giao hàng toàn quốc, kiểm tra tại vườn.",
+  keywords: "phân bón, thuốc trừ sâu, kích rễ, tuyến trùng, vàng lá thối rễ, sầu riêng, cà phê, phan bong gia tot, kon tum",
   metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || "https://www.phanbongiatot.com"),
   openGraph: {
     title: "Phân Bón Giá Tốt | Giải Pháp Nông Nghiệp Hiệu Quả",
-    description: "Phân bón chính hãng giá tốt cho sầu riêng, cà phê, tiêu. Giao hàng toàn quốc, kiểm tra trước khi nhận.",
+    description: "Mua phân bón Kon Tum chính hãng tại Phường Đăk Cấm, TP. Kon Tum. Giao hàng toàn quốc, kiểm tra trước khi nhận.",
     url: "https://www.phanbongiatot.com/",
     siteName: "Phân Bón Giá Tốt",
     locale: "vi_VN",
@@ -75,7 +75,7 @@ export default function RootLayout({
             ],
             "contactPoint": {
               "@type": "ContactPoint",
-              "telephone": "+84773440966",
+              "telephone": "+84339505050",
               "contactType": "customer service",
               "areaServed": "VN",
               "availableLanguage": "Vietnamese"
@@ -89,12 +89,12 @@ export default function RootLayout({
             "@type": "LocalBusiness",
             "name": "Phân Bón Giá Tốt",
             "image": "https://www.phanbongiatot.com/og-image.png",
-            "telephone": "0773440966",
+            "telephone": "0339505050",
             "address": {
               "@type": "PostalAddress",
-              "streetAddress": "Kho hàng Tây Nguyên",
-              "addressLocality": "Buôn Ma Thuột",
-              "addressRegion": "Đắk Lắk",
+              "streetAddress": "Phường Đăk Cấm",
+              "addressLocality": "Thành phố Kon Tum",
+              "addressRegion": "Kon Tum",
               "addressCountry": "VN"
             },
             "priceRange": "$$",

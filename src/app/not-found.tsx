@@ -27,7 +27,7 @@ export default function NotFound() {
           <Home size={18} /> Về Trang Chủ
         </Link>
         <a 
-          href="https://zalo.me/0773440966" 
+          href="https://zalo.me/0339505050" 
           className="flex-1 bg-[#0068FF] text-white py-4 rounded-2xl font-black uppercase tracking-widest text-sm flex items-center justify-center gap-2 shadow-xl shadow-blue-100 hover:scale-105 transition-all"
         >
           <MessageCircle size={18} /> Hỏi PBGT

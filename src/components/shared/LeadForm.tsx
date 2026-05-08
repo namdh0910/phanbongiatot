@@ -100,7 +100,7 @@ export default function LeadForm({ product, initialPathology, initialCrop }: Lea
             <input 
               required
               type="tel" 
-              placeholder="0773.440.966" 
+              placeholder="0339.505.050" 
               value={formData.phone}
               onChange={(e) => setFormData({...formData, phone: e.target.value})}
               className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-6 py-4 outline-none focus:border-[#1a5c2a] transition-all font-bold text-gray-800 text-base"

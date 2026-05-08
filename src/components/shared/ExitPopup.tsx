@@ -82,14 +82,14 @@ export default function ExitPopup() {
             <button 
               onClick={() => {
                 closePopup();
-                window.open(`https://zalo.me/0773440966`, '_blank');
+                window.open(`https://zalo.me/0339505050`, '_blank');
               }}
               className="w-full bg-[#ee4d2d] text-white py-4 rounded-xl font-black text-lg shadow-lg hover:shadow-[#ee4d2d]/30 hover:-translate-y-0.5 transition-all"
             >
               DÙNG MÃ NGAY
             </button>
             <a 
-              href="tel:0773440966"
+              href="tel:0339505050"
               className="w-full border-2 border-emerald-600 text-emerald-600 py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-emerald-50 transition-colors"
             >
               📞 GỌI TƯ VẤN NGAY

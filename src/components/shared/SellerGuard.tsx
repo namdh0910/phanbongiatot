@@ -50,7 +50,7 @@ export default function SellerGuard({ children }: { children: React.ReactNode })
             Cảm ơn bạn đã đăng ký gia nhập hệ thống <b>Phân Bón Giá Tốt</b>. Hiện tại đội ngũ quản trị đang kiểm tra hồ sơ của bạn. Quá trình này thường mất từ <b>24-48h</b>.
           </p>
           <div className="space-y-4">
-             <a href={`https://zalo.me/0773440966`} target="_blank" className="block w-full bg-[#0068ff] text-white py-4 rounded-2xl font-black text-lg shadow-lg hover:bg-blue-600 transition-all">
+             <a href={`https://zalo.me/0339505050`} target="_blank" className="block w-full bg-[#0068ff] text-white py-4 rounded-2xl font-black text-lg shadow-lg hover:bg-blue-600 transition-all">
                Hỗ trợ kích hoạt nhanh
              </a>
              <button 

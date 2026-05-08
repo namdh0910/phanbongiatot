@@ -7,8 +7,8 @@ import './MobileBottomBar.css';
 
 const MobileBottomBar: React.FC = () => {
   const settings = useSettings();
-  const phone = settings?.hotline || "0773.440.966";
-  const zalo = settings?.zalo || "0773440966";
+  const phone = settings?.hotline || "0339.50.50.50";
+  const zalo = settings?.zalo || "0339505050";
   const zaloUrl = `https://zalo.me/${zalo.replace(/\./g, '')}`;
 
   return (

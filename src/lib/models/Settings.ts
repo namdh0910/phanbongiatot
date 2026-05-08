@@ -14,8 +14,8 @@ export interface ISettings {
 
 const settingsSchema = new Schema<ISettings>({
   siteName: { type: String, default: 'Phân Bón Giá Tốt' },
-  hotline: { type: String, default: '0773.440.966' },
-  zalo: { type: String, default: '0773440966' },
+  hotline: { type: String, default: '0339.505.050' },
+  zalo: { type: String, default: '0339505050' },
   announcementEnabled: { type: Boolean, default: false },
   announcementText: { type: String, default: 'Nhận giải pháp phục hồi vàng lá miễn phí' },
   primaryColor: { type: String, default: '#1a5c2a' }, // Leaf Green

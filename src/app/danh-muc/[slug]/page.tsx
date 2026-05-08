@@ -138,7 +138,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
                         <h3 className="font-black text-gray-900 text-sm md:text-lg mb-2 leading-tight group-hover:text-emerald-700 transition-colors">{product.name}</h3>
                         <div className="text-[#f5a623] font-black text-sm md:text-lg mb-4">{product.price || 'Liên hệ'}</div>
                         <a 
-                          href={`https://zalo.me/0773440966?text=Tôi cần tư vấn về ${product.name}`}
+                          href={`https://zalo.me/0339505050?text=Tôi cần tư vấn về ${product.name}`}
                           className="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 px-6 py-2 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-emerald-600 hover:text-white transition-all"
                         >
                           Tư vấn ngay
@@ -166,10 +166,10 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
                       Gửi ngay hình ảnh vườn {categoryName} của bà con để đội ngũ PBGT hỗ trợ tư vấn chính xác và miễn phí.
                    </p>
                    <div className="space-y-3">
-                      <a href="https://zalo.me/0773440966" target="_blank" className="flex items-center justify-center gap-3 w-full bg-[#0068ff] text-white py-4 rounded-2xl font-black text-sm shadow-lg shadow-blue-100 active:scale-95 transition-transform">
+                      <a href="https://zalo.me/0339505050" target="_blank" className="flex items-center justify-center gap-3 w-full bg-[#0068ff] text-white py-4 rounded-2xl font-black text-sm shadow-lg shadow-blue-100 active:scale-95 transition-transform">
                          <MessageCircle size={18} /> Chat Zalo Ngay
                       </a>
-                      <a href="tel:0773440966" className="flex items-center justify-center gap-3 w-full bg-emerald-700 text-white py-4 rounded-2xl font-black text-sm shadow-lg shadow-emerald-100 active:scale-95 transition-transform">
+                      <a href="tel:0339505050" className="flex items-center justify-center gap-3 w-full bg-emerald-700 text-white py-4 rounded-2xl font-black text-sm shadow-lg shadow-emerald-100 active:scale-95 transition-transform">
                          <Phone size={18} /> Gọi Tư Vấn
                       </a>
                    </div>

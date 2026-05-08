@@ -30,7 +30,7 @@ const ComboSection: React.FC = () => {
   }, []);
 
   const handleBuyCombo = (combo: any) => {
-    window.open(`https://zalo.me/${settings?.zalo || '0773440966'}`, '_blank');
+    window.open(`https://zalo.me/${settings?.zalo || '0339505050'}`, '_blank');
   };
 
   if (loading) return (

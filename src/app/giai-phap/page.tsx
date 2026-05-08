@@ -108,7 +108,7 @@ export default async function SolutionsPage({ searchParams }: { searchParams: Pr
                   PBGT hỗ trợ chẩn đoán miễn phí qua Zalo 24/7.
                 </p>
                 <div className="flex flex-col gap-2">
-                  <a href="https://zalo.me/0773440966" target="_blank" className="flex items-center justify-center gap-2 w-full bg-[#0068ff] text-white py-2.5 md:py-4 rounded-xl md:rounded-2xl font-black text-[10px] md:text-sm active:scale-95 transition-transform">
+                  <a href="https://zalo.me/0339505050" target="_blank" className="flex items-center justify-center gap-2 w-full bg-[#0068ff] text-white py-2.5 md:py-4 rounded-xl md:rounded-2xl font-black text-[10px] md:text-sm active:scale-95 transition-transform">
                     <MessageCircle size={14} /> Zalo Ngay
                   </a>
                 </div>

@@ -186,10 +186,10 @@ export default async function SolutionDetail({ params }: { params: Promise<{ slu
                     <h3 className="text-white text-lg font-black uppercase italic mb-1">Video đang cập nhật</h3>
                     <p className="text-gray-400 font-bold mb-8 text-[11px] uppercase tracking-widest">Đội ngũ PBGT đang thực hiện quay tại vườn...</p>
                     <a 
-                      href="tel:0773440966" 
+                      href="tel:0339505050" 
                       className="bg-white text-gray-900 px-8 py-3 rounded-xl font-black text-[10px] uppercase tracking-widest hover:scale-105 transition-all shadow-xl flex items-center gap-2"
                     >
-                      <Phone size={14} /> TƯ VẤN NGAY: 0773.440.966
+                      <Phone size={14} /> TƯ VẤN NGAY: 0339.505.050
                     </a>
                   </div>
                 ) : (
@@ -388,8 +388,8 @@ export default async function SolutionDetail({ params }: { params: Promise<{ slu
           <h2 className="text-3xl md:text-5xl font-black uppercase italic tracking-tighter mb-6">Bà con cần hỗ trợ ngay?</h2>
           <p className="text-emerald-100 text-lg mb-10 max-w-2xl mx-auto">Đừng để vườn suy kiệt thêm nữa. Nhắn Zalo ngay để chúng tôi xem ảnh vườn và hỗ trợ miễn phí.</p>
           <div className="flex flex-col md:flex-row gap-4 justify-center">
-            <a href={`https://zalo.me/0773440966`} className="bg-[#0068FF] px-10 py-5 rounded-2xl font-black uppercase tracking-widest text-sm shadow-xl active:scale-95 transition-all">Nhắn Zalo PBGT</a>
-            <a href="tel:0773440966" className="bg-white text-emerald-900 px-10 py-5 rounded-2xl font-black uppercase tracking-widest text-sm shadow-xl active:scale-95 transition-all">Gọi Hotline: 0773.440.966</a>
+            <a href={`https://zalo.me/0339505050`} className="bg-[#0068FF] px-10 py-5 rounded-2xl font-black uppercase tracking-widest text-sm shadow-xl active:scale-95 transition-all">Nhắn Zalo PBGT</a>
+            <a href="tel:0339505050" className="bg-white text-emerald-900 px-10 py-5 rounded-2xl font-black uppercase tracking-widest text-sm shadow-xl active:scale-95 transition-all">Gọi Hotline: 0339.505.050</a>
           </div>
         </div>
       </section>

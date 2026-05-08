@@ -5,7 +5,7 @@ import { CheckCircle } from "lucide-react";
 const successStories = [
   { name: "Anh Ba", location: "Gia Lai", action: "vừa được tư vấn trị tuyến trùng", time: "2 phút trước" },
   { name: "Chú Năm", location: "Đồng Nai", action: "đã đặt bộ phục hồi sầu riêng", time: "5 phút trước" },
-  { name: "Cô Tám", location: "Đắk Lắk", action: "vừa hỏi về quy trình kích rễ", time: "8 phút trước" },
+  { name: "Cô Tám", location: "Kon Tum", action: "vừa hỏi về quy trình kích rễ", time: "8 phút trước" },
   { name: "Bác Sáu", location: "Tiền Giang", action: "đã nhận hàng Nemano thành công", time: "12 phút trước" },
   { name: "Chị Hoa", location: "Bình Phước", action: "vừa gửi ảnh vườn nhờ PBGT hỗ trợ", time: "15 phút trước" }
 ];

@@ -38,15 +38,15 @@ export default function Footer() {
             <ul className="space-y-6 text-gray-400">
               <li className="flex items-start gap-4">
                 <MapPin className="text-[#f5a623] shrink-0" size={20} />
-                <span>{settings?.address || 'Kho hàng: TP. Buôn Ma Thuột, Tỉnh Đắk Lắk'}</span>
+                <span>{settings?.address || 'Kho hàng: TP. Kon Tum, Tỉnh Kon Tum'}</span>
               </li>
               <li className="flex items-center gap-4">
                 <Phone className="text-[#f5a623] shrink-0" size={20} />
-                <span className="text-white font-black">{settings?.phone || settings?.hotline || '0773.440.966'}</span>
+                <span className="text-white font-black">{settings?.phone || settings?.hotline || '0339.505.050'}</span>
               </li>
               <li className="flex items-center gap-4">
                 <MessageCircle className="text-[#f5a623] shrink-0" size={20} />
-                <span>Zalo: {settings?.zalo || '0773440966'}</span>
+                <span>Zalo: {settings?.zalo || '0339505050'}</span>
               </li>
             </ul>
           </div>

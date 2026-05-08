@@ -22,8 +22,8 @@ export default function StickyCTA() {
     return () => clearTimeout(timer);
   }, [pathname, params]);
 
-  const hotline = settings?.hotline || "0773.440.966";
-  const zalo = settings?.zalo || "0773440966";
+  const hotline = settings?.hotline || "0339.50.50.50";
+  const zalo = settings?.zalo || "0339505050";
   
   const message = pageTitle 
     ? `Chào PBGT, tôi vừa xem video về cách chữa ${pageTitle} và muốn nhận giải pháp cho vườn ở [Tỉnh của tôi] của tôi`

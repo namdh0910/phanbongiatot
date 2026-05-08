@@ -81,7 +81,7 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
                   <div className="relative z-10">
                      <h4 className="font-black text-xl mb-4">Cần giải pháp riêng?</h4>
                      <p className="text-sm text-emerald-100 mb-6 font-medium">Chụp ảnh vườn gửi đội ngũ PBGT tư vấn miễn phí ngay qua Zalo.</p>
-                     <a href="https://zalo.me/0773440966" target="_blank" className="bg-white text-emerald-700 font-black px-6 py-3 rounded-xl text-sm flex items-center justify-center gap-2">
+                     <a href="https://zalo.me/0339505050" target="_blank" className="bg-white text-emerald-700 font-black px-6 py-3 rounded-xl text-sm flex items-center justify-center gap-2">
                         <MessageCircle size={18} fill="currentColor" /> Chat Ngay
                      </a>
                   </div>
@@ -140,7 +140,7 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
                         
                         <div className="grid grid-cols-1 gap-1.5 mt-auto">
                            <a 
-                             href={`https://zalo.me/0773440966?text=Tôi muốn tư vấn về ${product.name}`}
+                             href={`https://zalo.me/0339505050?text=Tôi muốn tư vấn về ${product.name}`}
                              target="_blank"
                              className="text-[8px] md:text-[9px] font-black text-white bg-emerald-700 uppercase tracking-widest py-2 md:py-2.5 rounded-lg flex items-center justify-center hover:bg-emerald-800 transition-colors gap-1.5"
                            >

@@ -9,8 +9,8 @@ export default function ProductActions({ product }: { product: any }) {
   const displayStock = selectedVariant ? selectedVariant.stock : product.stock;
   const isOutOfStock = displayStock === 0;
   
-  const zaloPhone = process.env.NEXT_PUBLIC_ZALO_PHONE ?? '0773440966';
-  const hotline = process.env.NEXT_PUBLIC_HOTLINE ?? '0773440966';
+  const zaloPhone = process.env.NEXT_PUBLIC_ZALO_PHONE ?? '0339505050';
+  const hotline = process.env.NEXT_PUBLIC_HOTLINE ?? '0339505050';
   
   const handleZaloClick = () => {
     trackEvent('zalo_click', { product: product.name, qty });

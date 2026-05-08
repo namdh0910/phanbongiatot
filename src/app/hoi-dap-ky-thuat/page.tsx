@@ -34,7 +34,7 @@ const faqData = [
       {
         q: "Làm sao để sầu riêng ra bông đồng loạt?",
         a: "Bà con cần siết nước tạo khô hạn khoảng 10-15 ngày, kết hợp phun phân hóa mầm hoa giàu Lân và Kali. Khi thấy mắt cua sáng đều mới bắt đầu nhấp nước nhẹ trở lại.",
-        link: "https://zalo.me/0773440966",
+        link: "https://zalo.me/0339505050",
         linkText: "Nhắn PBGT hỗ trợ"
       }
     ]
@@ -72,7 +72,7 @@ const faqData = [
       {
         q: "Tiêu bị chết chậm xử lý như thế nào?",
         a: "Cần xử lý tuyến trùng bằng Nemano trước, sau đó sát khuẩn bằng Phytopin và cuối cùng là kích rễ lại bằng Humic.",
-        link: "tel:0773440966",
+        link: "tel:0339505050",
         linkText: "Gọi Hotline hỗ trợ"
       }
     ]
@@ -245,11 +245,11 @@ export default function FAQPage() {
               <p className="text-emerald-100 text-sm md:text-lg mb-8 md:mb-12 max-w-2xl mx-auto font-medium">Đừng ngần ngại, đội ngũ Phan Bón Giá Tốt luôn sẵn sàng hỗ trợ bà con 24/7 hoàn toàn miễn phí.</p>
               
               <div className="flex flex-col md:flex-row items-center justify-center gap-4">
-                <a href="https://zalo.me/0773440966" className="w-full md:w-auto bg-[#0068FF] hover:bg-blue-600 text-white font-black px-10 py-5 rounded-2xl flex items-center justify-center gap-3 transition-all active:scale-95 shadow-xl">
+                <a href="https://zalo.me/0339505050" className="w-full md:w-auto bg-[#0068FF] hover:bg-blue-600 text-white font-black px-10 py-5 rounded-2xl flex items-center justify-center gap-3 transition-all active:scale-95 shadow-xl">
                   <MessageCircle fill="currentColor" /> Chat Zalo PBGT
                 </a>
-                <a href="tel:0773440966" className="w-full md:w-auto bg-white text-emerald-900 font-black px-10 py-5 rounded-2xl flex items-center justify-center gap-3 transition-all active:scale-95 shadow-xl">
-                  <Phone /> Gọi: 0773.440.966
+                <a href="tel:0339505050" className="w-full md:w-auto bg-white text-emerald-900 font-black px-10 py-5 rounded-2xl flex items-center justify-center gap-3 transition-all active:scale-95 shadow-xl">
+                  <Phone /> Gọi: 0339.505.050
                 </a>
               </div>
             </div>

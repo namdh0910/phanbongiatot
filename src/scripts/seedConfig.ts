@@ -8,8 +8,8 @@ const initialConfigs = [
   { key: 'hero_cta_primary', value: 'Nhận Tư Vấn Miễn Phí', group: 'hero', label: 'Nút CTA chính', type: 'text' },
   
   // CONTACT GROUP
-  { key: 'phone_primary', value: '0773.440.966', group: 'contact', label: 'Hotline chính', type: 'text' },
-  { key: 'zalo_id', value: '0773440966', group: 'contact', label: 'Số Zalo', type: 'text' },
+  { key: 'phone_primary', value: '0339.505.050', group: 'contact', label: 'Hotline chính', type: 'text' },
+  { key: 'zalo_id', value: '0339505050', group: 'contact', label: 'Số Zalo', type: 'text' },
   { key: 'business_hours', value: '7:00 - 21:00', group: 'contact', label: 'Giờ làm việc', type: 'text' },
   
   // ANNOUNCEMENT GROUP

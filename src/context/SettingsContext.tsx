@@ -33,10 +33,10 @@ const SettingsContext = createContext<any>(null);
 export function SettingsProvider({ children }: { children: React.ReactNode }) {
   const [settings, setSettings] = useState<Settings>({
     siteName: 'Phân Bón Giá Tốt',
-    hotline: '0773440966',
-    zalo: '0773440966',
+    hotline: '0339505050',
+    zalo: '0339505050',
     shopee: 'phanbongiatot',
-    address: 'Kho hàng: TP. Buôn Ma Thuột, Tỉnh Đắk Lắk',
+    address: 'Kho hàng: Phường Đăk Cấm, TP. Kon Tum, Tỉnh Kon Tum',
     email: 'hotro@phanbongiatot.com',
     facebook: '',
     freeShippingThreshold: 500000,
@@ -45,13 +45,13 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
     heroBanner: '',
     primaryColor: '#0d2a1c',
     showBlogOnHome: true,
-    phone: '0773.440.966',
-    zaloId: '0773440966',
+    phone: '0339.50.50.50',
+    zaloId: '0339505050',
     ctaText: 'Nhận Tư Vấn Miễn Phí',
     businessHours: '7:00 - 21:00',
     announcementEnabled: false,
     announcementText: '',
-    footerAddress: 'Kho hàng: TP. Buôn Ma Thuột, Tỉnh Đắk Lắk',
+    footerAddress: 'Kho hàng: Phường Đăk Cấm, TP. Kon Tum, Tỉnh Kon Tum',
     footerEmail: 'hotro@phanbongiatot.com',
     brands: 'BÌNH ĐIỀN, ĐẠM PHÚ MỸ, PHÂN BÓN MIỀN NAM, YARA, HAIFA GROUP, BEHN MEYER, DAP ĐÌNH VŨ, ACTI AGRI'
   });

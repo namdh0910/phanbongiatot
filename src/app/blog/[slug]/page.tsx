@@ -227,8 +227,8 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
                     "Đừng để đất chết lâm sàng mới cứu. Hãy nhắn tin ngay để kỹ sư PBGT tư vấn giải pháp hồi sinh vườn miễn phí."
                  </p>
                  <div className="flex flex-col sm:flex-row gap-5 justify-center relative z-10">
-                    <a href="https://zalo.me/0773440966" className="bg-emerald-500 hover:bg-emerald-400 text-white px-8 md:px-12 py-5 rounded-2xl font-black uppercase tracking-widest text-xs md:text-sm shadow-2xl transition-all">Tư vấn Zalo 24/7</a>
-                    <a href="tel:0773440966" className="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/20 px-8 md:px-12 py-5 rounded-2xl font-black uppercase tracking-widest text-xs md:text-sm transition-all">Gọi kỹ sư ngay</a>
+                    <a href="https://zalo.me/0339505050" className="bg-emerald-500 hover:bg-emerald-400 text-white px-8 md:px-12 py-5 rounded-2xl font-black uppercase tracking-widest text-xs md:text-sm shadow-2xl transition-all">Tư vấn Zalo 24/7</a>
+                    <a href="tel:0339505050" className="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/20 px-8 md:px-12 py-5 rounded-2xl font-black uppercase tracking-widest text-xs md:text-sm transition-all">Gọi kỹ sư ngay</a>
                  </div>
               </div>
             </div>
@@ -256,7 +256,7 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
                     <h3 className="text-2xl font-black uppercase italic tracking-tighter mb-6 leading-tight">
                        Gửi Ảnh Vườn <br /> Nhận Chẩn Đoán <br /> <span className="text-emerald-500">Từ PBGT 24/7</span>
                     </h3>
-                    <a href="https://zalo.me/0773440966" className="w-full bg-emerald-600 hover:bg-emerald-500 text-white py-5 rounded-2xl font-black uppercase tracking-widest text-xs flex items-center justify-center gap-2 transition-all">
+                    <a href="https://zalo.me/0339505050" className="w-full bg-emerald-600 hover:bg-emerald-500 text-white py-5 rounded-2xl font-black uppercase tracking-widest text-xs flex items-center justify-center gap-2 transition-all">
                        Bấm gửi ảnh ngay <ChevronRight size={16} />
                     </a>
                  </div>

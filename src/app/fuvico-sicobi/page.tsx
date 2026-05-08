@@ -53,7 +53,7 @@ export default function SicobiPerformanceLanding() {
           <span className="text-[10px] opacity-80 italic">Cấp cứu vườn suy</span>
           <span className="text-xs">NHẬN PHÁC ĐỒ NGAY</span>
         </a>
-        <a href="https://zalo.me/0773440966" className="flex-1 bg-[#0068FF] text-white flex items-center justify-center py-3 rounded-2xl font-black uppercase shadow-lg active:scale-95 transition-all">
+        <a href="https://zalo.me/0339505050" className="flex-1 bg-[#0068FF] text-white flex items-center justify-center py-3 rounded-2xl font-black uppercase shadow-lg active:scale-95 transition-all">
           <MessageCircle size={18} className="mr-2" /> ZALO
         </a>
       </div>

@@ -48,7 +48,7 @@ const VendorLanding: React.FC = () => {
             <Link href="/kenh-nguoi-ban/dang-nhap" className="bg-white text-[#1a5c2a] px-12 py-5 rounded-[2rem] font-black text-xl shadow-xl hover:bg-gray-50 transition-all hover:scale-105 active:scale-95">
               ĐĂNG NHẬP
             </Link>
-            <a href={`https://zalo.me/${process.env.NEXT_PUBLIC_ZALO_PHONE ?? '0773440966'}`} target="_blank" className="bg-white/10 backdrop-blur-md text-white px-12 py-5 rounded-[2rem] font-black text-xl border border-white/20 hover:bg-white/20 transition-all">
+            <a href={`https://zalo.me/${process.env.NEXT_PUBLIC_ZALO_PHONE ?? '0339505050'}`} target="_blank" className="bg-white/10 backdrop-blur-md text-white px-12 py-5 rounded-[2rem] font-black text-xl border border-white/20 hover:bg-white/20 transition-all">
               TƯ VẤN B2B
             </a>
           </div>
@@ -152,7 +152,7 @@ const VendorLanding: React.FC = () => {
                 <div className="w-16 h-16 bg-emerald-600 rounded-full flex items-center justify-center text-3xl font-black">HT</div>
                 <div>
                   <h4 className="font-black text-xl">Chú Hùng</h4>
-                  <p className="text-emerald-400 font-medium">Nhà vườn Sầu Riêng (Đắk Lắk)</p>
+                  <p className="text-emerald-400 font-medium">Nhà vườn Sầu Riêng (Kon Tum)</p>
                 </div>
               </div>
               <p className="text-gray-300 italic text-lg leading-relaxed mb-8">
@@ -189,7 +189,7 @@ const VendorLanding: React.FC = () => {
             </Link>
             <div className="text-xl font-bold flex flex-col items-center md:items-start">
                <span className="text-orange-200 uppercase text-xs tracking-widest mb-1">Hỗ trợ đối tác 24/7</span>
-               <a href="tel:0773440966" className="text-white underline text-2xl font-black">0773.440.966</a>
+               <a href="tel:0339505050" className="text-white underline text-2xl font-black">0339.505.050</a>
             </div>
           </div>
         </div>
