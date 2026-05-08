@@ -103,8 +103,8 @@ export default function NemanoPerformanceLanding() {
       </section>
 
       {/* 3. DIAGNOSTIC EXPERIENCE */}
-      <section className="py-12 md:py-32 bg-white relative">
-        <div className="container mx-auto px-4 max-w-6xl">
+      <section className="py-6 md:py-32 bg-white relative">
+        <div className="container mx-auto px-1 md:px-4 max-w-6xl">
           <DiagnosticSection items={[
             { 
               symptom: "Rễ sưng cục, thối đầu rễ tơ", 
@@ -120,8 +120,8 @@ export default function NemanoPerformanceLanding() {
             }
           ]} />
           
-          <div className="mt-12 md:mt-24">
-             <ExpertAdvice advice="Tuyến trùng là 'giặc giấu mặt'. Nếu bà con chỉ trị nấm mà không diệt tuyến trùng thì cây sẽ tái phát liên tục sau mỗi trận mưa. Nemano là phác đồ cắt đứt chu kỳ sinh trưởng của chúng." />
+          <div className="mt-2 md:mt-24 px-0 md:px-0">
+             <ExpertAdvice advice="Bà con thường lầm tưởng cây vàng là thiếu phân nên bón thêm phân hóa học. Nhưng thực tế là đất đang bị 'bội thực', rễ đang bị 'bỏng'. Muốn cứu cây, việc đầu tiên phải là MỞ ĐẤT và GIẢI ĐỘC RỄ." />
           </div>
         </div>
       </section>

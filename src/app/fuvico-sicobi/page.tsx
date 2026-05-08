@@ -103,8 +103,8 @@ export default function SicobiPerformanceLanding() {
       </section>
 
       {/* 3. DIAGNOSTIC EXPERIENCE - THE MOST IMPORTANT UPGRADE */}
-      <section className="py-12 md:py-32 bg-white relative">
-        <div className="container mx-auto px-4 max-w-6xl">
+      <section className="py-6 md:py-32 bg-white relative">
+        <div className="container mx-auto px-1 md:px-4 max-w-6xl">
           <DiagnosticSection items={[
             { 
               symptom: "Đất chai cứng, nén chặt như đá", 
@@ -120,7 +120,7 @@ export default function SicobiPerformanceLanding() {
             }
           ]} />
           
-          <div className="mt-12 md:mt-24">
+          <div className="mt-2 md:mt-24 px-1 md:px-0">
              <ExpertAdvice advice="Bà con thường lầm tưởng cây vàng là thiếu phân nên bón thêm phân hóa học. Nhưng thực tế là đất đang bị 'bội thực', rễ đang bị 'bỏng'. Muốn cứu cây, việc đầu tiên phải là MỞ ĐẤT và GIẢI ĐỘC RỄ." />
           </div>
         </div>
