@@ -52,23 +52,23 @@ export default function LandingPagesList() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {/* COLUMN 1: CORE LANDINGS */}
-        <section className="bg-white rounded-3xl p-5 shadow-sm border border-gray-100 flex flex-col h-full">
-          <h2 className="text-[10px] font-black text-[#1a5c2a] uppercase tracking-[0.2em] mb-5 flex items-center gap-2 border-b border-gray-50 pb-4">
-            <Layout size={14} /> Trang Cốt Lõi (Sản phẩm chủ lực)
+        <section className="bg-white rounded-3xl p-6 shadow-sm border border-gray-100 flex flex-col h-full">
+          <h2 className="text-xs font-black text-[#1a5c2a] uppercase tracking-[0.2em] mb-6 flex items-center gap-2 border-b border-gray-50 pb-4">
+            <Layout size={16} /> Trang Cốt Lõi (Sản phẩm chủ lực)
           </h2>
-          <div className="space-y-3 flex-1 overflow-y-auto max-h-[800px] pr-1">
+          <div className="space-y-4 flex-1 overflow-y-auto max-h-[800px] pr-1">
             {[
               { title: "Trang Chủ PBGT", url: "/", type: "Main", color: "bg-gray-50 border-gray-100 text-gray-900" },
               { title: "Elite: SICOBI 20% OM", url: "/fuvico-sicobi", type: "Elite", color: "bg-[#0d2a1c] border-emerald-900/50 text-white" },
               { title: "Elite: NEMANO", url: "/nemano", type: "Elite", color: "bg-[#2a1a0d] border-orange-900/50 text-white" }
             ].map((item, i) => (
-              <div key={i} className={`p-3 rounded-2xl border flex items-center justify-between group hover:scale-[1.02] transition-all ${item.color}`}>
+              <div key={i} className={`p-4 rounded-2xl border flex items-center justify-between group hover:scale-[1.02] transition-all ${item.color}`}>
                 <div className="min-w-0">
-                  <h3 className="font-black text-xs truncate leading-none mb-1">{item.title}</h3>
-                  <p className="text-[8px] opacity-50 font-bold uppercase tracking-widest">{item.url}</p>
+                  <h3 className="font-black text-[15px] truncate leading-tight mb-1">{item.title}</h3>
+                  <p className="text-[10px] opacity-60 font-bold uppercase tracking-widest">{item.url}</p>
                 </div>
-                <Link href={item.url} target="_blank" className="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition-colors">
-                  <ExternalLink size={14} />
+                <Link href={item.url} target="_blank" className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center hover:bg-white/20 transition-colors">
+                  <ExternalLink size={18} />
                 </Link>
               </div>
             ))}
@@ -76,26 +76,26 @@ export default function LandingPagesList() {
         </section>
 
         {/* COLUMN 2: PRODUCTS */}
-        <section className="bg-white rounded-3xl p-5 shadow-sm border border-gray-100 flex flex-col h-full">
-          <h2 className="text-[10px] font-black text-[#1a5c2a] uppercase tracking-[0.2em] mb-5 flex items-center gap-2 border-b border-gray-50 pb-4">
+        <section className="bg-white rounded-3xl p-6 shadow-sm border border-gray-100 flex flex-col h-full">
+          <h2 className="text-xs font-black text-[#1a5c2a] uppercase tracking-[0.2em] mb-6 flex items-center gap-2 border-b border-gray-50 pb-4">
             📦 Sản Phẩm ({products.length})
           </h2>
-          <div className="space-y-3 flex-1 overflow-y-auto max-h-[800px] pr-2 scrollbar-thin">
+          <div className="space-y-4 flex-1 overflow-y-auto max-h-[800px] pr-2 scrollbar-thin">
             {loading ? (
-              <div className="animate-pulse space-y-3">
-                {[1,2,3,4].map(i => <div key={i} className="h-12 bg-gray-50 rounded-2xl" />)}
+              <div className="animate-pulse space-y-4">
+                {[1,2,3,4].map(i => <div key={i} className="h-16 bg-gray-50 rounded-2xl" />)}
               </div>
             ) : filteredProducts.map((p) => (
-              <div key={p._id} className="p-2.5 bg-gray-50 rounded-2xl border border-gray-100 flex items-center justify-between group hover:border-emerald-200 transition-all">
-                <div className="min-w-0 flex items-center gap-2.5">
-                  <img src={p.images?.[0] || '/product-placeholder.png'} className="w-8 h-8 rounded-lg object-cover bg-white" />
+              <div key={p._id} className="p-4 bg-gray-50 rounded-2xl border border-gray-100 flex items-center justify-between group hover:border-emerald-200 transition-all">
+                <div className="min-w-0 flex items-center gap-4">
+                  <img src={p.images?.[0] || '/product-placeholder.png'} className="w-12 h-12 rounded-xl object-cover bg-white shadow-sm" />
                   <div className="min-w-0">
-                    <h3 className="font-black text-gray-900 text-[11px] truncate leading-none mb-1">{p.name}</h3>
-                    <p className="text-[8px] text-gray-400 font-bold uppercase truncate italic">/san-pham/{p.slug}</p>
+                    <h3 className="font-black text-gray-900 text-[14px] truncate leading-tight mb-1">{p.name}</h3>
+                    <p className="text-[10px] text-gray-400 font-bold uppercase truncate italic">/san-pham/{p.slug}</p>
                   </div>
                 </div>
-                <Link href={`/san-pham/${p.slug}`} target="_blank" className="flex-shrink-0 w-7 h-7 bg-white rounded-lg shadow-sm flex items-center justify-center text-gray-300 group-hover:text-emerald-600 transition-colors">
-                  <ExternalLink size={12} />
+                <Link href={`/san-pham/${p.slug}`} target="_blank" className="flex-shrink-0 w-9 h-9 bg-white rounded-xl shadow-sm flex items-center justify-center text-gray-300 group-hover:text-emerald-600 transition-colors">
+                  <ExternalLink size={16} />
                 </Link>
               </div>
             ))}
@@ -103,23 +103,23 @@ export default function LandingPagesList() {
         </section>
 
         {/* COLUMN 3: SOLUTIONS */}
-        <section className="bg-white rounded-3xl p-5 shadow-sm border border-gray-100 flex flex-col h-full">
-          <h2 className="text-[10px] font-black text-[#1a5c2a] uppercase tracking-[0.2em] mb-5 flex items-center gap-2 border-b border-gray-50 pb-4">
+        <section className="bg-white rounded-3xl p-6 shadow-sm border border-gray-100 flex flex-col h-full">
+          <h2 className="text-xs font-black text-[#1a5c2a] uppercase tracking-[0.2em] mb-6 flex items-center gap-2 border-b border-gray-50 pb-4">
             🩺 Giải Pháp ({solutions.length})
           </h2>
-          <div className="space-y-3 flex-1 overflow-y-auto max-h-[800px] pr-2 scrollbar-thin">
+          <div className="space-y-4 flex-1 overflow-y-auto max-h-[800px] pr-2 scrollbar-thin">
             {loading ? (
-              <div className="animate-pulse space-y-3">
-                {[1,2,3,4].map(i => <div key={i} className="h-12 bg-gray-50 rounded-2xl" />)}
+              <div className="animate-pulse space-y-4">
+                {[1,2,3,4].map(i => <div key={i} className="h-16 bg-gray-50 rounded-2xl" />)}
               </div>
             ) : filteredSolutions.map((s) => (
-              <div key={s._id} className="p-2.5 bg-gray-50 rounded-2xl border border-gray-100 flex items-center justify-between group hover:border-blue-200 transition-all">
+              <div key={s._id} className="p-4 bg-gray-50 rounded-2xl border border-gray-100 flex items-center justify-between group hover:border-blue-200 transition-all">
                 <div className="min-w-0">
-                  <h3 className="font-black text-gray-900 text-[11px] truncate leading-none mb-1">{s.title}</h3>
-                  <p className="text-[8px] text-gray-400 font-bold uppercase truncate italic">/giai-phap/{s.slug}</p>
+                  <h3 className="font-black text-gray-900 text-[14px] truncate leading-tight mb-1">{s.title}</h3>
+                  <p className="text-[10px] text-gray-400 font-bold uppercase truncate italic">/giai-phap/{s.slug}</p>
                 </div>
-                <Link href={`/giai-phap/${s.slug}`} target="_blank" className="flex-shrink-0 w-7 h-7 bg-white rounded-lg shadow-sm flex items-center justify-center text-gray-300 group-hover:text-blue-600 transition-colors">
-                  <ExternalLink size={12} />
+                <Link href={`/giai-phap/${s.slug}`} target="_blank" className="flex-shrink-0 w-9 h-9 bg-white rounded-xl shadow-sm flex items-center justify-center text-gray-300 group-hover:text-blue-600 transition-colors">
+                  <ExternalLink size={16} />
                 </Link>
               </div>
             ))}

@@ -5,6 +5,7 @@
 - **Latest Activities (Admin UX & Space Optimization - DONE)**:
   - **Global Admin Widening**: Loại bỏ giới hạn `max-w-7xl` trong `AdminLayout`, mở rộng toàn bộ không gian làm việc ra `max-w-full` để tận dụng màn hình lớn của kỹ sư vận hành.
   - **Landing Page Manager Refinement**: 
+    - Tăng quy mô giao diện (UI Scaling): Tăng kích thước font chữ (text-xs -> text-sm/text-[14px]), hình ảnh sản phẩm (w-8 -> w-12) và khoảng cách (padding) để cải thiện độ rõ nét và dễ nhìn trên màn hình lớn.
     - Loại bỏ cột báo cáo nhanh (Quick Stats) theo yêu cầu để giữ giao diện tập trung.
     - Lọc lại danh sách **"Trang Cốt Lõi"** chỉ hiển thị các sản phẩm chủ lực (Trang chủ, Sicobi, Nemano), loại bỏ các trang phụ như "Về chúng tôi", "Liên hệ".
     - Duy trì Grid 3 cột truyền thống nhưng vẫn tận dụng toàn bộ chiều rộng màn hình (`max-w-full`).
