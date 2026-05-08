@@ -4,6 +4,9 @@
 - **Date**: 2026-05-08
 - **Latest Activities (Admin UX & Space Optimization - DONE)**:
   - **Global Admin Widening**: Loại bỏ giới hạn `max-w-7xl` trong `AdminLayout`, mở rộng toàn bộ không gian làm việc ra `max-w-full` để tận dụng màn hình lớn của kỹ sư vận hành.
+  - **Nemano Landing Hotfixes**:
+    - Sửa lỗi ảnh hỏng (Broken Images): Tạo mới và thay thế các ảnh Cloudinary bị hỏng bằng ảnh cục bộ chất lượng cao cho sản phẩm Nemano và minh họa cơ chế sinh học.
+    - Sửa lỗi đè chữ (Text Overlap): Điều chỉnh `leading` và `tracking` trong phần "Công nghệ Đột phá" để đảm bảo hiển thị rõ ràng trên thiết bị di động.
   - **Landing Page Manager Refinement**: 
     - Tăng quy mô giao diện (UI Scaling): Tăng kích thước font chữ (text-xs -> text-sm/text-[14px]), hình ảnh sản phẩm (w-8 -> w-12) và khoảng cách (padding) để cải thiện độ rõ nét và dễ nhìn trên màn hình lớn.
     - Loại bỏ cột báo cáo nhanh (Quick Stats) theo yêu cầu để giữ giao diện tập trung.

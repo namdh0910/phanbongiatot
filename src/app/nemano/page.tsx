@@ -32,7 +32,7 @@ export default function NemanoPerformanceLanding() {
     "@context": "https://schema.org",
     "@type": "Product",
     "name": "Nemano - Khắc tinh tuyến trùng sưng rễ",
-    "image": "https://res.cloudinary.com/dztidbkhv/image/upload/v1740375836/phanbongiatot/nemano-7010.png",
+    "image": "/images/products/nemano-7010.png",
     "description": "Đặc trị tuyến trùng, tiêu diệt trứng và phục hồi bộ rễ tơ trắng xóa.",
     "brand": { "@type": "Brand", "name": "PBGT" },
     "offers": {
@@ -92,7 +92,7 @@ export default function NemanoPerformanceLanding() {
 
             <div className="flex-1 relative group">
                <img 
-                src="https://res.cloudinary.com/dztidbkhv/image/upload/v1740375836/phanbongiatot/nemano-7010.png" 
+                src="/images/products/nemano-7010.png" 
                 alt="Nemano" 
                 className="w-full max-w-[280px] md:max-w-md mx-auto drop-shadow-[0_50px_100px_rgba(0,0,0,0.6)] group-hover:scale-105 transition-transform duration-700"
                />
@@ -146,7 +146,7 @@ export default function NemanoPerformanceLanding() {
         <div className="container mx-auto px-4 max-w-6xl">
            <div className="flex flex-col lg:flex-row items-center gap-16 md:gap-24">
               <div className="flex-1 space-y-8 md:space-y-12">
-                 <h2 className="text-3xl md:text-6xl font-black uppercase italic tracking-tighter leading-[0.95]">
+                 <h2 className="text-[28px] md:text-6xl font-black uppercase italic tracking-tight leading-tight">
                    Công nghệ <span className="text-red-600">ĐỘT PHÁ</span> <br/>
                    Diệt tận trứng
                  </h2>
@@ -171,7 +171,7 @@ export default function NemanoPerformanceLanding() {
               <div className="flex-1 relative">
                  <div className="aspect-square bg-[#0d2a1c] rounded-[4rem] flex items-center justify-center p-12 overflow-hidden shadow-2xl">
                     <img 
-                      src="https://res.cloudinary.com/dztidbkhv/image/upload/v1776989061/phanbongiatot/nemano-micro-action.jpg" 
+                      src="/images/blog/nemano-micro-action.png" 
                       className="w-full h-full object-cover rounded-3xl opacity-60" 
                       alt="Cơ chế Nemano"
                     />
