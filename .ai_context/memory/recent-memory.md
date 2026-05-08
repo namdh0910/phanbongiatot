@@ -6,7 +6,8 @@
   - **Global Admin Widening**: Loại bỏ giới hạn `max-w-7xl` trong `AdminLayout`, mở rộng toàn bộ không gian làm việc ra `max-w-full` để tận dụng màn hình lớn của kỹ sư vận hành.
   - **Analytics & Dashboard Upgrade**:
     - Làm sạch dữ liệu (Data Reset): Đã xóa toàn bộ dữ liệu thống kê và lead ảo cũ để chuẩn bị cho chiến dịch quảng cáo thực tế.
-    - Hệ thống Tracking chuyên sâu: Nâng cấp Dashboard hiển thị bảng chi tiết chuyển đổi cho từng đường dẫn (Path). Giờ đây có thể theo dõi chính xác Lượt xem, Click Zalo, Gọi điện và Số Lead mang lại từ riêng từng trang (như `/nemano` hay `/fuvico-sicobi`).
+    - Hệ thống Tracking chuyên sâu: Nâng cấp Dashboard hiển thị bảng chi tiết chuyển đổi cho từng đường dẫn (Path).
+    - Tối ưu không gian (UI Optimization): Giới hạn chiều cao bảng chi tiết trang (Scrollable) và làm sticky header để admin dễ dàng theo dõi mà không làm trang bị quá dài.
     - Tính toán Tỉ lệ chuyển đổi (CRO): Tự động tính toán % chuyển đổi để admin dễ dàng tối ưu ngân sách.
   - **Nemano Landing Hotfixes**:
     - Khôi phục ảnh thật (Real Assets Restoration): Thay thế toàn bộ ảnh AI bằng ảnh sản phẩm thật và ảnh cơ chế sinh học lấy trực tiếp từ hệ thống dữ liệu Cloudinary.
