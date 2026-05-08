@@ -32,79 +32,44 @@ export default function LandingPagesList() {
   const filteredSolutions = solutions.filter(s => s.title.toLowerCase().includes(searchTerm.toLowerCase()));
 
   return (
-    <div className="space-y-8">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+    <div className="space-y-6">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white p-6 rounded-3xl border border-gray-100 shadow-sm">
         <div>
-          <h1 className="text-3xl font-black text-gray-900 uppercase italic tracking-tighter">Hệ Thống Landing Pages</h1>
-          <p className="text-gray-500 font-medium">Danh sách toàn bộ các trang đích đang hoạt động trên hệ thống.</p>
+          <h1 className="text-2xl font-black text-gray-900 uppercase italic tracking-tighter">Hệ Thống Landing Pages</h1>
+          <p className="text-gray-500 font-medium text-xs">Quản lý và theo dõi hiệu suất toàn bộ các trang đích.</p>
         </div>
         <div className="relative w-full md:w-64">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
           <input 
             type="text" 
-            placeholder="Tìm kiếm trang..." 
-            className="w-full pl-10 pr-4 py-2 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#1a5c2a] outline-none transition-all font-bold text-sm"
+            placeholder="Tìm nhanh trang..." 
+            className="w-full pl-10 pr-4 py-2 bg-gray-50 border border-gray-100 rounded-xl focus:ring-2 focus:ring-[#1a5c2a] outline-none transition-all font-bold text-xs"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
       </div>
 
-      {/* Main Core Landings */}
-      <section className="bg-white rounded-3xl p-6 shadow-sm border border-gray-100">
-        <h2 className="text-sm font-black text-[#1a5c2a] uppercase tracking-[0.2em] mb-6 flex items-center gap-2">
-          <Layout size={16} /> Trang Đích Cốt Lõi (Tĩnh)
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="p-4 bg-gray-50 rounded-2xl border border-gray-100 flex items-center justify-between group hover:border-[#1a5c2a] transition-all">
-            <div>
-              <h3 className="font-black text-gray-900 leading-none mb-1">Trang Chủ Toàn Diện</h3>
-              <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">URL: /</p>
-            </div>
-            <Link href="/" target="_blank" className="w-10 h-10 bg-white rounded-xl shadow-sm flex items-center justify-center text-gray-400 group-hover:text-[#1a5c2a] transition-colors">
-              <ExternalLink size={18} />
-            </Link>
-          </div>
-          <div className="p-4 bg-[#0d2a1c] rounded-2xl border border-emerald-900/50 flex items-center justify-between group hover:border-emerald-400 transition-all">
-            <div>
-              <h3 className="font-black text-white leading-none mb-1 uppercase tracking-tight italic">Elite Landing: SICOBI 20% OM</h3>
-              <p className="text-[10px] text-emerald-400 font-bold uppercase tracking-widest">URL: /fuvico-sicobi</p>
-            </div>
-            <Link href="/fuvico-sicobi" target="_blank" className="w-10 h-10 bg-white/10 rounded-xl shadow-sm flex items-center justify-center text-emerald-400 group-hover:bg-emerald-400 group-hover:text-white transition-all">
-              <ExternalLink size={18} />
-            </Link>
-          </div>
-          <div className="p-4 bg-[#0d2a1c] rounded-2xl border border-emerald-900/50 flex items-center justify-between group hover:border-orange-400 transition-all">
-            <div>
-              <h3 className="font-black text-white leading-none mb-1 uppercase tracking-tight italic">Elite Landing: NEMANO (Diệt Tuyến Trùng)</h3>
-              <p className="text-[10px] text-orange-400 font-bold uppercase tracking-widest">URL: /nemano</p>
-            </div>
-            <Link href="/nemano" target="_blank" className="w-10 h-10 bg-white/10 rounded-xl shadow-sm flex items-center justify-center text-orange-400 group-hover:bg-orange-400 group-hover:text-white transition-all">
-              <ExternalLink size={18} />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Dynamic Landings */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* Solutions */}
-        <section className="bg-white rounded-3xl p-6 shadow-sm border border-gray-100">
-          <h2 className="text-sm font-black text-[#1a5c2a] uppercase tracking-[0.2em] mb-6 flex items-center gap-2">
-            🩺 Landing Page Giải Pháp ({solutions.length})
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* COLUMN 1: CORE LANDINGS */}
+        <section className="bg-white rounded-3xl p-5 shadow-sm border border-gray-100 flex flex-col h-full">
+          <h2 className="text-[10px] font-black text-[#1a5c2a] uppercase tracking-[0.2em] mb-5 flex items-center gap-2 border-b border-gray-50 pb-4">
+            <Layout size={14} /> Trang Cốt Lõi (Tĩnh)
           </h2>
-          <div className="space-y-3 max-h-[500px] overflow-y-auto pr-2 scrollbar-thin">
-            {loading ? (
-              <div className="animate-pulse space-y-3">
-                {[1,2,3].map(i => <div key={i} className="h-14 bg-gray-100 rounded-2xl" />)}
-              </div>
-            ) : filteredSolutions.map((s) => (
-              <div key={s._id} className="p-3 bg-gray-50 rounded-2xl border border-gray-100 flex items-center justify-between group">
+          <div className="space-y-3 flex-1 overflow-y-auto max-h-[600px] pr-1">
+            {[
+              { title: "Trang Chủ PBGT", url: "/", type: "Main", color: "bg-gray-50 border-gray-100 text-gray-900" },
+              { title: "Elite: SICOBI 20% OM", url: "/fuvico-sicobi", type: "Elite", color: "bg-[#0d2a1c] border-emerald-900/50 text-white" },
+              { title: "Elite: NEMANO", url: "/nemano", type: "Elite", color: "bg-[#2a1a0d] border-orange-900/50 text-white" },
+              { title: "Về chúng tôi", url: "/ve-chung-toi", type: "Intro", color: "bg-gray-50 border-gray-100 text-gray-900" },
+              { title: "Liên hệ tư vấn", url: "/lien-he", type: "Contact", color: "bg-gray-50 border-gray-100 text-gray-900" }
+            ].map((item, i) => (
+              <div key={i} className={`p-3 rounded-2xl border flex items-center justify-between group hover:scale-[1.02] transition-all ${item.color}`}>
                 <div className="min-w-0">
-                  <h3 className="font-black text-gray-900 text-xs truncate leading-none mb-1">{s.title}</h3>
-                  <p className="text-[9px] text-gray-400 font-bold uppercase truncate">/giai-phap/{s.slug}</p>
+                  <h3 className="font-black text-xs truncate leading-none mb-1">{item.title}</h3>
+                  <p className="text-[8px] opacity-50 font-bold uppercase tracking-widest">{item.url}</p>
                 </div>
-                <Link href={`/giai-phap/${s.slug}`} target="_blank" className="flex-shrink-0 w-8 h-8 bg-white rounded-lg shadow-sm flex items-center justify-center text-gray-300 group-hover:text-[#1a5c2a] transition-colors">
+                <Link href={item.url} target="_blank" className="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition-colors">
                   <ExternalLink size={14} />
                 </Link>
               </div>
@@ -112,27 +77,51 @@ export default function LandingPagesList() {
           </div>
         </section>
 
-        {/* Products */}
-        <section className="bg-white rounded-3xl p-6 shadow-sm border border-gray-100">
-          <h2 className="text-sm font-black text-[#1a5c2a] uppercase tracking-[0.2em] mb-6 flex items-center gap-2">
-            📦 Landing Page Sản Phẩm ({products.length})
+        {/* COLUMN 2: PRODUCTS */}
+        <section className="bg-white rounded-3xl p-5 shadow-sm border border-gray-100 flex flex-col h-full">
+          <h2 className="text-[10px] font-black text-[#1a5c2a] uppercase tracking-[0.2em] mb-5 flex items-center gap-2 border-b border-gray-50 pb-4">
+            📦 Sản Phẩm ({products.length})
           </h2>
-          <div className="space-y-3 max-h-[500px] overflow-y-auto pr-2 scrollbar-thin">
+          <div className="space-y-3 flex-1 overflow-y-auto max-h-[600px] pr-2 scrollbar-thin">
             {loading ? (
               <div className="animate-pulse space-y-3">
-                {[1,2,3].map(i => <div key={i} className="h-14 bg-gray-100 rounded-2xl" />)}
+                {[1,2,3,4].map(i => <div key={i} className="h-12 bg-gray-50 rounded-2xl" />)}
               </div>
             ) : filteredProducts.map((p) => (
-              <div key={p._id} className="p-3 bg-gray-50 rounded-2xl border border-gray-100 flex items-center justify-between group">
-                <div className="min-w-0 flex items-center gap-3">
-                  <img src={p.images?.[0] || '/product-placeholder.png'} className="w-8 h-8 rounded-lg object-cover" />
+              <div key={p._id} className="p-2.5 bg-gray-50 rounded-2xl border border-gray-100 flex items-center justify-between group hover:border-emerald-200 transition-all">
+                <div className="min-w-0 flex items-center gap-2.5">
+                  <img src={p.images?.[0] || '/product-placeholder.png'} className="w-8 h-8 rounded-lg object-cover bg-white" />
                   <div className="min-w-0">
-                    <h3 className="font-black text-gray-900 text-xs truncate leading-none mb-1">{p.name}</h3>
-                    <p className="text-[9px] text-gray-400 font-bold uppercase truncate">/san-pham/{p.slug}</p>
+                    <h3 className="font-black text-gray-900 text-[11px] truncate leading-none mb-1">{p.name}</h3>
+                    <p className="text-[8px] text-gray-400 font-bold uppercase truncate italic">/san-pham/{p.slug}</p>
                   </div>
                 </div>
-                <Link href={`/san-pham/${p.slug}`} target="_blank" className="flex-shrink-0 w-8 h-8 bg-white rounded-lg shadow-sm flex items-center justify-center text-gray-300 group-hover:text-[#1a5c2a] transition-colors">
-                  <ExternalLink size={14} />
+                <Link href={`/san-pham/${p.slug}`} target="_blank" className="flex-shrink-0 w-7 h-7 bg-white rounded-lg shadow-sm flex items-center justify-center text-gray-300 group-hover:text-emerald-600 transition-colors">
+                  <ExternalLink size={12} />
+                </Link>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* COLUMN 3: SOLUTIONS */}
+        <section className="bg-white rounded-3xl p-5 shadow-sm border border-gray-100 flex flex-col h-full">
+          <h2 className="text-[10px] font-black text-[#1a5c2a] uppercase tracking-[0.2em] mb-5 flex items-center gap-2 border-b border-gray-50 pb-4">
+            🩺 Giải Pháp ({solutions.length})
+          </h2>
+          <div className="space-y-3 flex-1 overflow-y-auto max-h-[600px] pr-2 scrollbar-thin">
+            {loading ? (
+              <div className="animate-pulse space-y-3">
+                {[1,2,3,4].map(i => <div key={i} className="h-12 bg-gray-50 rounded-2xl" />)}
+              </div>
+            ) : filteredSolutions.map((s) => (
+              <div key={s._id} className="p-2.5 bg-gray-50 rounded-2xl border border-gray-100 flex items-center justify-between group hover:border-blue-200 transition-all">
+                <div className="min-w-0">
+                  <h3 className="font-black text-gray-900 text-[11px] truncate leading-none mb-1">{s.title}</h3>
+                  <p className="text-[8px] text-gray-400 font-bold uppercase truncate italic">/giai-phap/{s.slug}</p>
+                </div>
+                <Link href={`/giai-phap/${s.slug}`} target="_blank" className="flex-shrink-0 w-7 h-7 bg-white rounded-lg shadow-sm flex items-center justify-center text-gray-300 group-hover:text-blue-600 transition-colors">
+                  <ExternalLink size={12} />
                 </Link>
               </div>
             ))}
