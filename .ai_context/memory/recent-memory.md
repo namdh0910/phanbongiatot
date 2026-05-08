@@ -8,6 +8,9 @@
     - Khôi phục ảnh thật (Real Assets Restoration): Thay thế toàn bộ ảnh AI bằng ảnh sản phẩm thật và ảnh cơ chế sinh học lấy trực tiếp từ hệ thống dữ liệu Cloudinary.
     - Nâng cấp Chẩn đoán (Diagnostic Upgrade): Cập nhật `DiagnosticSection` để hiển thị hình ảnh thực tế của rễ sưng cục và vàng lá, giúp bà con dễ dàng nhận diện bệnh lý.
     - Sửa lỗi đè chữ (Text Overlap): Điều chỉnh `leading` và `tracking` trong phần "Công nghệ Đột phá" để đảm bảo hiển thị rõ ràng trên thiết bị di động.
+  - **Fuvico-Sicobi Landing Hotfixes**:
+    - Sửa lỗi ảnh hỏng: Thay thế URL Cloudinary bị lỗi 404 bằng ảnh minh họa "Cấu trúc đất" chất lượng cao được tạo mới và lưu trữ cục bộ.
+    - Đồng bộ Chẩn đoán: Nâng cấp phần "Dấu hiệu đất chết lâm sàng" với hình ảnh minh họa thực tế tương tự trang Nemano.
   - **LeadForm Refinement**: 
     - Thay đổi trường nhập liệu: Loại bỏ "Loại cây trồng" và "Tình trạng vườn" trong Form tư vấn, thay thế bằng trường "Địa chỉ vườn" để thu thập dữ liệu chính xác hơn cho kỹ sư.
   - **Landing Page Manager Refinement**: 

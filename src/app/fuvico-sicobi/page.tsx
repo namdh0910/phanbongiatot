@@ -31,7 +31,7 @@ export default function SicobiPerformanceLanding() {
     "@context": "https://schema.org",
     "@type": "Product",
     "name": "Fuvico Sicobi 20% OM - Giải pháp phục hồi đất chai cứng",
-    "image": "https://res.cloudinary.com/dztidbkhv/image/upload/v1740375836/phanbongiatot/sicobi-50kg.png",
+    "image": "/images/products/photo_6332526088357088944_y.jpg",
     "description": "Mở khóa đất chai cứng, phục hồi rễ tơ thần tốc và tăng cường hấp thụ phân bón.",
     "brand": { "@type": "Brand", "name": "PBGT" },
     "offers": {
@@ -108,15 +108,18 @@ export default function SicobiPerformanceLanding() {
           <DiagnosticSection items={[
             { 
               symptom: "Đất chai cứng, nén chặt như đá", 
-              root_cause: "Lạm dụng phân hóa học lâu ngày làm mất cấu trúc keo đất, vi sinh vật chết sạch." 
+              root_cause: "Lạm dụng phân hóa học lâu ngày làm mất cấu trúc keo đất, vi sinh vật chết sạch.",
+              image: "/images/blog/kich-re-cay-trong.png"
             },
             { 
               symptom: "Bón phân nhưng cây không ăn, lá vẫn vàng", 
-              root_cause: "Đất bị 'khóa' dinh dưỡng. Rễ tơ thối đen, không có khả năng hút đạm, lân, kali." 
+              root_cause: "Đất bị 'khóa' dinh dưỡng. Rễ tơ thối đen, không có khả năng hút đạm, lân, kali.",
+              image: "/images/blog/sau-rieng-vang-la-mua-mua.png"
             },
             { 
               symptom: "Tưới nước không thấm, chảy tràn bề mặt", 
-              root_cause: "Đất mất độ xốp, rễ cây bị 'ngạt thở', thiếu oxy trầm trọng gây chết rễ tơ." 
+              root_cause: "Đất mất độ xốp, rễ cây bị 'ngạt thở', thiếu oxy trầm trọng gây chết rễ tơ.",
+              image: "/images/blog/tuyen-trung-sau-rieng.png"
             }
           ]} />
           
@@ -167,7 +170,7 @@ export default function SicobiPerformanceLanding() {
               <div className="flex-1 relative">
                  <div className="aspect-square bg-emerald-900 rounded-[4rem] flex items-center justify-center p-12 overflow-hidden shadow-2xl">
                     <img 
-                      src="https://res.cloudinary.com/dztidbkhv/image/upload/v1776989061/phanbongiatot/soil-micro-science.jpg" 
+                      src="/images/blog/sicobi-soil-science.png" 
                       className="w-full h-full object-cover rounded-3xl opacity-60" 
                       alt="Cấu trúc đất"
                     />
