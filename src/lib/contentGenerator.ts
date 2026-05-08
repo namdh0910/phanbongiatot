@@ -25,11 +25,17 @@ Mỗi bài PHẢI đạt 2.500–3.500 từ thực sự hữu ích. Không đư�
   "tags": ["tag1", "tag2"],
   "heroImageQuery": "English search term for Pexels",
   "inlineImageQueries": ["query1", "query2", "query3"],
-  "content": "...FULL HTML..."
+  "content": "...FULL HTML...",
+  "facebookPost": {
+    "hook": "Câu hỏi/Cảnh báo gây tò mò cho nông dân trên FB",
+    "body": "Nội dung ngắn gọn, chia sẻ giá trị, dùng nhiều emoji, chia đoạn rõ ràng",
+    "cta": "Lời kêu gọi hành động nhấp vào link bài viết"
+  }
 }
 
 RULES:
-- "content" dùng thẻ {{IMAGE_0}}, {{IMAGE_1}}, {{IMAGE_2}} để đánh dấu vị trí chèn ảnh. Cần chèn ít nhất 3-4 ảnh vào các vị trí hợp lý.
+- "content": Cần lồng ghép khéo léo giải pháp từ sản phẩm chủ lực của PBGT (Fuvico Sicobi cho đất/rễ, Nemano cho tuyến trùng) như một lời khuyên chuyên gia, không quảng cáo thô thiển. Dùng thẻ {{IMAGE_0}}, {{IMAGE_1}}, {{IMAGE_2}} để đánh dấu vị trí chèn ảnh.
+- "facebookPost": Viết theo phong cách "Kể chuyện/Chia sẻ kinh nghiệm" để tránh bị FB bóp tương tác. Dùng các từ ngữ gần gũi, thực tế.
 - "heroImageQuery" và "inlineImageQueries" phải là Tiếng Anh, miêu tả các góc chụp KHÁC NHAU (ví dụ: quả, lá, gốc cây, cảnh nông dân, hoặc sơ đồ) để tránh hình ảnh bị lặp lại.
 - Cấu trúc HTML: Hook -> TOC -> 1. Chẩn đoán (có bảng) -> 2. Sai lầm -> 3. Quy trình (chi tiết liều lượng) -> 4. Cảnh báo -> 5. Checklist -> 6. Giải pháp -> 7. FAQ cùng PBGT -> Kết bài.
 

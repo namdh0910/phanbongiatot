@@ -182,7 +182,36 @@ export default function RichTextEditor({ value, onChange, label, placeholder }: 
       let htmlString = marked.parse(cleanedMarkdown) as string;
       
       // 4. DỌN DẸP TỔNG THỂ (Xóa \n, {#anchor}, sửa bảng)
-      const finalHtml = cleanExpertContent(htmlString);
+      let finalHtml = cleanExpertContent(htmlString);
+
+      // 5. TỰ ĐỘNG CHÈN LIÊN KẾT SẢN PHẨM THÔNG MINH (Autolink Products)
+      const productKeywords = [
+        { 
+          keywords: ['tuyến trùng', 'nốt sưng', 'sưng rễ', 'u sưng'], 
+          productName: 'Nemano', 
+          url: '/nemano',
+          color: '#c53030'
+        },
+        { 
+          keywords: ['vàng lá', 'thối rễ', 'chai đất', 'chai cứng', 'pH thấp', 'nghẹt rễ', 'mở đất'], 
+          productName: 'Fuvico-Sicobi', 
+          url: '/fuvico-sicobi',
+          color: '#1a5c2a'
+        }
+      ];
+
+      productKeywords.forEach(p => {
+        let linked = false;
+        p.keywords.forEach(kw => {
+          if (linked) return;
+          // Chỉ link từ khóa đầu tiên tìm thấy và đảm bảo nó không nằm trong thẻ HTML
+          const regex = new RegExp(`(${kw})(?![^<]*>|[^<>]*<\/a>)`, 'i');
+          if (regex.test(finalHtml)) {
+            finalHtml = finalHtml.replace(regex, `<a href="${p.url}" target="_blank" style="color: ${p.color}; font-weight: 800; text-decoration: underline; text-underline-offset: 4px;">$1 (Giải pháp ${p.productName})</a>`);
+            linked = true;
+          }
+        });
+      });
 
       const quill = quillRef.current?.getEditor();
       if (quill) {
