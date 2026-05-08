@@ -11,6 +11,10 @@
     - **Solution Protocol**: Thu gọn các bước quy trình, giảm kích thước số thứ tự và khoảng cách giữa các bước xử lý.
   - **UX Above-the-Fold**: Tối ưu hóa để người dùng thấy được ít nhất 2-3 khối thông tin quan trọng ngay khi vừa tải trang mà không cần cuộn quá nhiều.
   - **Hotfix: Build Failure**: Sửa lỗi cú pháp JSX (thiếu thẻ đóng `</div>`) tại `src/app/page.tsx` gây lỗi build trên Vercel sau khi tối ưu mật độ hiển thị.
+  - **Mobile Header Decluttering**: Loại bỏ các nhãn chữ "Menu", "Trang chủ" dư thừa trên mobile header. Thu gọn placeholder tìm kiếm và kích thước icon để giảm cảm giác "nhiều chữ" ở đầu trang.
+  - **Landing Page Spacing Optimization**:
+    - **Fuvico-Sicobi Page**: Cắt giảm 50% khoảng cách giữa các session (`py-24` -> `py-12`) và rút ngắn tiêu đề/đoạn văn Hero trên mobile.
+    - **Session Flow**: Điều chỉnh `mb-24` xuống `mb-12` cho các khối tiêu đề section trên mobile, giúp nội dung cô đọng và liền mạch hơn.
 - **Latest Activities (Critical Build Fix - DONE)**:
   - **Robust Gemini & Groq Fallback**: Triển khai cơ chế Fallback 3 lớp: Ưu tiên `gemini-2.0-flash`, sau đó đến `gemini-1.5-flash-latest`, và cuối cùng là **Llama 3.3 70B (qua Groq API)**. Điều này đảm bảo hệ thống luôn hoạt động ngay cả khi hết hạn mức Gemini.
   - **API Key Activation**: Đã tích hợp `GROQ_API_KEY` vào hệ thống, kích hoạt thành công "cầu chì" dự phòng cuối cùng.

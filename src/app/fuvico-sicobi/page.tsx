@@ -64,7 +64,7 @@ export default function FuvicoEliteLanding() {
       </div>
 
       {/* 1. HERO SECTION - THE EMOTIONAL HOOK */}
-      <section className="relative pt-24 pb-16 md:pt-48 md:pb-40 overflow-hidden bg-[#0d2a1c]">
+      <section className="relative pt-12 pb-8 md:pt-48 md:pb-40 overflow-hidden bg-[#0d2a1c]">
         {/* Visual Assets */}
         <div className="absolute top-0 right-0 w-full h-full opacity-20 pointer-events-none">
            <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-emerald-500 to-transparent"></div>
@@ -81,16 +81,16 @@ export default function FuvicoEliteLanding() {
                 <span className="text-emerald-400 text-[10px] md:text-xs font-black uppercase tracking-[0.15em]">15.000+ Nhà vườn đã hồi sinh đất thành công</span>
               </div>
               
-              <h1 className="text-4xl md:text-7xl lg:text-8xl font-black text-white leading-[0.95] mb-8 tracking-tighter">
+              <h1 className="text-3xl md:text-7xl lg:text-8xl font-black text-white leading-[0.95] mb-6 md:mb-8 tracking-tighter">
                 ĐẤT KHÔNG CÒN <br /> 
                 <span className="text-emerald-400 italic">CHAI CỨNG</span> <br />
                 RỄ KHÔNG CÒN <br />
                 <span className="text-[#f5a623]">SUY KIỆT</span>
               </h1>
               
-              <p className="text-emerald-100/80 text-lg md:text-2xl mb-12 leading-relaxed max-w-2xl mx-auto lg:mx-0 font-medium italic">
-                "Nhìn vườn lụi dần mà đứt từng khúc ruột..." <br/>
-                Bà con ơi! Đừng để đất chết lâm sàng. Sicobi 20% OM giúp "tháo xiềng xích" cho dinh dưỡng, cho rễ bung trắng xóa chỉ sau 1 lần bón.
+              <p className="text-emerald-100/80 text-base md:text-2xl mb-8 md:mb-12 leading-relaxed max-w-2xl mx-auto lg:mx-0 font-medium italic">
+                <span className="md:inline block mb-2 md:mb-0">"Nhìn vườn lụi dần mà đứt từng khúc ruột..."</span> 
+                <span className="block md:inline">Sicobi 20% OM giúp "tháo xiềng xích" cho dinh dưỡng, cho rễ bung trắng xóa.</span>
               </p>
               
               <div className="flex flex-col sm:flex-row gap-5 justify-center lg:justify-start">
@@ -138,9 +138,9 @@ export default function FuvicoEliteLanding() {
       </section>
 
       {/* 2. PAIN POINT SECTION - AGITATING THE PROBLEM */}
-      <section className="py-24 md:py-40 bg-white relative overflow-hidden">
+      <section className="py-12 md:py-40 bg-white relative overflow-hidden">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center mb-24">
+          <div className="max-w-4xl mx-auto text-center mb-12 md:mb-24">
             <span className="text-orange-600 font-black text-xs md:text-sm uppercase tracking-[0.3em] mb-6 block italic">Nỗi đau của nhà vườn</span>
             <h2 className="text-4xl md:text-6xl font-black text-gray-900 uppercase italic tracking-tighter mb-8 leading-[0.95]">
               Càng bón phân hóa học, <br/>
@@ -171,7 +171,7 @@ export default function FuvicoEliteLanding() {
       </section>
 
       {/* 3. WHY THE PROBLEM HAPPENS - THE EDUCATION */}
-      <section className="py-24 md:py-40 bg-[#0d2a1c] text-white relative">
+      <section className="py-12 md:py-40 bg-[#0d2a1c] text-white relative">
          <div className="container mx-auto px-4">
             <div className="flex flex-col lg:flex-row items-center gap-20">
                <div className="flex-1">
@@ -207,9 +207,9 @@ export default function FuvicoEliteLanding() {
       </section>
 
       {/* 4. SOLUTION & BENEFITS - THE TRANSFORMATION */}
-      <section className="py-24 md:py-40 bg-white">
+      <section className="py-12 md:py-40 bg-white">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center mb-24">
+          <div className="max-w-4xl mx-auto text-center mb-12 md:mb-24">
              <h2 className="text-4xl md:text-6xl font-black text-gray-900 uppercase italic tracking-tighter mb-8 leading-[0.95]">
                 Sicobi 20% OM: <br/>
                 <span className="text-emerald-600">"Chìa Khóa Vàng" Mở Đất</span>
@@ -250,9 +250,9 @@ export default function FuvicoEliteLanding() {
       </section>
 
       {/* 5. SOCIAL PROOF - THE TRUST */}
-      <section className="py-24 md:py-40 bg-gray-50 relative overflow-hidden">
+      <section className="py-12 md:py-40 bg-gray-50 relative overflow-hidden">
         <div className="container mx-auto px-4">
-           <div className="max-w-4xl mx-auto text-center mb-24">
+           <div className="max-w-4xl mx-auto text-center mb-12 md:mb-24">
               <h2 className="text-4xl md:text-6xl font-black text-gray-900 uppercase italic tracking-tighter mb-8 leading-[0.95]">Nhà vườn nói về Sicobi</h2>
               <div className="flex justify-center gap-1 text-amber-400 mb-6">
                  {[1,2,3,4,5].map(i => <Star key={i} size={32} fill="currentColor" />)}
@@ -284,7 +284,7 @@ export default function FuvicoEliteLanding() {
       </section>
 
       {/* 6. HOW TO USE - THE SIMPLICITY */}
-      <section className="py-24 md:py-40 bg-white">
+      <section className="py-12 md:py-40 bg-white">
         <div className="container mx-auto px-4">
            <div className="max-w-5xl mx-auto">
               <div className="bg-[#0d2a1c] rounded-3xl md:rounded-[4rem] p-8 md:p-24 text-white relative overflow-hidden shadow-3xl">
@@ -313,9 +313,9 @@ export default function FuvicoEliteLanding() {
       </section>
 
       {/* 7. FAQ - THE REASSURANCE */}
-      <section className="py-24 md:py-40 bg-gray-50">
+      <section className="py-12 md:py-40 bg-gray-50">
          <div className="container mx-auto px-4 max-w-4xl">
-            <h3 className="text-3xl md:text-5xl font-black text-center text-gray-900 uppercase italic tracking-tighter mb-20">Câu hỏi bà con hay hỏi</h3>
+            <h3 className="text-2xl md:text-5xl font-black text-center text-gray-900 uppercase italic tracking-tighter mb-10 md:mb-20">Câu hỏi bà con hay hỏi</h3>
             <div className="space-y-6">
                {[
                  { q: "Sicobi có làm cháy rễ nếu bón quá liều không?", a: "Dạ không anh nhé! Sicobi là hữu cơ thực phẩm sạch 99.99%, đã được ủ chín hoàn toàn nên cực kỳ mát rễ. Anh bón nhiều hơn chút rễ càng ra mạnh, không lo cháy như phân hóa học." },
@@ -337,7 +337,7 @@ export default function FuvicoEliteLanding() {
       </section>
 
       {/* 8. FINAL CTA - THE CLOSER */}
-      <section id="order-form" className="py-24 md:py-40 bg-emerald-900 relative overflow-hidden">
+      <section id="order-form" className="py-12 md:py-40 bg-emerald-900 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/leaf.png')]"></div>
         <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-emerald-500/20 rounded-full blur-[120px]"></div>
         

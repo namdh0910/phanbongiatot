@@ -219,10 +219,9 @@ export default function Header() {
             <button 
               onClick={() => setIsMenuOpen(true)}
               aria-label="Mở menu"
-              className="flex-shrink-0 flex flex-col items-center justify-center w-10 h-10 bg-white/10 rounded-lg active:scale-95 transition-transform"
+              className="flex-shrink-0 flex items-center justify-center w-10 h-10 bg-white/10 rounded-lg active:scale-95 transition-transform"
             >
               <Menu size={20} />
-              <span className="text-[7px] font-black uppercase mt-0.5 tracking-tighter leading-none">Menu</span>
             </button>
  
             <Link href="/" className="flex-shrink-0 active:scale-95 transition-transform">
@@ -232,10 +231,10 @@ export default function Header() {
             <div className="flex-1 relative">
               <div 
                 onClick={() => setIsSearchFocused(true)}
-                className="w-full bg-white/10 backdrop-blur-md rounded-lg py-1.5 px-3 border border-white/15 text-white/90 text-[11px] font-medium flex items-center gap-1.5"
+                className="w-full bg-white/10 backdrop-blur-md rounded-lg py-1.5 px-3 border border-white/15 text-white/90 text-[11px] font-medium flex items-center gap-2"
               >
-                <span className="opacity-50 text-sm">🔍</span>
-                <span className="truncate opacity-80">Tìm...</span>
+                <span className="opacity-70 text-xs">🔍</span>
+                <span className="truncate opacity-80">Tìm giải pháp...</span>
               </div>
             </div>
           </div>
@@ -325,7 +324,7 @@ export default function Header() {
               ) : (
                 // Default Product Nav
                 [
-                  { name: "Trang chủ", icon: "🏠", href: "/" },
+                  { name: "", icon: "🏠", href: "/" },
                   { name: "Sản phẩm", icon: "📦", href: "/san-pham" },
                   { name: "Sầu riêng", icon: "🌳", href: "/danh-muc/sau-rieng" },
                   { name: "Cà phê", icon: "☕", href: "/danh-muc/ca-phe" },
