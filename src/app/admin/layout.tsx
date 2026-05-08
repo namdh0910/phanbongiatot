@@ -39,7 +39,7 @@ export default function AdminLayout({
           </header>
 
           <main className="p-4 md:p-8 flex-1">
-            <div className="max-w-7xl mx-auto">
+            <div className="max-w-full mx-auto">
               {children}
             </div>
           </main>

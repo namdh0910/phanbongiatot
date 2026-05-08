@@ -50,13 +50,13 @@ export default function LandingPagesList() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {/* COLUMN 1: CORE LANDINGS */}
         <section className="bg-white rounded-3xl p-5 shadow-sm border border-gray-100 flex flex-col h-full">
           <h2 className="text-[10px] font-black text-[#1a5c2a] uppercase tracking-[0.2em] mb-5 flex items-center gap-2 border-b border-gray-50 pb-4">
             <Layout size={14} /> Trang Cốt Lõi (Tĩnh)
           </h2>
-          <div className="space-y-3 flex-1 overflow-y-auto max-h-[600px] pr-1">
+          <div className="space-y-3 flex-1 overflow-y-auto max-h-[800px] pr-1">
             {[
               { title: "Trang Chủ PBGT", url: "/", type: "Main", color: "bg-gray-50 border-gray-100 text-gray-900" },
               { title: "Elite: SICOBI 20% OM", url: "/fuvico-sicobi", type: "Elite", color: "bg-[#0d2a1c] border-emerald-900/50 text-white" },
@@ -82,7 +82,7 @@ export default function LandingPagesList() {
           <h2 className="text-[10px] font-black text-[#1a5c2a] uppercase tracking-[0.2em] mb-5 flex items-center gap-2 border-b border-gray-50 pb-4">
             📦 Sản Phẩm ({products.length})
           </h2>
-          <div className="space-y-3 flex-1 overflow-y-auto max-h-[600px] pr-2 scrollbar-thin">
+          <div className="space-y-3 flex-1 overflow-y-auto max-h-[800px] pr-2 scrollbar-thin">
             {loading ? (
               <div className="animate-pulse space-y-3">
                 {[1,2,3,4].map(i => <div key={i} className="h-12 bg-gray-50 rounded-2xl" />)}
@@ -105,11 +105,11 @@ export default function LandingPagesList() {
         </section>
 
         {/* COLUMN 3: SOLUTIONS */}
-        <section className="bg-white rounded-3xl p-5 shadow-sm border border-gray-100 flex flex-col h-full">
+        <section className="bg-white rounded-3xl p-5 shadow-sm border border-gray-100 flex flex-col h-full lg:col-span-1 xl:col-span-1">
           <h2 className="text-[10px] font-black text-[#1a5c2a] uppercase tracking-[0.2em] mb-5 flex items-center gap-2 border-b border-gray-50 pb-4">
             🩺 Giải Pháp ({solutions.length})
           </h2>
-          <div className="space-y-3 flex-1 overflow-y-auto max-h-[600px] pr-2 scrollbar-thin">
+          <div className="space-y-3 flex-1 overflow-y-auto max-h-[800px] pr-2 scrollbar-thin">
             {loading ? (
               <div className="animate-pulse space-y-3">
                 {[1,2,3,4].map(i => <div key={i} className="h-12 bg-gray-50 rounded-2xl" />)}
@@ -125,6 +125,38 @@ export default function LandingPagesList() {
                 </Link>
               </div>
             ))}
+          </div>
+        </section>
+
+        {/* COLUMN 4: QUICK STATS (NEW) */}
+        <section className="hidden xl:flex bg-emerald-900/5 rounded-3xl p-5 border border-emerald-100 flex-col h-full">
+           <h2 className="text-[10px] font-black text-[#1a5c2a] uppercase tracking-[0.2em] mb-5 flex items-center gap-2 border-b border-emerald-100 pb-4">
+            📊 Hiệu Suất Nhanh
+          </h2>
+          <div className="space-y-4">
+            <div className="bg-white p-4 rounded-2xl border border-emerald-50 shadow-sm">
+              <span className="text-[9px] font-black text-gray-400 uppercase tracking-widest">Tiêu chí ưu tiên</span>
+              <p className="text-xs font-bold text-gray-700 mt-1 leading-relaxed">Tập trung tối ưu Landing Page có lượt nhấp Zalo thấp mặc dù view cao.</p>
+            </div>
+            
+            <div className="space-y-2">
+              <span className="text-[9px] font-black text-emerald-800 uppercase tracking-widest">Gợi ý từ hệ thống</span>
+              <div className="p-3 bg-white/50 rounded-xl border border-emerald-100 text-[11px] font-medium text-emerald-900">
+                • Cập nhật ảnh thực tế cho Giải pháp Sầu riêng.
+              </div>
+              <div className="p-3 bg-white/50 rounded-xl border border-emerald-100 text-[11px] font-medium text-emerald-900">
+                • Kiểm tra lại link Zalo trên trang Nemano.
+              </div>
+              <div className="p-3 bg-white/50 rounded-xl border border-emerald-100 text-[11px] font-medium text-emerald-900">
+                • Thêm FAQ cho sản phẩm Sicobi.
+              </div>
+            </div>
+            
+            <div className="mt-auto pt-6 border-t border-emerald-100">
+              <Link href="/admin/dashboard" className="w-full py-3 bg-[#1a5c2a] text-white rounded-xl text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-2 hover:bg-[#144720] transition-all">
+                Xem Báo Cáo Chi Tiết <ExternalLink size={12} />
+              </Link>
+            </div>
           </div>
         </section>
       </div>
