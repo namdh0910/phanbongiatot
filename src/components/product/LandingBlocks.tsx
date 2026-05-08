@@ -180,12 +180,12 @@ export const RecoveryTimeline = ({ steps, title, sub }: { steps: { day: string, 
         {steps.map((step, i) => (
           <div key={i} className="relative">
             {i < steps.length - 1 && <div className="hidden md:block absolute top-10 left-full w-full border-t-2 border-dashed border-emerald-800 z-0"></div>}
-            <div className="relative z-10">
-              <div className="w-16 h-16 md:w-20 md:h-20 bg-emerald-500 text-white rounded-[1.5rem] flex items-center justify-center text-2xl md:text-3xl font-black mb-6 shadow-xl shadow-emerald-900/50">
+            <div className="relative z-10 flex flex-col items-center md:items-start text-center md:text-left">
+              <div className="w-12 h-12 md:w-20 md:h-20 bg-emerald-500 text-white rounded-2xl md:rounded-[1.5rem] flex items-center justify-center text-xl md:text-3xl font-black mb-4 md:mb-6 shadow-xl shadow-emerald-900/50">
                 {step.day}
               </div>
-              <h4 className="text-lg md:text-2xl font-black mb-4 uppercase italic tracking-tight text-emerald-400">{step.icon}</h4>
-              <p className="text-emerald-100 font-medium text-sm md:text-lg leading-relaxed">{step.effect}</p>
+              <h4 className="text-base md:text-2xl font-black mb-2 md:mb-4 uppercase italic tracking-tight text-emerald-400">{step.icon}</h4>
+              <p className="text-emerald-100/80 font-medium text-xs md:text-lg leading-relaxed">{step.effect}</p>
             </div>
           </div>
         ))}
@@ -197,7 +197,7 @@ export const RecoveryTimeline = ({ steps, title, sub }: { steps: { day: string, 
 // 8. Performance CTA
 export const PerformanceCTA = ({ title, sub, btnText, href }: { title: string, sub: string, btnText: string, href: string }) => (
   <div className="bg-[#f5a623] rounded-[3rem] p-8 md:p-20 text-center text-white shadow-2xl shadow-orange-200">
-    <h3 className="text-3xl md:text-7xl font-black uppercase italic tracking-tighter leading-[0.9] mb-6 md:mb-10">
+    <h3 className="text-2xl md:text-7xl font-black uppercase italic tracking-tighter leading-tight md:leading-[0.9] mb-6 md:mb-10">
       {title}
     </h3>
     <p className="text-white/80 font-bold text-sm md:text-2xl mb-8 md:mb-16 max-w-3xl mx-auto italic leading-relaxed">

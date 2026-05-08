@@ -32,7 +32,7 @@ export default function NemanoPerformanceLanding() {
     "@context": "https://schema.org",
     "@type": "Product",
     "name": "Nemano - Khắc tinh tuyến trùng sưng rễ",
-    "image": "https://res.cloudinary.com/dztidbkhv/image/upload/v1776989061/phanbongiatot/nemano-hero.jpg",
+    "image": "https://res.cloudinary.com/dztidbkhv/image/upload/v1740375836/phanbongiatot/nemano-7010.png",
     "description": "Đặc trị tuyến trùng, tiêu diệt trứng và phục hồi bộ rễ tơ trắng xóa.",
     "brand": { "@type": "Brand", "name": "PBGT" },
     "offers": {
@@ -72,7 +72,7 @@ export default function NemanoPerformanceLanding() {
                 <span className="text-red-400 text-[10px] font-black uppercase tracking-widest italic">Cảnh báo: Tuyến trùng phá vườn - Xử lý ngay kẻo trễ</span>
               </div>
               
-              <h1 className="text-4xl md:text-8xl font-black text-white leading-[0.9] mb-6 md:mb-10 tracking-tighter">
+              <h1 className="text-[32px] md:text-8xl font-black text-white leading-tight mb-6 md:mb-10 tracking-tighter">
                 NEMANO - <br /> 
                 <span className="text-red-500 italic">"ÁN TỬ" CHO</span> <br />
                 <span className="text-[#f5a623]">TUYẾN TRÙNG</span>
@@ -92,9 +92,9 @@ export default function NemanoPerformanceLanding() {
 
             <div className="flex-1 relative group">
                <img 
-                src="https://res.cloudinary.com/dztidbkhv/image/upload/v1776989061/phanbongiatot/nemano-product.png" 
+                src="https://res.cloudinary.com/dztidbkhv/image/upload/v1740375836/phanbongiatot/nemano-7010.png" 
                 alt="Nemano" 
-                className="w-full max-w-sm md:max-w-md mx-auto drop-shadow-[0_50px_100px_rgba(0,0,0,0.6)] group-hover:scale-105 transition-transform duration-700"
+                className="w-full max-w-[280px] md:max-w-md mx-auto drop-shadow-[0_50px_100px_rgba(0,0,0,0.6)] group-hover:scale-105 transition-transform duration-700"
                />
                <div className="absolute inset-0 bg-red-500/10 blur-[100px] rounded-full -z-10 animate-pulse"></div>
             </div>
@@ -190,7 +190,7 @@ export default function NemanoPerformanceLanding() {
          <div className="container mx-auto px-4 max-w-6xl">
             <div className="text-center mb-16 md:mb-24">
                <span className="text-red-600 font-black text-[10px] md:text-xs uppercase tracking-[0.4em] mb-4 block">Hiệu quả thực chiến tại vườn</span>
-               <h2 className="text-3xl md:text-6xl font-black text-gray-900 uppercase italic tracking-tighter leading-[0.95]">Nhà vườn đã cứu cây thành công</h2>
+               <h2 className="text-2xl md:text-6xl font-black text-gray-900 uppercase italic tracking-tighter leading-tight">Nhà vườn đã cứu cây thành công</h2>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">

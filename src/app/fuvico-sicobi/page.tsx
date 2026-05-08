@@ -31,7 +31,7 @@ export default function SicobiPerformanceLanding() {
     "@context": "https://schema.org",
     "@type": "Product",
     "name": "Fuvico Sicobi 20% OM - Giải pháp phục hồi đất chai cứng",
-    "image": "https://res.cloudinary.com/dztidbkhv/image/upload/v1776989061/phanbongiatot/sicobi-hero.jpg",
+    "image": "https://res.cloudinary.com/dztidbkhv/image/upload/v1740375836/phanbongiatot/sicobi-50kg.png",
     "description": "Mở khóa đất chai cứng, phục hồi rễ tơ thần tốc và tăng cường hấp thụ phân bón.",
     "brand": { "@type": "Brand", "name": "PBGT" },
     "offers": {
@@ -73,7 +73,7 @@ export default function SicobiPerformanceLanding() {
                 <span className="text-emerald-400 text-[10px] font-black uppercase tracking-widest italic">15.000+ Nhà vườn đã hồi sinh đất thành công</span>
               </div>
               
-              <h1 className="text-4xl md:text-8xl font-black text-white leading-[0.9] mb-6 md:mb-10 tracking-tighter">
+              <h1 className="text-[32px] md:text-8xl font-black text-white leading-tight mb-6 md:mb-10 tracking-tighter">
                 ĐẤT <span className="text-emerald-400 italic">MỞ KHÓA</span> <br /> 
                 RỄ <span className="text-[#f5a623]">BUNG TRẮNG</span>
               </h1>
@@ -92,9 +92,9 @@ export default function SicobiPerformanceLanding() {
 
             <div className="flex-1 relative group">
                <img 
-                src="https://res.cloudinary.com/dztidbkhv/image/upload/v1776989061/phanbongiatot/sicobi-50kg.png" 
+                src="https://res.cloudinary.com/dztidbkhv/image/upload/v1740375836/phanbongiatot/sicobi-50kg.png" 
                 alt="Sicobi 50kg" 
-                className="w-full max-w-sm md:max-w-md mx-auto drop-shadow-[0_50px_100px_rgba(0,0,0,0.4)] group-hover:scale-105 transition-transform duration-700"
+                className="w-full max-w-[280px] md:max-w-md mx-auto drop-shadow-[0_50px_100px_rgba(0,0,0,0.4)] group-hover:scale-105 transition-transform duration-700"
                />
                <div className="absolute inset-0 bg-emerald-500/20 blur-[100px] rounded-full -z-10 animate-pulse"></div>
             </div>
@@ -186,7 +186,7 @@ export default function SicobiPerformanceLanding() {
          <div className="container mx-auto px-4 max-w-6xl">
             <div className="text-center mb-16 md:mb-24">
                <span className="text-emerald-600 font-black text-[10px] md:text-xs uppercase tracking-[0.4em] mb-4 block">Chứng thực từ vườn thực tế</span>
-               <h2 className="text-3xl md:text-6xl font-black text-gray-900 uppercase italic tracking-tighter leading-[0.95]">Bà con nói gì về Sicobi?</h2>
+               <h2 className="text-2xl md:text-6xl font-black text-gray-900 uppercase italic tracking-tighter leading-tight">Bà con nói gì về Sicobi?</h2>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
@@ -232,7 +232,7 @@ export default function SicobiPerformanceLanding() {
           <div className="max-w-6xl mx-auto bg-white rounded-[3rem] md:rounded-[4.5rem] shadow-2xl overflow-hidden flex flex-col lg:flex-row">
              <div className="lg:w-[45%] bg-[#0d2a1c] p-8 md:p-20 text-white flex flex-col justify-center border-b lg:border-b-0 lg:border-r border-emerald-900">
                 <span className="text-emerald-400 font-black text-[10px] uppercase tracking-[0.4em] mb-6 block">Chương trình hỗ trợ kỹ thuật</span>
-                <h3 className="text-3xl md:text-6xl font-black uppercase italic tracking-tighter leading-[0.95] mb-8 md:mb-12">
+                <h3 className="text-3xl md:text-6xl font-black uppercase italic tracking-tighter leading-tight mb-8 md:mb-12">
                    Gửi thông tin <br /> 
                    <span className="text-[#f5a623]">Kỹ sư hỗ trợ</span> <br/>
                    Tận vườn
