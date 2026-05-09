@@ -123,7 +123,7 @@ export async function generateFacebookPostFromContent(content: string) {
     const plainText = content
       .replace(/<[^>]+>/g, ' ')
       .replace(/\s+/g, ' ')
-      .slice(0, 10000) // Lấy tối đa 10k ký tự để tiết kiệm token
+      .slice(0, 5000) // 5k ký tự là đủ để AI nắm bắt ý chính bài viết
       .trim();
 
     const SYSTEM_PROMPT = `
@@ -150,7 +150,13 @@ Dựa trên nội dung bài viết kỹ thuật được cung cấp, hãy soạn
     const userPrompt = `Dựa trên nội dung bài viết sau, hãy viết bài đăng Facebook Marketing:\n\n${plainText}`;
     
     const result = await generateAIContent(userPrompt, SYSTEM_PROMPT);
-    if (!result.success || !result.text) throw new Error("AI generation failed");
+    
+    if (!result.success) {
+      console.error("[FB-GEN-AI-ERROR]", result.error);
+      throw new Error(`AI generation failed: ${result.error}`);
+    }
+
+    if (!result.text) throw new Error("AI response was empty");
 
     let cleaned = result.text.replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, '').trim();
     
