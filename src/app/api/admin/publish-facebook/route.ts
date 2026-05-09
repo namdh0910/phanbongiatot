@@ -45,7 +45,7 @@ export async function POST(req: NextRequest) {
     
     // Fallback nếu chưa cấu hình trên Vercel
     const pageId = process.env.FB_PAGE_ID || '61574432962859';
-    const accessToken = process.env.FB_PAGE_ACCESS_TOKEN || 'EAAefrMGtbRoBRSXuJeyCXEAIjjjs82FZCvQ0YLP7jOAmyDDhhPruy3m4yGszqIbxZC8CRXn501VGqxzLlZBSFGT6loko75IlUK2MI8jd6sjtprFdL7zPz77dXt125E3gDwY3coSXQlIeNWS9gZCOwRdtiKMX72fbPZBIf3o6mYWALzbZCLMtSBSiAmMSZCrN2NqdLa9zTfoTrbvZA5wRRDP5qfqOmt1W6rhauhfBVDiAbtLCr7mW60nzCmL06sQZD';
+    const accessToken = process.env.FB_PAGE_ACCESS_TOKEN || 'EAAefrMGtbRoBRD07gxyB5QKXZCb2HQ0vlyosM2XtOmZBHxZC6ZCPyTjxVA0lFvfMdGsXZAHNcSKFFJqiabUR4d91nikBWx1GuZAcpwaGEjA0yrhfhxg0QXoDVJ6cXoTAIsHeQ9LwZBKELYDFdi47g6YUdQdzdn4QkuY9Ht75wVhLXhtiHyDNNsPOb5NjfQQZC9P1riX80SLnCi9dUIhfFZCVHMNviWlHUZAISZCJROdrLxr0oZCUs7VF5C0RcCcl2cZD';
 
     if (!pageId || !accessToken) {
       return NextResponse.json({ success: false, error: 'Chưa cấu hình Facebook Page ID hoặc Access Token' }, { status: 500 });
