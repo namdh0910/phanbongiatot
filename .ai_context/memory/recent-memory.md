@@ -10,7 +10,9 @@
   - **Photo Post Format**: Tối ưu hóa việc đăng bài kèm ảnh lớn (`coverImage`) thay vì chỉ link đơn thuần, giúp bài đăng thu hút và chuyên nghiệp hơn.
   - **Readability Optimization**: Tinh chỉnh Prompt AI để bài đăng luôn có cấu trúc gạch đầu dòng (bullet points), chia đoạn thoáng mắt và dùng nhiều emoji nông nghiệp.
   - **Stability & Security**:
-    - **Facebook Auth Hotfix**: Chuyển từ `Authorization: Bearer` sang truyền `access_token` qua Query Parameter để xử lý triệt để lỗi "The access token could not be decrypted" từ Facebook API v20.
+    - **Aggressive Token Cleaning**: Sử dụng Regex `[^\x21-\x7E]` để loại bỏ triệt để các ký tự ẩn, ký tự không in được hoặc khoảng trắng gây lỗi "decryption" từ Facebook.
+    - **Vercel Force Redeploy**: Nâng version lên `0.1.7` trong `package.json` để ép Vercel xóa cache và build lại bản mới nhất với cấu hình token sạch.
+    - **Facebook Auth Hotfix**: Chuyển từ `Authorization: Bearer` sang truyền `access_token` qua Query Parameter để xử lý triệt để lỗi "The access token could not be decrypted" từ Facebook API v19.
     - **Public Asset Enforcement**: Tự động chuyển đổi đường dẫn ảnh tương đối sang URL tuyệt đối khi đăng bài lên Facebook, đảm bảo ảnh luôn hiển thị đúng.
     - **JSON Recovery**: Xây dựng bộ lọc regex tự động sửa lỗi xuống dòng sai quy tắc trong kết quả trả về của AI, đảm bảo 100% không bị lỗi JSON Parse.
     - **Vercel Build Fixes**: Khắc phục các lỗi thiếu icon (`ExternalLink`, `Sparkles`, `RefreshCw`), thiếu state (`isPublishingFB`) và sai đường dẫn import database gây lỗi build production.

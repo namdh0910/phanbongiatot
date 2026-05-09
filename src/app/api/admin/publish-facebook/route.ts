@@ -46,8 +46,11 @@ export async function POST(req: NextRequest) {
     // Fallback nếu chưa cấu hình trên Vercel
     const pageId = (process.env.FB_PAGE_ID || '61574432962859').trim();
     const accessToken = (process.env.FB_PAGE_ACCESS_TOKEN || 'EAAefrMGtbRoBRD07gxyB5QKXZCb2HQ0vlyosM2XtOmZBHxZC6ZCPyTjxVA0lFvfMdGsXZAHNcSKFFJqiabUR4d91nikBWx1GuZAcpwaGEjA0yrhfhxg0QXoDVJ6cXoTAIsHeQ9LwZBKELYDFdi47g6YUdQdzdn4QkuY9Ht75wVhLXhtiHyDNNsPOb5NjfQQZC9P1riX80SLnCi9dUIhfFZCVHMNviWlHUZAISZCJROdrLxr0oZCUs7VF5C0RcCcl2cZD').trim();
+    
+    // Làm sạch token khỏi các ký tự ẩn hoặc khoảng trắng không mong muốn
+    const cleanToken = accessToken.replace(/[^\x21-\x7E]/g, '');
 
-    if (!pageId || !accessToken) {
+    if (!pageId || !cleanToken) {
       return NextResponse.json({ success: false, error: 'Chưa cấu hình Facebook Page ID hoặc Access Token' }, { status: 500 });
     }
 
@@ -65,7 +68,7 @@ export async function POST(req: NextRequest) {
         ? blog.coverImage 
         : `${siteUrl}${blog.coverImage}`;
 
-      const fbRes = await fetch(`https://graph.facebook.com/v20.0/${pageId}/photos?access_token=${accessToken}`, {
+      const fbRes = await fetch(`https://graph.facebook.com/v19.0/${pageId}/photos?access_token=${cleanToken}`, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json'
@@ -84,7 +87,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Nếu không có ảnh, đăng bài viết text kèm link như cũ
-    const fbRes = await fetch(`https://graph.facebook.com/v20.0/${pageId}/feed?access_token=${accessToken}`, {
+    const fbRes = await fetch(`https://graph.facebook.com/v19.0/${pageId}/feed?access_token=${cleanToken}`, {
       method: 'POST',
       headers: { 
         'Content-Type': 'application/json'
