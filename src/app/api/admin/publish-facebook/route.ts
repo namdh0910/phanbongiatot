@@ -48,8 +48,8 @@ export async function POST(req: NextRequest) {
     const message = `${blog.facebookPost.hook}\n\n${blog.facebookPost.body}\n\n${blog.facebookPost.cta}`;
     const link = `${siteUrl}/tin-tuc/${blog.slug}`;
 
-    // Gọi Facebook Graph API
-    const fbRes = await fetch(`https://graph.facebook.com/v19.0/${pageId}/feed`, {
+    // Gọi Facebook Graph API (Dùng 'me/feed' để tự động nhận diện từ Token)
+    const fbRes = await fetch(`https://graph.facebook.com/v19.0/me/feed`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
