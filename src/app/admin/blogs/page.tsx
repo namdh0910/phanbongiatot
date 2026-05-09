@@ -32,6 +32,7 @@ export default function AdminBlogs() {
   const [loading, setLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
   const [isGeneratingFB, setIsGeneratingFB] = useState(false);
+  const [isPublishingFB, setIsPublishingFB] = useState(false);
   const [currentBlog, setCurrentBlog] = useState<Blog>({
     title: "",
     slug: "",
