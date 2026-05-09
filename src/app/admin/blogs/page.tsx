@@ -45,10 +45,40 @@ export default function AdminBlogs() {
   });
   const [message, setMessage] = useState("");
   const [saving, setSaving] = useState(false);
+  const [activeTab, setActiveTab] = useState<'Nhật ký phục hồi vườn' | 'Mỗi chất - Một vấn đề' | 'Cẩm nang kỹ thuật'>('Cẩm nang kỹ thuật');
 
   useEffect(() => {
     fetchBlogs();
   }, []);
+
+  const handlePublishToFacebook = async () => {
+    if (!currentBlog._id) {
+      alert("Bà con cần lưu bài viết trước khi đăng lên Fanpage nhé!");
+      return;
+    }
+    
+    if (!confirm("Anh có chắc chắn muốn đăng bài này lên Fanpage ngay bây giờ không?")) return;
+
+    setIsPublishingFB(true);
+    try {
+      const res = await fetch('/api/admin/publish-facebook', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ blogId: currentBlog._id })
+      });
+      const data = await res.json();
+      if (data.success) {
+        alert("🚀 Tuyệt vời! Bài viết đã được đăng lên Fanpage thành công.");
+      } else {
+        alert("Lỗi khi đăng bài: " + data.error);
+      }
+    } catch (error) {
+      console.error("Error publishing to FB:", error);
+      alert("Có lỗi xảy ra khi kết nối với Facebook, bà con hãy kiểm tra lại Token!");
+    } finally {
+      setIsPublishingFB(false);
+    }
+ };
 
   const handleGenerateFBPost = async () => {
     if (!currentBlog.content || currentBlog.content.length < 100) {
@@ -332,7 +362,22 @@ export default function AdminBlogs() {
                                  )}
                                  {isGeneratingFB ? "Đang tạo..." : "Tự động tạo bằng AI"}
                                </button>
-                               <span className="text-[9px] font-bold text-blue-400 bg-white px-2 py-1.5 rounded-full border border-blue-100 uppercase tracking-tighter hidden sm:block">Marketing Ready</span>
+                               {currentBlog._id && (
+                                 <button 
+                                   type="button"
+                                   onClick={handlePublishToFacebook}
+                                   disabled={isPublishingFB}
+                                   className="flex items-center gap-1 text-[9px] font-bold text-white bg-blue-600 px-3 py-1.5 rounded-full hover:bg-blue-700 transition-all shadow-md disabled:bg-blue-300"
+                                 >
+                                   {isPublishingFB ? (
+                                     <RefreshCw size={10} className="animate-spin" />
+                                   ) : (
+                                     <ExternalLink size={10} />
+                                   )}
+                                   {isPublishingFB ? "Đang đăng..." : "Đăng lên Fanpage ngay"}
+                                 </button>
+                               )}
+                               <span className="text-[9px] font-bold text-blue-400 bg-white px-2 py-1.5 rounded-full border border-blue-100 uppercase tracking-tighter hidden lg:block">Marketing Ready</span>
                             </div>
                         </div>
 
