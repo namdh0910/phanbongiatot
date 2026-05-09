@@ -163,15 +163,15 @@ export default function RichTextEditor({ value, onChange, onExtractMetadata, lab
       if (slugMatch) metadata.slug = slugMatch[1].trim();
 
       // Match Facebook Post components
-      const hookMatch = markdown.match(/(?:Hook|Câu mở đầu|FB Hook)\s*:?\s*(.+)/i);
-      const fbBodyMatch = markdown.match(/(?:Body|Nội dung FB|FB Body)\s*:?\s*([\s\S]+?)(?=\n(?:CTA|Lời kêu gọi|Giải pháp|$))/i);
-      const ctaMatch = markdown.match(/(?:CTA|Lời kêu gọi|FB CTA)\s*:?\s*(.+)/i);
+      const hookMatch = markdown.match(/(?:Hook|Câu mở đầu|FB Hook|Mở đầu)\s*[:*-]*\s*(.+)/i);
+      const fbBodyMatch = markdown.match(/(?:Body|Nội dung|Nội dung chính|FB Body)\s*[:*-]*\s*([\s\S]+?)(?=\n(?:CTA|Lời kêu gọi|Giải pháp|Kêu gọi|$))/i);
+      const ctaMatch = markdown.match(/(?:CTA|Lời kêu gọi|FB CTA|Kêu gọi)\s*[:*-]*\s*(.+)/i);
 
       if (hookMatch || fbBodyMatch || ctaMatch) {
         metadata.facebookPost = {
-          hook: hookMatch ? hookMatch[1].trim() : "",
-          body: fbBodyMatch ? fbBodyMatch[1].trim() : "",
-          cta: ctaMatch ? ctaMatch[1].trim() : ""
+          hook: hookMatch ? hookMatch[1].trim().replace(/^[\*-_ ]+|[\*-_ ]+$/g, '') : "",
+          body: fbBodyMatch ? fbBodyMatch[1].trim().replace(/^[\*-_ ]+|[\*-_ ]+$/g, '') : "",
+          cta: ctaMatch ? ctaMatch[1].trim().replace(/^[\*-_ ]+|[\*-_ ]+$/g, '') : ""
         };
       }
 
@@ -180,10 +180,10 @@ export default function RichTextEditor({ value, onChange, onExtractMetadata, lab
       }
 
       // 2. Dọn dẹp mã neo {#anchor} và XÓA các dòng metadata khỏi content chính
-      // Xóa sạch cả phần FB Post nếu có
+      // Xóa sạch cả phần FB Post nếu có (xóa mọi dòng chứa các nhãn marketing)
       let cleanedMarkdown = markdown
         .replace(/\{#[\w-]+\}/g, '')
-        .replace(/^\s*(?:Tiêu đề|Title|Title:|Từ khóa chính|Từ khóa phụ|Meta description|Mô tả ngắn|Excerpt|Slug|Đường dẫn|Hook|FB Hook|Body|FB Body|CTA|FB CTA).+$/gmi, '')
+        .replace(/^\s*(?:Tiêu đề|Title|Title:|Từ khóa chính|Từ khóa phụ|Meta description|Mô tả ngắn|Excerpt|Slug|Đường dẫn|Hook|FB Hook|Body|FB Body|CTA|FB CTA|Mở đầu|Nội dung chính|Kêu gọi).+$/gmi, '')
         .trim();
       
       // Mảng các từ khóa cần xóa bỏ khỏi nội dung chính
