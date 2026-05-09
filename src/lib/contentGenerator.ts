@@ -117,6 +117,48 @@ YÊU CẦU ĐỊNH DẠNG HTML (CẤM DÙNG MARKDOWN TABLE):
   }
 }
 
+export async function generateFacebookPostFromContent(content: string) {
+  try {
+    // Trích xuất text thuần từ HTML để AI dễ đọc
+    const plainText = content
+      .replace(/<[^>]+>/g, ' ')
+      .replace(/\s+/g, ' ')
+      .slice(0, 10000) // Lấy tối đa 10k ký tự để tiết kiệm token
+      .trim();
+
+    const SYSTEM_PROMPT = `
+# IDENTITY & PERSONA
+Mày là Chuyên gia Marketing Nông nghiệp của Phan Bón Giá Tốt (PBGT). Mày chuyên viết bài chạy quảng cáo Facebook cho nông dân.
+
+# MỤC TIÊU
+Dựa trên nội dung bài viết kỹ thuật được cung cấp, hãy soạn thảo một bài đăng Facebook cực kỳ thu hút, đánh đúng nỗi đau của nhà vườn và kêu gọi họ nhấp vào link bài viết.
+
+# OUTPUT FORMAT (JSON)
+{
+  "hook": "Câu hỏi/Cảnh báo cực kỳ gây tò mò, đánh vào tâm lý lo lắng hoặc mong muốn của nông dân (Ví dụ: Tại sao bón đủ phân mà lá vẫn vàng?)",
+  "body": "Nội dung ngắn gọn, chia sẻ 3-5 giá trị cốt lõi, dùng nhiều emoji nông nghiệp (🍃, 🍊, 💧, ⚠️), chia đoạn rõ ràng để dễ đọc trên điện thoại",
+  "cta": "Lời kêu gọi hành động quyết liệt (Ví dụ: Nhấp vào xem ngay giải pháp phục hồi rễ tơ của chuyên gia PBGT!)"
+}
+
+# RULES
+- Ngôn ngữ: Dùng "bà con", "anh chị", gần gũi, thực tế.
+- Không dùng từ sáo rỗng.
+- Trả về JSON thuần túy trên MỘT DÒNG DUY NHẤT.
+`;
+
+    const userPrompt = `Dựa trên nội dung bài viết sau, hãy viết bài đăng Facebook Marketing:\n\n${plainText}`;
+    
+    const result = await generateAIContent(userPrompt, SYSTEM_PROMPT);
+    if (!result.success || !result.text) throw new Error("AI generation failed");
+
+    let cleaned = result.text.replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, '').trim();
+    return JSON.parse(cleaned);
+  } catch (error) {
+    console.error("[GENERATE-FB-POST-ERROR]", error);
+    throw error;
+  }
+}
+
 export function injectImagesIntoContent(html: string, images: ArticleImage[]): string {
   let result = html;
   images.forEach((img, i) => {
