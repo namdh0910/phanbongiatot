@@ -11,6 +11,11 @@ export interface IBlog extends Document {
   isPublished: boolean;
   seoDescription?: string;
   hashtags?: string[];
+  facebookPost?: {
+    hook: string;
+    body: string;
+    cta: string;
+  };
   createdAt: Date;
   updatedAt: Date;
 }
@@ -34,6 +39,11 @@ const BlogSchema: Schema = new Schema({
   isPublished: { type: Boolean, default: false },
   seoDescription: { type: String },
   hashtags: { type: [String], default: [] },
+  facebookPost: {
+    hook: { type: String },
+    body: { type: String },
+    cta: { type: String }
+  }
 }, { timestamps: true });
 
 // Auto-generate slug from title if not provided or ensure it exists

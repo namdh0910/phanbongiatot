@@ -12,7 +12,12 @@ const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false }) as a
 interface RichTextEditorProps {
   value: string;
   onChange: (content: string) => void;
-  onExtractMetadata?: (metadata: { title?: string; slug?: string; excerpt?: string }) => void;
+  onExtractMetadata?: (metadata: { 
+    title?: string; 
+    slug?: string; 
+    excerpt?: string;
+    facebookPost?: { hook: string; body: string; cta: string }
+  }) => void;
   label?: string;
   placeholder?: string;
 }
@@ -152,12 +157,29 @@ export default function RichTextEditor({ value, onChange, onExtractMetadata, lab
       const slugMatch = markdown.match(/^\s*(?:Slug|Đường dẫn)\s*:?\s*([a-z0-9-]+)$/mi);
       if (slugMatch) metadata.slug = slugMatch[1].trim();
 
-      if (onExtractMetadata && (metadata.title || metadata.excerpt || metadata.slug)) {
+      // Match Facebook Post components
+      const hookMatch = markdown.match(/(?:Hook|Câu mở đầu|FB Hook)\s*:?\s*(.+)/i);
+      const fbBodyMatch = markdown.match(/(?:Body|Nội dung FB|FB Body)\s*:?\s*([\s\S]+?)(?=\n(?:CTA|Lời kêu gọi|Giải pháp|$))/i);
+      const ctaMatch = markdown.match(/(?:CTA|Lời kêu gọi|FB CTA)\s*:?\s*(.+)/i);
+
+      if (hookMatch || fbBodyMatch || ctaMatch) {
+        metadata.facebookPost = {
+          hook: hookMatch ? hookMatch[1].trim() : "",
+          body: fbBodyMatch ? fbBodyMatch[1].trim() : "",
+          cta: ctaMatch ? ctaMatch[1].trim() : ""
+        };
+      }
+
+      if (onExtractMetadata && (metadata.title || metadata.excerpt || metadata.slug || metadata.facebookPost)) {
         onExtractMetadata(metadata);
       }
 
       // 2. Dọn dẹp mã neo {#anchor} và XÓA các dòng metadata khỏi content chính
-      let cleanedMarkdown = markdown.replace(/\{#[\w-]+\}/g, '');
+      // Xóa sạch cả phần FB Post nếu có
+      let cleanedMarkdown = markdown
+        .replace(/\{#[\w-]+\}/g, '')
+        .replace(/^\s*(?:Tiêu đề|Title|Title:|Từ khóa chính|Từ khóa phụ|Meta description|Mô tả ngắn|Excerpt|Slug|Đường dẫn|Hook|FB Hook|Body|FB Body|CTA|FB CTA).+$/gmi, '')
+        .trim();
       
       // Mảng các từ khóa cần xóa bỏ khỏi nội dung chính
       const junkKeywords = ['Tiêu đề', 'Title', 'Từ khóa chính', 'Từ khóa phụ', 'Meta description', 'Mô tả ngắn', 'Excerpt', 'Slug', 'Đường dẫn'];

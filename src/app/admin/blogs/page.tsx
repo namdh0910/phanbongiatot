@@ -18,6 +18,11 @@ interface Blog {
   coverImage: string;
   excerpt: string;
   content: string;
+  facebookPost?: {
+    hook: string;
+    body: string;
+    cta: string;
+  };
   isPublished: boolean;
   createdAt?: string;
 }
@@ -34,6 +39,7 @@ export default function AdminBlogs() {
     coverImage: "",
     excerpt: "",
     content: "",
+    facebookPost: { hook: "", body: "", cta: "" },
     isPublished: true,
   });
   const [message, setMessage] = useState("");
@@ -139,6 +145,7 @@ export default function AdminBlogs() {
         slug: article.slug || prev.slug,
         excerpt: article.metaDescription || article.excerpt || prev.excerpt,
         content: cleanExpertContent(article.content || prev.content),
+        facebookPost: article.facebookPost || prev.facebookPost,
         coverImage: article.heroImage?.cloudinaryUrl || article.coverImage || prev.coverImage || "",
       };
       console.log(">>> [ADMIN] New Blog State (Repaired):", next);
@@ -273,6 +280,58 @@ export default function AdminBlogs() {
                          className="w-full bg-gray-50 border-2 border-gray-100 rounded-2xl px-6 py-4 outline-none focus:bg-white focus:border-[#1a5c2a] transition-all font-medium text-gray-800 h-[80px] resize-none text-sm"
                        />
                      </div>
+
+                     {/* FACEBOOK POST PREVIEW */}
+                     <div className="bg-blue-50/50 border-2 border-blue-100 rounded-[2rem] p-6 space-y-4">
+                        <div className="flex items-center justify-between border-b border-blue-100 pb-3">
+                           <div className="flex items-center gap-2 text-blue-700">
+                              <div className="bg-blue-600 p-1.5 rounded-lg text-white">
+                                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                              </div>
+                              <span className="text-[10px] font-black uppercase tracking-widest">Bản thảo Facebook Post</span>
+                           </div>
+                           <span className="text-[9px] font-bold text-blue-400 bg-white px-2 py-1 rounded-full border border-blue-100 uppercase tracking-tighter">Marketing Ready</span>
+                        </div>
+
+                        <div className="space-y-4">
+                           <div className="group relative">
+                              <label className="text-[9px] font-black text-blue-400 uppercase tracking-widest mb-1 block ml-1">Hook (Câu mở đầu)</label>
+                              <div className="bg-white border border-blue-100 rounded-xl p-3 text-sm font-black text-blue-900 leading-tight">
+                                 {currentBlog.facebookPost?.hook || "Chưa có nội dung..."}
+                              </div>
+                              {currentBlog.facebookPost?.hook && (
+                                <button type="button" onClick={() => {navigator.clipboard.writeText(currentBlog.facebookPost!.hook); alert('Đã chép Hook!');}} className="absolute right-2 top-6 p-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition-all opacity-0 group-hover:opacity-100">
+                                   <Plus size={14} className="rotate-45" />
+                                </button>
+                              )}
+                           </div>
+
+                           <div className="group relative">
+                              <label className="text-[9px] font-black text-blue-400 uppercase tracking-widest mb-1 block ml-1">Body (Nội dung chính)</label>
+                              <div className="bg-white border border-blue-100 rounded-xl p-3 text-sm font-medium text-gray-700 leading-relaxed whitespace-pre-wrap max-h-[150px] overflow-y-auto custom-editor-scroll">
+                                 {currentBlog.facebookPost?.body || "Chưa có nội dung..."}
+                              </div>
+                              {currentBlog.facebookPost?.body && (
+                                <button type="button" onClick={() => {navigator.clipboard.writeText(currentBlog.facebookPost!.body); alert('Đã chép Body!');}} className="absolute right-2 top-6 p-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition-all opacity-0 group-hover:opacity-100">
+                                   <Plus size={14} className="rotate-45" />
+                                </button>
+                              )}
+                           </div>
+
+                           <div className="group relative">
+                              <label className="text-[9px] font-black text-blue-400 uppercase tracking-widest mb-1 block ml-1">CTA (Kêu gọi hành động)</label>
+                              <div className="bg-white border border-blue-100 rounded-xl p-3 text-sm font-bold text-emerald-700 italic">
+                                 {currentBlog.facebookPost?.cta || "Chưa có nội dung..."}
+                              </div>
+                              {currentBlog.facebookPost?.cta && (
+                                <button type="button" onClick={() => {navigator.clipboard.writeText(currentBlog.facebookPost!.cta); alert('Đã chép CTA!');}} className="absolute right-2 top-6 p-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition-all opacity-0 group-hover:opacity-100">
+                                   <Plus size={14} className="rotate-45" />
+                                </button>
+                              )}
+                           </div>
+                        </div>
+                        <p className="text-[9px] text-blue-400 italic text-center">* Bà con có thể copy nhanh từng phần để đăng bài lên Fanpage.</p>
+                     </div>
                   </div>
                </div>
 
@@ -287,7 +346,8 @@ export default function AdminBlogs() {
                         ...prev,
                         title: meta.title || prev.title,
                         slug: meta.slug || (meta.title ? slugify(meta.title) : prev.slug),
-                        excerpt: meta.excerpt || prev.excerpt
+                        excerpt: meta.excerpt || prev.excerpt,
+                        facebookPost: meta.facebookPost || prev.facebookPost
                       }));
                     }}
                     placeholder="Nhập nội dung kỹ thuật và chèn hình ảnh minh họa..."
