@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Blog from '@/lib/models/Blog';
-import connectDB from '@/lib/mongodb';
+import dbConnect from '@/lib/db';
 
 // Auth guard
 async function isAuthorized(req: NextRequest): Promise<boolean> {
@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: false, error: 'Thiếu Blog ID' }, { status: 400 });
     }
 
-    await connectDB();
+    await dbConnect();
     const blog = await Blog.findById(blogId);
 
     if (!blog || !blog.facebookPost) {
