@@ -51,14 +51,33 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: false, error: 'Chưa cấu hình Facebook Page ID hoặc Access Token' }, { status: 500 });
     }
 
-    // Ghép nội dung bài đăng (loại bỏ undefined)
-    const hook = fbPost.hook || '';
-    const bodyText = fbPost.body || '';
-    const cta = fbPost.cta || '';
-    const message = `${hook}\n\n${bodyText}\n\n${cta}`.trim();
+    // Ghép nội dung bài đăng với xuống dòng rõ ràng
+    const hook = fbPost.hook ? `${fbPost.hook}\n\n` : '';
+    const bodyText = fbPost.body ? `${fbPost.body}\n\n` : '';
+    const cta = fbPost.cta ? `${fbPost.cta}\n\n` : '';
     const link = `${siteUrl}/tin-tuc/${blog.slug}`;
+    const message = `${hook}${bodyText}${cta}👉 Xem chi tiết tại: ${link}`.trim();
 
-    // Gọi Facebook Graph API (Dùng 'me/feed' để tự động nhận diện từ Token)
+    // Nếu có ảnh bìa, đăng dưới dạng Photo Post để hiện ảnh to đẹp
+    if (blog.coverImage) {
+      const fbRes = await fetch(`https://graph.facebook.com/v19.0/me/photos`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          url: blog.coverImage,
+          caption: message,
+          access_token: accessToken,
+          published: true
+        })
+      });
+
+      const fbData = await fbRes.json();
+      if (fbData.error) throw new Error(fbData.error.message);
+
+      return NextResponse.json({ success: true, postId: fbData.id, message: 'Đã đăng ảnh và bài viết lên Fanpage thành công!' });
+    }
+
+    // Nếu không có ảnh, đăng bài viết text kèm link như cũ
     const fbRes = await fetch(`https://graph.facebook.com/v19.0/me/feed`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
