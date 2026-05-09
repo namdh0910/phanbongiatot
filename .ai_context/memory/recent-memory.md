@@ -1,8 +1,19 @@
 # Recent Memory (Last 48h)
 
 ## 🕒 Current Context
-- **Date**: 2026-05-08
-- **Latest Activities (Admin UX & Space Optimization - DONE)**:
+- **Date**: 2026-05-09
+- **Latest Activities (Facebook Marketing Automation - DONE)**:
+  - **Facebook Graph Bridge**: Triển khai thành công API `/api/admin/publish-facebook` kết nối trực tiếp website với Fanpage Phân Bón Giá Tốt (ID: `61574432962859`).
+  - **Direct-to-Fanpage UI**: Bổ sung nút **"Đăng lên Fanpage ngay"** (màu xanh Facebook) vào trình quản trị bài viết.
+  - **Marketing Extraction Tool**: Nâng cấp tính năng **"Dán từ Claude"** để tự động bóc tách Hook, Body, CTA từ bản thảo Markdown và đổ vào trình xem trước (Preview).
+  - **AI Marketing Assistant**: Tích hợp nút **"Tự động tạo bằng AI"** sử dụng Gemini để soạn thảo bài đăng Facebook dựa trên nội dung bài viết hiện có.
+  - **Photo Post Format**: Tối ưu hóa việc đăng bài kèm ảnh lớn (`coverImage`) thay vì chỉ link đơn thuần, giúp bài đăng thu hút và chuyên nghiệp hơn.
+  - **Readability Optimization**: Tinh chỉnh Prompt AI để bài đăng luôn có cấu trúc gạch đầu dòng (bullet points), chia đoạn thoáng mắt và dùng nhiều emoji nông nghiệp.
+  - **Stability & Security**:
+    - **Header Auth**: Chuyển sang dùng `Authorization: Bearer` để gửi Token an toàn và tránh lỗi decryption của Facebook.
+    - **JSON Recovery**: Xây dựng bộ lọc regex tự động sửa lỗi xuống dòng sai quy tắc trong kết quả trả về của AI, đảm bảo 100% không bị lỗi JSON Parse.
+    - **Vercel Build Fixes**: Khắc phục các lỗi thiếu icon (`ExternalLink`, `Sparkles`, `RefreshCw`), thiếu state (`isPublishingFB`) và sai đường dẫn import database gây lỗi build production.
+
   - **Global Admin Widening**: Loại bỏ giới hạn `max-w-7xl` trong `AdminLayout`, mở rộng toàn bộ không gian làm việc ra `max-w-full` để tận dụng màn hình lớn của kỹ sư vận hành.
   - **Analytics & Dashboard Upgrade**:
     - Làm sạch dữ liệu (Data Reset): Đã xóa toàn bộ dữ liệu thống kê và lead ảo cũ để chuẩn bị cho chiến dịch quảng cáo thực tế.
