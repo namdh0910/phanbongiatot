@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const { blogId } = await req.json();
+    const { blogId, facebookPost: clientFBPost } = await req.json();
     if (!blogId) {
       return NextResponse.json({ success: false, error: 'Thiếu Blog ID' }, { status: 400 });
     }
@@ -30,8 +30,15 @@ export async function POST(req: NextRequest) {
     await dbConnect();
     const blog = await Blog.findById(blogId);
 
-    if (!blog || !blog.facebookPost) {
-      return NextResponse.json({ success: false, error: 'Không tìm thấy nội dung Facebook Post' }, { status: 404 });
+    if (!blog) {
+      return NextResponse.json({ success: false, error: 'Không tìm thấy bài viết' }, { status: 404 });
+    }
+
+    // Ưu tiên dùng nội dung từ client (mới nhất), nếu không có mới dùng trong DB
+    const fbPost = clientFBPost || blog.facebookPost;
+
+    if (!fbPost || (!fbPost.hook && !fbPost.body && !fbPost.cta)) {
+      return NextResponse.json({ success: false, error: 'Nội dung Facebook Post đang trống. Vui lòng soạn thảo trước khi đăng.' }, { status: 400 });
     }
 
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.phanbongiatot.com';
@@ -44,8 +51,11 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: false, error: 'Chưa cấu hình Facebook Page ID hoặc Access Token' }, { status: 500 });
     }
 
-    // Ghép nội dung bài đăng
-    const message = `${blog.facebookPost.hook}\n\n${blog.facebookPost.body}\n\n${blog.facebookPost.cta}`;
+    // Ghép nội dung bài đăng (loại bỏ undefined)
+    const hook = fbPost.hook || '';
+    const bodyText = fbPost.body || '';
+    const cta = fbPost.cta || '';
+    const message = `${hook}\n\n${bodyText}\n\n${cta}`.trim();
     const link = `${siteUrl}/tin-tuc/${blog.slug}`;
 
     // Gọi Facebook Graph API (Dùng 'me/feed' để tự động nhận diện từ Token)

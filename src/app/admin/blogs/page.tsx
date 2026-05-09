@@ -65,7 +65,10 @@ export default function AdminBlogs() {
       const res = await fetch('/api/admin/publish-facebook', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ blogId: currentBlog._id })
+        body: JSON.stringify({ 
+          blogId: currentBlog._id,
+          facebookPost: currentBlog.facebookPost 
+        })
       });
       const data = await res.json();
       if (data.success) {
