@@ -45,7 +45,7 @@ export async function POST(req: NextRequest) {
     
     // Fallback nếu chưa cấu hình trên Vercel
     const pageId = (process.env.FB_PAGE_ID || '61574432962859').trim();
-    const accessToken = (process.env.FB_PAGE_ACCESS_TOKEN || 'EAAefrMGtbRoBRD07gxyB5QKXZCb2HQ0vlyosM2XtOmZBHxZC6ZCPyTjxVA0lFvfMdGsXZAHNcSKFFJqiabUR4d91nikBWx1GuZAcpwaGEjA0yrhfhxg0QXoDVJ6cXoTAIsHeQ9LwZBKELYDFdi47g6YUdQdzdn4QkuY9Ht75wVhLXhtiHyDNNsPOb5NjfQQZC9P1riX80SLnCi9dUIhfFZCVHMNviWlHUZAISZCJROdrLxr0oZCUs7VF5C0RcCcl2cZD').trim();
+    const accessToken = (process.env.FB_PAGE_ACCESS_TOKEN || 'EAAefrMGtbRoBRQksORzFg0FVhqxxRunHZB4hsoDhjqRNHzx8J3IwvStw6ruiIbSYNvbh7jrLukTIkEyU7Szojh0gtfkxMdlWZCKDvQF9bdEvVrwQlgvcSlxMkUYZB9BfSjXXIJSdZAOZCX24hAz6tpEUyscZA9hsup9zp7ETZCuqZCAeiq7o5YWR2rZCusiE32qZAt30XbKITBf7g7dQiTjRl0l9yUpcZAx2LuHTyCMhUb4igilwPUqpk2v1auNy1QZD').trim();
     
     // Làm sạch token khỏi các ký tự ẩn hoặc khoảng trắng không mong muốn
     const cleanToken = accessToken.replace(/[^\x21-\x7E]/g, '');
