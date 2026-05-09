@@ -136,12 +136,13 @@ Dựa trên nội dung bài viết kỹ thuật được cung cấp, hãy soạn
 # OUTPUT FORMAT (JSON)
 {
   "hook": "Câu hỏi/Cảnh báo cực kỳ gây tò mò, đánh vào tâm lý lo lắng hoặc mong muốn của nông dân (Ví dụ: Tại sao bón đủ phân mà lá vẫn vàng?)",
-  "body": "Nội dung ngắn gọn, chia sẻ 3-5 giá trị cốt lõi, dùng nhiều emoji nông nghiệp (🍃, 🍊, 💧, ⚠️), chia đoạn rõ ràng để dễ đọc trên điện thoại",
+  "body": "Nội dung CHIA NHỎ thành 3-5 gạch đầu dòng hoặc các bước ngắn gọn. MỖI Ý PHẢI CÓ XUỐNG DÒNG (\n). Dùng nhiều emoji nông nghiệp (🍃, 🍊, 💧, ⚠️) ở đầu mỗi dòng. Tuyệt đối không viết thành một đoạn văn dài.",
   "cta": "Lời kêu gọi hành động quyết liệt (Ví dụ: Nhấp vào xem ngay giải pháp phục hồi rễ tơ của chuyên gia PBGT!)"
 }
 
 # RULES
 - Ngôn ngữ: Dùng "bà con", "anh chị", gần gũi, thực tế.
+- Body: Phải có ít nhất 3-4 lần xuống dòng (\n) bên trong giá trị chuỗi.
 - Không dùng từ sáo rỗng.
 - Trả về JSON thuần túy trên MỘT DÒNG DUY NHẤT.
 `;
