@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Plus, Edit, Trash2, Save, X, Video, FileText, CheckCircle, Eye, Link as LinkIcon, Sparkles, RefreshCw } from "lucide-react";
+import { Plus, Edit, Trash2, Save, X, Video, FileText, CheckCircle, Eye, Link as LinkIcon, Sparkles, RefreshCw, ExternalLink } from "lucide-react";
 import { slugify } from "@/utils/slugify";
 import { API_BASE_URL } from "@/utils/api";
 import ImageUpload from "@/components/admin/ImageUpload";
