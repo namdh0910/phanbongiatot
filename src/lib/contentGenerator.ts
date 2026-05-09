@@ -153,7 +153,17 @@ Dựa trên nội dung bài viết kỹ thuật được cung cấp, hãy soạn
     if (!result.success || !result.text) throw new Error("AI generation failed");
 
     let cleaned = result.text.replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/\s*```$/i, '').trim();
-    return JSON.parse(cleaned);
+    
+    try {
+      return JSON.parse(cleaned);
+    } catch (e) {
+      console.warn("[FB-JSON-PARSE-ERROR] Attempting recovery...", e);
+      // Sửa lỗi xuống dòng trong chuỗi JSON: thay \n bằng \\n
+      const fixed = cleaned.replace(/(": ")([\s\S]*?)("[,}\n])/g, (match, p1, p2, p3) => {
+        return p1 + p2.replace(/\n/g, "\\n").replace(/\r/g, "") + p3;
+      });
+      return JSON.parse(fixed);
+    }
   } catch (error) {
     console.error("[GENERATE-FB-POST-ERROR]", error);
     throw error;
