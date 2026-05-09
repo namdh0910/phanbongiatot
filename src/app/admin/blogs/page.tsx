@@ -296,41 +296,52 @@ export default function AdminBlogs() {
                         <div className="space-y-4">
                            <div className="group relative">
                               <label className="text-[9px] font-black text-blue-400 uppercase tracking-widest mb-1 block ml-1">Hook (Câu mở đầu)</label>
-                              <div className="bg-white border border-blue-100 rounded-xl p-3 text-sm font-black text-blue-900 leading-tight">
-                                 {currentBlog.facebookPost?.hook || "Chưa có nội dung..."}
-                              </div>
+                              <input 
+                                type="text"
+                                value={currentBlog.facebookPost?.hook || ""}
+                                onChange={(e) => setCurrentBlog(prev => ({...prev, facebookPost: { ...prev.facebookPost, hook: e.target.value } as any}))}
+                                className="w-full bg-white border border-blue-100 rounded-xl p-3 text-sm font-black text-blue-900 outline-none focus:border-blue-400 transition-all"
+                                placeholder="Nhập hook thu hút..."
+                              />
                               {currentBlog.facebookPost?.hook && (
-                                <button type="button" onClick={() => {navigator.clipboard.writeText(currentBlog.facebookPost!.hook); alert('Đã chép Hook!');}} className="absolute right-2 top-6 p-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition-all opacity-0 group-hover:opacity-100">
-                                   <Plus size={14} className="rotate-45" />
+                                <button type="button" onClick={() => {navigator.clipboard.writeText(currentBlog.facebookPost!.hook); alert('Đã chép Hook!');}} className="absolute right-2 top-8 p-1.5 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition-all">
+                                   <Plus size={12} className="rotate-45" />
                                 </button>
                               )}
                            </div>
 
                            <div className="group relative">
                               <label className="text-[9px] font-black text-blue-400 uppercase tracking-widest mb-1 block ml-1">Body (Nội dung chính)</label>
-                              <div className="bg-white border border-blue-100 rounded-xl p-3 text-sm font-medium text-gray-700 leading-relaxed whitespace-pre-wrap max-h-[150px] overflow-y-auto custom-editor-scroll">
-                                 {currentBlog.facebookPost?.body || "Chưa có nội dung..."}
-                              </div>
+                              <textarea 
+                                value={currentBlog.facebookPost?.body || ""}
+                                onChange={(e) => setCurrentBlog(prev => ({...prev, facebookPost: { ...prev.facebookPost, body: e.target.value } as any}))}
+                                className="w-full bg-white border border-blue-100 rounded-xl p-3 text-sm font-medium text-gray-700 leading-relaxed outline-none focus:border-blue-400 transition-all h-[120px] resize-none"
+                                placeholder="Nhập nội dung chia sẻ giá trị..."
+                              />
                               {currentBlog.facebookPost?.body && (
-                                <button type="button" onClick={() => {navigator.clipboard.writeText(currentBlog.facebookPost!.body); alert('Đã chép Body!');}} className="absolute right-2 top-6 p-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition-all opacity-0 group-hover:opacity-100">
-                                   <Plus size={14} className="rotate-45" />
+                                <button type="button" onClick={() => {navigator.clipboard.writeText(currentBlog.facebookPost!.body); alert('Đã chép Body!');}} className="absolute right-2 top-8 p-1.5 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition-all">
+                                   <Plus size={12} className="rotate-45" />
                                 </button>
                               )}
                            </div>
 
                            <div className="group relative">
                               <label className="text-[9px] font-black text-blue-400 uppercase tracking-widest mb-1 block ml-1">CTA (Kêu gọi hành động)</label>
-                              <div className="bg-white border border-blue-100 rounded-xl p-3 text-sm font-bold text-emerald-700 italic">
-                                 {currentBlog.facebookPost?.cta || "Chưa có nội dung..."}
-                              </div>
+                              <input 
+                                type="text"
+                                value={currentBlog.facebookPost?.cta || ""}
+                                onChange={(e) => setCurrentBlog(prev => ({...prev, facebookPost: { ...prev.facebookPost, cta: e.target.value } as any}))}
+                                className="w-full bg-white border border-blue-100 rounded-xl p-3 text-sm font-bold text-emerald-700 outline-none focus:border-blue-400 transition-all italic"
+                                placeholder="Nhập lời kêu gọi..."
+                              />
                               {currentBlog.facebookPost?.cta && (
-                                <button type="button" onClick={() => {navigator.clipboard.writeText(currentBlog.facebookPost!.cta); alert('Đã chép CTA!');}} className="absolute right-2 top-6 p-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition-all opacity-0 group-hover:opacity-100">
-                                   <Plus size={14} className="rotate-45" />
+                                <button type="button" onClick={() => {navigator.clipboard.writeText(currentBlog.facebookPost!.cta); alert('Đã chép CTA!');}} className="absolute right-2 top-8 p-1.5 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition-all">
+                                   <Plus size={12} className="rotate-45" />
                                 </button>
                               )}
                            </div>
                         </div>
-                        <p className="text-[9px] text-blue-400 italic text-center">* Bà con có thể copy nhanh từng phần để đăng bài lên Fanpage.</p>
+                        <p className="text-[9px] text-blue-400 italic text-center">* Bà con có thể tự sửa nội dung hoặc copy nhanh để đăng bài.</p>
                      </div>
                   </div>
                </div>
