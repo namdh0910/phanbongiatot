@@ -44,8 +44,8 @@ export async function POST(req: NextRequest) {
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.phanbongiatot.com';
     
     // Fallback nếu chưa cấu hình trên Vercel
-    const pageId = process.env.FB_PAGE_ID || '61574432962859';
-    const accessToken = process.env.FB_PAGE_ACCESS_TOKEN || 'EAAefrMGtbRoBRD07gxyB5QKXZCb2HQ0vlyosM2XtOmZBHxZC6ZCPyTjxVA0lFvfMdGsXZAHNcSKFFJqiabUR4d91nikBWx1GuZAcpwaGEjA0yrhfhxg0QXoDVJ6cXoTAIsHeQ9LwZBKELYDFdi47g6YUdQdzdn4QkuY9Ht75wVhLXhtiHyDNNsPOb5NjfQQZC9P1riX80SLnCi9dUIhfFZCVHMNviWlHUZAISZCJROdrLxr0oZCUs7VF5C0RcCcl2cZD';
+    const pageId = (process.env.FB_PAGE_ID || '61574432962859').trim();
+    const accessToken = (process.env.FB_PAGE_ACCESS_TOKEN || 'EAAefrMGtbRoBRD07gxyB5QKXZCb2HQ0vlyosM2XtOmZBHxZC6ZCPyTjxVA0lFvfMdGsXZAHNcSKFFJqiabUR4d91nikBWx1GuZAcpwaGEjA0yrhfhxg0QXoDVJ6cXoTAIsHeQ9LwZBKELYDFdi47g6YUdQdzdn4QkuY9Ht75wVhLXhtiHyDNNsPOb5NjfQQZC9P1riX80SLnCi9dUIhfFZCVHMNviWlHUZAISZCJROdrLxr0oZCUs7VF5C0RcCcl2cZD').trim();
 
     if (!pageId || !accessToken) {
       return NextResponse.json({ success: false, error: 'Chưa cấu hình Facebook Page ID hoặc Access Token' }, { status: 500 });
@@ -60,13 +60,15 @@ export async function POST(req: NextRequest) {
 
     // Nếu có ảnh bìa, đăng dưới dạng Photo Post để hiện ảnh to đẹp
     if (blog.coverImage) {
-      const fbRes = await fetch(`https://graph.facebook.com/v19.0/me/photos`, {
+      const fbRes = await fetch(`https://graph.facebook.com/v19.0/${pageId}/photos`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`
+        },
         body: JSON.stringify({
           url: blog.coverImage,
           caption: message,
-          access_token: accessToken,
           published: true
         })
       });
@@ -78,13 +80,15 @@ export async function POST(req: NextRequest) {
     }
 
     // Nếu không có ảnh, đăng bài viết text kèm link như cũ
-    const fbRes = await fetch(`https://graph.facebook.com/v19.0/me/feed`, {
+    const fbRes = await fetch(`https://graph.facebook.com/v19.0/${pageId}/feed`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${accessToken}`
+      },
       body: JSON.stringify({
         message: message,
         link: link,
-        access_token: accessToken,
         published: true
       })
     });
