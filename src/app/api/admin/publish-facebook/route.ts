@@ -34,9 +34,11 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: false, error: 'Không tìm thấy nội dung Facebook Post' }, { status: 404 });
     }
 
-    const pageId = process.env.FB_PAGE_ID;
-    const accessToken = process.env.FB_PAGE_ACCESS_TOKEN;
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.phanbongiatot.com';
+    
+    // Fallback nếu chưa cấu hình trên Vercel
+    const pageId = process.env.FB_PAGE_ID || '61574432962859';
+    const accessToken = process.env.FB_PAGE_ACCESS_TOKEN || 'EAAefrMGtbRoBRSXuJeyCXEAIjjjs82FZCvQ0YLP7jOAmyDDhhPruy3m4yGszqIbxZC8CRXn501VGqxzLlZBSFGT6loko75IlUK2MI8jd6sjtprFdL7zPz77dXt125E3gDwY3coSXQlIeNWS9gZCOwRdtiKMX72fbPZBIf3o6mYWALzbZCLMtSBSiAmMSZCrN2NqdLa9zTfoTrbvZA5wRRDP5qfqOmt1W6rhauhfBVDiAbtLCr7mW60nzCmL06sQZD';
 
     if (!pageId || !accessToken) {
       return NextResponse.json({ success: false, error: 'Chưa cấu hình Facebook Page ID hoặc Access Token' }, { status: 500 });
