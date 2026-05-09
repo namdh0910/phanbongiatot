@@ -143,7 +143,12 @@ export default function RichTextEditor({ value, onChange, onExtractMetadata, lab
     const markdown = prompt("Dán nội dung Markdown từ Claude/Gemini vào đây:");
     if (markdown) {
       // 1. EXTRACTION: Trích xuất metadata (Tiêu đề, SEO description...)
-      const metadata: { title?: string; slug?: string; excerpt?: string } = {};
+      const metadata: { 
+        title?: string; 
+        slug?: string; 
+        excerpt?: string;
+        facebookPost?: { hook: string; body: string; cta: string }
+      } = {};
       
       // Match Title: Tìm dòng có "Tiêu đề", "Title", hoặc dòng đầu tiên có dấu # hoặc dòng đầu tiên có nhiều chữ
       const titleMatch = markdown.match(/^\s*(?:Tiêu đề|Title|#)\s*:?\s*(.+)$/mi) || markdown.match(/^(.+)$/m);
