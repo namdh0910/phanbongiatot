@@ -60,14 +60,18 @@ export async function POST(req: NextRequest) {
 
     // Nếu có ảnh bìa, đăng dưới dạng Photo Post để hiện ảnh to đẹp
     if (blog.coverImage) {
-      const fbRes = await fetch(`https://graph.facebook.com/v19.0/${pageId}/photos`, {
+      // Đảm bảo URL ảnh là tuyệt đối (Facebook không chấp nhận đường dẫn tương đối)
+      const imageUrl = blog.coverImage.startsWith('http') 
+        ? blog.coverImage 
+        : `${siteUrl}${blog.coverImage}`;
+
+      const fbRes = await fetch(`https://graph.facebook.com/v20.0/${pageId}/photos?access_token=${accessToken}`, {
         method: 'POST',
         headers: { 
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${accessToken}`
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          url: blog.coverImage,
+          url: imageUrl,
           caption: message,
           published: true
         })
@@ -80,11 +84,10 @@ export async function POST(req: NextRequest) {
     }
 
     // Nếu không có ảnh, đăng bài viết text kèm link như cũ
-    const fbRes = await fetch(`https://graph.facebook.com/v19.0/${pageId}/feed`, {
+    const fbRes = await fetch(`https://graph.facebook.com/v20.0/${pageId}/feed?access_token=${accessToken}`, {
       method: 'POST',
       headers: { 
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${accessToken}`
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         message: message,

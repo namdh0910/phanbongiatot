@@ -10,7 +10,8 @@
   - **Photo Post Format**: Tối ưu hóa việc đăng bài kèm ảnh lớn (`coverImage`) thay vì chỉ link đơn thuần, giúp bài đăng thu hút và chuyên nghiệp hơn.
   - **Readability Optimization**: Tinh chỉnh Prompt AI để bài đăng luôn có cấu trúc gạch đầu dòng (bullet points), chia đoạn thoáng mắt và dùng nhiều emoji nông nghiệp.
   - **Stability & Security**:
-    - **Header Auth**: Chuyển sang dùng `Authorization: Bearer` để gửi Token an toàn và tránh lỗi decryption của Facebook.
+    - **Facebook Auth Hotfix**: Chuyển từ `Authorization: Bearer` sang truyền `access_token` qua Query Parameter để xử lý triệt để lỗi "The access token could not be decrypted" từ Facebook API v20.
+    - **Public Asset Enforcement**: Tự động chuyển đổi đường dẫn ảnh tương đối sang URL tuyệt đối khi đăng bài lên Facebook, đảm bảo ảnh luôn hiển thị đúng.
     - **JSON Recovery**: Xây dựng bộ lọc regex tự động sửa lỗi xuống dòng sai quy tắc trong kết quả trả về của AI, đảm bảo 100% không bị lỗi JSON Parse.
     - **Vercel Build Fixes**: Khắc phục các lỗi thiếu icon (`ExternalLink`, `Sparkles`, `RefreshCw`), thiếu state (`isPublishingFB`) và sai đường dẫn import database gây lỗi build production.
 
