@@ -9,11 +9,24 @@ import { verifyAdmin } from '@/lib/auth';
 export const dynamic = 'force-dynamic';
 export const fetchCache = 'force-no-store';
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
     await dbConnect();
-    // Admin should see all blogs (published and drafts)
-    const blogs = await Blog.find({}).sort({ createdAt: -1 });
+    
+    const { searchParams } = new URL(request.url);
+    const showAll = searchParams.get('all') === 'true';
+    
+    let query = { isPublished: true };
+    
+    // Nếu yêu cầu xem tất cả (từ trang Admin), kiểm tra quyền Admin
+    if (showAll) {
+      const isAdmin = await verifyAdmin();
+      if (isAdmin) {
+        query = {} as any; // Admin mới thấy được cả bản nháp
+      }
+    }
+    
+    const blogs = await Blog.find(query).sort({ createdAt: -1 });
     return NextResponse.json({ blogs });
   } catch (error) {
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });

@@ -38,6 +38,13 @@ async function getBlogSafe(slug: string) {
     const blog = await Blog.findOne({ slug }).lean();
     if (!blog) return null;
     
+    // Nếu là bản nháp, chỉ cho phép Admin xem (Preview)
+    if (!blog.isPublished) {
+      const { verifyAdmin } = await import('@/lib/auth');
+      const isAdmin = await verifyAdmin();
+      if (!isAdmin) return null;
+    }
+
     let content = String(blog.content || '');
     content = content.replace(/<table/g, '<div class="table-responsive-wrapper" style="width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 2rem 0; border-radius: 12px; border: 1px solid #e2e8f0;"><table');
     content = content.replace(/<\/table>/g, '</table></div>');

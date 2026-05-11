@@ -115,8 +115,8 @@ export default function AdminBlogs() {
   const fetchBlogs = async () => {
     setLoading(true);
     try {
-      // Using normalized API_BASE_URL to ensure consistency with frontend
-      const res = await fetch(`${API_BASE_URL}/blogs`);
+      // Admin needs to see both published and drafts
+      const res = await fetch(`${API_BASE_URL}/blogs?all=true`);
       if (!res.ok) throw new Error("Failed to fetch");
       const data = await res.json();
       

@@ -2,11 +2,11 @@
 
 ## 🕒 Current Context
 - **Date**: 2026-05-09
-- **Latest Activities (Admin Content Tools Upgrade - DONE)**:
-  - **Claude Markdown Import Fix**: Sửa lỗi tính năng "Dán từ Claude" bị xóa mất các tiêu đề có dấu `#` và không nhận diện được các mục đánh số (`1.`, `2.`). Hệ thống giờ đây tự động chuyển đổi các mục này thành thẻ H2 chuẩn SEO để hiển thị đúng cấu trúc bài viết.
-  - **Full Admin Config Integration**: Hoàn tất tích hợp dữ liệu động cho toàn bộ 5 nhóm cấu hình.
-  - **Dynamic Brand Marquee**: Chuyển đổi dòng thương hiệu đối tác sang dữ liệu động.
-- **Latest Activities (Facebook Marketing Automation - DONE)**:
+- **Latest Activities (Blog Drafting System Fix - DONE)**:
+  - **Draft Filtering**: Sửa lỗi bản nháp (draft) vẫn hiển thị trên trang chủ và trang kiến thức. API `/api/blogs` giờ đây mặc định chỉ trả về bài viết đã xuất bản (`isPublished: true`).
+  - **Admin Preview Mode**: Nâng cấp trang chi tiết bài viết để cho phép Admin xem trước bản nháp khi đang đăng nhập, trong khi người dùng bình thường sẽ nhận lỗi 404.
+  - **Claude Markdown Import Fix**: Cải thiện khả năng nhận diện tiêu đề và mục lục từ Claude.
+- **Latest Activities (Full Admin Config Integration - DONE)**:
   - **Facebook Graph Bridge**: Triển khai thành công API `/api/admin/publish-facebook` kết nối trực tiếp website với Fanpage Phân Bón Giá Tốt (ID: `61574432962859`).
   - **Direct-to-Fanpage UI**: Bổ sung nút **"Đăng lên Fanpage ngay"** (màu xanh Facebook) vào trình quản trị bài viết.
   - **Marketing Extraction Tool**: Nâng cấp tính năng **"Dán từ Claude"** để tự động bóc tách Hook, Body, CTA từ bản thảo Markdown và đổ vào trình xem trước (Preview).
