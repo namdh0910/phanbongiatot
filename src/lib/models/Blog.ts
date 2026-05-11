@@ -35,7 +35,7 @@ const BlogSchema: Schema = new Schema({
     default: '/images/blog/default-cover.jpg' 
   },
   excerpt: { type: String },
-  content: { type: String, required: true },
+  content: { type: String },
   isPublished: { type: Boolean, default: false },
   seoDescription: { type: String },
   hashtags: { type: [String], default: [] },

@@ -10,7 +10,7 @@ export function generateHashtags(title: string, content: string): string[] {
     { word: 'phục hồi', tag: 'phuchoi' }
   ];
 
-  const text = (title + ' ' + content).toLowerCase();
+  const text = (title + ' ' + (content || '')).toLowerCase();
   const tags = new Set<string>();
 
   keywords.forEach(kw => {
@@ -30,6 +30,7 @@ export function generateHashtags(title: string, content: string): string[] {
 }
 
 export function generateSEODescription(content: string): string {
+  if (!content) return '';
   // Strip HTML if any, take first 155 chars
   const stripped = content.replace(/<[^>]*>/g, '').replace(/[#*`]/g, '').trim();
   return stripped.length > 155 ? stripped.substring(0, 152) + '...' : stripped;

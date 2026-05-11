@@ -44,8 +44,8 @@ export async function POST(request: Request) {
     const body = await request.json();
     
     // Simple validation
-    if (!body.title || !body.content) {
-      return NextResponse.json({ error: 'Missing required fields (Title or Content)' }, { status: 400 });
+    if (!body.title) {
+      return NextResponse.json({ error: 'Missing required fields (Title)' }, { status: 400 });
     }
 
     // Server-side content cleaning (Anchor removal & space normalization)
