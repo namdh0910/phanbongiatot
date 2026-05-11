@@ -248,7 +248,7 @@ export default function Header() {
                 // Blog Specific Nav
                 [
                   { name: "Tất cả", icon: "📚", href: "/blog" },
-                  { name: "Nhật ký", icon: "🌳", href: "/blog?category=nhat-ky-phuc-hoi" },
+                  { name: "Nhật ký", icon: "🌳", href: "/blog?category=nhat-ky-phuc-hoi-vuon" },
                   { name: "Cẩm nang", icon: "📖", href: "/blog?category=cam-nang-ky-thuat" },
                   { name: "Video", icon: "📹", href: "/blog?category=video-ky-thuat" }
                 ].map((cat, i) => (

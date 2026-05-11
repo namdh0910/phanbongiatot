@@ -3,7 +3,7 @@ import mongoose, { Schema, Document } from 'mongoose';
 export interface IBlog extends Document {
   title: string;
   slug: string;
-  category: 'Nhật ký phục hồi vườn' | 'Mỗi chất - Một vấn đề' | 'Cẩm nang kỹ thuật';
+  category: 'Nhật ký phục hồi vườn' | 'Mỗi chất - Một vấn đề' | 'Cẩm nang kỹ thuật' | 'Video kỹ thuật';
   videoUrl?: string;
   coverImage: string;
   excerpt?: string;
@@ -26,7 +26,7 @@ const BlogSchema: Schema = new Schema({
   category: { 
     type: String, 
     required: true,
-    enum: ['Nhật ký phục hồi vườn', 'Mỗi chất - Một vấn đề', 'Cẩm nang kỹ thuật'],
+    enum: ['Nhật ký phục hồi vườn', 'Mỗi chất - Một vấn đề', 'Cẩm nang kỹ thuật', 'Video kỹ thuật'],
     default: 'Cẩm nang kỹ thuật'
   },
   videoUrl: { type: String },

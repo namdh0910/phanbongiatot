@@ -308,6 +308,7 @@ export default function AdminBlogs() {
                          <option value="Nhật ký phục hồi vườn">Nhật ký phục hồi vườn</option>
                          <option value="Mỗi chất - Một vấn đề">Mỗi chất - Một vấn đề</option>
                          <option value="Cẩm nang kỹ thuật">Cẩm nang kỹ thuật</option>
+                         <option value="Video kỹ thuật">Video kỹ thuật</option>
                        </select>
                      </div>
                   </div>
