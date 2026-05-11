@@ -232,9 +232,9 @@ export default function LandingPage() {
          <div className="flex gap-8 md:gap-12 whitespace-nowrap animate-marquee px-4">
             {(settings.brand_marquee || "Bình Điền, Yara, DAP, Phú Mỹ, Hợp Trí, Nemano")
               .split(',')
-              .map(s => s.trim())
-              .concat((settings.brand_marquee || "Bình Điền, Yara, DAP, Phú Mỹ, Hợp Trí, Nemano").split(',').map(s => s.trim()))
-              .map((brand, i) => (
+              .map((s: string) => s.trim())
+              .concat((settings.brand_marquee || "Bình Điền, Yara, DAP, Phú Mỹ, Hợp Trí, Nemano").split(',').map((s: string) => s.trim()))
+              .map((brand: string, i: number) => (
                 <span key={i} className="text-sm md:text-2xl font-black text-gray-300 hover:text-gray-400 transition-colors cursor-default uppercase tracking-tighter italic">
                   {brand}
                 </span>
