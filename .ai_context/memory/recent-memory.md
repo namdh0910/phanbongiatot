@@ -2,11 +2,10 @@
 
 ## 🕒 Current Context
 - **Date**: 2026-05-09
+- **Latest Activities (Facebook Token Renewal - DONE)**:
+  - **Access Token Update**: Cập nhật Facebook Page Access Token mới để khắc phục lỗi hết hạn phiên đăng bài. Tính năng "Đăng lên Fanpage ngay" đã hoạt động trở lại.
+  - **Multi-Provider AI Architecture**: Nâng cấp hệ thống AI hỗ trợ xoay vòng nhiều API Key và cơ chế dự phòng đa tầng.
 - **Latest Activities (AI Infrastructure Upgrade - DONE)**:
-  - **Multi-Provider AI Architecture**: Nâng cấp hệ thống AI hỗ trợ xoay vòng nhiều API Key (Gemini Rotation) và cơ chế dự phòng đa tầng (Gemini -> Groq -> OpenRouter).
-  - **DeepSeek Integration**: Tích hợp DeepSeek-V3 thông qua OpenRouter để tăng cường chất lượng nội dung và độ ổn định khi Gemini hết hạn mức.
-  - **Blog Drafting System Fix**: Sửa lỗi hiển thị bản nháp công khai và nâng cấp Admin Preview.
-- **Latest Activities (Admin Content Tools Upgrade - DONE)**:
   - **Facebook Graph Bridge**: Triển khai thành công API `/api/admin/publish-facebook` kết nối trực tiếp website với Fanpage Phân Bón Giá Tốt (ID: `61574432962859`).
   - **Direct-to-Fanpage UI**: Bổ sung nút **"Đăng lên Fanpage ngay"** (màu xanh Facebook) vào trình quản trị bài viết.
   - **Marketing Extraction Tool**: Nâng cấp tính năng **"Dán từ Claude"** để tự động bóc tách Hook, Body, CTA từ bản thảo Markdown và đổ vào trình xem trước (Preview).
