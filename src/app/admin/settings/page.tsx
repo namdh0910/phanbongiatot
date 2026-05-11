@@ -39,20 +39,40 @@ export default function AdminDashboard() {
       const currentConfigs = data.configs || [];
       setConfigs(currentConfigs);
 
-      // Auto-seed brand_marquee if missing
-      if (!currentConfigs.find((c: any) => c.key === 'brand_marquee')) {
-        const brandConfig = {
-          key: 'brand_marquee',
-          value: 'BÌNH ĐIỀN, YARA, DAP, PHÚ MỸ, HỢP TRÍ, NEMANO',
-          group: 'hero' as ConfigGroup,
-          label: 'Danh sách Thương hiệu Đối tác (cách nhau bằng dấu phẩy)',
-          type: 'textarea' as const
-        };
+      // Auto-seed standard configs if missing
+      const requiredKeys = ['hero_title', 'phone_primary', 'announcement_enabled', 'site_name', 'brand_marquee'];
+      const missingKeys = requiredKeys.filter(key => !currentConfigs.find((c: any) => c.key === key));
+
+      if (missingKeys.length > 0) {
+        const standardConfigs: ConfigItem[] = [
+          // HERO
+          { key: 'hero_title', value: 'CỨU VƯỜN SẦU RIÊNG, CÀ PHÊ', group: 'hero', label: 'Tiêu đề Hero (Dòng 1)', type: 'text' },
+          { key: 'hero_subtitle', value: 'VÀNG LÁ, SUY RỄ', group: 'hero', label: 'Tiêu đề Hero (Dòng 2 - Cam)', type: 'text' },
+          { key: 'brand_marquee', value: 'Bình Điền, Yara, DAP, Phú Mỹ, Hợp Trí, Nemano', group: 'hero', label: 'Danh sách Thương hiệu Đối tác (Dòng chạy)', type: 'textarea' },
+          
+          // CONTACT
+          { key: 'phone_primary', value: '0339.505.050', group: 'contact', label: 'Hotline chính', type: 'text' },
+          { key: 'zalo_id', value: '0339505050', group: 'contact', label: 'Số Zalo hỗ trợ', type: 'text' },
+          { key: 'business_hours', value: '7:00 - 21:00', group: 'contact', label: 'Giờ làm việc', type: 'text' },
+          { key: 'address_main', value: 'Kho hàng: Phường Đăk Cấm, TP. Kon Tum, Tỉnh Kon Tum', group: 'contact', label: 'Địa chỉ kho hàng', type: 'textarea' },
+          
+          // ANNOUNCEMENT
+          { key: 'announcement_enabled', value: 'false', group: 'announcement', label: 'Bật thanh thông báo đầu trang', type: 'boolean' },
+          { key: 'announcement_message', value: '🔥 Nhận giải pháp phục hồi vàng lá miễn phí từ kỹ sư', group: 'announcement', label: 'Nội dung thông báo', type: 'text' },
+          
+          // SEO
+          { key: 'site_name', value: 'Phân Bón Giá Tốt', group: 'seo', label: 'Tên Website (SEO Title)', type: 'text' },
+          { key: 'default_description', value: 'Chuyên gia phục hồi cây trồng bằng giải pháp sinh học bền vững tại Tây Nguyên.', group: 'seo', label: 'Mô tả SEO mặc định', type: 'textarea' },
+
+          // GENERAL
+          { key: 'primary_color', value: '#1a5c2a', group: 'general', label: 'Màu sắc chủ đạo (Xanh lá)', type: 'color' },
+          { key: 'secondary_color', value: '#f5a623', group: 'general', label: 'Màu nhấn mạnh (Cam)', type: 'color' },
+        ];
         
         await fetch('/api/config', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(brandConfig)
+          body: JSON.stringify(standardConfigs)
         });
         
         // Refresh configs after seeding

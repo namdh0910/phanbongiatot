@@ -2,11 +2,10 @@
 
 ## 🕒 Current Context
 - **Date**: 2026-05-09
-- **Latest Activities (Admin Marquee Integration - DONE)**:
-  - **Dynamic Brand Marquee**: Chuyển đổi dòng thương hiệu đối tác trên trang chủ từ hardcoded sang dữ liệu động lấy từ database.
-  - **Auto-Seeding Logic**: Tích hợp cơ chế tự động tạo key `brand_marquee` trong Admin Settings nếu chưa tồn tại.
-  - **Hotfix (Build Failure)**: Khắc phục lỗi TypeScript `implicit any` trong file `page.tsx` gây lỗi build trên Vercel.
-  - **Marquee UI Enhancement**: Cập nhật logic render trên Homepage để tự động bóc tách chuỗi và lặp lại danh sách.
+- **Latest Activities (Full Admin Config Integration - DONE)**:
+  - **Comprehensive Auto-Seeding**: Nâng cấp cơ chế tự động tạo cấu hình cho toàn bộ 5 nhóm (Trang chủ, Liên hệ, Thông báo, SEO, Cơ bản). Giờ đây Admin có thể chỉnh sửa Hotline, Zalo, địa chỉ kho hàng, thanh thông báo và các thông số SEO ngay trên giao diện.
+  - **Dynamic Brand Marquee**: Chuyển đổi dòng thương hiệu đối tác trên trang chủ từ hardcoded sang dữ liệu động.
+  - **Hotfix (Build Failure)**: Khắc phục lỗi TypeScript `implicit any` để đảm bảo Vercel build ổn định.
 - **Latest Activities (Facebook Marketing Automation - DONE)**:
   - **Facebook Graph Bridge**: Triển khai thành công API `/api/admin/publish-facebook` kết nối trực tiếp website với Fanpage Phân Bón Giá Tốt (ID: `61574432962859`).
   - **Direct-to-Fanpage UI**: Bổ sung nút **"Đăng lên Fanpage ngay"** (màu xanh Facebook) vào trình quản trị bài viết.

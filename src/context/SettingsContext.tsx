@@ -80,6 +80,7 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
             heroTitle: configObject.hero_title || prev.heroTitle,
             heroSubtitle: configObject.hero_subtitle || prev.heroSubtitle,
             brand_marquee: configObject.brand_marquee || prev.brand_marquee,
+            address: configObject.address_main || prev.address,
             announcementText: configObject.announcement_message || prev.announcementText,
             announcementEnabled: configObject.announcement_enabled === 'true'
           }));
