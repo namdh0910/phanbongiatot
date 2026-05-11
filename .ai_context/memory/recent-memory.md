@@ -2,9 +2,9 @@
 
 ## 🕒 Current Context
 - **Date**: 2026-05-09
-- **Latest Activities (Facebook Token Renewal - DONE)**:
-  - **Access Token Update**: Cập nhật Facebook Page Access Token mới để khắc phục lỗi hết hạn phiên đăng bài. Tính năng "Đăng lên Fanpage ngay" đã hoạt động trở lại.
-  - **Multi-Provider AI Architecture**: Nâng cấp hệ thống AI hỗ trợ xoay vòng nhiều API Key và cơ chế dự phòng đa tầng.
+- **Latest Activities (Facebook Token Renewal - FINAL)**:
+  - **Access Token Update**: Cập nhật lại mã Facebook Access Token mới nhất (Long-lived) để đảm bảo hệ thống tự động đăng bài ổn định trong thời gian dài.
+  - **AI Infrastructure Upgrade**: Hoàn tất cấu hình Multi-Provider với OpenRouter fallback.
 - **Latest Activities (AI Infrastructure Upgrade - DONE)**:
   - **Facebook Graph Bridge**: Triển khai thành công API `/api/admin/publish-facebook` kết nối trực tiếp website với Fanpage Phân Bón Giá Tốt (ID: `61574432962859`).
   - **Direct-to-Fanpage UI**: Bổ sung nút **"Đăng lên Fanpage ngay"** (màu xanh Facebook) vào trình quản trị bài viết.
