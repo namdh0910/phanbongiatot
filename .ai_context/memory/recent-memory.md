@@ -2,10 +2,10 @@
 
 ## 🕒 Current Context
 - **Date**: 2026-05-09
-- **Latest Activities (Full Admin Config Integration - DONE)**:
-  - **Comprehensive Auto-Seeding**: Nâng cấp cơ chế tự động tạo cấu hình cho toàn bộ 5 nhóm (Trang chủ, Liên hệ, Thông báo, SEO, Cơ bản). Giờ đây Admin có thể chỉnh sửa Hotline, Zalo, địa chỉ kho hàng, thanh thông báo và các thông số SEO ngay trên giao diện.
-  - **Dynamic Brand Marquee**: Chuyển đổi dòng thương hiệu đối tác trên trang chủ từ hardcoded sang dữ liệu động.
-  - **Hotfix (Build Failure)**: Khắc phục lỗi TypeScript `implicit any` để đảm bảo Vercel build ổn định.
+- **Latest Activities (Admin Content Tools Upgrade - DONE)**:
+  - **Claude Markdown Import Fix**: Sửa lỗi tính năng "Dán từ Claude" bị xóa mất các tiêu đề có dấu `#` và không nhận diện được các mục đánh số (`1.`, `2.`). Hệ thống giờ đây tự động chuyển đổi các mục này thành thẻ H2 chuẩn SEO để hiển thị đúng cấu trúc bài viết.
+  - **Full Admin Config Integration**: Hoàn tất tích hợp dữ liệu động cho toàn bộ 5 nhóm cấu hình.
+  - **Dynamic Brand Marquee**: Chuyển đổi dòng thương hiệu đối tác sang dữ liệu động.
 - **Latest Activities (Facebook Marketing Automation - DONE)**:
   - **Facebook Graph Bridge**: Triển khai thành công API `/api/admin/publish-facebook` kết nối trực tiếp website với Fanpage Phân Bón Giá Tốt (ID: `61574432962859`).
   - **Direct-to-Fanpage UI**: Bổ sung nút **"Đăng lên Fanpage ngay"** (màu xanh Facebook) vào trình quản trị bài viết.

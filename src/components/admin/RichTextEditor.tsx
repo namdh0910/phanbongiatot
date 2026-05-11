@@ -180,31 +180,25 @@ export default function RichTextEditor({ value, onChange, onExtractMetadata, lab
       }
 
       // 2. Dọn dẹp mã neo {#anchor} và XÓA các dòng metadata khỏi content chính
-      // Xóa sạch cả phần FB Post nếu có (xóa mọi dòng chứa các nhãn marketing)
+      // Chuyển đổi các dòng số thứ tự 1. 2. thành Heading 2 nếu nó có vẻ là tiêu đề
       let cleanedMarkdown = markdown
-        .replace(/\{#[\w-]+\}/g, '')
+        .replace(/^(\d+\.\s+.+?)\s*\{#[\w-]+\}/gm, '## $1') // 1. Tên mục {#anchor} -> ## 1. Tên mục
+        .replace(/^(\d+\.\s+[A-ZĐ].+)$/gm, '## $1')         // 1. Tên mục (viết hoa đầu ngữ) -> ## 1. Tên mục
+        .replace(/\{#[\w-]+\}/g, '')                      // Xóa mã neo còn sót
         .replace(/^\s*(?:Tiêu đề|Title|Title:|Từ khóa chính|Từ khóa phụ|Meta description|Mô tả ngắn|Excerpt|Slug|Đường dẫn|Hook|FB Hook|Body|FB Body|CTA|FB CTA|Mở đầu|Nội dung chính|Kêu gọi).+$/gmi, '')
         .trim();
       
       // Mảng các từ khóa cần xóa bỏ khỏi nội dung chính
       const junkKeywords = ['Tiêu đề', 'Title', 'Từ khóa chính', 'Từ khóa phụ', 'Meta description', 'Mô tả ngắn', 'Excerpt', 'Slug', 'Đường dẫn'];
       
-      // Xóa từng dòng/câu chứa từ khóa rác (xử lý cả trường hợp dính chùm)
+      // Xóa từng dòng/câu chứa từ khóa rác
       junkKeywords.forEach(jk => {
-        // Regex xóa từ đầu từ khóa rác cho đến hết dòng hoặc đến khi gặp từ khóa rác tiếp theo
         const regex = new RegExp(`^\\s*${jk}.*(\\n|$)`, 'gmi');
         cleanedMarkdown = cleanedMarkdown.replace(regex, '');
       });
 
-      // Nếu vẫn còn sót (trường hợp dính chùm trên cùng 1 dòng), xóa mạnh hơn
-      cleanedMarkdown = cleanedMarkdown
-        .replace(/^\s*(?:Tiêu đề|Title|#).+$/gmi, '')
-        .replace(/(?:Từ khóa chính|Từ khóa phụ|Meta description|Mô tả ngắn|Excerpt|Slug|Đường dẫn):.+/gi, '')
-        .trim();
-
       // Đảm bảo xóa cả dòng tiêu đề đầu tiên nếu nó trùng với title đã bóc tách
       if (metadata.title) {
-        // Xóa dòng đầu tiên nếu nó chứa tiêu đề
         const lines = cleanedMarkdown.split('\n');
         if (lines.length > 0 && (lines[0].includes(metadata.title) || metadata.title.includes(lines[0]))) {
           lines.shift();
