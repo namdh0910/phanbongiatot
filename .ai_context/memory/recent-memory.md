@@ -2,11 +2,11 @@
 
 ## 🕒 Current Context
 - **Date**: 2026-05-09
-- **Latest Activities (Blog Drafting System Fix - DONE)**:
-  - **Draft Filtering**: Sửa lỗi bản nháp (draft) vẫn hiển thị trên trang chủ và trang kiến thức. API `/api/blogs` giờ đây mặc định chỉ trả về bài viết đã xuất bản (`isPublished: true`).
-  - **Admin Preview Mode**: Nâng cấp trang chi tiết bài viết để cho phép Admin xem trước bản nháp khi đang đăng nhập, trong khi người dùng bình thường sẽ nhận lỗi 404.
-  - **Claude Markdown Import Fix**: Cải thiện khả năng nhận diện tiêu đề và mục lục từ Claude.
-- **Latest Activities (Full Admin Config Integration - DONE)**:
+- **Latest Activities (AI Infrastructure Upgrade - DONE)**:
+  - **Multi-Provider AI Architecture**: Nâng cấp hệ thống AI hỗ trợ xoay vòng nhiều API Key (Gemini Rotation) và cơ chế dự phòng đa tầng (Gemini -> Groq -> OpenRouter).
+  - **DeepSeek Integration**: Tích hợp DeepSeek-V3 thông qua OpenRouter để tăng cường chất lượng nội dung và độ ổn định khi Gemini hết hạn mức.
+  - **Blog Drafting System Fix**: Sửa lỗi hiển thị bản nháp công khai và nâng cấp Admin Preview.
+- **Latest Activities (Admin Content Tools Upgrade - DONE)**:
   - **Facebook Graph Bridge**: Triển khai thành công API `/api/admin/publish-facebook` kết nối trực tiếp website với Fanpage Phân Bón Giá Tốt (ID: `61574432962859`).
   - **Direct-to-Fanpage UI**: Bổ sung nút **"Đăng lên Fanpage ngay"** (màu xanh Facebook) vào trình quản trị bài viết.
   - **Marketing Extraction Tool**: Nâng cấp tính năng **"Dán từ Claude"** để tự động bóc tách Hook, Body, CTA từ bản thảo Markdown và đổ vào trình xem trước (Preview).
