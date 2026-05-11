@@ -207,8 +207,24 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
                   {blog.title}
                 </h1>
 
-                {(blog.coverImage || blog.image) && (
-                  <div className="aspect-[21/9] w-full rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-2xl bg-gray-100 border-4 md:border-8 border-gray-50/50">
+                {blog.videoUrl && (
+                  <div className="aspect-video w-full rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-2xl bg-black mb-10 border-4 md:border-8 border-gray-50/50">
+                    <iframe 
+                      className="w-full h-full"
+                      src={`https://www.youtube.com/embed/${((url) => {
+                        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+                        const match = url.match(regExp);
+                        return (match && match[2].length === 11) ? match[2] : null;
+                      })(blog.videoUrl)}?autoplay=0`}
+                      title="YouTube video player"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    ></iframe>
+                  </div>
+                )}
+
+                {!blog.videoUrl && (blog.coverImage || blog.image) && (
+                  <div className="aspect-[21/9] w-full rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-2xl bg-gray-100 border-4 md:border-8 border-gray-50/50 mb-10">
                     <img 
                       src={blog.coverImage || blog.image} 
                       alt={blog.title} 
