@@ -20,6 +20,7 @@ const initialConfigs = [
   // SEO GROUP
   { key: 'site_name', value: 'Phân Bón Giá Tốt', group: 'seo', label: 'Tên Website', type: 'text' },
   { key: 'default_description', value: 'Chuyên gia phục hồi cây trồng bằng giải pháp sinh học bền vững.', group: 'seo', label: 'Mô tả SEO mặc định', type: 'textarea' },
+  { key: 'brand_marquee', value: 'Bình Điền, Yara, DAP, Phú Mỹ, Hợp Trí, Nemano', group: 'hero', label: 'Danh sách Thương hiệu Đối tác (cách nhau bằng dấu phẩy)', type: 'textarea' },
 ];
 
 async function seed() {

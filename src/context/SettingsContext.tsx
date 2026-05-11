@@ -26,6 +26,7 @@ interface Settings {
   footerAddress: string;
   footerEmail: string;
   brands: string;
+  brand_marquee: string;
 }
 
 const SettingsContext = createContext<any>(null);
@@ -53,7 +54,8 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
     announcementText: '',
     footerAddress: 'Kho hàng: Phường Đăk Cấm, TP. Kon Tum, Tỉnh Kon Tum',
     footerEmail: 'hotro@phanbongiatot.com',
-    brands: 'BÌNH ĐIỀN, ĐẠM PHÚ MỸ, PHÂN BÓN MIỀN NAM, YARA, HAIFA GROUP, BEHN MEYER, DAP ĐÌNH VŨ, ACTI AGRI'
+    brands: 'BÌNH ĐIỀN, ĐẠM PHÚ MỸ, PHÂN BÓN MIỀN NAM, YARA, HAIFA GROUP, BEHN MEYER, DAP ĐÌNH VŨ, ACTI AGRI',
+    brand_marquee: 'Bình Điền, Yara, DAP, Phú Mỹ, Hợp Trí, Nemano'
   });
 
   useEffect(() => {
@@ -77,6 +79,7 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
             zaloId: configObject.zalo_id || prev.zaloId,
             heroTitle: configObject.hero_title || prev.heroTitle,
             heroSubtitle: configObject.hero_subtitle || prev.heroSubtitle,
+            brand_marquee: configObject.brand_marquee || prev.brand_marquee,
             announcementText: configObject.announcement_message || prev.announcementText,
             announcementEnabled: configObject.announcement_enabled === 'true'
           }));

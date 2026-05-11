@@ -36,7 +36,30 @@ export default function AdminDashboard() {
     try {
       const res = await fetch('/api/config');
       const data = await res.json();
-      setConfigs(data.configs || []);
+      const currentConfigs = data.configs || [];
+      setConfigs(currentConfigs);
+
+      // Auto-seed brand_marquee if missing
+      if (!currentConfigs.find((c: any) => c.key === 'brand_marquee')) {
+        const brandConfig = {
+          key: 'brand_marquee',
+          value: 'BÌNH ĐIỀN, YARA, DAP, PHÚ MỸ, HỢP TRÍ, NEMANO',
+          group: 'hero' as ConfigGroup,
+          label: 'Danh sách Thương hiệu Đối tác (cách nhau bằng dấu phẩy)',
+          type: 'textarea' as const
+        };
+        
+        await fetch('/api/config', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(brandConfig)
+        });
+        
+        // Refresh configs after seeding
+        const refreshedRes = await fetch('/api/config');
+        const refreshedData = await refreshedRes.json();
+        setConfigs(refreshedData.configs || []);
+      }
     } catch (err) {
       console.error("Fetch error", err);
     } finally {

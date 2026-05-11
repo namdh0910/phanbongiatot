@@ -230,11 +230,15 @@ export default function LandingPage() {
             <p className="text-center text-[8px] md:text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">Đối tác kỹ thuật & Giải pháp chính hãng</p>
          </div>
          <div className="flex gap-8 md:gap-12 whitespace-nowrap animate-marquee px-4">
-            {["Bình Điền", "Yara", "DAP", "Phú Mỹ", "Hợp Trí", "Nemano", "Bình Điền", "Yara", "DAP", "Phú Mỹ"].map((brand, i) => (
-              <span key={i} className="text-sm md:text-2xl font-black text-gray-300 hover:text-gray-400 transition-colors cursor-default uppercase tracking-tighter italic">
-                {brand}
-              </span>
-            ))}
+            {(settings.brand_marquee || "Bình Điền, Yara, DAP, Phú Mỹ, Hợp Trí, Nemano")
+              .split(',')
+              .map(s => s.trim())
+              .concat((settings.brand_marquee || "Bình Điền, Yara, DAP, Phú Mỹ, Hợp Trí, Nemano").split(',').map(s => s.trim()))
+              .map((brand, i) => (
+                <span key={i} className="text-sm md:text-2xl font-black text-gray-300 hover:text-gray-400 transition-colors cursor-default uppercase tracking-tighter italic">
+                  {brand}
+                </span>
+              ))}
          </div>
       </section>
 
