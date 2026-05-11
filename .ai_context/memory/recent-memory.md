@@ -2,8 +2,8 @@
 
 ## 🕒 Current Context
 - **Date**: 2026-05-09
-- **Latest Activities (Facebook Token Renewal - FINAL)**:
-  - **Access Token Update**: Cập nhật lại mã Facebook Access Token mới nhất (Long-lived) để đảm bảo hệ thống tự động đăng bài ổn định trong thời gian dài.
+- **Latest Activities (Facebook Page Token Update - DONE)**:
+  - **Page Token Integration**: Thay thế User Token bằng Page Access Token chuẩn xác để khắc phục lỗi phân quyền (#200). Tính năng đăng bài đã được kiểm tra lại.
   - **AI Infrastructure Upgrade**: Hoàn tất cấu hình Multi-Provider với OpenRouter fallback.
 - **Latest Activities (AI Infrastructure Upgrade - DONE)**:
   - **Facebook Graph Bridge**: Triển khai thành công API `/api/admin/publish-facebook` kết nối trực tiếp website với Fanpage Phân Bón Giá Tốt (ID: `61574432962859`).
