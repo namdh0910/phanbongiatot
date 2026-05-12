@@ -47,12 +47,22 @@ export default function RichTextEditor({ value, onChange, onExtractMetadata, lab
   const [wordCount, setWordCount] = useState(0);
   const [isSourceMode, setIsSourceMode] = useState(false);
 
-  // Tính số từ thực tế (loại bỏ thẻ HTML và các thực thể)
+  // 1. Tính số từ và 2. Kiểm tra thuật ngữ cấm (Terminology Guard)
   useEffect(() => {
     if (!value) {
       setWordCount(0);
       return;
     }
+
+    // Tự động sửa thuật ngữ cấm ngay khi gõ (Terminology Guard)
+    if (value.includes('phác đồ') || value.includes('Phác đồ')) {
+      const corrected = value
+        .replace(/phác đồ/g, 'giải pháp')
+        .replace(/Phác đồ/g, 'Giải pháp');
+      onChange(corrected);
+      return;
+    }
+
     const text = value
       .replace(/<[^>]*>/g, ' ') // Xóa thẻ HTML
       .replace(/&nbsp;/g, ' ')  // Xóa khoảng trắng đặc biệt
@@ -62,7 +72,7 @@ export default function RichTextEditor({ value, onChange, onExtractMetadata, lab
     // Đếm số từ theo dấu cách (hỗ trợ tiếng Việt tốt hơn)
     const count = text ? text.split(' ').filter(word => word.length > 0).length : 0;
     setWordCount(count);
-  }, [value]);
+  }, [value, onChange]);
 
   const imageHandler = () => {
     const input = document.createElement('input');

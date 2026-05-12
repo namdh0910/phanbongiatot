@@ -61,11 +61,36 @@ export default function AdminLeads() {
           <h1 className="text-3xl font-black text-gray-900 uppercase italic tracking-tight">Yêu cầu từ nhà vườn</h1>
           <p className="text-gray-500 text-sm font-medium">Danh sách nông dân cần hỗ trợ giải pháp điều trị cây trồng.</p>
         </div>
-        <div className="bg-white px-6 py-3 rounded-2xl border border-gray-100 shadow-sm flex items-center gap-4">
-          <span className="text-2xl">🌱</span>
-          <div className="flex flex-col">
-            <span className="text-xs font-black text-gray-400 uppercase">Tổng số Lead</span>
-            <span className="text-xl font-black text-[#1a5c2a]">{leads.length}</span>
+        <div className="flex items-center gap-3">
+          <button 
+            onClick={() => {
+              if (leads.length === 0) return;
+              const headers = ["Thời gian", "Tên", "SĐT", "Cây trồng", "Tình trạng", "Địa chỉ"];
+              const rows = leads.map(l => [
+                new Date(l.createdAt).toLocaleString('vi-VN'),
+                l.name,
+                `'${l.phone}`, // Thêm dấu ' để Excel không bỏ số 0 đầu
+                l.cropType || "",
+                l.pathology || "",
+                l.city || ""
+              ]);
+              const csvContent = "\uFEFF" + [headers, ...rows].map(e => e.join(",")).join("\n");
+              const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+              const link = document.createElement("a");
+              link.href = URL.createObjectURL(blob);
+              link.download = `Danh_sach_Lead_PBGT_${new Date().toLocaleDateString('vi-VN')}.csv`;
+              link.click();
+            }}
+            className="bg-white border-2 border-gray-900 text-gray-900 px-6 py-3 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-gray-900 hover:text-white transition-all flex items-center gap-2"
+          >
+            📥 Xuất Excel (CSV)
+          </button>
+          <div className="bg-white px-6 py-3 rounded-2xl border border-gray-100 shadow-sm flex items-center gap-4">
+            <span className="text-2xl">🌱</span>
+            <div className="flex flex-col">
+              <span className="text-xs font-black text-gray-400 uppercase">Tổng số Lead</span>
+              <span className="text-xl font-black text-[#1a5c2a]">{leads.length}</span>
+            </div>
           </div>
         </div>
       </div>

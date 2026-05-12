@@ -3,6 +3,7 @@ import { usePathname, useParams } from "next/navigation";
 import { useSettings } from "@/context/SettingsContext";
 import { useEffect, useState } from "react";
 import { trackEvent } from "@/utils/analytics";
+import { MessageCircle, Phone } from "lucide-react";
 
 export default function StickyCTA() {
   const pathname = usePathname();
@@ -11,14 +12,12 @@ export default function StickyCTA() {
   const [pageTitle, setPageTitle] = useState("");
 
   useEffect(() => {
-    // Dynamic title extraction from document for contextual Zalo messages
     const timer = setTimeout(() => {
-      if (document.title) {
-        // Extract the main title part before the separator |
+      if (typeof document !== 'undefined' && document.title) {
         const title = document.title.split('|')[0].trim();
         setPageTitle(title);
       }
-    }, 600); // Wait for Next.js to update metadata
+    }, 1000);
     return () => clearTimeout(timer);
   }, [pathname, params]);
 
@@ -26,8 +25,8 @@ export default function StickyCTA() {
   const zalo = settings?.zalo || "0339505050";
   
   const message = pageTitle 
-    ? `Chào PBGT, tôi vừa xem video về cách chữa ${pageTitle} và muốn nhận giải pháp cho vườn ở [Tỉnh của tôi] của tôi`
-    : `Chào PBGT, tôi cần tư vấn kỹ thuật phục hồi vườn cho vườn ở [Tỉnh của tôi] của tôi.`;
+    ? `Chào Kỹ sư PBGT, tôi đang xem về "${pageTitle}" và cần tư vấn giải pháp phục hồi cho vườn của mình.`
+    : `Chào Kỹ sư PBGT, tôi cần tư vấn kỹ thuật phục hồi vườn cho cây trồng của mình.`;
   
   const zaloUrl = `https://zalo.me/${zalo.replace(/\./g, '')}?text=${encodeURIComponent(message)}`;
   const callUrl = `tel:${hotline.replace(/\./g, '')}`;
@@ -35,22 +34,35 @@ export default function StickyCTA() {
   if (pathname?.startsWith('/admin') || pathname?.startsWith('/kenh-nguoi-ban')) return null;
 
   return (
-    <div className="lg:hidden fixed bottom-0 left-0 w-full z-[1000] bg-white shadow-[0_-5px_20px_rgba(0,0,0,0.1)] flex items-stretch h-[calc(64px+env(safe-area-inset-bottom))] pb-[env(safe-area-inset-bottom)] border-t border-gray-100">
+    <div className="fixed bottom-10 right-10 z-[500] flex flex-col gap-4 animate-in fade-in slide-in-from-right-10 duration-700">
+      {/* Zalo Floating Button */}
       <a 
         href={zaloUrl} 
         target="_blank"
         rel="noopener noreferrer"
-        onClick={() => trackEvent('zalo_click', { title: pageTitle })}
-        className="w-[70%] bg-[#0068FF] text-white flex items-center justify-center gap-3 text-[16px] font-black transition-all active:scale-95"
+        onClick={() => trackEvent('zalo_click', { title: pageTitle, position: 'desktop_sticky' })}
+        className="group relative flex items-center justify-end"
       >
-        <span className="text-2xl animate-bounce" style={{ animationDuration: '2s' }}>💬</span> Nhắn Zalo tư vấn
+        <span className="mr-3 bg-white text-[#0068FF] px-4 py-2 rounded-xl text-sm font-black shadow-xl opacity-0 group-hover:opacity-100 transition-all transform translate-x-4 group-hover:translate-x-0 border border-blue-50">
+          Nhắn Zalo Kỹ Sư
+        </span>
+        <div className="w-16 h-16 bg-[#0068FF] text-white rounded-full flex items-center justify-center shadow-[0_10px_40px_-10px_rgba(0,104,255,0.5)] hover:scale-110 transition-all active:scale-95 animate-bounce" style={{ animationDuration: '3s' }}>
+          <MessageCircle size={32} />
+        </div>
       </a>
+
+      {/* Hotline Floating Button */}
       <a 
         href={callUrl} 
-        onClick={() => trackEvent('call_click', { title: pageTitle })}
-        className="w-[30%] bg-[#ee4d2d] text-white flex items-center justify-center gap-2 text-[16px] font-black transition-all active:scale-95 border-l border-white/10"
+        onClick={() => trackEvent('call_click', { title: pageTitle, position: 'desktop_sticky' })}
+        className="group relative flex items-center justify-end"
       >
-        <span className="text-2xl">📞</span> Gọi
+        <span className="mr-3 bg-white text-[#ee4d2d] px-4 py-2 rounded-xl text-sm font-black shadow-xl opacity-0 group-hover:opacity-100 transition-all transform translate-x-4 group-hover:translate-x-0 border border-red-50">
+          Gọi Kỹ Sư: {hotline}
+        </span>
+        <div className="w-16 h-16 bg-[#ee4d2d] text-white rounded-full flex items-center justify-center shadow-[0_10px_40px_-10px_rgba(238,77,45,0.5)] hover:scale-110 transition-all active:scale-95">
+          <Phone size={32} />
+        </div>
       </a>
     </div>
   );

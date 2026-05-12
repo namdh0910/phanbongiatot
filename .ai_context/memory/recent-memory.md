@@ -4,6 +4,11 @@
 - **Date**: 2026-05-09
 - **Latest Activities (Facebook Page Token Update - DONE)**:
   - **New Token Update**: Cập nhật Page Access Token mới từ người dùng vào `.env` và nâng cấp version lên `0.1.11` để kích hoạt build mới.
+  - **System-wide Terminology Clean-up**: Đã quét và loại bỏ toàn bộ từ "phác đồ" còn sót lại (đặc biệt trong trang Sicobi).
+  - **Admin Lead Export**: Triển khai tính năng xuất danh sách Lead sang CSV giúp quản lý dữ liệu offline.
+  - **Terminology Guard Integration**: Tích hợp bộ lọc tự động trong RichTextEditor để ngăn chặn việc sử dụng thuật ngữ y tế ("phác đồ").
+  - **Dynamic Contextual Messaging**: Nâng cấp StickyCTA và MobileBottomNav để tự động đính kèm tên trang khách đang xem vào tin nhắn Zalo, tăng tỷ lệ chuyển đổi.
+  - **StickyCTA Desktop Redesign**: Chuyển đổi sang dạng Floating Button chuyên nghiệp trên máy tính.
   - **Facebook Token Expiry Fix**: Đã xác nhận lỗi token cũ hết hạn (Session expired) từ ảnh chụp màn hình admin. Đã cập nhật token mới vào hệ thống và khuyến nghị cập nhật thủ công trên Vercel Dashboard.
   - **Page Token Integration**: Thay thế User Token bằng Page Access Token chuẩn xác để khắc phục lỗi phân quyền (#200). Tính năng đăng bài đã được kiểm tra lại.
   - **AI Infrastructure Upgrade**: Hoàn tất cấu hình Multi-Provider với OpenRouter fallback.

@@ -27,7 +27,7 @@ export default function MobileBottomNav() {
     { 
       label: "Zalo", 
       icon: "💬", 
-      href: `https://zalo.me/${settings?.zalo || '0339505050'}?text=${encodeURIComponent('Tôi cần tư vấn về: ' + (docTitle || 'Giải pháp nông nghiệp'))}`, 
+      href: `https://zalo.me/${settings?.zalo || '0339505050'}?text=${encodeURIComponent('Chào Kỹ sư PBGT, tôi đang xem trang "' + (docTitle || 'Giải pháp nông nghiệp') + '" và cần được tư vấn cụ thể cho vườn của tôi.')}`, 
       isExternal: true 
     },
     { label: "Hỏi đáp", icon: "❓", href: "/hoi-dap-ky-thuat" },
