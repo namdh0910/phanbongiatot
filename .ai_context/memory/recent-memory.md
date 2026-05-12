@@ -3,6 +3,7 @@
 ## 🕒 Current Context
 - **Date**: 2026-05-09
 - **Latest Activities (Facebook Page Token Update - DONE)**:
+  - **New Token Update**: Cập nhật Page Access Token mới từ người dùng vào `.env` để duy trì kết nối Fanpage.
   - **Page Token Integration**: Thay thế User Token bằng Page Access Token chuẩn xác để khắc phục lỗi phân quyền (#200). Tính năng đăng bài đã được kiểm tra lại.
   - **AI Infrastructure Upgrade**: Hoàn tất cấu hình Multi-Provider với OpenRouter fallback.
 - **Latest Activities (AI Infrastructure Upgrade - DONE)**:
