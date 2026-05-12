@@ -1,7 +1,12 @@
 # Recent Memory (Last 48h)
 
 ## 🕒 Current Context
-- **Date**: 2026-05-09
+- **Date**: 2026-05-12
+- **Latest Activities (Admin Authentication Persistence Fix - DONE)**:
+  - **Middleware Restoration**: Khôi phục `src/middleware.ts` từ `src/proxy.ts` và chuẩn hóa export `middleware` để kích hoạt bảo vệ server-side đúng chuẩn Next.js.
+  - **Cookie Lax Mode**: Chuyển đổi `sameSite` từ `strict` sang `lax` cho cookie `adminToken` để đảm bảo trình duyệt gửi cookie ổn định khi điều hướng giữa các menu admin.
+  - **Login Logic Cleanup**: Loại bỏ việc sử dụng `localStorage` dư thừa trong trang đăng nhập và đồng bộ hóa logic xác thực hoàn toàn qua HttpOnly cookies.
+  - **AdminGuard Optimization**: Đơn giản hóa `AdminGuard` để tự động chuyển hướng về trang đăng nhập chính khi phiên làm việc hết hạn, loại bỏ tình trạng hiển thị form đăng nhập chồng chéo.
 - **Latest Activities (Facebook Page Token Update - DONE)**:
   - **New Token Update**: Cập nhật Page Access Token mới từ người dùng vào `.env` và nâng cấp version lên `0.1.11` để kích hoạt build mới.
   - **System-wide Terminology Clean-up**: Đã quét và loại bỏ toàn bộ từ "phác đồ" còn sót lại (đặc biệt trong trang Sicobi).

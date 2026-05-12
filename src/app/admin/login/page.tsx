@@ -23,7 +23,6 @@ export default function AdminLogin() {
       const data = await res.json();
 
       if (res.ok && data.success) {
-        localStorage.setItem("adminToken", data.token);
         router.push("/admin/dashboard");
       } else {
         setError(data.message || "Đăng nhập thất bại");
