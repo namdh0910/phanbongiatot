@@ -3,7 +3,8 @@
 ## 🕒 Current Context
 - **Date**: 2026-05-09
 - **Latest Activities (Facebook Page Token Update - DONE)**:
-  - **New Token Update**: Cập nhật Page Access Token mới từ người dùng vào `.env` để duy trì kết nối Fanpage.
+  - **New Token Update**: Cập nhật Page Access Token mới từ người dùng vào `.env` và nâng cấp version lên `0.1.11` để kích hoạt build mới.
+  - **Facebook Token Expiry Fix**: Đã xác nhận lỗi token cũ hết hạn (Session expired) từ ảnh chụp màn hình admin. Đã cập nhật token mới vào hệ thống và khuyến nghị cập nhật thủ công trên Vercel Dashboard.
   - **Page Token Integration**: Thay thế User Token bằng Page Access Token chuẩn xác để khắc phục lỗi phân quyền (#200). Tính năng đăng bài đã được kiểm tra lại.
   - **AI Infrastructure Upgrade**: Hoàn tất cấu hình Multi-Provider với OpenRouter fallback.
 - **Latest Activities (AI Infrastructure Upgrade - DONE)**:
