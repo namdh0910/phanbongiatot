@@ -23,8 +23,13 @@ export async function sendTelegramMessage(message: string) {
     if (!response.ok) {
       const data = await response.json();
       console.error('Telegram API error:', data);
+      return false;
     }
+    
+    console.log('Telegram message sent successfully');
+    return true;
   } catch (error) {
     console.error('Failed to send Telegram message:', error);
+    return false;
   }
 }

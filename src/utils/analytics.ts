@@ -7,6 +7,7 @@ export const trackEvent = async (type: AnalyticsEventType, metadata?: any) => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ type, path, metadata }),
+      keepalive: true, // Đảm bảo request vẫn tiếp tục ngay cả khi chuyển trang
     });
   } catch (error) {
     // Không log lỗi ra console người dùng để tránh rác log

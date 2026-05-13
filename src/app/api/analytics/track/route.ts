@@ -32,8 +32,8 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    // Không await để không làm chậm response
-    sendTelegramMessage(message);
+    // Cần await để đảm bảo Vercel không ngắt tiến trình trước khi gửi xong
+    await sendTelegramMessage(message);
 
     return NextResponse.json({ success: true, id: event._id });
   } catch (error) {
