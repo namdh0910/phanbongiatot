@@ -3,10 +3,11 @@
 ## 🕒 Current Context
 - **Date**: 2026-05-12
 - **Latest Activities (Telegram Notification System - DONE)**:
+  - **Credential Integration**: Đã tích hợp Token và Chat ID chính thức từ khách hàng vào hệ thống.
+  - **Connectivity Test**: Đã kiểm tra kết nối thành công, hệ thống sẵn sàng gửi báo động trực tiếp về Telegram.
   - **Global Click Tracking**: Triển khai `GlobalClickTracker` trong `LayoutWrapper` để bắt toàn bộ tương tác của người dùng trên tất cả các nút và liên kết.
   - **Telegram Integration**: Xây dựng utility `src/lib/telegram.ts` kết nối với Telegram Bot API.
   - **Real-time Alert API**: Cập nhật `/api/analytics/track` để tự động gửi thông báo Telegram mỗi khi có khách nhấn nút, bao gồm thông tin chi tiết: Trang đang xem, Nội dung nút, IP và metadata đi kèm.
-  - **Navigation Tracking**: Bổ sung cơ chế theo dõi cho `MobileBottomNav` và các thành phần cốt lõi khác.
 - **Latest Activities (Admin Authentication Persistence Fix - DONE)**:
   - **Middleware Restoration**: Khôi phục `src/middleware.ts` từ `src/proxy.ts` và chuẩn hóa export `middleware` để kích hoạt bảo vệ server-side đúng chuẩn Next.js.
   - **Cookie Lax Mode**: Chuyển đổi `sameSite` từ `strict` sang `lax` cho cookie `adminToken` để đảm bảo trình duyệt gửi cookie ổn định khi điều hướng giữa các menu admin.
