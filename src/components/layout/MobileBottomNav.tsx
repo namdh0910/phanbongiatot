@@ -4,6 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSettings } from "@/context/SettingsContext";
 
+import { trackEvent } from "@/utils/analytics";
+
 export default function MobileBottomNav() {
   const pathname = usePathname();
   const settings = useSettings();
@@ -47,14 +49,27 @@ export default function MobileBottomNav() {
 
           if (item.isExternal) {
             return (
-              <a key={i} href={item.href} target="_blank" aria-label={item.label} className="flex-1 flex items-center justify-center min-h-[48px]">
+              <a 
+                key={i} 
+                href={item.href} 
+                target="_blank" 
+                aria-label={item.label} 
+                className="flex-1 flex items-center justify-center min-h-[48px]"
+                onClick={() => trackEvent('zalo_click', { position: 'mobile_bottom_nav' })}
+              >
                 {Content}
               </a>
             );
           }
 
           return (
-            <Link key={i} href={item.href} aria-label={item.label} className="flex-1 flex items-center justify-center min-h-[48px]">
+            <Link 
+              key={i} 
+              href={item.href} 
+              aria-label={item.label} 
+              className="flex-1 flex items-center justify-center min-h-[48px]"
+              onClick={() => trackEvent('page_view', { to: item.href, label: item.label })}
+            >
               {Content}
             </Link>
           );

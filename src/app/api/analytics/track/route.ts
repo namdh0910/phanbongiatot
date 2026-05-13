@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import dbConnect from '@/lib/db';
 import Analytics from '@/lib/models/Analytics';
+import { sendTelegramMessage } from '@/lib/telegram';
 
 export async function POST(request: NextRequest) {
   try {
@@ -17,6 +18,22 @@ export async function POST(request: NextRequest) {
       metadata,
       ip
     });
+
+    // Gửi thông báo Telegram
+    let message = `<b>🔔 PHÁT HIỆN TƯƠNG TÁC MỚI</b>\n\n`;
+    message += `📍 <b>Sự kiện:</b> ${type.toUpperCase()}\n`;
+    message += `🔗 <b>Trang:</b> ${path}\n`;
+    message += `🌐 <b>IP:</b> ${ip}\n`;
+
+    if (metadata) {
+      message += `\n📝 <b>Chi tiết:</b>\n`;
+      Object.entries(metadata).forEach(([key, value]) => {
+        message += `- ${key}: ${JSON.stringify(value)}\n`;
+      });
+    }
+
+    // Không await để không làm chậm response
+    sendTelegramMessage(message);
 
     return NextResponse.json({ success: true, id: event._id });
   } catch (error) {
