@@ -76,11 +76,12 @@ export default function CommunityQA() {
       const data = await res.json();
       if (data.success) {
         setSuccess(true);
+        fetchQuestions(); // Tải lại danh sách ngay lập tức
         setTimeout(() => {
           setShowAskModal(false);
           setSuccess(false);
           setNewQuestion({ title: "", content: "", author: "", authorPhone: "", category: "Sầu riêng" });
-        }, 3000);
+        }, 2000);
       }
     } catch (err) {
       alert("Có lỗi xảy ra, bà con thử lại nhé!");

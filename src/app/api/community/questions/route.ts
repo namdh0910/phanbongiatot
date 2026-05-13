@@ -38,7 +38,7 @@ export async function POST(request: Request) {
       author,
       authorPhone,
       category: category || 'Chung',
-      status: 'pending', // Yêu cầu kiểm duyệt trước khi hiện
+      status: 'approved', // Cho hiện ngay để tăng tính tương tác, Admin sẽ xóa sau nếu cần
     });
 
     // Thông báo Telegram cho Admin biết có câu hỏi mới
