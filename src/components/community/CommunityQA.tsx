@@ -154,41 +154,41 @@ export default function CommunityQA() {
            <p className="text-gray-500">Bà con hãy là người đầu tiên đặt câu hỏi nhé!</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {questions.map((q) => (
-            <div key={q._id} className="bg-white rounded-2xl md:rounded-[2.5rem] border border-gray-100 p-5 md:p-8 hover:shadow-2xl hover:-translate-y-1 transition-all group">
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 md:w-14 md:h-14 bg-emerald-50 text-emerald-700 rounded-full flex items-center justify-center font-black text-sm md:text-xl shrink-0">
+            <div key={q._id} className="bg-white rounded-2xl md:rounded-[2rem] border border-gray-100 p-4 md:p-6 hover:shadow-xl hover:-translate-y-1 transition-all group">
+              <div className="flex items-start gap-3">
+                <div className="w-10 h-10 bg-emerald-50 text-emerald-700 rounded-full flex items-center justify-center font-black text-xs shrink-0">
                   {getInitials(q.author)}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="text-[10px] md:text-xs font-black text-emerald-700 uppercase tracking-widest bg-emerald-50 px-2 py-0.5 rounded-full">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-[8px] md:text-[10px] font-black text-emerald-700 uppercase tracking-widest bg-emerald-50 px-2 py-0.5 rounded-full">
                       {q.category}
                     </span>
-                    <span className="text-[10px] text-gray-400 flex items-center gap-1">
-                      <Clock size={12} /> {formatDate(q.createdAt)}
+                    <span className="text-[8px] text-gray-400 flex items-center gap-1">
+                      <Clock size={10} /> {formatDate(q.createdAt)}
                     </span>
                   </div>
-                  <h3 className="text-base md:text-xl font-black text-gray-900 mb-2 group-hover:text-emerald-700 transition-colors line-clamp-2">
+                  <h3 className="text-sm md:text-base font-black text-gray-900 mb-1 group-hover:text-emerald-700 transition-colors line-clamp-2 leading-tight">
                     {q.title}
                   </h3>
-                  <p className="text-gray-600 text-sm md:text-base line-clamp-3 mb-4 font-medium leading-relaxed">
+                  <p className="text-gray-600 text-[11px] md:text-sm line-clamp-2 mb-3 font-medium leading-relaxed">
                     {q.content}
                   </p>
 
-                  <div className="flex items-center justify-between pt-4 border-t border-gray-50">
-                    <div className="flex items-center gap-4 text-xs font-bold text-gray-400">
-                      <span className="flex items-center gap-1.5">
-                        <MessageCircle size={16} className="text-emerald-600" /> {q.answers.length} phản hồi
+                  <div className="flex items-center justify-between pt-3 border-t border-gray-50">
+                    <div className="flex items-center gap-2 text-[9px] font-bold text-gray-400">
+                      <span className="flex items-center gap-1">
+                        <MessageCircle size={12} className="text-emerald-600" /> {q.answers.length}
                       </span>
-                      <span className="font-black text-gray-700">Tác giả: {q.author}</span>
+                      <span className="text-gray-600 truncate max-w-[80px]">{q.author}</span>
                     </div>
                     <button 
                       onClick={() => setActiveQuestion(q)}
-                      className="text-emerald-700 font-black text-[10px] md:text-xs uppercase tracking-widest flex items-center gap-1 hover:gap-2 transition-all"
+                      className="text-emerald-700 font-black text-[9px] uppercase tracking-widest flex items-center gap-1 hover:gap-2 transition-all"
                     >
-                      Chi tiết & Thảo luận <ChevronRight size={14} />
+                      Chi tiết <ChevronRight size={12} />
                     </button>
                   </div>
                 </div>
@@ -202,13 +202,14 @@ export default function CommunityQA() {
       {showAskModal && (
         <div className="fixed inset-0 z-[1001] flex items-end md:items-center justify-center p-4 md:p-6">
            <div className="absolute inset-0 bg-black/80 backdrop-blur-md" onClick={() => !submitting && setShowAskModal(false)}></div>
-           <div className="relative w-full max-w-2xl bg-white rounded-t-[2.5rem] md:rounded-[2.5rem] p-6 md:p-12 animate-in slide-in-from-bottom-10 duration-500 overflow-y-auto max-h-[85vh] md:max-h-[90vh] shadow-2xl">
-              <button 
-                onClick={() => setShowAskModal(false)}
-                className="absolute top-4 right-4 md:top-8 md:right-8 w-10 h-10 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center text-gray-500 transition-all z-10"
-              >
-                <X size={20} />
-              </button>
+           <div className="relative w-full max-w-2xl bg-white rounded-t-[2.5rem] md:rounded-[2.5rem] p-6 md:p-12 animate-in slide-in-from-bottom-10 duration-500 overflow-y-auto max-h-[90vh] shadow-2xl">
+              <div className="pb-24 md:pb-0"> {/* Bottom padding for MobileNav */}
+                <button 
+                  onClick={() => setShowAskModal(false)}
+                  className="absolute top-4 right-4 md:top-8 md:right-8 w-10 h-10 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center text-gray-500 transition-all z-10"
+                >
+                  <X size={20} />
+                </button>
 
               {success ? (
                 <div className="text-center py-12">
@@ -278,12 +279,11 @@ export default function CommunityQA() {
                     </div>
 
                     <div>
-                      <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2 px-2">Nội dung chi tiết</label>
+                      <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2 px-2">Nội dung chi tiết (Không bắt buộc)</label>
                       <textarea 
-                        required
-                        rows={4}
+                        rows={3}
                         className="w-full bg-gray-50 border border-gray-100 rounded-2xl px-5 py-3.5 text-sm font-bold focus:outline-none focus:border-emerald-500 transition-all"
-                        placeholder="Mô tả kỹ tình trạng vườn để nhận tư vấn chính xác..."
+                        placeholder="Mô tả thêm nếu bà con muốn rõ ràng hơn..."
                         value={newQuestion.content}
                         onChange={(e) => setNewQuestion({...newQuestion, content: e.target.value})}
                       />
@@ -299,6 +299,7 @@ export default function CommunityQA() {
                   </form>
                 </>
               )}
+              </div>
            </div>
         </div>
       )}
@@ -341,15 +342,15 @@ export default function CommunityQA() {
                              <div className={`w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center font-black text-xs shrink-0 ${ans.authorRole === 'admin' || ans.authorRole === 'expert' ? 'bg-orange-500 text-white' : 'bg-gray-200 text-gray-500'}`}>
                                 {getInitials(ans.author)}
                              </div>
-                             <div className="flex-1">
-                                <div className={`p-4 md:p-6 rounded-2xl md:rounded-[2rem] shadow-sm ${ans.authorRole === 'admin' || ans.authorRole === 'expert' ? 'bg-white border-2 border-orange-100' : 'bg-white border border-gray-100'}`}>
+                             <div className="flex-1 min-w-0">
+                                <div className={`p-4 md:p-6 rounded-2xl md:rounded-[2rem] shadow-sm break-words overflow-hidden ${ans.authorRole === 'admin' || ans.authorRole === 'expert' ? 'bg-white border-2 border-orange-100' : 'bg-white border border-gray-100'}`}>
                                    <div className="flex items-center justify-between mb-2">
-                                      <span className="font-black text-sm md:text-base text-gray-900">
+                                      <span className="font-black text-sm md:text-base text-gray-900 truncate pr-4">
                                          {ans.author} {ans.authorRole === 'admin' || ans.authorRole === 'expert' ? <span className="ml-2 text-[9px] bg-orange-100 text-orange-600 px-2 py-0.5 rounded-full">CHUYÊN GIA</span> : null}
                                       </span>
-                                      <span className="text-[10px] text-gray-400 font-bold">{formatDate(ans.createdAt)}</span>
+                                      <span className="text-[10px] text-gray-400 font-bold shrink-0">{formatDate(ans.createdAt)}</span>
                                    </div>
-                                   <p className="text-gray-700 text-sm md:text-base leading-relaxed font-medium">
+                                   <p className="text-gray-700 text-sm md:text-base leading-relaxed font-medium break-words whitespace-pre-wrap">
                                       {ans.content}
                                    </p>
                                 </div>
