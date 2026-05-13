@@ -200,14 +200,14 @@ export default function CommunityQA() {
 
       {/* Ask Modal */}
       {showAskModal && (
-        <div className="fixed inset-0 z-[1000] flex items-center justify-center p-4">
-           <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => !submitting && setShowAskModal(false)}></div>
-           <div className="relative w-full max-w-2xl bg-white rounded-[2.5rem] p-6 md:p-12 animate-in zoom-in-95 duration-300">
+        <div className="fixed inset-0 z-[1001] flex items-end md:items-center justify-center p-4 md:p-6">
+           <div className="absolute inset-0 bg-black/80 backdrop-blur-md" onClick={() => !submitting && setShowAskModal(false)}></div>
+           <div className="relative w-full max-w-2xl bg-white rounded-t-[2.5rem] md:rounded-[2.5rem] p-6 md:p-12 animate-in slide-in-from-bottom-10 duration-500 overflow-y-auto max-h-[85vh] md:max-h-[90vh] shadow-2xl">
               <button 
                 onClick={() => setShowAskModal(false)}
-                className="absolute top-6 right-6 text-gray-400 hover:text-gray-900 transition-colors"
+                className="absolute top-4 right-4 md:top-8 md:right-8 w-10 h-10 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center text-gray-500 transition-all z-10"
               >
-                <X size={24} />
+                <X size={20} />
               </button>
 
               {success ? (
@@ -305,16 +305,16 @@ export default function CommunityQA() {
 
       {/* Discussion Modal */}
       {activeQuestion && (
-        <div className="fixed inset-0 z-[1000] flex items-center justify-center p-4">
-           <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setActiveQuestion(null)}></div>
-           <div className="relative w-full max-w-3xl bg-white rounded-[2.5rem] flex flex-col max-h-[90vh] animate-in slide-in-from-bottom-8 duration-500 overflow-hidden">
+        <div className="fixed inset-0 z-[1001] flex items-end md:items-center justify-center p-4 md:p-6">
+           <div className="absolute inset-0 bg-black/80 backdrop-blur-md" onClick={() => setActiveQuestion(null)}></div>
+           <div className="relative w-full max-w-3xl bg-white rounded-t-[2.5rem] md:rounded-[2.5rem] flex flex-col max-h-[85vh] md:max-h-[90vh] animate-in slide-in-from-bottom-10 duration-500 overflow-hidden shadow-2xl">
               {/* Header */}
-              <div className="p-6 md:p-10 border-b border-gray-50 relative bg-emerald-900 text-white">
+              <div className="p-6 md:p-10 border-b border-gray-50 relative bg-emerald-900 text-white shrink-0 pt-10 md:pt-12">
                  <button 
                   onClick={() => setActiveQuestion(null)}
-                  className="absolute top-6 right-6 text-white/50 hover:text-white transition-colors"
+                  className="absolute top-4 right-4 md:top-8 md:right-8 w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition-all z-10"
                  >
-                  <X size={24} />
+                  <X size={20} />
                  </button>
                  <div className="inline-flex items-center gap-2 bg-white/10 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest mb-4">
                     {activeQuestion.category}
