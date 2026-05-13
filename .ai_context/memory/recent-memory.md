@@ -1,8 +1,12 @@
 # Recent Memory (Last 48h)
 
 ## 🕒 Current Context
-- **Date**: 2026-05-12
-- **Latest Activities (Telegram Notification System - DONE)**:
+- **Date**: 2026-05-13
+- **Latest Activities (Telegram Notification Fix - DONE)**:
+  - **Token Typo Fix**: Đã sửa lỗi nhầm lẫn giữa số `0` và chữ `O` trong `TELEGRAM_BOT_TOKEN` tại file `.env` dựa trên ảnh chụp thực tế từ khách hàng.
+  - **Analytics Model Sync**: Bổ sung sự kiện `button_click` vào Mongoose Schema enum trong `Analytics.ts` để tránh việc database từ chối lưu trữ các tương tác từ `GlobalClickTracker`.
+  - **Type Safety Update**: Cập nhật `AnalyticsEventType` và chuẩn hóa code trong `GlobalClickTracker.tsx` để đảm bảo tính nhất quán về dữ liệu.
+  - **Verification**: Đã kiểm tra logic gửi tin nhắn, đảm bảo mọi tương tác click nút/link toàn cục đều được ghi nhận và gửi báo động về Telegram.
   - **Credential Integration**: Đã tích hợp Token và Chat ID chính thức từ khách hàng vào hệ thống.
   - **Connectivity Test**: Đã kiểm tra kết nối thành công, hệ thống sẵn sàng gửi báo động trực tiếp về Telegram.
   - **Global Click Tracking**: Triển khai `GlobalClickTracker` trong `LayoutWrapper` để bắt toàn bộ tương tác của người dùng trên tất cả các nút và liên kết.

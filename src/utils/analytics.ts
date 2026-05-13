@@ -1,4 +1,4 @@
-export type AnalyticsEventType = 'page_view' | 'zalo_click' | 'call_click' | 'lead_submit' | 'ViewPopup' | 'QuickBuy_Click';
+export type AnalyticsEventType = 'page_view' | 'zalo_click' | 'call_click' | 'lead_submit' | 'ViewPopup' | 'QuickBuy_Click' | 'button_click';
 
 export const trackEvent = async (type: AnalyticsEventType, metadata?: any) => {
   try {

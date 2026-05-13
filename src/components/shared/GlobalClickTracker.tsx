@@ -20,7 +20,7 @@ export default function GlobalClickTracker() {
         const pageTitle = typeof document !== 'undefined' ? document.title.split('|')[0].trim() : "";
         
         // We use a generic event type for global clicks
-        trackEvent('button_click' as any, {
+        trackEvent('button_click', {
           text,
           href,
           id,
