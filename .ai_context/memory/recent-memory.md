@@ -3,10 +3,10 @@
 ## 🕒 Current Context
 - **Date**: 2026-05-13
 - **Latest Activities (Telegram Notification Fix - DONE)**:
-  - **Serverless Promise Fix**: Cập nhật `track` route để `await` việc gửi tin nhắn Telegram, tránh việc Vercel ngắt tiến trình (kill process) trước khi gửi xong.
-  - **Fetch Keepalive**: Bổ sung `keepalive: true` cho yêu cầu tracking tại client để đảm bảo dữ liệu được gửi đi ngay cả khi người dùng click vào link chuyển trang.
-  - **Token Restoration**: Khôi phục Token với chữ `O` hoa (đã test thành công qua logs) thay vì số `0`.
-  - **Enhanced Logging**: Nâng cấp logging cho `telegram.ts` để theo dõi lỗi trên Vercel Dashboard.
+  - **Telegram Notification Filter**: Đã thiết lập bộ lọc tại API route để chỉ gửi báo động cho các sự kiện chuyển đổi (Zalo, Gọi điện, Mua ngay, Gửi form). Các sự kiện xem trang hoặc click điều hướng thông thường đã bị loại bỏ để tránh làm phiền người dùng.
+  - **Global Tracker Removal**: Đã gỡ bỏ `GlobalClickTracker` để giảm thiểu dữ liệu rác.
+  - **Precision Tracking**: Gắn thẻ theo dõi `trackEvent` trực tiếp vào các nút quan trọng trong Header, Trang chủ và Trang chi tiết sản phẩm.
+  - **Serverless & Keepalive Fix**: Đã hoàn tất việc xử lý ngắt tiến trình trên Vercel và đảm bảo request không bị hủy khi chuyển trang.
   - **Credential Integration**: Đã tích hợp Token và Chat ID chính thức từ khách hàng vào hệ thống.
   - **Connectivity Test**: Đã kiểm tra kết nối thành công, hệ thống sẵn sàng gửi báo động trực tiếp về Telegram.
   - **Global Click Tracking**: Triển khai `GlobalClickTracker` trong `LayoutWrapper` để bắt toàn bộ tương tác của người dùng trên tất cả các nút và liên kết.

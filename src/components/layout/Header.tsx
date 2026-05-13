@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
+import { trackEvent } from "@/utils/analytics";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { useSettings } from "@/context/SettingsContext";
@@ -167,12 +168,17 @@ export default function Header() {
             <div className="flex items-center gap-6">
               <a href={`tel:${hotline.replace(/\./g, '')}`} className="flex items-center gap-2 group">
                  <div className="w-10 h-10 bg-emerald-50 text-emerald-700 rounded-full flex items-center justify-center group-hover:bg-emerald-600 group-hover:text-white transition-all">📞</div>
-                 <div className="flex flex-col">
+                 <div className="flex flex-col" onClick={() => trackEvent('call_click', { position: 'header_desktop' })}>
                     <span className="text-[9px] font-black uppercase text-gray-500">Hotline 24/7</span>
                     <span className="text-base font-black text-gray-900">{hotline}</span>
                  </div>
               </a>
-              <a href="https://zalo.me/0339505050" target="_blank" className="bg-[#0068ff] text-white px-6 py-2.5 rounded-xl font-black text-sm flex items-center gap-2 shadow-lg active:scale-95 transition-all">
+              <a 
+                href="https://zalo.me/0339505050" 
+                target="_blank" 
+                onClick={() => trackEvent('zalo_click', { position: 'header_desktop' })}
+                className="bg-[#0068ff] text-white px-6 py-2.5 rounded-xl font-black text-sm flex items-center gap-2 shadow-lg active:scale-95 transition-all"
+              >
                 💬 TƯ VẤN ZALO
               </a>
             </div>

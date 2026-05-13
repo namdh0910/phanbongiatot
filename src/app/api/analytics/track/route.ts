@@ -32,8 +32,13 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    // Cần await để đảm bảo Vercel không ngắt tiến trình trước khi gửi xong
-    await sendTelegramMessage(message);
+    // Chỉ gửi thông báo Telegram cho các sự kiện quan trọng (Conversion Events)
+    const highValueEvents = ['zalo_click', 'call_click', 'lead_submit', 'QuickBuy_Click'];
+    
+    if (highValueEvents.includes(type)) {
+      // Cần await để đảm bảo Vercel không ngắt tiến trình trước khi gửi xong
+      await sendTelegramMessage(message);
+    }
 
     return NextResponse.json({ success: true, id: event._id });
   } catch (error) {

@@ -19,6 +19,7 @@ import {
   AlertTriangle
 } from 'lucide-react';
 import { API_BASE_URL } from '@/utils/api';
+import { trackEvent } from '@/utils/analytics';
 import { useSettings } from '@/context/SettingsContext';
 import LiteYouTube from '@/components/shared/LiteYouTube';
 
@@ -206,6 +207,7 @@ export default function LandingPage() {
             <div className="flex flex-col items-center gap-4 animate-in slide-in-from-bottom duration-700 delay-300">
               <a 
                 href={zaloUrl} 
+                onClick={() => trackEvent('zalo_click', { position: 'hero_landing' })}
                 className="group relative px-6 md:px-12 py-2.5 md:h-20 bg-[#f5a623] hover:bg-[#fbb940] text-white rounded-lg md:rounded-2xl font-black text-xs md:text-xl shadow-2xl flex items-center justify-center gap-2 transition-all active:scale-95 animate-heartbeat"
               >
                 <MessageCircle className="w-4 h-4 md:w-7 md:h-7" fill="currentColor" />
