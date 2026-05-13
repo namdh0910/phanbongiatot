@@ -19,15 +19,24 @@ export default function GlobalClickTracker() {
         const className = clickable.className || "";
         const pageTitle = typeof document !== 'undefined' ? document.title.split('|')[0].trim() : "";
         
-        // We use a generic event type for global clicks
-        trackEvent('button_click', {
-          text,
-          href,
-          id,
-          pageTitle,
-          tag: clickable.tagName,
-          className: className.substring(0, 50)
-        });
+        const lowerText = text.toLowerCase();
+        const lowerHref = href.toLowerCase();
+        
+        // Smart Detection: Identify if this is a high-value contact button
+        const isZalo = lowerHref.includes('zalo.me') || lowerText.includes('zalo') || lowerText.includes('nhắn tin') || lowerText.includes('chat');
+        const isCall = lowerHref.includes('tel:') || lowerText.includes('gọi') || lowerText.includes('hotline') || lowerText.includes('liên hệ');
+        const isBuy = lowerText.includes('mua') || lowerText.includes('đặt hàng') || lowerText.includes('tư vấn') || lowerText.includes('chụp ảnh');
+        
+        if (isZalo || isCall || isBuy) {
+          const type = isZalo ? 'zalo_click' : (isCall ? 'call_click' : 'QuickBuy_Click');
+          
+          trackEvent(type, {
+            text,
+            href,
+            pageTitle,
+            position: 'auto_detected'
+          });
+        }
       }
     };
 

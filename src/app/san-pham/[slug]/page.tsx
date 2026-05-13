@@ -1,5 +1,4 @@
 import React from 'react';
-import { trackEvent } from '@/utils/analytics';
 import { API_BASE_URL } from '@/utils/api';
 import Link from 'next/link';
 import { 
@@ -178,7 +177,6 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                     <a 
                       href={buyUrl}
                       target="_blank"
-                      onClick={() => trackEvent('QuickBuy_Click', { product: product.name, position: 'main_cta' })}
                       className="w-full bg-orange-600 hover:bg-orange-700 text-white py-3.5 rounded-xl font-black text-xs md:text-lg uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-orange-100 transition-all"
                     >
                        <Package size={18} /> MUA NGAY
@@ -188,14 +186,12 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                       <a 
                         href={zaloUrl}
                         target="_blank"
-                        onClick={() => trackEvent('zalo_click', { product: product.name, position: 'product_detail_secondary' })}
                         className="bg-[#0068FF] hover:bg-blue-600 text-white py-3 rounded-xl font-black text-[10px] md:text-base uppercase tracking-wider flex items-center justify-center gap-2 transition-all"
                       >
                          <MessageCircle size={16} fill="currentColor" /> ZALO PBGT
                       </a>
                       <a 
                         href="tel:0339505050"
-                        onClick={() => trackEvent('call_click', { product: product.name, position: 'product_detail_secondary' })}
                         className="bg-white border-2 border-emerald-800 text-emerald-800 hover:bg-emerald-50 py-3 rounded-xl font-black text-[10px] md:text-base uppercase tracking-wider flex items-center justify-center gap-2 transition-all"
                       >
                          <Phone size={16} /> GỌI NGAY
@@ -314,7 +310,6 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
         <a 
           href={buyUrl}
           target="_blank"
-          onClick={() => trackEvent('QuickBuy_Click', { product: product.name, position: 'mobile_sticky_bottom' })}
           className="flex-1 bg-orange-600 text-white font-black py-3.5 rounded-xl text-xs uppercase tracking-widest flex items-center justify-center gap-2 shadow-lg shadow-orange-100 active:scale-95 transition-all"
         >
           <Zap size={16} fill="currentColor" /> MUA NGAY

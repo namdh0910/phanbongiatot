@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Chỉ gửi thông báo Telegram cho các sự kiện quan trọng (Conversion Events)
-    const highValueEvents = ['zalo_click', 'call_click', 'lead_submit', 'QuickBuy_Click'];
+    const highValueEvents = ['zalo_click', 'call_click', 'lead_submit', 'QuickBuy_Click', 'ViewPopup'];
     
     if (highValueEvents.includes(type)) {
       // Cần await để đảm bảo Vercel không ngắt tiến trình trước khi gửi xong
