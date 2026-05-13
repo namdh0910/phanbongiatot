@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import Breadcrumbs from '@/components/ui/Breadcrumbs';
 import SchemaMarkup from '@/components/shared/SchemaMarkup';
+import CommunityQA from '@/components/community/CommunityQA';
 
 const faqData = [
   {
@@ -143,6 +144,7 @@ const FAQItem = ({ question, answer, link, linkText, index }: any) => {
 
 export default function FAQPage() {
   const [searchTerm, setSearchTerm] = useState("");
+  const [activeTab, setActiveTab] = useState("faq"); // "faq" or "community"
 
   const faqSchema = {
     "@context": "https://schema.org",
@@ -163,7 +165,7 @@ export default function FAQPage() {
       
       <Breadcrumbs items={[{ label: 'Hỏi đáp kỹ thuật', href: '/hoi-dap-ky-thuat' }]} />
 
-      {/* Hero Section - Optimized for compact view */}
+      {/* Hero Section */}
       <section className="bg-gray-900 pt-10 md:pt-20 pb-20 md:pb-32 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-600/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
         <div className="container mx-auto px-4 relative z-10 text-center">
@@ -187,49 +189,71 @@ export default function FAQPage() {
         </div>
       </section>
 
-      {/* FAQ Content - Compact gaps */}
+      {/* Content Tabs */}
       <section className="py-6 md:py-20 -mt-8 md:-mt-16 relative z-20">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto space-y-4 md:space-y-12">
-            {faqData.map((category, idx) => {
-              const filteredQuestions = category.questions.filter(q => 
-                q.q.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                q.a.toLowerCase().includes(searchTerm.toLowerCase())
-              );
+          <div className="max-w-4xl mx-auto">
+            {/* Tab Navigation */}
+            <div className="flex items-center justify-center gap-2 md:gap-4 mb-8 md:mb-12 p-1.5 md:p-2 bg-gray-100 rounded-2xl md:rounded-[2rem] w-fit mx-auto shadow-inner">
+               <button 
+                 onClick={() => setActiveTab("faq")}
+                 className={`px-4 md:px-8 py-2 md:py-4 rounded-xl md:rounded-[1.5rem] font-black text-[10px] md:text-sm uppercase tracking-widest transition-all ${activeTab === 'faq' ? 'bg-white text-emerald-700 shadow-md scale-105' : 'text-gray-400 hover:text-gray-600'}`}
+               >
+                 Câu hỏi chuyên gia
+               </button>
+               <button 
+                 onClick={() => setActiveTab("community")}
+                 className={`px-4 md:px-8 py-2 md:py-4 rounded-xl md:rounded-[1.5rem] font-black text-[10px] md:text-sm uppercase tracking-widest transition-all ${activeTab === 'community' ? 'bg-white text-emerald-700 shadow-md scale-105' : 'text-gray-400 hover:text-gray-600'}`}
+               >
+                 Thảo luận cộng đồng
+               </button>
+            </div>
 
-              if (filteredQuestions.length === 0) return null;
+            {/* Tab Content */}
+            {activeTab === "faq" ? (
+              <div className="space-y-4 md:space-y-12">
+                {faqData.map((category, idx) => {
+                  const filteredQuestions = category.questions.filter(q => 
+                    q.q.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                    q.a.toLowerCase().includes(searchTerm.toLowerCase())
+                  );
 
-              return (
-                <div key={idx} id={category.id} className="scroll-mt-32 bg-white rounded-xl md:rounded-[2.5rem] border border-gray-100 shadow-xl shadow-gray-100/50 overflow-hidden">
-                  <div className="bg-[#f0f9f1] px-5 md:px-8 py-3 md:py-4 border-b border-emerald-100 flex items-center gap-3 md:gap-4">
-                    <span className="text-xl md:text-3xl">{category.icon}</span>
-                    <h2 className="text-base md:text-xl font-black text-[#1b5e20] uppercase tracking-tight italic">
-                      {category.category}
-                    </h2>
+                  if (filteredQuestions.length === 0) return null;
+
+                  return (
+                    <div key={idx} id={category.id} className="scroll-mt-32 bg-white rounded-xl md:rounded-[2.5rem] border border-gray-100 shadow-xl shadow-gray-100/50 overflow-hidden">
+                      <div className="bg-[#f0f9f1] px-5 md:px-8 py-3 md:py-4 border-b border-emerald-100 flex items-center gap-3 md:gap-4">
+                        <span className="text-xl md:text-3xl">{category.icon}</span>
+                        <h2 className="text-base md:text-xl font-black text-[#1b5e20] uppercase tracking-tight italic">
+                          {category.category}
+                        </h2>
+                      </div>
+                      <div className="px-4 md:px-8 divide-y divide-gray-100">
+                        {filteredQuestions.map((item, qIdx) => (
+                          <FAQItem 
+                            key={qIdx} 
+                            question={item.q} 
+                            answer={item.a} 
+                            link={item.link} 
+                            linkText={item.linkText} 
+                            index={qIdx}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })}
+
+                {faqData.every(cat => cat.questions.filter(q => q.q.toLowerCase().includes(searchTerm.toLowerCase())).length === 0) && (
+                  <div className="text-center py-20 bg-gray-50 rounded-[3rem] border border-dashed border-gray-200">
+                    <div className="text-5xl mb-4">🔍</div>
+                    <h3 className="text-xl font-black text-gray-900 uppercase mb-2">Không tìm thấy câu hỏi phù hợp</h3>
+                    <p className="text-gray-500">Bà con có thể nhấn nút Zalo bên dưới để được chúng tôi tư vấn trực tiếp.</p>
                   </div>
-                  <div className="px-4 md:px-8 divide-y divide-gray-100">
-                    {filteredQuestions.map((item, qIdx) => (
-                      <FAQItem 
-                        key={qIdx} 
-                        question={item.q} 
-                        answer={item.a} 
-                        link={item.link} 
-                        linkText={item.linkText} 
-                        index={qIdx}
-                      />
-                    ))}
-                  </div>
-                </div>
-              );
-            })}
-
-            {/* No Results */}
-            {faqData.every(cat => cat.questions.filter(q => q.q.toLowerCase().includes(searchTerm.toLowerCase())).length === 0) && (
-              <div className="text-center py-20 bg-gray-50 rounded-[3rem] border border-dashed border-gray-200">
-                <div className="text-5xl mb-4">🔍</div>
-                <h3 className="text-xl font-black text-gray-900 uppercase mb-2">Không tìm thấy câu hỏi phù hợp</h3>
-                <p className="text-gray-500">Bà con có thể nhấn nút Zalo bên dưới để được chúng tôi tư vấn trực tiếp.</p>
+                )}
               </div>
+            ) : (
+              <CommunityQA />
             )}
           </div>
         </div>

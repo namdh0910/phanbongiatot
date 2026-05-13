@@ -3,10 +3,10 @@
 ## 🕒 Current Context
 - **Date**: 2026-05-13
 - **Latest Activities (Telegram Notification Fix - DONE)**:
-  - **Telegram Notification Filter**: Đã thiết lập bộ lọc tại API route để chỉ gửi báo động cho các sự kiện chuyển đổi (Zalo, Gọi điện, Mua ngay, Gửi form). Các sự kiện xem trang hoặc click điều hướng thông thường đã bị loại bỏ để tránh làm phiền người dùng.
-  - **Global Tracker Removal**: Đã gỡ bỏ `GlobalClickTracker` để giảm thiểu dữ liệu rác.
-  - **Precision Tracking**: Gắn thẻ theo dõi `trackEvent` trực tiếp vào các nút quan trọng trong Header, Trang chủ và Trang chi tiết sản phẩm.
-  - **Serverless & Keepalive Fix**: Đã hoàn tất việc xử lý ngắt tiến trình trên Vercel và đảm bảo request không bị hủy khi chuyển trang.
+  - **Community Q&A Upgrade**: Nâng cấp trang Hỏi đáp kỹ thuật từ tĩnh sang động. Người dùng hiện có thể đặt câu hỏi, bình luận và thảo luận trực tiếp với nhau.
+  - **New Infrastructure**: Thiết lập Mongoose Model `CommunityQuestion`, xây dựng API xử lý câu hỏi/trả lời và hệ thống thông báo Telegram cho Admin khi có thảo luận mới.
+  - **Premium UI**: Triển khai giao diện Tab hiện đại, Modal đặt câu hỏi chuyên nghiệp và không gian thảo luận dạng Card cao cấp, tối ưu trải nghiệm người dùng CRO.
+  - **Telegram Integration**: Tự động báo động Telegram khi có câu hỏi hoặc bình luận mới cần kiểm duyệt.
   - **Credential Integration**: Đã tích hợp Token và Chat ID chính thức từ khách hàng vào hệ thống.
   - **Connectivity Test**: Đã kiểm tra kết nối thành công, hệ thống sẵn sàng gửi báo động trực tiếp về Telegram.
   - **Global Click Tracking**: Triển khai `GlobalClickTracker` trong `LayoutWrapper` để bắt toàn bộ tương tác của người dùng trên tất cả các nút và liên kết.
