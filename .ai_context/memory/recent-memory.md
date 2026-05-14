@@ -1,7 +1,14 @@
 # Recent Memory (Last 48h)
 
 ## 🕒 Current Context
-- **Date**: 2026-05-13
+- **Date**: 2026-05-14
+- **Latest Activities (Fuvico Sicobi Landing Page CRO Optimization - DONE)**:
+  - **Asset Integration**: Sao chép ảnh độ nét cao (bao bì mặt trước, mặt sau) và các video thực tế từ thư mục cục bộ vào dự án (`public/images/products` và `public/videos`).
+  - **CRO Enhancement**: Thêm Urgency Banner (Ưu đãi miễn phí vận chuyển cho đơn từ 1 tấn) ngay đầu trang để thúc đẩy hành vi mua hàng.
+  - **Multimedia Section**: Xây dựng khu vực Video "Cận Cảnh Chất Lượng Thực Tế" nhằm gia tăng mức độ tin tưởng của nông dân vào sản phẩm.
+  - **Social Proof**: Bổ sung khu vực "Nhà Nông Tin Dùng" với 3 nhận xét từ nông dân (cà phê, rau màu, sầu riêng) để củng cố uy tín.
+  - **Technical Content Update**: Cập nhật chi tiết hướng dẫn sử dụng, bổ sung "Thời điểm bón" (Timing) cho từng nhóm cây trồng bám sát theo thông tin trên bao bì thật.
+  - **Design Refresh**: Điều chỉnh thiết kế tổng thể để nổi bật hơn, sắp xếp lại khối hình ảnh Hero section với badge hiển thị tỷ lệ 20% Hữu cơ.
 - **Latest Activities (Telegram Notification Fix - DONE)**:
   - **Community Q&A Upgrade**: Nâng cấp trang Hỏi đáp kỹ thuật từ tĩnh sang động. Người dùng hiện có thể đặt câu hỏi, bình luận và thảo luận trực tiếp với nhau.
   - **New Infrastructure**: Thiết lập Mongoose Model `CommunityQuestion`, xây dựng API xử lý câu hỏi/trả lời và hệ thống thông báo Telegram cho Admin khi có thảo luận mới.

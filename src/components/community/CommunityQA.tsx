@@ -200,10 +200,10 @@ export default function CommunityQA() {
 
       {/* Ask Modal */}
       {showAskModal && (
-        <div className="fixed inset-0 z-[1001] flex items-end md:items-center justify-center p-4 md:p-6">
+        <div className="fixed inset-0 z-[1001] flex items-end md:items-center justify-center p-0 md:p-6">
            <div className="absolute inset-0 bg-black/80 backdrop-blur-md" onClick={() => !submitting && setShowAskModal(false)}></div>
-           <div className="relative w-full max-w-2xl bg-white rounded-t-[2.5rem] md:rounded-[2.5rem] p-6 md:p-12 animate-in slide-in-from-bottom-10 duration-500 overflow-y-auto max-h-[90vh] shadow-2xl">
-              <div className="pb-24 md:pb-0"> {/* Bottom padding for MobileNav */}
+           <div className="relative w-full max-w-2xl bg-white rounded-t-[2rem] md:rounded-[2.5rem] p-6 md:p-12 animate-in slide-in-from-bottom-10 duration-500 overflow-y-auto h-[85vh] md:max-h-[90vh] shadow-2xl">
+              <div className="pb-24 md:pb-0 pt-6"> {/* Bottom padding for MobileNav and top spacing */}
                 <button 
                   onClick={() => setShowAskModal(false)}
                   className="absolute top-4 right-4 md:top-8 md:right-8 w-10 h-10 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center text-gray-500 transition-all z-10"
@@ -306,11 +306,11 @@ export default function CommunityQA() {
 
       {/* Discussion Modal */}
       {activeQuestion && (
-        <div className="fixed inset-0 z-[1001] flex items-end md:items-center justify-center p-4 md:p-6">
+        <div className="fixed inset-0 z-[1001] flex items-end md:items-center justify-center p-0 md:p-6">
            <div className="absolute inset-0 bg-black/80 backdrop-blur-md" onClick={() => setActiveQuestion(null)}></div>
-           <div className="relative w-full max-w-3xl bg-white rounded-t-[2.5rem] md:rounded-[2.5rem] flex flex-col max-h-[85vh] md:max-h-[90vh] animate-in slide-in-from-bottom-10 duration-500 overflow-hidden shadow-2xl">
+           <div className="relative w-full max-w-3xl bg-white rounded-t-[2rem] md:rounded-[2.5rem] flex flex-col h-[85vh] md:max-h-[90vh] animate-in slide-in-from-bottom-10 duration-500 overflow-hidden shadow-2xl">
               {/* Header */}
-              <div className="p-6 md:p-10 border-b border-gray-50 relative bg-emerald-900 text-white shrink-0 pt-10 md:pt-12">
+              <div className="p-6 md:p-10 border-b border-gray-50 relative bg-emerald-900 text-white shrink-0 pt-12 md:pt-12">
                  <button 
                   onClick={() => setActiveQuestion(null)}
                   className="absolute top-4 right-4 md:top-8 md:right-8 w-10 h-10 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center text-white transition-all z-10"

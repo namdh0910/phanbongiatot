@@ -6,9 +6,10 @@ interface LeadFormProps {
   product?: any;
   initialPathology?: string;
   initialCrop?: string;
+  submitButtonText?: string;
 }
 
-export default function LeadForm({ product, initialPathology, initialCrop }: LeadFormProps) {
+export default function LeadForm({ product, initialPathology, initialCrop, submitButtonText }: LeadFormProps) {
   const [formData, setFormData] = useState({ 
     name: "", 
     phone: "", 
@@ -135,7 +136,7 @@ export default function LeadForm({ product, initialPathology, initialCrop }: Lea
           type="submit" 
           className="w-full bg-[#1a5c2a] text-white py-5 rounded-2xl font-black text-lg uppercase italic tracking-widest shadow-lg shadow-emerald-200 hover:scale-[1.02] active:scale-95 transition-all mt-4"
         >
-          {isSubmitting ? "Đang gửi..." : "Gửi yêu cầu ngay"}
+          {isSubmitting ? "Đang gửi..." : (submitButtonText || "Gửi yêu cầu ngay")}
         </button>
         <p className="text-center text-[10px] text-gray-400 mt-4 font-bold uppercase tracking-tighter">🔒 Thông tin của bà con được bảo mật hoàn toàn</p>
       </form>
