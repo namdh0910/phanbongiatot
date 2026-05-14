@@ -16,9 +16,13 @@ export default function LayoutWrapper({ children }: { children: React.ReactNode 
   
   if (isAdmin || isSellerPortal || isLandingPage) {
     return (
-      <main className="flex-1 w-full bg-[#f0f0f1]">
-        {children}
-      </main>
+      <>
+        {/* Vẫn giữ tracking cho Landing Page để báo Telegram */}
+        {!isAdmin && !isSellerPortal && <GlobalClickTracker />}
+        <main className="flex-1 w-full bg-[#f0f0f1]">
+          {children}
+        </main>
+      </>
     );
   }
 

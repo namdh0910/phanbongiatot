@@ -2,6 +2,9 @@
 
 ## 🕒 Current Context
 - **Date**: 2026-05-14
+- **Latest Activities (Hotfix: Telegram Tracking on Standalone Landing - DONE)**:
+  - **Tracking Restoration**: Phục hồi tính năng theo dõi nhấp chuột (Click Tracking) để báo động Telegram cho các trang Landing độc lập (Fuvico, Nemano).
+  - **Logic Fix**: Bổ sung `GlobalClickTracker` vào nhánh early-return trong `LayoutWrapper` để đảm bảo nút Zalo/Hotline trên trang Landing vẫn gửi tín hiệu về API dù không dùng chung layout Header/Footer.
 - **Latest Activities (Standalone Landing Page Migration - DONE)**:
   - **Layout Isolation**: Tách biệt trang Fuvico Sicobi và Nemano ra khỏi layout chung của website. Đã ẩn Header, Footer và Mobile Bottom Nav mặc định để giải phóng không gian trải nghiệm (loại bỏ cảm giác "cấn" menu).
   - **Custom Minimal Header**: Thiết kế Header rút gọn (Logo + Hotline) dành riêng cho trang Landing, giúp tăng tính tập trung vào nội dung chuyển đổi mà vẫn giữ được nhận diện thương hiệu.
