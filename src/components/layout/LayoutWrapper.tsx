@@ -12,8 +12,9 @@ export default function LayoutWrapper({ children }: { children: React.ReactNode 
   const pathname = usePathname();
   const isAdmin = pathname?.startsWith('/admin');
   const isSellerPortal = pathname?.startsWith('/kenh-nguoi-ban');
-
-  if (isAdmin || isSellerPortal) {
+  const isLandingPage = pathname === '/fuvico-sicobi' || pathname === '/nemano';
+  
+  if (isAdmin || isSellerPortal || isLandingPage) {
     return (
       <main className="flex-1 w-full bg-[#f0f0f1]">
         {children}

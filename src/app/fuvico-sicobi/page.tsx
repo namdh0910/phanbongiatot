@@ -15,8 +15,23 @@ export default function SicobiLandingPage() {
   return (
     <div className="bg-[#fcfbf7] min-h-screen font-sans selection:bg-[#1a5c2a] selection:text-white overflow-x-hidden">
       
+      {/* Minimal Landing Header */}
+      <header className="fixed top-0 left-0 right-0 z-[60] bg-white/80 backdrop-blur-md border-b border-gray-100 py-3 md:py-4">
+        <div className="container mx-auto px-4 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="bg-[#1a5c2a] text-white p-1.5 rounded-lg">
+              <Leaf size={20} />
+            </div>
+            <span className="font-black text-[#1a5c2a] text-xl tracking-tighter uppercase">FUVICO</span>
+          </div>
+          <a href="tel:0339505050" className="bg-[#f5a623] text-[#1a5c2a] px-4 py-2 rounded-xl font-black text-sm flex items-center gap-2 shadow-lg active:scale-95 transition-all">
+            <Phone size={14} /> 0339.505.050
+          </a>
+        </div>
+      </header>
+
       {/* Urgency Banner */}
-      <div className="bg-[#f5a623] text-[#1a5c2a] py-2 px-4 text-center text-sm md:text-base font-bold flex items-center justify-center gap-2 relative z-50">
+      <div className="mt-[60px] md:mt-[72px] bg-[#f5a623] text-[#1a5c2a] py-2 px-4 text-center text-sm md:text-base font-bold flex items-center justify-center gap-2 relative z-50">
         <Zap size={18} className="animate-pulse" />
         ƯU ĐÃI ĐẶC BIỆT: MIỄN PHÍ VẬN CHUYỂN TOÀN QUỐC CHO ĐƠN TỪ 1 TẤN!
         <Zap size={18} className="animate-pulse" />

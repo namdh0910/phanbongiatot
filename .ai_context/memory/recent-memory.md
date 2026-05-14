@@ -2,6 +2,9 @@
 
 ## 🕒 Current Context
 - **Date**: 2026-05-14
+- **Latest Activities (Standalone Landing Page Migration - DONE)**:
+  - **Layout Isolation**: Tách biệt trang Fuvico Sicobi và Nemano ra khỏi layout chung của website. Đã ẩn Header, Footer và Mobile Bottom Nav mặc định để giải phóng không gian trải nghiệm (loại bỏ cảm giác "cấn" menu).
+  - **Custom Minimal Header**: Thiết kế Header rút gọn (Logo + Hotline) dành riêng cho trang Landing, giúp tăng tính tập trung vào nội dung chuyển đổi mà vẫn giữ được nhận diện thương hiệu.
 - **Latest Activities (Global Contact Update - DONE)**:
   - **Phone Normalization**: Thay đổi toàn bộ số điện thoại và Hotline trong dự án từ các số cũ (`0923.888.911`, `0773.440.966`) sang số mới nhất **0339.505.050** để đồng bộ kênh liên lạc.
   - **Site-wide Replacement**: Đã quét và cập nhật trong tất cả các file mã nguồn (`.tsx`, `.ts`, `.html`) bao gồm cả trang Fuvico Sicobi vừa tạo.

@@ -18,9 +18,9 @@ async function fix() {
         
         if (jsonStr.includes('0339505050') && jsonStr.includes('cloudinary')) {
           console.log(`Fixing doc: ${doc.name || doc.title}`);
-          // Replace 0339505050 back to 0773440966 ONLY if it's in a Cloudinary context
+          // Replace 0339505050 back to 0339505050 ONLY if it's in a Cloudinary context
           // We'll use a more surgical replacement on the stringified object
-          const fixedStr = jsonStr.replace(/cloudinary\.com\/([^/]+\/image\/upload\/v?\d*\/?)0339505050/g, 'cloudinary.com/$10773440966');
+          const fixedStr = jsonStr.replace(/cloudinary\.com\/([^/]+\/image\/upload\/v?\d*\/?)0339505050/g, 'cloudinary.com/$10339505050');
           
           if (jsonStr !== fixedStr) {
             const fixedData = JSON.parse(fixedStr);

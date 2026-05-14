@@ -18,9 +18,9 @@ const updateSettings = async () => {
       footerAddress: "Kho hàng: TP. Buôn Ma Thuột, Tỉnh Đắk Lắk",
       siteName: "Phân Bón Giá Tốt",
       email: "contact@phanbongiatot.com",
-      hotline: "0773.440.966",
-      phone: "0773.440.966",
-      zalo: "0773440966",
+      hotline: "0339.505.050",
+      phone: "0339.505.050",
+      zalo: "0339505050",
       heroTitle: "Năng Suất Vượt Trội Chi Phí Tối Ưu",
       heroSubtitle: "Hàng ngàn nhà nông đã tin dùng bộ giải pháp của chúng tôi."
     };

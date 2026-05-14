@@ -32,7 +32,7 @@ const blogs = [
 <h2>4. Những sai lầm bà con hay mắc phải</h2>
 <p>Thấy vàng lá là bón thêm Đạm làm cháy rễ nặng hơn. Sử dụng thuốc hóa học quá nặng diệt luôn hệ vi sinh có lợi.</p>
 
-<p><em>Liên hệ Kỹ sư để nhận phác đồ riêng: 0773.440.966</em></p>
+<p><em>Liên hệ Kỹ sư để nhận phác đồ riêng: 0339.505.050</em></p>
     `,
     image: "https://res.cloudinary.com/dztidbkhv/image/upload/v1776989061/phanbongiatot/oiaa2gdldtypwevu8qs6.jpg",
     tags: ["Sầu riêng", "Vàng lá", "Mùa mưa"],
@@ -62,7 +62,7 @@ const blogs = [
   <li>Kích rễ mới bằng Humic & Fulvic.</li>
 </ol>
 
-<p><em>📞 Hotline tư vấn: 0773.440.966</em></p>
+<p><em>📞 Hotline tư vấn: 0339.505.050</em></p>
     `,
     image: "https://res.cloudinary.com/dztidbkhv/image/upload/v1776989048/phanbongiatot/jpjgjjvfg7pglnnh0a1a.jpg",
     tags: ["Tuyến trùng", "Sầu riêng", "Phục hồi rễ"],
@@ -89,7 +89,7 @@ const blogs = [
   <li><strong>Bước 3:</strong> Phun Amino Plus chống sốc nhiệt qua lá.</li>
 </ul>
 
-<p><em>💬 Nhắn Zalo ngay để nhận phác đồ: 0773.440.966</em></p>
+<p><em>💬 Nhắn Zalo ngay để nhận phác đồ: 0339.505.050</em></p>
     `,
     image: "https://res.cloudinary.com/dztidbkhv/image/upload/v1776989073/phanbongiatot/y6imlcebopgmarsfpp8e.jpg",
     tags: ["Cà phê", "Vàng lá", "Mùa khô"],
@@ -115,7 +115,7 @@ const blogs = [
 <h2>3. Phác đồ xử lý thực chiến</h2>
 <p>Chết nhanh: Phải chặn đứng bằng thuốc nấm mạnh và khơi thoát nước. Chết chậm: Phải kiên trì diệt tuyến trùng và nuôi lại rễ tơ.</p>
 
-<p><em>Tư vấn kỹ thuật hồ tiêu: 0773.440.966</em></p>
+<p><em>Tư vấn kỹ thuật hồ tiêu: 0339.505.050</em></p>
     `,
     image: "https://res.cloudinary.com/dztidbkhv/image/upload/v1776989061/phanbongiatot/oiaa2gdldtypwevu8qs6.jpg",
     tags: ["Hồ tiêu", "Chết nhanh", "Chết chậm"],
@@ -142,7 +142,7 @@ const blogs = [
   <li>Kết hợp Fulvic để tăng tốc độ hấp thụ dinh dưỡng.</li>
 </ul>
 
-<p><em>Hỏi giá bộ kích rễ ngay: 0773.440.966</em></p>
+<p><em>Hỏi giá bộ kích rễ ngay: 0339.505.050</em></p>
     `,
     image: "https://res.cloudinary.com/dztidbkhv/image/upload/v1776989048/phanbongiatot/jpjgjjvfg7pglnnh0a1a.jpg",
     tags: ["Kích rễ", "Humic", "Kỹ thuật phân bón"],

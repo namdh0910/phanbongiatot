@@ -20,11 +20,11 @@ async function run() {
   }
   for (const c of combos) {
     console.log(`- ${c.name}: ${c.image}`);
-    await Combo.updateOne({ _id: c._id }, { $set: { image: c.image.replace('0339505050', '0773440966') } });
+    await Combo.updateOne({ _id: c._id }, { $set: { image: c.image.replace('0339505050', '0339505050') } });
   }
   if (settings) {
     console.log(`- Settings heroBanner: ${settings.heroBanner}`);
-    await Settings.updateOne({ _id: settings._id }, { $set: { heroBanner: settings.heroBanner.replace('0339505050', '0773440966') } });
+    await Settings.updateOne({ _id: settings._id }, { $set: { heroBanner: settings.heroBanner.replace('0339505050', '0339505050') } });
   }
   process.exit(0);
 }
