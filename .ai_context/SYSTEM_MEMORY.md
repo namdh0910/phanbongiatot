@@ -226,8 +226,8 @@ DATABASE_URL=                   ❌ Không dùng (MongoDB, không phải SQL)
 
 ```
 Domain: phanbongiatot.com
-Hotline: 0773.440.966
-Zalo: 0773440966
+Hotline: 0339.505.050
+Zalo: 0339505050
 Shopee: phanbongiatot
 Dev Frontend: localhost:3000
 Dev Backend:  localhost:5000

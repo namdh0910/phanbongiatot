@@ -24,10 +24,10 @@ export default function SicobiLandingPage() {
 
       {/* Floating CTA */}
       <div className="fixed bottom-6 right-6 z-[100] flex flex-col gap-3">
-        <a href="tel:0923888911" className="bg-[#1a5c2a] text-white w-14 h-14 rounded-full shadow-2xl hover:scale-110 transition-transform flex items-center justify-center animate-bounce border-2 border-white" title="Hotline: 0923.888.911">
+        <a href="tel:0339505050" className="bg-[#1a5c2a] text-white w-14 h-14 rounded-full shadow-2xl hover:scale-110 transition-transform flex items-center justify-center animate-bounce border-2 border-white" title="Hotline: 0339.505.050">
           <Phone size={24} />
         </a>
-        <a href="https://zalo.me/0923888911" className="bg-[#0068FF] text-white w-14 h-14 rounded-full shadow-2xl hover:scale-110 transition-transform flex items-center justify-center border-2 border-white" title="Zalo hỗ trợ">
+        <a href="https://zalo.me/0339505050" className="bg-[#0068FF] text-white w-14 h-14 rounded-full shadow-2xl hover:scale-110 transition-transform flex items-center justify-center border-2 border-white" title="Zalo hỗ trợ">
           <MessageCircle size={28} />
         </a>
       </div>
@@ -53,7 +53,7 @@ export default function SicobiLandingPage() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 <a href="#order-form" className="bg-[#f5a623] hover:bg-[#fbb940] text-[#1a5c2a] px-8 py-5 rounded-2xl font-black uppercase text-lg md:text-xl shadow-2xl transition-all hover:-translate-y-1 flex items-center justify-center gap-3 border-2 border-[#f5a623] hover:border-white">
-                  ĐẶT HÀNG NGAY – 0923.888.911 <ArrowRight size={24} />
+                  ĐẶT HÀNG NGAY – 0339.505.050 <ArrowRight size={24} />
                 </a>
               </div>
             </div>
@@ -364,7 +364,7 @@ export default function SicobiLandingPage() {
               
               <div className="mt-8 text-center p-6 bg-[#fcfbf7] rounded-3xl border border-[#1a5c2a]/5 shadow-inner">
                  <span className="text-xs font-black text-gray-500 uppercase tracking-widest">Hotline hỗ trợ trực tiếp</span>
-                 <a href="tel:0923888911" className="block text-4xl font-black text-[#f5a623] mt-2 tracking-tighter hover:scale-105 transition-transform">0923.888.911</a>
+                 <a href="tel:0339505050" className="block text-4xl font-black text-[#f5a623] mt-2 tracking-tighter hover:scale-105 transition-transform">0339.505.050</a>
               </div>
             </div>
           </div>

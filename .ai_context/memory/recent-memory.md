@@ -2,6 +2,9 @@
 
 ## 🕒 Current Context
 - **Date**: 2026-05-14
+- **Latest Activities (Global Contact Update - DONE)**:
+  - **Phone Normalization**: Thay đổi toàn bộ số điện thoại và Hotline trong dự án từ các số cũ (`0923.888.911`, `0773.440.966`) sang số mới nhất **0339.505.050** để đồng bộ kênh liên lạc.
+  - **Site-wide Replacement**: Đã quét và cập nhật trong tất cả các file mã nguồn (`.tsx`, `.ts`, `.html`) bao gồm cả trang Fuvico Sicobi vừa tạo.
 - **Latest Activities (Fuvico Sicobi Landing Page CRO Optimization - DONE)**:
   - **Asset Integration**: Sao chép ảnh độ nét cao (bao bì mặt trước, mặt sau) và các video thực tế từ thư mục cục bộ vào dự án (`public/images/products` và `public/videos`).
   - **CRO Enhancement**: Thêm Urgency Banner (Ưu đãi miễn phí vận chuyển cho đơn từ 1 tấn) ngay đầu trang để thúc đẩy hành vi mua hàng.

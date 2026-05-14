@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 
 const settingsSchema = mongoose.Schema({
   siteName: { type: String, default: 'Phân Bón Giá Tốt' },
-  hotline: { type: String, default: '0773440966' },
-  zalo: { type: String, default: '0773440966' },
+  hotline: { type: String, default: '0339505050' },
+  zalo: { type: String, default: '0339505050' },
   shopee: { type: String, default: 'phanbongiatot' },
   address: { type: String, default: 'Địa chỉ kho hàng của anh' },
   email: { type: String, default: 'contact@phanbongiatot.com' },
@@ -21,8 +21,8 @@ const settingsSchema = mongoose.Schema({
   sellerCtaDescription: { type: String, default: 'Hãy đăng ký mở gian hàng để tiếp cận hàng ngàn nhà nông trên khắp cả nước.' },
   sellerCtaButtonText: { type: String, default: 'ĐĂNG KÝ HỢP TÁC NGAY' },
   // Additional fields
-  phone: { type: String, default: '0773.440.966' },
-  zaloId: { type: String, default: '0773440966' },
+  phone: { type: String, default: '0339.505.050' },
+  zaloId: { type: String, default: '0339505050' },
   ctaText: { type: String, default: 'Nhận Tư Vấn Miễn Phí' },
   businessHours: { type: String, default: '7:00 - 21:00' },
   announcementEnabled: { type: Boolean, default: false },

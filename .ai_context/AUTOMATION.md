@@ -53,8 +53,8 @@ Config items cần có:
     - hero_cta_secondary: "Xem Sản Phẩm"
   
   CONTACT:
-    - phone_primary: "0773.440.966"
-    - zalo_id: "0773440966"
+    - phone_primary: "0339.505.050"
+    - zalo_id: "0339505050"
     - business_hours: "7:00 - 21:00"
   
   ANNOUNCEMENT_BAR:
