@@ -258,7 +258,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                 <div className="bg-white rounded-3xl p-6 md:p-12 border border-gray-100 shadow-sm">
                   <h3 className="text-xl md:text-3xl font-black text-emerald-900 uppercase italic tracking-tight mb-6 flex items-center gap-3">
                     <span className="w-1 md:w-2 h-6 md:h-8 bg-orange-500 rounded-full" />
-                    Công Dụng Chuyên Sâu
+                    Mô Tả Sản Phẩm
                   </h3>
                   <div 
                     className="text-gray-700 leading-relaxed font-medium prose prose-emerald prose-sm md:prose-xl max-w-none prose-p:mb-4 prose-strong:text-emerald-900 prose-ul:list-disc prose-ul:pl-6 prose-li:mb-2"
@@ -269,7 +269,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
 
                 {/* Features Grid */}
                 {cleanedFeatures.length > 0 && (
-                  <div className="space-y-6">
+                  <div className="bg-white rounded-3xl p-6 md:p-12 border border-gray-100 shadow-sm space-y-6">
                     <h3 className="text-xl md:text-3xl font-black text-emerald-900 uppercase italic tracking-tight flex items-center gap-3">
                       <span className="w-1 md:w-2 h-6 md:h-8 bg-orange-500 rounded-full" />
                       Công Dụng Nổi Bật

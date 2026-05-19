@@ -2,6 +2,10 @@
 
 ## 🕒 Current Context
 - **Date**: 2026-05-19
+- **Latest Activities (Refine Product Details Layout Alignment - DONE)**:
+  - **Description Title Change**: Đổi tiêu đề `"Công Dụng Chuyên Sâu"` của phần mô tả chi tiết sản phẩm thành `"Mô Tả Sản Phẩm"` trong [src/app/san-pham/[slug]/page.tsx](file:///d:/Antigravity_Projects/phanbongiatot/src/app/san-pham/[slug]/page.tsx).
+  - **Features Layout Alignment**: Đóng gói danh sách Features Grid trong một thẻ card `bg-white rounded-3xl p-6 md:p-12 border border-gray-100 shadow-sm` để tiêu đề `"Công Dụng Nổi Bật"` và lề trái được căn chỉnh đều tăm tắp, đẹp mắt, trùng khớp hoàn toàn với khối Mô tả sản phẩm phía trên.
+  - **Build Verification**: Biên dịch dự án thành công 100% không phát sinh bất cứ lỗi nào.
 - **Latest Activities (Refine Product Features Styling and Header - DONE)**:
   - **Feature Text Normalization**: Gỡ bỏ thuộc tính `uppercase` tại Features Grid trong [src/app/san-pham/[slug]/page.tsx](file:///d:/Antigravity_Projects/phanbongiatot/src/app/san-pham/[slug]/page.tsx) để văn bản hiển thị chữ thường tự nhiên, tăng tính thẩm mỹ và dễ đọc cho bà con.
   - **Feature Title Addition**: Bổ sung tiêu đề `"Công Dụng Nổi Bật"` đồng bộ với giao diện chung phía trên danh sách tính năng để tối ưu luồng thông tin của Mini Landing Page.
