@@ -1,7 +1,13 @@
 # Recent Memory (Last 48h)
 
 ## 🕒 Current Context
-- **Date**: 2026-05-14
+- **Date**: 2026-05-19
+- **Latest Activities (Fix Mobile Word-Break/Wrapping - DONE)**:
+  - **Whitespace & Non-breaking Space Cleaning**: Xây dựng helper `cleanTextSpaces` trong `src/utils/tableRepair.ts` để làm sạch và chuyển đổi toàn bộ khoảng trắng không ngắt (Unicode `\u00a0` và HTML entity `&nbsp;`) thành khoảng trắng thường `' '`, khắc phục lỗi trình duyệt coi chuỗi ký tự dài là một từ duy nhất không thể bẻ dòng.
+  - **Product Page Integration**: Tích hợp `cleanTextSpaces` vào `src/app/san-pham/[slug]/page.tsx` cho tất cả các trường dữ liệu quan trọng như Triệu chứng, Lời khuyên chuyên gia, Công dụng chuyên sâu, Tính năng nổi bật, Hướng dẫn sử dụng và Hỏi đáp FAQ, sửa triệt để lỗi ngắt dòng mid-word (như c-hứa, kíc-h, ch-i, hấ-p, sả-n) trên màn hình mobile.
+  - **Blog Page Integration**: Cập nhật `cleanExpertContent` sử dụng `cleanTextSpaces` để làm sạch toàn bộ văn bản bài viết kỹ thuật.
+  - **CSS Safe Guard**: Áp dụng style `wordBreak: 'normal', overflowWrap: 'break-word', wordWrap: 'normal'` cho thẻ chứa nội dung mô tả của sản phẩm.
+  - **Build Validation**: Đã chạy Next.js production build local thành công 100%.
 - **Latest Activities (Hotfix: Telegram Tracking on Standalone Landing - DONE)**:
   - **Tracking Restoration**: Phục hồi tính năng theo dõi nhấp chuột (Click Tracking) để báo động Telegram cho các trang Landing độc lập (Fuvico, Nemano).
   - **Logic Fix**: Bổ sung `GlobalClickTracker` vào nhánh early-return trong `LayoutWrapper` để đảm bảo nút Zalo/Hotline trên trang Landing vẫn gửi tín hiệu về API dù không dùng chung layout Header/Footer.

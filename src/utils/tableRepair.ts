@@ -113,6 +113,18 @@ export const repairTablesInHtml = (html: string) => {
 };
 
 /**
+ * Replaces all non-breaking spaces (Unicode \u00a0 and HTML entity &nbsp;) with regular spaces,
+ * preventing mid-word wraps in Vietnamese text on mobile.
+ */
+export const cleanTextSpaces = (text: string): string => {
+  if (!text) return '';
+  return text
+    .replace(/[\u00a0]/g, ' ')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/\s{2,}/g, ' ');
+};
+
+/**
  * Clean overall expert content: strip newlines, remove anchors, normalize spaces, remove AI residue, and repair tables.
  * Safe for both Server (SSR) and Client.
  */
@@ -127,9 +139,7 @@ export const cleanExpertContent = (html: string) => {
   cleaned = cleaned.replace(/https?:\/\/(www\.)?(claude\.ai|chatgpt\.com|perplexity\.ai|anthropic\.com)\/[^\s"'>]+/gi, '');
   
   // 4. Normalize spaces and entities
-  cleaned = cleaned.replace(/&nbsp;/g, ' ')
-                   .replace(/\s{2,}/g, ' ')
-                   .trim();
+  cleaned = cleanTextSpaces(cleaned).trim();
   
   // 5. Run table repair (only executes in browser context)
   return repairTablesInHtml(cleaned);
