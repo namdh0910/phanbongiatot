@@ -246,7 +246,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             }));
 
             return (
-              <div className="mt-12 md:mt-24 space-y-8 md:space-y-16">
+              <div className="mt-6 md:mt-24 space-y-4 md:space-y-12">
                 
                 {/* Symptoms / Pain Points */}
                 <ProductSymptoms symptoms={cleanedSymptoms} />
@@ -302,8 +302,8 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
 
         {/* Related Products */}
         {relatedProducts.length > 0 && (
-          <div className="mt-12 md:mt-32 pt-10 md:pt-20 border-t border-gray-100">
-            <div className="flex items-center justify-between mb-12">
+          <div className="mt-6 md:mt-24 pt-6 md:pt-16 border-t border-gray-100">
+            <div className="flex items-center justify-between mb-4 md:mb-12">
               <h2 className="text-3xl font-black text-gray-900 uppercase italic tracking-tighter">
                 Sản phẩm cùng loại
               </h2>
@@ -312,7 +312,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
               </Link>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-8">
               {(relatedProducts || []).map((p: any) => (
                 <Link key={p.slug} href={`/san-pham/${p.slug}`} className="group bg-white rounded-3xl border border-gray-100 p-4 hover:shadow-2xl hover:-translate-y-1 transition-all">
                   <div className="aspect-square rounded-2xl bg-gray-50 mb-4 overflow-hidden p-4">

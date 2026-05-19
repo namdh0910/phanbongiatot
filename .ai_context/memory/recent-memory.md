@@ -2,6 +2,10 @@
 
 ## 🕒 Current Context
 - **Date**: 2026-05-19
+- **Latest Activities (Optimize Mobile Layout Spacing - DONE)**:
+  - **Core Layout Spacing Reduction**: Cải tiến khoảng cách dọc giữa các phân khu chính trên mobile bằng cách hạ `space-y-8` xuống `space-y-4` (giảm 50% khoảng trắng rỗng dư thừa trên màn hình điện thoại) và thay đổi lề đầu từ `mt-12` về `mt-6` trong [src/app/san-pham/[slug]/page.tsx](file:///d:/Antigravity_Projects/phanbongiatot/src/app/san-pham/[slug]/page.tsx).
+  - **Related Products Spacing Fix**: Tối ưu hóa khoảng cách phần Sản phẩm cùng loại trên thiết bị di động: giảm khoảng đệm trên (`mt-12 md:mt-32 pt-10 md:pt-20` thành `mt-6 md:mt-24 pt-6 md:pt-16`), co hẹp lề dưới tiêu đề (`mb-12` thành `mb-4 md:mb-12`) và thu gọn khoảng cách lưới ngang (`gap-4` về `gap-3` trên mobile).
+  - **Build Verification**: Biên dịch sản xuất (production build) thành công 100%.
 - **Latest Activities (Refine Related Products Section Header - DONE)**:
   - **Related Products Title Refinement**: Đổi tiêu đề phần đề xuất sản phẩm liên quan trong [src/app/san-pham/[slug]/page.tsx](file:///d:/Antigravity_Projects/phanbongiatot/src/app/san-pham/[slug]/page.tsx) từ `"Vật tư khuyến nghị cùng bộ"` thành `"Sản phẩm cùng loại"` để thân thiện, trực quan và dễ hiểu hơn với bà con khi duyệt trang chi tiết.
   - **Build Verification**: Biên dịch tối ưu sản xuất thành công hoàn hảo.
