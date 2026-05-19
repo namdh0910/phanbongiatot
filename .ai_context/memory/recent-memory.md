@@ -2,6 +2,9 @@
 
 ## 🕒 Current Context
 - **Date**: 2026-05-19
+- **Latest Activities (Refine Related Products Section Header - DONE)**:
+  - **Related Products Title Refinement**: Đổi tiêu đề phần đề xuất sản phẩm liên quan trong [src/app/san-pham/[slug]/page.tsx](file:///d:/Antigravity_Projects/phanbongiatot/src/app/san-pham/[slug]/page.tsx) từ `"Vật tư khuyến nghị cùng bộ"` thành `"Sản phẩm cùng loại"` để thân thiện, trực quan và dễ hiểu hơn với bà con khi duyệt trang chi tiết.
+  - **Build Verification**: Biên dịch tối ưu sản xuất thành công hoàn hảo.
 - **Latest Activities (Refine Product Details Layout Alignment - DONE)**:
   - **Description Title Change**: Đổi tiêu đề `"Công Dụng Chuyên Sâu"` của phần mô tả chi tiết sản phẩm thành `"Mô Tả Sản Phẩm"` trong [src/app/san-pham/[slug]/page.tsx](file:///d:/Antigravity_Projects/phanbongiatot/src/app/san-pham/[slug]/page.tsx).
   - **Features Layout Alignment**: Đóng gói danh sách Features Grid trong một thẻ card `bg-white rounded-3xl p-6 md:p-12 border border-gray-100 shadow-sm` để tiêu đề `"Công Dụng Nổi Bật"` và lề trái được căn chỉnh đều tăm tắp, đẹp mắt, trùng khớp hoàn toàn với khối Mô tả sản phẩm phía trên.

@@ -305,7 +305,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
           <div className="mt-12 md:mt-32 pt-10 md:pt-20 border-t border-gray-100">
             <div className="flex items-center justify-between mb-12">
               <h2 className="text-3xl font-black text-gray-900 uppercase italic tracking-tighter">
-                Vật tư khuyến nghị cùng bộ
+                Sản phẩm cùng loại
               </h2>
               <Link href="/san-pham" className="text-emerald-700 font-black text-xs uppercase tracking-widest hover:translate-x-2 transition-transform flex items-center gap-2">
                 Xem tất cả <ArrowRight size={16} />
