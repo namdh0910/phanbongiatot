@@ -2,6 +2,11 @@
 
 ## 🕒 Current Context
 - **Date**: 2026-05-19
+- **Latest Activities (Customizable Product Landing Content - DONE)**:
+  - **Identical Content Fix**: Phát hiện nguyên nhân toàn bộ sản phẩm hiển thị chung một Quy trình sử dụng và FAQ là do các trường dữ liệu `usage_instructions`, `faqs`, `symptoms`, `features`, `expert_advice` trong MongoDB của nhiều sản phẩm bị rỗng (null/empty), dẫn đến việc frontend tự động lấy chuỗi fallback mặc định giống hệt nhau.
+  - **Admin Interface Upgrade**: Mở rộng interface `Product` trong `src/app/admin/products/page.tsx` để hỗ trợ 5 trường dữ liệu chuyên sâu của Mini Landing Page. Cập nhật cơ chế khởi tạo và lưu giữ dữ liệu khi thêm mới/chỉnh sửa sản phẩm.
+  - **Advanced Admin UI Section**: Xây dựng phân khu "CẤU HÌNH TRANG CHI TIẾT (MINI LANDING PAGE)" cao cấp trong giao diện chỉnh sửa sản phẩm: hỗ trợ thêm/xóa nhanh Triệu chứng & Tính năng nổi bật dưới dạng thẻ, cho phép viết Lời khuyên và Quy trình bằng giao diện soạn thảo trực quan, và tích hợp trình quản lý câu hỏi Hỏi đáp FAQ động chuyên nghiệp.
+  - **Build & Save Integration**: Kiểm tra và đồng bộ hóa thành công với API lưu trữ MongoDB. Dự án biên dịch tối ưu (production build) thành công 100%.
 - **Latest Activities (Fix Mobile Word-Break/Wrapping - DONE)**:
   - **Whitespace & Non-breaking Space Cleaning**: Xây dựng helper `cleanTextSpaces` trong `src/utils/tableRepair.ts` để làm sạch và chuyển đổi toàn bộ khoảng trắng không ngắt (Unicode `\u00a0` và HTML entity `&nbsp;`) thành khoảng trắng thường `' '`, khắc phục lỗi trình duyệt coi chuỗi ký tự dài là một từ duy nhất không thể bẻ dòng.
   - **Product Page Integration**: Tích hợp `cleanTextSpaces` vào `src/app/san-pham/[slug]/page.tsx` cho tất cả các trường dữ liệu quan trọng như Triệu chứng, Lời khuyên chuyên gia, Công dụng chuyên sâu, Tính năng nổi bật, Hướng dẫn sử dụng và Hỏi đáp FAQ, sửa triệt để lỗi ngắt dòng mid-word (như c-hứa, kíc-h, ch-i, hấ-p, sả-n) trên màn hình mobile.

@@ -25,6 +25,12 @@ interface Product {
   isNewArrival: boolean;
   isAvailable: boolean;
   createdAt?: string;
+  // Mini Landing Page Fields
+  symptoms?: string[];
+  features?: string[];
+  usage_instructions?: string;
+  faqs?: { question: string; answer: string }[];
+  expert_advice?: string;
 }
 
 export default function AdminProducts() {
@@ -47,6 +53,11 @@ export default function AdminProducts() {
     isBestSeller: false,
     isNewArrival: false,
     isAvailable: true,
+    symptoms: [],
+    features: [],
+    usage_instructions: "",
+    faqs: [],
+    expert_advice: "",
   });
   const [message, setMessage] = useState("");
   const [saving, setSaving] = useState(false);
@@ -73,7 +84,14 @@ export default function AdminProducts() {
   };
 
   const handleEdit = (product: Product) => {
-    setCurrentProduct(product);
+    setCurrentProduct({
+      ...product,
+      symptoms: product.symptoms || [],
+      features: product.features || [],
+      usage_instructions: product.usage_instructions || "",
+      faqs: product.faqs || [],
+      expert_advice: product.expert_advice || "",
+    });
     setIsEditing(true);
   };
 
@@ -94,6 +112,11 @@ export default function AdminProducts() {
       isBestSeller: false,
       isNewArrival: false,
       isAvailable: true,
+      symptoms: [],
+      features: [],
+      usage_instructions: "",
+      faqs: [],
+      expert_advice: "",
     });
     setIsEditing(true);
   };
@@ -362,6 +385,219 @@ export default function AdminProducts() {
                          </span>
                        ))}
                     </div>
+                  </div>
+               </div>
+            </div>
+
+            {/* Section: Mini Landing Page Config */}
+            <div className="pt-8 border-t border-gray-100 space-y-6">
+               <h3 className="text-xl font-black text-[#1a5c2a] uppercase italic tracking-tight flex items-center gap-2">
+                 <span className="w-1.5 h-6 bg-orange-500 rounded-full" />
+                 CẤU HÌNH TRANG CHI TIẾT (MINI LANDING PAGE)
+               </h3>
+               <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider -mt-4">Thiết lập các thông tin chuyên sâu dành riêng cho sản phẩm này.</p>
+               
+               <div className="grid md:grid-cols-2 gap-8">
+                  {/* Left Column in Landing Config */}
+                  <div className="space-y-6">
+                     {/* Lời khuyên chuyên gia */}
+                     <div>
+                       <label className="block text-[10px] font-black text-gray-400 uppercase mb-2 ml-1 tracking-widest">Lời khuyên từ kỹ sư PBGT</label>
+                       <textarea 
+                         value={currentProduct.expert_advice || ""}
+                         onChange={(e) => setCurrentProduct({...currentProduct, expert_advice: e.target.value})}
+                         className="w-full bg-gray-50 border-2 border-gray-100 rounded-2xl px-6 py-4 outline-none focus:bg-white focus:border-[#1a5c2a] transition-all font-bold text-gray-800 h-28 resize-none"
+                         placeholder="VD: Đối với vườn đang bị suy nặng, bà con nên ưu tiên phục hồi bộ rễ trước..."
+                       />
+                     </div>
+
+                     {/* Quy trình sử dụng chuẩn */}
+                     <div>
+                       <label className="block text-[10px] font-black text-gray-400 uppercase mb-2 ml-1 tracking-widest">Quy trình sử dụng chuẩn (Xuống dòng cho mỗi bước)</label>
+                       <textarea 
+                         value={currentProduct.usage_instructions || ""}
+                         onChange={(e) => setCurrentProduct({...currentProduct, usage_instructions: e.target.value})}
+                         className="w-full bg-gray-50 border-2 border-gray-100 rounded-2xl px-6 py-4 outline-none focus:bg-white focus:border-[#1a5c2a] transition-all font-bold text-gray-800 h-36"
+                         placeholder={"1. Pha 1kg cho 400-600 lít nước.\n2. Tưới đẫm quanh tán cây...\n3. Định kỳ 15-20 ngày dùng 1 lần..."}
+                       />
+                     </div>
+
+                     {/* Triệu chứng (Symptoms) */}
+                     <div>
+                       <label className="block text-[10px] font-black text-gray-400 uppercase mb-2 ml-1 tracking-widest">Dấu hiệu/Triệu chứng cây trồng cần dùng</label>
+                       <div className="flex gap-2 mb-2">
+                          <input 
+                            type="text" 
+                            id="symptomInput"
+                            placeholder="Nhập triệu chứng (Ví dụ: Lá vàng, rụng lá hàng loạt) rồi nhấn Enter hoặc thêm..."
+                            className="flex-1 bg-gray-50 border-2 border-gray-100 rounded-xl px-4 py-2 outline-none focus:border-[#1a5c2a] text-sm font-bold"
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter') {
+                                e.preventDefault();
+                                const val = e.currentTarget.value.trim();
+                                if (val && !currentProduct.symptoms?.includes(val)) {
+                                  setCurrentProduct({
+                                    ...currentProduct,
+                                    symptoms: [...(currentProduct.symptoms || []), val]
+                                  });
+                                  e.currentTarget.value = "";
+                                }
+                              }
+                            }}
+                          />
+                          <button 
+                            type="button" 
+                            onClick={() => {
+                              const el = document.getElementById('symptomInput') as HTMLInputElement;
+                              const val = el?.value.trim();
+                              if (val && !currentProduct.symptoms?.includes(val)) {
+                                setCurrentProduct({
+                                  ...currentProduct,
+                                  symptoms: [...(currentProduct.symptoms || []), val]
+                                });
+                                el.value = "";
+                              }
+                            }}
+                            className="bg-gray-950 text-white px-4 rounded-xl text-xs font-black"
+                          >
+                            THÊM
+                          </button>
+                       </div>
+                       <div className="flex flex-wrap gap-2">
+                          {(currentProduct.symptoms || []).map((symptom, idx) => (
+                            <span key={idx} className="bg-red-50 text-red-700 px-3 py-1 rounded-lg text-[10px] font-black flex items-center gap-2">
+                              {symptom} 
+                              <button 
+                                type="button" 
+                                onClick={() => setCurrentProduct({
+                                  ...currentProduct,
+                                  symptoms: (currentProduct.symptoms || []).filter(s => s !== symptom)
+                                })} 
+                                className="text-red-300 hover:text-red-500"
+                              >✕</button>
+                            </span>
+                          ))}
+                       </div>
+                     </div>
+                  </div>
+
+                  {/* Right Column in Landing Config */}
+                  <div className="space-y-6">
+                     {/* Tính năng nổi bật (Features) */}
+                     <div>
+                       <label className="block text-[10px] font-black text-gray-400 uppercase mb-2 ml-1 tracking-widest">Tính năng/Công dụng nổi bật (Features)</label>
+                       <div className="flex gap-2 mb-2">
+                          <input 
+                            type="text" 
+                            id="featureInput"
+                            placeholder="Nhập tính năng (Ví dụ: Cải tạo đất tơi xốp, xanh lá dày lá) rồi nhấn Enter hoặc thêm..."
+                            className="flex-1 bg-gray-50 border-2 border-gray-100 rounded-xl px-4 py-2 outline-none focus:border-[#1a5c2a] text-sm font-bold"
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter') {
+                                e.preventDefault();
+                                const val = e.currentTarget.value.trim();
+                                if (val && !currentProduct.features?.includes(val)) {
+                                  setCurrentProduct({
+                                    ...currentProduct,
+                                    features: [...(currentProduct.features || []), val]
+                                  });
+                                  e.currentTarget.value = "";
+                                }
+                              }
+                            }}
+                          />
+                          <button 
+                            type="button" 
+                            onClick={() => {
+                              const el = document.getElementById('featureInput') as HTMLInputElement;
+                              const val = el?.value.trim();
+                              if (val && !currentProduct.features?.includes(val)) {
+                                setCurrentProduct({
+                                  ...currentProduct,
+                                  features: [...(currentProduct.features || []), val]
+                                });
+                                el.value = "";
+                              }
+                            }}
+                            className="bg-gray-950 text-white px-4 rounded-xl text-xs font-black"
+                          >
+                            THÊM
+                          </button>
+                       </div>
+                       <div className="flex flex-wrap gap-2">
+                          {(currentProduct.features || []).map((feature, idx) => (
+                            <span key={idx} className="bg-blue-50 text-blue-700 px-3 py-1 rounded-lg text-[10px] font-black flex items-center gap-2">
+                              {feature} 
+                              <button 
+                                type="button" 
+                                onClick={() => setCurrentProduct({
+                                  ...currentProduct,
+                                  features: (currentProduct.features || []).filter(f => f !== feature)
+                                })} 
+                                className="text-blue-300 hover:text-blue-500"
+                              >✕</button>
+                            </span>
+                          ))}
+                       </div>
+                     </div>
+
+                     {/* Hỏi đáp kỹ thuật (FAQs) */}
+                     <div className="space-y-4">
+                       <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1 mb-2">Hỏi đáp kỹ thuật chuyên sâu (FAQs)</label>
+                       
+                       <div className="bg-gray-50 p-4 rounded-2xl space-y-3 border border-gray-100">
+                          <input 
+                            type="text" 
+                            id="faqQuestion"
+                            placeholder="Câu hỏi (VD: Sản phẩm có mát rễ không?)"
+                            className="w-full bg-white border-2 border-gray-100 rounded-xl px-4 py-2 outline-none focus:border-[#1a5c2a] text-xs font-bold"
+                          />
+                          <textarea 
+                            id="faqAnswer"
+                            placeholder="Câu trả lời..."
+                            className="w-full bg-white border-2 border-gray-100 rounded-xl px-4 py-2 outline-none focus:border-[#1a5c2a] text-xs font-bold h-20 resize-none"
+                          />
+                          <button 
+                            type="button"
+                            onClick={() => {
+                              const qEl = document.getElementById('faqQuestion') as HTMLInputElement;
+                              const aEl = document.getElementById('faqAnswer') as HTMLTextAreaElement;
+                              const q = qEl?.value.trim();
+                              const a = aEl?.value.trim();
+                              if (q && a) {
+                                setCurrentProduct({
+                                  ...currentProduct,
+                                  faqs: [...(currentProduct.faqs || []), { question: q, answer: a }]
+                                });
+                                qEl.value = "";
+                                aEl.value = "";
+                              }
+                            }}
+                            className="w-full bg-emerald-700 text-white py-2 rounded-xl text-xs font-black uppercase hover:bg-emerald-800 transition-colors"
+                          >
+                            + Thêm Câu Hỏi & Trả Lời
+                          </button>
+                       </div>
+
+                       <div className="max-h-60 overflow-y-auto space-y-2 pr-1">
+                          {(currentProduct.faqs || []).map((faq, idx) => (
+                            <div key={idx} className="bg-white border border-gray-100 p-3 rounded-xl relative shadow-sm">
+                               <button 
+                                 type="button" 
+                                 onClick={() => setCurrentProduct({
+                                   ...currentProduct,
+                                   faqs: (currentProduct.faqs || []).filter((_, i) => i !== idx)
+                                 })}
+                                 className="absolute top-2 right-2 text-gray-300 hover:text-red-500 font-bold text-xs"
+                               >
+                                 ✕
+                               </button>
+                               <div className="text-[10px] font-black text-[#1a5c2a] uppercase tracking-widest mb-1">Hỏi: {faq.question}</div>
+                               <p className="text-[11px] text-gray-600 font-medium leading-relaxed">Đ: {faq.answer}</p>
+                            </div>
+                          ))}
+                       </div>
+                     </div>
                   </div>
                </div>
             </div>
