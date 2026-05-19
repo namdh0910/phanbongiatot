@@ -25,7 +25,7 @@ export const ProductSymptoms = ({ symptoms }: { symptoms: string[] }) => {
         <div className="w-10 h-10 bg-red-100 text-red-600 rounded-xl flex items-center justify-center">
           <AlertTriangle size={20} />
         </div>
-        <h3 className="text-xl md:text-3xl font-black text-gray-900 uppercase italic tracking-tighter">Cây Đang Gặp Tình Trạng Gì?</h3>
+        <h3 className="text-xl md:text-3xl font-black text-gray-900 uppercase italic tracking-tighter">Bạn đang cần giải pháp cho?</h3>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {symptoms.map((s, i) => (

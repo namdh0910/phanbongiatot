@@ -2,6 +2,9 @@
 
 ## 🕒 Current Context
 - **Date**: 2026-05-19
+- **Latest Activities (Refine Product Symptoms Header - DONE)**:
+  - **Symptom Title Refinement**: Đổi tiêu đề phần Triệu chứng lỗi đau trong [src/components/product/LandingBlocks.tsx](file:///d:/Antigravity_Projects/phanbongiatot/src/components/product/LandingBlocks.tsx) từ `"Cây Đang Gặp Tình Trạng Gì?"` thành `"Bạn đang cần giải pháp cho?"` theo đúng định hướng bán hàng và CRO của anh để tạo thiện cảm tốt hơn với bà con.
+  - **Build Verification**: Đã chạy sản xuất (production build) thành công và không ghi nhận lỗi.
 - **Latest Activities (Customizable Product Landing Content - DONE)**:
   - **Identical Content Fix**: Phát hiện nguyên nhân toàn bộ sản phẩm hiển thị chung một Quy trình sử dụng và FAQ là do các trường dữ liệu `usage_instructions`, `faqs`, `symptoms`, `features`, `expert_advice` trong MongoDB của nhiều sản phẩm bị rỗng (null/empty), dẫn đến việc frontend tự động lấy chuỗi fallback mặc định giống hệt nhau.
   - **Admin Interface Upgrade**: Mở rộng interface `Product` trong `src/app/admin/products/page.tsx` để hỗ trợ 5 trường dữ liệu chuyên sâu của Mini Landing Page. Cập nhật cơ chế khởi tạo và lưu giữ dữ liệu khi thêm mới/chỉnh sửa sản phẩm.
