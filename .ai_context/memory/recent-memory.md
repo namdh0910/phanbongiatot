@@ -2,6 +2,10 @@
 
 ## 🕒 Current Context
 - **Date**: 2026-05-19
+- **Latest Activities (Refine Product Features Styling and Header - DONE)**:
+  - **Feature Text Normalization**: Gỡ bỏ thuộc tính `uppercase` tại Features Grid trong [src/app/san-pham/[slug]/page.tsx](file:///d:/Antigravity_Projects/phanbongiatot/src/app/san-pham/[slug]/page.tsx) để văn bản hiển thị chữ thường tự nhiên, tăng tính thẩm mỹ và dễ đọc cho bà con.
+  - **Feature Title Addition**: Bổ sung tiêu đề `"Công Dụng Nổi Bật"` đồng bộ với giao diện chung phía trên danh sách tính năng để tối ưu luồng thông tin của Mini Landing Page.
+  - **Build Verification**: Đã chạy Next.js production build thành công 100% không phát sinh lỗi.
 - **Latest Activities (Refine Product Symptoms Header - DONE)**:
   - **Symptom Title Refinement**: Đổi tiêu đề phần Triệu chứng lỗi đau trong [src/components/product/LandingBlocks.tsx](file:///d:/Antigravity_Projects/phanbongiatot/src/components/product/LandingBlocks.tsx) từ `"Cây Đang Gặp Tình Trạng Gì?"` thành `"Bạn đang cần giải pháp cho?"` theo đúng định hướng bán hàng và CRO của anh để tạo thiện cảm tốt hơn với bà con.
   - **Build Verification**: Đã chạy sản xuất (production build) thành công và không ghi nhận lỗi.

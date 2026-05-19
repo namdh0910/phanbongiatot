@@ -269,15 +269,21 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
 
                 {/* Features Grid */}
                 {cleanedFeatures.length > 0 && (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-                     {cleanedFeatures.map((feature: string, i: number) => (
-                        <div key={i} className="flex items-center gap-4 bg-emerald-50/30 p-4 md:p-6 rounded-2xl border border-emerald-100/50 group hover:bg-emerald-100 transition-colors">
-                           <div className="w-10 h-10 bg-emerald-500 text-white rounded-full flex items-center justify-center flex-shrink-0">
-                             <CheckCircle2 size={20} />
-                           </div>
-                           <span className="text-base md:text-lg font-black text-emerald-900 uppercase italic tracking-tighter">{feature}</span>
-                        </div>
-                     ))}
+                  <div className="space-y-6">
+                    <h3 className="text-xl md:text-3xl font-black text-emerald-900 uppercase italic tracking-tight flex items-center gap-3">
+                      <span className="w-1 md:w-2 h-6 md:h-8 bg-orange-500 rounded-full" />
+                      Công Dụng Nổi Bật
+                    </h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                       {cleanedFeatures.map((feature: string, i: number) => (
+                          <div key={i} className="flex items-center gap-4 bg-emerald-50/30 p-4 md:p-6 rounded-2xl border border-emerald-100/50 group hover:bg-emerald-100 transition-colors">
+                             <div className="w-10 h-10 bg-emerald-500 text-white rounded-full flex items-center justify-center flex-shrink-0">
+                               <CheckCircle2 size={20} />
+                             </div>
+                             <span className="text-base md:text-lg font-bold text-gray-800 leading-snug">{feature}</span>
+                          </div>
+                       ))}
+                    </div>
                   </div>
                 )}
 
